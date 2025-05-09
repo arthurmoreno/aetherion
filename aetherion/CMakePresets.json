@@ -1,0 +1,35 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 19,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "ninja-release",
+            "hidden": false,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "-fdiagnostics-color=always",
+                "BUILD_WORLD_TEST": "OFF"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "ninja-build",
+            "configurePreset": "ninja-release"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "ninja-test",
+            "configurePreset": "ninja-release",
+            "output": {
+                "shortProgress": true
+            }
+        }
+    ]
+}

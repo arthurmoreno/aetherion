@@ -1,0 +1,438 @@
+#include "VoxelGrid.hpp"
+
+// Constructor
+VoxelGrid::VoxelGrid() {
+    openvdb::initialize();  // Initialize OpenVDB
+
+    // Create empty grids for terrain, entity, event, and lighting
+    terrainGrid = openvdb::Int32Grid::create(defaultEmptyValue);  // Default terrain ID = 0
+    entityGrid = openvdb::Int32Grid::create(defaultEmptyValue);   // Default entity ID = 0
+    eventGrid = openvdb::Int32Grid::create(defaultEmptyValue);    // Default event ID = 0
+    lightingGrid = openvdb::FloatGrid::create(0.0f);              // Default lighting level = 0.0
+}
+
+// Destructor
+VoxelGrid::~VoxelGrid() {
+    openvdb::uninitialize();  // Clean up OpenVDB
+}
+
+// Initialize all the grids (if needed, can be extended)
+void VoxelGrid::initializeGrids() {
+    terrainGrid->setTransform(openvdb::math::Transform::createLinearTransform(1.0));
+    entityGrid->setTransform(openvdb::math::Transform::createLinearTransform(1.0));
+    eventGrid->setTransform(openvdb::math::Transform::createLinearTransform(1.0));
+    lightingGrid->setTransform(openvdb::math::Transform::createLinearTransform(1.0));
+}
+
+// Set voxel data for all grids
+void VoxelGrid::setVoxel(int x, int y, int z, const GridData& data) {
+    // Set terrain, entity, event, and lighting in respective grids
+    terrainGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.terrainID);
+    entityGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.entityID);
+    eventGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.eventID);
+    lightingGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.lightingLevel);
+}
+
+// Get voxel data from all grids
+GridData VoxelGrid::getVoxel(int x, int y, int z) const {
+    GridData data;
+
+    // Retrieve data from terrain, entity, event, and lighting grids
+    data.terrainID = terrainGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
+    data.entityID = entityGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
+    data.eventID = eventGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
+    data.lightingLevel = lightingGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
+
+    return data;
+}
+
+void VoxelGrid::setTerrain(int x, int y, int z, int terrainID) {
+    terrainGrid->tree().setValue(openvdb::Coord(x, y, z), terrainID);
+}
+
+int VoxelGrid::getTerrain(int x, int y, int z) const {
+    return terrainGrid->tree().getValue(openvdb::Coord(x, y, z));
+}
+
+// Delete terrain at a specific voxel
+void VoxelGrid::deleteTerrain(int x, int y, int z) {
+    terrainGrid->tree().setValue(openvdb::Coord(x, y, z), defaultEmptyValue);
+}
+
+void VoxelGrid::setEntity(int x, int y, int z, int entityID) {
+    entityGrid->tree().setValue(openvdb::Coord(x, y, z), entityID);
+}
+
+int VoxelGrid::getEntity(int x, int y, int z) const {
+    return entityGrid->tree().getValue(openvdb::Coord(x, y, z));
+}
+
+void VoxelGrid::setEvent(int x, int y, int z, int eventID) {
+    eventGrid->tree().setValue(openvdb::Coord(x, y, z), eventID);
+}
+
+int VoxelGrid::getEvent(int x, int y, int z) const {
+    return eventGrid->tree().getValue(openvdb::Coord(x, y, z));
+}
+
+void VoxelGrid::setLightingLevel(int x, int y, int z, float lightingLevel) {
+    lightingGrid->tree().setValue(openvdb::Coord(x, y, z), lightingLevel);
+}
+
+float VoxelGrid::getLightingLevel(int x, int y, int z) const {
+    return lightingGrid->tree().getValue(openvdb::Coord(x, y, z));
+}
+
+std::vector<char> VoxelGrid::serializeToBytes() const {
+    std::map<VoxelGridCoordinates, GridData> voxelDataMap;
+
+    // Populate the map with voxel data from the grids
+    for (auto iter = terrainGrid->cbeginValueOn(); iter.test(); ++iter) {
+        openvdb::Coord coord = iter.getCoord();
+        VoxelGridCoordinates coordinates = {coord.x(), coord.y(), coord.z()};
+
+        GridData data;
+        data.terrainID = terrainGrid->tree().getValue(coord);
+        data.entityID = entityGrid->tree().getValue(coord);
+        data.eventID = eventGrid->tree().getValue(coord);
+        data.lightingLevel = lightingGrid->tree().getValue(coord);
+
+        voxelDataMap[coordinates] = data;
+    }
+
+    // Serialize the map using msgpack
+    msgpack::sbuffer buffer;
+    msgpack::pack(buffer, voxelDataMap);
+
+    // Convert the serialized buffer to a byte vector
+    return std::vector<char>(buffer.data(), buffer.data() + buffer.size());
+}
+
+void VoxelGrid::deserializeFromBytes(const std::vector<char>& byteData) {
+    // Unpack the map from the byte data using msgpack
+    msgpack::object_handle oh = msgpack::unpack(byteData.data(), byteData.size());
+
+    msgpack::object obj = oh.get();
+    std::map<VoxelGridCoordinates, GridData> voxelDataMap;
+    obj.convert(voxelDataMap);
+
+    // Clear existing grids before populating them
+    terrainGrid->clear();
+    entityGrid->clear();
+    eventGrid->clear();
+    lightingGrid->clear();
+
+    // Populate the grids using the data from the map
+    for (const auto& [coordinates, data] : voxelDataMap) {
+        openvdb::Coord coord(coordinates.x, coordinates.y, coordinates.z);
+        terrainGrid->tree().setValue(coord, data.terrainID);
+        entityGrid->tree().setValue(coord, data.entityID);
+        eventGrid->tree().setValue(coord, data.eventID);
+        lightingGrid->tree().setValue(coord, data.lightingLevel);
+    }
+}
+
+template <typename Packer>
+void VoxelGrid::msgpack_pack(Packer& pk) const {
+    // Serialize the grid to a byte vector using the existing method
+    std::vector<char> byteData = serializeToBytes();
+
+    // Pack the byte vector using Msgpack
+    pk.pack_bin(byteData.size());  // Indicate that we are packing binary data
+    pk.pack_bin_body(byteData.data(),
+                     byteData.size());  // Pack the actual binary data
+}
+
+void VoxelGrid::msgpack_unpack(msgpack::object const& o) {
+    // Ensure that the object contains binary data
+    if (o.type != msgpack::type::BIN) {
+        throw std::runtime_error("Expected binary data for VoxelGrid deserialization");
+    }
+
+    // Get the binary data from the Msgpack object
+    auto bin = o.via.bin;
+    std::vector<char> byteData(bin.ptr, bin.ptr + bin.size);
+
+    // Deserialize the byte data back into the VoxelGrid
+    deserializeFromBytes(byteData);
+}
+
+// --- Implementation of Utility Search Methods ---
+
+std::vector<VoxelGridCoordinates> VoxelGrid::getAllTerrainInRegion(int x_min, int y_min, int z_min,
+                                                                   int x_max, int y_max,
+                                                                   int z_max) const {
+    std::vector<VoxelGridCoordinates> result;
+
+    // Iterate over all active terrain voxels
+    for (auto iter = terrainGrid->cbeginValueOn(); iter; ++iter) {
+        openvdb::Coord coord = iter.getCoord();
+
+        // Manual bounding box check
+        if (coord.x() >= x_min && coord.x() <= x_max && coord.y() >= y_min && coord.y() <= y_max &&
+            coord.z() >= z_min && coord.z() <= z_max) {
+            result.emplace_back(VoxelGridCoordinates{coord.x(), coord.y(), coord.z()});
+        }
+    }
+
+    return result;
+}
+
+std::vector<VoxelGridCoordinates> VoxelGrid::getAllEntityInRegion(int x_min, int y_min, int z_min,
+                                                                  int x_max, int y_max,
+                                                                  int z_max) const {
+    std::vector<VoxelGridCoordinates> result;
+
+    // Iterate over all active entity voxels
+    for (auto iter = entityGrid->cbeginValueOn(); iter; ++iter) {
+        openvdb::Coord coord = iter.getCoord();
+
+        // Manual bounding box check
+        if (coord.x() >= x_min && coord.x() <= x_max && coord.y() >= y_min && coord.y() <= y_max &&
+            coord.z() >= z_min && coord.z() <= z_max) {
+            result.emplace_back(VoxelGridCoordinates{coord.x(), coord.y(), coord.z()});
+        }
+    }
+
+    return result;
+}
+
+std::vector<VoxelGridCoordinates> VoxelGrid::getAllEventInRegion(int x_min, int y_min, int z_min,
+                                                                 int x_max, int y_max,
+                                                                 int z_max) const {
+    std::vector<VoxelGridCoordinates> result;
+
+    // Iterate over all active event voxels
+    for (auto iter = eventGrid->cbeginValueOn(); iter; ++iter) {
+        openvdb::Coord coord = iter.getCoord();
+
+        // Manual bounding box check
+        if (coord.x() >= x_min && coord.x() <= x_max && coord.y() >= y_min && coord.y() <= y_max &&
+            coord.z() >= z_min && coord.z() <= z_max) {
+            result.emplace_back(VoxelGridCoordinates{coord.x(), coord.y(), coord.z()});
+        }
+    }
+
+    return result;
+}
+
+std::vector<VoxelGridCoordinates> VoxelGrid::getAllLightingInRegion(int x_min, int y_min, int z_min,
+                                                                    int x_max, int y_max,
+                                                                    int z_max) const {
+    std::vector<VoxelGridCoordinates> result;
+
+    // Iterate over all active lighting voxels
+    for (auto iter = lightingGrid->cbeginValueOn(); iter; ++iter) {
+        openvdb::Coord coord = iter.getCoord();
+
+        // Manual bounding box check
+        if (coord.x() >= x_min && coord.x() <= x_max && coord.y() >= y_min && coord.y() <= y_max &&
+            coord.z() >= z_min && coord.z() <= z_max) {
+            result.emplace_back(VoxelGridCoordinates{coord.x(), coord.y(), coord.z()});
+        }
+    }
+
+    return result;
+}
+
+void VoxelGridView::initVoxelGridView(int width, int height, int depth, int x_offset, int y_offset,
+                                      int z_offset) {
+    this->width = width;
+    this->height = height;
+    this->depth = depth;
+    this->x_offset = x_offset;
+    this->y_offset = y_offset;
+    this->z_offset = z_offset;
+
+    // Check for valid dimensions before allocating
+    if (width <= 0 || height <= 0 || depth <= 0) {
+        throw std::runtime_error("Invalid dimensions for VoxelGridView");
+    }
+
+    terrainData.resize(width * height * depth);
+    entityData.resize(width * height * depth);
+}
+
+void VoxelGridView::setTerrainVoxel(int x, int y, int z, const int voxelData) {
+    int local_x = x - x_offset;
+    int local_y = y - y_offset;
+    int local_z = z - z_offset;
+
+    if (local_x >= 0 && local_x < width && local_y >= 0 && local_y < height && local_z >= 0 &&
+        local_z < depth) {
+        terrainData[local_x + local_y * width + local_z * width * height] = voxelData;
+    } else {
+        // Handle out-of-bounds access
+        std::cerr << "Attempted to set voxel out of bounds at (" << x << ", " << y << ", " << z
+                  << ")" << std::endl;
+    }
+}
+
+int VoxelGridView::getTerrainVoxel(int x, int y, int z) const {
+    int local_x = x - x_offset;
+    int local_y = y - y_offset;
+    int local_z = z - z_offset;
+
+    if (local_x >= 0 && local_x < width && local_y >= 0 && local_y < height && local_z >= 0 &&
+        local_z < depth) {
+        return terrainData[local_x + local_y * width + local_z * width * height];
+    } else {
+        // Handle out-of-bounds access
+        // std::cerr << "Attempted to get voxel out of bounds at (" << x << ", " << y << ", " << z
+        //           << ")" << std::endl;
+        return -1;  // Return default-initialized GridData
+    }
+}
+
+void VoxelGridView::setEntityVoxel(int x, int y, int z, const int voxelData) {
+    int local_x = x - x_offset;
+    int local_y = y - y_offset;
+    int local_z = z - z_offset;
+
+    if (local_x >= 0 && local_x < width && local_y >= 0 && local_y < height && local_z >= 0 &&
+        local_z < depth) {
+        entityData[local_x + local_y * width + local_z * width * height] = voxelData;
+    } else {
+        // Handle out-of-bounds access
+        std::cerr << "Attempted to set voxel out of bounds at (" << x << ", " << y << ", " << z
+                  << ")" << std::endl;
+    }
+}
+
+int VoxelGridView::getEntityVoxel(int x, int y, int z) const {
+    int local_x = x - x_offset;
+    int local_y = y - y_offset;
+    int local_z = z - z_offset;
+
+    if (local_x >= 0 && local_x < width && local_y >= 0 && local_y < height && local_z >= 0 &&
+        local_z < depth) {
+        return entityData[local_x + local_y * width + local_z * width * height];
+    } else {
+        // Handle out-of-bounds access
+        // std::cerr << "Attempted to get voxel out of bounds at (" << x << ", " << y << ", " << z
+        //           << ")" << std::endl;
+        return -1;  // Return default-initialized GridData
+    }
+}
+
+std::vector<int> VoxelGrid::getAllTerrainIdsInRegion(int x_min, int y_min, int z_min, int x_max,
+                                                     int y_max, int z_max,
+                                                     VoxelGridView& gridView) const {
+    std::vector<int> result;
+
+    // Accessor for direct voxel access within the grid
+    openvdb::Int32Grid::ConstAccessor accessor = terrainGrid->getConstAccessor();
+
+// Parallelize the outer loop (x) using OpenMP
+#pragma omp parallel
+    {
+        // Each thread maintains its own local result vector
+        std::vector<int> localResult;
+
+#pragma omp for collapse(2)  // Parallelize both x and y loops
+        for (int x = x_min; x <= x_max; ++x) {
+            for (int y = y_min; y <= y_max; ++y) {
+                for (int z = z_min; z <= z_max; ++z) {
+                    openvdb::Coord coord(x, y, z);
+
+                    // Check if the voxel is active and get its value
+                    if (accessor.isValueOn(coord)) {
+                        // Retrieve and cast the entity ID from the voxel value
+                        int entity_id = static_cast<int>(accessor.getValue(coord));
+
+                        gridView.setTerrainVoxel(x, y, z, entity_id);
+
+                        localResult.emplace_back(entity_id);
+                    }
+                }
+            }
+        }
+
+// Merge each thread's local result vector into the shared result vector
+#pragma omp critical
+        result.insert(result.end(), localResult.begin(), localResult.end());
+    }
+
+    return result;
+}
+
+std::vector<int> VoxelGrid::getAllEntityIdsInRegion(int x_min, int y_min, int z_min, int x_max,
+                                                    int y_max, int z_max,
+                                                    VoxelGridView& gridView) const {
+    std::vector<int> result;
+
+    // Accessor for direct voxel access within the grid
+    openvdb::Int32Grid::ConstAccessor accessor = entityGrid->getConstAccessor();
+
+// Parallelize the outer loop (x) using OpenMP
+#pragma omp parallel
+    {
+        // Each thread maintains its own local result vector
+        std::vector<int> localResult;
+
+#pragma omp for collapse(2)  // Parallelize both x and y loops
+        for (int x = x_min; x <= x_max; ++x) {
+            for (int y = y_min; y <= y_max; ++y) {
+                for (int z = z_min; z <= z_max; ++z) {
+                    openvdb::Coord coord(x, y, z);
+
+                    // Check if the voxel is active and get its value
+                    if (accessor.isValueOn(coord)) {
+                        // Retrieve and cast the entity ID from the voxel value
+                        int entity_id = static_cast<int>(accessor.getValue(coord));
+
+                        gridView.setEntityVoxel(x, y, z, entity_id);
+
+                        localResult.emplace_back(entity_id);
+                    }
+                }
+            }
+        }
+
+// Merge each thread's local result vector into the shared result vector
+#pragma omp critical
+        result.insert(result.end(), localResult.begin(), localResult.end());
+    }
+
+    return result;
+}
+
+std::vector<int> VoxelGrid::getAllEventIdsInRegion(int x_min, int y_min, int z_min, int x_max,
+                                                   int y_max, int z_max) const {
+    std::vector<int> result;
+
+    // Iterate over all active event voxels
+    for (auto iter = eventGrid->cbeginValueOn(); iter; ++iter) {
+        openvdb::Coord coord = iter.getCoord();
+
+        // Bounding box check
+        if (coord.x() >= x_min && coord.x() <= x_max && coord.y() >= y_min && coord.y() <= y_max &&
+            coord.z() >= z_min && coord.z() <= z_max) {
+            // Retrieve and cast the entity ID from the voxel value
+            int entity_id = static_cast<int>(iter.getValue());
+            result.emplace_back(entity_id);
+        }
+    }
+
+    return result;
+}
+
+std::vector<int> VoxelGrid::getAllLightingIdsInRegion(int x_min, int y_min, int z_min, int x_max,
+                                                      int y_max, int z_max) const {
+    std::vector<int> result;
+
+    // Iterate over all active lighting voxels
+    for (auto iter = lightingGrid->cbeginValueOn(); iter; ++iter) {
+        openvdb::Coord coord = iter.getCoord();
+
+        // Bounding box check
+        if (coord.x() >= x_min && coord.x() <= x_max && coord.y() >= y_min && coord.y() <= y_max &&
+            coord.z() >= z_min && coord.z() <= z_max) {
+            // Retrieve and cast the entity ID from the voxel value
+            int entity_id = static_cast<int>(iter.getValue());
+            result.emplace_back(entity_id);
+        }
+    }
+
+    return result;
+}

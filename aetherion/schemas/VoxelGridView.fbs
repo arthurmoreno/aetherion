@@ -1,0 +1,15 @@
+
+namespace GameEngine;
+
+table VoxelGridView {
+  width:int;
+  height:int;
+  depth:int;
+  x_offset:int;
+  y_offset:int;
+  z_offset:int;
+  terrainData:[int];
+  entityData:[int];
+}
+
+root_type VoxelGridView;

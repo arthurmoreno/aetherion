@@ -1,0 +1,19 @@
+include "EntityInterface.fbs";
+include "WorldView.fbs";
+
+namespace GameEngine;
+
+table QueryResponse {
+  query_id:int;
+  query_data:[ubyte];
+}
+
+table PerceptionResponse {
+  entity:EntityInterface;
+  world_view:WorldView;
+  game_clock_ticks:ulong;
+  items_entities:[EntityInterface];
+  query_responses:[QueryResponse];
+}
+
+root_type PerceptionResponse;

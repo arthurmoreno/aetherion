@@ -1,0 +1,14 @@
+include "VoxelGridView.fbs";
+include "EntityInterface.fbs";
+
+namespace GameEngine;
+
+table WorldView {
+  width:int;
+  height:int;
+  depth:int;
+  voxelGrid:VoxelGridView;
+  entities:[EntityInterface];
+}
+
+root_type WorldView;

@@ -1,0 +1,10 @@
+include "Components.fbs";
+
+
+namespace GameEngine;
+
+
+table EntityInterface {
+  entityId:int;
+  entity_data: [ubyte];
+}

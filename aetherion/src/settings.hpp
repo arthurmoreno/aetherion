@@ -1,0 +1,28 @@
+#ifndef SETTINGS_H
+#define SETTINGS_H
+
+const int FRAME_RATE = 60;
+const float DELAY_TIME = 1000.0f / FRAME_RATE;
+
+const int GAME_SCREEN_WIDHT = 800;
+const int GAME_SCREEN_HEIGHT = 600;
+
+const int RIGHT_OFFSET = 400;
+const int UP_OFFSET = 100;
+const int DOWN_OFFSET = 200;
+
+const int SCREEN_WIDHT = GAME_SCREEN_WIDHT + RIGHT_OFFSET;
+const int SCREEN_HEIGHT = UP_OFFSET + GAME_SCREEN_HEIGHT + DOWN_OFFSET;
+
+const int BLOCKS_IN_SCREEN_WIDHT = 25;
+const int BLOCKS_IN_SCREEN_HEIGHT = 19;
+const int BLOCKS_IN_SCREEN_DEPTH = 3;
+
+const int SPRITE_SIZE = 32;
+
+const bool GRAVITY_FRICTION = true;
+const float GRAVITY = 9.81f;
+
+#define PHYSICS_COMP_AS_3DARRAY true
+
+#endif  // SETTINGS_H

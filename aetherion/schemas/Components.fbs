@@ -1,0 +1,16 @@
+include "EntityTypeComponent.fbs";
+include "PhysicsComponents.fbs";
+include "PerceptionComponent.fbs";
+include "Health.fbs";
+// Include other component files
+
+namespace GameEngine;
+
+union Component {
+  EntityTypeComponent,
+  HealthComponent,
+  Mass,
+  Position,
+  Velocity,
+  PerceptionComponent,
+}

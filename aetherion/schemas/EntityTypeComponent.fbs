@@ -1,0 +1,7 @@
+namespace GameEngine;
+
+table EntityTypeComponent {
+  type:int;
+  subType0:int;
+  subType1:int;
+}

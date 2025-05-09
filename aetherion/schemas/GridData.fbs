@@ -1,0 +1,8 @@
+namespace GameEngine;
+
+table GridData {
+  terrainID:int;
+  entityID:int;
+  eventID:int;
+  lightingLevel:float;
+}

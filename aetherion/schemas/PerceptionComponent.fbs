@@ -1,0 +1,7 @@
+
+namespace GameEngine;
+
+table PerceptionComponent {
+  perception_area:int;
+  z_perception_area:int;
+}

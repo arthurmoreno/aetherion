@@ -1,0 +1,6 @@
+namespace GameEngine;
+
+table HealthComponent {
+  healthLevel:float;
+  maxHealth:float;
+}

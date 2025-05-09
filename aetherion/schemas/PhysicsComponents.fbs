@@ -1,0 +1,28 @@
+namespace GameEngine;
+
+enum DirectionEnum : byte {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
+  FORWARD,
+  BACKWARD
+}
+
+table Mass {
+  mass:float;
+}
+
+table Position {
+  x:int;
+  y:int;
+  z:int;
+  direction:DirectionEnum;
+}
+
+table Velocity {
+  vx:float;
+  vy:float;
+  vz:float;
+  maxSpeed:float;
+}
