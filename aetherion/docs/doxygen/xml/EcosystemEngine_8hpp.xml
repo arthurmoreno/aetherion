@@ -1,0 +1,645 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="EcosystemEngine_8hpp" kind="file" language="C++">
+    <compoundname>EcosystemEngine.hpp</compoundname>
+    <includes local="no">spdlog/spdlog.h</includes>
+    <includes local="no">entt/entt.hpp</includes>
+    <includes refid="GameClock_8hpp" local="yes">GameClock.hpp</includes>
+    <includes refid="LifeEvents_8hpp" local="yes">LifeEvents.hpp</includes>
+    <includes refid="Logger_8hpp" local="yes">Logger.hpp</includes>
+    <includes refid="MoveEntityEvent_8hpp" local="yes">MoveEntityEvent.hpp</includes>
+    <includes refid="PhysicsManager_8hpp" local="yes">PhysicsManager.hpp</includes>
+    <includes refid="SunIntensity_8hpp" local="yes">SunIntensity.hpp</includes>
+    <includes refid="VoxelGrid_8hpp" local="yes">VoxelGrid.hpp</includes>
+    <includes refid="EntityTypeComponent_8hpp" local="yes">components/EntityTypeComponent.hpp</includes>
+    <includes refid="HealthComponents_8hpp" local="yes">components/HealthComponents.hpp</includes>
+    <includes refid="ItemsComponents_8hpp" local="yes">components/ItemsComponents.hpp</includes>
+    <includes refid="MovingComponent_8hpp" local="yes">components/MovingComponent.hpp</includes>
+    <includes refid="PhysicsComponents_8hpp" local="yes">components/PhysicsComponents.hpp</includes>
+    <includes refid="PlantsComponents_8hpp" local="yes">components/PlantsComponents.hpp</includes>
+    <includes refid="TerrainComponents_8hpp" local="yes">components/TerrainComponents.hpp</includes>
+    <includedby refid="EcosystemEngine_8cpp" local="yes">src/EcosystemEngine.cpp</includedby>
+    <includedby refid="PhysicsEngine_8hpp" local="yes">src/PhysicsEngine.hpp</includedby>
+    <includedby refid="World_8hpp" local="yes">src/World.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/EcosystemEngine.hpp</label>
+        <link refid="EcosystemEngine_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>EntityInterface.hpp</label>
+        <link refid="EntityInterface_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>GameClock.hpp</label>
+        <link refid="GameClock_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>ItemConfiguration.hpp</label>
+        <link refid="ItemConfiguration_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>ItemConfigurationManager.hpp</label>
+        <link refid="ItemConfigurationManager_8hpp_source"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>LifeEvents.hpp</label>
+        <link refid="LifeEvents_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>Logger.hpp</label>
+        <link refid="Logger_8hpp_source"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>MoveEntityEvent.hpp</label>
+        <link refid="MoveEntityEvent_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>PhysicsManager.hpp</label>
+        <link refid="PhysicsManager_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>SunIntensity.hpp</label>
+        <link refid="SunIntensity_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>VoxelGrid.hpp</label>
+        <link refid="VoxelGrid_8hpp_source"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>components/ConsoleLogsComponent.hpp</label>
+        <link refid="ConsoleLogsComponent_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>components/DnaComponents.hpp</label>
+        <link refid="DnaComponents_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>components/EntityTypeComponent.hpp</label>
+        <link refid="EntityTypeComponent_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>components/HealthComponents.hpp</label>
+        <link refid="HealthComponents_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>components/ItemsComponents.hpp</label>
+        <link refid="ItemsComponents_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>components/MetabolismComponents.hpp</label>
+        <link refid="MetabolismComponents_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>components/MovingComponent.hpp</label>
+        <link refid="MovingComponent_8hpp_source"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>components/PerceptionComponent.hpp</label>
+        <link refid="PerceptionComponent_8hpp_source"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>components/PhysicsComponents.hpp</label>
+        <link refid="PhysicsComponents_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>components/PlantsComponents.hpp</label>
+        <link refid="PlantsComponents_8hpp_source"/>
+      </node>
+      <node id="35">
+        <label>components/TerrainComponents.hpp</label>
+        <link refid="TerrainComponents_8hpp_source"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>VoxelGridView_generated.h</label>
+      </node>
+      <node id="28">
+        <label>algorithm</label>
+      </node>
+      <node id="12">
+        <label>bitset</label>
+      </node>
+      <node id="17">
+        <label>chrono</label>
+      </node>
+      <node id="24">
+        <label>cmath</label>
+      </node>
+      <node id="5">
+        <label>cstdint</label>
+      </node>
+      <node id="18">
+        <label>ctime</label>
+      </node>
+      <node id="3">
+        <label>entt/entt.hpp</label>
+      </node>
+      <node id="44">
+        <label>flatbuffers/flatbuffers.h</label>
+      </node>
+      <node id="47">
+        <label>functional</label>
+      </node>
+      <node id="19">
+        <label>iomanip</label>
+      </node>
+      <node id="25">
+        <label>iostream</label>
+      </node>
+      <node id="20">
+        <label>map</label>
+      </node>
+      <node id="38">
+        <label>memory</label>
+      </node>
+      <node id="48">
+        <label>msgpack.hpp</label>
+      </node>
+      <node id="39">
+        <label>mutex</label>
+      </node>
+      <node id="8">
+        <label>nanobind/nanobind.h</label>
+      </node>
+      <node id="45">
+        <label>openvdb/openvdb.h</label>
+      </node>
+      <node id="46">
+        <label>openvdb/tools/Interpolation.h</label>
+      </node>
+      <node id="51">
+        <label>spdlog/sinks/stdout_color_sinks.h</label>
+      </node>
+      <node id="2">
+        <label>spdlog/spdlog.h</label>
+      </node>
+      <node id="21">
+        <label>sstream</label>
+      </node>
+      <node id="29">
+        <label>stdexcept</label>
+      </node>
+      <node id="6">
+        <label>string</label>
+      </node>
+      <node id="9">
+        <label>tuple</label>
+      </node>
+      <node id="13">
+        <label>type_traits</label>
+      </node>
+      <node id="40">
+        <label>unordered_map</label>
+      </node>
+      <node id="36">
+        <label>unordered_set</label>
+      </node>
+      <node id="14">
+        <label>utility</label>
+      </node>
+      <node id="42">
+        <label>variant</label>
+      </node>
+      <node id="10">
+        <label>vector</label>
+      </node>
+      <node id="15">
+        <label>ylt/struct_pack.hpp</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>src/EcosystemEngine.hpp</label>
+        <link refid="EcosystemEngine_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/Gui/Gui.hpp</label>
+        <link refid="Gui_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/PhysicsEngine.hpp</label>
+        <link refid="PhysicsEngine_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/World.hpp</label>
+        <link refid="World_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>src/aetherion.hpp</label>
+        <link refid="aetherion_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structSetEcoEntityToDebug" prot="public">SetEcoEntityToDebug</innerclass>
+    <innerclass refid="structToBeCreatedWaterTile" prot="public">ToBeCreatedWaterTile</innerclass>
+    <innerclass refid="structEvaporateWaterEntityEvent" prot="public">EvaporateWaterEntityEvent</innerclass>
+    <innerclass refid="structCondenseWaterEntityEvent" prot="public">CondenseWaterEntityEvent</innerclass>
+    <innerclass refid="structWaterFallEntityEvent" prot="public">WaterFallEntityEvent</innerclass>
+    <innerclass refid="classEcosystemEngine" prot="public">EcosystemEngine</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="EcosystemEngine_8hpp_1af486c9dc85df6f5bbada616c92b33497" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void processTileWater</definition>
+        <argsstring>(entt::entity entity, entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher, float sunIntensity, std::vector&lt; EvaporateWaterEntityEvent &gt; &amp;pendingEvaporateWater, std::vector&lt; CondenseWaterEntityEvent &gt; &amp;pendingCondenseWater, std::vector&lt; WaterFallEntityEvent &gt; &amp;pendingWaterFall, std::random_device &amp;rd, std::mt19937 &amp;gen, std::uniform_int_distribution&lt;&gt; &amp;disWaterSpreading)</argsstring>
+        <name>processTileWater</name>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sunIntensity</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structEvaporateWaterEntityEvent" kindref="compound">EvaporateWaterEntityEvent</ref> &gt; &amp;</type>
+          <declname>pendingEvaporateWater</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structCondenseWaterEntityEvent" kindref="compound">CondenseWaterEntityEvent</ref> &gt; &amp;</type>
+          <declname>pendingCondenseWater</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structWaterFallEntityEvent" kindref="compound">WaterFallEntityEvent</ref> &gt; &amp;</type>
+          <declname>pendingWaterFall</declname>
+        </param>
+        <param>
+          <type>std::random_device &amp;</type>
+          <declname>rd</declname>
+        </param>
+        <param>
+          <type>std::mt19937 &amp;</type>
+          <declname>gen</declname>
+        </param>
+        <param>
+          <type>std::uniform_int_distribution&lt;&gt; &amp;</type>
+          <declname>disWaterSpreading</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="62" column="6" declfile="src/EcosystemEngine.hpp" declline="62" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>ECOSYSTEM_ENGINE_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ECOSYSTEM_ENGINE_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;spdlog/spdlog.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;entt/entt.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameClock.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;LifeEvents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Logger.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;MoveEntityEvent.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;PhysicsManager.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;SunIntensity.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;VoxelGrid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/EntityTypeComponent.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/HealthComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/ItemsComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/MovingComponent.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/PhysicsComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/PlantsComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/TerrainComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="structSetEcoEntityToDebug" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structSetEcoEntityToDebug" kindref="compound">SetEcoEntityToDebug</ref><sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::entity<sp/>entity;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structSetEcoEntityToDebug" kindref="compound">SetEcoEntityToDebug</ref>(entt::entity<sp/>entity)<sp/>:<sp/>entity(entity)<sp/>{}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="structToBeCreatedWaterTile" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structToBeCreatedWaterTile" kindref="compound">ToBeCreatedWaterTile</ref><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::entity<sp/>entity;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>position;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref><sp/>type;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref><sp/>matterContainer;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structStructuralIntegrityComponent" kindref="compound">StructuralIntegrityComponent</ref><sp/>structuralIntegrity;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="structEvaporateWaterEntityEvent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structEvaporateWaterEntityEvent" kindref="compound">EvaporateWaterEntityEvent</ref><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::entity<sp/>entity;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sunIntensity;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structEvaporateWaterEntityEvent" kindref="compound">EvaporateWaterEntityEvent</ref>(entt::entity<sp/>entity,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sunIntensity)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>entity(entity),<sp/>sunIntensity(sunIntensity)<sp/>{}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="structCondenseWaterEntityEvent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structCondenseWaterEntityEvent" kindref="compound">CondenseWaterEntityEvent</ref><sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::entity<sp/>entity;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>condensationAmount;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structCondenseWaterEntityEvent" kindref="compound">CondenseWaterEntityEvent</ref>(entt::entity<sp/>entity,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>condensationAmount)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>entity(entity),<sp/>condensationAmount(condensationAmount)<sp/>{}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="structWaterFallEntityEvent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structWaterFallEntityEvent" kindref="compound">WaterFallEntityEvent</ref><sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::entity<sp/>entity;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>position;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fallingAmount;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structWaterFallEntityEvent" kindref="compound">WaterFallEntityEvent</ref>(entt::entity<sp/>entity,<sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>position,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fallingAmount)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>entity(entity),<sp/>position(position),<sp/>fallingAmount(fallingAmount)<sp/>{}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>processTileWater(entt::entity<sp/>entity,<sp/>entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entt::dispatcher&amp;<sp/>dispatcher,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sunIntensity,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;EvaporateWaterEntityEvent&gt;&amp;<sp/>pendingEvaporateWater,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;CondenseWaterEntityEvent&gt;&amp;<sp/>pendingCondenseWater,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;WaterFallEntityEvent&gt;&amp;<sp/>pendingWaterFall,<sp/>std::random_device&amp;<sp/>rd,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::mt19937&amp;<sp/>gen,<sp/>std::uniform_int_distribution&lt;&gt;&amp;<sp/>disWaterSpreading);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="classEcosystemEngine" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classEcosystemEngine" kindref="compound">EcosystemEngine</ref><sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;EvaporateWaterEntityEvent&gt;<sp/>pendingEvaporateWater;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;CondenseWaterEntityEvent&gt;<sp/>pendingCondenseWater;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;WaterFallEntityEvent&gt;<sp/>pendingWaterFall;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::entity<sp/>entityBeingDebugged;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>countCreatedEvaporatedWater<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classEcosystemEngine" kindref="compound">EcosystemEngine</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>EcosystemEngine()<sp/>:<sp/>registry(reg)<sp/>{}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Method<sp/>to<sp/>process<sp/>physics-related<sp/>events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>processEcosystem(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entt::dispatcher&amp;<sp/>dispatcher,<sp/><ref refid="classGameClock" kindref="compound">GameClock</ref>&amp;<sp/>clock);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>processEcosystemAsync(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entt::dispatcher&amp;<sp/>dispatcher,<sp/><ref refid="classGameClock" kindref="compound">GameClock</ref>&amp;<sp/>clock);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>loopTiles(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,<sp/>entt::dispatcher&amp;<sp/>dispatcher,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sunIntensity);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>processEvaporateWaterEvents(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;EvaporateWaterEntityEvent&gt;&amp;<sp/>pendingEvaporateWater);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>processCondenseWaterEvents(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;CondenseWaterEntityEvent&gt;&amp;<sp/>pendingCondenseWater);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>processWaterFallEvents(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;WaterFallEntityEvent&gt;&amp;<sp/>pendingWaterFall);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Register<sp/>the<sp/>event<sp/>handler</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>onSetEcoEntityToDebug(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structSetEcoEntityToDebug" kindref="compound">SetEcoEntityToDebug</ref>&amp;<sp/>event);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>registerEventHandlers(entt::dispatcher&amp;<sp/>dispatcher);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isProcessingComplete()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>entt::registry&amp;<sp/>registry;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>VoxelGrid*<sp/>voxelGrid;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Mutex<sp/>for<sp/>thread<sp/>safety</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>std::mutex<sp/>ecosystemMutex;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>processingComplete<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;<sp/><sp/></highlight><highlight class="comment">//<sp/>Flag<sp/>to<sp/>indicate<sp/>processing<sp/>state</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>ECOSYSTEM_ENGINE_HPP</highlight></codeline>
+    </programlisting>
+    <location file="src/EcosystemEngine.hpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structCondenseWaterEntityEvent" kind="struct" language="C++" prot="public">
+    <compoundname>CondenseWaterEntityEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structCondenseWaterEntityEvent_1aa6e3ea5e334bc7d2d78cadd6b8d4ed9e" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity CondenseWaterEntityEvent::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>CondenseWaterEntityEvent::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="46" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structCondenseWaterEntityEvent_1a89138190ba441d1e1109c65a04f80dd3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CondenseWaterEntityEvent::condensationAmount</definition>
+        <argsstring></argsstring>
+        <name>condensationAmount</name>
+        <qualifiedname>CondenseWaterEntityEvent::condensationAmount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="47" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structCondenseWaterEntityEvent_1a465633ab345fbe1af03c47a8e2eb9851" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CondenseWaterEntityEvent::CondenseWaterEntityEvent</definition>
+        <argsstring>(entt::entity entity, int condensationAmount)</argsstring>
+        <name>CondenseWaterEntityEvent</name>
+        <qualifiedname>CondenseWaterEntityEvent::CondenseWaterEntityEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>condensationAmount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="49" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="49" bodyend="50"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="45" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="45" bodyend="51"/>
+    <listofallmembers>
+      <member refid="structCondenseWaterEntityEvent_1a89138190ba441d1e1109c65a04f80dd3" prot="public" virt="non-virtual"><scope>CondenseWaterEntityEvent</scope><name>condensationAmount</name></member>
+      <member refid="structCondenseWaterEntityEvent_1a465633ab345fbe1af03c47a8e2eb9851" prot="public" virt="non-virtual"><scope>CondenseWaterEntityEvent</scope><name>CondenseWaterEntityEvent</name></member>
+      <member refid="structCondenseWaterEntityEvent_1aa6e3ea5e334bc7d2d78cadd6b8d4ed9e" prot="public" virt="non-virtual"><scope>CondenseWaterEntityEvent</scope><name>entity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

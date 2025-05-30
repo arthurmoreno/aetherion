@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classConfigParser" kind="class" language="C++" prot="public">
+    <compoundname>ConfigParser</compoundname>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classConfigParser_1ac4ceaf09d3133d0d991c13e89b018ed4" prot="public" static="no">
+        <type>std::unordered_map&lt; std::string, std::string &gt;</type>
+        <definition>using ConfigParser::Section =  std::unordered_map&lt;std::string, std::string&gt;</definition>
+        <argsstring></argsstring>
+        <name>Section</name>
+        <qualifiedname>ConfigParser::Section</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="22" column="5" bodyfile="src/neat/config.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classConfigParser_1a0a4653d4813a061634234a3e04f149ed" prot="public" static="no" mutable="no">
+        <type>std::unordered_map&lt; std::string, Section &gt;</type>
+        <definition>std::unordered_map&lt;std::string, Section&gt; ConfigParser::sections</definition>
+        <argsstring></argsstring>
+        <name>sections</name>
+        <qualifiedname>ConfigParser::sections</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="23" column="24" bodyfile="src/neat/config.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classConfigParser_1a31483b393515d726a15e7061e17a894f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ConfigParser::ConfigParser</definition>
+        <argsstring>()=default</argsstring>
+        <name>ConfigParser</name>
+        <qualifiedname>ConfigParser::ConfigParser</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="25" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParser_1af3f20a80a3673319799961a362ce3c43" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigParser::read_file</definition>
+        <argsstring>(const std::string &amp;filename)</argsstring>
+        <name>read_file</name>
+        <qualifiedname>ConfigParser::read_file</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="28" column="10" bodyfile="src/neat/config.hpp" bodystart="28" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParser_1a7e9c41c463a6a56ac352e276f1a4a79c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ConfigParser::has_section</definition>
+        <argsstring>(const std::string &amp;section) const</argsstring>
+        <name>has_section</name>
+        <qualifiedname>ConfigParser::has_section</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>section</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="54" column="10" bodyfile="src/neat/config.hpp" bodystart="54" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParser_1a2bf8a5aac2cb96e3e979543a5fbe6543" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ConfigParser::get</definition>
+        <argsstring>(const std::string &amp;section, const std::string &amp;key) const</argsstring>
+        <name>get</name>
+        <qualifiedname>ConfigParser::get</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="58" column="17" bodyfile="src/neat/config.hpp" bodystart="58" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParser_1af1c13d419b999015038867392c9b341f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int ConfigParser::getint</definition>
+        <argsstring>(const std::string &amp;section, const std::string &amp;key) const</argsstring>
+        <name>getint</name>
+        <qualifiedname>ConfigParser::getint</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="68" column="9" bodyfile="src/neat/config.hpp" bodystart="68" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParser_1acb1fe2dc8425bc96ce4c1b9df80dfc74" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double ConfigParser::getfloat</definition>
+        <argsstring>(const std::string &amp;section, const std::string &amp;key) const</argsstring>
+        <name>getfloat</name>
+        <qualifiedname>ConfigParser::getfloat</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="72" column="12" bodyfile="src/neat/config.hpp" bodystart="72" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParser_1a175d42d6a7479587936ac09e396d41e7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ConfigParser::getboolean</definition>
+        <argsstring>(const std::string &amp;section, const std::string &amp;key) const</argsstring>
+        <name>getboolean</name>
+        <qualifiedname>ConfigParser::getboolean</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="76" column="10" bodyfile="src/neat/config.hpp" bodystart="76" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParser_1a101d5783398fb237c47842e931b4e7a0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unordered_map&lt; std::string, std::string &gt;</type>
+        <definition>std::unordered_map&lt; std::string, std::string &gt; ConfigParser::items</definition>
+        <argsstring>(const std::string &amp;section) const</argsstring>
+        <name>items</name>
+        <qualifiedname>ConfigParser::items</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>section</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="85" column="24" bodyfile="src/neat/config.hpp" bodystart="85" bodyend="89"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classConfigParser_1a99642f2b03f5cec8025b8737eacef795" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>static std::string ConfigParser::trim</definition>
+        <argsstring>(const std::string &amp;s)</argsstring>
+        <name>trim</name>
+        <qualifiedname>ConfigParser::trim</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="92" column="24" bodyfile="src/neat/config.hpp" bodystart="92" bodyend="98"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/neat/config.hpp" line="20" column="1" bodyfile="src/neat/config.hpp" bodystart="20" bodyend="99"/>
+    <listofallmembers>
+      <member refid="classConfigParser_1a31483b393515d726a15e7061e17a894f" prot="public" virt="non-virtual"><scope>ConfigParser</scope><name>ConfigParser</name></member>
+      <member refid="classConfigParser_1a2bf8a5aac2cb96e3e979543a5fbe6543" prot="public" virt="non-virtual"><scope>ConfigParser</scope><name>get</name></member>
+      <member refid="classConfigParser_1a175d42d6a7479587936ac09e396d41e7" prot="public" virt="non-virtual"><scope>ConfigParser</scope><name>getboolean</name></member>
+      <member refid="classConfigParser_1acb1fe2dc8425bc96ce4c1b9df80dfc74" prot="public" virt="non-virtual"><scope>ConfigParser</scope><name>getfloat</name></member>
+      <member refid="classConfigParser_1af1c13d419b999015038867392c9b341f" prot="public" virt="non-virtual"><scope>ConfigParser</scope><name>getint</name></member>
+      <member refid="classConfigParser_1a7e9c41c463a6a56ac352e276f1a4a79c" prot="public" virt="non-virtual"><scope>ConfigParser</scope><name>has_section</name></member>
+      <member refid="classConfigParser_1a101d5783398fb237c47842e931b4e7a0" prot="public" virt="non-virtual"><scope>ConfigParser</scope><name>items</name></member>
+      <member refid="classConfigParser_1af3f20a80a3673319799961a362ce3c43" prot="public" virt="non-virtual"><scope>ConfigParser</scope><name>read_file</name></member>
+      <member refid="classConfigParser_1ac4ceaf09d3133d0d991c13e89b018ed4" prot="public" virt="non-virtual"><scope>ConfigParser</scope><name>Section</name></member>
+      <member refid="classConfigParser_1a0a4653d4813a061634234a3e04f149ed" prot="public" virt="non-virtual"><scope>ConfigParser</scope><name>sections</name></member>
+      <member refid="classConfigParser_1a99642f2b03f5cec8025b8737eacef795" prot="private" virt="non-virtual"><scope>ConfigParser</scope><name>trim</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

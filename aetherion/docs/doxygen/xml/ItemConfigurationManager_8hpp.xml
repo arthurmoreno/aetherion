@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="ItemConfigurationManager_8hpp" kind="file" language="C++">
+    <compoundname>ItemConfigurationManager.hpp</compoundname>
+    <includes local="no">memory</includes>
+    <includes local="no">mutex</includes>
+    <includes local="no">string</includes>
+    <includes local="no">unordered_map</includes>
+    <includes refid="ItemConfiguration_8hpp" local="yes">ItemConfiguration.hpp</includes>
+    <includedby refid="ItemConfigurationManager_8cpp" local="yes">src/ItemConfigurationManager.cpp</includedby>
+    <includedby refid="LifeEvents_8hpp" local="yes">src/LifeEvents.hpp</includedby>
+    <includedby refid="aetherion_8hpp" local="yes">src/aetherion.hpp</includedby>
+    <incdepgraph>
+      <node id="6">
+        <label>ItemConfiguration.hpp</label>
+        <link refid="ItemConfiguration_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/ItemConfigurationManager.hpp</label>
+        <link refid="ItemConfigurationManager_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>components/ItemsComponents.hpp</label>
+        <link refid="ItemsComponents_8hpp_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>algorithm</label>
+      </node>
+      <node id="7">
+        <label>entt/entt.hpp</label>
+      </node>
+      <node id="13">
+        <label>iostream</label>
+      </node>
+      <node id="14">
+        <label>map</label>
+      </node>
+      <node id="2">
+        <label>memory</label>
+      </node>
+      <node id="3">
+        <label>mutex</label>
+      </node>
+      <node id="8">
+        <label>stdexcept</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="15">
+        <label>tuple</label>
+      </node>
+      <node id="5">
+        <label>unordered_map</label>
+      </node>
+      <node id="9">
+        <label>variant</label>
+      </node>
+      <node id="10">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>src/EcosystemEngine.hpp</label>
+        <link refid="EcosystemEngine_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/EffectsSystem.hpp</label>
+        <link refid="EffectsSystem_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>src/Gui/Gui.hpp</label>
+        <link refid="Gui_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>src/HealthSystem.hpp</label>
+        <link refid="HealthSystem_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/ItemConfigurationManager.hpp</label>
+        <link refid="ItemConfigurationManager_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/LifeEvents.hpp</label>
+        <link refid="LifeEvents_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>src/MetabolismSystem.hpp</label>
+        <link refid="MetabolismSystem_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/PhysicsEngine.hpp</label>
+        <link refid="PhysicsEngine_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>src/World.hpp</label>
+        <link refid="World_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/aetherion.hpp</label>
+        <link refid="aetherion_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classItemConfigurationManager" prot="public">ItemConfigurationManager</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="ItemConfigurationManager_8hpp_1a6b6c2c3409fcb7a28cd19e807954d800" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uintptr_t</type>
+        <definition>uintptr_t registerItemConfigurationOnManager</definition>
+        <argsstring>(const std::shared_ptr&lt; ItemConfiguration &gt; &amp;config)</argsstring>
+        <name>registerItemConfigurationOnManager</name>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="classItemConfiguration" kindref="compound">ItemConfiguration</ref> &gt; &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfigurationManager.hpp" line="13" column="11" bodyfile="src/ItemConfigurationManager.cpp" bodystart="3" bodyend="13" declfile="src/ItemConfigurationManager.hpp" declline="13" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="ItemConfigurationManager_8hpp_1a7e69c6939a331c447e630b0f6098c0cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="classItemConfiguration" kindref="compound">ItemConfiguration</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; ItemConfiguration &gt; getItemConfigurationOnManager</definition>
+        <argsstring>(const std::string &amp;itemId)</argsstring>
+        <name>getItemConfigurationOnManager</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>itemId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfigurationManager.hpp" line="16" column="17" bodyfile="src/ItemConfigurationManager.cpp" bodystart="16" bodyend="18" declfile="src/ItemConfigurationManager.hpp" declline="16" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="function" id="ItemConfigurationManager_8hpp_1a7fee40d93e6c3eb7db46d6b21c3a0164" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void deregisterItemConfigurationOnManager</definition>
+        <argsstring>(const std::string &amp;itemId)</argsstring>
+        <name>deregisterItemConfigurationOnManager</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>itemId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfigurationManager.hpp" line="19" column="6" bodyfile="src/ItemConfigurationManager.cpp" bodystart="21" bodyend="23" declfile="src/ItemConfigurationManager.hpp" declline="19" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>ITEMCONFIGURATIONMANAGER_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ITEMCONFIGURATIONMANAGER_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mutex&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unordered_map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ItemConfiguration.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Function<sp/>to<sp/>load<sp/>an<sp/>image<sp/>and<sp/>create<sp/>a<sp/>texture</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">uintptr_t<sp/>registerItemConfigurationOnManager(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;ItemConfiguration&gt;&amp;<sp/>config);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Function<sp/>to<sp/>render<sp/>the<sp/>texture</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">std::shared_ptr&lt;ItemConfiguration&gt;<sp/>getItemConfigurationOnManager(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>itemId);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Function<sp/>to<sp/>destroy<sp/>the<sp/>texture</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>deregisterItemConfigurationOnManager(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>itemId);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="classItemConfigurationManager" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classItemConfigurationManager" kindref="compound">ItemConfigurationManager</ref><sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">mutable</highlight><highlight class="normal"><sp/>std::mutex<sp/>managerMutex;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unordered_map&lt;std::string,<sp/>std::shared_ptr&lt;ItemConfiguration&gt;&gt;<sp/>configurations;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classItemConfigurationManager" kindref="compound">ItemConfigurationManager</ref>&amp;<sp/>getInstance();</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Delete<sp/>copy<sp/>constructor<sp/>and<sp/>assignment<sp/>operator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classItemConfigurationManager" kindref="compound">ItemConfigurationManager</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classItemConfigurationManager" kindref="compound">ItemConfigurationManager</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classItemConfigurationManager" kindref="compound">ItemConfigurationManager</ref>&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classItemConfigurationManager" kindref="compound">ItemConfigurationManager</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Registration<sp/>methods</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>registerItemConfiguration(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;ItemConfiguration&gt;&amp;<sp/>config);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;ItemConfiguration&gt;<sp/>getItemConfiguration(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>itemId)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>deregisterItemConfiguration(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>itemId);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classItemConfigurationManager" kindref="compound">ItemConfigurationManager</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classItemConfigurationManager" kindref="compound">~ItemConfigurationManager</ref>();</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>ITEMCONFIGURATIONMANAGER_HPP</highlight></codeline>
+    </programlisting>
+    <location file="src/ItemConfigurationManager.hpp"/>
+  </compounddef>
+</doxygen>

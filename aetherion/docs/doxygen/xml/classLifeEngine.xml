@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classLifeEngine" kind="class" language="C++" prot="public">
+    <compoundname>LifeEngine</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classLifeEngine_1acb10c91a1eb55618cafeb887fd9ae975" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; std::tuple&lt; entt::entity, bool &gt; &gt;</type>
+        <definition>std::vector&lt;std::tuple&lt;entt::entity, bool&gt; &gt; LifeEngine::entitiesToDelete</definition>
+        <argsstring></argsstring>
+        <name>entitiesToDelete</name>
+        <qualifiedname>LifeEngine::entitiesToDelete</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="28" column="17" bodyfile="src/LifeEvents.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classLifeEngine_1a66ad30e6fca1b2052f531c3510540f0a" prot="private" static="no" mutable="no">
+        <type>entt::registry &amp;</type>
+        <definition>entt::registry&amp; LifeEngine::registry</definition>
+        <argsstring></argsstring>
+        <name>registry</name>
+        <qualifiedname>LifeEngine::registry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="42" column="20" bodyfile="src/LifeEvents.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLifeEngine_1a6d47a723ecb38c8922bb053dc60f057c" prot="private" static="no" mutable="no">
+        <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+        <definition>VoxelGrid* LifeEngine::voxelGrid</definition>
+        <argsstring></argsstring>
+        <name>voxelGrid</name>
+        <qualifiedname>LifeEngine::voxelGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="43" column="15" bodyfile="src/LifeEvents.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLifeEngine_1a0a901aca7fd6ba72006d0ede85ad2d00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>LifeEngine::LifeEngine</definition>
+        <argsstring>()=default</argsstring>
+        <name>LifeEngine</name>
+        <qualifiedname>LifeEngine::LifeEngine</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="30" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classLifeEngine_1a0db26aa079afe41c053f607df32735b4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LifeEngine::LifeEngine</definition>
+        <argsstring>(entt::registry &amp;reg, VoxelGrid *voxelGrid)</argsstring>
+        <name>LifeEngine</name>
+        <qualifiedname>LifeEngine::LifeEngine</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="31" column="5" bodyfile="src/LifeEvents.hpp" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classLifeEngine_1a0afa398feb971d2ba06a1dc08df5947f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void LifeEngine::onKillEntity</definition>
+        <argsstring>(const KillEntityEvent &amp;event)</argsstring>
+        <name>onKillEntity</name>
+        <qualifiedname>LifeEngine::onKillEntity</qualifiedname>
+        <param>
+          <type>const <ref refid="structKillEntityEvent" kindref="compound">KillEntityEvent</ref> &amp;</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="34" column="10" bodyfile="src/LifeEvents.cpp" bodystart="55" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classLifeEngine_1ad2443f51afc1ff8f7d46f18acca57df4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void LifeEngine::registerEventHandlers</definition>
+        <argsstring>(entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>registerEventHandlers</name>
+        <qualifiedname>LifeEngine::registerEventHandlers</qualifiedname>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="37" column="10" bodyfile="src/LifeEvents.cpp" bodystart="65" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classLifeEngine_1ac29b11a8121e1f6cb3f6feff9608b501" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void LifeEngine::removeEntityFromGrid</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>removeEntityFromGrid</name>
+        <qualifiedname>LifeEngine::removeEntityFromGrid</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="39" column="10" bodyfile="src/LifeEvents.cpp" bodystart="42" bodyend="53"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classLifeEngine_1a1599355f138cbaaa07e15213d761c8b9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void LifeEngine::dropItems</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>dropItems</name>
+        <qualifiedname>LifeEngine::dropItems</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="45" column="10" bodyfile="src/LifeEvents.cpp" bodystart="5" bodyend="40"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/LifeEvents.hpp" line="26" column="1" bodyfile="src/LifeEvents.hpp" bodystart="26" bodyend="46"/>
+    <listofallmembers>
+      <member refid="classLifeEngine_1a1599355f138cbaaa07e15213d761c8b9" prot="private" virt="non-virtual"><scope>LifeEngine</scope><name>dropItems</name></member>
+      <member refid="classLifeEngine_1acb10c91a1eb55618cafeb887fd9ae975" prot="public" virt="non-virtual"><scope>LifeEngine</scope><name>entitiesToDelete</name></member>
+      <member refid="classLifeEngine_1a0a901aca7fd6ba72006d0ede85ad2d00" prot="public" virt="non-virtual"><scope>LifeEngine</scope><name>LifeEngine</name></member>
+      <member refid="classLifeEngine_1a0db26aa079afe41c053f607df32735b4" prot="public" virt="non-virtual"><scope>LifeEngine</scope><name>LifeEngine</name></member>
+      <member refid="classLifeEngine_1a0afa398feb971d2ba06a1dc08df5947f" prot="public" virt="non-virtual"><scope>LifeEngine</scope><name>onKillEntity</name></member>
+      <member refid="classLifeEngine_1ad2443f51afc1ff8f7d46f18acca57df4" prot="public" virt="non-virtual"><scope>LifeEngine</scope><name>registerEventHandlers</name></member>
+      <member refid="classLifeEngine_1a66ad30e6fca1b2052f531c3510540f0a" prot="private" virt="non-virtual"><scope>LifeEngine</scope><name>registry</name></member>
+      <member refid="classLifeEngine_1ac29b11a8121e1f6cb3f6feff9608b501" prot="public" virt="non-virtual"><scope>LifeEngine</scope><name>removeEntityFromGrid</name></member>
+      <member refid="classLifeEngine_1a6d47a723ecb38c8922bb053dc60f057c" prot="private" virt="non-virtual"><scope>LifeEngine</scope><name>voxelGrid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

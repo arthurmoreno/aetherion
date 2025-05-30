@@ -1,0 +1,710 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="CameraUtils_8hpp" kind="file" language="C++">
+    <compoundname>CameraUtils.hpp</compoundname>
+    <includes refid="EntityInterface_8hpp" local="yes">EntityInterface.hpp</includes>
+    <includes refid="RenderQueue_8hpp" local="yes">LowLevelRenderer/RenderQueue.hpp</includes>
+    <includes refid="WorldView_8hpp" local="yes">WorldView.hpp</includes>
+    <includedby refid="CameraUtils_8cpp" local="yes">src/CameraUtils.cpp</includedby>
+    <includedby refid="aetherion_8hpp" local="yes">src/aetherion.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/CameraUtils.hpp</label>
+        <link refid="CameraUtils_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>EntityInterface.hpp</label>
+        <link refid="EntityInterface_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>FlatbufferUtils.hpp</label>
+        <link refid="FlatbufferUtils_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>FontManager.hpp</label>
+        <link refid="FontManager_8hpp_source"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>LowLevelRenderer/RenderQueue.hpp</label>
+        <link refid="RenderQueue_8hpp_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>TextureManager.hpp</label>
+        <link refid="TextureManager_8hpp_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>QueryResponse.hpp</label>
+        <link refid="QueryResponse_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>VoxelGrid.hpp</label>
+        <link refid="VoxelGrid_8hpp_source"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>WorldView.hpp</label>
+        <link refid="WorldView_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>components/ConsoleLogsComponent.hpp</label>
+        <link refid="ConsoleLogsComponent_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>components/DnaComponents.hpp</label>
+        <link refid="DnaComponents_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>components/EntityTypeComponent.hpp</label>
+        <link refid="EntityTypeComponent_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>components/HealthComponents.hpp</label>
+        <link refid="HealthComponents_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>components/ItemsComponents.hpp</label>
+        <link refid="ItemsComponents_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>components/MetabolismComponents.hpp</label>
+        <link refid="MetabolismComponents_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>components/MovingComponent.hpp</label>
+        <link refid="MovingComponent_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>components/PerceptionComponent.hpp</label>
+        <link refid="PerceptionComponent_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>components/PhysicsComponents.hpp</label>
+        <link refid="PhysicsComponents_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>components/PlantsComponents.hpp</label>
+        <link refid="PlantsComponents_8hpp_source"/>
+      </node>
+      <node id="31">
+        <label>components/TerrainComponents.hpp</label>
+        <link refid="TerrainComponents_8hpp_source"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>EntityInterface_generated.h</label>
+      </node>
+      <node id="51">
+        <label>PerceptionResponse_generated.h</label>
+      </node>
+      <node id="34">
+        <label>SDL2/SDL.h</label>
+      </node>
+      <node id="43">
+        <label>SDL2/SDL_image.h</label>
+      </node>
+      <node id="35">
+        <label>SDL2/SDL_ttf.h</label>
+      </node>
+      <node id="57">
+        <label>VoxelGridView_generated.h</label>
+      </node>
+      <node id="58">
+        <label>WorldView_generated.h</label>
+      </node>
+      <node id="24">
+        <label>algorithm</label>
+      </node>
+      <node id="4">
+        <label>bitset</label>
+      </node>
+      <node id="11">
+        <label>chrono</label>
+      </node>
+      <node id="20">
+        <label>cmath</label>
+      </node>
+      <node id="12">
+        <label>ctime</label>
+      </node>
+      <node id="5">
+        <label>entt/entt.hpp</label>
+      </node>
+      <node id="53">
+        <label>flatbuffers/flatbuffers.h</label>
+      </node>
+      <node id="44">
+        <label>functional</label>
+      </node>
+      <node id="13">
+        <label>iomanip</label>
+      </node>
+      <node id="21">
+        <label>iostream</label>
+      </node>
+      <node id="14">
+        <label>map</label>
+      </node>
+      <node id="41">
+        <label>memory</label>
+      </node>
+      <node id="47">
+        <label>msgpack.hpp</label>
+      </node>
+      <node id="39">
+        <label>mutex</label>
+      </node>
+      <node id="3">
+        <label>nanobind/nanobind.h</label>
+      </node>
+      <node id="36">
+        <label>nanobind/stl/bind_map.h</label>
+      </node>
+      <node id="37">
+        <label>nanobind/stl/bind_vector.h</label>
+      </node>
+      <node id="49">
+        <label>nanobind/stl/shared_ptr.h</label>
+      </node>
+      <node id="38">
+        <label>nanobind/stl/string.h</label>
+      </node>
+      <node id="55">
+        <label>openvdb/openvdb.h</label>
+      </node>
+      <node id="56">
+        <label>openvdb/tools/Interpolation.h</label>
+      </node>
+      <node id="15">
+        <label>sstream</label>
+      </node>
+      <node id="25">
+        <label>stdexcept</label>
+      </node>
+      <node id="16">
+        <label>string</label>
+      </node>
+      <node id="6">
+        <label>tuple</label>
+      </node>
+      <node id="7">
+        <label>type_traits</label>
+      </node>
+      <node id="45">
+        <label>unordered_map</label>
+      </node>
+      <node id="32">
+        <label>unordered_set</label>
+      </node>
+      <node id="8">
+        <label>utility</label>
+      </node>
+      <node id="18">
+        <label>vector</label>
+      </node>
+      <node id="9">
+        <label>ylt/struct_pack.hpp</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>src/CameraUtils.hpp</label>
+        <link refid="CameraUtils_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/aetherion.hpp</label>
+        <link refid="aetherion_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classEntityMouseSelection" prot="public">EntityMouseSelection</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="CameraUtils_8hpp_1a9d9eaa1cabefceb0e38f6a54192b943f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool getAndDrawSelectedEntity</definition>
+        <argsstring>(WorldView &amp;world_view, EntityInterface &amp;entity_interface, nb::dict &amp;mouse_state, int screenX, int screenY, std::shared_ptr&lt; RenderQueue &gt; render_queue_ptr, int layer_index, int selected_entity_id, std::string &amp;groupToDraw, int TILE_SIZE_ON_SCREEN)</argsstring>
+        <name>getAndDrawSelectedEntity</name>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref> &amp;</type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+          <declname>entity_interface</declname>
+        </param>
+        <param>
+          <type>nb::dict &amp;</type>
+          <declname>mouse_state</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screenX</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screenY</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classRenderQueue" kindref="compound">RenderQueue</ref> &gt;</type>
+          <declname>render_queue_ptr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>selected_entity_id</declname>
+        </param>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>groupToDraw</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>TILE_SIZE_ON_SCREEN</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="78" column="6" bodyfile="src/CameraUtils.cpp" bodystart="142" bodyend="178" declfile="src/CameraUtils.hpp" declline="78" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="CameraUtils_8hpp_1a61f972792f91e235d3f975ffb5a32805" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void drawTileEffects</definition>
+        <argsstring>(EntityInterface &amp;terrain, std::shared_ptr&lt; WorldView &gt;, std::shared_ptr&lt; RenderQueue &gt; render_queue_ptr, int layerIndex, const std::string &amp;guiGroup, int screenX, int screenY, int TILE_SIZE_ON_SCREEN)</argsstring>
+        <name>drawTileEffects</name>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+          <declname>terrain</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="structWorldView" kindref="compound">WorldView</ref> &gt;</type>
+          <declname>worldView</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classRenderQueue" kindref="compound">RenderQueue</ref> &gt;</type>
+          <declname>render_queue_ptr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layerIndex</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>guiGroup</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screenX</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screenY</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>TILE_SIZE_ON_SCREEN</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="84" column="6" bodyfile="src/CameraUtils.cpp" bodystart="182" bodyend="208" declfile="src/CameraUtils.hpp" declline="84" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="CameraUtils_8hpp_1a774563e8e39b15da5890b804c77ce139" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool shouldDrawTerrain</definition>
+        <argsstring>(const EntityInterface &amp;terrain, const bool EMPTY_TILE_DEBUGGING)</argsstring>
+        <name>shouldDrawTerrain</name>
+        <param>
+          <type>const <ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+          <declname>terrain</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>EMPTY_TILE_DEBUGGING</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="89" column="6" bodyfile="src/CameraUtils.cpp" bodystart="215" bodyend="224" declfile="src/CameraUtils.hpp" declline="89" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="CameraUtils_8hpp_1a4449c166f6db48d3f8b34c55f1e667fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool isTerrainAnEmptyWater</definition>
+        <argsstring>(const EntityInterface &amp;terrain)</argsstring>
+        <name>isTerrainAnEmptyWater</name>
+        <param>
+          <type>const <ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+          <declname>terrain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="90" column="6" bodyfile="src/CameraUtils.cpp" bodystart="233" bodyend="245" declfile="src/CameraUtils.hpp" declline="90" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="CameraUtils_8hpp_1ae8fa845ff7b0134e7e4723acb4315378" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool isOccludingEntityPerspective</definition>
+        <argsstring>(const EntityInterface &amp;entity, const WorldView &amp;worldView, const EntityInterface &amp;occludingEntity)</argsstring>
+        <name>isOccludingEntityPerspective</name>
+        <param>
+          <type>const <ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structWorldView" kindref="compound">WorldView</ref> &amp;</type>
+          <declname>worldView</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+          <declname>occludingEntity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="91" column="6" bodyfile="src/CameraUtils.cpp" bodystart="247" bodyend="298" declfile="src/CameraUtils.hpp" declline="91" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>CAMERA_UTILS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CAMERA_UTILS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;EntityInterface.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;LowLevelRenderer/RenderQueue.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;WorldView.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>bool<sp/>isMouseWithin(int<sp/>mx,<sp/>int<sp/>my,<sp/>int<sp/>x,<sp/>int<sp/>y,<sp/>int<sp/>width,<sp/>int<sp/>height);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>constexpr<sp/>int<sp/>TILE_SIZE_ON_SCREEN<sp/>=<sp/>32;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>void<sp/>setToDrawSelectEntitySquare(</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>int<sp/>x,<sp/>int<sp/>y,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;RenderQueue&gt;<sp/>renderQueuePtr,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>int<sp/>layerIndex,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>const<sp/>std::string&amp;<sp/>groupToDraw,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>bool<sp/>selected<sp/>=<sp/>false</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="classEntityMouseSelection" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classEntityMouseSelection" kindref="compound">EntityMouseSelection</ref><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>currentEntitySelected;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classEntityMouseSelection" kindref="compound">EntityMouseSelection</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>screenX,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>screenY,<sp/><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>&amp;<sp/>entity,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>lockOnTarget,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>layerIndex,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::map&lt;std::string,<sp/>int&gt;&amp;<sp/>mouseState,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TILE_SIZE_ON_SCREEN)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>screenX(screenX),</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>screenY(screenY),</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entity(entity),</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lockOnTarget(lockOnTarget),</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>layerIndex(layerIndex),</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TILE_SIZE_ON_SCREEN(TILE_SIZE_ON_SCREEN)<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>currentEntitySelected<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>selectedSquareDrawn<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>offsetX<sp/>=<sp/>screenX<sp/>+<sp/>TILE_SIZE_ON_SCREEN;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>offsetY<sp/>=<sp/>screenY<sp/>+<sp/>TILE_SIZE_ON_SCREEN;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mouseX<sp/>=<sp/>mouseState.at(</highlight><highlight class="stringliteral">&quot;x&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mouseY<sp/>=<sp/>mouseState.at(</highlight><highlight class="stringliteral">&quot;y&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>drawLockOnTarget(std::shared_ptr&lt;RenderQueue&gt;<sp/>renderQueuePtr,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>groupToDraw);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isMouseCoordinatesInvalid()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mouseX<sp/>==<sp/>-1<sp/>||<sp/>mouseY<sp/>==<sp/>-1;<sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setEntityCoordinates()<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>entityPos<sp/>=<sp/>entity.getComponent&lt;<ref refid="structPosition" kindref="compound">Position</ref>&gt;();</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entityX<sp/>=<sp/>entityPos.x;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entityY<sp/>=<sp/>entityPos.y;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entityZ<sp/>=<sp/>entityPos.z;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setSelectionAndDrawHovered(std::shared_ptr&lt;RenderQueue&gt;<sp/>renderQueuePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>layerIndex,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>groupToDraw);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>checkVoxelBottomSelection(<ref refid="structWorldView" kindref="compound">WorldView</ref>&amp;<sp/>worldView,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;RenderQueue&gt;<sp/>renderQueuePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>layerIndex,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>groupToDraw);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>checkVoxelTopSelection(<ref refid="structWorldView" kindref="compound">WorldView</ref>&amp;<sp/>worldView,<sp/>std::shared_ptr&lt;RenderQueue&gt;<sp/>renderQueuePtr,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>layerIndex,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>groupToDraw);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>screenX,<sp/>screenY;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offsetX,<sp/>offsetY;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>layerIndex;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TILE_SIZE_ON_SCREEN;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>&amp;<sp/>entity;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>lockOnTarget;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mouseX,<sp/>mouseY;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>entityX,<sp/>entityY,<sp/>entityZ;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>selectedSquareDrawn;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>getAndDrawSelectedEntity(<ref refid="structWorldView" kindref="compound">WorldView</ref>&amp;<sp/>world_view,<sp/><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>&amp;<sp/>entity_interface,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nb::dict&amp;<sp/>mouse_state,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>screenX,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>screenY,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;RenderQueue&gt;<sp/>render_queue_ptr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>layer_index,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>selected_entity_id,<sp/>std::string&amp;<sp/>groupToDraw,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TILE_SIZE_ON_SCREEN);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>drawTileEffects(<ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>&amp;<sp/>terrain,<sp/>std::shared_ptr&lt;WorldView&gt;,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;RenderQueue&gt;<sp/>render_queue_ptr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>layerIndex,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>guiGroup,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>screenX,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>screenY,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TILE_SIZE_ON_SCREEN);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>shouldDrawTerrain(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>&amp;<sp/>terrain,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>EMPTY_TILE_DEBUGGING);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isTerrainAnEmptyWater(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>&amp;<sp/>terrain);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isOccludingEntityPerspective(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>&amp;<sp/>entity,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structWorldView" kindref="compound">WorldView</ref>&amp;<sp/>worldView,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>&amp;<sp/>occludingEntity);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>CAMERA_UTILS_HPP</highlight></codeline>
+    </programlisting>
+    <location file="src/CameraUtils.hpp"/>
+  </compounddef>
+</doxygen>

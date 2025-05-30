@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classRenderRectTask" kind="class" language="C++" prot="public">
+    <compoundname>RenderRectTask</compoundname>
+    <basecompoundref refid="classRenderTaskBase" prot="public" virt="non-virtual">RenderTaskBase</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRenderRectTask_1ac3dcbe0075fe08ff5104b6e4952073c7" prot="private" static="no" mutable="no">
+        <type>SDL_Rect</type>
+        <definition>SDL_Rect RenderRectTask::rect_</definition>
+        <argsstring></argsstring>
+        <name>rect_</name>
+        <qualifiedname>RenderRectTask::rect_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="126" column="14" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderRectTask_1a6bbaf3924e244db4739676fd77cd2991" prot="private" static="no" mutable="no">
+        <type>SDL_Color</type>
+        <definition>SDL_Color RenderRectTask::color_</definition>
+        <argsstring></argsstring>
+        <name>color_</name>
+        <qualifiedname>RenderRectTask::color_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="127" column="15" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRenderRectTask_1a51435838d6f6749f6a442419b50ec503" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RenderRectTask::RenderRectTask</definition>
+        <argsstring>(int x_pos, int y_pos, int width, int height, SDL_Color color)</argsstring>
+        <name>RenderRectTask</name>
+        <qualifiedname>RenderRectTask::RenderRectTask</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x_pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y_pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>SDL_Color</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="109" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="109" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderRectTask_1a45e32291900d153eaf50f4480fa8a715" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void RenderRectTask::render</definition>
+        <argsstring>(SDL_Renderer *renderer) const override</argsstring>
+        <name>render</name>
+        <qualifiedname>RenderRectTask::render</qualifiedname>
+        <reimplements refid="classRenderTaskBase_1aca930dd0177845b4f1c9ecbd3da548a0">render</reimplements>
+        <param>
+          <type>SDL_Renderer *</type>
+          <declname>renderer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="112" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="112" bodyend="123"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>RenderRectTask</label>
+        <link refid="classRenderRectTask"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>RenderRectTask</label>
+        <link refid="classRenderRectTask"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="107" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="107" bodyend="128"/>
+    <listofallmembers>
+      <member refid="classRenderRectTask_1a6bbaf3924e244db4739676fd77cd2991" prot="private" virt="non-virtual"><scope>RenderRectTask</scope><name>color_</name></member>
+      <member refid="classRenderTaskBase_1a083109259e992a8b0b759fdbcdc24cf8" prot="public" virt="virtual"><scope>RenderRectTask</scope><name>getZLayer</name></member>
+      <member refid="classRenderRectTask_1ac3dcbe0075fe08ff5104b6e4952073c7" prot="private" virt="non-virtual"><scope>RenderRectTask</scope><name>rect_</name></member>
+      <member refid="classRenderRectTask_1a45e32291900d153eaf50f4480fa8a715" prot="public" virt="virtual"><scope>RenderRectTask</scope><name>render</name></member>
+      <member refid="classRenderRectTask_1a51435838d6f6749f6a442419b50ec503" prot="public" virt="non-virtual"><scope>RenderRectTask</scope><name>RenderRectTask</name></member>
+      <member refid="classRenderTaskBase_1a87f842d1663de2935efc9dfee89553e8" prot="public" virt="virtual"><scope>RenderRectTask</scope><name>setZLayer</name></member>
+      <member refid="classRenderTaskBase_1afa7ba1f0ab38fc6df88b54bf8f7ac6fa" prot="protected" virt="non-virtual"><scope>RenderRectTask</scope><name>z_layer</name></member>
+      <member refid="classRenderTaskBase_1aba444e27143e746979db33ed1b2ede95" prot="public" virt="virtual"><scope>RenderRectTask</scope><name>~RenderTaskBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structParentsComponent" kind="struct" language="C++" prot="public">
+    <compoundname>ParentsComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structParentsComponent_1a1e86dc71816793a88a0f1cdb2827c027" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; ParentsComponent::parents</definition>
+        <argsstring></argsstring>
+        <name>parents</name>
+        <qualifiedname>ParentsComponent::parents</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/DnaComponents.hpp" line="8" column="17" bodyfile="src/components/DnaComponents.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/DnaComponents.hpp" line="7" column="1" bodyfile="src/components/DnaComponents.hpp" bodystart="7" bodyend="9"/>
+    <listofallmembers>
+      <member refid="structParentsComponent_1a1e86dc71816793a88a0f1cdb2827c027" prot="public" virt="non-virtual"><scope>ParentsComponent</scope><name>parents</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

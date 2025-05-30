@@ -533,6 +533,20 @@ NB_MODULE(_aetherion, m) {
         .value("WATER", TerrainEnum::WATER)
         .export_values();
 
+    nb::enum_<TerrainVariantEnum>(m, "TerrainVariantEnum")
+        .value("FULL", TerrainVariantEnum::FULL)
+        .value("RAMP_EAST", TerrainVariantEnum::RAMP_EAST)
+        .value("RAMP_WEST", TerrainVariantEnum::RAMP_WEST)
+        .value("CORNER_SOUTH_EAST", TerrainVariantEnum::CORNER_SOUTH_EAST)
+        .value("CORNER_SOUTH_EAST_INV", TerrainVariantEnum::CORNER_SOUTH_EAST_INV)
+        .value("CORNER_NORTH_EAST", TerrainVariantEnum::CORNER_NORTH_EAST)
+        .value("CORNER_NORTH_EAST_INV", TerrainVariantEnum::CORNER_NORTH_EAST_INV)
+        .value("RAMP_SOUTH", TerrainVariantEnum::RAMP_SOUTH)
+        .value("RAMP_NORTH", TerrainVariantEnum::RAMP_NORTH)
+        .value("CORNER_SOUTH_WEST", TerrainVariantEnum::CORNER_SOUTH_WEST)
+        .value("CORNER_NORTH_WEST", TerrainVariantEnum::CORNER_NORTH_WEST)
+        .export_values();
+
     nb::class_<EntityTypeComponent>(m, "EntityTypeComponent")
         .def(nb::init<>())
         .def_rw("main_type", &EntityTypeComponent::mainType)

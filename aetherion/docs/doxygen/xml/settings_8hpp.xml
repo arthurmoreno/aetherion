@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="settings_8hpp" kind="file" language="C++">
+    <compoundname>settings.hpp</compoundname>
+    <includedby refid="PhysicsEngine_8cpp" local="yes">src/PhysicsEngine.cpp</includedby>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="settings_8hpp_1ac38e95f133713cfb1509fea168b13ebb" prot="public" static="no">
+        <name>PHYSICS_COMP_AS_3DARRAY</name>
+        <initializer>true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="26" column="9" bodyfile="src/settings.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="settings_8hpp_1a3e2944dfb70e536e121deb89ee5046ba" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int FRAME_RATE</definition>
+        <argsstring></argsstring>
+        <name>FRAME_RATE</name>
+        <initializer>= 60</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="4" column="11" bodyfile="src/settings.hpp" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1a253e940ae1c7ecf909c5f69dd0be9376" prot="public" static="no" mutable="no">
+        <type>const float</type>
+        <definition>const float DELAY_TIME</definition>
+        <argsstring></argsstring>
+        <name>DELAY_TIME</name>
+        <initializer>= 1000.0f / FRAME_RATE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="5" column="13" bodyfile="src/settings.hpp" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1a91d5a2f2ce45c686a9cc931e1476d3d0" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int GAME_SCREEN_WIDHT</definition>
+        <argsstring></argsstring>
+        <name>GAME_SCREEN_WIDHT</name>
+        <initializer>= 800</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="7" column="11" bodyfile="src/settings.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1a6cb6b4d21bf2cd2c167f5aeb2b41773d" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int GAME_SCREEN_HEIGHT</definition>
+        <argsstring></argsstring>
+        <name>GAME_SCREEN_HEIGHT</name>
+        <initializer>= 600</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="8" column="11" bodyfile="src/settings.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1a663890dc133dc4aa3612ce80cb8af01f" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int RIGHT_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>RIGHT_OFFSET</name>
+        <initializer>= 400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="10" column="11" bodyfile="src/settings.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1a682b00f8d320406d9275778733fb134b" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int UP_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>UP_OFFSET</name>
+        <initializer>= 100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="11" column="11" bodyfile="src/settings.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1af143516b8c72aec680102c3c1722d396" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int DOWN_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>DOWN_OFFSET</name>
+        <initializer>= 200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="12" column="11" bodyfile="src/settings.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1ad3ec399cbd5f1a77d36a556ae0c66373" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int SCREEN_WIDHT</definition>
+        <argsstring></argsstring>
+        <name>SCREEN_WIDHT</name>
+        <initializer>= GAME_SCREEN_WIDHT + RIGHT_OFFSET</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="14" column="11" bodyfile="src/settings.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1ab454541ae58bcf6555e8d723b1eb95e7" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int SCREEN_HEIGHT</definition>
+        <argsstring></argsstring>
+        <name>SCREEN_HEIGHT</name>
+        <initializer>= UP_OFFSET + GAME_SCREEN_HEIGHT + DOWN_OFFSET</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="15" column="11" bodyfile="src/settings.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1a5444c4c10a42461daadadcb72ceb69cc" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int BLOCKS_IN_SCREEN_WIDHT</definition>
+        <argsstring></argsstring>
+        <name>BLOCKS_IN_SCREEN_WIDHT</name>
+        <initializer>= 25</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="17" column="11" bodyfile="src/settings.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1aeb9717a402f3bc22acb870684ec335f7" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int BLOCKS_IN_SCREEN_HEIGHT</definition>
+        <argsstring></argsstring>
+        <name>BLOCKS_IN_SCREEN_HEIGHT</name>
+        <initializer>= 19</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="18" column="11" bodyfile="src/settings.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1a60385086930e7443b166e1b9a3639ae7" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int BLOCKS_IN_SCREEN_DEPTH</definition>
+        <argsstring></argsstring>
+        <name>BLOCKS_IN_SCREEN_DEPTH</name>
+        <initializer>= 3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="19" column="11" bodyfile="src/settings.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1a6badfdbd359d2831468dc8f454aeef36" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int SPRITE_SIZE</definition>
+        <argsstring></argsstring>
+        <name>SPRITE_SIZE</name>
+        <initializer>= 32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="21" column="11" bodyfile="src/settings.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1ac097b0fb5fdac7e47cb002681816e007" prot="public" static="no" mutable="no">
+        <type>const bool</type>
+        <definition>const bool GRAVITY_FRICTION</definition>
+        <argsstring></argsstring>
+        <name>GRAVITY_FRICTION</name>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="23" column="12" bodyfile="src/settings.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="settings_8hpp_1a48e56f4d6787b67d97b4655a84e7c3f1" prot="public" static="no" mutable="no">
+        <type>const float</type>
+        <definition>const float GRAVITY</definition>
+        <argsstring></argsstring>
+        <name>GRAVITY</name>
+        <initializer>= 9.81f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/settings.hpp" line="24" column="13" bodyfile="src/settings.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>SETTINGS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SETTINGS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FRAME_RATE<sp/>=<sp/>60;</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>DELAY_TIME<sp/>=<sp/>1000.0f<sp/>/<sp/>FRAME_RATE;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>GAME_SCREEN_WIDHT<sp/>=<sp/>800;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>GAME_SCREEN_HEIGHT<sp/>=<sp/>600;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RIGHT_OFFSET<sp/>=<sp/>400;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>UP_OFFSET<sp/>=<sp/>100;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DOWN_OFFSET<sp/>=<sp/>200;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SCREEN_WIDHT<sp/>=<sp/>GAME_SCREEN_WIDHT<sp/>+<sp/>RIGHT_OFFSET;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SCREEN_HEIGHT<sp/>=<sp/>UP_OFFSET<sp/>+<sp/>GAME_SCREEN_HEIGHT<sp/>+<sp/>DOWN_OFFSET;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BLOCKS_IN_SCREEN_WIDHT<sp/>=<sp/>25;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BLOCKS_IN_SCREEN_HEIGHT<sp/>=<sp/>19;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BLOCKS_IN_SCREEN_DEPTH<sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SPRITE_SIZE<sp/>=<sp/>32;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>GRAVITY_FRICTION<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>GRAVITY<sp/>=<sp/>9.81f;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHYSICS_COMP_AS_3DARRAY<sp/>true</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>SETTINGS_H</highlight></codeline>
+    </programlisting>
+    <location file="src/settings.hpp"/>
+  </compounddef>
+</doxygen>

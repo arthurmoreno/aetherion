@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classDefaultGenomeConfig" kind="class" language="C++" prot="public">
+    <compoundname>DefaultGenomeConfig</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1a666afdf7e10e25c68319a2f9443cf4f1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DefaultGenomeConfig::num_inputs</definition>
+        <argsstring></argsstring>
+        <name>num_inputs</name>
+        <qualifiedname>DefaultGenomeConfig::num_inputs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="33" column="9" bodyfile="src/neat/genome.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1a94bb34b69208b7d77c5c7bfd2115f73e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DefaultGenomeConfig::num_outputs</definition>
+        <argsstring></argsstring>
+        <name>num_outputs</name>
+        <qualifiedname>DefaultGenomeConfig::num_outputs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="34" column="9" bodyfile="src/neat/genome.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1a4439761fcecbdbde67d3523fc9108def" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DefaultGenomeConfig::num_hidden</definition>
+        <argsstring></argsstring>
+        <name>num_hidden</name>
+        <qualifiedname>DefaultGenomeConfig::num_hidden</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="35" column="9" bodyfile="src/neat/genome.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1ac1aac7b2ae474691706d15a46c424d52" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool DefaultGenomeConfig::feed_forward</definition>
+        <argsstring></argsstring>
+        <name>feed_forward</name>
+        <qualifiedname>DefaultGenomeConfig::feed_forward</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="36" column="10" bodyfile="src/neat/genome.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1a9d80f8b21a0c75814fd19d43dd0caf22" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DefaultGenomeConfig::compatibility_disjoint_coefficient</definition>
+        <argsstring></argsstring>
+        <name>compatibility_disjoint_coefficient</name>
+        <qualifiedname>DefaultGenomeConfig::compatibility_disjoint_coefficient</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="37" column="12" bodyfile="src/neat/genome.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1a3f1df10066ad00ea5149822629597cfe" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DefaultGenomeConfig::compatibility_weight_coefficient</definition>
+        <argsstring></argsstring>
+        <name>compatibility_weight_coefficient</name>
+        <qualifiedname>DefaultGenomeConfig::compatibility_weight_coefficient</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="38" column="12" bodyfile="src/neat/genome.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1abb0342114ee026526de60906efb2cea2" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DefaultGenomeConfig::conn_add_prob</definition>
+        <argsstring></argsstring>
+        <name>conn_add_prob</name>
+        <qualifiedname>DefaultGenomeConfig::conn_add_prob</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="39" column="12" bodyfile="src/neat/genome.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1a813c744fe823b5b527bfb24c785ddb6a" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DefaultGenomeConfig::conn_delete_prob</definition>
+        <argsstring></argsstring>
+        <name>conn_delete_prob</name>
+        <qualifiedname>DefaultGenomeConfig::conn_delete_prob</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="40" column="12" bodyfile="src/neat/genome.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1ab764502012807a409c8f00d963025d1e" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DefaultGenomeConfig::node_add_prob</definition>
+        <argsstring></argsstring>
+        <name>node_add_prob</name>
+        <qualifiedname>DefaultGenomeConfig::node_add_prob</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="41" column="12" bodyfile="src/neat/genome.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1aba75fa911c1d3f1b67de889093712083" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DefaultGenomeConfig::node_delete_prob</definition>
+        <argsstring></argsstring>
+        <name>node_delete_prob</name>
+        <qualifiedname>DefaultGenomeConfig::node_delete_prob</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="42" column="12" bodyfile="src/neat/genome.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1acc8736e9d1b59387df2a918cf64c5939" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool DefaultGenomeConfig::single_structural_mutation</definition>
+        <argsstring></argsstring>
+        <name>single_structural_mutation</name>
+        <qualifiedname>DefaultGenomeConfig::single_structural_mutation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="43" column="10" bodyfile="src/neat/genome.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1a35bc4873463156fc99d259be124b6f44" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string DefaultGenomeConfig::structural_mutation_surer</definition>
+        <argsstring></argsstring>
+        <name>structural_mutation_surer</name>
+        <qualifiedname>DefaultGenomeConfig::structural_mutation_surer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="44" column="17" bodyfile="src/neat/genome.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1a999b6b2b1a644d1d02f650374e3d5ca2" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string DefaultGenomeConfig::initial_connection</definition>
+        <argsstring></argsstring>
+        <name>initial_connection</name>
+        <qualifiedname>DefaultGenomeConfig::initial_connection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="45" column="17" bodyfile="src/neat/genome.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1aff720a6db3dd812cac7c38f035fbffdf" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DefaultGenomeConfig::connection_fraction</definition>
+        <argsstring></argsstring>
+        <name>connection_fraction</name>
+        <qualifiedname>DefaultGenomeConfig::connection_fraction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="46" column="12" bodyfile="src/neat/genome.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1ac2de141c2e8207f4117edc2dd0c47966" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; DefaultGenomeConfig::input_keys</definition>
+        <argsstring></argsstring>
+        <name>input_keys</name>
+        <qualifiedname>DefaultGenomeConfig::input_keys</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="48" column="17" bodyfile="src/neat/genome.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1a400f7b2b62e86f0396b4d5827f0f32c2" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; DefaultGenomeConfig::output_keys</definition>
+        <argsstring></argsstring>
+        <name>output_keys</name>
+        <qualifiedname>DefaultGenomeConfig::output_keys</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="49" column="17" bodyfile="src/neat/genome.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenomeConfig_1a12b330158b23714643c466362a186d58" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DefaultGenomeConfig::next_node_key</definition>
+        <argsstring></argsstring>
+        <name>next_node_key</name>
+        <qualifiedname>DefaultGenomeConfig::next_node_key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="52" column="9" bodyfile="src/neat/genome.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classDefaultGenomeConfig_1a362fc7ef295723745997a9d66d8ba43d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DefaultGenomeConfig::DefaultGenomeConfig</definition>
+        <argsstring>(const GenomeParams &amp;params)</argsstring>
+        <name>DefaultGenomeConfig</name>
+        <qualifiedname>DefaultGenomeConfig::DefaultGenomeConfig</qualifiedname>
+        <param>
+          <type>const <ref refid="structGenomeParams" kindref="compound">GenomeParams</ref> &amp;</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="55" column="5" bodyfile="src/neat/genome.cpp" bodystart="10" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultGenomeConfig_1a834198be3b3201935d7e3da0511fe278" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int DefaultGenomeConfig::get_new_node_key</definition>
+        <argsstring>(const std::map&lt; int, DefaultNodeGene &gt; &amp;node_dict)</argsstring>
+        <name>get_new_node_key</name>
+        <qualifiedname>DefaultGenomeConfig::get_new_node_key</qualifiedname>
+        <param>
+          <type>const std::map&lt; int, <ref refid="classDefaultNodeGene" kindref="compound">DefaultNodeGene</ref> &gt; &amp;</type>
+          <declname>node_dict</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="58" column="9" bodyfile="src/neat/genome.cpp" bodystart="46" bodyend="55"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/neat/genome.hpp" line="31" column="1" bodyfile="src/neat/genome.hpp" bodystart="31" bodyend="59"/>
+    <listofallmembers>
+      <member refid="classDefaultGenomeConfig_1a9d80f8b21a0c75814fd19d43dd0caf22" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>compatibility_disjoint_coefficient</name></member>
+      <member refid="classDefaultGenomeConfig_1a3f1df10066ad00ea5149822629597cfe" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>compatibility_weight_coefficient</name></member>
+      <member refid="classDefaultGenomeConfig_1abb0342114ee026526de60906efb2cea2" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>conn_add_prob</name></member>
+      <member refid="classDefaultGenomeConfig_1a813c744fe823b5b527bfb24c785ddb6a" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>conn_delete_prob</name></member>
+      <member refid="classDefaultGenomeConfig_1aff720a6db3dd812cac7c38f035fbffdf" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>connection_fraction</name></member>
+      <member refid="classDefaultGenomeConfig_1a362fc7ef295723745997a9d66d8ba43d" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>DefaultGenomeConfig</name></member>
+      <member refid="classDefaultGenomeConfig_1ac1aac7b2ae474691706d15a46c424d52" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>feed_forward</name></member>
+      <member refid="classDefaultGenomeConfig_1a834198be3b3201935d7e3da0511fe278" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>get_new_node_key</name></member>
+      <member refid="classDefaultGenomeConfig_1a999b6b2b1a644d1d02f650374e3d5ca2" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>initial_connection</name></member>
+      <member refid="classDefaultGenomeConfig_1ac2de141c2e8207f4117edc2dd0c47966" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>input_keys</name></member>
+      <member refid="classDefaultGenomeConfig_1a12b330158b23714643c466362a186d58" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>next_node_key</name></member>
+      <member refid="classDefaultGenomeConfig_1ab764502012807a409c8f00d963025d1e" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>node_add_prob</name></member>
+      <member refid="classDefaultGenomeConfig_1aba75fa911c1d3f1b67de889093712083" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>node_delete_prob</name></member>
+      <member refid="classDefaultGenomeConfig_1a4439761fcecbdbde67d3523fc9108def" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>num_hidden</name></member>
+      <member refid="classDefaultGenomeConfig_1a666afdf7e10e25c68319a2f9443cf4f1" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>num_inputs</name></member>
+      <member refid="classDefaultGenomeConfig_1a94bb34b69208b7d77c5c7bfd2115f73e" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>num_outputs</name></member>
+      <member refid="classDefaultGenomeConfig_1a400f7b2b62e86f0396b4d5827f0f32c2" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>output_keys</name></member>
+      <member refid="classDefaultGenomeConfig_1acc8736e9d1b59387df2a918cf64c5939" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>single_structural_mutation</name></member>
+      <member refid="classDefaultGenomeConfig_1a35bc4873463156fc99d259be124b6f44" prot="public" virt="non-virtual"><scope>DefaultGenomeConfig</scope><name>structural_mutation_surer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classItemWindow" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>ItemWindow</compoundname>
+    <derivedcompoundref refid="classEquipmentWindow" prot="public" virt="non-virtual">EquipmentWindow</derivedcompoundref>
+    <derivedcompoundref refid="classHotbarWindow" prot="public" virt="non-virtual">HotbarWindow</derivedcompoundref>
+    <derivedcompoundref refid="classInventoryWindow" prot="public" virt="non-virtual">InventoryWindow</derivedcompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classItemWindow_1a389aed36fb39ecf0c258ed7fa9fce846" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structInventoryItem" kindref="compound">InventoryItem</ref> &gt; *</type>
+        <definition>std::vector&lt;InventoryItem&gt;* ItemWindow::items</definition>
+        <argsstring></argsstring>
+        <name>items</name>
+        <qualifiedname>ItemWindow::items</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="45" column="17" bodyfile="src/Gui/ItemWindow.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classItemWindow_1a8689a1f0b24cb1931e75c1868c8a5261" prot="public" static="no" mutable="no">
+        <type>nb::list *</type>
+        <definition>nb::list* ItemWindow::commands</definition>
+        <argsstring></argsstring>
+        <name>commands</name>
+        <qualifiedname>ItemWindow::commands</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="46" column="14" bodyfile="src/Gui/ItemWindow.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classItemWindow_1a8891305b070b9f6554a6536b589de284" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ItemWindow::selected_index</definition>
+        <argsstring></argsstring>
+        <name>selected_index</name>
+        <qualifiedname>ItemWindow::selected_index</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="47" column="9" bodyfile="src/Gui/ItemWindow.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classItemWindow_1a2770295cd7f08469c643f8816ab8f2a9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ItemWindow::ItemWindow</definition>
+        <argsstring>()</argsstring>
+        <name>ItemWindow</name>
+        <qualifiedname>ItemWindow::ItemWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="50" column="5" bodyfile="src/Gui/ItemWindow.hpp" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemWindow_1a84a348e0ea6b63688813a343ae0ad00b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ItemWindow::ItemWindow</definition>
+        <argsstring>(std::vector&lt; InventoryItem &gt; &amp;items, nb::list &amp;commands)</argsstring>
+        <name>ItemWindow</name>
+        <qualifiedname>ItemWindow::ItemWindow</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="structInventoryItem" kindref="compound">InventoryItem</ref> &gt; &amp;</type>
+          <declname>items</declname>
+        </param>
+        <param>
+          <type>nb::list &amp;</type>
+          <declname>commands</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="53" column="5" bodyfile="src/Gui/ItemWindow.hpp" bodystart="53" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemWindow_1a9a98c42464447ae14f7add2c83b85bea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ItemWindow::setItems</definition>
+        <argsstring>(std::vector&lt; InventoryItem &gt; &amp;items)</argsstring>
+        <name>setItems</name>
+        <qualifiedname>ItemWindow::setItems</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="structInventoryItem" kindref="compound">InventoryItem</ref> &gt; &amp;</type>
+          <declname>items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="56" column="10" bodyfile="src/Gui/ItemWindow.hpp" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemWindow_1a74e74b341248e2812a205735f40c39a7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ItemWindow::setCommands</definition>
+        <argsstring>(nb::list &amp;commands)</argsstring>
+        <name>setCommands</name>
+        <qualifiedname>ItemWindow::setCommands</qualifiedname>
+        <param>
+          <type>nb::list &amp;</type>
+          <declname>commands</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="57" column="10" bodyfile="src/Gui/ItemWindow.hpp" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemWindow_1af05b3fc6525fbf82da7b737bb9133a0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void ItemWindow::Render</definition>
+        <argsstring>()=0</argsstring>
+        <name>Render</name>
+        <qualifiedname>ItemWindow::Render</qualifiedname>
+        <reimplementedby refid="classInventoryWindow_1ab55a9223ad5ef2bb6033dc5ecb9f5741">Render</reimplementedby>
+        <reimplementedby refid="classHotbarWindow_1ad3265e88e9024a0a27482572034c6566">Render</reimplementedby>
+        <reimplementedby refid="classEquipmentWindow_1a64f1f29e5594e538345c3f1483924217">Render</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="59" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>EquipmentWindow</label>
+        <link refid="classEquipmentWindow"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>HotbarWindow</label>
+        <link refid="classHotbarWindow"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>InventoryWindow</label>
+        <link refid="classInventoryWindow"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ItemWindow</label>
+        <link refid="classItemWindow"/>
+      </node>
+    </inheritancegraph>
+    <location file="src/Gui/ItemWindow.hpp" line="43" column="1" bodyfile="src/Gui/ItemWindow.hpp" bodystart="43" bodyend="60"/>
+    <listofallmembers>
+      <member refid="classItemWindow_1a8689a1f0b24cb1931e75c1868c8a5261" prot="public" virt="non-virtual"><scope>ItemWindow</scope><name>commands</name></member>
+      <member refid="classItemWindow_1a389aed36fb39ecf0c258ed7fa9fce846" prot="public" virt="non-virtual"><scope>ItemWindow</scope><name>items</name></member>
+      <member refid="classItemWindow_1a2770295cd7f08469c643f8816ab8f2a9" prot="public" virt="non-virtual"><scope>ItemWindow</scope><name>ItemWindow</name></member>
+      <member refid="classItemWindow_1a84a348e0ea6b63688813a343ae0ad00b" prot="public" virt="non-virtual"><scope>ItemWindow</scope><name>ItemWindow</name></member>
+      <member refid="classItemWindow_1af05b3fc6525fbf82da7b737bb9133a0b" prot="public" virt="pure-virtual"><scope>ItemWindow</scope><name>Render</name></member>
+      <member refid="classItemWindow_1a8891305b070b9f6554a6536b589de284" prot="public" virt="non-virtual"><scope>ItemWindow</scope><name>selected_index</name></member>
+      <member refid="classItemWindow_1a74e74b341248e2812a205735f40c39a7" prot="public" virt="non-virtual"><scope>ItemWindow</scope><name>setCommands</name></member>
+      <member refid="classItemWindow_1a9a98c42464447ae14f7add2c83b85bea" prot="public" virt="non-virtual"><scope>ItemWindow</scope><name>setItems</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

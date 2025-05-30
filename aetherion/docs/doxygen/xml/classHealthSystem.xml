@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classHealthSystem" kind="class" language="C++" prot="public">
+    <compoundname>HealthSystem</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classHealthSystem_1a44718aada34e15b3ee9a830f610d6f87" prot="private" static="no" mutable="no">
+        <type>entt::registry &amp;</type>
+        <definition>entt::registry&amp; HealthSystem::registry</definition>
+        <argsstring></argsstring>
+        <name>registry</name>
+        <qualifiedname>HealthSystem::registry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/HealthSystem.hpp" line="30" column="20" bodyfile="src/HealthSystem.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classHealthSystem_1aa37dd4ec5118cdbecd45e97532138e84" prot="private" static="no" mutable="no">
+        <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+        <definition>VoxelGrid* HealthSystem::voxelGrid</definition>
+        <argsstring></argsstring>
+        <name>voxelGrid</name>
+        <qualifiedname>HealthSystem::voxelGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/HealthSystem.hpp" line="31" column="15" bodyfile="src/HealthSystem.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classHealthSystem_1a0eb8cfe26de7f73929b53aa47154fd31" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex HealthSystem::combatMutex</definition>
+        <argsstring></argsstring>
+        <name>combatMutex</name>
+        <qualifiedname>HealthSystem::combatMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/HealthSystem.hpp" line="34" column="16" bodyfile="src/HealthSystem.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classHealthSystem_1a8c97e1dd6b27fa0bef02f28c6796049f" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool HealthSystem::processingComplete</definition>
+        <argsstring></argsstring>
+        <name>processingComplete</name>
+        <qualifiedname>HealthSystem::processingComplete</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/HealthSystem.hpp" line="35" column="10" bodyfile="src/HealthSystem.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classHealthSystem_1ab82b65a768501dd83211c00926ce02a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>HealthSystem::HealthSystem</definition>
+        <argsstring>()=default</argsstring>
+        <name>HealthSystem</name>
+        <qualifiedname>HealthSystem::HealthSystem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/HealthSystem.hpp" line="15" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classHealthSystem_1a7300c35da52ba538be7cb0b56db9fb80" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>HealthSystem::HealthSystem</definition>
+        <argsstring>(entt::registry &amp;reg, VoxelGrid *voxelGrid)</argsstring>
+        <name>HealthSystem</name>
+        <qualifiedname>HealthSystem::HealthSystem</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/HealthSystem.hpp" line="16" column="5" bodyfile="src/HealthSystem.hpp" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classHealthSystem_1acc37d07f4825986685d98f81010fa545" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void HealthSystem::processHealth</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>processHealth</name>
+        <qualifiedname>HealthSystem::processHealth</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/HealthSystem.hpp" line="19" column="10" bodyfile="src/HealthSystem.cpp" bodystart="4" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classHealthSystem_1aadac34361cec6a433eb62de0a213b58f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void HealthSystem::processHealthAsync</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>processHealthAsync</name>
+        <qualifiedname>HealthSystem::processHealthAsync</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/HealthSystem.hpp" line="21" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classHealthSystem_1a41f6d5501806e00516c199108709cc86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void HealthSystem::registerEventHandlers</definition>
+        <argsstring>(entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>registerEventHandlers</name>
+        <qualifiedname>HealthSystem::registerEventHandlers</qualifiedname>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/HealthSystem.hpp" line="25" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classHealthSystem_1a555919eb18ca1b3dfd88216e5c793cca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool HealthSystem::isProcessingComplete</definition>
+        <argsstring>() const</argsstring>
+        <name>isProcessingComplete</name>
+        <qualifiedname>HealthSystem::isProcessingComplete</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/HealthSystem.hpp" line="27" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/HealthSystem.hpp" line="13" column="1" bodyfile="src/HealthSystem.hpp" bodystart="13" bodyend="36"/>
+    <listofallmembers>
+      <member refid="classHealthSystem_1a0eb8cfe26de7f73929b53aa47154fd31" prot="private" virt="non-virtual"><scope>HealthSystem</scope><name>combatMutex</name></member>
+      <member refid="classHealthSystem_1ab82b65a768501dd83211c00926ce02a7" prot="public" virt="non-virtual"><scope>HealthSystem</scope><name>HealthSystem</name></member>
+      <member refid="classHealthSystem_1a7300c35da52ba538be7cb0b56db9fb80" prot="public" virt="non-virtual"><scope>HealthSystem</scope><name>HealthSystem</name></member>
+      <member refid="classHealthSystem_1a555919eb18ca1b3dfd88216e5c793cca" prot="public" virt="non-virtual"><scope>HealthSystem</scope><name>isProcessingComplete</name></member>
+      <member refid="classHealthSystem_1acc37d07f4825986685d98f81010fa545" prot="public" virt="non-virtual"><scope>HealthSystem</scope><name>processHealth</name></member>
+      <member refid="classHealthSystem_1aadac34361cec6a433eb62de0a213b58f" prot="public" virt="non-virtual"><scope>HealthSystem</scope><name>processHealthAsync</name></member>
+      <member refid="classHealthSystem_1a8c97e1dd6b27fa0bef02f28c6796049f" prot="private" virt="non-virtual"><scope>HealthSystem</scope><name>processingComplete</name></member>
+      <member refid="classHealthSystem_1a41f6d5501806e00516c199108709cc86" prot="public" virt="non-virtual"><scope>HealthSystem</scope><name>registerEventHandlers</name></member>
+      <member refid="classHealthSystem_1a44718aada34e15b3ee9a830f610d6f87" prot="private" virt="non-virtual"><scope>HealthSystem</scope><name>registry</name></member>
+      <member refid="classHealthSystem_1aa37dd4ec5118cdbecd45e97532138e84" prot="private" virt="non-virtual"><scope>HealthSystem</scope><name>voxelGrid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

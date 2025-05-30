@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structDragPayload" kind="struct" language="C++" prot="public">
+    <compoundname>DragPayload</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structDragPayload_1a8cba19c4d439d8b05975770c8948584f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DragPayload::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <qualifiedname>DragPayload::index</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="33" column="9" bodyfile="src/Gui/ItemWindow.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDragPayload_1aaa314d4527304a180630dd40b8617070" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char DragPayload::window_id[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>window_id</name>
+        <qualifiedname>DragPayload::window_id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="34" column="10" bodyfile="src/Gui/ItemWindow.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Gui/ItemWindow.hpp" line="32" column="1" bodyfile="src/Gui/ItemWindow.hpp" bodystart="32" bodyend="35"/>
+    <listofallmembers>
+      <member refid="structDragPayload_1a8cba19c4d439d8b05975770c8948584f" prot="public" virt="non-virtual"><scope>DragPayload</scope><name>index</name></member>
+      <member refid="structDragPayload_1aaa314d4527304a180630dd40b8617070" prot="public" virt="non-virtual"><scope>DragPayload</scope><name>window_id</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

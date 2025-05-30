@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structPhysicsStats" kind="struct" language="C++" prot="public">
+    <compoundname>PhysicsStats</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structPhysicsStats_1ab8530485288c49ffd3496cd577c29eb3" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsStats::mass</definition>
+        <argsstring></argsstring>
+        <name>mass</name>
+        <qualifiedname>PhysicsStats::mass</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="8" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPhysicsStats_1aae38e05f109a409561397bbfb430ddd7" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsStats::maxSpeed</definition>
+        <argsstring></argsstring>
+        <name>maxSpeed</name>
+        <qualifiedname>PhysicsStats::maxSpeed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="9" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPhysicsStats_1a957adae75dfb65ecfbbf982e0794d1a3" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsStats::minSpeed</definition>
+        <argsstring></argsstring>
+        <name>minSpeed</name>
+        <qualifiedname>PhysicsStats::minSpeed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="10" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPhysicsStats_1a70409f544e74b35711b110568721d523" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsStats::forceX</definition>
+        <argsstring></argsstring>
+        <name>forceX</name>
+        <qualifiedname>PhysicsStats::forceX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="12" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPhysicsStats_1a17e9206c949413e2829741ce7e133ca1" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsStats::forceY</definition>
+        <argsstring></argsstring>
+        <name>forceY</name>
+        <qualifiedname>PhysicsStats::forceY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="13" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPhysicsStats_1a2428c3a139805b04b3ed048e4c0d6511" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsStats::forceZ</definition>
+        <argsstring></argsstring>
+        <name>forceZ</name>
+        <qualifiedname>PhysicsStats::forceZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="14" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPhysicsStats_1aeff46bb169cf564a012292e043c7ea4f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsStats::heat</definition>
+        <argsstring></argsstring>
+        <name>heat</name>
+        <qualifiedname>PhysicsStats::heat</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="16" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structPhysicsStats_1a6dbbbbad5313efd0a8ba97b131049da8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsStats::print</definition>
+        <argsstring>() const</argsstring>
+        <name>print</name>
+        <qualifiedname>PhysicsStats::print</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="19" column="10" bodyfile="src/components/PhysicsComponents.hpp" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="structPhysicsStats_1abc1b71af7b1091b257e519eabe122f94" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float PhysicsStats::getPhysicsStats</definition>
+        <argsstring>() const</argsstring>
+        <name>getPhysicsStats</name>
+        <qualifiedname>PhysicsStats::getPhysicsStats</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="25" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="25" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="structPhysicsStats_1a19099a141a9f63ef26890cef436553df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsStats::setPhysicsStats</definition>
+        <argsstring>(float new_mass)</argsstring>
+        <name>setPhysicsStats</name>
+        <qualifiedname>PhysicsStats::setPhysicsStats</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>new_mass</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="28" column="10" bodyfile="src/components/PhysicsComponents.hpp" bodystart="28" bodyend="28"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/PhysicsComponents.hpp" line="7" column="1" bodyfile="src/components/PhysicsComponents.hpp" bodystart="7" bodyend="29"/>
+    <listofallmembers>
+      <member refid="structPhysicsStats_1a70409f544e74b35711b110568721d523" prot="public" virt="non-virtual"><scope>PhysicsStats</scope><name>forceX</name></member>
+      <member refid="structPhysicsStats_1a17e9206c949413e2829741ce7e133ca1" prot="public" virt="non-virtual"><scope>PhysicsStats</scope><name>forceY</name></member>
+      <member refid="structPhysicsStats_1a2428c3a139805b04b3ed048e4c0d6511" prot="public" virt="non-virtual"><scope>PhysicsStats</scope><name>forceZ</name></member>
+      <member refid="structPhysicsStats_1abc1b71af7b1091b257e519eabe122f94" prot="public" virt="non-virtual"><scope>PhysicsStats</scope><name>getPhysicsStats</name></member>
+      <member refid="structPhysicsStats_1aeff46bb169cf564a012292e043c7ea4f" prot="public" virt="non-virtual"><scope>PhysicsStats</scope><name>heat</name></member>
+      <member refid="structPhysicsStats_1ab8530485288c49ffd3496cd577c29eb3" prot="public" virt="non-virtual"><scope>PhysicsStats</scope><name>mass</name></member>
+      <member refid="structPhysicsStats_1aae38e05f109a409561397bbfb430ddd7" prot="public" virt="non-virtual"><scope>PhysicsStats</scope><name>maxSpeed</name></member>
+      <member refid="structPhysicsStats_1a957adae75dfb65ecfbbf982e0794d1a3" prot="public" virt="non-virtual"><scope>PhysicsStats</scope><name>minSpeed</name></member>
+      <member refid="structPhysicsStats_1a6dbbbbad5313efd0a8ba97b131049da8" prot="public" virt="non-virtual"><scope>PhysicsStats</scope><name>print</name></member>
+      <member refid="structPhysicsStats_1a19099a141a9f63ef26890cef436553df" prot="public" virt="non-virtual"><scope>PhysicsStats</scope><name>setPhysicsStats</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

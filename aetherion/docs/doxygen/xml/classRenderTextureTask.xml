@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classRenderTextureTask" kind="class" language="C++" prot="public">
+    <compoundname>RenderTextureTask</compoundname>
+    <basecompoundref refid="classRenderTaskBase" prot="public" virt="non-virtual">RenderTaskBase</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRenderTextureTask_1a85ba842b2ec30136c62a29c582b3b402" prot="private" static="no" mutable="no">
+        <type>SDL_Texture *</type>
+        <definition>SDL_Texture* RenderTextureTask::texture</definition>
+        <argsstring></argsstring>
+        <name>texture</name>
+        <qualifiedname>RenderTextureTask::texture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="100" column="17" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderTextureTask_1ad34dd3833dfda5b02955f2f9481f2a73" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RenderTextureTask::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>RenderTextureTask::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="101" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderTextureTask_1aa14010c329e6c2057a3a4f856fc3f71d" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RenderTextureTask::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>RenderTextureTask::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="102" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderTextureTask_1a0b096c76e053208e024b9caa5507f8c3" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float RenderTextureTask::lightIntensity</definition>
+        <argsstring></argsstring>
+        <name>lightIntensity</name>
+        <qualifiedname>RenderTextureTask::lightIntensity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="103" column="11" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderTextureTask_1a1ccfdbac5dece324e87dfb46a72a8790" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float RenderTextureTask::opacity</definition>
+        <argsstring></argsstring>
+        <name>opacity</name>
+        <qualifiedname>RenderTextureTask::opacity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="104" column="11" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="104" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRenderTextureTask_1afd371b7baa439c877e1847a406931a49" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RenderTextureTask::RenderTextureTask</definition>
+        <argsstring>(SDL_Texture *tex, int x_pos, int y_pos, float lightIntensity, float opacity)</argsstring>
+        <name>RenderTextureTask</name>
+        <qualifiedname>RenderTextureTask::RenderTextureTask</qualifiedname>
+        <param>
+          <type>SDL_Texture *</type>
+          <declname>tex</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x_pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y_pos</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lightIntensity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>opacity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="38" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="38" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderTextureTask_1ac9df250fc7994127fb8ace8de0d62065" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void RenderTextureTask::render</definition>
+        <argsstring>(SDL_Renderer *renderer) const override</argsstring>
+        <name>render</name>
+        <qualifiedname>RenderTextureTask::render</qualifiedname>
+        <reimplements refid="classRenderTaskBase_1aca930dd0177845b4f1c9ecbd3da548a0">render</reimplements>
+        <param>
+          <type>SDL_Renderer *</type>
+          <declname>renderer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="41" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="41" bodyend="97"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+      <node id="1">
+        <label>RenderTextureTask</label>
+        <link refid="classRenderTextureTask"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+      <node id="1">
+        <label>RenderTextureTask</label>
+        <link refid="classRenderTextureTask"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="36" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="36" bodyend="105"/>
+    <listofallmembers>
+      <member refid="classRenderTaskBase_1a083109259e992a8b0b759fdbcdc24cf8" prot="public" virt="virtual"><scope>RenderTextureTask</scope><name>getZLayer</name></member>
+      <member refid="classRenderTextureTask_1a0b096c76e053208e024b9caa5507f8c3" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>lightIntensity</name></member>
+      <member refid="classRenderTextureTask_1a1ccfdbac5dece324e87dfb46a72a8790" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>opacity</name></member>
+      <member refid="classRenderTextureTask_1ac9df250fc7994127fb8ace8de0d62065" prot="public" virt="virtual"><scope>RenderTextureTask</scope><name>render</name></member>
+      <member refid="classRenderTextureTask_1afd371b7baa439c877e1847a406931a49" prot="public" virt="non-virtual"><scope>RenderTextureTask</scope><name>RenderTextureTask</name></member>
+      <member refid="classRenderTaskBase_1a87f842d1663de2935efc9dfee89553e8" prot="public" virt="virtual"><scope>RenderTextureTask</scope><name>setZLayer</name></member>
+      <member refid="classRenderTextureTask_1a85ba842b2ec30136c62a29c582b3b402" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>texture</name></member>
+      <member refid="classRenderTextureTask_1ad34dd3833dfda5b02955f2f9481f2a73" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>x</name></member>
+      <member refid="classRenderTextureTask_1aa14010c329e6c2057a3a4f856fc3f71d" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>y</name></member>
+      <member refid="classRenderTaskBase_1afa7ba1f0ab38fc6df88b54bf8f7ac6fa" prot="protected" virt="non-virtual"><scope>RenderTextureTask</scope><name>z_layer</name></member>
+      <member refid="classRenderTaskBase_1aba444e27143e746979db33ed1b2ede95" prot="public" virt="virtual"><scope>RenderTextureTask</scope><name>~RenderTaskBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

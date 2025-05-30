@@ -1,0 +1,276 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classItemConfiguration" kind="class" language="C++" prot="public">
+    <compoundname>ItemConfiguration</compoundname>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classItemConfiguration_1a875a6bf7f9f187ea099b870756cc77db" prot="public" static="no">
+        <type>std::variant&lt; int, float, double, std::string, bool &gt;</type>
+        <definition>using ItemConfiguration::DefaultValue =  std::variant&lt;int, float, double, std::string, bool&gt;</definition>
+        <argsstring></argsstring>
+        <name>DefaultValue</name>
+        <qualifiedname>ItemConfiguration::DefaultValue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="13" column="5" bodyfile="src/ItemConfiguration.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classItemConfiguration_1aa1626e540471b64a8d5eb12455171d0b" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ItemConfiguration::itemId</definition>
+        <argsstring></argsstring>
+        <name>itemId</name>
+        <qualifiedname>ItemConfiguration::itemId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="33" column="17" bodyfile="src/ItemConfiguration.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classItemConfiguration_1a758e1891a6c6a30b2f993f245c10e314" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; ItemConfiguration::inGameTextures</definition>
+        <argsstring></argsstring>
+        <name>inGameTextures</name>
+        <qualifiedname>ItemConfiguration::inGameTextures</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="34" column="17" bodyfile="src/ItemConfiguration.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classItemConfiguration_1ad1dccfe9e864b26ad4a908eb3feaa6ca" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; ItemConfiguration::inventoryTextures</definition>
+        <argsstring></argsstring>
+        <name>inventoryTextures</name>
+        <qualifiedname>ItemConfiguration::inventoryTextures</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="35" column="17" bodyfile="src/ItemConfiguration.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classItemConfiguration_1ac37f8d89686fb4d3e5263e7424ea2857" prot="private" static="no" mutable="no">
+        <type>std::unordered_map&lt; std::string, DefaultValue &gt;</type>
+        <definition>std::unordered_map&lt;std::string, DefaultValue&gt; ItemConfiguration::defaultValues</definition>
+        <argsstring></argsstring>
+        <name>defaultValues</name>
+        <qualifiedname>ItemConfiguration::defaultValues</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="36" column="24" bodyfile="src/ItemConfiguration.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classItemConfiguration_1a9299ed102c25950ef279017cb92355cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ItemConfiguration::ItemConfiguration</definition>
+        <argsstring>(const std::string &amp;id)</argsstring>
+        <name>ItemConfiguration</name>
+        <qualifiedname>ItemConfiguration::ItemConfiguration</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="15" column="5" bodyfile="src/ItemConfiguration.cpp" bodystart="3" bodyend="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemConfiguration_1ae47f05ce787d813642bd466de243a90a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ItemConfiguration::setInGameTextures</definition>
+        <argsstring>(const std::vector&lt; std::string &gt; &amp;textures)</argsstring>
+        <name>setInGameTextures</name>
+        <qualifiedname>ItemConfiguration::setInGameTextures</qualifiedname>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>textures</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="18" column="10" bodyfile="src/ItemConfiguration.cpp" bodystart="5" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemConfiguration_1aa182b09ef4b6469cf8615139ceda03d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ItemConfiguration::setInventoryTextures</definition>
+        <argsstring>(const std::vector&lt; std::string &gt; &amp;textures)</argsstring>
+        <name>setInventoryTextures</name>
+        <qualifiedname>ItemConfiguration::setInventoryTextures</qualifiedname>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>textures</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="19" column="10" bodyfile="src/ItemConfiguration.cpp" bodystart="9" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemConfiguration_1aa6cb5502efe46b8389ff3be4d0753182" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ItemConfiguration::setDefaultValue</definition>
+        <argsstring>(const std::string &amp;key, const DefaultValue &amp;value)</argsstring>
+        <name>setDefaultValue</name>
+        <qualifiedname>ItemConfiguration::setDefaultValue</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const DefaultValue &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="20" column="10" bodyfile="src/ItemConfiguration.cpp" bodystart="13" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemConfiguration_1a7b950c463e75651650e6839e9db2ce6a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string &amp; ItemConfiguration::getItemId</definition>
+        <argsstring>() const</argsstring>
+        <name>getItemId</name>
+        <qualifiedname>ItemConfiguration::getItemId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="23" column="23" bodyfile="src/ItemConfiguration.cpp" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemConfiguration_1a7ade1cb0b4763475759c9e0127169ba8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::vector&lt; std::string &gt; &amp;</type>
+        <definition>const std::vector&lt; std::string &gt; &amp; ItemConfiguration::getInGameTextures</definition>
+        <argsstring>() const</argsstring>
+        <name>getInGameTextures</name>
+        <qualifiedname>ItemConfiguration::getInGameTextures</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="24" column="23" bodyfile="src/ItemConfiguration.cpp" bodystart="19" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemConfiguration_1acecc39cf5cf69fd61efda0f2f5a5c56a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::vector&lt; std::string &gt; &amp;</type>
+        <definition>const std::vector&lt; std::string &gt; &amp; ItemConfiguration::getInventoryTextures</definition>
+        <argsstring>() const</argsstring>
+        <name>getInventoryTextures</name>
+        <qualifiedname>ItemConfiguration::getInventoryTextures</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="25" column="23" bodyfile="src/ItemConfiguration.cpp" bodystart="23" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemConfiguration_1a4af82e3399eda7f5ccdd08eaea30a29a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const DefaultValue *</type>
+        <definition>const ItemConfiguration::DefaultValue * ItemConfiguration::getDefaultValue</definition>
+        <argsstring>(const std::string &amp;key) const</argsstring>
+        <name>getDefaultValue</name>
+        <qualifiedname>ItemConfiguration::getDefaultValue</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="26" column="24" bodyfile="src/ItemConfiguration.cpp" bodystart="27" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemConfiguration_1a9bd6bdda1c99d8e723e027c0f5ef5a57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const float</type>
+        <definition>const float ItemConfiguration::getDefaultValueAsFloat</definition>
+        <argsstring>(const std::string &amp;key)</argsstring>
+        <name>getDefaultValueAsFloat</name>
+        <qualifiedname>ItemConfiguration::getDefaultValueAsFloat</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="27" column="17" bodyfile="src/ItemConfiguration.cpp" bodystart="36" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classItemConfiguration_1a0a646ce2c061f00ebdddbddc9ee5b270" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>entt::entity</type>
+        <definition>entt::entity ItemConfiguration::createFoodItem</definition>
+        <argsstring>(entt::registry &amp;registry)</argsstring>
+        <name>createFoodItem</name>
+        <qualifiedname>ItemConfiguration::createFoodItem</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemConfiguration.hpp" line="30" column="18" bodyfile="src/ItemConfiguration.cpp" bodystart="57" bodyend="81"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ItemConfiguration.hpp" line="11" column="1" bodyfile="src/ItemConfiguration.hpp" bodystart="11" bodyend="37"/>
+    <listofallmembers>
+      <member refid="classItemConfiguration_1a0a646ce2c061f00ebdddbddc9ee5b270" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>createFoodItem</name></member>
+      <member refid="classItemConfiguration_1a875a6bf7f9f187ea099b870756cc77db" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>DefaultValue</name></member>
+      <member refid="classItemConfiguration_1ac37f8d89686fb4d3e5263e7424ea2857" prot="private" virt="non-virtual"><scope>ItemConfiguration</scope><name>defaultValues</name></member>
+      <member refid="classItemConfiguration_1a4af82e3399eda7f5ccdd08eaea30a29a" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>getDefaultValue</name></member>
+      <member refid="classItemConfiguration_1a9bd6bdda1c99d8e723e027c0f5ef5a57" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>getDefaultValueAsFloat</name></member>
+      <member refid="classItemConfiguration_1a7ade1cb0b4763475759c9e0127169ba8" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>getInGameTextures</name></member>
+      <member refid="classItemConfiguration_1acecc39cf5cf69fd61efda0f2f5a5c56a" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>getInventoryTextures</name></member>
+      <member refid="classItemConfiguration_1a7b950c463e75651650e6839e9db2ce6a" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>getItemId</name></member>
+      <member refid="classItemConfiguration_1a758e1891a6c6a30b2f993f245c10e314" prot="private" virt="non-virtual"><scope>ItemConfiguration</scope><name>inGameTextures</name></member>
+      <member refid="classItemConfiguration_1ad1dccfe9e864b26ad4a908eb3feaa6ca" prot="private" virt="non-virtual"><scope>ItemConfiguration</scope><name>inventoryTextures</name></member>
+      <member refid="classItemConfiguration_1a9299ed102c25950ef279017cb92355cd" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>ItemConfiguration</name></member>
+      <member refid="classItemConfiguration_1aa1626e540471b64a8d5eb12455171d0b" prot="private" virt="non-virtual"><scope>ItemConfiguration</scope><name>itemId</name></member>
+      <member refid="classItemConfiguration_1aa6cb5502efe46b8389ff3be4d0753182" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>setDefaultValue</name></member>
+      <member refid="classItemConfiguration_1ae47f05ce787d813642bd466de243a90a" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>setInGameTextures</name></member>
+      <member refid="classItemConfiguration_1aa182b09ef4b6469cf8615139ceda03d5" prot="public" virt="non-virtual"><scope>ItemConfiguration</scope><name>setInventoryTextures</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

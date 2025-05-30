@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structEntityTypeComponent" kind="struct" language="C++" prot="public">
+    <compoundname>EntityTypeComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structEntityTypeComponent_1ab1fe158f69397c8517cc484431478f0c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityTypeComponent::mainType</definition>
+        <argsstring></argsstring>
+        <name>mainType</name>
+        <qualifiedname>EntityTypeComponent::mainType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/EntityTypeComponent.hpp" line="11" column="9" bodyfile="src/components/EntityTypeComponent.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structEntityTypeComponent_1a2906564bc03063089a62531506618c98" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityTypeComponent::subType0</definition>
+        <argsstring></argsstring>
+        <name>subType0</name>
+        <qualifiedname>EntityTypeComponent::subType0</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/EntityTypeComponent.hpp" line="12" column="9" bodyfile="src/components/EntityTypeComponent.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structEntityTypeComponent_1a2556346245d07544e8feb9d3c3894ae1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityTypeComponent::subType1</definition>
+        <argsstring></argsstring>
+        <name>subType1</name>
+        <qualifiedname>EntityTypeComponent::subType1</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/EntityTypeComponent.hpp" line="13" column="9" bodyfile="src/components/EntityTypeComponent.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structEntityTypeComponent_1a71e1a9e21108c0d8ac4e5ed5011cd79f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EntityTypeComponent::print</definition>
+        <argsstring>() const</argsstring>
+        <name>print</name>
+        <qualifiedname>EntityTypeComponent::print</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/EntityTypeComponent.hpp" line="16" column="10" bodyfile="src/components/EntityTypeComponent.hpp" bodystart="16" bodyend="19"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/EntityTypeComponent.hpp" line="10" column="1" bodyfile="src/components/EntityTypeComponent.hpp" bodystart="10" bodyend="20"/>
+    <listofallmembers>
+      <member refid="structEntityTypeComponent_1ab1fe158f69397c8517cc484431478f0c" prot="public" virt="non-virtual"><scope>EntityTypeComponent</scope><name>mainType</name></member>
+      <member refid="structEntityTypeComponent_1a71e1a9e21108c0d8ac4e5ed5011cd79f" prot="public" virt="non-virtual"><scope>EntityTypeComponent</scope><name>print</name></member>
+      <member refid="structEntityTypeComponent_1a2906564bc03063089a62531506618c98" prot="public" virt="non-virtual"><scope>EntityTypeComponent</scope><name>subType0</name></member>
+      <member refid="structEntityTypeComponent_1a2556346245d07544e8feb9d3c3894ae1" prot="public" virt="non-virtual"><scope>EntityTypeComponent</scope><name>subType1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

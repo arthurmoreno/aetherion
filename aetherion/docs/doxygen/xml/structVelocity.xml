@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structVelocity" kind="struct" language="C++" prot="public">
+    <compoundname>Velocity</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structVelocity_1a2592d4678c041df7b39ae7663ec0ed5d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Velocity::vx</definition>
+        <argsstring></argsstring>
+        <name>vx</name>
+        <qualifiedname>Velocity::vx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="58" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVelocity_1ae2a7111ea8910254dce8882f3ab760a3" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Velocity::vy</definition>
+        <argsstring></argsstring>
+        <name>vy</name>
+        <qualifiedname>Velocity::vy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="59" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVelocity_1a673687999f3f7ae616cd1dd23f2e9b9b" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Velocity::vz</definition>
+        <argsstring></argsstring>
+        <name>vz</name>
+        <qualifiedname>Velocity::vz</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="60" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structVelocity_1a5110abf003d076077d21d76011d64578" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Velocity::print</definition>
+        <argsstring>() const</argsstring>
+        <name>print</name>
+        <qualifiedname>Velocity::print</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="63" column="10" bodyfile="src/components/PhysicsComponents.hpp" bodystart="63" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="structVelocity_1a713592c5423e0e45f5a8dff50fe4719e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float Velocity::speed</definition>
+        <argsstring>() const</argsstring>
+        <name>speed</name>
+        <qualifiedname>Velocity::speed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="68" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="68" bodyend="68"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/PhysicsComponents.hpp" line="57" column="1" bodyfile="src/components/PhysicsComponents.hpp" bodystart="57" bodyend="69"/>
+    <listofallmembers>
+      <member refid="structVelocity_1a5110abf003d076077d21d76011d64578" prot="public" virt="non-virtual"><scope>Velocity</scope><name>print</name></member>
+      <member refid="structVelocity_1a713592c5423e0e45f5a8dff50fe4719e" prot="public" virt="non-virtual"><scope>Velocity</scope><name>speed</name></member>
+      <member refid="structVelocity_1a2592d4678c041df7b39ae7663ec0ed5d" prot="public" virt="non-virtual"><scope>Velocity</scope><name>vx</name></member>
+      <member refid="structVelocity_1ae2a7111ea8910254dce8882f3ab760a3" prot="public" virt="non-virtual"><scope>Velocity</scope><name>vy</name></member>
+      <member refid="structVelocity_1a673687999f3f7ae616cd1dd23f2e9b9b" prot="public" virt="non-virtual"><scope>Velocity</scope><name>vz</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

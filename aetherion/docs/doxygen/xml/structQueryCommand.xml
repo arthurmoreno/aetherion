@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structQueryCommand" kind="struct" language="C++" prot="public">
+    <compoundname>QueryCommand</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structQueryCommand_1af5511bba3d789608720098f07decb1ac" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string QueryCommand::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>QueryCommand::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryCommand.hpp" line="15" column="17" bodyfile="src/QueryCommand.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structQueryCommand_1a3e2ec21ad9e95383917b4bf07df4c6da" prot="public" static="no" mutable="no">
+        <type>std::unordered_map&lt; std::string, std::string &gt;</type>
+        <definition>std::unordered_map&lt;std::string, std::string&gt; QueryCommand::params</definition>
+        <argsstring></argsstring>
+        <name>params</name>
+        <qualifiedname>QueryCommand::params</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryCommand.hpp" line="18" column="24" bodyfile="src/QueryCommand.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structQueryCommand_1a66c2f9005fd5ac9a01e9379329a1d965" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void QueryCommand::setParam</definition>
+        <argsstring>(const std::string &amp;key, const std::string &amp;value)</argsstring>
+        <name>setParam</name>
+        <qualifiedname>QueryCommand::setParam</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryCommand.hpp" line="21" column="10" bodyfile="src/QueryCommand.hpp" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="structQueryCommand_1a202bb72f62a6c934f2e5a685f0d5a39c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void QueryCommand::setParam</definition>
+        <argsstring>(const std::string &amp;key, double value)</argsstring>
+        <name>setParam</name>
+        <qualifiedname>QueryCommand::setParam</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryCommand.hpp" line="23" column="10" bodyfile="src/QueryCommand.hpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="structQueryCommand_1a6bbfbe5d77f052aee24342fe35a53188" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double QueryCommand::getParamAsDouble</definition>
+        <argsstring>(const std::string &amp;key, double defaultValue=0.0) const</argsstring>
+        <name>getParamAsDouble</name>
+        <qualifiedname>QueryCommand::getParamAsDouble</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>defaultValue</declname>
+          <defval>0.0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryCommand.hpp" line="25" column="12" bodyfile="src/QueryCommand.hpp" bodystart="25" bodyend="35"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/QueryCommand.hpp" line="14" column="1" bodyfile="src/QueryCommand.hpp" bodystart="14" bodyend="36"/>
+    <listofallmembers>
+      <member refid="structQueryCommand_1a6bbfbe5d77f052aee24342fe35a53188" prot="public" virt="non-virtual"><scope>QueryCommand</scope><name>getParamAsDouble</name></member>
+      <member refid="structQueryCommand_1a3e2ec21ad9e95383917b4bf07df4c6da" prot="public" virt="non-virtual"><scope>QueryCommand</scope><name>params</name></member>
+      <member refid="structQueryCommand_1a66c2f9005fd5ac9a01e9379329a1d965" prot="public" virt="non-virtual"><scope>QueryCommand</scope><name>setParam</name></member>
+      <member refid="structQueryCommand_1a202bb72f62a6c934f2e5a685f0d5a39c" prot="public" virt="non-virtual"><scope>QueryCommand</scope><name>setParam</name></member>
+      <member refid="structQueryCommand_1af5511bba3d789608720098f07decb1ac" prot="public" virt="non-virtual"><scope>QueryCommand</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

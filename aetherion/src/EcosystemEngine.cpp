@@ -985,10 +985,10 @@ void EcosystemEngine::loopTiles(entt::registry& registry, VoxelGrid& voxelGrid,
 
         count++;
         // Pause execution after every 1000 entities processed
-        if (count >= 500) {
+        if (count >= 2'000) {
             count = 0;  // Reset the counter
             std::this_thread::sleep_for(
-                std::chrono::milliseconds(14));  // Sleep for 10 milliseconds
+                std::chrono::milliseconds(10));  // Sleep for 10 milliseconds
         }
     }
 

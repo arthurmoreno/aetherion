@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classMapOfListsOfDoubleResponse" kind="class" language="C++" prot="public">
+    <compoundname>MapOfListsOfDoubleResponse</compoundname>
+    <basecompoundref refid="classQueryResponse" prot="public" virt="non-virtual">QueryResponse</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMapOfListsOfDoubleResponse_1a2c3c8568fecc8ac34894b3ab55043a8d" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, std::vector&lt; double &gt; &gt;</type>
+        <definition>std::map&lt;std::string, std::vector&lt;double&gt; &gt; MapOfListsOfDoubleResponse::mapOfLists</definition>
+        <argsstring></argsstring>
+        <name>mapOfLists</name>
+        <qualifiedname>MapOfListsOfDoubleResponse::mapOfLists</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="180" column="14" bodyfile="src/QueryResponse.hpp" bodystart="180" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMapOfListsOfDoubleResponse_1aa2c610c43278dc089bb563d1cf17379d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MapOfListsOfDoubleResponse::MapOfListsOfDoubleResponse</definition>
+        <argsstring>()</argsstring>
+        <name>MapOfListsOfDoubleResponse</name>
+        <qualifiedname>MapOfListsOfDoubleResponse::MapOfListsOfDoubleResponse</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="182" column="5" bodyfile="src/QueryResponse.hpp" bodystart="182" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="classMapOfListsOfDoubleResponse_1a7a9ae8779101454be265cb1d02bb3c3f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MapOfListsOfDoubleResponse::MapOfListsOfDoubleResponse</definition>
+        <argsstring>(const std::map&lt; std::string, std::vector&lt; double &gt; &gt; &amp;m)</argsstring>
+        <name>MapOfListsOfDoubleResponse</name>
+        <qualifiedname>MapOfListsOfDoubleResponse::MapOfListsOfDoubleResponse</qualifiedname>
+        <param>
+          <type>const std::map&lt; std::string, std::vector&lt; double &gt; &gt; &amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="184" column="5" bodyfile="src/QueryResponse.hpp" bodystart="184" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="classMapOfListsOfDoubleResponse_1a0dc7526f012767953fd35ada47516221" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::vector&lt; char &gt;</type>
+        <definition>std::vector&lt; char &gt; MapOfListsOfDoubleResponse::serialize</definition>
+        <argsstring>() const override</argsstring>
+        <name>serialize</name>
+        <qualifiedname>MapOfListsOfDoubleResponse::serialize</qualifiedname>
+        <reimplements refid="classQueryResponse_1ad78f2bdeba46189aff98a07b26cd958a">serialize</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="190" column="17" bodyfile="src/QueryResponse.hpp" bodystart="190" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="classMapOfListsOfDoubleResponse_1a593bec22de26ac0cc5411fd25867ed11" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>nb::bytes</type>
+        <definition>nb::bytes MapOfListsOfDoubleResponse::py_serialize</definition>
+        <argsstring>() const override</argsstring>
+        <name>py_serialize</name>
+        <qualifiedname>MapOfListsOfDoubleResponse::py_serialize</qualifiedname>
+        <reimplements refid="classQueryResponse_1aebd9d37dc360d3a18fcea0eaaf22ec62">py_serialize</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="210" column="15" bodyfile="src/QueryResponse.hpp" bodystart="210" bodyend="213"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMapOfListsOfDoubleResponse_1a6261f40a3d757f6f19f3597fe7f33ebe" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classMapOfListsOfDoubleResponse" kindref="compound">MapOfListsOfDoubleResponse</ref> *</type>
+        <definition>static MapOfListsOfDoubleResponse * MapOfListsOfDoubleResponse::deserialize</definition>
+        <argsstring>(const char *data, size_t size, size_t &amp;offset)</argsstring>
+        <name>deserialize</name>
+        <qualifiedname>MapOfListsOfDoubleResponse::deserialize</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="198" column="39" bodyfile="src/QueryResponse.hpp" bodystart="198" bodyend="207"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>MapOfListsOfDoubleResponse</label>
+        <link refid="classMapOfListsOfDoubleResponse"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QueryResponse</label>
+        <link refid="classQueryResponse"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>MapOfListsOfDoubleResponse</label>
+        <link refid="classMapOfListsOfDoubleResponse"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QueryResponse</label>
+        <link refid="classQueryResponse"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/QueryResponse.hpp" line="178" column="1" bodyfile="src/QueryResponse.hpp" bodystart="178" bodyend="214"/>
+    <listofallmembers>
+      <member refid="classMapOfListsOfDoubleResponse_1a6261f40a3d757f6f19f3597fe7f33ebe" prot="public" virt="non-virtual"><scope>MapOfListsOfDoubleResponse</scope><name>deserialize</name></member>
+      <member refid="classQueryResponse_1a37712354e3df2a12218b43e50707c2e7" prot="public" virt="non-virtual" ambiguityscope="QueryResponse::"><scope>MapOfListsOfDoubleResponse</scope><name>deserialize</name></member>
+      <member refid="classQueryResponse_1a903611659aa798b9cdb99721fccd366b" prot="protected" virt="non-virtual"><scope>MapOfListsOfDoubleResponse</scope><name>deserializeHeader</name></member>
+      <member refid="classMapOfListsOfDoubleResponse_1a2c3c8568fecc8ac34894b3ab55043a8d" prot="public" virt="non-virtual"><scope>MapOfListsOfDoubleResponse</scope><name>mapOfLists</name></member>
+      <member refid="classMapOfListsOfDoubleResponse_1aa2c610c43278dc089bb563d1cf17379d" prot="public" virt="non-virtual"><scope>MapOfListsOfDoubleResponse</scope><name>MapOfListsOfDoubleResponse</name></member>
+      <member refid="classMapOfListsOfDoubleResponse_1a7a9ae8779101454be265cb1d02bb3c3f" prot="public" virt="non-virtual"><scope>MapOfListsOfDoubleResponse</scope><name>MapOfListsOfDoubleResponse</name></member>
+      <member refid="classMapOfListsOfDoubleResponse_1a593bec22de26ac0cc5411fd25867ed11" prot="public" virt="virtual"><scope>MapOfListsOfDoubleResponse</scope><name>py_serialize</name></member>
+      <member refid="classQueryResponse_1aa41747e8f2a0497a37a97852a3799ee9" prot="public" virt="non-virtual"><scope>MapOfListsOfDoubleResponse</scope><name>responseMask</name></member>
+      <member refid="classMapOfListsOfDoubleResponse_1a0dc7526f012767953fd35ada47516221" prot="public" virt="virtual"><scope>MapOfListsOfDoubleResponse</scope><name>serialize</name></member>
+      <member refid="classQueryResponse_1ae337668bd1f7f8fd24c6716bb3218a74" prot="protected" virt="non-virtual"><scope>MapOfListsOfDoubleResponse</scope><name>serializeHeader</name></member>
+      <member refid="classQueryResponse_1a7dd55dc41091c6d22935769c49f31e1d" prot="public" virt="virtual"><scope>MapOfListsOfDoubleResponse</scope><name>~QueryResponse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structPosition" kind="struct" language="C++" prot="public">
+    <compoundname>Position</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structPosition_1aeda152ffeee17ae5be9c02327b2408d8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Position::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>Position::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="37" column="9" bodyfile="src/components/PhysicsComponents.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPosition_1a3c08e9213d4726b21caba3073192c4a3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Position::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>Position::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="38" column="9" bodyfile="src/components/PhysicsComponents.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPosition_1abb3a3adb3cfa5dea00998627885662bd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Position::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>Position::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="39" column="9" bodyfile="src/components/PhysicsComponents.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPosition_1abff6eee16ac4d7201db459bdf33a0591" prot="public" static="no" mutable="no">
+        <type>DirectionEnum</type>
+        <definition>DirectionEnum Position::direction</definition>
+        <argsstring></argsstring>
+        <name>direction</name>
+        <qualifiedname>Position::direction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="41" column="19" bodyfile="src/components/PhysicsComponents.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structPosition_1acbdbbd42e27df9c0579f82f8b8e89d17" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Position::print</definition>
+        <argsstring>() const</argsstring>
+        <name>print</name>
+        <qualifiedname>Position::print</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="44" column="10" bodyfile="src/components/PhysicsComponents.hpp" bodystart="44" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="structPosition_1a1e5144b6a7a4527207900a2fdf4b4b27" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int Position::getDirectionAsInt</definition>
+        <argsstring>()</argsstring>
+        <name>getDirectionAsInt</name>
+        <qualifiedname>Position::getDirectionAsInt</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="48" column="9" bodyfile="src/components/PhysicsComponents.hpp" bodystart="48" bodyend="48"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structPosition_1af9623823a04b82db742ca6d4c83fc013" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>static float Position::distance</definition>
+        <argsstring>(const Position &amp;a, const Position &amp;b)</argsstring>
+        <name>distance</name>
+        <qualifiedname>Position::distance</qualifiedname>
+        <param>
+          <type>const <ref refid="structPosition" kindref="compound">Position</ref> &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structPosition" kindref="compound">Position</ref> &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="51" column="18" bodyfile="src/components/PhysicsComponents.hpp" bodystart="51" bodyend="53"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/PhysicsComponents.hpp" line="36" column="1" bodyfile="src/components/PhysicsComponents.hpp" bodystart="36" bodyend="54"/>
+    <listofallmembers>
+      <member refid="structPosition_1abff6eee16ac4d7201db459bdf33a0591" prot="public" virt="non-virtual"><scope>Position</scope><name>direction</name></member>
+      <member refid="structPosition_1af9623823a04b82db742ca6d4c83fc013" prot="public" virt="non-virtual"><scope>Position</scope><name>distance</name></member>
+      <member refid="structPosition_1a1e5144b6a7a4527207900a2fdf4b4b27" prot="public" virt="non-virtual"><scope>Position</scope><name>getDirectionAsInt</name></member>
+      <member refid="structPosition_1acbdbbd42e27df9c0579f82f8b8e89d17" prot="public" virt="non-virtual"><scope>Position</scope><name>print</name></member>
+      <member refid="structPosition_1aeda152ffeee17ae5be9c02327b2408d8" prot="public" virt="non-virtual"><scope>Position</scope><name>x</name></member>
+      <member refid="structPosition_1a3c08e9213d4726b21caba3073192c4a3" prot="public" virt="non-virtual"><scope>Position</scope><name>y</name></member>
+      <member refid="structPosition_1abb3a3adb3cfa5dea00998627885662bd" prot="public" virt="non-virtual"><scope>Position</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

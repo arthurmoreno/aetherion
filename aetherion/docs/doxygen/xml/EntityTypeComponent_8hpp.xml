@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="EntityTypeComponent_8hpp" kind="file" language="C++">
+    <compoundname>EntityTypeComponent.hpp</compoundname>
+    <includes local="no">cmath</includes>
+    <includes local="no">iostream</includes>
+    <includedby refid="CombatSystem_8hpp" local="yes">src/CombatSystem.hpp</includedby>
+    <includedby refid="EcosystemEngine_8hpp" local="yes">src/EcosystemEngine.hpp</includedby>
+    <includedby refid="EffectsSystem_8hpp" local="yes">src/EffectsSystem.hpp</includedby>
+    <includedby refid="EntityInterface_8hpp" local="yes">src/EntityInterface.hpp</includedby>
+    <includedby refid="HealthSystem_8hpp" local="yes">src/HealthSystem.hpp</includedby>
+    <includedby refid="MetabolismSystem_8hpp" local="yes">src/MetabolismSystem.hpp</includedby>
+    <includedby refid="PhysicsEngine_8hpp" local="yes">src/PhysicsEngine.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/components/EntityTypeComponent.hpp</label>
+        <link refid="EntityTypeComponent_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>cmath</label>
+      </node>
+      <node id="3">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="10">
+        <label>src/CameraUtils.hpp</label>
+        <link refid="CameraUtils_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/CombatSystem.hpp</label>
+        <link refid="CombatSystem_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>src/EcosystemEngine.hpp</label>
+        <link refid="EcosystemEngine_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/EffectsSystem.hpp</label>
+        <link refid="EffectsSystem_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>src/EntityInterface.hpp</label>
+        <link refid="EntityInterface_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>src/FlatbufferUtils.hpp</label>
+        <link refid="FlatbufferUtils_8hpp_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/Gui/Gui.hpp</label>
+        <link refid="Gui_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>src/HealthSystem.hpp</label>
+        <link refid="HealthSystem_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>src/LifeEvents.hpp</label>
+        <link refid="LifeEvents_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>src/MetabolismSystem.hpp</label>
+        <link refid="MetabolismSystem_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>src/PerceptionResponse.hpp</label>
+        <link refid="PerceptionResponse_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/PhysicsEngine.hpp</label>
+        <link refid="PhysicsEngine_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/World.hpp</label>
+        <link refid="World_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>src/WorldView.hpp</label>
+        <link refid="WorldView_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>src/aetherion.hpp</label>
+        <link refid="aetherion_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>src/components/EntityTypeComponent.hpp</label>
+        <link refid="EntityTypeComponent_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structEntityTypeComponent" prot="public">EntityTypeComponent</innerclass>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="EntityTypeComponent_8hpp_1a5f36f70c6fe845142419075ee81aef99" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>EntityEnum</name>
+        <enumvalue id="EntityTypeComponent_8hpp_1a5f36f70c6fe845142419075ee81aef99abdfa171c5b4d44824eec5798556eef32" prot="public">
+          <name>TERRAIN</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="EntityTypeComponent_8hpp_1a5f36f70c6fe845142419075ee81aef99ad0c831135ff38f1d51531f7cc6a9fd09" prot="public">
+          <name>PLANT</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="EntityTypeComponent_8hpp_1a5f36f70c6fe845142419075ee81aef99aaef8e86dd3cb6c7b359c0b69cae73c3f" prot="public">
+          <name>BEAST</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="EntityTypeComponent_8hpp_1a5f36f70c6fe845142419075ee81aef99a8764d1251a8dc0c6c2292d942aa04caf" prot="public">
+          <name>TILE_EFFECT</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/EntityTypeComponent.hpp" line="7" column="1" bodyfile="src/components/EntityTypeComponent.hpp" bodystart="7" bodyend="7"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>ENTITY_TYPE_COMPONENT_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENTITY_TYPE_COMPONENT_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>EntityEnum<sp/>{<sp/>TERRAIN<sp/>=<sp/>0,<sp/>PLANT<sp/>=<sp/>1,<sp/>BEAST<sp/>=<sp/>2,<sp/>TILE_EFFECT<sp/>=<sp/>3<sp/>};</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Position<sp/>component<sp/>to<sp/>store<sp/>an<sp/>entity&apos;s<sp/>position<sp/>in<sp/>3D<sp/>space</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="structEntityTypeComponent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mainType;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>subType0;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>subType1;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Print<sp/>function<sp/>for<sp/>debugging</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>print()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;EntityTypeComponent(type:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>mainType<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>subType0:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>subType0<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>ENTITY_TYPE_COMPONENT_HPP</highlight></codeline>
+    </programlisting>
+    <location file="src/components/EntityTypeComponent.hpp"/>
+  </compounddef>
+</doxygen>

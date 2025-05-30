@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structOnTakeItemBehavior" kind="struct" language="C++" prot="public">
+    <compoundname>OnTakeItemBehavior</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structOnTakeItemBehavior_1ac28b6f3e72171940cf87d5b1b80f424e" prot="public" static="no" mutable="no">
+        <type>nb::object</type>
+        <definition>nb::object OnTakeItemBehavior::behavior</definition>
+        <argsstring></argsstring>
+        <name>behavior</name>
+        <qualifiedname>OnTakeItemBehavior::behavior</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemsEvents.hpp" line="30" column="16" bodyfile="src/ItemsEvents.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ItemsEvents.hpp" line="29" column="1" bodyfile="src/ItemsEvents.hpp" bodystart="29" bodyend="31"/>
+    <listofallmembers>
+      <member refid="structOnTakeItemBehavior_1ac28b6f3e72171940cf87d5b1b80f424e" prot="public" virt="non-virtual"><scope>OnTakeItemBehavior</scope><name>behavior</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

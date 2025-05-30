@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classRenderLineTask" kind="class" language="C++" prot="public">
+    <compoundname>RenderLineTask</compoundname>
+    <basecompoundref refid="classRenderTaskBase" prot="public" virt="non-virtual">RenderTaskBase</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRenderLineTask_1a44b1a6c17da19cff00a49a62b107845a" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RenderLineTask::x_start</definition>
+        <argsstring></argsstring>
+        <name>x_start</name>
+        <qualifiedname>RenderLineTask::x_start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="193" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderLineTask_1a93331ba773845a9e7eaa6266777b413b" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RenderLineTask::y_start</definition>
+        <argsstring></argsstring>
+        <name>y_start</name>
+        <qualifiedname>RenderLineTask::y_start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="194" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderLineTask_1a2f5a38df4f70c276e9ef494d8234876b" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RenderLineTask::x_end</definition>
+        <argsstring></argsstring>
+        <name>x_end</name>
+        <qualifiedname>RenderLineTask::x_end</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="195" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderLineTask_1a320052599e4041192a30bcb5b306dae4" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RenderLineTask::y_end</definition>
+        <argsstring></argsstring>
+        <name>y_end</name>
+        <qualifiedname>RenderLineTask::y_end</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="196" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderLineTask_1a9083fa20b001302161339754574ea758" prot="private" static="no" mutable="no">
+        <type>SDL_Color</type>
+        <definition>SDL_Color RenderLineTask::color_</definition>
+        <argsstring></argsstring>
+        <name>color_</name>
+        <qualifiedname>RenderLineTask::color_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="197" column="15" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="197" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRenderLineTask_1aff76c2da454675dd2ae967368794305f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RenderLineTask::RenderLineTask</definition>
+        <argsstring>(int x1, int y1, int x2, int y2, SDL_Color color)</argsstring>
+        <name>RenderLineTask</name>
+        <qualifiedname>RenderLineTask::RenderLineTask</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x2</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y2</declname>
+        </param>
+        <param>
+          <type>SDL_Color</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="176" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="176" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderLineTask_1a3425a29411bae6f5690bb3057051c7e0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void RenderLineTask::render</definition>
+        <argsstring>(SDL_Renderer *renderer) const override</argsstring>
+        <name>render</name>
+        <qualifiedname>RenderLineTask::render</qualifiedname>
+        <reimplements refid="classRenderTaskBase_1aca930dd0177845b4f1c9ecbd3da548a0">render</reimplements>
+        <param>
+          <type>SDL_Renderer *</type>
+          <declname>renderer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="179" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="179" bodyend="190"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>RenderLineTask</label>
+        <link refid="classRenderLineTask"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>RenderLineTask</label>
+        <link refid="classRenderLineTask"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="174" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="174" bodyend="198"/>
+    <listofallmembers>
+      <member refid="classRenderLineTask_1a9083fa20b001302161339754574ea758" prot="private" virt="non-virtual"><scope>RenderLineTask</scope><name>color_</name></member>
+      <member refid="classRenderTaskBase_1a083109259e992a8b0b759fdbcdc24cf8" prot="public" virt="virtual"><scope>RenderLineTask</scope><name>getZLayer</name></member>
+      <member refid="classRenderLineTask_1a3425a29411bae6f5690bb3057051c7e0" prot="public" virt="virtual"><scope>RenderLineTask</scope><name>render</name></member>
+      <member refid="classRenderLineTask_1aff76c2da454675dd2ae967368794305f" prot="public" virt="non-virtual"><scope>RenderLineTask</scope><name>RenderLineTask</name></member>
+      <member refid="classRenderTaskBase_1a87f842d1663de2935efc9dfee89553e8" prot="public" virt="virtual"><scope>RenderLineTask</scope><name>setZLayer</name></member>
+      <member refid="classRenderLineTask_1a2f5a38df4f70c276e9ef494d8234876b" prot="private" virt="non-virtual"><scope>RenderLineTask</scope><name>x_end</name></member>
+      <member refid="classRenderLineTask_1a44b1a6c17da19cff00a49a62b107845a" prot="private" virt="non-virtual"><scope>RenderLineTask</scope><name>x_start</name></member>
+      <member refid="classRenderLineTask_1a320052599e4041192a30bcb5b306dae4" prot="private" virt="non-virtual"><scope>RenderLineTask</scope><name>y_end</name></member>
+      <member refid="classRenderLineTask_1a93331ba773845a9e7eaa6266777b413b" prot="private" virt="non-virtual"><scope>RenderLineTask</scope><name>y_start</name></member>
+      <member refid="classRenderTaskBase_1afa7ba1f0ab38fc6df88b54bf8f7ac6fa" prot="protected" virt="non-virtual"><scope>RenderLineTask</scope><name>z_layer</name></member>
+      <member refid="classRenderTaskBase_1aba444e27143e746979db33ed1b2ede95" prot="public" virt="virtual"><scope>RenderLineTask</scope><name>~RenderTaskBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

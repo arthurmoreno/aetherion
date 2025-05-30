@@ -12,6 +12,7 @@ conda install -c conda-forge nanobind
 conda install -c conda-forge numpy
 # conda install conda-forge::openvdb -> openvdb is not working on conda
 conda install -c conda-forge libstdcxx-ng
+conda install -c conda-forge libstdcxx-ng-static
 pip install -r dev-requirements.txt
 ```
 

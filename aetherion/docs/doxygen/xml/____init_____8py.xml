@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="____init_____8py" kind="file" language="Python">
+    <compoundname>__init__.py</compoundname>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespace__aetherion">_aetherion</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">#<sp/>lifesimcore/__init__.py</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Import<sp/>everything<sp/>from<sp/>the<sp/>extension<sp/>module<sp/>(the<sp/>shared<sp/>library)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">#<sp/>This<sp/>assumes<sp/>the<sp/>shared<sp/>library<sp/>is<sp/>named<sp/>&quot;lifesimcore.cpython-312-x86_64-linux-gnu.so&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">#<sp/>but<sp/>its<sp/>module<sp/>name<sp/>is<sp/>resolved<sp/>as<sp/>&quot;lifesimcore&quot;.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>._aetherion<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>*<sp/><sp/></highlight><highlight class="comment">#<sp/>noqa</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/__init__.py"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structMeeleAttackComponent" kind="struct" language="C++" prot="public">
+    <compoundname>MeeleAttackComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMeeleAttackComponent_1a390c259ba9468d00662ef7793c9bc6d4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MeeleAttackComponent::weapon</definition>
+        <argsstring></argsstring>
+        <name>weapon</name>
+        <qualifiedname>MeeleAttackComponent::weapon</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/CombatComponents.hpp" line="7" column="9" bodyfile="src/components/CombatComponents.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMeeleAttackComponent_1ac5c9a4c6a452aeff2cf59b87f7b4da0a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MeeleAttackComponent::hoveredEntity</definition>
+        <argsstring></argsstring>
+        <name>hoveredEntity</name>
+        <qualifiedname>MeeleAttackComponent::hoveredEntity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/CombatComponents.hpp" line="8" column="9" bodyfile="src/components/CombatComponents.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMeeleAttackComponent_1ab730eab4c25c4240a2e89fb32e060e3b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MeeleAttackComponent::selectedEntity</definition>
+        <argsstring></argsstring>
+        <name>selectedEntity</name>
+        <qualifiedname>MeeleAttackComponent::selectedEntity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/CombatComponents.hpp" line="9" column="9" bodyfile="src/components/CombatComponents.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/CombatComponents.hpp" line="6" column="1" bodyfile="src/components/CombatComponents.hpp" bodystart="6" bodyend="10"/>
+    <listofallmembers>
+      <member refid="structMeeleAttackComponent_1ac5c9a4c6a452aeff2cf59b87f7b4da0a" prot="public" virt="non-virtual"><scope>MeeleAttackComponent</scope><name>hoveredEntity</name></member>
+      <member refid="structMeeleAttackComponent_1ab730eab4c25c4240a2e89fb32e060e3b" prot="public" virt="non-virtual"><scope>MeeleAttackComponent</scope><name>selectedEntity</name></member>
+      <member refid="structMeeleAttackComponent_1a390c259ba9468d00662ef7793c9bc6d4" prot="public" virt="non-virtual"><scope>MeeleAttackComponent</scope><name>weapon</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

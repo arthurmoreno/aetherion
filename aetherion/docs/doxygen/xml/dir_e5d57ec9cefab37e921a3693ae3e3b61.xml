@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_e5d57ec9cefab37e921a3693ae3e3b61" kind="dir">
+    <compoundname>src/neat</compoundname>
+    <innerfile refid="config_8hpp">config.hpp</innerfile>
+    <innerfile refid="genes_8cpp">genes.cpp</innerfile>
+    <innerfile refid="genes_8hpp">genes.hpp</innerfile>
+    <innerfile refid="genetics_8hpp">genetics.hpp</innerfile>
+    <innerfile refid="genome_8cpp">genome.cpp</innerfile>
+    <innerfile refid="genome_8hpp">genome.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/neat/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structSetPhysicsEntityToDebug" kind="struct" language="C++" prot="public">
+    <compoundname>SetPhysicsEntityToDebug</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structSetPhysicsEntityToDebug_1abea09a349d4eada36a7660ea37c1e2b3" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity SetPhysicsEntityToDebug::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>SetPhysicsEntityToDebug::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="23" column="18" bodyfile="src/PhysicsEngine.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structSetPhysicsEntityToDebug_1aadbfc62f8ff4862a859062a63802d752" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SetPhysicsEntityToDebug::SetPhysicsEntityToDebug</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>SetPhysicsEntityToDebug</name>
+        <qualifiedname>SetPhysicsEntityToDebug::SetPhysicsEntityToDebug</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="25" column="5" bodyfile="src/PhysicsEngine.hpp" bodystart="25" bodyend="25"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/PhysicsEngine.hpp" line="22" column="1" bodyfile="src/PhysicsEngine.hpp" bodystart="22" bodyend="26"/>
+    <listofallmembers>
+      <member refid="structSetPhysicsEntityToDebug_1abea09a349d4eada36a7660ea37c1e2b3" prot="public" virt="non-virtual"><scope>SetPhysicsEntityToDebug</scope><name>entity</name></member>
+      <member refid="structSetPhysicsEntityToDebug_1aadbfc62f8ff4862a859062a63802d752" prot="public" virt="non-virtual"><scope>SetPhysicsEntityToDebug</scope><name>SetPhysicsEntityToDebug</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

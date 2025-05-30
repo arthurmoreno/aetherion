@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classConfigParameter" kind="class" language="C++" prot="public">
+    <compoundname>ConfigParameter</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classConfigParameter_1a9d549b1d1435e639a328209c621c7c59" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ConfigParameter&lt; T &gt;::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>ConfigParameter::name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="126" column="17" bodyfile="src/neat/config.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfigParameter_1a7596fd49c3fe6ac9fa5fa227c5bf9c34" prot="public" static="no" mutable="no">
+        <type>std::optional&lt; T &gt;</type>
+        <definition>std::optional&lt;T&gt; ConfigParameter&lt; T &gt;::default_value</definition>
+        <argsstring></argsstring>
+        <name>default_value</name>
+        <qualifiedname>ConfigParameter::default_value</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="127" column="19" bodyfile="src/neat/config.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classConfigParameter_1a509025360e1671f971e251de0088bca1" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ConfigParameter&lt; T &gt;::ConfigParameter</definition>
+        <argsstring>(const std::string &amp;name)</argsstring>
+        <name>ConfigParameter</name>
+        <qualifiedname>ConfigParameter::ConfigParameter</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="130" column="14" bodyfile="src/neat/config.hpp" bodystart="130" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParameter_1a9a3349847672d2d2c810533ee20d1bb2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ConfigParameter&lt; T &gt;::ConfigParameter</definition>
+        <argsstring>(const std::string &amp;name, const T &amp;def_val)</argsstring>
+        <name>ConfigParameter</name>
+        <qualifiedname>ConfigParameter::ConfigParameter</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const T &amp;</type>
+          <declname>def_val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="133" column="5" bodyfile="src/neat/config.hpp" bodystart="133" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParameter_1a2b9a100d2bd9e81619e7da158e7ca1df" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T ConfigParameter&lt; T &gt;::parse</definition>
+        <argsstring>(const std::string &amp;section, const ConfigParser &amp;parser) const</argsstring>
+        <name>parse</name>
+        <qualifiedname>ConfigParameter::parse</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classConfigParser" kindref="compound">ConfigParser</ref> &amp;</type>
+          <declname>parser</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="137" column="7" bodyfile="src/neat/config.hpp" bodystart="137" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParameter_1acb52335fa5e015c33612871699e351f2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T ConfigParameter&lt; T &gt;::interpret</definition>
+        <argsstring>(const std::unordered_map&lt; std::string, std::string &gt; &amp;config_dict) const</argsstring>
+        <name>interpret</name>
+        <qualifiedname>ConfigParameter::interpret</qualifiedname>
+        <param>
+          <type>const std::unordered_map&lt; std::string, std::string &gt; &amp;</type>
+          <declname>config_dict</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="155" column="7" bodyfile="src/neat/config.hpp" bodystart="155" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfigParameter_1aca806e4c339b57ff8f76957eaf5f8f8b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ConfigParameter&lt; T &gt;::format</definition>
+        <argsstring>(const T &amp;value) const</argsstring>
+        <name>format</name>
+        <qualifiedname>ConfigParameter::format</qualifiedname>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="194" column="17" bodyfile="src/neat/config.hpp" bodystart="194" bodyend="204"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/neat/config.hpp" line="124" column="1" bodyfile="src/neat/config.hpp" bodystart="124" bodyend="205"/>
+    <listofallmembers>
+      <member refid="classConfigParameter_1a509025360e1671f971e251de0088bca1" prot="public" virt="non-virtual"><scope>ConfigParameter</scope><name>ConfigParameter</name></member>
+      <member refid="classConfigParameter_1a9a3349847672d2d2c810533ee20d1bb2" prot="public" virt="non-virtual"><scope>ConfigParameter</scope><name>ConfigParameter</name></member>
+      <member refid="classConfigParameter_1a7596fd49c3fe6ac9fa5fa227c5bf9c34" prot="public" virt="non-virtual"><scope>ConfigParameter</scope><name>default_value</name></member>
+      <member refid="classConfigParameter_1aca806e4c339b57ff8f76957eaf5f8f8b" prot="public" virt="non-virtual"><scope>ConfigParameter</scope><name>format</name></member>
+      <member refid="classConfigParameter_1acb52335fa5e015c33612871699e351f2" prot="public" virt="non-virtual"><scope>ConfigParameter</scope><name>interpret</name></member>
+      <member refid="classConfigParameter_1a9d549b1d1435e639a328209c621c7c59" prot="public" virt="non-virtual"><scope>ConfigParameter</scope><name>name</name></member>
+      <member refid="classConfigParameter_1a2b9a100d2bd9e81619e7da158e7ca1df" prot="public" virt="non-virtual"><scope>ConfigParameter</scope><name>parse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

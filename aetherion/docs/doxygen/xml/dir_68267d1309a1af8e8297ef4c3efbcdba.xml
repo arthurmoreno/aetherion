@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_c5ed2602c210e0a1aaf28cdefbff1170">src/aetherion</innerdir>
+    <innerdir refid="dir_3c4c7c1a85608ccd561c026bec818e51">src/components</innerdir>
+    <innerdir refid="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed">src/Gui</innerdir>
+    <innerdir refid="dir_f292a226b1f5babe6c8057a2f2064fd5">src/LowLevelRenderer</innerdir>
+    <innerdir refid="dir_e5d57ec9cefab37e921a3693ae3e3b61">src/neat</innerdir>
+    <innerfile refid="aetherion_8cpp">aetherion.cpp</innerfile>
+    <innerfile refid="aetherion_8hpp">aetherion.hpp</innerfile>
+    <innerfile refid="CameraUtils_8cpp">CameraUtils.cpp</innerfile>
+    <innerfile refid="CameraUtils_8hpp">CameraUtils.hpp</innerfile>
+    <innerfile refid="CombatSystem_8cpp">CombatSystem.cpp</innerfile>
+    <innerfile refid="CombatSystem_8hpp">CombatSystem.hpp</innerfile>
+    <innerfile refid="EcosystemEngine_8cpp">EcosystemEngine.cpp</innerfile>
+    <innerfile refid="EcosystemEngine_8hpp">EcosystemEngine.hpp</innerfile>
+    <innerfile refid="EffectsSystem_8cpp">EffectsSystem.cpp</innerfile>
+    <innerfile refid="EffectsSystem_8hpp">EffectsSystem.hpp</innerfile>
+    <innerfile refid="EntityInterface_8cpp">EntityInterface.cpp</innerfile>
+    <innerfile refid="EntityInterface_8hpp">EntityInterface.hpp</innerfile>
+    <innerfile refid="FlatbufferUtils_8cpp">FlatbufferUtils.cpp</innerfile>
+    <innerfile refid="FlatbufferUtils_8hpp">FlatbufferUtils.hpp</innerfile>
+    <innerfile refid="GameClock_8hpp">GameClock.hpp</innerfile>
+    <innerfile refid="GameDB_8cpp">GameDB.cpp</innerfile>
+    <innerfile refid="GameDB_8hpp">GameDB.hpp</innerfile>
+    <innerfile refid="GameDBHandler_8cpp">GameDBHandler.cpp</innerfile>
+    <innerfile refid="GameDBHandler_8hpp">GameDBHandler.hpp</innerfile>
+    <innerfile refid="HealthSystem_8cpp">HealthSystem.cpp</innerfile>
+    <innerfile refid="HealthSystem_8hpp">HealthSystem.hpp</innerfile>
+    <innerfile refid="ItemConfiguration_8cpp">ItemConfiguration.cpp</innerfile>
+    <innerfile refid="ItemConfiguration_8hpp">ItemConfiguration.hpp</innerfile>
+    <innerfile refid="ItemConfigurationManager_8cpp">ItemConfigurationManager.cpp</innerfile>
+    <innerfile refid="ItemConfigurationManager_8hpp">ItemConfigurationManager.hpp</innerfile>
+    <innerfile refid="ItemsEvents_8hpp">ItemsEvents.hpp</innerfile>
+    <innerfile refid="LifeEvents_8cpp">LifeEvents.cpp</innerfile>
+    <innerfile refid="LifeEvents_8hpp">LifeEvents.hpp</innerfile>
+    <innerfile refid="Logger_8cpp">Logger.cpp</innerfile>
+    <innerfile refid="Logger_8hpp">Logger.hpp</innerfile>
+    <innerfile refid="main_8cpp">main.cpp</innerfile>
+    <innerfile refid="MetabolismSystem_8cpp">MetabolismSystem.cpp</innerfile>
+    <innerfile refid="MetabolismSystem_8hpp">MetabolismSystem.hpp</innerfile>
+    <innerfile refid="MoveEntityEvent_8hpp">MoveEntityEvent.hpp</innerfile>
+    <innerfile refid="my__module_8cpp">my_module.cpp</innerfile>
+    <innerfile refid="PerceptionResponse_8hpp">PerceptionResponse.hpp</innerfile>
+    <innerfile refid="PhysicsEngine_8cpp">PhysicsEngine.cpp</innerfile>
+    <innerfile refid="PhysicsEngine_8hpp">PhysicsEngine.hpp</innerfile>
+    <innerfile refid="PhysicsManager_8cpp">PhysicsManager.cpp</innerfile>
+    <innerfile refid="PhysicsManager_8hpp">PhysicsManager.hpp</innerfile>
+    <innerfile refid="PyRegistry_8hpp">PyRegistry.hpp</innerfile>
+    <innerfile refid="QueryCommand_8cpp">QueryCommand.cpp</innerfile>
+    <innerfile refid="QueryCommand_8hpp">QueryCommand.hpp</innerfile>
+    <innerfile refid="QueryResponse_8cpp">QueryResponse.cpp</innerfile>
+    <innerfile refid="QueryResponse_8hpp">QueryResponse.hpp</innerfile>
+    <innerfile refid="settings_8hpp">settings.hpp</innerfile>
+    <innerfile refid="SunIntensity_8hpp">SunIntensity.hpp</innerfile>
+    <innerfile refid="VoxelGrid_8cpp">VoxelGrid.cpp</innerfile>
+    <innerfile refid="VoxelGrid_8hpp">VoxelGrid.hpp</innerfile>
+    <innerfile refid="World_8cpp">World.cpp</innerfile>
+    <innerfile refid="World_8hpp">World.hpp</innerfile>
+    <innerfile refid="WorldCreatePerception_8cpp">WorldCreatePerception.cpp</innerfile>
+    <innerfile refid="WorldView_8hpp">WorldView.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/"/>
+  </compounddef>
+</doxygen>

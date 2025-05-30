@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classInventoryWindow" kind="class" language="C++" prot="public">
+    <compoundname>InventoryWindow</compoundname>
+    <basecompoundref refid="classItemWindow" prot="public" virt="non-virtual">ItemWindow</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classInventoryWindow_1abf6aee87bb1dd073184e7ecff5c6e0e6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InventoryWindow::columns</definition>
+        <argsstring></argsstring>
+        <name>columns</name>
+        <qualifiedname>InventoryWindow::columns</qualifiedname>
+        <initializer>= 10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="64" column="9" bodyfile="src/Gui/ItemWindow.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classInventoryWindow_1a95caa6b7f5cc394cb24ce44d3cd423c0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>InventoryWindow::InventoryWindow</definition>
+        <argsstring>()</argsstring>
+        <name>InventoryWindow</name>
+        <qualifiedname>InventoryWindow::InventoryWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="66" column="5" bodyfile="src/Gui/ItemWindow.hpp" bodystart="66" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classInventoryWindow_1a029c9754036e7ce9b0631730e0b0a8d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>InventoryWindow::InventoryWindow</definition>
+        <argsstring>(std::vector&lt; InventoryItem &gt; &amp;items, nb::list &amp;commands)</argsstring>
+        <name>InventoryWindow</name>
+        <qualifiedname>InventoryWindow::InventoryWindow</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="structInventoryItem" kindref="compound">InventoryItem</ref> &gt; &amp;</type>
+          <declname>items</declname>
+        </param>
+        <param>
+          <type>nb::list &amp;</type>
+          <declname>commands</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="68" column="5" bodyfile="src/Gui/ItemWindow.hpp" bodystart="68" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classInventoryWindow_1ab55a9223ad5ef2bb6033dc5ecb9f5741" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void InventoryWindow::Render</definition>
+        <argsstring>() override</argsstring>
+        <name>Render</name>
+        <qualifiedname>InventoryWindow::Render</qualifiedname>
+        <reimplements refid="classItemWindow_1af05b3fc6525fbf82da7b737bb9133a0b">Render</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="71" column="10" bodyfile="src/Gui/ItemWindow.hpp" bodystart="71" bodyend="110"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>InventoryWindow</label>
+        <link refid="classInventoryWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ItemWindow</label>
+        <link refid="classItemWindow"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>InventoryWindow</label>
+        <link refid="classInventoryWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ItemWindow</label>
+        <link refid="classItemWindow"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/ItemWindow.hpp" line="62" column="1" bodyfile="src/Gui/ItemWindow.hpp" bodystart="62" bodyend="111"/>
+    <listofallmembers>
+      <member refid="classInventoryWindow_1abf6aee87bb1dd073184e7ecff5c6e0e6" prot="public" virt="non-virtual"><scope>InventoryWindow</scope><name>columns</name></member>
+      <member refid="classItemWindow_1a8689a1f0b24cb1931e75c1868c8a5261" prot="public" virt="non-virtual"><scope>InventoryWindow</scope><name>commands</name></member>
+      <member refid="classInventoryWindow_1a95caa6b7f5cc394cb24ce44d3cd423c0" prot="public" virt="non-virtual"><scope>InventoryWindow</scope><name>InventoryWindow</name></member>
+      <member refid="classInventoryWindow_1a029c9754036e7ce9b0631730e0b0a8d6" prot="public" virt="non-virtual"><scope>InventoryWindow</scope><name>InventoryWindow</name></member>
+      <member refid="classItemWindow_1a389aed36fb39ecf0c258ed7fa9fce846" prot="public" virt="non-virtual"><scope>InventoryWindow</scope><name>items</name></member>
+      <member refid="classItemWindow_1a2770295cd7f08469c643f8816ab8f2a9" prot="public" virt="non-virtual"><scope>InventoryWindow</scope><name>ItemWindow</name></member>
+      <member refid="classItemWindow_1a84a348e0ea6b63688813a343ae0ad00b" prot="public" virt="non-virtual"><scope>InventoryWindow</scope><name>ItemWindow</name></member>
+      <member refid="classInventoryWindow_1ab55a9223ad5ef2bb6033dc5ecb9f5741" prot="public" virt="virtual"><scope>InventoryWindow</scope><name>Render</name></member>
+      <member refid="classItemWindow_1a8891305b070b9f6554a6536b589de284" prot="public" virt="non-virtual"><scope>InventoryWindow</scope><name>selected_index</name></member>
+      <member refid="classItemWindow_1a74e74b341248e2812a205735f40c39a7" prot="public" virt="non-virtual"><scope>InventoryWindow</scope><name>setCommands</name></member>
+      <member refid="classItemWindow_1a9a98c42464447ae14f7add2c83b85bea" prot="public" virt="non-virtual"><scope>InventoryWindow</scope><name>setItems</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

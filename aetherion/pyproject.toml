@@ -21,16 +21,13 @@ dependencies = []
 Homepage = "https://github.com/yourusername/aetherion"
 
 [tool.scikit-build]
-cmake.verbose = true
+build.verbose = false
 cmake.args = [
   "-G", "Ninja",
   "-DPython3_FIND_DEBUG_MODE=3",
   "-DCMAKE_CXX_FLAGS=-fdiagnostics-color=always",
   "-DBUILD_WORLD_TEST=OFF",
-  # allow an override via env, fallback to your default PREFIX_PATH
-  "-DCMAKE_PREFIX_PATH=${PREFIX_PATH:-/home/arthur/anaconda3/envs/lifesimcore-312}"
 ]
-cmake.build-type = "Debug"
 
 build-dir = "build/{wheel_tag}"
 
@@ -40,12 +37,16 @@ wheel.py-api = "cp312"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["lifesimcore"]
+include = ["aetherion"]
 
 [tool.setuptools]
 include-package-data = true
 
 [tool.setuptools.package-data]
 # This tells setuptools to include the header file from the install tree
-aetherion = ["include/aetherion/aetherion.hpp"]
+aetherion = [  
+  "*.pyi",      # your generated stub
+  "py.typed",   # PEP 561 marker
+  "include/aetherion/aetherion.hpp"
+]
 "" = ["*.hpp", "*.h"]

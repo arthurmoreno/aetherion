@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classFontManager" kind="class" language="C++" prot="public">
+    <compoundname>FontManager</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classFontManager_1abe90a3b39a65688a745727da64affe3e" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, TTF_Font * &gt;</type>
+        <definition>std::map&lt;std::string, TTF_Font*&gt; FontManager::fonts_</definition>
+        <argsstring></argsstring>
+        <name>fonts_</name>
+        <qualifiedname>FontManager::fonts_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/FontManager.hpp" line="51" column="14" bodyfile="src/LowLevelRenderer/FontManager.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classFontManager_1acd25b43680995a5ea1dd40a8504db107" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classFontManager" kindref="compound">FontManager</ref> *</type>
+        <definition>static FontManager * FontManager::Instance</definition>
+        <argsstring>()</argsstring>
+        <name>Instance</name>
+        <qualifiedname>FontManager::Instance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/FontManager.hpp" line="12" column="24" bodyfile="src/LowLevelRenderer/FontManager.hpp" bodystart="12" bodyend="15"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classFontManager_1a71ae40502136d886d838c629184c4147" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool FontManager::loadFont</definition>
+        <argsstring>(const std::string &amp;font_id, const std::string &amp;file_path, int font_size)</argsstring>
+        <name>loadFont</name>
+        <qualifiedname>FontManager::loadFont</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>font_id</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>file_path</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>font_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/FontManager.hpp" line="18" column="10" bodyfile="src/LowLevelRenderer/FontManager.hpp" bodystart="18" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classFontManager_1a3b5e3f65d4a85bee68eda60855482d03" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TTF_Font *</type>
+        <definition>TTF_Font * FontManager::getFont</definition>
+        <argsstring>(const std::string &amp;font_id) const</argsstring>
+        <name>getFont</name>
+        <qualifiedname>FontManager::getFont</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>font_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/FontManager.hpp" line="29" column="14" bodyfile="src/LowLevelRenderer/FontManager.hpp" bodystart="29" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classFontManager_1a41a82c1f73d74c28b8b1e3f18f1204e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void FontManager::clean</definition>
+        <argsstring>()</argsstring>
+        <name>clean</name>
+        <qualifiedname>FontManager::clean</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/FontManager.hpp" line="38" column="10" bodyfile="src/LowLevelRenderer/FontManager.hpp" bodystart="38" bodyend="43"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classFontManager_1a53029a7a27249d9b011d2d370cfea341" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FontManager::FontManager</definition>
+        <argsstring>()=default</argsstring>
+        <name>FontManager</name>
+        <qualifiedname>FontManager::FontManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/FontManager.hpp" line="46" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classFontManager_1aa190bb023b4cf2ad28e24c69ef57f380" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>FontManager::~FontManager</definition>
+        <argsstring>()</argsstring>
+        <name>~FontManager</name>
+        <qualifiedname>FontManager::~FontManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/FontManager.hpp" line="47" column="5" bodyfile="src/LowLevelRenderer/FontManager.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classFontManager_1ad2df69d8089d4e217de41c05c27a40aa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FontManager::FontManager</definition>
+        <argsstring>(const FontManager &amp;)=delete</argsstring>
+        <name>FontManager</name>
+        <qualifiedname>FontManager::FontManager</qualifiedname>
+        <param>
+          <type>const <ref refid="classFontManager" kindref="compound">FontManager</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/FontManager.hpp" line="48" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classFontManager_1a409f40b2491e56b89cb99c33698431b5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classFontManager" kindref="compound">FontManager</ref> &amp;</type>
+        <definition>FontManager &amp; FontManager::operator=</definition>
+        <argsstring>(const FontManager &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>FontManager::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classFontManager" kindref="compound">FontManager</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/FontManager.hpp" line="49" column="17"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/LowLevelRenderer/FontManager.hpp" line="10" column="1" bodyfile="src/LowLevelRenderer/FontManager.hpp" bodystart="10" bodyend="52"/>
+    <listofallmembers>
+      <member refid="classFontManager_1a41a82c1f73d74c28b8b1e3f18f1204e3" prot="public" virt="non-virtual"><scope>FontManager</scope><name>clean</name></member>
+      <member refid="classFontManager_1a53029a7a27249d9b011d2d370cfea341" prot="private" virt="non-virtual"><scope>FontManager</scope><name>FontManager</name></member>
+      <member refid="classFontManager_1ad2df69d8089d4e217de41c05c27a40aa" prot="private" virt="non-virtual"><scope>FontManager</scope><name>FontManager</name></member>
+      <member refid="classFontManager_1abe90a3b39a65688a745727da64affe3e" prot="private" virt="non-virtual"><scope>FontManager</scope><name>fonts_</name></member>
+      <member refid="classFontManager_1a3b5e3f65d4a85bee68eda60855482d03" prot="public" virt="non-virtual"><scope>FontManager</scope><name>getFont</name></member>
+      <member refid="classFontManager_1acd25b43680995a5ea1dd40a8504db107" prot="public" virt="non-virtual"><scope>FontManager</scope><name>Instance</name></member>
+      <member refid="classFontManager_1a71ae40502136d886d838c629184c4147" prot="public" virt="non-virtual"><scope>FontManager</scope><name>loadFont</name></member>
+      <member refid="classFontManager_1a409f40b2491e56b89cb99c33698431b5" prot="private" virt="non-virtual"><scope>FontManager</scope><name>operator=</name></member>
+      <member refid="classFontManager_1aa190bb023b4cf2ad28e24c69ef57f380" prot="private" virt="non-virtual"><scope>FontManager</scope><name>~FontManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

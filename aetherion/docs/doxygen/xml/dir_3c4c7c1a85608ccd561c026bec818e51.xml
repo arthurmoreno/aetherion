@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_3c4c7c1a85608ccd561c026bec818e51" kind="dir">
+    <compoundname>src/components</compoundname>
+    <innerfile refid="CombatComponents_8hpp">CombatComponents.hpp</innerfile>
+    <innerfile refid="ConsoleLogsComponent_8cpp">ConsoleLogsComponent.cpp</innerfile>
+    <innerfile refid="ConsoleLogsComponent_8hpp">ConsoleLogsComponent.hpp</innerfile>
+    <innerfile refid="DnaComponents_8hpp">DnaComponents.hpp</innerfile>
+    <innerfile refid="EntityTypeComponent_8hpp">EntityTypeComponent.hpp</innerfile>
+    <innerfile refid="HealthComponents_8hpp">HealthComponents.hpp</innerfile>
+    <innerfile refid="ItemsComponents_8cpp">ItemsComponents.cpp</innerfile>
+    <innerfile refid="ItemsComponents_8hpp">ItemsComponents.hpp</innerfile>
+    <innerfile refid="MetabolismComponents_8cpp">MetabolismComponents.cpp</innerfile>
+    <innerfile refid="MetabolismComponents_8hpp">MetabolismComponents.hpp</innerfile>
+    <innerfile refid="MovingComponent_8hpp">MovingComponent.hpp</innerfile>
+    <innerfile refid="PerceptionComponent_8hpp">PerceptionComponent.hpp</innerfile>
+    <innerfile refid="PhysicsComponents_8hpp">PhysicsComponents.hpp</innerfile>
+    <innerfile refid="PlantsComponents_8hpp">PlantsComponents.hpp</innerfile>
+    <innerfile refid="TerrainComponents_8hpp">TerrainComponents.hpp</innerfile>
+    <innerfile refid="TimeSeriesComponent_8hpp">TimeSeriesComponent.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/"/>
+  </compounddef>
+</doxygen>

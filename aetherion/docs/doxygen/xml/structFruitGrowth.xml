@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structFruitGrowth" kind="struct" language="C++" prot="public">
+    <compoundname>FruitGrowth</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structFruitGrowth_1a707e091e700103812029847e8268d96a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int FruitGrowth::energyNeeded</definition>
+        <argsstring></argsstring>
+        <name>energyNeeded</name>
+        <qualifiedname>FruitGrowth::energyNeeded</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PlantsComponents.hpp" line="7" column="9" bodyfile="src/components/PlantsComponents.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structFruitGrowth_1ae0e9bf5832dc4bd0af1532930ee4b3ff" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int FruitGrowth::currentEnergy</definition>
+        <argsstring></argsstring>
+        <name>currentEnergy</name>
+        <qualifiedname>FruitGrowth::currentEnergy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PlantsComponents.hpp" line="8" column="9" bodyfile="src/components/PlantsComponents.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/PlantsComponents.hpp" line="6" column="1" bodyfile="src/components/PlantsComponents.hpp" bodystart="6" bodyend="9"/>
+    <listofallmembers>
+      <member refid="structFruitGrowth_1ae0e9bf5832dc4bd0af1532930ee4b3ff" prot="public" virt="non-virtual"><scope>FruitGrowth</scope><name>currentEnergy</name></member>
+      <member refid="structFruitGrowth_1a707e091e700103812029847e8268d96a" prot="public" virt="non-virtual"><scope>FruitGrowth</scope><name>energyNeeded</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

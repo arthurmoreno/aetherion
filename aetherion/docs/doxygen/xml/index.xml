@@ -1,0 +1,1582 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.8" xml:lang="en-US">
+  <compound refid="classBaseGene" kind="class"><name>BaseGene</name>
+    <member refid="classBaseGene_1a37ca839c6c11ee7539c2b9d0f20a4733" kind="function"><name>BaseGene</name></member>
+    <member refid="classBaseGene_1a5fb5d3bffb4b004ca077e18412d7c656" kind="function"><name>~BaseGene</name></member>
+    <member refid="classBaseGene_1a37871b1b6a63cb941fa4d8cc9a4dc45c" kind="function"><name>to_string</name></member>
+    <member refid="classBaseGene_1aca5621fe8e4781aa1b6e436a2f16ace7" kind="function"><name>copy</name></member>
+    <member refid="classBaseGene_1a84782b89734a1a4d3ad4cf273c36e14e" kind="function"><name>crossover</name></member>
+    <member refid="classBaseGene_1a8edc6492fed86f21383dc2d39e116715" kind="function"><name>init_attributes</name></member>
+    <member refid="classBaseGene_1ac6dc2ae6138fe1e7155f910c4c4e4077" kind="function"><name>mutate</name></member>
+  </compound>
+  <compound refid="structBoolHandle" kind="struct"><name>BoolHandle</name>
+    <member refid="structBoolHandle_1a20375a06b4c238d3e072e3ec1d671f18" kind="variable"><name>handle</name></member>
+    <member refid="structBoolHandle_1a97a36bf33a73112dca85655502a1b6fe" kind="function"><name>BoolHandle</name></member>
+    <member refid="structBoolHandle_1a113a5a1b54b9b0739dd3ee37ce62ca11" kind="function"><name>get</name></member>
+    <member refid="structBoolHandle_1a2d5135f93d4e5dfbc01ba660f01f6dbb" kind="function"><name>value</name></member>
+    <member refid="structBoolHandle_1ac9ba48eb5d40afcb283fb2cf2b1f468d" kind="function"><name>set</name></member>
+  </compound>
+  <compound refid="classCombatSystem" kind="class"><name>CombatSystem</name>
+    <member refid="classCombatSystem_1a7fd3620a59733244b83c696c6394a022" kind="variable"><name>registry</name></member>
+    <member refid="classCombatSystem_1ac3ae26f06da65102cc954a57242fa81a" kind="variable"><name>voxelGrid</name></member>
+    <member refid="classCombatSystem_1ae48ad477a7eb1b2886ba51134844612b" kind="variable"><name>combatMutex</name></member>
+    <member refid="classCombatSystem_1afe2aaaa2e97026c489e6ddcd64fc26f7" kind="variable"><name>processingComplete</name></member>
+    <member refid="classCombatSystem_1a0da0bd865fade89c998a9562c7b4a681" kind="function"><name>CombatSystem</name></member>
+    <member refid="classCombatSystem_1ad46f9bb8554d5c3cafd75b561f648302" kind="function"><name>CombatSystem</name></member>
+    <member refid="classCombatSystem_1ae90dd7d7714862a82a1a799a2683bcdf" kind="function"><name>processCombat</name></member>
+    <member refid="classCombatSystem_1aa253b68a047f5c94ee8c64cc86401069" kind="function"><name>processCombatAsync</name></member>
+    <member refid="classCombatSystem_1adff02bbc0894d2045be31666b6f25ec7" kind="function"><name>registerEventHandlers</name></member>
+    <member refid="classCombatSystem_1a2996825707308e5641d61c7ad5d2bb97" kind="function"><name>isProcessingComplete</name></member>
+  </compound>
+  <compound refid="structCondenseWaterEntityEvent" kind="struct"><name>CondenseWaterEntityEvent</name>
+    <member refid="structCondenseWaterEntityEvent_1aa6e3ea5e334bc7d2d78cadd6b8d4ed9e" kind="variable"><name>entity</name></member>
+    <member refid="structCondenseWaterEntityEvent_1a89138190ba441d1e1109c65a04f80dd3" kind="variable"><name>condensationAmount</name></member>
+    <member refid="structCondenseWaterEntityEvent_1a465633ab345fbe1af03c47a8e2eb9851" kind="function"><name>CondenseWaterEntityEvent</name></member>
+  </compound>
+  <compound refid="classConfig" kind="class"><name>Config</name>
+    <member refid="classConfig_1a6d2005cfe987a37cd8fd9227cc2e3a82" kind="variable"><name>pop_size</name></member>
+    <member refid="classConfig_1acbddb35868ac2fde2aa09baf5c1fda04" kind="variable"><name>fitness_criterion</name></member>
+    <member refid="classConfig_1ae5eb553954739052b6c5945ce8dcc1d6" kind="variable"><name>fitness_threshold</name></member>
+    <member refid="classConfig_1a1adb77ca4a3cd5a3e3fe22d670e6a705" kind="variable"><name>reset_on_extinction</name></member>
+    <member refid="classConfig_1a1087e7c1996d9f15dcaee6d2b1c4fe40" kind="variable"><name>no_fitness_termination</name></member>
+    <member refid="classConfig_1ac9b6d99cca47340c91d49c27ccebedee" kind="variable"><name>genome_config</name></member>
+    <member refid="classConfig_1a55c59feb9758c673020f4ca4c4a2ee1e" kind="variable"><name>species_set_config</name></member>
+    <member refid="classConfig_1a856febd5f3878b24e6ad77fb764f5955" kind="variable"><name>stagnation_config</name></member>
+    <member refid="classConfig_1a7b979d88de4e914151327d74f0989078" kind="variable"><name>reproduction_config</name></member>
+    <member refid="classConfig_1aabc173c910ed455f9546ea665e48ea98" kind="function"><name>Config</name></member>
+    <member refid="classConfig_1afb465b6d0e57d06feb21cf68cb01b31a" kind="function"><name>save</name></member>
+  </compound>
+  <compound refid="classConfigParameter" kind="class"><name>ConfigParameter</name>
+    <member refid="classConfigParameter_1a9d549b1d1435e639a328209c621c7c59" kind="variable"><name>name</name></member>
+    <member refid="classConfigParameter_1a7596fd49c3fe6ac9fa5fa227c5bf9c34" kind="variable"><name>default_value</name></member>
+    <member refid="classConfigParameter_1a509025360e1671f971e251de0088bca1" kind="function"><name>ConfigParameter</name></member>
+    <member refid="classConfigParameter_1a9a3349847672d2d2c810533ee20d1bb2" kind="function"><name>ConfigParameter</name></member>
+    <member refid="classConfigParameter_1a2b9a100d2bd9e81619e7da158e7ca1df" kind="function"><name>parse</name></member>
+    <member refid="classConfigParameter_1acb52335fa5e015c33612871699e351f2" kind="function"><name>interpret</name></member>
+    <member refid="classConfigParameter_1aca806e4c339b57ff8f76957eaf5f8f8b" kind="function"><name>format</name></member>
+  </compound>
+  <compound refid="classConfigParser" kind="class"><name>ConfigParser</name>
+    <member refid="classConfigParser_1ac4ceaf09d3133d0d991c13e89b018ed4" kind="typedef"><name>Section</name></member>
+    <member refid="classConfigParser_1a0a4653d4813a061634234a3e04f149ed" kind="variable"><name>sections</name></member>
+    <member refid="classConfigParser_1a31483b393515d726a15e7061e17a894f" kind="function"><name>ConfigParser</name></member>
+    <member refid="classConfigParser_1af3f20a80a3673319799961a362ce3c43" kind="function"><name>read_file</name></member>
+    <member refid="classConfigParser_1a7e9c41c463a6a56ac352e276f1a4a79c" kind="function"><name>has_section</name></member>
+    <member refid="classConfigParser_1a2bf8a5aac2cb96e3e979543a5fbe6543" kind="function"><name>get</name></member>
+    <member refid="classConfigParser_1af1c13d419b999015038867392c9b341f" kind="function"><name>getint</name></member>
+    <member refid="classConfigParser_1acb1fe2dc8425bc96ce4c1b9df80dfc74" kind="function"><name>getfloat</name></member>
+    <member refid="classConfigParser_1a175d42d6a7479587936ac09e396d41e7" kind="function"><name>getboolean</name></member>
+    <member refid="classConfigParser_1a101d5783398fb237c47842e931b4e7a0" kind="function"><name>items</name></member>
+    <member refid="classConfigParser_1a99642f2b03f5cec8025b8737eacef795" kind="function"><name>trim</name></member>
+  </compound>
+  <compound refid="structConsoleLogsComponent" kind="struct"><name>ConsoleLogsComponent</name>
+    <member refid="structConsoleLogsComponent_1a0384812057051e771fae27e175207743" kind="variable"><name>log_buffer</name></member>
+    <member refid="structConsoleLogsComponent_1af51dd3ecae21df77db3b159963e89e3e" kind="variable"><name>max_size</name></member>
+    <member refid="structConsoleLogsComponent_1a3a10b15276cfb8c265695ae7ffbce635" kind="function"><name>current_time_string</name></member>
+    <member refid="structConsoleLogsComponent_1ac9dd56c3d9e901e3f131e1aecb5db371" kind="function"><name>add_log</name></member>
+    <member refid="structConsoleLogsComponent_1a0c230ce63b7bb7937878511ad459fe39" kind="function"><name>get_logs</name></member>
+  </compound>
+  <compound refid="classDefaultConnectionGene" kind="class"><name>DefaultConnectionGene</name>
+    <member refid="classDefaultConnectionGene_1ab132589e348c636dbed24bea77c279b0" kind="variable"><name>key</name></member>
+    <member refid="classDefaultConnectionGene_1ab1cef5363bb77fff7bbec6e684e67b20" kind="variable"><name>weight</name></member>
+    <member refid="classDefaultConnectionGene_1ad2999f6ac769ea306d79291e336348cc" kind="variable"><name>enabled</name></member>
+    <member refid="classDefaultConnectionGene_1a42fe8a6328f7f6da38dac861cf8f12bc" kind="function"><name>DefaultConnectionGene</name></member>
+    <member refid="classDefaultConnectionGene_1adb47cf183387d67892ed32939ca2ea32" kind="function"><name>to_string</name></member>
+    <member refid="classDefaultConnectionGene_1a53576fb61528a30ebeb528c1add9abbe" kind="function"><name>copy</name></member>
+    <member refid="classDefaultConnectionGene_1a01d3e9ec1ba555ffeca7301fc5f96655" kind="function"><name>distance</name></member>
+    <member refid="classDefaultConnectionGene_1abd588a1f272af0cf62026dcfdedba958" kind="function"><name>crossover</name></member>
+    <member refid="classDefaultConnectionGene_1a043682d2fc52b8aa1bddac0e05f21d27" kind="function"><name>crossover</name></member>
+    <member refid="classDefaultConnectionGene_1a919bbf059914b0780b50a8d5deb2ceae" kind="function"><name>init_attributes</name></member>
+    <member refid="classDefaultConnectionGene_1a2866484f0a2a7e9fd259f0ae135187aa" kind="function"><name>mutate</name></member>
+  </compound>
+  <compound refid="classDefaultGenome" kind="class"><name>DefaultGenome</name>
+    <member refid="classDefaultGenome_1ae339dbe46f6aa519197d81807be93b22" kind="variable"><name>key</name></member>
+    <member refid="classDefaultGenome_1a8b409a9504ec3990ea455348c805a5ee" kind="variable"><name>nodes</name></member>
+    <member refid="classDefaultGenome_1a8a59843c91c048c1788e999665af4c89" kind="variable"><name>connections</name></member>
+    <member refid="classDefaultGenome_1a4e32c4d30385bb8d93ec472f7ac14477" kind="variable"><name>fitness</name></member>
+    <member refid="classDefaultGenome_1afbf73116c544e03e5774dd62d8c041bb" kind="function"><name>DefaultGenome</name></member>
+    <member refid="classDefaultGenome_1ac3618a1452ee765ea7fede16ae782d5f" kind="function"><name>create_node</name></member>
+    <member refid="classDefaultGenome_1a9771974c91b9a76ce933a96819e3a3d7" kind="function"><name>create_connection</name></member>
+    <member refid="classDefaultGenome_1ae47ec9e951831fd15905dd4259e33dd6" kind="function"><name>configure_new</name></member>
+    <member refid="classDefaultGenome_1a7b85be4e73ce4cf272b09707f040ee21" kind="function"><name>mutate_add_node</name></member>
+  </compound>
+  <compound refid="classDefaultGenomeConfig" kind="class"><name>DefaultGenomeConfig</name>
+    <member refid="classDefaultGenomeConfig_1a666afdf7e10e25c68319a2f9443cf4f1" kind="variable"><name>num_inputs</name></member>
+    <member refid="classDefaultGenomeConfig_1a94bb34b69208b7d77c5c7bfd2115f73e" kind="variable"><name>num_outputs</name></member>
+    <member refid="classDefaultGenomeConfig_1a4439761fcecbdbde67d3523fc9108def" kind="variable"><name>num_hidden</name></member>
+    <member refid="classDefaultGenomeConfig_1ac1aac7b2ae474691706d15a46c424d52" kind="variable"><name>feed_forward</name></member>
+    <member refid="classDefaultGenomeConfig_1a9d80f8b21a0c75814fd19d43dd0caf22" kind="variable"><name>compatibility_disjoint_coefficient</name></member>
+    <member refid="classDefaultGenomeConfig_1a3f1df10066ad00ea5149822629597cfe" kind="variable"><name>compatibility_weight_coefficient</name></member>
+    <member refid="classDefaultGenomeConfig_1abb0342114ee026526de60906efb2cea2" kind="variable"><name>conn_add_prob</name></member>
+    <member refid="classDefaultGenomeConfig_1a813c744fe823b5b527bfb24c785ddb6a" kind="variable"><name>conn_delete_prob</name></member>
+    <member refid="classDefaultGenomeConfig_1ab764502012807a409c8f00d963025d1e" kind="variable"><name>node_add_prob</name></member>
+    <member refid="classDefaultGenomeConfig_1aba75fa911c1d3f1b67de889093712083" kind="variable"><name>node_delete_prob</name></member>
+    <member refid="classDefaultGenomeConfig_1acc8736e9d1b59387df2a918cf64c5939" kind="variable"><name>single_structural_mutation</name></member>
+    <member refid="classDefaultGenomeConfig_1a35bc4873463156fc99d259be124b6f44" kind="variable"><name>structural_mutation_surer</name></member>
+    <member refid="classDefaultGenomeConfig_1a999b6b2b1a644d1d02f650374e3d5ca2" kind="variable"><name>initial_connection</name></member>
+    <member refid="classDefaultGenomeConfig_1aff720a6db3dd812cac7c38f035fbffdf" kind="variable"><name>connection_fraction</name></member>
+    <member refid="classDefaultGenomeConfig_1ac2de141c2e8207f4117edc2dd0c47966" kind="variable"><name>input_keys</name></member>
+    <member refid="classDefaultGenomeConfig_1a400f7b2b62e86f0396b4d5827f0f32c2" kind="variable"><name>output_keys</name></member>
+    <member refid="classDefaultGenomeConfig_1a12b330158b23714643c466362a186d58" kind="variable"><name>next_node_key</name></member>
+    <member refid="classDefaultGenomeConfig_1a362fc7ef295723745997a9d66d8ba43d" kind="function"><name>DefaultGenomeConfig</name></member>
+    <member refid="classDefaultGenomeConfig_1a834198be3b3201935d7e3da0511fe278" kind="function"><name>get_new_node_key</name></member>
+  </compound>
+  <compound refid="classDefaultNodeGene" kind="class"><name>DefaultNodeGene</name>
+    <member refid="classDefaultNodeGene_1a6b38a2f4fd4844c528634af526b61649" kind="variable"><name>key</name></member>
+    <member refid="classDefaultNodeGene_1ab5d0f8396661b22e26d29ce55ed283e4" kind="variable"><name>bias</name></member>
+    <member refid="classDefaultNodeGene_1a7e3212affa7a7906c37196c1d67d9c74" kind="variable"><name>response</name></member>
+    <member refid="classDefaultNodeGene_1ac23be95ef8566899a359e1ffbc2b0e26" kind="variable"><name>activation</name></member>
+    <member refid="classDefaultNodeGene_1a058bd3b362c5b43211c2b683cd45abda" kind="variable"><name>aggregation</name></member>
+    <member refid="classDefaultNodeGene_1a3108b9b269a9e70c9386cc0155cfc296" kind="function"><name>DefaultNodeGene</name></member>
+    <member refid="classDefaultNodeGene_1ae5b4a022df98657b493c4546de383589" kind="function"><name>to_string</name></member>
+    <member refid="classDefaultNodeGene_1a6f3e5eb8ca9a6e1d48a229e6c8b4ff1b" kind="function"><name>copy</name></member>
+    <member refid="classDefaultNodeGene_1a15003c2cbeddd25d6315ccf7f6be5759" kind="function"><name>distance</name></member>
+    <member refid="classDefaultNodeGene_1a2fa90af4dac4cd2caefca602d78e1d07" kind="function"><name>crossover</name></member>
+    <member refid="classDefaultNodeGene_1a779bd20e7a38eaa5555db27769c4e7b8" kind="function"><name>crossover</name></member>
+    <member refid="classDefaultNodeGene_1a468a9ca9ed501bfeb5dc63b3b174abb9" kind="function"><name>init_attributes</name></member>
+    <member refid="classDefaultNodeGene_1abc1cfb9c7bffcdf303bf74cbb369d3d8" kind="function"><name>mutate</name></member>
+  </compound>
+  <compound refid="structDigestingFoodItem" kind="struct"><name>DigestingFoodItem</name>
+    <member refid="structDigestingFoodItem_1a5308df0c87c5d10aee6152e59d1bff87" kind="variable"><name>foodItemID</name></member>
+    <member refid="structDigestingFoodItem_1a9f92983b899b7595f1010a44884f8b74" kind="variable"><name>processingTime</name></member>
+    <member refid="structDigestingFoodItem_1ac4ed4869d625177620935b4371e44d48" kind="variable"><name>energyLeft</name></member>
+    <member refid="structDigestingFoodItem_1a4fe071e6f7d9c9df23f1f73e0bfcf6b6" kind="variable"><name>energyDensity</name></member>
+    <member refid="structDigestingFoodItem_1a95b5561a09b9ecb7b137f84cc61e044e" kind="variable"><name>mass</name></member>
+    <member refid="structDigestingFoodItem_1a8b116097473488dbcd22f0d1132405b1" kind="variable"><name>volume</name></member>
+    <member refid="structDigestingFoodItem_1a4203a76309b9af47dce682c638723e81" kind="variable"><name>energyHealthRatio</name></member>
+    <member refid="structDigestingFoodItem_1a91833b1b6b7e70192690ebb932eda2d7" kind="variable"><name>convertionEfficiency</name></member>
+  </compound>
+  <compound refid="structDigestionComponent" kind="struct"><name>DigestionComponent</name>
+    <member refid="structDigestionComponent_1ac7d2b1530798cb0b8a039234554c8114" kind="variable"><name>digestingItems</name></member>
+    <member refid="structDigestionComponent_1a308c7a105715afeea9ce3110ca660a04" kind="variable"><name>sizeOfStomach</name></member>
+    <member refid="structDigestionComponent_1aac135fcf06d1ed4c56b643ef63ac723b" kind="function"><name>addItem</name></member>
+    <member refid="structDigestionComponent_1aa59fe279231ee49c360fa281a78d7004" kind="function"><name>removeItem</name></member>
+    <member refid="structDigestionComponent_1a1346c462ee8789a5068c49da618496d7" kind="function"><name>isFull</name></member>
+    <member refid="structDigestionComponent_1a9ec1045f7f46b5c4f7e455a017ab21ee" kind="function"><name>isEmpty</name></member>
+  </compound>
+  <compound refid="structDragPayload" kind="struct"><name>DragPayload</name>
+    <member refid="structDragPayload_1a8cba19c4d439d8b05975770c8948584f" kind="variable"><name>index</name></member>
+    <member refid="structDragPayload_1aaa314d4527304a180630dd40b8617070" kind="variable"><name>window_id</name></member>
+  </compound>
+  <compound refid="structDropRates" kind="struct"><name>DropRates</name>
+    <member refid="structDropRates_1a972904f3198bdd585202c27d443a619f" kind="variable"><name>itemDropRates</name></member>
+    <member refid="structDropRates_1adbcfde668cb87044f4c780ccce07740b" kind="function"><name>addItem</name></member>
+  </compound>
+  <compound refid="structDurability" kind="struct"><name>Durability</name>
+    <member refid="structDurability_1a0dceafe3d109277e198ba6c1436fc011" kind="variable"><name>current</name></member>
+    <member refid="structDurability_1a34904749e49e60832736c480d8a9b0ab" kind="variable"><name>max</name></member>
+  </compound>
+  <compound refid="classEcosystemEngine" kind="class"><name>EcosystemEngine</name>
+    <member refid="classEcosystemEngine_1aa765091ecf8066d1c76b81c7f7fefde4" kind="variable"><name>pendingEvaporateWater</name></member>
+    <member refid="classEcosystemEngine_1a5180118ffbdd9beb4a8fbac5318b16b2" kind="variable"><name>pendingCondenseWater</name></member>
+    <member refid="classEcosystemEngine_1af62470af88dce4170d49e7d7071d1a13" kind="variable"><name>pendingWaterFall</name></member>
+    <member refid="classEcosystemEngine_1a4203f72a3b976c699f61714034a03e10" kind="variable"><name>entityBeingDebugged</name></member>
+    <member refid="classEcosystemEngine_1a072b6e39e59e9e3a7d7db7cc18237750" kind="variable"><name>countCreatedEvaporatedWater</name></member>
+    <member refid="classEcosystemEngine_1a51da41ce47d1d48d558021fece0755fa" kind="variable"><name>ecosystemMutex</name></member>
+    <member refid="classEcosystemEngine_1a1aea9afae2832a1475dea1d3d7ea283b" kind="variable"><name>processingComplete</name></member>
+    <member refid="classEcosystemEngine_1a40ad1dd73a393f6aa024eb4bb95b5ab8" kind="function"><name>EcosystemEngine</name></member>
+    <member refid="classEcosystemEngine_1af9fadc16d5c391ba27c4fc0942b89583" kind="function"><name>processEcosystem</name></member>
+    <member refid="classEcosystemEngine_1a30afdf70ffa81f23dd117c7ae917a804" kind="function"><name>processEcosystemAsync</name></member>
+    <member refid="classEcosystemEngine_1a72241972e12c3f4855b0493a74c8e86c" kind="function"><name>loopTiles</name></member>
+    <member refid="classEcosystemEngine_1ac512fc69e3423c1305cef96ab9cfc37b" kind="function"><name>processEvaporateWaterEvents</name></member>
+    <member refid="classEcosystemEngine_1accf703ae16c70213a1f69e8f18d1c8ed" kind="function"><name>processCondenseWaterEvents</name></member>
+    <member refid="classEcosystemEngine_1af08866db8c9d568d6deff77dc862cbfe" kind="function"><name>processWaterFallEvents</name></member>
+    <member refid="classEcosystemEngine_1a871adc8f1b42349ff0b4b6b12b590b78" kind="function"><name>onSetEcoEntityToDebug</name></member>
+    <member refid="classEcosystemEngine_1a43418c468a384ff4fce41661b2617c5c" kind="function"><name>registerEventHandlers</name></member>
+    <member refid="classEcosystemEngine_1aaa537271991c07562715cde46470fa09" kind="function"><name>isProcessingComplete</name></member>
+  </compound>
+  <compound refid="classEffectsSystem" kind="class"><name>EffectsSystem</name>
+    <member refid="classEffectsSystem_1a7eb9da827b708001461ccf16fa6ab607" kind="variable"><name>registry</name></member>
+    <member refid="classEffectsSystem_1a62cd691e8d3bfceea0783534fe222e7b" kind="variable"><name>voxelGrid</name></member>
+    <member refid="classEffectsSystem_1a2aaf2b0b25496d027c8374cab856e176" kind="variable"><name>combatMutex</name></member>
+    <member refid="classEffectsSystem_1a4d4fc2e08b710cdc5c7e27b3d6e64ad6" kind="variable"><name>processingComplete</name></member>
+    <member refid="classEffectsSystem_1a3625dbe1f43f598116c11eeb03d91306" kind="function"><name>EffectsSystem</name></member>
+    <member refid="classEffectsSystem_1a924c746df8854e9d37cca1dc664f7887" kind="function"><name>EffectsSystem</name></member>
+    <member refid="classEffectsSystem_1a0f173aa34311398c633cf1c0ab5e12e9" kind="function"><name>processEffects</name></member>
+    <member refid="classEffectsSystem_1a10a81ab438ba8cc6b74c2542a0452410" kind="function"><name>processEffectsAsync</name></member>
+    <member refid="classEffectsSystem_1a711ef2420b55657a4d2f8442d94f9f7a" kind="function"><name>registerEventHandlers</name></member>
+    <member refid="classEffectsSystem_1a3763c950f05fc842f6ecb32a3256bd1c" kind="function"><name>isProcessingComplete</name></member>
+  </compound>
+  <compound refid="structEntityHeader" kind="struct"><name>EntityHeader</name>
+    <member refid="structEntityHeader_1ac4a88025e30b804e5f37649f1ae57da3" kind="variable"><name>entityId</name></member>
+    <member refid="structEntityHeader_1aa19cad0ad87b85712201619a7de62a5f" kind="variable"><name>componentMask</name></member>
+  </compound>
+  <compound refid="classEntityInterface" kind="class"><name>EntityInterface</name>
+    <member refid="classEntityInterface_1a052339bc027e2269f9aa33c329941afd" kind="variable"><name>entityId</name></member>
+    <member refid="classEntityInterface_1ad90cd9d61cd9c5eefe86040084ca4610" kind="variable"><name>componentMask</name></member>
+    <member refid="classEntityInterface_1acebff8b4d3ffe5b671a58c3f06080db9" kind="variable"><name>components</name></member>
+    <member refid="classEntityInterface_1a1ae3c0cfee45f00e1fb8156355ad7504" kind="function"><name>addComponent</name></member>
+    <member refid="classEntityInterface_1aa0b3b5cd26ece87ca632ade806a063fb" kind="function"><name>removeComponent</name></member>
+    <member refid="classEntityInterface_1a5049dcdffde6775d181f60248a8e8dc5" kind="function"><name>hasComponent</name></member>
+    <member refid="classEntityInterface_1a5276f59993b2195ef55fb33fbf74af48" kind="function"><name>getEntityId</name></member>
+    <member refid="classEntityInterface_1ad9923de2c6ebceb1d4d7f0a16ee3a7c1" kind="function"><name>setEntityId</name></member>
+    <member refid="classEntityInterface_1af0b3c1fd78fa9c67024df2854370a913" kind="function"><name>getComponent</name></member>
+    <member refid="classEntityInterface_1a89e3aa8347ead1b0a69a187294d11907" kind="function"><name>getComponent</name></member>
+    <member refid="classEntityInterface_1adf76092d1c6102e58d9fb0981278c1db" kind="function"><name>setComponent</name></member>
+    <member refid="classEntityInterface_1a956eb6d4fbce590f29c9f3fd9aa68f7c" kind="function"><name>serialize</name></member>
+    <member refid="classEntityInterface_1a29e30836ea07297bd1ecd35306c16e33" kind="function"><name>py_serialize</name></member>
+    <member refid="classEntityInterface_1a158b483e4ae772dac6dd504b343ad50a" kind="function"><name>deserialize</name></member>
+    <member refid="classEntityInterface_1a29ce6b5473b7e4ea7d1e1fbe9a8c465e" kind="function"><name>py_deserialize</name></member>
+    <member refid="classEntityInterface_1aadea43359bf0481e98c63a5677b50f3e" kind="function"><name>componentFlag</name></member>
+    <member refid="classEntityInterface_1a3445603833ac42b394c58ed9568303f1" kind="function"><name>componentFlagImpl</name></member>
+    <member refid="classEntityInterface_1ad1212c52a9066b35357d794dbc928360" kind="function"><name>serializeComponents</name></member>
+    <member refid="classEntityInterface_1a595023367521aed5fb0ba3bdbcd50730" kind="function"><name>serializeComponentsImpl</name></member>
+    <member refid="classEntityInterface_1a2b2aff59b43c20ee8e1104e5e5e487db" kind="function"><name>serializeComponent</name></member>
+    <member refid="classEntityInterface_1af9739e3873c9193e82d4c2337cdc3663" kind="function"><name>deserializeComponents</name></member>
+    <member refid="classEntityInterface_1a29e58e56506ac667ccea99f2c6808182" kind="function"><name>deserializeComponentsImpl</name></member>
+    <member refid="classEntityInterface_1ad0c9844e52934517d6c126b6138453bb" kind="function"><name>deserializeComponent</name></member>
+  </compound>
+  <compound refid="classEntityMouseSelection" kind="class"><name>EntityMouseSelection</name>
+    <member refid="classEntityMouseSelection_1aa2486e108d1fecb9bc1fd5d85445d52d" kind="variable"><name>currentEntitySelected</name></member>
+    <member refid="classEntityMouseSelection_1a3fdad4b5f8d3dc6404cfcb27a3313696" kind="variable"><name>screenX</name></member>
+    <member refid="classEntityMouseSelection_1a44c83f2d3cd7b012b7a2109207702c24" kind="variable"><name>screenY</name></member>
+    <member refid="classEntityMouseSelection_1ae0fe101dcf5690b49afdf232e7d2962d" kind="variable"><name>offsetX</name></member>
+    <member refid="classEntityMouseSelection_1a6f4a1d691916a3bf55dca3969ceeee7a" kind="variable"><name>offsetY</name></member>
+    <member refid="classEntityMouseSelection_1a0401f71d2ff257a18f5737ba32a32ac6" kind="variable"><name>layerIndex</name></member>
+    <member refid="classEntityMouseSelection_1acfa5666b0c01507c45f2ee2cf3fb45f6" kind="variable"><name>TILE_SIZE_ON_SCREEN</name></member>
+    <member refid="classEntityMouseSelection_1a863c360c49b0d0b394a27390f21caaee" kind="variable"><name>entity</name></member>
+    <member refid="classEntityMouseSelection_1a7e98d57bee1d2378d336b5fd0a4333c6" kind="variable"><name>lockOnTarget</name></member>
+    <member refid="classEntityMouseSelection_1a436b8a4ef7d4dc1a5a332c18837c5541" kind="variable"><name>mouseX</name></member>
+    <member refid="classEntityMouseSelection_1aca66f1878eb2036589b7aad7537ec3b4" kind="variable"><name>mouseY</name></member>
+    <member refid="classEntityMouseSelection_1a8d33101bdad10957f40705ba69b7ecce" kind="variable"><name>entityX</name></member>
+    <member refid="classEntityMouseSelection_1a7249dd0e7c60fbbc98a1f62b1f692738" kind="variable"><name>entityY</name></member>
+    <member refid="classEntityMouseSelection_1a2a891bbd460ed0fc7061ed78869cb104" kind="variable"><name>entityZ</name></member>
+    <member refid="classEntityMouseSelection_1ac4b694350192030e25f9565bab191de0" kind="variable"><name>selectedSquareDrawn</name></member>
+    <member refid="classEntityMouseSelection_1ac873622f9bb51d595c308125548d4b0d" kind="function"><name>EntityMouseSelection</name></member>
+    <member refid="classEntityMouseSelection_1ad9661aa720d1621cb48ad57c029de35d" kind="function"><name>drawLockOnTarget</name></member>
+    <member refid="classEntityMouseSelection_1ad891c2fdf394d30ee1b5f5b36ca05b9c" kind="function"><name>isMouseCoordinatesInvalid</name></member>
+    <member refid="classEntityMouseSelection_1ab4c5de522e1ffee30b061de8bd3eb47e" kind="function"><name>setEntityCoordinates</name></member>
+    <member refid="classEntityMouseSelection_1a25abd6fbf663ec8387c777ca63d02cb8" kind="function"><name>setSelectionAndDrawHovered</name></member>
+    <member refid="classEntityMouseSelection_1ab9ba7037885a00db8c48602adfafafef" kind="function"><name>checkVoxelBottomSelection</name></member>
+    <member refid="classEntityMouseSelection_1ade2d14080dc4665c69fd11ff45d6f119" kind="function"><name>checkVoxelTopSelection</name></member>
+  </compound>
+  <compound refid="structEntityTypeComponent" kind="struct"><name>EntityTypeComponent</name>
+    <member refid="structEntityTypeComponent_1ab1fe158f69397c8517cc484431478f0c" kind="variable"><name>mainType</name></member>
+    <member refid="structEntityTypeComponent_1a2906564bc03063089a62531506618c98" kind="variable"><name>subType0</name></member>
+    <member refid="structEntityTypeComponent_1a2556346245d07544e8feb9d3c3894ae1" kind="variable"><name>subType1</name></member>
+    <member refid="structEntityTypeComponent_1a71e1a9e21108c0d8ac4e5ed5011cd79f" kind="function"><name>print</name></member>
+  </compound>
+  <compound refid="classEquipmentWindow" kind="class"><name>EquipmentWindow</name>
+    <member refid="classEquipmentWindow_1a7183d739551ff34bc12290d21ca27744" kind="variable"><name>slotIndices</name></member>
+    <member refid="classEquipmentWindow_1ae2fd493944d97be1e7ac583f3ce3972c" kind="function"><name>EquipmentWindow</name></member>
+    <member refid="classEquipmentWindow_1afadee153dbe1c5472c79192b29d009ad" kind="function"><name>EquipmentWindow</name></member>
+    <member refid="classEquipmentWindow_1a64f1f29e5594e538345c3f1483924217" kind="function"><name>Render</name></member>
+  </compound>
+  <compound refid="structEvaporateWaterEntityEvent" kind="struct"><name>EvaporateWaterEntityEvent</name>
+    <member refid="structEvaporateWaterEntityEvent_1a2ec1c472e5c71604aae40091ca1ce6b1" kind="variable"><name>entity</name></member>
+    <member refid="structEvaporateWaterEntityEvent_1adf535c1a11a65675c012ccc6a9c52a44" kind="variable"><name>sunIntensity</name></member>
+    <member refid="structEvaporateWaterEntityEvent_1add8b6a48c195ae3835a30d395e4f5ebe" kind="function"><name>EvaporateWaterEntityEvent</name></member>
+  </compound>
+  <compound refid="classFontManager" kind="class"><name>FontManager</name>
+    <member refid="classFontManager_1abe90a3b39a65688a745727da64affe3e" kind="variable"><name>fonts_</name></member>
+    <member refid="classFontManager_1acd25b43680995a5ea1dd40a8504db107" kind="function"><name>Instance</name></member>
+    <member refid="classFontManager_1a71ae40502136d886d838c629184c4147" kind="function"><name>loadFont</name></member>
+    <member refid="classFontManager_1a3b5e3f65d4a85bee68eda60855482d03" kind="function"><name>getFont</name></member>
+    <member refid="classFontManager_1a41a82c1f73d74c28b8b1e3f18f1204e3" kind="function"><name>clean</name></member>
+    <member refid="classFontManager_1a53029a7a27249d9b011d2d370cfea341" kind="function"><name>FontManager</name></member>
+    <member refid="classFontManager_1aa190bb023b4cf2ad28e24c69ef57f380" kind="function"><name>~FontManager</name></member>
+    <member refid="classFontManager_1ad2df69d8089d4e217de41c05c27a40aa" kind="function"><name>FontManager</name></member>
+    <member refid="classFontManager_1a409f40b2491e56b89cb99c33698431b5" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="structFoodItem" kind="struct"><name>FoodItem</name>
+    <member refid="structFoodItem_1aa995c4ae0f8f7a810ca980881baa1d9f" kind="variable"><name>energyDensity</name></member>
+    <member refid="structFoodItem_1a3daa8d6b3e59be93ffbc0f764d36bd9c" kind="variable"><name>mass</name></member>
+    <member refid="structFoodItem_1a511374ff505160349a100d58a7740b9d" kind="variable"><name>volume</name></member>
+    <member refid="structFoodItem_1ad2e003db94e37fc95a15e80af5a69160" kind="variable"><name>energyHealthRatio</name></member>
+    <member refid="structFoodItem_1a6309ac4ac702817586bba7702115f967" kind="variable"><name>convertionEfficiency</name></member>
+  </compound>
+  <compound refid="structFruitGrowth" kind="struct"><name>FruitGrowth</name>
+    <member refid="structFruitGrowth_1a707e091e700103812029847e8268d96a" kind="variable"><name>energyNeeded</name></member>
+    <member refid="structFruitGrowth_1ae0e9bf5832dc4bd0af1532930ee4b3ff" kind="variable"><name>currentEnergy</name></member>
+  </compound>
+  <compound refid="classGameClock" kind="class"><name>GameClock</name>
+    <member refid="classGameClock_1a4cac301b1d9bef91efef86957dbb5c69" kind="variable"><name>ticks</name></member>
+    <member refid="classGameClock_1acca8604735b37246a2e1f973c0c384fc" kind="variable"><name>SECONDS_PER_MINUTE</name></member>
+    <member refid="classGameClock_1a70d4ab7c6a2842a6fee4f925306f38d4" kind="variable"><name>MINUTES_PER_HOUR</name></member>
+    <member refid="classGameClock_1a4969b036364dc847caca3e734339fd0e" kind="variable"><name>HOURS_PER_DAY</name></member>
+    <member refid="classGameClock_1a3d25d0c861f31c2eeea736459f7ee94e" kind="variable"><name>DAYS_PER_MONTH</name></member>
+    <member refid="classGameClock_1abbe997f0d5edc01334b81d9058eefabf" kind="variable"><name>MONTHS_PER_YEAR</name></member>
+    <member refid="classGameClock_1ae0327e4a501cc63879ef7fa1efa76535" kind="function"><name>GameClock</name></member>
+    <member refid="classGameClock_1ac43ad99f88f43d55265a6912486bedf1" kind="function"><name>GameClock</name></member>
+    <member refid="classGameClock_1a8be507a609f25f84e5b952db266254f4" kind="function"><name>tick</name></member>
+    <member refid="classGameClock_1a69266b5eee5ff5e58734d9f34561e9eb" kind="function"><name>setTicks</name></member>
+    <member refid="classGameClock_1a42a19f2ec9744f59db029a209afb9085" kind="function"><name>getTicks</name></member>
+    <member refid="classGameClock_1ad139aae1e99760be9fccee489497f426" kind="function"><name>getSeconds</name></member>
+    <member refid="classGameClock_1a4f5ae59b00e29f0426885730deed98bc" kind="function"><name>getSecond</name></member>
+    <member refid="classGameClock_1a2009ef92579519120ef7bd7a5e6c4a0e" kind="function"><name>getMinute</name></member>
+    <member refid="classGameClock_1a80fa629a4374c79cdf39a116de24a743" kind="function"><name>getMinutesPerHour</name></member>
+    <member refid="classGameClock_1a95599bacec3fdc85745657ea46b5b932" kind="function"><name>getHour</name></member>
+    <member refid="classGameClock_1aa667b042f737c5b998c405c4fe32fc39" kind="function"><name>getDay</name></member>
+    <member refid="classGameClock_1abf53eed18056b284c486857690e6f1c6" kind="function"><name>getMonth</name></member>
+    <member refid="classGameClock_1a3f5700da12782f2f1880ea22d8ed7838" kind="function"><name>getYear</name></member>
+    <member refid="classGameClock_1a15dd4d9015351cb1eb36d64efe113f38" kind="function"><name>getSeason</name></member>
+  </compound>
+  <compound refid="classGameDB" kind="class"><name>GameDB</name>
+    <member refid="classGameDB_1ab6047aa43f4497333dcdc15f1efb2460" kind="variable"><name>sqlitePath</name></member>
+    <member refid="classGameDB_1ab100eab9366d46931d424f11f1bdc531" kind="variable"><name>sqliteDb</name></member>
+    <member refid="classGameDB_1a41c98e5f0e227f0f4b46de76ff920f18" kind="variable"><name>registry</name></member>
+    <member refid="classGameDB_1a44ad6e51525f1f764f1ab59eb1a07ee3" kind="variable"><name>needsSync</name></member>
+    <member refid="classGameDB_1a79cb4a499c1a9194dd973950ab391491" kind="variable"><name>timeSeriesEntity</name></member>
+    <member refid="classGameDB_1a435b5054a2905cc41d879039439e1cab" kind="function"><name>GameDB</name></member>
+    <member refid="classGameDB_1ad90edc7c3be5a43a795a5e78fd606a6d" kind="function"><name>~GameDB</name></member>
+    <member refid="classGameDB_1a0e1c7896ed8be7abc1ce3e8e3c060ca3" kind="function"><name>putTimeSeries</name></member>
+    <member refid="classGameDB_1ad4f05a22d39f95c6f6f0ddecd9270521" kind="function"><name>queryTimeSeries</name></member>
+    <member refid="classGameDB_1a18d9067896097b66c217097b70b7d59b" kind="function"><name>executeSQL</name></member>
+    <member refid="classGameDB_1a1968d50e61b6d2482c3fda6bb2ff0ed7" kind="function"><name>createTables</name></member>
+    <member refid="classGameDB_1a768a47e110f402d164e8a26d95e7c7c3" kind="function"><name>resetDB</name></member>
+    <member refid="classGameDB_1a3a10acac94fc83808f483ace09609192" kind="function"><name>syncToDatabase</name></member>
+    <member refid="classGameDB_1a44e41f333b536904e2b0008f54da38da" kind="function"><name>loadFromDatabase</name></member>
+  </compound>
+  <compound refid="classGameDBHandler" kind="class"><name>GameDBHandler</name>
+    <member refid="classGameDBHandler_1afebe5e40b92350f98a34bcf905fd0df4" kind="variable"><name>sqliteFile_</name></member>
+    <member refid="classGameDBHandler_1a9f48b6fe813ed3769c1063bd4bce6172" kind="variable"><name>gameDB</name></member>
+    <member refid="classGameDBHandler_1a1aefa1936bd6f97dfce8ca0513fae0d3" kind="function"><name>GameDBHandler</name></member>
+    <member refid="classGameDBHandler_1add31fb3c02414dbe3f5a3fc1d10cbf9a" kind="function"><name>~GameDBHandler</name></member>
+    <member refid="classGameDBHandler_1a46ce831f8f7e82e3e1932c5f3db60756" kind="function"><name>GameDBHandler</name></member>
+    <member refid="classGameDBHandler_1a1ca691870b1f1c740738dea2e1d1f494" kind="function"><name>operator=</name></member>
+    <member refid="classGameDBHandler_1a1e5cd7e87493395ea92a45193cb9b077" kind="function"><name>GameDBHandler</name></member>
+    <member refid="classGameDBHandler_1a6413eae33119daac2b24013ce97aeec6" kind="function"><name>operator=</name></member>
+    <member refid="classGameDBHandler_1a90d841856a46ece3e69139464fbec657" kind="function"><name>createTables</name></member>
+    <member refid="classGameDBHandler_1abdf1d8620c0d8e1cd5122668dd9d0b6b" kind="function"><name>putTimeSeries</name></member>
+    <member refid="classGameDBHandler_1aec50c0ae5057d6c65c6ef39d506a4d48" kind="function"><name>queryTimeSeries</name></member>
+    <member refid="classGameDBHandler_1a8a7e63efb5d83c23f62ffb8335808349" kind="function"><name>executeSQL</name></member>
+    <member refid="classGameDBHandler_1a64148212fc9ad679a69002b29adfdeeb" kind="function"><name>resetDB</name></member>
+  </compound>
+  <compound refid="structGenomeConfig" kind="struct"><name>GenomeConfig</name>
+    <member refid="structGenomeConfig_1a5807b32ccff71d8226e1a73b8c34e066" kind="variable"><name>compatibility_weight_coefficient</name></member>
+  </compound>
+  <compound refid="structGenomeParams" kind="struct"><name>GenomeParams</name>
+    <member refid="structGenomeParams_1a0f4ea64005ec9ea1f4f16890369fb277" kind="variable"><name>num_inputs</name></member>
+    <member refid="structGenomeParams_1ab9524595386db18f7d9d3cd597c80bbe" kind="variable"><name>num_outputs</name></member>
+    <member refid="structGenomeParams_1addd171f7abedbbd3a5d5e96a100edc6e" kind="variable"><name>num_hidden</name></member>
+    <member refid="structGenomeParams_1afb4bba2bf839c14b8edf1f85084fa145" kind="variable"><name>feed_forward</name></member>
+    <member refid="structGenomeParams_1ae6cb20ebfc77111a70af6d68c51ece9a" kind="variable"><name>compatibility_disjoint_coefficient</name></member>
+    <member refid="structGenomeParams_1a22069192cdad39afbc86860a7501e9d3" kind="variable"><name>compatibility_weight_coefficient</name></member>
+    <member refid="structGenomeParams_1aff416e2f8165a95c26dbb6e38e22ed1a" kind="variable"><name>conn_add_prob</name></member>
+    <member refid="structGenomeParams_1a3bd7415658cb15613d653bbf297334b2" kind="variable"><name>conn_delete_prob</name></member>
+    <member refid="structGenomeParams_1a602b4ca294f3cad5027f9da10a8d5f6e" kind="variable"><name>node_add_prob</name></member>
+    <member refid="structGenomeParams_1a97c8104f24d8c60520fa64951a2edaf8" kind="variable"><name>node_delete_prob</name></member>
+    <member refid="structGenomeParams_1a46d0e124e5a76eeb9bb9e733766d101f" kind="variable"><name>single_structural_mutation</name></member>
+    <member refid="structGenomeParams_1a5feff6efc0725f198b0b2c78a013da46" kind="variable"><name>structural_mutation_surer</name></member>
+    <member refid="structGenomeParams_1a36fd8b53e6e9d788a6ad18bb9c0600d4" kind="variable"><name>initial_connection</name></member>
+  </compound>
+  <compound refid="structGradientVector" kind="struct"><name>GradientVector</name>
+    <member refid="structGradientVector_1a3002a59b294396fa542e4d48cf0e847f" kind="variable"><name>gx</name></member>
+    <member refid="structGradientVector_1a2a7316a2e50a40185af657da34378d6f" kind="variable"><name>gy</name></member>
+    <member refid="structGradientVector_1ab19f8b10e3bdc721711b7549c4278218" kind="variable"><name>gz</name></member>
+    <member refid="structGradientVector_1af290e34661c3baeb9c4184628ed41a48" kind="function"><name>print</name></member>
+  </compound>
+  <compound refid="structGridData" kind="struct"><name>GridData</name>
+    <member refid="structGridData_1a92da0e5557c18a5bd92b31ce9e4bd972" kind="variable"><name>terrainID</name></member>
+    <member refid="structGridData_1a0d2c9ba8f8a2667b9514e5c1fc645106" kind="variable"><name>entityID</name></member>
+    <member refid="structGridData_1aa5b88379a95b156308c800c987178db8" kind="variable"><name>eventID</name></member>
+    <member refid="structGridData_1ab2ee86dcc50d3e62ae825eb8e6433111" kind="variable"><name>lightingLevel</name></member>
+    <member refid="structGridData_1ad0d9a25de45e75fedfd30767a53268ae" kind="function"><name>MSGPACK_DEFINE</name></member>
+  </compound>
+  <compound refid="classGuiStateManager" kind="class"><name>GuiStateManager</name>
+    <member refid="classGuiStateManager_1a62be0158cbefa7223478ace6d21843b9" kind="variable"><name>inventoryWindow</name></member>
+    <member refid="classGuiStateManager_1a8ff605794de2b0f418114bfa43ee2f6f" kind="variable"><name>hotbarWindow</name></member>
+    <member refid="classGuiStateManager_1a383379dd7a61b7d3596bab5b69f8fb26" kind="variable"><name>equipmentWindow</name></member>
+    <member refid="classGuiStateManager_1ab0c908e9038eb0357586884a48d81372" kind="variable"><name>isDraggingFromUI</name></member>
+    <member refid="classGuiStateManager_1a4061268fb8548dda5551611ba5b0836f" kind="variable"><name>draggedItemIndex</name></member>
+    <member refid="classGuiStateManager_1af7e92bd0edcc29862d9294614cd4121a" kind="variable"><name>src_window_id</name></member>
+    <member refid="classGuiStateManager_1ad35e79082e702745efac32a464536492" kind="variable"><name>waterCameraStats</name></member>
+    <member refid="classGuiStateManager_1a81dc47844f0efb646c311f1b1d748ee7" kind="variable"><name>terrainCameraStats</name></member>
+    <member refid="classGuiStateManager_1aba623e0e73629803cd4b927caf8a69d9" kind="variable"><name>s_pInstance</name></member>
+    <member refid="classGuiStateManager_1a4bcc1be3a4c997c2299235ebe2d768f3" kind="function"><name>Instance</name></member>
+    <member refid="classGuiStateManager_1a2073cbbd3c9b3608d9049407ae3c2e22" kind="function"><name>getWaterCameraStats</name></member>
+    <member refid="classGuiStateManager_1a5ada53a6f0db7d5808a1a289e887832e" kind="function"><name>getTerrainCameraStats</name></member>
+    <member refid="classGuiStateManager_1ac51686033225ede739d4b9843443005b" kind="function"><name>setWaterCameraStats</name></member>
+    <member refid="classGuiStateManager_1a370e990cd78e615af717b0d4fe862667" kind="function"><name>setTerrainCameraStats</name></member>
+    <member refid="classGuiStateManager_1a469a1935c9c4b4711783d7f0f1c5d4e0" kind="function"><name>loadSettings</name></member>
+    <member refid="classGuiStateManager_1a6cec996e0a1a357b74e4fa508008c67c" kind="function"><name>saveSettings</name></member>
+    <member refid="classGuiStateManager_1a4ea849e8bcf477b164193fec00097d6c" kind="function"><name>GuiStateManager</name></member>
+    <member refid="classGuiStateManager_1adc7ef54f4f21364fec33b1391287c7ed" kind="function"><name>~GuiStateManager</name></member>
+    <member refid="classGuiStateManager_1a71fb9d5e944db8631d79cffc3c7b07ef" kind="function"><name>GuiStateManager</name></member>
+    <member refid="classGuiStateManager_1a8f56a7a3037abe3c39fdf9af16d33a14" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="structHealthComponent" kind="struct"><name>HealthComponent</name>
+    <member refid="structHealthComponent_1a317ec9b26ecbc1ce2b621f317a4366d0" kind="variable"><name>healthLevel</name></member>
+    <member refid="structHealthComponent_1accf041eb7c2dd76070db0d54465d2377" kind="variable"><name>maxHealth</name></member>
+    <member refid="structHealthComponent_1a35a34fa1c079eeaff7b5721ecc14f1d0" kind="function"><name>print</name></member>
+  </compound>
+  <compound refid="classHealthSystem" kind="class"><name>HealthSystem</name>
+    <member refid="classHealthSystem_1a44718aada34e15b3ee9a830f610d6f87" kind="variable"><name>registry</name></member>
+    <member refid="classHealthSystem_1aa37dd4ec5118cdbecd45e97532138e84" kind="variable"><name>voxelGrid</name></member>
+    <member refid="classHealthSystem_1a0eb8cfe26de7f73929b53aa47154fd31" kind="variable"><name>combatMutex</name></member>
+    <member refid="classHealthSystem_1a8c97e1dd6b27fa0bef02f28c6796049f" kind="variable"><name>processingComplete</name></member>
+    <member refid="classHealthSystem_1ab82b65a768501dd83211c00926ce02a7" kind="function"><name>HealthSystem</name></member>
+    <member refid="classHealthSystem_1a7300c35da52ba538be7cb0b56db9fb80" kind="function"><name>HealthSystem</name></member>
+    <member refid="classHealthSystem_1acc37d07f4825986685d98f81010fa545" kind="function"><name>processHealth</name></member>
+    <member refid="classHealthSystem_1aadac34361cec6a433eb62de0a213b58f" kind="function"><name>processHealthAsync</name></member>
+    <member refid="classHealthSystem_1a41f6d5501806e00516c199108709cc86" kind="function"><name>registerEventHandlers</name></member>
+    <member refid="classHealthSystem_1a555919eb18ca1b3dfd88216e5c793cca" kind="function"><name>isProcessingComplete</name></member>
+  </compound>
+  <compound refid="classHotbarWindow" kind="class"><name>HotbarWindow</name>
+    <member refid="classHotbarWindow_1a78f8425a8ffac6131d719dae88a8562a" kind="variable"><name>HOTBAR_SIZE</name></member>
+    <member refid="classHotbarWindow_1aa91920da9757811eb38d7e6a33130ec8" kind="function"><name>HotbarWindow</name></member>
+    <member refid="classHotbarWindow_1a83b150acfea376a9f1fab58942d20831" kind="function"><name>HotbarWindow</name></member>
+    <member refid="classHotbarWindow_1ad3265e88e9024a0a27482572034c6566" kind="function"><name>Render</name></member>
+  </compound>
+  <compound refid="structInventory" kind="struct"><name>Inventory</name>
+    <member refid="structInventory_1a41257c087c0c0bed652e505bb8836505" kind="variable"><name>itemIDs</name></member>
+    <member refid="structInventory_1a0b2dbcd02eaa66c6eddfc2925f8fae28" kind="variable"><name>maxItems</name></member>
+    <member refid="structInventory_1afb23817d86b8b0afa9d3724e94bfd16d" kind="function"><name>addItem</name></member>
+    <member refid="structInventory_1aa60b2be349051dd4d204c4352ec69e16" kind="function"><name>addItemInSlot</name></member>
+    <member refid="structInventory_1a9dab35ef695408df54ead1a8069e44b4" kind="function"><name>popItem</name></member>
+    <member refid="structInventory_1a43cf8590403ecebed82f324b06bc22b9" kind="function"><name>removeItemById</name></member>
+    <member refid="structInventory_1acfab7559aef30514caecf8b788e9a865" kind="function"><name>removeItemBySlot</name></member>
+    <member refid="structInventory_1ab3b3e15f189ce342d6612ccd400df876" kind="function"><name>swapItems</name></member>
+    <member refid="structInventory_1ae64c114e81d5ee14653161f425510a26" kind="function"><name>isFull</name></member>
+    <member refid="structInventory_1a42bcc644f45886493adee7aa7a8a00b3" kind="function"><name>isEmpty</name></member>
+    <member refid="structInventory_1a6d80f7d2dfcd6596b7782d10515cf4a9" kind="function"><name>getItem</name></member>
+    <member refid="structInventory_1ab6c07c2be5014811265f7c82cccbf646" kind="function"><name>currentItemCount</name></member>
+    <member refid="structInventory_1a324eaf3be1a1ac23667c7376c5391d77" kind="function"><name>resizeInventory</name></member>
+    <member refid="structInventory_1ad2d9e47c395e46569be0a57002901251" kind="function"><name>clearInventory</name></member>
+    <member refid="structInventory_1a847054b615ee8ff0d209f7b85c431038" kind="function"><name>printInventory</name></member>
+  </compound>
+  <compound refid="structInventoryItem" kind="struct"><name>InventoryItem</name>
+    <member refid="structInventoryItem_1a3f8562189d007661208f6b34f6208dd7" kind="variable"><name>name</name></member>
+    <member refid="structInventoryItem_1a22af6dd20e5e2b24313e59dd75f5535c" kind="variable"><name>textureId</name></member>
+    <member refid="structInventoryItem_1ac0c019b09280cb3d4e0076df61f6c6e2" kind="variable"><name>texture</name></member>
+    <member refid="structInventoryItem_1a2d591459c610beb54cf401454c7dd4ed" kind="variable"><name>quantity</name></member>
+    <member refid="structInventoryItem_1ab56cd901eeb2d2807cd7569b173a14f8" kind="function"><name>InventoryItem</name></member>
+  </compound>
+  <compound refid="classInventoryWindow" kind="class"><name>InventoryWindow</name>
+    <member refid="classInventoryWindow_1abf6aee87bb1dd073184e7ecff5c6e0e6" kind="variable"><name>columns</name></member>
+    <member refid="classInventoryWindow_1a95caa6b7f5cc394cb24ce44d3cd423c0" kind="function"><name>InventoryWindow</name></member>
+    <member refid="classInventoryWindow_1a029c9754036e7ce9b0631730e0b0a8d6" kind="function"><name>InventoryWindow</name></member>
+    <member refid="classInventoryWindow_1ab55a9223ad5ef2bb6033dc5ecb9f5741" kind="function"><name>Render</name></member>
+  </compound>
+  <compound refid="classItemConfiguration" kind="class"><name>ItemConfiguration</name>
+    <member refid="classItemConfiguration_1a875a6bf7f9f187ea099b870756cc77db" kind="typedef"><name>DefaultValue</name></member>
+    <member refid="classItemConfiguration_1aa1626e540471b64a8d5eb12455171d0b" kind="variable"><name>itemId</name></member>
+    <member refid="classItemConfiguration_1a758e1891a6c6a30b2f993f245c10e314" kind="variable"><name>inGameTextures</name></member>
+    <member refid="classItemConfiguration_1ad1dccfe9e864b26ad4a908eb3feaa6ca" kind="variable"><name>inventoryTextures</name></member>
+    <member refid="classItemConfiguration_1ac37f8d89686fb4d3e5263e7424ea2857" kind="variable"><name>defaultValues</name></member>
+    <member refid="classItemConfiguration_1a9299ed102c25950ef279017cb92355cd" kind="function"><name>ItemConfiguration</name></member>
+    <member refid="classItemConfiguration_1ae47f05ce787d813642bd466de243a90a" kind="function"><name>setInGameTextures</name></member>
+    <member refid="classItemConfiguration_1aa182b09ef4b6469cf8615139ceda03d5" kind="function"><name>setInventoryTextures</name></member>
+    <member refid="classItemConfiguration_1aa6cb5502efe46b8389ff3be4d0753182" kind="function"><name>setDefaultValue</name></member>
+    <member refid="classItemConfiguration_1a7b950c463e75651650e6839e9db2ce6a" kind="function"><name>getItemId</name></member>
+    <member refid="classItemConfiguration_1a7ade1cb0b4763475759c9e0127169ba8" kind="function"><name>getInGameTextures</name></member>
+    <member refid="classItemConfiguration_1acecc39cf5cf69fd61efda0f2f5a5c56a" kind="function"><name>getInventoryTextures</name></member>
+    <member refid="classItemConfiguration_1a4af82e3399eda7f5ccdd08eaea30a29a" kind="function"><name>getDefaultValue</name></member>
+    <member refid="classItemConfiguration_1a9bd6bdda1c99d8e723e027c0f5ef5a57" kind="function"><name>getDefaultValueAsFloat</name></member>
+    <member refid="classItemConfiguration_1a0a646ce2c061f00ebdddbddc9ee5b270" kind="function"><name>createFoodItem</name></member>
+  </compound>
+  <compound refid="classItemConfigurationManager" kind="class"><name>ItemConfigurationManager</name>
+    <member refid="classItemConfigurationManager_1ad1dd56a649815fa5e6528c64ac8f3de4" kind="variable"><name>managerMutex</name></member>
+    <member refid="classItemConfigurationManager_1af9e8ce2b25270fdb269ac6eaf3f4ced6" kind="variable"><name>configurations</name></member>
+    <member refid="classItemConfigurationManager_1ac278a3e4b2be4ac9d9b186ceaca38874" kind="function"><name>getInstance</name></member>
+    <member refid="classItemConfigurationManager_1a8f2eabe706481094f10980b2fcdbc989" kind="function"><name>ItemConfigurationManager</name></member>
+    <member refid="classItemConfigurationManager_1abeda3a8aee84de1b2a2cef466ccf4f9c" kind="function"><name>operator=</name></member>
+    <member refid="classItemConfigurationManager_1ac74c8c847d44a2567c918fafd3a851a8" kind="function"><name>registerItemConfiguration</name></member>
+    <member refid="classItemConfigurationManager_1aa55dfd07f99d44944afcaeb9e57fa138" kind="function"><name>getItemConfiguration</name></member>
+    <member refid="classItemConfigurationManager_1a04f8279b5c23b9881d2d8f8ff9fa869c" kind="function"><name>deregisterItemConfiguration</name></member>
+    <member refid="classItemConfigurationManager_1a34986d99050c5b83c1e04340aefe3785" kind="function"><name>ItemConfigurationManager</name></member>
+    <member refid="classItemConfigurationManager_1a211639d43e1cb971836e53b698560265" kind="function"><name>~ItemConfigurationManager</name></member>
+  </compound>
+  <compound refid="structItemTypeComponent" kind="struct"><name>ItemTypeComponent</name>
+    <member refid="structItemTypeComponent_1ab478c8c19518c51759f10fa5a1c75baf" kind="variable"><name>mainType</name></member>
+    <member refid="structItemTypeComponent_1a1ec7706512aaee667c1c6bf034cef1cd" kind="variable"><name>subType0</name></member>
+    <member refid="structItemTypeComponent_1a54bfbf7c185addfefba9cad5a179e9e9" kind="variable"><name>subType1</name></member>
+  </compound>
+  <compound refid="classItemWindow" kind="class"><name>ItemWindow</name>
+    <member refid="classItemWindow_1a389aed36fb39ecf0c258ed7fa9fce846" kind="variable"><name>items</name></member>
+    <member refid="classItemWindow_1a8689a1f0b24cb1931e75c1868c8a5261" kind="variable"><name>commands</name></member>
+    <member refid="classItemWindow_1a8891305b070b9f6554a6536b589de284" kind="variable"><name>selected_index</name></member>
+    <member refid="classItemWindow_1a2770295cd7f08469c643f8816ab8f2a9" kind="function"><name>ItemWindow</name></member>
+    <member refid="classItemWindow_1a84a348e0ea6b63688813a343ae0ad00b" kind="function"><name>ItemWindow</name></member>
+    <member refid="classItemWindow_1a9a98c42464447ae14f7add2c83b85bea" kind="function"><name>setItems</name></member>
+    <member refid="classItemWindow_1a74e74b341248e2812a205735f40c39a7" kind="function"><name>setCommands</name></member>
+    <member refid="classItemWindow_1af05b3fc6525fbf82da7b737bb9133a0b" kind="function"><name>Render</name></member>
+  </compound>
+  <compound refid="structKillEntityEvent" kind="struct"><name>KillEntityEvent</name>
+    <member refid="structKillEntityEvent_1abe73d7b4488eff439e1e0a1321366c21" kind="variable"><name>entity</name></member>
+    <member refid="structKillEntityEvent_1a9cfa5143ade5686de50ea9d24c0cb678" kind="variable"><name>softKill</name></member>
+    <member refid="structKillEntityEvent_1a3cbcc0864d7a1e28f54c59b125a279d5" kind="function"><name>KillEntityEvent</name></member>
+    <member refid="structKillEntityEvent_1affd685e22e645611e18828e69aa49ae5" kind="function"><name>KillEntityEvent</name></member>
+  </compound>
+  <compound refid="classLifeEngine" kind="class"><name>LifeEngine</name>
+    <member refid="classLifeEngine_1acb10c91a1eb55618cafeb887fd9ae975" kind="variable"><name>entitiesToDelete</name></member>
+    <member refid="classLifeEngine_1a66ad30e6fca1b2052f531c3510540f0a" kind="variable"><name>registry</name></member>
+    <member refid="classLifeEngine_1a6d47a723ecb38c8922bb053dc60f057c" kind="variable"><name>voxelGrid</name></member>
+    <member refid="classLifeEngine_1a0a901aca7fd6ba72006d0ede85ad2d00" kind="function"><name>LifeEngine</name></member>
+    <member refid="classLifeEngine_1a0db26aa079afe41c053f607df32735b4" kind="function"><name>LifeEngine</name></member>
+    <member refid="classLifeEngine_1a0afa398feb971d2ba06a1dc08df5947f" kind="function"><name>onKillEntity</name></member>
+    <member refid="classLifeEngine_1ad2443f51afc1ff8f7d46f18acca57df4" kind="function"><name>registerEventHandlers</name></member>
+    <member refid="classLifeEngine_1ac29b11a8121e1f6cb3f6feff9608b501" kind="function"><name>removeEntityFromGrid</name></member>
+    <member refid="classLifeEngine_1a1599355f138cbaaa07e15213d761c8b9" kind="function"><name>dropItems</name></member>
+  </compound>
+  <compound refid="classListDoubleResponse" kind="class"><name>ListDoubleResponse</name>
+    <member refid="classListDoubleResponse_1a8988758b725842fee75cf8ef4c7c17e4" kind="variable"><name>values</name></member>
+    <member refid="classListDoubleResponse_1ad7ec640bdc5a9f6783af6554139e1fa0" kind="function"><name>ListDoubleResponse</name></member>
+    <member refid="classListDoubleResponse_1a1323b69c27e02eaea7ffe6a3fbadbe22" kind="function"><name>ListDoubleResponse</name></member>
+    <member refid="classListDoubleResponse_1a4e2d3d601736ab094c7f03ee6736b4a5" kind="function"><name>serialize</name></member>
+    <member refid="classListDoubleResponse_1ad84083adce9dd7fb274285162ada1436" kind="function"><name>py_serialize</name></member>
+    <member refid="classListDoubleResponse_1a7ee042b16a48bef9aeb858bff443fad3" kind="function"><name>deserialize</name></member>
+  </compound>
+  <compound refid="classListStringResponse" kind="class"><name>ListStringResponse</name>
+    <member refid="classListStringResponse_1a9215ff67e9d7ad0a927e765fe9caef88" kind="variable"><name>strings</name></member>
+    <member refid="classListStringResponse_1ae3a3828c9e5a899df46591a0a7b0e2f2" kind="function"><name>ListStringResponse</name></member>
+    <member refid="classListStringResponse_1a36d6809cabe9fa6eb41eed7cbf02e94a" kind="function"><name>ListStringResponse</name></member>
+    <member refid="classListStringResponse_1a626437069b6e7875a11d2992683e71be" kind="function"><name>serialize</name></member>
+    <member refid="classListStringResponse_1a65c07a3920340fd0c970bc2582ad5b69" kind="function"><name>py_serialize</name></member>
+    <member refid="classListStringResponse_1a0f986794c23dbd7489bb979da825a65f" kind="function"><name>deserialize</name></member>
+  </compound>
+  <compound refid="classLogger" kind="class"><name>Logger</name>
+    <member refid="classLogger_1a5b0ebd6009d22aafd8a3ef6c0b1eb945" kind="variable"><name>logger</name></member>
+    <member refid="classLogger_1a2571b780756cf3de00afbea04f0c54a0" kind="function"><name>getLogger</name></member>
+    <member refid="classLogger_1ae784283f1de7827b7e7049641eaf0a53" kind="function"><name>initialize</name></member>
+    <member refid="classLogger_1ab4c4d86279176eb0ede726bc5b4d5ddb" kind="function"><name>info</name></member>
+    <member refid="classLogger_1a24b519e0f53e73937f93edd2da37ea76" kind="function"><name>warn</name></member>
+    <member refid="classLogger_1ab6042fdfcbb14026098e0df9d6b32f27" kind="function"><name>error</name></member>
+    <member refid="classLogger_1aed3ed4c4ba36c54a42feff7f2531ff39" kind="function"><name>critical</name></member>
+    <member refid="classLogger_1a38b544d566463a65d0dbf4ff7f867962" kind="function"><name>debug</name></member>
+    <member refid="classLogger_1aab9e82f26fd173f9a6d9928d14c35860" kind="function"><name>trace</name></member>
+    <member refid="classLogger_1ac45b6ef7069b222c094da3724d1aa8fb" kind="function"><name>Logger</name></member>
+  </compound>
+  <compound refid="classMapOfListsOfDoubleResponse" kind="class"><name>MapOfListsOfDoubleResponse</name>
+    <member refid="classMapOfListsOfDoubleResponse_1a2c3c8568fecc8ac34894b3ab55043a8d" kind="variable"><name>mapOfLists</name></member>
+    <member refid="classMapOfListsOfDoubleResponse_1aa2c610c43278dc089bb563d1cf17379d" kind="function"><name>MapOfListsOfDoubleResponse</name></member>
+    <member refid="classMapOfListsOfDoubleResponse_1a7a9ae8779101454be265cb1d02bb3c3f" kind="function"><name>MapOfListsOfDoubleResponse</name></member>
+    <member refid="classMapOfListsOfDoubleResponse_1a0dc7526f012767953fd35ada47516221" kind="function"><name>serialize</name></member>
+    <member refid="classMapOfListsOfDoubleResponse_1a593bec22de26ac0cc5411fd25867ed11" kind="function"><name>py_serialize</name></member>
+    <member refid="classMapOfListsOfDoubleResponse_1a6261f40a3d757f6f19f3597fe7f33ebe" kind="function"><name>deserialize</name></member>
+  </compound>
+  <compound refid="classMapOfMapsOfDoubleResponse" kind="class"><name>MapOfMapsOfDoubleResponse</name>
+    <member refid="classMapOfMapsOfDoubleResponse_1af30489d4994476df393570e74c537468" kind="variable"><name>mapOfMaps</name></member>
+    <member refid="classMapOfMapsOfDoubleResponse_1ae9de9949ef903f127644396e9e235412" kind="function"><name>MapOfMapsOfDoubleResponse</name></member>
+    <member refid="classMapOfMapsOfDoubleResponse_1a25c49b3f992e1e4dbb9e531f6d0d8699" kind="function"><name>MapOfMapsOfDoubleResponse</name></member>
+    <member refid="classMapOfMapsOfDoubleResponse_1a48e8633748f2ea9a3f42cd402741481e" kind="function"><name>serialize</name></member>
+    <member refid="classMapOfMapsOfDoubleResponse_1aaaf6cac5146753eef43549c916a03008" kind="function"><name>py_serialize</name></member>
+    <member refid="classMapOfMapsOfDoubleResponse_1abf25a2a1b4afcb0490ffc472ffa15d37" kind="function"><name>deserialize</name></member>
+  </compound>
+  <compound refid="classMapOfMapsResponse" kind="class"><name>MapOfMapsResponse</name>
+    <member refid="classMapOfMapsResponse_1ad1445bc391c7229c9da8d03cbfa39a12" kind="variable"><name>mapOfMaps</name></member>
+    <member refid="classMapOfMapsResponse_1ad6701642870304ae2e8fff7692b3832e" kind="function"><name>MapOfMapsResponse</name></member>
+    <member refid="classMapOfMapsResponse_1ad60f2b327d767418901c59a5f35cdc0f" kind="function"><name>MapOfMapsResponse</name></member>
+    <member refid="classMapOfMapsResponse_1aff84d8bb991b1b6102f5e5396a88f073" kind="function"><name>serialize</name></member>
+    <member refid="classMapOfMapsResponse_1ad060b97eb1e603f465969a62c41691cf" kind="function"><name>py_serialize</name></member>
+    <member refid="classMapOfMapsResponse_1ae631542188488043b1f205c30c212835" kind="function"><name>deserialize</name></member>
+  </compound>
+  <compound refid="structMatterContainer" kind="struct"><name>MatterContainer</name>
+    <member refid="structMatterContainer_1a26b77d74c4f7ba87741525962cd10ac4" kind="variable"><name>TerrainMatter</name></member>
+    <member refid="structMatterContainer_1a2da05a13081c608fbc00260de97524a6" kind="variable"><name>WaterVapor</name></member>
+    <member refid="structMatterContainer_1aa599307c12311e4312974577a3df128b" kind="variable"><name>WaterMatter</name></member>
+    <member refid="structMatterContainer_1af8dfcc6d1e6f22b3bc6d22ad47d48e3d" kind="variable"><name>BioMassMatter</name></member>
+  </compound>
+  <compound refid="structMeeleAttackComponent" kind="struct"><name>MeeleAttackComponent</name>
+    <member refid="structMeeleAttackComponent_1a390c259ba9468d00662ef7793c9bc6d4" kind="variable"><name>weapon</name></member>
+    <member refid="structMeeleAttackComponent_1ac5c9a4c6a452aeff2cf59b87f7b4da0a" kind="variable"><name>hoveredEntity</name></member>
+    <member refid="structMeeleAttackComponent_1ab730eab4c25c4240a2e89fb32e060e3b" kind="variable"><name>selectedEntity</name></member>
+  </compound>
+  <compound refid="structMetabolismComponent" kind="struct"><name>MetabolismComponent</name>
+    <member refid="structMetabolismComponent_1ab1ebb7b920326c4a8313c9ecf74d5255" kind="variable"><name>energyReserve</name></member>
+    <member refid="structMetabolismComponent_1abddabd46f7e40ba6cf13bf7b68a5eef1" kind="variable"><name>maxEnergyReserve</name></member>
+  </compound>
+  <compound refid="classMetabolismSystem" kind="class"><name>MetabolismSystem</name>
+    <member refid="classMetabolismSystem_1a170df3ecf222db6e50baf2aadcd21471" kind="variable"><name>chunkDigestionTime</name></member>
+    <member refid="classMetabolismSystem_1a65a4311ba9a7891b323a40f49328bff2" kind="variable"><name>chunkMass</name></member>
+    <member refid="classMetabolismSystem_1a0fe8e74eca14b2e7ea968ea340d9d7e9" kind="variable"><name>registry</name></member>
+    <member refid="classMetabolismSystem_1a66a3472449fb061487331389c2c9967d" kind="variable"><name>voxelGrid</name></member>
+    <member refid="classMetabolismSystem_1af1f7e5124453fc9c391865507bd6c799" kind="variable"><name>metabolismMutex</name></member>
+    <member refid="classMetabolismSystem_1a46d92793460654f799b8f103401651d9" kind="variable"><name>processingComplete</name></member>
+    <member refid="classMetabolismSystem_1a3c72924f4e5019346b6b7ad6f663bc72" kind="variable"><name>lastEntitiesCount</name></member>
+    <member refid="classMetabolismSystem_1a0b4ed719c66fb9ad909647ed8b36cc74" kind="variable"><name>MAX_ENTITIES</name></member>
+    <member refid="classMetabolismSystem_1a347f475564a50d3057e0637d9ee4bf39" kind="function"><name>MetabolismSystem</name></member>
+    <member refid="classMetabolismSystem_1acc485e5bc2889c1452d639a83c775fa0" kind="function"><name>MetabolismSystem</name></member>
+    <member refid="classMetabolismSystem_1a2c7d9aeb858e4ad28d06bf362a0bf6e5" kind="function"><name>processMetabolism</name></member>
+    <member refid="classMetabolismSystem_1a0a26b02efbd23e8079f80a36ee017a3b" kind="function"><name>processMetabolismAsync</name></member>
+    <member refid="classMetabolismSystem_1aa0405069f30effd337c73174a8ee5eb5" kind="function"><name>registerEventHandlers</name></member>
+    <member refid="classMetabolismSystem_1a3fefe8677d994236f26a4fda892b7a8f" kind="function"><name>isProcessingComplete</name></member>
+  </compound>
+  <compound refid="structMoveGasEntityEvent" kind="struct"><name>MoveGasEntityEvent</name>
+    <member refid="structMoveGasEntityEvent_1aa912feeba9d1ec83666cc206bc575e0d" kind="variable"><name>entity</name></member>
+    <member refid="structMoveGasEntityEvent_1ae1468768d94a45416cf729eb6a758f8e" kind="variable"><name>forceApplyNewVelocity</name></member>
+    <member refid="structMoveGasEntityEvent_1a3b5ac432d3f05342759c5f79ec06cbf9" kind="variable"><name>forceX</name></member>
+    <member refid="structMoveGasEntityEvent_1ac30a8cc9ac44a384d9ba1701d9bee404" kind="variable"><name>forceY</name></member>
+    <member refid="structMoveGasEntityEvent_1a97249295ab56a2feef1582a01802d9bb" kind="variable"><name>rhoEnv</name></member>
+    <member refid="structMoveGasEntityEvent_1ac26fefcfbbd051489ab867204cb7611d" kind="variable"><name>rhoGas</name></member>
+    <member refid="structMoveGasEntityEvent_1afb600e1e887b7e9a4ec765c1594adcd3" kind="function"><name>MoveGasEntityEvent</name></member>
+    <member refid="structMoveGasEntityEvent_1a4289fbba008bcd18fdd63d099ffcd6bf" kind="function"><name>setForceApplyNewVelocity</name></member>
+  </compound>
+  <compound refid="structMoveSolidEntityEvent" kind="struct"><name>MoveSolidEntityEvent</name>
+    <member refid="structMoveSolidEntityEvent_1a607600d0e531acfc7c5bcfbd538e73cd" kind="variable"><name>entity</name></member>
+    <member refid="structMoveSolidEntityEvent_1a16e884976e94c5f40fab7ba16ffe2379" kind="variable"><name>forceX</name></member>
+    <member refid="structMoveSolidEntityEvent_1a8c322ca7326262ca3db7e361f50a31cf" kind="variable"><name>forceY</name></member>
+    <member refid="structMoveSolidEntityEvent_1ab881a149827ebca342014b27a15b8410" kind="variable"><name>forceZ</name></member>
+    <member refid="structMoveSolidEntityEvent_1a573c2452821a993641041fad8bd86d84" kind="function"><name>MoveSolidEntityEvent</name></member>
+  </compound>
+  <compound refid="structMovingComponent" kind="struct"><name>MovingComponent</name>
+    <member refid="structMovingComponent_1ae384f6d3145d5b1aee208e874e21af1d" kind="variable"><name>isMoving</name></member>
+    <member refid="structMovingComponent_1ada8b275c821623243eead1ba37d5f66a" kind="variable"><name>movingFromX</name></member>
+    <member refid="structMovingComponent_1a941a50f3cb4f2189567e200b4890a616" kind="variable"><name>movingFromY</name></member>
+    <member refid="structMovingComponent_1ae9982b7866cf65e4f6b57b3a74b2395e" kind="variable"><name>movingFromZ</name></member>
+    <member refid="structMovingComponent_1a12c2219cf07531f38056608d55b34d68" kind="variable"><name>movingToX</name></member>
+    <member refid="structMovingComponent_1a0aab6c13dec847c2043c1afeacde3c20" kind="variable"><name>movingToY</name></member>
+    <member refid="structMovingComponent_1a99df0b4ccb5f4598937d7c4d5bd4f98e" kind="variable"><name>movingToZ</name></member>
+    <member refid="structMovingComponent_1a6ed3a5d56f57978431a1819deede8351" kind="variable"><name>vx</name></member>
+    <member refid="structMovingComponent_1a0893dd86e2e247f25e100a01dd73daa0" kind="variable"><name>vy</name></member>
+    <member refid="structMovingComponent_1aec5c9728ce53a1fd71e9905453da913b" kind="variable"><name>vz</name></member>
+    <member refid="structMovingComponent_1a415c4c10edf3a5967a70e0e4cebf11e5" kind="variable"><name>willStopX</name></member>
+    <member refid="structMovingComponent_1a5bad79f901bd457958e50d3d3272e01e" kind="variable"><name>willStopY</name></member>
+    <member refid="structMovingComponent_1a126a82a9f7f51aaffbc8fd3a9bcc62c8" kind="variable"><name>willStopZ</name></member>
+    <member refid="structMovingComponent_1a3ac9b81864d36cbd00941f097b47f1bf" kind="variable"><name>completionTime</name></member>
+    <member refid="structMovingComponent_1a310ae08148778db9505d83237e416617" kind="variable"><name>timeRemaining</name></member>
+    <member refid="structMovingComponent_1a93be1d25f725a545885a295e1000701c" kind="variable"><name>direction</name></member>
+  </compound>
+  <compound refid="structOnTakeItemBehavior" kind="struct"><name>OnTakeItemBehavior</name>
+    <member refid="structOnTakeItemBehavior_1ac28b6f3e72171940cf87d5b1b80f424e" kind="variable"><name>behavior</name></member>
+  </compound>
+  <compound refid="structOnUseItemBehavior" kind="struct"><name>OnUseItemBehavior</name>
+    <member refid="structOnUseItemBehavior_1ab637f269c96335a39d83de5a9b5b5ba1" kind="variable"><name>behavior</name></member>
+  </compound>
+  <compound refid="structParentsComponent" kind="struct"><name>ParentsComponent</name>
+    <member refid="structParentsComponent_1a1e86dc71816793a88a0f1cdb2827c027" kind="variable"><name>parents</name></member>
+  </compound>
+  <compound refid="structPerceptionComponent" kind="struct"><name>PerceptionComponent</name>
+    <member refid="structPerceptionComponent_1a124461a87ec49508d936acf8b4f688c9" kind="variable"><name>perception_area</name></member>
+    <member refid="structPerceptionComponent_1aa06b54aff7c7dab26b035f14738da0ad" kind="variable"><name>z_perception_area</name></member>
+    <member refid="structPerceptionComponent_1a77466490b1f6785c9e511d4f487ac4bc" kind="function"><name>getPerceptionArea</name></member>
+    <member refid="structPerceptionComponent_1a8ede1310df93a47d5c992663bdfc25c8" kind="function"><name>getZPerceptionArea</name></member>
+    <member refid="structPerceptionComponent_1ac0d8ba171316890d08cc2c3458ea28e3" kind="function"><name>setPerceptionArea</name></member>
+    <member refid="structPerceptionComponent_1a93ec3520be72faa704dc43450d8d84b3" kind="function"><name>setZPerceptionArea</name></member>
+    <member refid="structPerceptionComponent_1af93c5bc43fea7eeb6a9a45857daccf45" kind="function"><name>print</name></member>
+  </compound>
+  <compound refid="structPerceptionResponse" kind="struct"><name>PerceptionResponse</name>
+    <member refid="structPerceptionResponse_1aa7e9e56d57fb2850fbcdaf24f2cfcfd9" kind="variable"><name>entity</name></member>
+    <member refid="structPerceptionResponse_1a8b4db68598870381629b772032cd6f17" kind="variable"><name>world_view</name></member>
+    <member refid="structPerceptionResponse_1a6aa75700793436746908a90ff1034a8e" kind="variable"><name>ticks</name></member>
+    <member refid="structPerceptionResponse_1acdb8fe4db71a6f56dbdfcdd602401421" kind="variable"><name>itemsEntities</name></member>
+    <member refid="structPerceptionResponse_1ab98d202b3406698691eafd6830854150" kind="variable"><name>queryResponses</name></member>
+    <member refid="structPerceptionResponse_1ad8406c62c388d0f02b164e7184c4c849" kind="function"><name>PerceptionResponse</name></member>
+    <member refid="structPerceptionResponse_1a15a1fc6e49f9bdbfceafbc93a61983eb" kind="function"><name>PerceptionResponse</name></member>
+    <member refid="structPerceptionResponse_1a990656e2ad5c30b664878b17d1008858" kind="function"><name>serializeFlatBuffer</name></member>
+    <member refid="structPerceptionResponse_1a9a0e4f25cddebd30eee36fc82991a56a" kind="function"><name>pySerializeFlatBuffer</name></member>
+  </compound>
+  <compound refid="classPerceptionResponseFlatB" kind="class"><name>PerceptionResponseFlatB</name>
+    <member refid="classPerceptionResponseFlatB_1a5ffe285bf4f66f93b3c4ab1ff3241f87" kind="variable"><name>fbPerceptionResponse</name></member>
+    <member refid="classPerceptionResponseFlatB_1af0e6b56cd6facad26899c93b48e74ede" kind="function"><name>PerceptionResponseFlatB</name></member>
+    <member refid="classPerceptionResponseFlatB_1a492e77d8ab2c997e8597ef499f7b9c6d" kind="function"><name>PerceptionResponseFlatB</name></member>
+    <member refid="classPerceptionResponseFlatB_1a7f787a19cf7b352dc394ad051d7b67b9" kind="function"><name>getWorldView</name></member>
+    <member refid="classPerceptionResponseFlatB_1a819662def2e5a1e55fe82090f01e29fb" kind="function"><name>getEntity</name></member>
+    <member refid="classPerceptionResponseFlatB_1ac036811f9e37599829277f9eac032e09" kind="function"><name>getItemFromInventoryById</name></member>
+    <member refid="classPerceptionResponseFlatB_1a29df88b502c0114f85bfbe31ed7d92c3" kind="function"><name>getQueryResponseById</name></member>
+    <member refid="classPerceptionResponseFlatB_1ac6ba9d71ad7bb38bd816063e3fdfdc0e" kind="function"><name>getTicks</name></member>
+  </compound>
+  <compound refid="classPhysicsEngine" kind="class"><name>PhysicsEngine</name>
+    <member refid="classPhysicsEngine_1a715caa0b8d0bee78d897e705a5694d0c" kind="variable"><name>physicsMutex</name></member>
+    <member refid="classPhysicsEngine_1a5d51129040d6888dd28f33f415a41f7b" kind="variable"><name>entityBeingDebugged</name></member>
+    <member refid="classPhysicsEngine_1a94a517f3924b4fe00304a36f71ebe294" kind="variable"><name>registry</name></member>
+    <member refid="classPhysicsEngine_1a9acfa1e5e8a27f763f93afe320a5567b" kind="variable"><name>voxelGrid</name></member>
+    <member refid="classPhysicsEngine_1a752aa641e02ef948c80a0334cb569aea" kind="variable"><name>processingComplete</name></member>
+    <member refid="classPhysicsEngine_1ae323fe119f294a4ffb42852b38b02e43" kind="function"><name>PhysicsEngine</name></member>
+    <member refid="classPhysicsEngine_1a67dcbceaaaba446de86c2ad4feb150a0" kind="function"><name>PhysicsEngine</name></member>
+    <member refid="classPhysicsEngine_1a461965e80d56474c6c4e5835bcb58406" kind="function"><name>processPhysics</name></member>
+    <member refid="classPhysicsEngine_1a694fade3c62cce3ecac2e2e2f4247c80" kind="function"><name>processPhysicsAsync</name></member>
+    <member refid="classPhysicsEngine_1a64f0593fb2abdb4c3009051409c8cfaa" kind="function"><name>onMoveSolidEntityEvent</name></member>
+    <member refid="classPhysicsEngine_1ac740cd85a5110e49e73fda7cff5eab7a" kind="function"><name>onMoveGasEntityEvent</name></member>
+    <member refid="classPhysicsEngine_1aa56976583ee5931a874ed705ef399a77" kind="function"><name>onTakeItemEvent</name></member>
+    <member refid="classPhysicsEngine_1a72d8ca8ff3cc8c89acac6e455cd7b086" kind="function"><name>onUseItemEvent</name></member>
+    <member refid="classPhysicsEngine_1a25f12fbb65717ef302d73538a5f3cbc7" kind="function"><name>onSetPhysicsEntityToDebug</name></member>
+    <member refid="classPhysicsEngine_1a1f03de7a556b2ff6e7b8b2c77b7e696d" kind="function"><name>registerEventHandlers</name></member>
+    <member refid="classPhysicsEngine_1ab90a52dd17f9360d118e7d158c9e208b" kind="function"><name>isProcessingComplete</name></member>
+    <member refid="classPhysicsEngine_1a2ffa86023d5a549b63d27822e14452f6" kind="function"><name>checkIfCanJump</name></member>
+    <member refid="classPhysicsEngine_1a9740cae95ddcc60c19e148ef5e1d8f15" kind="function"><name>translatePhysicsToGridMovement</name></member>
+  </compound>
+  <compound refid="classPhysicsManager" kind="class"><name>PhysicsManager</name>
+    <member refid="classPhysicsManager_1a4d1aea4e261e17395a768870d75421c1" kind="variable"><name>s_pInstance</name></member>
+    <member refid="classPhysicsManager_1a1eb65161c37ad88ed9e35acc4b0b59e2" kind="variable"><name>gravity</name></member>
+    <member refid="classPhysicsManager_1ab5893bd1e267a3327a607bab3a3129cc" kind="variable"><name>friction</name></member>
+    <member refid="classPhysicsManager_1ac2b2d75eb1158cc84a2fa8259f4fd584" kind="variable"><name>allowMultiDirection</name></member>
+    <member refid="classPhysicsManager_1ae09430e37a8f4d228d19e99bb1879d23" kind="variable"><name>EVAPORATION_COEFFICIENT</name></member>
+    <member refid="classPhysicsManager_1a5d83cfc4a057f6004055e4679402ad5a" kind="variable"><name>HEAT_TO_WATER_EVAPORATION</name></member>
+    <member refid="classPhysicsManager_1a41c64381031d8db6904ec8e9abc1b0a0" kind="variable"><name>waterMinimumUnits</name></member>
+    <member refid="classPhysicsManager_1ab99e26682a1881bcfc09d007f8d269ce" kind="variable"><name>metabolismCostToApplyForce</name></member>
+    <member refid="classPhysicsManager_1a8b62daf8ec0ecdfbcccaeffc55a2f7ff" kind="function"><name>Instance</name></member>
+    <member refid="classPhysicsManager_1ac66e5bcb3c25299a4ba7ddb399337a6c" kind="function"><name>setGravity</name></member>
+    <member refid="classPhysicsManager_1a4501031008f17f999e17a41329066c73" kind="function"><name>setFriction</name></member>
+    <member refid="classPhysicsManager_1adefe78e4f073ae76ded96effaed55a1c" kind="function"><name>setAllowMultiDirection</name></member>
+    <member refid="classPhysicsManager_1ae676f79fad0ce978e85758e608a97d6a" kind="function"><name>getGravity</name></member>
+    <member refid="classPhysicsManager_1a7e443b244a0c871a86e8644ec1f044fd" kind="function"><name>getFriction</name></member>
+    <member refid="classPhysicsManager_1a4a3216db780a148fdfad204c108dbdd1" kind="function"><name>getAllowMultiDirection</name></member>
+    <member refid="classPhysicsManager_1a41a7bdca54be9db89881c0d8a924f5cf" kind="function"><name>getMetabolismCostToApplyForce</name></member>
+    <member refid="classPhysicsManager_1ad534a87cb2ba66e1b5843e9b7c88d81c" kind="function"><name>getEvaporationCoefficient</name></member>
+    <member refid="classPhysicsManager_1a00fe6e08581b6e5668492b8263a646d1" kind="function"><name>getHeatToWaterEvaporation</name></member>
+    <member refid="classPhysicsManager_1a36fe5298187232bb3753723142a62f6f" kind="function"><name>getWaterMinimumUnits</name></member>
+    <member refid="classPhysicsManager_1abcdf9174b82ab02c7fc642507322d6e5" kind="function"><name>loadSettings</name></member>
+    <member refid="classPhysicsManager_1aa2a68d057cf76d8b34e6cd96cf2efe93" kind="function"><name>saveSettings</name></member>
+    <member refid="classPhysicsManager_1abee8b0945994b58f3847aade4a73cba9" kind="function"><name>PhysicsManager</name></member>
+    <member refid="classPhysicsManager_1ac41c46fb62b8104b3d5d5bf6bcf7b2f5" kind="function"><name>~PhysicsManager</name></member>
+    <member refid="classPhysicsManager_1aab262ac40685486b71bdacb6c4d41250" kind="function"><name>PhysicsManager</name></member>
+    <member refid="classPhysicsManager_1a8ccca15acc8c7e4efcf92abd047e8edc" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="structPhysicsStats" kind="struct"><name>PhysicsStats</name>
+    <member refid="structPhysicsStats_1ab8530485288c49ffd3496cd577c29eb3" kind="variable"><name>mass</name></member>
+    <member refid="structPhysicsStats_1aae38e05f109a409561397bbfb430ddd7" kind="variable"><name>maxSpeed</name></member>
+    <member refid="structPhysicsStats_1a957adae75dfb65ecfbbf982e0794d1a3" kind="variable"><name>minSpeed</name></member>
+    <member refid="structPhysicsStats_1a70409f544e74b35711b110568721d523" kind="variable"><name>forceX</name></member>
+    <member refid="structPhysicsStats_1a17e9206c949413e2829741ce7e133ca1" kind="variable"><name>forceY</name></member>
+    <member refid="structPhysicsStats_1a2428c3a139805b04b3ed048e4c0d6511" kind="variable"><name>forceZ</name></member>
+    <member refid="structPhysicsStats_1aeff46bb169cf564a012292e043c7ea4f" kind="variable"><name>heat</name></member>
+    <member refid="structPhysicsStats_1a6dbbbbad5313efd0a8ba97b131049da8" kind="function"><name>print</name></member>
+    <member refid="structPhysicsStats_1abc1b71af7b1091b257e519eabe122f94" kind="function"><name>getPhysicsStats</name></member>
+    <member refid="structPhysicsStats_1a19099a141a9f63ef26890cef436553df" kind="function"><name>setPhysicsStats</name></member>
+  </compound>
+  <compound refid="structPlantResources" kind="struct"><name>PlantResources</name>
+    <member refid="structPlantResources_1ab2edd08a6948178deddf53e7b61bccea" kind="variable"><name>maxEnergy</name></member>
+    <member refid="structPlantResources_1aa2d144e1c86567270353cbde990cbd07" kind="variable"><name>currentEnergy</name></member>
+    <member refid="structPlantResources_1a7d940de42f8347626616cc9000852207" kind="variable"><name>water</name></member>
+    <member refid="structPlantResources_1ae9d8a8c900f3683ce0f1679979b40036" kind="variable"><name>bioMacronutrients</name></member>
+  </compound>
+  <compound refid="structPosition" kind="struct"><name>Position</name>
+    <member refid="structPosition_1aeda152ffeee17ae5be9c02327b2408d8" kind="variable"><name>x</name></member>
+    <member refid="structPosition_1a3c08e9213d4726b21caba3073192c4a3" kind="variable"><name>y</name></member>
+    <member refid="structPosition_1abb3a3adb3cfa5dea00998627885662bd" kind="variable"><name>z</name></member>
+    <member refid="structPosition_1abff6eee16ac4d7201db459bdf33a0591" kind="variable"><name>direction</name></member>
+    <member refid="structPosition_1acbdbbd42e27df9c0579f82f8b8e89d17" kind="function"><name>print</name></member>
+    <member refid="structPosition_1a1e5144b6a7a4527207900a2fdf4b4b27" kind="function"><name>getDirectionAsInt</name></member>
+    <member refid="structPosition_1af9623823a04b82db742ca6d4c83fc013" kind="function"><name>distance</name></member>
+  </compound>
+  <compound refid="classPyRegistry" kind="class"><name>PyRegistry</name>
+    <member refid="classPyRegistry_1abb4674562d3c5dac15695e8e3b03d755" kind="variable"><name>registry</name></member>
+    <member refid="classPyRegistry_1a91b109c18a3a081070ec02bef2592c0e" kind="variable"><name>dispatcher</name></member>
+    <member refid="classPyRegistry_1a6d77f39a8cb8d5421086169107ec5e3c" kind="function"><name>PyRegistry</name></member>
+    <member refid="classPyRegistry_1a97191bf3bfc996ae10696b71310e5354" kind="function"><name>PyRegistry</name></member>
+    <member refid="classPyRegistry_1a07e0e7ff22a4b11b01d57295362d9f88" kind="function"><name>operator=</name></member>
+    <member refid="classPyRegistry_1a7d1a0f76b3867644cf55d19e5c460771" kind="function"><name>PyRegistry</name></member>
+    <member refid="classPyRegistry_1ab78246ac677384a18cf8ca7e4129aaa7" kind="function"><name>operator=</name></member>
+    <member refid="classPyRegistry_1a47b0ec4073391d254b43f02c63c16577" kind="function"><name>create_entity</name></member>
+    <member refid="classPyRegistry_1a9ed0f2423419fabcf331be4f5bfb7da9" kind="function"><name>destroy_entity</name></member>
+    <member refid="classPyRegistry_1a92e3a24b0272580e7435eba5ec4162bf" kind="function"><name>view</name></member>
+    <member refid="classPyRegistry_1a38ea6d56aebbe787890b2c08e79de7a1" kind="function"><name>all_of_single</name></member>
+    <member refid="classPyRegistry_1a130bd8471ad07dd59adb88070d8a69e9" kind="function"><name>has_all_components</name></member>
+    <member refid="classPyRegistry_1a35945f25275f097a84c9d5404705e4a5" kind="function"><name>get</name></member>
+    <member refid="classPyRegistry_1a0a9048c50b8a61a07688892ff2c47cf3" kind="function"><name>set</name></member>
+    <member refid="classPyRegistry_1a257386bf1cb06c4501070799a7922cd7" kind="function"><name>remove</name></member>
+    <member refid="classPyRegistry_1ade40da3a7d1e22e07f1b74a96e5fbefc" kind="function"><name>get_component</name></member>
+    <member refid="classPyRegistry_1a3e3ac54daf36778da4ccccb7bee5f619" kind="function"><name>set_component</name></member>
+    <member refid="classPyRegistry_1a750e756371762efb07597e958c776f8b" kind="function"><name>remove_component</name></member>
+    <member refid="classPyRegistry_1a53be8d606a590e8bb4f01058165c4948" kind="function"><name>is_valid</name></member>
+    <member refid="classPyRegistry_1a6d2d97a6a80bafafe0b11784b032995b" kind="function"><name>entities_to_pylist</name></member>
+  </compound>
+  <compound refid="structQueryCommand" kind="struct"><name>QueryCommand</name>
+    <member refid="structQueryCommand_1af5511bba3d789608720098f07decb1ac" kind="variable"><name>type</name></member>
+    <member refid="structQueryCommand_1a3e2ec21ad9e95383917b4bf07df4c6da" kind="variable"><name>params</name></member>
+    <member refid="structQueryCommand_1a66c2f9005fd5ac9a01e9379329a1d965" kind="function"><name>setParam</name></member>
+    <member refid="structQueryCommand_1a202bb72f62a6c934f2e5a685f0d5a39c" kind="function"><name>setParam</name></member>
+    <member refid="structQueryCommand_1a6bbfbe5d77f052aee24342fe35a53188" kind="function"><name>getParamAsDouble</name></member>
+  </compound>
+  <compound refid="classQueryResponse" kind="class"><name>QueryResponse</name>
+    <member refid="classQueryResponse_1aa41747e8f2a0497a37a97852a3799ee9" kind="variable"><name>responseMask</name></member>
+    <member refid="classQueryResponse_1a7dd55dc41091c6d22935769c49f31e1d" kind="function"><name>~QueryResponse</name></member>
+    <member refid="classQueryResponse_1ad78f2bdeba46189aff98a07b26cd958a" kind="function"><name>serialize</name></member>
+    <member refid="classQueryResponse_1aebd9d37dc360d3a18fcea0eaaf22ec62" kind="function"><name>py_serialize</name></member>
+    <member refid="classQueryResponse_1a37712354e3df2a12218b43e50707c2e7" kind="function"><name>deserialize</name></member>
+    <member refid="classQueryResponse_1ae337668bd1f7f8fd24c6716bb3218a74" kind="function"><name>serializeHeader</name></member>
+    <member refid="classQueryResponse_1a903611659aa798b9cdb99721fccd366b" kind="function"><name>deserializeHeader</name></member>
+  </compound>
+  <compound refid="structQueryResponseHeader" kind="struct"><name>QueryResponseHeader</name>
+    <member refid="structQueryResponseHeader_1a2a79191db8e9d9fc6309637594beff77" kind="variable"><name>responseMask</name></member>
+  </compound>
+  <compound refid="classRenderDrawRectTask" kind="class"><name>RenderDrawRectTask</name>
+    <member refid="classRenderDrawRectTask_1aec976f045e2f1a9d1fe54cf78b7e9e9d" kind="variable"><name>rect_</name></member>
+    <member refid="classRenderDrawRectTask_1ae98107f77a121a68774deae56f2ed592" kind="variable"><name>thickness_</name></member>
+    <member refid="classRenderDrawRectTask_1af0d6123b3a878c837b2ed3f30e92d890" kind="variable"><name>color_</name></member>
+    <member refid="classRenderDrawRectTask_1a117586dd731c2a42fd9750e7a0927326" kind="function"><name>RenderDrawRectTask</name></member>
+    <member refid="classRenderDrawRectTask_1a7acd623eaf04e5b23c41a6160da5ab9d" kind="function"><name>render</name></member>
+  </compound>
+  <compound refid="classRenderLineTask" kind="class"><name>RenderLineTask</name>
+    <member refid="classRenderLineTask_1a44b1a6c17da19cff00a49a62b107845a" kind="variable"><name>x_start</name></member>
+    <member refid="classRenderLineTask_1a93331ba773845a9e7eaa6266777b413b" kind="variable"><name>y_start</name></member>
+    <member refid="classRenderLineTask_1a2f5a38df4f70c276e9ef494d8234876b" kind="variable"><name>x_end</name></member>
+    <member refid="classRenderLineTask_1a320052599e4041192a30bcb5b306dae4" kind="variable"><name>y_end</name></member>
+    <member refid="classRenderLineTask_1a9083fa20b001302161339754574ea758" kind="variable"><name>color_</name></member>
+    <member refid="classRenderLineTask_1aff76c2da454675dd2ae967368794305f" kind="function"><name>RenderLineTask</name></member>
+    <member refid="classRenderLineTask_1a3425a29411bae6f5690bb3057051c7e0" kind="function"><name>render</name></member>
+  </compound>
+  <compound refid="classRenderQueue" kind="class"><name>RenderQueue</name>
+    <member refid="classRenderQueue_1a1427d8a566e4544bd2eff080101b9b19" kind="variable"><name>queue</name></member>
+    <member refid="classRenderQueue_1a55df5a457226c27760e3d0210aa3d834" kind="variable"><name>priority_order</name></member>
+    <member refid="classRenderQueue_1aa31c5650e03e7b942a0a256fe4fe0b7c" kind="variable"><name>queue_mutex</name></member>
+    <member refid="classRenderQueue_1ae893f8a1ae83c2e55e85378ed92fd5b9" kind="function"><name>RenderQueue</name></member>
+    <member refid="classRenderQueue_1a277092a4be11a04ff2980f0652746f1a" kind="function"><name>add_task_by_id</name></member>
+    <member refid="classRenderQueue_1a79abfc286cb5189f8a0509cb09943d55" kind="function"><name>add_task_by_texture</name></member>
+    <member refid="classRenderQueue_1ad194eb8b60f0f1393d3345c914ca9730" kind="function"><name>add_task_rect</name></member>
+    <member refid="classRenderQueue_1a47103e027c3322952bc836038343dd77" kind="function"><name>add_task_draw_rect</name></member>
+    <member refid="classRenderQueue_1ae4a9f2f7539cd608e7cdb47a50b22c06" kind="function"><name>add_task_line</name></member>
+    <member refid="classRenderQueue_1a5c67ce9f961adf089dcadfee4a0bbd21" kind="function"><name>add_task_text</name></member>
+    <member refid="classRenderQueue_1a8f4c44eedd6d9cc788100022ed725568" kind="function"><name>clear</name></member>
+    <member refid="classRenderQueue_1a2d388dff92e9162ac5e291eb9cc2497c" kind="function"><name>get_sorted_layers</name></member>
+    <member refid="classRenderQueue_1afcf77f5ae69bce986bb02ae1dc0883eb" kind="function"><name>get_priority_order_value</name></member>
+    <member refid="classRenderQueue_1ac79941fec0f76e686641ddee81116cf6" kind="function"><name>get_sorted_priority_groups</name></member>
+    <member refid="classRenderQueue_1a86a9ba3f3d8e8d9b545fb9fcdb5cda1f" kind="function"><name>set_priority_order</name></member>
+    <member refid="classRenderQueue_1ac6335c5a87ccbaf82df10cd29859bae0" kind="function"><name>render</name></member>
+    <member refid="classRenderQueue_1a8c1c07ce79e2867d8c364f36f10d636f" kind="function"><name>add_task_internal</name></member>
+  </compound>
+  <compound refid="classRenderRectTask" kind="class"><name>RenderRectTask</name>
+    <member refid="classRenderRectTask_1ac3dcbe0075fe08ff5104b6e4952073c7" kind="variable"><name>rect_</name></member>
+    <member refid="classRenderRectTask_1a6bbaf3924e244db4739676fd77cd2991" kind="variable"><name>color_</name></member>
+    <member refid="classRenderRectTask_1a51435838d6f6749f6a442419b50ec503" kind="function"><name>RenderRectTask</name></member>
+    <member refid="classRenderRectTask_1a45e32291900d153eaf50f4480fa8a715" kind="function"><name>render</name></member>
+  </compound>
+  <compound refid="classRenderTaskBase" kind="class"><name>RenderTaskBase</name>
+    <member refid="classRenderTaskBase_1afa7ba1f0ab38fc6df88b54bf8f7ac6fa" kind="variable"><name>z_layer</name></member>
+    <member refid="classRenderTaskBase_1aba444e27143e746979db33ed1b2ede95" kind="function"><name>~RenderTaskBase</name></member>
+    <member refid="classRenderTaskBase_1aca930dd0177845b4f1c9ecbd3da548a0" kind="function"><name>render</name></member>
+    <member refid="classRenderTaskBase_1a87f842d1663de2935efc9dfee89553e8" kind="function"><name>setZLayer</name></member>
+    <member refid="classRenderTaskBase_1a083109259e992a8b0b759fdbcdc24cf8" kind="function"><name>getZLayer</name></member>
+  </compound>
+  <compound refid="classRenderTextTask" kind="class"><name>RenderTextTask</name>
+    <member refid="classRenderTextTask_1ad483755c3f3c1faa9a6f55b084d0d6f2" kind="variable"><name>text_</name></member>
+    <member refid="classRenderTextTask_1a34c0f48deb67a61a350f744c0b542a07" kind="variable"><name>font_id_</name></member>
+    <member refid="classRenderTextTask_1a0c50b05822a43a52ef223cda2939f833" kind="variable"><name>color_</name></member>
+    <member refid="classRenderTextTask_1a8dd980f08f522029aacb2971a6610ca2" kind="variable"><name>x_</name></member>
+    <member refid="classRenderTextTask_1acdff0be2b1bb6ff17a9a3d3d08ac00ce" kind="variable"><name>y_</name></member>
+    <member refid="classRenderTextTask_1add12c318fa972081381444f273d69e51" kind="function"><name>RenderTextTask</name></member>
+    <member refid="classRenderTextTask_1ad70dd9e280194e7de87516df337375f1" kind="function"><name>render</name></member>
+  </compound>
+  <compound refid="classRenderTextureTask" kind="class"><name>RenderTextureTask</name>
+    <member refid="classRenderTextureTask_1a85ba842b2ec30136c62a29c582b3b402" kind="variable"><name>texture</name></member>
+    <member refid="classRenderTextureTask_1ad34dd3833dfda5b02955f2f9481f2a73" kind="variable"><name>x</name></member>
+    <member refid="classRenderTextureTask_1aa14010c329e6c2057a3a4f856fc3f71d" kind="variable"><name>y</name></member>
+    <member refid="classRenderTextureTask_1a0b096c76e053208e024b9caa5507f8c3" kind="variable"><name>lightIntensity</name></member>
+    <member refid="classRenderTextureTask_1a1ccfdbac5dece324e87dfb46a72a8790" kind="variable"><name>opacity</name></member>
+    <member refid="classRenderTextureTask_1afd371b7baa439c877e1847a406931a49" kind="function"><name>RenderTextureTask</name></member>
+    <member refid="classRenderTextureTask_1ac9df250fc7994127fb8ace8de0d62065" kind="function"><name>render</name></member>
+  </compound>
+  <compound refid="structSerializableEntity" kind="struct"><name>SerializableEntity</name>
+    <member refid="structSerializableEntity_1a3b0085d1367dc8e59dd21e92978168ac" kind="variable"><name>entityId</name></member>
+    <member refid="structSerializableEntity_1a1c3ee5c923bdc64e0c4d668203d4e958" kind="variable"><name>posX</name></member>
+    <member refid="structSerializableEntity_1afb286b197aa6e17aff79603d0ba407e8" kind="variable"><name>posY</name></member>
+    <member refid="structSerializableEntity_1aa8040087976b34dcebf789c8cee70f89" kind="variable"><name>posZ</name></member>
+    <member refid="structSerializableEntity_1afa7e1aa9073910c87f62f2704da801d4" kind="variable"><name>velX</name></member>
+    <member refid="structSerializableEntity_1ac885fad639ee632d4ee851d510e2843f" kind="variable"><name>velY</name></member>
+    <member refid="structSerializableEntity_1a8bd217feb1a3a6747ef0d407f6d8b942" kind="variable"><name>velZ</name></member>
+    <member refid="structSerializableEntity_1a7bdc350c8b2bc6e1a8027961465004c2" kind="variable"><name>health</name></member>
+    <member refid="structSerializableEntity_1a138f7e4e7d671fe417ea91ab211f776b" kind="variable"><name>entityType</name></member>
+  </compound>
+  <compound refid="structSetEcoEntityToDebug" kind="struct"><name>SetEcoEntityToDebug</name>
+    <member refid="structSetEcoEntityToDebug_1a3a91ad72701a6026d628ce7502b9ef2e" kind="variable"><name>entity</name></member>
+    <member refid="structSetEcoEntityToDebug_1a69c115992230505985478aa2b453d122" kind="function"><name>SetEcoEntityToDebug</name></member>
+  </compound>
+  <compound refid="structSetPhysicsEntityToDebug" kind="struct"><name>SetPhysicsEntityToDebug</name>
+    <member refid="structSetPhysicsEntityToDebug_1abea09a349d4eada36a7660ea37c1e2b3" kind="variable"><name>entity</name></member>
+    <member refid="structSetPhysicsEntityToDebug_1aadbfc62f8ff4862a859062a63802d752" kind="function"><name>SetPhysicsEntityToDebug</name></member>
+  </compound>
+  <compound refid="structStructuralIntegrityComponent" kind="struct"><name>StructuralIntegrityComponent</name>
+    <member refid="structStructuralIntegrityComponent_1ad37d79d04b51f8dcaf5fa3d9ffcd9bb9" kind="variable"><name>canStackEntities</name></member>
+    <member refid="structStructuralIntegrityComponent_1a19174b9f47984254eb4433b1cb630115" kind="variable"><name>maxLoadCapacity</name></member>
+    <member refid="structStructuralIntegrityComponent_1a6dfc674f7e49199f2027bae8cfe24e3b" kind="variable"><name>matterState</name></member>
+    <member refid="structStructuralIntegrityComponent_1a2e099f6df8b2f08b0c49463f326fbbf7" kind="variable"><name>gradientVector</name></member>
+  </compound>
+  <compound refid="classSunIntensity" kind="class"><name>SunIntensity</name>
+    <member refid="classSunIntensity_1a3e462d518c63077bdc25fb9527ae2d2b" kind="function"><name>getIntensity</name></member>
+  </compound>
+  <compound refid="structTakeItemEvent" kind="struct"><name>TakeItemEvent</name>
+    <member refid="structTakeItemEvent_1aebaca6ece0d98b227b91d16eaa6fbfd0" kind="variable"><name>entity</name></member>
+    <member refid="structTakeItemEvent_1aaedf8f1a123855175d8d4c0c8955fc16" kind="variable"><name>pyRegistryObj</name></member>
+    <member refid="structTakeItemEvent_1a0ca76e407e64247eaa3f32dacfa29c4e" kind="variable"><name>voxelGrid</name></member>
+    <member refid="structTakeItemEvent_1a4c2b94ddf1eef3365cfb1f53ae8f2d05" kind="variable"><name>hoveredEntityId</name></member>
+    <member refid="structTakeItemEvent_1a3ec0c3d00f1e51e79147f44be4cbcdc9" kind="variable"><name>selectedEntityId</name></member>
+    <member refid="structTakeItemEvent_1aadef3c35456ebcfb2bf2cfc0ae96cc41" kind="function"><name>TakeItemEvent</name></member>
+  </compound>
+  <compound refid="classTextureManager" kind="class"><name>TextureManager</name>
+    <member refid="classTextureManager_1ab78a1ae0477b016569b32ac4ceaeaaef" kind="variable"><name>m_textureMap</name></member>
+    <member refid="classTextureManager_1ab5434f5ba0cc3e02623f23699573a5a6" kind="function"><name>Instance</name></member>
+    <member refid="classTextureManager_1a1d38974d59ef4e308e22a94d5a8d3448" kind="function"><name>load</name></member>
+    <member refid="classTextureManager_1ac9770d93c5c897e6213fb81e7ee659b1" kind="function"><name>draw</name></member>
+    <member refid="classTextureManager_1a45bd96a998becc267419351a4dfe226c" kind="function"><name>getTexture</name></member>
+    <member refid="classTextureManager_1ad76abb178b37cedf4514eb0154349935" kind="function"><name>TextureManager</name></member>
+    <member refid="classTextureManager_1a001d6d74674961db79987e3222682576" kind="function"><name>~TextureManager</name></member>
+    <member refid="classTextureManager_1ae0a812052ff90565e3a0e3bcfc766240" kind="function"><name>TextureManager</name></member>
+    <member refid="classTextureManager_1ab69a7a235f3fa0a0e5a1cc6cf9c29ab3" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="structTileEffectComponent" kind="struct"><name>TileEffectComponent</name>
+    <member refid="structTileEffectComponent_1a89a133bd33a8935fa5e4b5003f1250b0" kind="variable"><name>tileEffectType</name></member>
+    <member refid="structTileEffectComponent_1a7711f78826befc68eedc6362e800b8ed" kind="variable"><name>damageValue</name></member>
+    <member refid="structTileEffectComponent_1aecc871616d270b19416cb017930da90b" kind="variable"><name>effectTotalTime</name></member>
+    <member refid="structTileEffectComponent_1a0dabed4bbb643e71389d7f330114931c" kind="variable"><name>effectRemainingTime</name></member>
+  </compound>
+  <compound refid="structTileEffectsList" kind="struct"><name>TileEffectsList</name>
+    <member refid="structTileEffectsList_1ae8b6e63d076ca47bd407ab0809dc79a7" kind="variable"><name>tileEffectsIDs</name></member>
+    <member refid="structTileEffectsList_1a24642acf052c4e54eb8fb1b718d8dbc9" kind="variable"><name>unique_elements</name></member>
+    <member refid="structTileEffectsList_1af478e0a50ae2e9b8d042c32cfd981376" kind="function"><name>addEffect</name></member>
+  </compound>
+  <compound refid="structTimeSeriesComponent" kind="struct"><name>TimeSeriesComponent</name>
+    <member refid="structTimeSeriesComponent_1a2dd9fbeb7e9607bf5914bb09432aa644" kind="variable"><name>timeSeriesName</name></member>
+    <member refid="structTimeSeriesComponent_1ac4e27aeb69dec1980a3b12ef393be708" kind="variable"><name>timeSeriesData</name></member>
+    <member refid="structTimeSeriesComponent_1af96a338a67c5e5ca475abd4ffccfafb2" kind="function"><name>addDataPoint</name></member>
+    <member refid="structTimeSeriesComponent_1a0597d067fdeadcff2a0cbc0f8cab1348" kind="function"><name>getDataPoints</name></member>
+    <member refid="structTimeSeriesComponent_1a2f14e057676e3fb8b5bb8bb2f87113a0" kind="function"><name>clear</name></member>
+    <member refid="structTimeSeriesComponent_1ac2862ee18a0aa31bdc967ebfd5d5dd2c" kind="function"><name>size</name></member>
+  </compound>
+  <compound refid="structToBeCreatedWaterTile" kind="struct"><name>ToBeCreatedWaterTile</name>
+    <member refid="structToBeCreatedWaterTile_1a3255f707454f5a9b961fed62d79ece14" kind="variable"><name>entity</name></member>
+    <member refid="structToBeCreatedWaterTile_1a2214599b43599535a9451a16c4660d7c" kind="variable"><name>position</name></member>
+    <member refid="structToBeCreatedWaterTile_1aca37d5f9ea603fa69f0d4ef85da4e3ac" kind="variable"><name>type</name></member>
+    <member refid="structToBeCreatedWaterTile_1a11ae2b06f33a284a0807485384beacce" kind="variable"><name>matterContainer</name></member>
+    <member refid="structToBeCreatedWaterTile_1a0f92e71251d69f29d890f31a29c64042" kind="variable"><name>structuralIntegrity</name></member>
+  </compound>
+  <compound refid="classUnknownConfigItemError" kind="class"><name>UnknownConfigItemError</name>
+    <member refid="classUnknownConfigItemError_1abd95217e43ee07e7e5ac6eab38e94b32" kind="function"><name>UnknownConfigItemError</name></member>
+  </compound>
+  <compound refid="structUseItemEvent" kind="struct"><name>UseItemEvent</name>
+    <member refid="structUseItemEvent_1a747ca1e9f50b69ea9f3221e3754644e1" kind="variable"><name>entity</name></member>
+    <member refid="structUseItemEvent_1a01e07dceeae989c4e17855fadc29d9e3" kind="variable"><name>pyRegistryObj</name></member>
+    <member refid="structUseItemEvent_1a54e3e5e76f8bf6b0a1d6f2346fa4c999" kind="variable"><name>voxelGrid</name></member>
+    <member refid="structUseItemEvent_1afcea7a9a0cf70cbed8595efae5bdada6" kind="variable"><name>itemSlot</name></member>
+    <member refid="structUseItemEvent_1ad4f246c07c2e3dada232ad5fb9664d53" kind="variable"><name>hoveredEntityId</name></member>
+    <member refid="structUseItemEvent_1a109a187895c41811c661962a3addf69f" kind="variable"><name>selectedEntityId</name></member>
+    <member refid="structUseItemEvent_1a4e028483621e3c1064cfb64c4c9e95d3" kind="function"><name>UseItemEvent</name></member>
+  </compound>
+  <compound refid="structVelocity" kind="struct"><name>Velocity</name>
+    <member refid="structVelocity_1a2592d4678c041df7b39ae7663ec0ed5d" kind="variable"><name>vx</name></member>
+    <member refid="structVelocity_1ae2a7111ea8910254dce8882f3ab760a3" kind="variable"><name>vy</name></member>
+    <member refid="structVelocity_1a673687999f3f7ae616cd1dd23f2e9b9b" kind="variable"><name>vz</name></member>
+    <member refid="structVelocity_1a5110abf003d076077d21d76011d64578" kind="function"><name>print</name></member>
+    <member refid="structVelocity_1a713592c5423e0e45f5a8dff50fe4719e" kind="function"><name>speed</name></member>
+  </compound>
+  <compound refid="classVoxelGrid" kind="class"><name>VoxelGrid</name>
+    <member refid="classVoxelGrid_1a868d0eaabcec65f87869bdaec7ec516c" kind="variable"><name>width</name></member>
+    <member refid="classVoxelGrid_1ae7dedbbdcff1f94501987196c12166bb" kind="variable"><name>height</name></member>
+    <member refid="classVoxelGrid_1a1c3468fdfe02c2386ee1265393103e1a" kind="variable"><name>depth</name></member>
+    <member refid="classVoxelGrid_1af28acddd25b67b3ba141c449b2e3eb3a" kind="variable"><name>terrainGrid</name></member>
+    <member refid="classVoxelGrid_1aec990bc6778b557acd170107ea42674a" kind="variable"><name>entityGrid</name></member>
+    <member refid="classVoxelGrid_1af7e2110d6a15f188a2b026dabb8dce59" kind="variable"><name>eventGrid</name></member>
+    <member refid="classVoxelGrid_1ae729c72682c73a36a2094ff96c3470be" kind="variable"><name>lightingGrid</name></member>
+    <member refid="classVoxelGrid_1a55ead3aae948291ce584d73a248f338a" kind="variable"><name>defaultEmptyValue</name></member>
+    <member refid="classVoxelGrid_1a7c8c91595d2c009db8f67557bb87c2aa" kind="function"><name>VoxelGrid</name></member>
+    <member refid="classVoxelGrid_1a782766e01b75da6d6a2f155e78a14998" kind="function"><name>~VoxelGrid</name></member>
+    <member refid="classVoxelGrid_1a1c5318980675fdaf82dbf1d96fa809cc" kind="function"><name>initializeGrids</name></member>
+    <member refid="classVoxelGrid_1ae743077ee8d294af2282d95bd4c408c0" kind="function"><name>setVoxel</name></member>
+    <member refid="classVoxelGrid_1a6a616b8a78d93e0f65200e18263294ac" kind="function"><name>getVoxel</name></member>
+    <member refid="classVoxelGrid_1a61b5e5dbb9e0f1b9fa106d9bfc21b3fc" kind="function"><name>setTerrain</name></member>
+    <member refid="classVoxelGrid_1a03d1cb966c5bd3429fb9c5f0d5336f06" kind="function"><name>getTerrain</name></member>
+    <member refid="classVoxelGrid_1a7df066dfbf092fadd63edc6e58e3d760" kind="function"><name>deleteTerrain</name></member>
+    <member refid="classVoxelGrid_1ab78f9aea40efc7db568c526576fcc281" kind="function"><name>setEntity</name></member>
+    <member refid="classVoxelGrid_1abf4359c01a6aa77f5379fb2fbfc321b1" kind="function"><name>getEntity</name></member>
+    <member refid="classVoxelGrid_1afd3523a514fc2299ee6cb73713df4572" kind="function"><name>deleteEntity</name></member>
+    <member refid="classVoxelGrid_1a8b55237db5ad8ed95311de6aa95793ab" kind="function"><name>setEvent</name></member>
+    <member refid="classVoxelGrid_1abdbd90807a802388089017c374ffa48a" kind="function"><name>getEvent</name></member>
+    <member refid="classVoxelGrid_1a5a13fe98c655c32c3ba0952dee2b44b1" kind="function"><name>setLightingLevel</name></member>
+    <member refid="classVoxelGrid_1ab058bdcc6451d6932b0581ef1f47ff88" kind="function"><name>getLightingLevel</name></member>
+    <member refid="classVoxelGrid_1ab5a90f0ed41530883644df2fda0560fe" kind="function"><name>serializeToBytes</name></member>
+    <member refid="classVoxelGrid_1a439f1d206216f0d88491f9868b09805a" kind="function"><name>deserializeFromBytes</name></member>
+    <member refid="classVoxelGrid_1ae3a70cca06e62826144c453478fc6fe7" kind="function"><name>msgpack_pack</name></member>
+    <member refid="classVoxelGrid_1a88fc9c18dba27353864990a8dba32fbd" kind="function"><name>msgpack_unpack</name></member>
+    <member refid="classVoxelGrid_1a4becaf7f7819323e880ea6aba90462bd" kind="function"><name>getAllTerrainInRegion</name></member>
+    <member refid="classVoxelGrid_1a7d8b74af33e94f6c994107e392902844" kind="function"><name>getAllEntityInRegion</name></member>
+    <member refid="classVoxelGrid_1ac90b9bb7aff51c0bf7b4aee28245263c" kind="function"><name>getAllEventInRegion</name></member>
+    <member refid="classVoxelGrid_1ad8dfa9432306156fa1d7e32e4b171b1f" kind="function"><name>getAllLightingInRegion</name></member>
+    <member refid="classVoxelGrid_1a8b94921ed0fc26eba28b359a148f17f5" kind="function"><name>getAllTerrainIdsInRegion</name></member>
+    <member refid="classVoxelGrid_1a55c64238be9787bcddcf9d6caa0edcd9" kind="function"><name>getAllEntityIdsInRegion</name></member>
+    <member refid="classVoxelGrid_1afef4d653c842db657c6283148e51734f" kind="function"><name>getAllEventIdsInRegion</name></member>
+    <member refid="classVoxelGrid_1ac724fcb9be595326aac15de37e7444fe" kind="function"><name>getAllLightingIdsInRegion</name></member>
+  </compound>
+  <compound refid="structVoxelGridCoordinates" kind="struct"><name>VoxelGridCoordinates</name>
+    <member refid="structVoxelGridCoordinates_1a414a22b1bd452f82f248ec412de81c36" kind="variable"><name>x</name></member>
+    <member refid="structVoxelGridCoordinates_1a732bbe1cd476efddb30dc15d11be2e21" kind="variable"><name>y</name></member>
+    <member refid="structVoxelGridCoordinates_1a5d51822a25be643963c7ba2e2dc07c93" kind="variable"><name>z</name></member>
+    <member refid="structVoxelGridCoordinates_1a8aa11093e6331cdf6cdcb62cbeae5cd4" kind="function"><name>VoxelGridCoordinates</name></member>
+    <member refid="structVoxelGridCoordinates_1aa91ed6b5c05c79922dc29747cd85a48f" kind="function"><name>VoxelGridCoordinates</name></member>
+    <member refid="structVoxelGridCoordinates_1a4188aed91d29e7c7e4595de411188378" kind="function"><name>operator&lt;</name></member>
+    <member refid="structVoxelGridCoordinates_1a08d73ea46ccff1bf35d25024d24f5358" kind="function"><name>operator==</name></member>
+    <member refid="structVoxelGridCoordinates_1ac8c879aea615e8c29c19117a69edc62f" kind="function"><name>MSGPACK_DEFINE</name></member>
+  </compound>
+  <compound refid="classVoxelGridView" kind="class"><name>VoxelGridView</name>
+    <member refid="classVoxelGridView_1a12c0778697ff4b2d5a95b7fe2c2882e3" kind="variable"><name>width</name></member>
+    <member refid="classVoxelGridView_1ae1b9f6877d24fa2266720799ee8226e1" kind="variable"><name>height</name></member>
+    <member refid="classVoxelGridView_1a8c657fc5426df162e67a46ee31485d9a" kind="variable"><name>depth</name></member>
+    <member refid="classVoxelGridView_1afed721a7a9d554dbdb45b9e4ca20d505" kind="variable"><name>x_offset</name></member>
+    <member refid="classVoxelGridView_1aa5ab6d3a3a6479a188fa6e73fea11248" kind="variable"><name>y_offset</name></member>
+    <member refid="classVoxelGridView_1ac013eee936b2925717df40e1d6cbd4b6" kind="variable"><name>z_offset</name></member>
+    <member refid="classVoxelGridView_1aeec8205ce0e07ee33609e16e37c5e6c8" kind="variable"><name>terrainData</name></member>
+    <member refid="classVoxelGridView_1afdbcd8b54a405582186a6235a1cd1478" kind="variable"><name>entityData</name></member>
+    <member refid="classVoxelGridView_1a73d356ce5c9db35da6726ee5f5fa30d1" kind="function"><name>initVoxelGridView</name></member>
+    <member refid="classVoxelGridView_1a70f57c4df376c688a6d1cbe7c8372b89" kind="function"><name>setTerrainVoxel</name></member>
+    <member refid="classVoxelGridView_1a6738b02a3b317177d8b6b8916cffea4d" kind="function"><name>getTerrainVoxel</name></member>
+    <member refid="classVoxelGridView_1a646f614b317d1e82693c77694f085f1a" kind="function"><name>setEntityVoxel</name></member>
+    <member refid="classVoxelGridView_1a3ca9ff3ce533ce60b2d6d791c9c59c63" kind="function"><name>getEntityVoxel</name></member>
+    <member refid="classVoxelGridView_1ae969a3c47c3bc2d499140f5b1db64f4b" kind="function"><name>serializeFlatBuffers</name></member>
+    <member refid="classVoxelGridView_1a6856150cafc76628c51425affdf25a99" kind="function"><name>deserializeFlatBuffers</name></member>
+  </compound>
+  <compound refid="classVoxelGridViewFlatB" kind="class"><name>VoxelGridViewFlatB</name>
+    <member refid="classVoxelGridViewFlatB_1aa5ea48971d3b20affebc71ea7b742060" kind="variable"><name>fbVoxelGridView</name></member>
+    <member refid="classVoxelGridViewFlatB_1a52aa1ac626175a28d5a47b0a3fdd31be" kind="function"><name>VoxelGridViewFlatB</name></member>
+    <member refid="classVoxelGridViewFlatB_1a59a4d047b6a3c18ab31565c05a028662" kind="function"><name>VoxelGridViewFlatB</name></member>
+    <member refid="classVoxelGridViewFlatB_1a5624bca00fb5008f4c0809ae18d1e817" kind="function"><name>getWidth</name></member>
+    <member refid="classVoxelGridViewFlatB_1af4cdaf1a7d85dbf7f47914bb22601645" kind="function"><name>getHeight</name></member>
+    <member refid="classVoxelGridViewFlatB_1a7f769ea9c909085b4f5d3408e962e572" kind="function"><name>getDepth</name></member>
+    <member refid="classVoxelGridViewFlatB_1a7688fbec25beadaad92d198ee85e1058" kind="function"><name>getXOffset</name></member>
+    <member refid="classVoxelGridViewFlatB_1ab8904e4552e697194344f27ccfafa5b6" kind="function"><name>getYOffset</name></member>
+    <member refid="classVoxelGridViewFlatB_1ab364a92dffcedfa01cb49f62840f6935" kind="function"><name>getZOffset</name></member>
+    <member refid="classVoxelGridViewFlatB_1a493763965a6ac0a14ec1b0e19a1d5881" kind="function"><name>getTerrainVoxel</name></member>
+    <member refid="classVoxelGridViewFlatB_1a14180ed18c89fc48542e526c6109070c" kind="function"><name>getEntityVoxel</name></member>
+  </compound>
+  <compound refid="structWaterFallEntityEvent" kind="struct"><name>WaterFallEntityEvent</name>
+    <member refid="structWaterFallEntityEvent_1a7d842045dc921c3bbe19727132a15d91" kind="variable"><name>entity</name></member>
+    <member refid="structWaterFallEntityEvent_1a3a672b865f3f3a149e71fcb41a9c659a" kind="variable"><name>position</name></member>
+    <member refid="structWaterFallEntityEvent_1a5d993f8c94a834dd9a27eb2bd2bdcb55" kind="variable"><name>fallingAmount</name></member>
+    <member refid="structWaterFallEntityEvent_1ac8c59470fc1d5f83d0045f4d427d1258" kind="function"><name>WaterFallEntityEvent</name></member>
+  </compound>
+  <compound refid="structWeaponAttributes" kind="struct"><name>WeaponAttributes</name>
+    <member refid="structWeaponAttributes_1ae00872b948057a62be7b4b1c090e10b1" kind="variable"><name>damage</name></member>
+    <member refid="structWeaponAttributes_1aaac9b87728814939633242bdaf97ae8f" kind="variable"><name>defense</name></member>
+  </compound>
+  <compound refid="classWorld" kind="class"><name>World</name>
+    <member refid="classWorld_1a25a68b69af20b02aaa942f6a1464fd96" kind="variable"><name>gameClock</name></member>
+    <member refid="classWorld_1ad441f046e49a274301278a3cf9339944" kind="variable"><name>width</name></member>
+    <member refid="classWorld_1ad2e63a39659cb400a619a0d16e3b4f9e" kind="variable"><name>height</name></member>
+    <member refid="classWorld_1a90909285b9df8e25bafd18aa12db20b8" kind="variable"><name>depth</name></member>
+    <member refid="classWorld_1a8a40a5a51a8a56f038f4b76b3d78202c" kind="variable"><name>voxelGrid</name></member>
+    <member refid="classWorld_1a0d6a16c91503878ac2a7fbadd04072ca" kind="variable"><name>registry</name></member>
+    <member refid="classWorld_1a61c942761c2eb86c87fc5b43aa697f32" kind="variable"><name>dispatcher</name></member>
+    <member refid="classWorld_1a7d6d493a9d49ce89cb78cd10d25c442e" kind="variable"><name>pyRegistry</name></member>
+    <member refid="classWorld_1a6710bbd345ecc3682e7cf2efe2a7848a" kind="variable"><name>registryMutex</name></member>
+    <member refid="classWorld_1a671a70a2e7c14ede6e41e1f2b6861b0e" kind="variable"><name>dbHandler</name></member>
+    <member refid="classWorld_1a5584ac605f8ae79c8d9bfcb81dd4d3dd" kind="variable"><name>physicsEngine</name></member>
+    <member refid="classWorld_1a6a72856a3ec5eb824fab599937f002b5" kind="variable"><name>physicsFuture</name></member>
+    <member refid="classWorld_1a023f66283fc337338b191c8b5963729f" kind="variable"><name>lifeEngine</name></member>
+    <member refid="classWorld_1ac5e39b20abe3c066b6fdc59d9ec8a356" kind="variable"><name>ecosystemEngine</name></member>
+    <member refid="classWorld_1a5b5ca272c8dbcc920cb3b450f36e4757" kind="variable"><name>ecosystemFuture</name></member>
+    <member refid="classWorld_1acf163870291188e1759a0bc0e4b7f7ee" kind="variable"><name>metabolismSystem</name></member>
+    <member refid="classWorld_1ae30edfd4067bd378988ec8f520f3ef09" kind="variable"><name>metabolismFuture</name></member>
+    <member refid="classWorld_1a523eb1b8cabb41ed65e27a7c39b8e943" kind="variable"><name>processMetabolismAsync</name></member>
+    <member refid="classWorld_1ac76412e926c7d807a679156ee5b3c092" kind="variable"><name>healthSystem</name></member>
+    <member refid="classWorld_1ae99e36aded172b0dfa6f54c604e64ceb" kind="variable"><name>combatSystem</name></member>
+    <member refid="classWorld_1a27ca0f837e690677bf982e32ec0c7600" kind="variable"><name>effectsSystem</name></member>
+    <member refid="classWorld_1a5d0b41f8b292bd914b42b25185416eda" kind="variable"><name>pythonSystems</name></member>
+    <member refid="classWorld_1a6636eb01033723ecdb29d5b610559e9b" kind="variable"><name>pythonScripts</name></member>
+    <member refid="classWorld_1aa7b9a06c8f96a1a3173fa505393da6d1" kind="function"><name>World</name></member>
+    <member refid="classWorld_1a8c73fba541a5817fff65147ba47cd827" kind="function"><name>~World</name></member>
+    <member refid="classWorld_1a4c5cddbe433074a311019e497144bc2b" kind="function"><name>initializeVoxelGrid</name></member>
+    <member refid="classWorld_1af85800f5b2fabeb7ed973aa6a338e5f8" kind="function"><name>setVoxel</name></member>
+    <member refid="classWorld_1a8a69a9d349ff64d4166a560fd64475e0" kind="function"><name>getVoxel</name></member>
+    <member refid="classWorld_1a667696d8cef828c547cdd59f38212155" kind="function"><name>createEntity</name></member>
+    <member refid="classWorld_1a83e13cf05322ebc25fa9b4b484d6e2fd" kind="function"><name>createEntityFromPython</name></member>
+    <member refid="classWorld_1aa5fe3a327e576e6d9a675cd506f3c3b0" kind="function"><name>removeEntity</name></member>
+    <member refid="classWorld_1a1877102c6687e3b7a9da56c7eb30b16f" kind="function"><name>getEntityIdsByType</name></member>
+    <member refid="classWorld_1a11c5cbf36f460970e9178db279981493" kind="function"><name>getEntitiesByType</name></member>
+    <member refid="classWorld_1a4a1a9a36d6699886d129b692701ec3ef" kind="function"><name>getEntityById</name></member>
+    <member refid="classWorld_1a8a51f3a056b8ef9f9128a797329f8346" kind="function"><name>setTerrain</name></member>
+    <member refid="classWorld_1acf007bbb37792e7f6dd0b8d923214eff" kind="function"><name>getTerrain</name></member>
+    <member refid="classWorld_1a59b0b6f0c573ef0cf9d04aaba335975c" kind="function"><name>getEntity</name></member>
+    <member refid="classWorld_1a0ca5903e1dd8e40a999850d67feb07d3" kind="function"><name>getEntityOnVoxel</name></member>
+    <member refid="classWorld_1a5c2b73bcca22d5f7f1c6ec3b1c9f1d99" kind="function"><name>dispatchMoveSolidEntityEventById</name></member>
+    <member refid="classWorld_1a13270f86b3eed049daf957a1483000e3" kind="function"><name>dispatchMoveSolidEntityEventByPosition</name></member>
+    <member refid="classWorld_1a74069fe6686cd5d68f0093c36bf20baa" kind="function"><name>dispatchTakeItemEventById</name></member>
+    <member refid="classWorld_1ac5105ae887619c677656671c939b5bda" kind="function"><name>dispatchUseItemEventById</name></member>
+    <member refid="classWorld_1adc7dfb57cef1abcdcb1cbfcedaf83d89" kind="function"><name>dispatchSetEntityToDebug</name></member>
+    <member refid="classWorld_1aac8c1fde63c06577ffc648aaefdb37f0" kind="function"><name>update</name></member>
+    <member refid="classWorld_1a384e0a7c83a50d2059ca0ee2c3f0a384" kind="function"><name>processOptionalQueries</name></member>
+    <member refid="classWorld_1a90118dfa10d4a371ad23ac9110c53b23" kind="function"><name>createPerceptionResponse</name></member>
+    <member refid="classWorld_1a3502b5e056406f23a85ab610292b49a9" kind="function"><name>createPerceptionResponseC</name></member>
+    <member refid="classWorld_1a8d34910ab810f5e81472f5eb917cf904" kind="function"><name>createPerceptionResponses</name></member>
+    <member refid="classWorld_1ae7aacf02569cf277eed3f48a41f47156" kind="function"><name>addPythonSystem</name></member>
+    <member refid="classWorld_1a3fc9e94a98b0a9037241e281dcdf00aa" kind="function"><name>getPythonSystem</name></member>
+    <member refid="classWorld_1ad8a789ca10bbe58ec278384ef208dff7" kind="function"><name>addPythonScript</name></member>
+    <member refid="classWorld_1aade8de7d589e5e781186c64ed3b6b99b" kind="function"><name>runPythonScript</name></member>
+    <member refid="classWorld_1ac8c90ffa18aba1d0c524fd8c8fd4644b" kind="function"><name>get_ptr</name></member>
+    <member refid="classWorld_1a1c5a8283b916965bfd1d282d2b5f0a4e" kind="function"><name>putTimeSeries</name></member>
+    <member refid="classWorld_1a282803c1dd2354b335be998c7af6167c" kind="function"><name>queryTimeSeries</name></member>
+    <member refid="classWorld_1a9485ee586fcac7acbd699d8b4334906c" kind="function"><name>executeSQL</name></member>
+    <member refid="classWorld_1a8a89e21ac72172072080ba4b18f37456" kind="function"><name>getPerceptionBounds</name></member>
+  </compound>
+  <compound refid="structWorldView" kind="struct"><name>WorldView</name>
+    <member refid="structWorldView_1a15c7dccc13c241390d5c5c8ba2a56088" kind="variable"><name>width</name></member>
+    <member refid="structWorldView_1a9589014abeb5169f6018c189c0041c75" kind="variable"><name>height</name></member>
+    <member refid="structWorldView_1ae676d2528a8a7920c47d91ac71251515" kind="variable"><name>depth</name></member>
+    <member refid="structWorldView_1a2142e83c5a7743fd38ad9d9d1bf934f5" kind="variable"><name>voxelGridView</name></member>
+    <member refid="structWorldView_1a7d83d28f060bf75df0dd30e5ed7887dc" kind="variable"><name>entities</name></member>
+    <member refid="structWorldView_1a7bb3a40f5c7cecb6c245d32f89594be6" kind="variable"><name>tileEffectsEntities</name></member>
+    <member refid="structWorldView_1a086ad23f14cb78add6417d4dabad8e61" kind="function"><name>addEntity</name></member>
+    <member refid="structWorldView_1ad600f93be4c34d951da8bdeed472fc77" kind="function"><name>hasEntity</name></member>
+    <member refid="structWorldView_1ac586926d6efaafd93b81af81cfcc884a" kind="function"><name>printAllEntityIds</name></member>
+    <member refid="structWorldView_1ae381a448ecd8e4655d4ae57fbaae07d2" kind="function"><name>getEntityById</name></member>
+    <member refid="structWorldView_1aa23692e92a835d2144b2b58996e923c8" kind="function"><name>pyGetEntityById</name></member>
+    <member refid="structWorldView_1a10b140dc3edef4ad28570ea6a06a86f0" kind="function"><name>getTerrainId</name></member>
+    <member refid="structWorldView_1a962889eea14589e9165a14cc3b0645d7" kind="function"><name>getEntityId</name></member>
+    <member refid="structWorldView_1a2198cd5809edaf3603e33680d0d1481a" kind="function"><name>checkIfTerrainExist</name></member>
+    <member refid="structWorldView_1a5a0ae0c5486c44ea6e5c6ba624e1b90c" kind="function"><name>checkIfEntityExist</name></member>
+    <member refid="structWorldView_1a6d1361acc82da4b2955fd33c434eb94a" kind="function"><name>getTerrain</name></member>
+    <member refid="structWorldView_1a7342d16241c148716a86f40c4934c006" kind="function"><name>getEntity</name></member>
+    <member refid="structWorldView_1aa2ec884c5cf1d8b47a0fc98c7583d187" kind="function"><name>serializeFlatBuffer</name></member>
+    <member refid="structWorldView_1ae3cbf9de1269b176ac6615d084f2abde" kind="function"><name>serializeEntities</name></member>
+    <member refid="structWorldView_1af2bcf64274c92eea7f0621aaa18a1e5a" kind="function"><name>serializeFlatBuffer</name></member>
+    <member refid="structWorldView_1a9d56137d402267ed16ee91df6fbd955c" kind="function"><name>pySerializeFlatBuffers</name></member>
+    <member refid="structWorldView_1a273caaab5f6a9f5ebe84b142a46cd16a" kind="function"><name>deserializeFlatBuffers</name></member>
+    <member refid="structWorldView_1a6ac5bc4aa75e51b944af170b0eaf6947" kind="function"><name>pyDeserializeFlatBuffer</name></member>
+  </compound>
+  <compound refid="classWorldViewFlatB" kind="class"><name>WorldViewFlatB</name>
+    <member refid="classWorldViewFlatB_1a0a8e42a169210d044462d52fdd20f0c2" kind="variable"><name>fbWorldView</name></member>
+    <member refid="classWorldViewFlatB_1a3414b3d1b05c46d4f54e184690c12b32" kind="variable"><name>entities</name></member>
+    <member refid="classWorldViewFlatB_1af9a4386091f40dcab034c0b5975d5121" kind="variable"><name>prePopulateEntities</name></member>
+    <member refid="classWorldViewFlatB_1a3eddcf4716699780bae7d0ed4232721c" kind="function"><name>WorldViewFlatB</name></member>
+    <member refid="classWorldViewFlatB_1a93eeff995aa553d3e126d8f5316498ad" kind="function"><name>WorldViewFlatB</name></member>
+    <member refid="classWorldViewFlatB_1aae2f0fb7b485616bc9691d25c63c03a1" kind="function"><name>WorldViewFlatB</name></member>
+    <member refid="classWorldViewFlatB_1a2bdb43e446872cd17812528017b3e2a9" kind="function"><name>getWidth</name></member>
+    <member refid="classWorldViewFlatB_1a8e5ef75b30c980da2118dc704d371ba9" kind="function"><name>getHeight</name></member>
+    <member refid="classWorldViewFlatB_1a36b53c85d0834ca331ee0803127e1e26" kind="function"><name>getDepth</name></member>
+    <member refid="classWorldViewFlatB_1a9a1d65de6fb8c00d0acd9fa829d5210e" kind="function"><name>getVoxelGrid</name></member>
+    <member refid="classWorldViewFlatB_1aa22ab6e4d9dbeba4b826092f77c56a10" kind="function"><name>getEntityByIdPrePopulated</name></member>
+    <member refid="classWorldViewFlatB_1a4396835aaa0ae3110741cacc9b69eac5" kind="function"><name>getEntityByIdLazy</name></member>
+    <member refid="classWorldViewFlatB_1ac1b24f193d07595d206033f61ff20820" kind="function"><name>getEntityById</name></member>
+    <member refid="classWorldViewFlatB_1a52a9f48e6ddc4167580060d0ad31778c" kind="function"><name>getTerrain</name></member>
+    <member refid="classWorldViewFlatB_1abf8ac75117c7b40a029241950c5ae6b0" kind="function"><name>getEntity</name></member>
+  </compound>
+  <compound refid="namespace__aetherion" kind="namespace"><name>_aetherion</name>
+  </compound>
+  <compound refid="namespaceaetherion" kind="namespace"><name>aetherion</name>
+  </compound>
+  <compound refid="namespaceentt_1_1literals" kind="namespace"><name>entt::literals</name>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="aetherion_8cpp" kind="file"><name>aetherion.cpp</name>
+    <member refid="aetherion_8cpp_1ad7089c0adace2f1bf6f879b053ef3c91" kind="function"><name>NB_MAKE_OPAQUE</name></member>
+    <member refid="aetherion_8cpp_1a1e7a7f18e5689187e61c9886aca96c71" kind="function"><name>variant_to_pyobject</name></member>
+    <member refid="aetherion_8cpp_1ae6f56f6b0b34f13aa555b72b2c20d9b8" kind="function"><name>NB_MODULE</name></member>
+  </compound>
+  <compound refid="aetherion_8hpp" kind="file"><name>aetherion.hpp</name>
+    <member refid="aetherion_8hpp_1af7d35463ed459009eb4c32a9d8e8d380" kind="define"><name>ENTT_ENTITY_TYPE</name></member>
+  </compound>
+  <compound refid="____init_____8py" kind="file"><name>__init__.py</name>
+  </compound>
+  <compound refid="CameraUtils_8cpp" kind="file"><name>CameraUtils.cpp</name>
+    <member refid="CameraUtils_8cpp_1ac20d88ef990b9072134df6ad5370e897" kind="variable"><name>BLOOD_DAMAGE_COLOR</name></member>
+    <member refid="CameraUtils_8cpp_1a43be4fa210d6b43c68a8b82bc340db27" kind="function"><name>isMouseWithin</name></member>
+    <member refid="CameraUtils_8cpp_1a75e8b9e1386d7e3b535db92a3f379d74" kind="function"><name>convertMouseState</name></member>
+    <member refid="CameraUtils_8cpp_1a0a528b1d702cf02c1996bebb31bf1398" kind="function"><name>setToDrawSelectEntitySquare</name></member>
+    <member refid="CameraUtils_8cpp_1a9d9eaa1cabefceb0e38f6a54192b943f" kind="function"><name>getAndDrawSelectedEntity</name></member>
+    <member refid="CameraUtils_8cpp_1a1a8e0a45ba62e2642e240403f2eccbad" kind="function"><name>drawTileEffects</name></member>
+    <member refid="CameraUtils_8cpp_1a774563e8e39b15da5890b804c77ce139" kind="function"><name>shouldDrawTerrain</name></member>
+    <member refid="CameraUtils_8cpp_1a4449c166f6db48d3f8b34c55f1e667fa" kind="function"><name>isTerrainAnEmptyWater</name></member>
+    <member refid="CameraUtils_8cpp_1ae8fa845ff7b0134e7e4723acb4315378" kind="function"><name>isOccludingEntityPerspective</name></member>
+  </compound>
+  <compound refid="CameraUtils_8hpp" kind="file"><name>CameraUtils.hpp</name>
+    <member refid="CameraUtils_8hpp_1a9d9eaa1cabefceb0e38f6a54192b943f" kind="function"><name>getAndDrawSelectedEntity</name></member>
+    <member refid="CameraUtils_8hpp_1a61f972792f91e235d3f975ffb5a32805" kind="function"><name>drawTileEffects</name></member>
+    <member refid="CameraUtils_8hpp_1a774563e8e39b15da5890b804c77ce139" kind="function"><name>shouldDrawTerrain</name></member>
+    <member refid="CameraUtils_8hpp_1a4449c166f6db48d3f8b34c55f1e667fa" kind="function"><name>isTerrainAnEmptyWater</name></member>
+    <member refid="CameraUtils_8hpp_1ae8fa845ff7b0134e7e4723acb4315378" kind="function"><name>isOccludingEntityPerspective</name></member>
+  </compound>
+  <compound refid="CombatSystem_8cpp" kind="file"><name>CombatSystem.cpp</name>
+  </compound>
+  <compound refid="CombatSystem_8hpp" kind="file"><name>CombatSystem.hpp</name>
+  </compound>
+  <compound refid="CombatComponents_8hpp" kind="file"><name>CombatComponents.hpp</name>
+  </compound>
+  <compound refid="ConsoleLogsComponent_8cpp" kind="file"><name>ConsoleLogsComponent.cpp</name>
+  </compound>
+  <compound refid="ConsoleLogsComponent_8hpp" kind="file"><name>ConsoleLogsComponent.hpp</name>
+  </compound>
+  <compound refid="DnaComponents_8hpp" kind="file"><name>DnaComponents.hpp</name>
+  </compound>
+  <compound refid="EntityTypeComponent_8hpp" kind="file"><name>EntityTypeComponent.hpp</name>
+    <member refid="EntityTypeComponent_8hpp_1a5f36f70c6fe845142419075ee81aef99" kind="enum"><name>EntityEnum</name></member>
+    <member refid="EntityTypeComponent_8hpp_1a5f36f70c6fe845142419075ee81aef99abdfa171c5b4d44824eec5798556eef32" kind="enumvalue"><name>TERRAIN</name></member>
+    <member refid="EntityTypeComponent_8hpp_1a5f36f70c6fe845142419075ee81aef99ad0c831135ff38f1d51531f7cc6a9fd09" kind="enumvalue"><name>PLANT</name></member>
+    <member refid="EntityTypeComponent_8hpp_1a5f36f70c6fe845142419075ee81aef99aaef8e86dd3cb6c7b359c0b69cae73c3f" kind="enumvalue"><name>BEAST</name></member>
+    <member refid="EntityTypeComponent_8hpp_1a5f36f70c6fe845142419075ee81aef99a8764d1251a8dc0c6c2292d942aa04caf" kind="enumvalue"><name>TILE_EFFECT</name></member>
+  </compound>
+  <compound refid="HealthComponents_8hpp" kind="file"><name>HealthComponents.hpp</name>
+  </compound>
+  <compound refid="ItemsComponents_8cpp" kind="file"><name>ItemsComponents.cpp</name>
+    <member refid="ItemsComponents_8cpp_1a9b3d77524b1728a3740785ecb3e589bf" kind="function"><name>splitStringToInts</name></member>
+  </compound>
+  <compound refid="ItemsComponents_8hpp" kind="file"><name>ItemsComponents.hpp</name>
+    <member refid="ItemsComponents_8hpp_1afefa7e04de8eecb6b6165fc9fd191ca3" kind="enum"><name>ItemEnum</name></member>
+    <member refid="ItemsComponents_8hpp_1afefa7e04de8eecb6b6165fc9fd191ca3acc9284597026dcc021735c0970ca0c93" kind="enumvalue"><name>FOOD</name></member>
+    <member refid="ItemsComponents_8hpp_1afefa7e04de8eecb6b6165fc9fd191ca3a6d968f544234ee91647113b2f6eec82e" kind="enumvalue"><name>TOOL</name></member>
+    <member refid="ItemsComponents_8hpp_1afefa7e04de8eecb6b6165fc9fd191ca3a192633948703cf46924846d15ea7b5c1" kind="enumvalue"><name>WEAPON</name></member>
+    <member refid="ItemsComponents_8hpp_1afefa7e04de8eecb6b6165fc9fd191ca3a0e4e2cd731d2f8d4f1e5ae8f499630f7" kind="enumvalue"><name>ARMOR</name></member>
+    <member refid="ItemsComponents_8hpp_1afefa7e04de8eecb6b6165fc9fd191ca3a4f49da9035f276c0947466eb7c42249a" kind="enumvalue"><name>RESOURCE</name></member>
+    <member refid="ItemsComponents_8hpp_1a4a22dd345b6193cdcf290c495fd5f3fa" kind="enum"><name>ItemFoodEnum</name></member>
+    <member refid="ItemsComponents_8hpp_1a4a22dd345b6193cdcf290c495fd5f3faa9b730a4e130ebfebb475fbdc28b9868d" kind="enumvalue"><name>RASPBERRY_FRUIT</name></member>
+    <member refid="ItemsComponents_8hpp_1a4a22dd345b6193cdcf290c495fd5f3faa253bfc6502701acd285f8b0c6ae328ed" kind="enumvalue"><name>RASPBERRY_LEAF</name></member>
+    <member refid="ItemsComponents_8hpp_1a6bce00abc6150f05b78b46b964b2354c" kind="enum"><name>ItemResourceEnum</name></member>
+    <member refid="ItemsComponents_8hpp_1a6bce00abc6150f05b78b46b964b2354cafcfdbecf430141ac6fb29b7ff841c4dd" kind="enumvalue"><name>RASPBERRY_BRANCH</name></member>
+    <member refid="ItemsComponents_8hpp_1a60f7fdaffaade6b8b37b2c6eef191ca6" kind="enum"><name>ItemToolEnum</name></member>
+    <member refid="ItemsComponents_8hpp_1a60f7fdaffaade6b8b37b2c6eef191ca6a1cdff560cc35ad7678a3dd98ee7cb653" kind="enumvalue"><name>STONE_AXE</name></member>
+    <member refid="ItemsComponents_8hpp_1a9b3d77524b1728a3740785ecb3e589bf" kind="function"><name>splitStringToInts</name></member>
+  </compound>
+  <compound refid="MetabolismComponents_8cpp" kind="file"><name>MetabolismComponents.cpp</name>
+  </compound>
+  <compound refid="MetabolismComponents_8hpp" kind="file"><name>MetabolismComponents.hpp</name>
+  </compound>
+  <compound refid="MovingComponent_8hpp" kind="file"><name>MovingComponent.hpp</name>
+  </compound>
+  <compound refid="PerceptionComponent_8hpp" kind="file"><name>PerceptionComponent.hpp</name>
+  </compound>
+  <compound refid="PhysicsComponents_8hpp" kind="file"><name>PhysicsComponents.hpp</name>
+    <member refid="PhysicsComponents_8hpp_1a11549e9d2b70730fdddc367e341785ec" kind="enum"><name>DirectionEnum</name></member>
+    <member refid="PhysicsComponents_8hpp_1a11549e9d2b70730fdddc367e341785ecafbaedde498cdead4f2780217646e9ba1" kind="enumvalue"><name>UP</name></member>
+    <member refid="PhysicsComponents_8hpp_1a11549e9d2b70730fdddc367e341785eca21507b40c80068eda19865706fdc2403" kind="enumvalue"><name>RIGHT</name></member>
+    <member refid="PhysicsComponents_8hpp_1a11549e9d2b70730fdddc367e341785ecac4e0e4e3118472beeb2ae75827450f1f" kind="enumvalue"><name>DOWN</name></member>
+    <member refid="PhysicsComponents_8hpp_1a11549e9d2b70730fdddc367e341785eca684d325a7303f52e64011467ff5c5758" kind="enumvalue"><name>LEFT</name></member>
+    <member refid="PhysicsComponents_8hpp_1a11549e9d2b70730fdddc367e341785ecafb48997617f324a0afeff3ad1d1d59ad" kind="enumvalue"><name>UPWARD</name></member>
+    <member refid="PhysicsComponents_8hpp_1a11549e9d2b70730fdddc367e341785ecacf045327606e788dbe14630a376af70e" kind="enumvalue"><name>DOWNWARD</name></member>
+    <member refid="PhysicsComponents_8hpp_1a00bbc5fbd0257f788046801269c3b3c7" kind="enum"><name>MatterState</name></member>
+    <member refid="PhysicsComponents_8hpp_1a00bbc5fbd0257f788046801269c3b3c7ad0dea69649a83749aa6bdf176092e8c9" kind="enumvalue"><name>SOLID</name></member>
+    <member refid="PhysicsComponents_8hpp_1a00bbc5fbd0257f788046801269c3b3c7a5918e24870f0ea98b9978dae8a69c533" kind="enumvalue"><name>LIQUID</name></member>
+    <member refid="PhysicsComponents_8hpp_1a00bbc5fbd0257f788046801269c3b3c7a505273a0a2bba0111a40f6cccbc55d69" kind="enumvalue"><name>GAS</name></member>
+    <member refid="PhysicsComponents_8hpp_1a00bbc5fbd0257f788046801269c3b3c7a1e681943ea699639eb4b334489b28853" kind="enumvalue"><name>PLASMA</name></member>
+  </compound>
+  <compound refid="PlantsComponents_8hpp" kind="file"><name>PlantsComponents.hpp</name>
+    <member refid="PlantsComponents_8hpp_1a7ebdc93023ccc7ec8cb62e1ee3c148a5" kind="enum"><name>PlantEnum</name></member>
+    <member refid="PlantsComponents_8hpp_1a7ebdc93023ccc7ec8cb62e1ee3c148a5a5437fc2d7ebcf58e15f8d49c54977f84" kind="enumvalue"><name>RASPBERRY</name></member>
+  </compound>
+  <compound refid="TerrainComponents_8hpp" kind="file"><name>TerrainComponents.hpp</name>
+    <member refid="TerrainComponents_8hpp_1a2c2a355db2a37d45e74e114393f38911" kind="enum"><name>TerrainEnum</name></member>
+    <member refid="TerrainComponents_8hpp_1a2c2a355db2a37d45e74e114393f38911aba2b45bdc11e2a4a6e86aab2ac693cbb" kind="enumvalue"><name>EMPTY</name></member>
+    <member refid="TerrainComponents_8hpp_1a2c2a355db2a37d45e74e114393f38911aa3030e42cd8f04255711905a9182399f" kind="enumvalue"><name>GRASS</name></member>
+    <member refid="TerrainComponents_8hpp_1a2c2a355db2a37d45e74e114393f38911a2add2964642f39099cb51edf4a4f5a70" kind="enumvalue"><name>WATER</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07" kind="enum"><name>TerrainVariantEnum</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07aba7de5bc6888294e5884b024a4c894f1" kind="enumvalue"><name>FULL</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07aabe3b40b6e039435ce0e6c45c970649c" kind="enumvalue"><name>RAMP_EAST</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a14743c2cf162155b6f9ab3d5bb09c49d" kind="enumvalue"><name>RAMP_WEST</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a1c86c6d2b33c00ba4a3e9e6429d936d1" kind="enumvalue"><name>CORNER_SOUTH_EAST</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a7a2259c1d2836fd46d355aa67896318e" kind="enumvalue"><name>CORNER_SOUTH_EAST_INV</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07acc14723b4313452ab1cafa162d834e3b" kind="enumvalue"><name>CORNER_NORTH_EAST</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a4a814701e12f9a9ac2c283fb0febee9a" kind="enumvalue"><name>CORNER_NORTH_EAST_INV</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07afc81f2e4579c1b042faa8cdd2d5bbecf" kind="enumvalue"><name>RAMP_SOUTH</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a4279e418c52cc3aebd13277159d6947a" kind="enumvalue"><name>RAMP_NORTH</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a16d9eb9e3b83d0c93e0af137ec5473bb" kind="enumvalue"><name>CORNER_SOUTH_WEST</name></member>
+    <member refid="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07acd016f325e74ce31b4d60e311109ac49" kind="enumvalue"><name>CORNER_NORTH_WEST</name></member>
+    <member refid="TerrainComponents_8hpp_1a313c65ef6998c725725b5107a1c1df3e" kind="enum"><name>TileEffectTypeEnum</name></member>
+    <member refid="TerrainComponents_8hpp_1a313c65ef6998c725725b5107a1c1df3eaba2b45bdc11e2a4a6e86aab2ac693cbb" kind="enumvalue"><name>EMPTY</name></member>
+    <member refid="TerrainComponents_8hpp_1a313c65ef6998c725725b5107a1c1df3eac264848b2ce535fb3b0ea86df85f66ad" kind="enumvalue"><name>BLOOD_DAMAGE</name></member>
+    <member refid="TerrainComponents_8hpp_1a313c65ef6998c725725b5107a1c1df3eaa0d954b9f7bbce4a3a9ae504ba00c285" kind="enumvalue"><name>GREEN_DAMAGE</name></member>
+  </compound>
+  <compound refid="TimeSeriesComponent_8hpp" kind="file"><name>TimeSeriesComponent.hpp</name>
+  </compound>
+  <compound refid="EcosystemEngine_8cpp" kind="file"><name>EcosystemEngine.cpp</name>
+    <member refid="EcosystemEngine_8cpp_1a022ed08fe7569413bb0790bbb60766eb" kind="function"><name>isTerrainSoftEmpty</name></member>
+    <member refid="EcosystemEngine_8cpp_1abb98221e2772913d85fefc35096a4b97" kind="function"><name>isTerrainVoxelEmptyOrSoftEmpty</name></member>
+    <member refid="EcosystemEngine_8cpp_1ab2ba55bb8a557b782a9a06961fc7fb3a" kind="function"><name>setVaporSI</name></member>
+    <member refid="EcosystemEngine_8cpp_1a238f2e7a1041faa632b01d3d0f462ce8" kind="function"><name>setEmptyWaterComponents</name></member>
+    <member refid="EcosystemEngine_8cpp_1a12c88f0e67f6bd4f38f15dd4197e0b47" kind="function"><name>convertSoftEmptyIntoWater</name></member>
+    <member refid="EcosystemEngine_8cpp_1a98649de6f54e1e734e022a07c86580ae" kind="function"><name>convertSoftEmptyIntoVapor</name></member>
+    <member refid="EcosystemEngine_8cpp_1ab84cfcc07a1cfa8eeb4501e7ad202cb6" kind="function"><name>convertIntoSoftEmpty</name></member>
+    <member refid="EcosystemEngine_8cpp_1ab82a9a238cadbb43b754d9b762810dc6" kind="function"><name>getTypeAndCheckSoftEmpty</name></member>
+    <member refid="EcosystemEngine_8cpp_1a30341dc4d760ac700cd1d8e75cfe2b5c" kind="function"><name>checkAndConvertSoftEmptyIntoWater</name></member>
+    <member refid="EcosystemEngine_8cpp_1ade230bb50b9df243e66abb4f8b8fbea8" kind="function"><name>checkAndConvertSoftEmptyIntoVapor</name></member>
+    <member refid="EcosystemEngine_8cpp_1aa2c0add655b5d763afea342f38198d80" kind="function"><name>deleteEntityOrConvertInEmpty</name></member>
+    <member refid="EcosystemEngine_8cpp_1a99330e9f8fed20ff0b2b1dd9d7759c22" kind="function"><name>isNeighborWaterOrEmpty</name></member>
+    <member refid="EcosystemEngine_8cpp_1ab9575dcaa3908d5ec3edac623d537512" kind="function"><name>makePlantSuckWater</name></member>
+    <member refid="EcosystemEngine_8cpp_1af480f75bd8abf78a804fe6f9810cbcfa" kind="function"><name>spreadWater</name></member>
+    <member refid="EcosystemEngine_8cpp_1a2cab285ced5ee1d34c637c3668814cfe" kind="function"><name>moveWater</name></member>
+    <member refid="EcosystemEngine_8cpp_1a933f394f347a10c1c46529c686cccefc" kind="function"><name>createOrAddVapor</name></member>
+    <member refid="EcosystemEngine_8cpp_1a2f73a360a6622be0137ad7af60b314fd" kind="function"><name>condenseVapor</name></member>
+    <member refid="EcosystemEngine_8cpp_1a9298ade234b264728e3e16f9ca4dc469" kind="function"><name>moveVaporUp</name></member>
+    <member refid="EcosystemEngine_8cpp_1a7ba64497e374e3ebef8aad2d311380f5" kind="function"><name>moveVaporSideways</name></member>
+    <member refid="EcosystemEngine_8cpp_1adbaa72161ea8e0ecc14a155f6fd04f48" kind="function"><name>moveVapor</name></member>
+    <member refid="EcosystemEngine_8cpp_1a79ea5568b83f0e0ad41f325628ca321c" kind="function"><name>processTileWater</name></member>
+    <member refid="EcosystemEngine_8cpp_1a5f99829e6a9915b58e6b61f6c8d1f2c9" kind="function"><name>processPlants</name></member>
+  </compound>
+  <compound refid="EcosystemEngine_8hpp" kind="file"><name>EcosystemEngine.hpp</name>
+    <member refid="EcosystemEngine_8hpp_1af486c9dc85df6f5bbada616c92b33497" kind="function"><name>processTileWater</name></member>
+  </compound>
+  <compound refid="EffectsSystem_8cpp" kind="file"><name>EffectsSystem.cpp</name>
+  </compound>
+  <compound refid="EffectsSystem_8hpp" kind="file"><name>EffectsSystem.hpp</name>
+  </compound>
+  <compound refid="EntityInterface_8cpp" kind="file"><name>EntityInterface.cpp</name>
+    <member refid="EntityInterface_8cpp_1a8a482755ffaa2e2e95b4d7e8d8fcb03e" kind="function"><name>try_add_component</name></member>
+    <member refid="EntityInterface_8cpp_1a2f00c3aabcb7e01d3f997ffdb16bd9c2" kind="function"><name>createEntityInterface</name></member>
+  </compound>
+  <compound refid="EntityInterface_8hpp" kind="file"><name>EntityInterface.hpp</name>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416" kind="enum"><name>ComponentFlag</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a6bdef4bab65429f46638db93b15b5cc6" kind="enumvalue"><name>ENTITY_TYPE</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a1c910486b66cf1ccce2ef81d4318227f" kind="enumvalue"><name>MASS</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416ad34d5395053a1781444508e570283be1" kind="enumvalue"><name>POSITION</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a06e15744a8bd69fceeeb39ab3614b3f6" kind="enumvalue"><name>VELOCITY</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a77f24b7a5a57f7f1b9724e56e87118ad" kind="enumvalue"><name>MOVING_COMPONENT</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416ae3cc1f58e26cf5e3a7d8eeffa9da0d5a" kind="enumvalue"><name>HEALTH</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a59428ff5fc899f3c1e506fd8e3c8ad2c" kind="enumvalue"><name>PERCEPTION</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416aa6342d4e2db15fb13f0651aa0b9015c4" kind="enumvalue"><name>INVENTORY</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a45168816433943285164331c420f4ab0" kind="enumvalue"><name>CONSOLE_LOGS_COMPONENT</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a69828b28c1b5d206b52263195686fd4e" kind="enumvalue"><name>MATTER_CONTAINER</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a099ef83b1279c63fd0af11e2977523d4" kind="enumvalue"><name>ITEM_ENUM</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a15b7f9d2df06fc04a8f20e2821d0df6b" kind="enumvalue"><name>FOOD_ITEM</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a590544632e9e751bc4b723d8d72e474d" kind="enumvalue"><name>PARENTS_COMPONENT</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a8f427f5ab25faed6264c289479c4487f" kind="enumvalue"><name>ITEMS_TYPE_COMPONENT</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a740bd91f86f055c8b8b0ae1383cf972a" kind="enumvalue"><name>TILE_EFFECT_COMPONENT</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416a7cfdf71fe34982fb876d7c6c8d7433c6" kind="enumvalue"><name>TILE_EFFECTS_LIST</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416ab16cb4c92d406d8aa6deda4670aed791" kind="enumvalue"><name>METABOLISM_COMPONENT</name></member>
+    <member refid="EntityInterface_8hpp_1a9823b8fe592670e0f185ab1b7e1d9416afeab75e995867b121186c2050ac7c442" kind="enumvalue"><name>COMPONENT_COUNT</name></member>
+    <member refid="EntityInterface_8hpp_1a56a3a5382c0dccd129faabe15d43d8c3" kind="typedef"><name>ComponentTypes</name></member>
+    <member refid="EntityInterface_8hpp_1a8a482755ffaa2e2e95b4d7e8d8fcb03e" kind="function"><name>try_add_component</name></member>
+    <member refid="EntityInterface_8hpp_1a2f00c3aabcb7e01d3f997ffdb16bd9c2" kind="function"><name>createEntityInterface</name></member>
+  </compound>
+  <compound refid="FlatbufferUtils_8cpp" kind="file"><name>FlatbufferUtils.cpp</name>
+    <member refid="FlatbufferUtils_8cpp_1abf05ac4764b746d1f8ddcce09d81f615" kind="function"><name>fbGetEntityById</name></member>
+    <member refid="FlatbufferUtils_8cpp_1aa270562ccc902d07e0ad37b5897a761d" kind="function"><name>populateEntitiesMap</name></member>
+    <member refid="FlatbufferUtils_8cpp_1aa92c603f8010db83b337dde053755502" kind="function"><name>fbGetQueryResponseById</name></member>
+  </compound>
+  <compound refid="FlatbufferUtils_8hpp" kind="file"><name>FlatbufferUtils.hpp</name>
+    <member refid="FlatbufferUtils_8hpp_1abf05ac4764b746d1f8ddcce09d81f615" kind="function"><name>fbGetEntityById</name></member>
+    <member refid="FlatbufferUtils_8hpp_1aa270562ccc902d07e0ad37b5897a761d" kind="function"><name>populateEntitiesMap</name></member>
+    <member refid="FlatbufferUtils_8hpp_1a6dfb368d15cb687fecc22cb8fa3b7815" kind="function"><name>fbGetQueryResponseById</name></member>
+  </compound>
+  <compound refid="GameClock_8hpp" kind="file"><name>GameClock.hpp</name>
+  </compound>
+  <compound refid="GameDB_8cpp" kind="file"><name>GameDB.cpp</name>
+  </compound>
+  <compound refid="GameDB_8hpp" kind="file"><name>GameDB.hpp</name>
+  </compound>
+  <compound refid="GameDBHandler_8cpp" kind="file"><name>GameDBHandler.cpp</name>
+  </compound>
+  <compound refid="GameDBHandler_8hpp" kind="file"><name>GameDBHandler.hpp</name>
+  </compound>
+  <compound refid="Gui_8cpp" kind="file"><name>Gui.cpp</name>
+    <member refid="Gui_8cpp_1adf7415aeb89af9bdf9ac60cdb0073246" kind="variable"><name>HOTBAR_SIZE</name></member>
+    <member refid="Gui_8cpp_1ae7eab4c1dface5adb59d9f5502ae16f1" kind="variable"><name>showGadgets</name></member>
+    <member refid="Gui_8cpp_1a817bb00abe1ad4cfe37433d04971a2a8" kind="variable"><name>showEntitiesStats</name></member>
+    <member refid="Gui_8cpp_1ad03a1104da91a2818b74a7aa3d6d8d0f" kind="variable"><name>showInventory</name></member>
+    <member refid="Gui_8cpp_1a33c787a1799051b95f69989a630dd9ed" kind="variable"><name>showEquipment</name></member>
+    <member refid="Gui_8cpp_1a2b6f676a15f18353c728dd844981eb83" kind="variable"><name>showSettings</name></member>
+    <member refid="Gui_8cpp_1a07ddfea67548f889895f8b7ee027660c" kind="variable"><name>showCameraSettings</name></member>
+    <member refid="Gui_8cpp_1acc49f4f68cf4fe83b9453568fc075145" kind="variable"><name>showPhysicsSettings</name></member>
+    <member refid="Gui_8cpp_1a690b5a7652dcd12bf6a867b36323159d" kind="variable"><name>showGeneralMetrics</name></member>
+    <member refid="Gui_8cpp_1aaba10a589f704698e5c6062ce5dbcc06" kind="variable"><name>showPlayerStats</name></member>
+    <member refid="Gui_8cpp_1a4b17823b5e921ddf7c39beceb06cf41c" kind="variable"><name>showEntityInterface</name></member>
+    <member refid="Gui_8cpp_1aace231fd5c024ad2a5ba321b36595d61" kind="variable"><name>showAIStatistics</name></member>
+    <member refid="Gui_8cpp_1aa9361fb6090a124c90a6b2142e8cfca3" kind="variable"><name>FEATURE_WATER_CAMERA_STATS</name></member>
+    <member refid="Gui_8cpp_1ac62ed56c3c545b1d3af9044244abe49c" kind="variable"><name>FEATURE_TERRAIN_GRADIENT_CAMERA_STATS</name></member>
+    <member refid="Gui_8cpp_1a881e16c095df987b24413c803f05ccc0" kind="variable"><name>ACTION_TURN_ON</name></member>
+    <member refid="Gui_8cpp_1a52da27beec8c79871cb74f14a33d057b" kind="variable"><name>ACTION_TURN_OFF</name></member>
+    <member refid="Gui_8cpp_1a68525f518ca5e0a7336e00be2275ffa0" kind="function"><name>NormalizeColor</name></member>
+    <member refid="Gui_8cpp_1a91d528d21d2f12a83566fdf7dffbce12" kind="function"><name>NormalizeColor</name></member>
+    <member refid="Gui_8cpp_1ad226cefeb07d524617dbb61d72fa2a08" kind="function"><name>ApplyCustomStyle</name></member>
+    <member refid="Gui_8cpp_1aa52d1daf962b6e95288a64a8d688708b" kind="function"><name>wants_capture_keyboard</name></member>
+    <member refid="Gui_8cpp_1a2ff66f006581a1ba1963a719ed8483af" kind="function"><name>wants_capture_mouse</name></member>
+    <member refid="Gui_8cpp_1ac7fc4b847b30b5946b78f32614d0b13b" kind="function"><name>imguiInit</name></member>
+    <member refid="Gui_8cpp_1a83164cf4a26b8922350f50d08fffdc7e" kind="function"><name>imguiProcessEvent</name></member>
+    <member refid="Gui_8cpp_1a0a9077418ebb88b87e74c5a4ebb36245" kind="function"><name>RenderPhysicsSettingsWindow</name></member>
+    <member refid="Gui_8cpp_1a6bf84b8d160aea827079b1f8e5374233" kind="function"><name>RenderGeneralMetricsWindow</name></member>
+    <member refid="Gui_8cpp_1ac4c662c3faf842bf46c76fce2705bd66" kind="function"><name>RenderPlayerStatsWindow</name></member>
+    <member refid="Gui_8cpp_1a5257ddd8697f394d8e4058c841341c50" kind="function"><name>RenderCameraSettingsWindow</name></member>
+    <member refid="Gui_8cpp_1a0e29de51ef5eec822f8ec06bacce5690" kind="function"><name>LoadInventory</name></member>
+    <member refid="Gui_8cpp_1a23cbb41081afdd5475283bca60f27011" kind="function"><name>HandleDragDropToWorld</name></member>
+    <member refid="Gui_8cpp_1a16d4e5f2ca877094f7923d1453c53bbe" kind="function"><name>RenderTopBar</name></member>
+    <member refid="Gui_8cpp_1a0fcec553426dba2283ddf13bba0fece7" kind="function"><name>RenderConsoleWindow</name></member>
+    <member refid="Gui_8cpp_1a52efbcd0c0087fcad50f009275eda1b6" kind="function"><name>get_dict_value</name></member>
+    <member refid="Gui_8cpp_1a2df49c22cfbc8e05e6a77a99b3cb5c92" kind="function"><name>RenderEntitiesWindow</name></member>
+    <member refid="Gui_8cpp_1a945f31c88f07b074cc3e354566fec0d7" kind="function"><name>ShowGadgetsWindow</name></member>
+    <member refid="Gui_8cpp_1af5f448f8c15ff59296345038427b5961" kind="function"><name>RenderEntityInterfaceWindow</name></member>
+    <member refid="Gui_8cpp_1a5512cc1d90c6e12b35ae7d757945c33f" kind="function"><name>RenderAIStatisticPlot</name></member>
+    <member refid="Gui_8cpp_1aa6259ec89da9173f60d845c5c35f9007" kind="function"><name>RenderAIStatisticsWindow</name></member>
+    <member refid="Gui_8cpp_1a6bbaa458d301d4a8402a6a49a6e81f06" kind="function"><name>imguiPrepareWindows</name></member>
+    <member refid="Gui_8cpp_1a01d8c770e938d41ec9163039640ca5d6" kind="function"><name>imguiRender</name></member>
+  </compound>
+  <compound refid="Gui_8hpp" kind="file"><name>Gui.hpp</name>
+    <member refid="Gui_8hpp_1aa52d1daf962b6e95288a64a8d688708b" kind="function"><name>wants_capture_keyboard</name></member>
+    <member refid="Gui_8hpp_1a2ff66f006581a1ba1963a719ed8483af" kind="function"><name>wants_capture_mouse</name></member>
+    <member refid="Gui_8hpp_1ac7fc4b847b30b5946b78f32614d0b13b" kind="function"><name>imguiInit</name></member>
+    <member refid="Gui_8hpp_1a83164cf4a26b8922350f50d08fffdc7e" kind="function"><name>imguiProcessEvent</name></member>
+    <member refid="Gui_8hpp_1a6bbaa458d301d4a8402a6a49a6e81f06" kind="function"><name>imguiPrepareWindows</name></member>
+    <member refid="Gui_8hpp_1a01d8c770e938d41ec9163039640ca5d6" kind="function"><name>imguiRender</name></member>
+  </compound>
+  <compound refid="GuiStateManager_8cpp" kind="file"><name>GuiStateManager.cpp</name>
+    <member refid="GuiStateManager_8cpp_1ae1fe71ef0416fba49e801fa68ff65f01" kind="function"><name>getWaterCameraStats</name></member>
+    <member refid="GuiStateManager_8cpp_1a03835545314c54c3d3f6c175596f249b" kind="function"><name>getTerrainCameraStats</name></member>
+  </compound>
+  <compound refid="GuiStateManager_8hpp" kind="file"><name>GuiStateManager.hpp</name>
+    <member refid="GuiStateManager_8hpp_1aeca64dea899d8f7cc5de281b66e3fdcc" kind="typedef"><name>TheGuiStateManager</name></member>
+    <member refid="GuiStateManager_8hpp_1ae1fe71ef0416fba49e801fa68ff65f01" kind="function"><name>getWaterCameraStats</name></member>
+    <member refid="GuiStateManager_8hpp_1a03835545314c54c3d3f6c175596f249b" kind="function"><name>getTerrainCameraStats</name></member>
+  </compound>
+  <compound refid="ItemWindow_8cpp" kind="file"><name>ItemWindow.cpp</name>
+    <member refid="ItemWindow_8cpp_1a2cc1eb8a17f6849481ca6becae00e7d3" kind="function"><name>RenderItemSlot</name></member>
+  </compound>
+  <compound refid="ItemWindow_8hpp" kind="file"><name>ItemWindow.hpp</name>
+    <member refid="ItemWindow_8hpp_1a2cc1eb8a17f6849481ca6becae00e7d3" kind="function"><name>RenderItemSlot</name></member>
+  </compound>
+  <compound refid="HealthSystem_8cpp" kind="file"><name>HealthSystem.cpp</name>
+  </compound>
+  <compound refid="HealthSystem_8hpp" kind="file"><name>HealthSystem.hpp</name>
+  </compound>
+  <compound refid="ItemConfiguration_8cpp" kind="file"><name>ItemConfiguration.cpp</name>
+  </compound>
+  <compound refid="ItemConfiguration_8hpp" kind="file"><name>ItemConfiguration.hpp</name>
+  </compound>
+  <compound refid="ItemConfigurationManager_8cpp" kind="file"><name>ItemConfigurationManager.cpp</name>
+    <member refid="ItemConfigurationManager_8cpp_1a6b6c2c3409fcb7a28cd19e807954d800" kind="function"><name>registerItemConfigurationOnManager</name></member>
+    <member refid="ItemConfigurationManager_8cpp_1a7e69c6939a331c447e630b0f6098c0cd" kind="function"><name>getItemConfigurationOnManager</name></member>
+    <member refid="ItemConfigurationManager_8cpp_1a7fee40d93e6c3eb7db46d6b21c3a0164" kind="function"><name>deregisterItemConfigurationOnManager</name></member>
+  </compound>
+  <compound refid="ItemConfigurationManager_8hpp" kind="file"><name>ItemConfigurationManager.hpp</name>
+    <member refid="ItemConfigurationManager_8hpp_1a6b6c2c3409fcb7a28cd19e807954d800" kind="function"><name>registerItemConfigurationOnManager</name></member>
+    <member refid="ItemConfigurationManager_8hpp_1a7e69c6939a331c447e630b0f6098c0cd" kind="function"><name>getItemConfigurationOnManager</name></member>
+    <member refid="ItemConfigurationManager_8hpp_1a7fee40d93e6c3eb7db46d6b21c3a0164" kind="function"><name>deregisterItemConfigurationOnManager</name></member>
+  </compound>
+  <compound refid="ItemsEvents_8hpp" kind="file"><name>ItemsEvents.hpp</name>
+  </compound>
+  <compound refid="LifeEvents_8cpp" kind="file"><name>LifeEvents.cpp</name>
+  </compound>
+  <compound refid="LifeEvents_8hpp" kind="file"><name>LifeEvents.hpp</name>
+  </compound>
+  <compound refid="Logger_8cpp" kind="file"><name>Logger.cpp</name>
+  </compound>
+  <compound refid="Logger_8hpp" kind="file"><name>Logger.hpp</name>
+  </compound>
+  <compound refid="FontManager_8hpp" kind="file"><name>FontManager.hpp</name>
+  </compound>
+  <compound refid="RenderQueue_8hpp" kind="file"><name>RenderQueue.hpp</name>
+  </compound>
+  <compound refid="TextureManager_8cpp" kind="file"><name>TextureManager.cpp</name>
+    <member refid="TextureManager_8cpp_1a45aa423e6431ecf82105eb97fb6a1a8e" kind="function"><name>load_texture</name></member>
+    <member refid="TextureManager_8cpp_1a220cc15901da90ac346fdc3d30cc562a" kind="function"><name>render_texture</name></member>
+    <member refid="TextureManager_8cpp_1a5636974b2013df68e1c9463b148cd8f2" kind="function"><name>destroy_texture</name></member>
+    <member refid="TextureManager_8cpp_1a5d8cf879afa071b01caffd08bfda575c" kind="function"><name>loadTextureOnManager</name></member>
+    <member refid="TextureManager_8cpp_1a494e3433d5d85b0bebfb84fd9e10b09c" kind="function"><name>renderTextureFromManager</name></member>
+    <member refid="TextureManager_8cpp_1ad6e01a6f1e13794b324a3bfdba2c8555" kind="function"><name>getTextureFromManager</name></member>
+  </compound>
+  <compound refid="TextureManager_8hpp" kind="file"><name>TextureManager.hpp</name>
+    <member refid="TextureManager_8hpp_1a36ecea3070424fd7bbf3d3c0fddfdc03" kind="typedef"><name>TheTextureManager</name></member>
+    <member refid="TextureManager_8hpp_1a45aa423e6431ecf82105eb97fb6a1a8e" kind="function"><name>load_texture</name></member>
+    <member refid="TextureManager_8hpp_1a220cc15901da90ac346fdc3d30cc562a" kind="function"><name>render_texture</name></member>
+    <member refid="TextureManager_8hpp_1a5636974b2013df68e1c9463b148cd8f2" kind="function"><name>destroy_texture</name></member>
+    <member refid="TextureManager_8hpp_1a5d8cf879afa071b01caffd08bfda575c" kind="function"><name>loadTextureOnManager</name></member>
+    <member refid="TextureManager_8hpp_1a494e3433d5d85b0bebfb84fd9e10b09c" kind="function"><name>renderTextureFromManager</name></member>
+    <member refid="TextureManager_8hpp_1ad6e01a6f1e13794b324a3bfdba2c8555" kind="function"><name>getTextureFromManager</name></member>
+  </compound>
+  <compound refid="main_8cpp" kind="file"><name>main.cpp</name>
+    <member refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="MetabolismSystem_8cpp" kind="file"><name>MetabolismSystem.cpp</name>
+    <member refid="MetabolismSystem_8cpp_1af81a6028835abe504602ecc27c4e9e56" kind="function"><name>clone_entity</name></member>
+  </compound>
+  <compound refid="MetabolismSystem_8hpp" kind="file"><name>MetabolismSystem.hpp</name>
+  </compound>
+  <compound refid="MoveEntityEvent_8hpp" kind="file"><name>MoveEntityEvent.hpp</name>
+  </compound>
+  <compound refid="my__module_8cpp" kind="file"><name>my_module.cpp</name>
+    <member refid="my__module_8cpp_1a8b96ea462c4e19ae5617142576f2ce73" kind="variable"><name>MyMethods</name></member>
+    <member refid="my__module_8cpp_1a04f8605ca6c99db9865cd2adeac90554" kind="variable"><name>mymodule</name></member>
+    <member refid="my__module_8cpp_1a8d950dc0b8b8a5f0021577e521723fe8" kind="function"><name>check_cuda_error</name></member>
+    <member refid="my__module_8cpp_1a2b883b121ca1286f086796be979e39f3" kind="function"><name>add_scalar</name></member>
+    <member refid="my__module_8cpp_1a0be2cd4438097f141743439fad5b4d12" kind="function"><name>PyInit_my_module</name></member>
+  </compound>
+  <compound refid="config_8hpp" kind="file"><name>config.hpp</name>
+    <member refid="config_8hpp_1a3f636bd567ab8b54acdb65cac34acd3e" kind="function"><name>split</name></member>
+    <member refid="config_8hpp_1afc3d62f64e0f772b489998f098796171" kind="function"><name>join</name></member>
+    <member refid="config_8hpp_1a6ba7e688334dc56677f89386e5b62b0d" kind="function"><name>write_pretty_params</name></member>
+  </compound>
+  <compound refid="genes_8cpp" kind="file"><name>genes.cpp</name>
+  </compound>
+  <compound refid="genes_8hpp" kind="file"><name>genes.hpp</name>
+  </compound>
+  <compound refid="genetics_8hpp" kind="file"><name>genetics.hpp</name>
+  </compound>
+  <compound refid="genome_8cpp" kind="file"><name>genome.cpp</name>
+    <member refid="genome_8cpp_1a9985f8f590f008231c801da65e1292c3" kind="function"><name>get_pruned_copy</name></member>
+  </compound>
+  <compound refid="genome_8hpp" kind="file"><name>genome.hpp</name>
+    <member refid="genome_8hpp_1a9985f8f590f008231c801da65e1292c3" kind="function"><name>get_pruned_copy</name></member>
+  </compound>
+  <compound refid="PerceptionResponse_8hpp" kind="file"><name>PerceptionResponse.hpp</name>
+  </compound>
+  <compound refid="PhysicsEngine_8cpp" kind="file"><name>PhysicsEngine.cpp</name>
+    <member refid="PhysicsEngine_8cpp_1ab5d4b181a73c2a4615fe8f1c2179a40f" kind="function"><name>calculateTimeToMove</name></member>
+    <member refid="PhysicsEngine_8cpp_1a5a9e73546d185aca4a074568abfb31f4" kind="function"><name>calculateTimeToMove</name></member>
+    <member refid="PhysicsEngine_8cpp_1a30037baabb84ff29ca43c7cd8cca4472" kind="function"><name>calculateVelocityFromTime</name></member>
+    <member refid="PhysicsEngine_8cpp_1a8feb99992127cf4319dd5bd3a715148e" kind="function"><name>hasCollision</name></member>
+    <member refid="PhysicsEngine_8cpp_1a1f051bcfc1b61903b7ab4f6b930e6761" kind="function"><name>hasSpecialCollision</name></member>
+    <member refid="PhysicsEngine_8cpp_1a02dc399cbc44a6722743e50360eac449" kind="function"><name>applyFrictionToVelocity</name></member>
+    <member refid="PhysicsEngine_8cpp_1a8b8fc38f1574b5b32da929d2aab1d770" kind="function"><name>checkIfCanFall</name></member>
+    <member refid="PhysicsEngine_8cpp_1a4554541e8321a7e99ae197ea8295bfe4" kind="function"><name>applyGravity</name></member>
+    <member refid="PhysicsEngine_8cpp_1a79c582bee2cd5ffde9968bde764d976e" kind="function"><name>getDirection</name></member>
+    <member refid="PhysicsEngine_8cpp_1a4a3f913bc11235cd5badec546b779089" kind="function"><name>createMovingComponent</name></member>
+    <member refid="PhysicsEngine_8cpp_1a31b3e93b4037263c10d21ba5e3b1fc33" kind="function"><name>handleMovement</name></member>
+    <member refid="PhysicsEngine_8cpp_1aadd763e6778d72618dab1c93e5aa1343" kind="function"><name>handleMovingTo</name></member>
+    <member refid="PhysicsEngine_8cpp_1a73de214980ebfb49834f37f10d2993b6" kind="function"><name>getDirectionFromVelocities</name></member>
+  </compound>
+  <compound refid="PhysicsEngine_8hpp" kind="file"><name>PhysicsEngine.hpp</name>
+  </compound>
+  <compound refid="PhysicsManager_8cpp" kind="file"><name>PhysicsManager.cpp</name>
+  </compound>
+  <compound refid="PhysicsManager_8hpp" kind="file"><name>PhysicsManager.hpp</name>
+    <member refid="PhysicsManager_8hpp_1ab2df93fc5cf2fbad3fb07a06de10e33f" kind="typedef"><name>ThePhysicsManager</name></member>
+  </compound>
+  <compound refid="PyRegistry_8hpp" kind="file"><name>PyRegistry.hpp</name>
+  </compound>
+  <compound refid="QueryCommand_8cpp" kind="file"><name>QueryCommand.cpp</name>
+    <member refid="QueryCommand_8cpp_1ab5acca5d8512c2657a844d5756c7ed6d" kind="function"><name>toCommandList</name></member>
+  </compound>
+  <compound refid="QueryCommand_8hpp" kind="file"><name>QueryCommand.hpp</name>
+    <member refid="QueryCommand_8hpp_1ab5acca5d8512c2657a844d5756c7ed6d" kind="function"><name>toCommandList</name></member>
+  </compound>
+  <compound refid="QueryResponse_8cpp" kind="file"><name>QueryResponse.cpp</name>
+  </compound>
+  <compound refid="QueryResponse_8hpp" kind="file"><name>QueryResponse.hpp</name>
+    <member refid="QueryResponse_8hpp_1a32fadadafc8ce3ae9851e119145b9d85" kind="enum"><name>ResponseFlag</name></member>
+    <member refid="QueryResponse_8hpp_1a32fadadafc8ce3ae9851e119145b9d85a89f78cad09e392a95c3abb8f7c662a0e" kind="enumvalue"><name>LIST_STRING</name></member>
+    <member refid="QueryResponse_8hpp_1a32fadadafc8ce3ae9851e119145b9d85aadcbcc57360c2bc7e0b3c12141bd4989" kind="enumvalue"><name>MAP_OF_MAPS</name></member>
+    <member refid="QueryResponse_8hpp_1a32fadadafc8ce3ae9851e119145b9d85ae213950a900bee7556a2d67df147b5d3" kind="enumvalue"><name>LIST_DOUBLE</name></member>
+    <member refid="QueryResponse_8hpp_1a32fadadafc8ce3ae9851e119145b9d85a3c3a0715d16ac8bcd958b1018440f06f" kind="enumvalue"><name>MAP_OF_LISTS_DOUBLE</name></member>
+    <member refid="QueryResponse_8hpp_1a32fadadafc8ce3ae9851e119145b9d85ac25369100247a07e0a179d7fa3e6d23c" kind="enumvalue"><name>MAP_OF_MAPS_DOUBLE</name></member>
+    <member refid="QueryResponse_8hpp_1a32fadadafc8ce3ae9851e119145b9d85aa9e825446de7325c9b3d43f288c88a49" kind="enumvalue"><name>RESPONSE_COUNT</name></member>
+  </compound>
+  <compound refid="settings_8hpp" kind="file"><name>settings.hpp</name>
+    <member refid="settings_8hpp_1ac38e95f133713cfb1509fea168b13ebb" kind="define"><name>PHYSICS_COMP_AS_3DARRAY</name></member>
+    <member refid="settings_8hpp_1a3e2944dfb70e536e121deb89ee5046ba" kind="variable"><name>FRAME_RATE</name></member>
+    <member refid="settings_8hpp_1a253e940ae1c7ecf909c5f69dd0be9376" kind="variable"><name>DELAY_TIME</name></member>
+    <member refid="settings_8hpp_1a91d5a2f2ce45c686a9cc931e1476d3d0" kind="variable"><name>GAME_SCREEN_WIDHT</name></member>
+    <member refid="settings_8hpp_1a6cb6b4d21bf2cd2c167f5aeb2b41773d" kind="variable"><name>GAME_SCREEN_HEIGHT</name></member>
+    <member refid="settings_8hpp_1a663890dc133dc4aa3612ce80cb8af01f" kind="variable"><name>RIGHT_OFFSET</name></member>
+    <member refid="settings_8hpp_1a682b00f8d320406d9275778733fb134b" kind="variable"><name>UP_OFFSET</name></member>
+    <member refid="settings_8hpp_1af143516b8c72aec680102c3c1722d396" kind="variable"><name>DOWN_OFFSET</name></member>
+    <member refid="settings_8hpp_1ad3ec399cbd5f1a77d36a556ae0c66373" kind="variable"><name>SCREEN_WIDHT</name></member>
+    <member refid="settings_8hpp_1ab454541ae58bcf6555e8d723b1eb95e7" kind="variable"><name>SCREEN_HEIGHT</name></member>
+    <member refid="settings_8hpp_1a5444c4c10a42461daadadcb72ceb69cc" kind="variable"><name>BLOCKS_IN_SCREEN_WIDHT</name></member>
+    <member refid="settings_8hpp_1aeb9717a402f3bc22acb870684ec335f7" kind="variable"><name>BLOCKS_IN_SCREEN_HEIGHT</name></member>
+    <member refid="settings_8hpp_1a60385086930e7443b166e1b9a3639ae7" kind="variable"><name>BLOCKS_IN_SCREEN_DEPTH</name></member>
+    <member refid="settings_8hpp_1a6badfdbd359d2831468dc8f454aeef36" kind="variable"><name>SPRITE_SIZE</name></member>
+    <member refid="settings_8hpp_1ac097b0fb5fdac7e47cb002681816e007" kind="variable"><name>GRAVITY_FRICTION</name></member>
+    <member refid="settings_8hpp_1a48e56f4d6787b67d97b4655a84e7c3f1" kind="variable"><name>GRAVITY</name></member>
+  </compound>
+  <compound refid="SunIntensity_8hpp" kind="file"><name>SunIntensity.hpp</name>
+  </compound>
+  <compound refid="VoxelGrid_8cpp" kind="file"><name>VoxelGrid.cpp</name>
+  </compound>
+  <compound refid="VoxelGrid_8hpp" kind="file"><name>VoxelGrid.hpp</name>
+    <member refid="VoxelGrid_8hpp_1a2323f67766c1d3ce0bbfafaa00c21a78" kind="enum"><name>GridType</name></member>
+    <member refid="VoxelGrid_8hpp_1a2323f67766c1d3ce0bbfafaa00c21a78abdfa171c5b4d44824eec5798556eef32" kind="enumvalue"><name>TERRAIN</name></member>
+    <member refid="VoxelGrid_8hpp_1a2323f67766c1d3ce0bbfafaa00c21a78a5427d771a8a2cf2dcd1825f9453da92e" kind="enumvalue"><name>ENTITY</name></member>
+  </compound>
+  <compound refid="World_8cpp" kind="file"><name>World.cpp</name>
+    <member refid="World_8cpp_1ac122e6f8d0d146e38a598218a8406ef2" kind="function"><name>safeExecute</name></member>
+  </compound>
+  <compound refid="World_8hpp" kind="file"><name>World.hpp</name>
+    <member refid="World_8hpp_1a1570a69419eddf6e8d367baf01e4822f" kind="define"><name>ENTT_USE_ATOMIC</name></member>
+    <member refid="World_8hpp_1af7d35463ed459009eb4c32a9d8e8d380" kind="define"><name>ENTT_ENTITY_TYPE</name></member>
+  </compound>
+  <compound refid="WorldCreatePerception_8cpp" kind="file"><name>WorldCreatePerception.cpp</name>
+    <member refid="WorldCreatePerception_8cpp_1a459e85e4b08764a7fc7eb9a79cb4a067" kind="function"><name>getEntityPositionAndPerception</name></member>
+    <member refid="WorldCreatePerception_8cpp_1a34d30196a9cd8a0caafa69155071b14b" kind="function"><name>computePerceptionArea</name></member>
+    <member refid="WorldCreatePerception_8cpp_1a474bd771cbb81bbc4dc522d7ab9fabcd" kind="function"><name>initializeVoxelGridView</name></member>
+    <member refid="WorldCreatePerception_8cpp_1ac160638e555761441e0152c7ccaf0ace" kind="function"><name>populateEntityInterface</name></member>
+    <member refid="WorldCreatePerception_8cpp_1a6486c869e31cc515c567ef4287b268c4" kind="function"><name>processTerrainVoxels</name></member>
+    <member refid="WorldCreatePerception_8cpp_1a5473075f1e20c7559d46cca71863ce93" kind="function"><name>combineEntityIds</name></member>
+    <member refid="WorldCreatePerception_8cpp_1a22c713d2695a00ded82fe9ec0175fe98" kind="function"><name>createEntityInterfacesForEntitiesInView</name></member>
+    <member refid="WorldCreatePerception_8cpp_1a27a650a008294520bc39d3b127056344" kind="function"><name>addTimeSeriesDataToResponse</name></member>
+  </compound>
+  <compound refid="WorldView_8hpp" kind="file"><name>WorldView.hpp</name>
+  </compound>
+  <compound refid="dir_c5ed2602c210e0a1aaf28cdefbff1170" kind="dir"><name>src/aetherion</name>
+  </compound>
+  <compound refid="dir_3c4c7c1a85608ccd561c026bec818e51" kind="dir"><name>src/components</name>
+  </compound>
+  <compound refid="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed" kind="dir"><name>src/Gui</name>
+  </compound>
+  <compound refid="dir_f292a226b1f5babe6c8057a2f2064fd5" kind="dir"><name>src/LowLevelRenderer</name>
+  </compound>
+  <compound refid="dir_e5d57ec9cefab37e921a3693ae3e3b61" kind="dir"><name>src/neat</name>
+  </compound>
+  <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>src</name>
+  </compound>
+</doxygenindex>

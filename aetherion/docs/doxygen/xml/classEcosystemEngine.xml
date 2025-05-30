@@ -1,0 +1,368 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classEcosystemEngine" kind="class" language="C++" prot="public">
+    <compoundname>EcosystemEngine</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classEcosystemEngine_1aa765091ecf8066d1c76b81c7f7fefde4" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structEvaporateWaterEntityEvent" kindref="compound">EvaporateWaterEntityEvent</ref> &gt;</type>
+        <definition>std::vector&lt;EvaporateWaterEntityEvent&gt; EcosystemEngine::pendingEvaporateWater</definition>
+        <argsstring></argsstring>
+        <name>pendingEvaporateWater</name>
+        <qualifiedname>EcosystemEngine::pendingEvaporateWater</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="71" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEcosystemEngine_1a5180118ffbdd9beb4a8fbac5318b16b2" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structCondenseWaterEntityEvent" kindref="compound">CondenseWaterEntityEvent</ref> &gt;</type>
+        <definition>std::vector&lt;CondenseWaterEntityEvent&gt; EcosystemEngine::pendingCondenseWater</definition>
+        <argsstring></argsstring>
+        <name>pendingCondenseWater</name>
+        <qualifiedname>EcosystemEngine::pendingCondenseWater</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="72" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEcosystemEngine_1af62470af88dce4170d49e7d7071d1a13" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structWaterFallEntityEvent" kindref="compound">WaterFallEntityEvent</ref> &gt;</type>
+        <definition>std::vector&lt;WaterFallEntityEvent&gt; EcosystemEngine::pendingWaterFall</definition>
+        <argsstring></argsstring>
+        <name>pendingWaterFall</name>
+        <qualifiedname>EcosystemEngine::pendingWaterFall</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="73" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEcosystemEngine_1a4203f72a3b976c699f61714034a03e10" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity EcosystemEngine::entityBeingDebugged</definition>
+        <argsstring></argsstring>
+        <name>entityBeingDebugged</name>
+        <qualifiedname>EcosystemEngine::entityBeingDebugged</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="75" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEcosystemEngine_1a072b6e39e59e9e3a7d7db7cc18237750" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EcosystemEngine::countCreatedEvaporatedWater</definition>
+        <argsstring></argsstring>
+        <name>countCreatedEvaporatedWater</name>
+        <qualifiedname>EcosystemEngine::countCreatedEvaporatedWater</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="77" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classEcosystemEngine_1a51da41ce47d1d48d558021fece0755fa" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex EcosystemEngine::ecosystemMutex</definition>
+        <argsstring></argsstring>
+        <name>ecosystemMutex</name>
+        <qualifiedname>EcosystemEngine::ecosystemMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="108" column="16" bodyfile="src/EcosystemEngine.hpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEcosystemEngine_1a1aea9afae2832a1475dea1d3d7ea283b" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool EcosystemEngine::processingComplete</definition>
+        <argsstring></argsstring>
+        <name>processingComplete</name>
+        <qualifiedname>EcosystemEngine::processingComplete</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="109" column="10" bodyfile="src/EcosystemEngine.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEcosystemEngine_1a40ad1dd73a393f6aa024eb4bb95b5ab8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>EcosystemEngine::EcosystemEngine</definition>
+        <argsstring>()=default</argsstring>
+        <name>EcosystemEngine</name>
+        <qualifiedname>EcosystemEngine::EcosystemEngine</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="79" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classEcosystemEngine_1af9fadc16d5c391ba27c4fc0942b89583" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EcosystemEngine::processEcosystem</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher, GameClock &amp;clock)</argsstring>
+        <name>processEcosystem</name>
+        <qualifiedname>EcosystemEngine::processEcosystem</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type><ref refid="classGameClock" kindref="compound">GameClock</ref> &amp;</type>
+          <declname>clock</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="83" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1106" bodyend="1112"/>
+      </memberdef>
+      <memberdef kind="function" id="classEcosystemEngine_1a30afdf70ffa81f23dd117c7ae917a804" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EcosystemEngine::processEcosystemAsync</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher, GameClock &amp;clock)</argsstring>
+        <name>processEcosystemAsync</name>
+        <qualifiedname>EcosystemEngine::processEcosystemAsync</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type><ref refid="classGameClock" kindref="compound">GameClock</ref> &amp;</type>
+          <declname>clock</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="85" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1114" bodyend="1127"/>
+      </memberdef>
+      <memberdef kind="function" id="classEcosystemEngine_1a72241972e12c3f4855b0493a74c8e86c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EcosystemEngine::loopTiles</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher, float sunIntensity)</argsstring>
+        <name>loopTiles</name>
+        <qualifiedname>EcosystemEngine::loopTiles</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sunIntensity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="87" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="958" bodyend="1022"/>
+      </memberdef>
+      <memberdef kind="function" id="classEcosystemEngine_1ac512fc69e3423c1305cef96ab9cfc37b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EcosystemEngine::processEvaporateWaterEvents</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, std::vector&lt; EvaporateWaterEntityEvent &gt; &amp;pendingEvaporateWater)</argsstring>
+        <name>processEvaporateWaterEvents</name>
+        <qualifiedname>EcosystemEngine::processEvaporateWaterEvents</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structEvaporateWaterEntityEvent" kindref="compound">EvaporateWaterEntityEvent</ref> &gt; &amp;</type>
+          <declname>pendingEvaporateWater</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="90" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1131" bodyend="1177"/>
+      </memberdef>
+      <memberdef kind="function" id="classEcosystemEngine_1accf703ae16c70213a1f69e8f18d1c8ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EcosystemEngine::processCondenseWaterEvents</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, std::vector&lt; CondenseWaterEntityEvent &gt; &amp;pendingCondenseWater)</argsstring>
+        <name>processCondenseWaterEvents</name>
+        <qualifiedname>EcosystemEngine::processCondenseWaterEvents</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structCondenseWaterEntityEvent" kindref="compound">CondenseWaterEntityEvent</ref> &gt; &amp;</type>
+          <declname>pendingCondenseWater</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="92" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1179" bodyend="1261"/>
+      </memberdef>
+      <memberdef kind="function" id="classEcosystemEngine_1af08866db8c9d568d6deff77dc862cbfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EcosystemEngine::processWaterFallEvents</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, std::vector&lt; WaterFallEntityEvent &gt; &amp;pendingWaterFall)</argsstring>
+        <name>processWaterFallEvents</name>
+        <qualifiedname>EcosystemEngine::processWaterFallEvents</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structWaterFallEntityEvent" kindref="compound">WaterFallEntityEvent</ref> &gt; &amp;</type>
+          <declname>pendingWaterFall</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="94" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1263" bodyend="1341"/>
+      </memberdef>
+      <memberdef kind="function" id="classEcosystemEngine_1a871adc8f1b42349ff0b4b6b12b590b78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EcosystemEngine::onSetEcoEntityToDebug</definition>
+        <argsstring>(const SetEcoEntityToDebug &amp;event)</argsstring>
+        <name>onSetEcoEntityToDebug</name>
+        <qualifiedname>EcosystemEngine::onSetEcoEntityToDebug</qualifiedname>
+        <param>
+          <type>const <ref refid="structSetEcoEntityToDebug" kindref="compound">SetEcoEntityToDebug</ref> &amp;</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="98" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1343" bodyend="1345"/>
+      </memberdef>
+      <memberdef kind="function" id="classEcosystemEngine_1a43418c468a384ff4fce41661b2617c5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EcosystemEngine::registerEventHandlers</definition>
+        <argsstring>(entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>registerEventHandlers</name>
+        <qualifiedname>EcosystemEngine::registerEventHandlers</qualifiedname>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="99" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1348" bodyend="1350"/>
+      </memberdef>
+      <memberdef kind="function" id="classEcosystemEngine_1aaa537271991c07562715cde46470fa09" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool EcosystemEngine::isProcessingComplete</definition>
+        <argsstring>() const</argsstring>
+        <name>isProcessingComplete</name>
+        <qualifiedname>EcosystemEngine::isProcessingComplete</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="101" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1129" bodyend="1129"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="69" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="69" bodyend="110"/>
+    <listofallmembers>
+      <member refid="classEcosystemEngine_1a072b6e39e59e9e3a7d7db7cc18237750" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>countCreatedEvaporatedWater</name></member>
+      <member refid="classEcosystemEngine_1a40ad1dd73a393f6aa024eb4bb95b5ab8" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>EcosystemEngine</name></member>
+      <member refid="classEcosystemEngine_1a51da41ce47d1d48d558021fece0755fa" prot="private" virt="non-virtual"><scope>EcosystemEngine</scope><name>ecosystemMutex</name></member>
+      <member refid="classEcosystemEngine_1a4203f72a3b976c699f61714034a03e10" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>entityBeingDebugged</name></member>
+      <member refid="classEcosystemEngine_1aaa537271991c07562715cde46470fa09" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>isProcessingComplete</name></member>
+      <member refid="classEcosystemEngine_1a72241972e12c3f4855b0493a74c8e86c" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>loopTiles</name></member>
+      <member refid="classEcosystemEngine_1a871adc8f1b42349ff0b4b6b12b590b78" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>onSetEcoEntityToDebug</name></member>
+      <member refid="classEcosystemEngine_1a5180118ffbdd9beb4a8fbac5318b16b2" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>pendingCondenseWater</name></member>
+      <member refid="classEcosystemEngine_1aa765091ecf8066d1c76b81c7f7fefde4" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>pendingEvaporateWater</name></member>
+      <member refid="classEcosystemEngine_1af62470af88dce4170d49e7d7071d1a13" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>pendingWaterFall</name></member>
+      <member refid="classEcosystemEngine_1accf703ae16c70213a1f69e8f18d1c8ed" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processCondenseWaterEvents</name></member>
+      <member refid="classEcosystemEngine_1af9fadc16d5c391ba27c4fc0942b89583" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processEcosystem</name></member>
+      <member refid="classEcosystemEngine_1a30afdf70ffa81f23dd117c7ae917a804" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processEcosystemAsync</name></member>
+      <member refid="classEcosystemEngine_1ac512fc69e3423c1305cef96ab9cfc37b" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processEvaporateWaterEvents</name></member>
+      <member refid="classEcosystemEngine_1a1aea9afae2832a1475dea1d3d7ea283b" prot="private" virt="non-virtual"><scope>EcosystemEngine</scope><name>processingComplete</name></member>
+      <member refid="classEcosystemEngine_1af08866db8c9d568d6deff77dc862cbfe" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processWaterFallEvents</name></member>
+      <member refid="classEcosystemEngine_1a43418c468a384ff4fce41661b2617c5c" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>registerEventHandlers</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

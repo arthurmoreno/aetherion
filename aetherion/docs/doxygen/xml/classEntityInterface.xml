@@ -1,0 +1,515 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classEntityInterface" kind="class" language="C++" prot="public">
+    <compoundname>EntityInterface</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classEntityInterface_1a052339bc027e2269f9aa33c329941afd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityInterface::entityId</definition>
+        <argsstring></argsstring>
+        <name>entityId</name>
+        <qualifiedname>EntityInterface::entityId</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="63" column="9" bodyfile="src/EntityInterface.hpp" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityInterface_1ad90cd9d61cd9c5eefe86040084ca4610" prot="public" static="no" mutable="no">
+        <type>std::bitset&lt; COMPONENT_COUNT &gt;</type>
+        <definition>std::bitset&lt;COMPONENT_COUNT&gt; EntityInterface::componentMask</definition>
+        <argsstring></argsstring>
+        <name>componentMask</name>
+        <qualifiedname>EntityInterface::componentMask</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="64" column="17" bodyfile="src/EntityInterface.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityInterface_1acebff8b4d3ffe5b671a58c3f06080db9" prot="public" static="no" mutable="no">
+        <type>ComponentTypes</type>
+        <definition>ComponentTypes EntityInterface::components</definition>
+        <argsstring></argsstring>
+        <name>components</name>
+        <qualifiedname>EntityInterface::components</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="67" column="20" bodyfile="src/EntityInterface.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEntityInterface_1a1ae3c0cfee45f00e1fb8156355ad7504" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EntityInterface::addComponent</definition>
+        <argsstring>(ComponentFlag flag)</argsstring>
+        <name>addComponent</name>
+        <qualifiedname>EntityInterface::addComponent</qualifiedname>
+        <param>
+          <type>ComponentFlag</type>
+          <declname>flag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="70" column="10" bodyfile="src/EntityInterface.hpp" bodystart="70" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1aa0b3b5cd26ece87ca632ade806a063fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EntityInterface::removeComponent</definition>
+        <argsstring>(ComponentFlag flag)</argsstring>
+        <name>removeComponent</name>
+        <qualifiedname>EntityInterface::removeComponent</qualifiedname>
+        <param>
+          <type>ComponentFlag</type>
+          <declname>flag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="73" column="10" bodyfile="src/EntityInterface.hpp" bodystart="73" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1a5049dcdffde6775d181f60248a8e8dc5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool EntityInterface::hasComponent</definition>
+        <argsstring>(ComponentFlag flag) const</argsstring>
+        <name>hasComponent</name>
+        <qualifiedname>EntityInterface::hasComponent</qualifiedname>
+        <param>
+          <type>ComponentFlag</type>
+          <declname>flag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="76" column="10" bodyfile="src/EntityInterface.hpp" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1a5276f59993b2195ef55fb33fbf74af48" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int EntityInterface::getEntityId</definition>
+        <argsstring>() const</argsstring>
+        <name>getEntityId</name>
+        <qualifiedname>EntityInterface::getEntityId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="79" column="9" bodyfile="src/EntityInterface.hpp" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1ad9923de2c6ebceb1d4d7f0a16ee3a7c1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EntityInterface::setEntityId</definition>
+        <argsstring>(int id)</argsstring>
+        <name>setEntityId</name>
+        <qualifiedname>EntityInterface::setEntityId</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="80" column="10" bodyfile="src/EntityInterface.hpp" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1af0b3c1fd78fa9c67024df2854370a913" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+        </templateparamlist>
+        <type>Component &amp;</type>
+        <definition>Component &amp; EntityInterface::getComponent</definition>
+        <argsstring>()</argsstring>
+        <name>getComponent</name>
+        <qualifiedname>EntityInterface::getComponent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="84" column="15" bodyfile="src/EntityInterface.hpp" bodystart="84" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1a89e3aa8347ead1b0a69a187294d11907" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+        </templateparamlist>
+        <type>const Component &amp;</type>
+        <definition>const Component &amp; EntityInterface::getComponent</definition>
+        <argsstring>() const</argsstring>
+        <name>getComponent</name>
+        <qualifiedname>EntityInterface::getComponent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="89" column="21" bodyfile="src/EntityInterface.hpp" bodystart="89" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1adf76092d1c6102e58d9fb0981278c1db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void EntityInterface::setComponent</definition>
+        <argsstring>(const Component &amp;component)</argsstring>
+        <name>setComponent</name>
+        <qualifiedname>EntityInterface::setComponent</qualifiedname>
+        <param>
+          <type>const Component &amp;</type>
+          <declname>component</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="94" column="10" bodyfile="src/EntityInterface.hpp" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1a956eb6d4fbce590f29c9f3fd9aa68f7c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; char &gt;</type>
+        <definition>std::vector&lt; char &gt; EntityInterface::serialize</definition>
+        <argsstring>() const</argsstring>
+        <name>serialize</name>
+        <qualifiedname>EntityInterface::serialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="100" column="17" bodyfile="src/EntityInterface.hpp" bodystart="100" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1a29e30836ea07297bd1ecd35306c16e33" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::bytes</type>
+        <definition>nb::bytes EntityInterface::py_serialize</definition>
+        <argsstring>() const</argsstring>
+        <name>py_serialize</name>
+        <qualifiedname>EntityInterface::py_serialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="137" column="15" bodyfile="src/EntityInterface.hpp" bodystart="137" bodyend="140"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classEntityInterface_1a158b483e4ae772dac6dd504b343ad50a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+        <definition>static EntityInterface EntityInterface::deserialize</definition>
+        <argsstring>(const char *data, size_t size)</argsstring>
+        <name>deserialize</name>
+        <qualifiedname>EntityInterface::deserialize</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="111" column="28" bodyfile="src/EntityInterface.hpp" bodystart="111" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1a29ce6b5473b7e4ea7d1e1fbe9a8c465e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+        <definition>static EntityInterface EntityInterface::py_deserialize</definition>
+        <argsstring>(const nb::bytes &amp;serialized_data)</argsstring>
+        <name>py_deserialize</name>
+        <qualifiedname>EntityInterface::py_deserialize</qualifiedname>
+        <param>
+          <type>const nb::bytes &amp;</type>
+          <declname>serialized_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="142" column="28" bodyfile="src/EntityInterface.hpp" bodystart="142" bodyend="151"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classEntityInterface_1aadea43359bf0481e98c63a5677b50f3e" prot="private" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr ComponentFlag</type>
+        <definition>static constexpr ComponentFlag EntityInterface::componentFlag</definition>
+        <argsstring>()</argsstring>
+        <name>componentFlag</name>
+        <qualifiedname>EntityInterface::componentFlag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="156" column="36" bodyfile="src/EntityInterface.hpp" bodystart="156" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1a3445603833ac42b394c58ed9568303f1" prot="private" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+          <param>
+            <type>typename Tuple</type>
+          </param>
+          <param>
+            <type>std::size_t...</type>
+            <declname>Is</declname>
+            <defname>Is</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr ComponentFlag</type>
+        <definition>static constexpr ComponentFlag EntityInterface::componentFlagImpl</definition>
+        <argsstring>(std::index_sequence&lt; Is... &gt;)</argsstring>
+        <name>componentFlagImpl</name>
+        <qualifiedname>EntityInterface::componentFlagImpl</qualifiedname>
+        <param>
+          <type>std::index_sequence&lt; Is... &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="162" column="36" bodyfile="src/EntityInterface.hpp" bodystart="162" bodyend="173"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classEntityInterface_1ad1212c52a9066b35357d794dbc928360" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EntityInterface::serializeComponents</definition>
+        <argsstring>(std::vector&lt; char &gt; &amp;buffer) const</argsstring>
+        <name>serializeComponents</name>
+        <qualifiedname>EntityInterface::serializeComponents</qualifiedname>
+        <param>
+          <type>std::vector&lt; char &gt; &amp;</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="176" column="10" bodyfile="src/EntityInterface.hpp" bodystart="176" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1a595023367521aed5fb0ba3bdbcd50730" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>std::size_t...</type>
+            <declname>Is</declname>
+            <defname>Is</defname>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void EntityInterface::serializeComponentsImpl</definition>
+        <argsstring>(std::vector&lt; char &gt; &amp;buffer, std::index_sequence&lt; Is... &gt;) const</argsstring>
+        <name>serializeComponentsImpl</name>
+        <qualifiedname>EntityInterface::serializeComponentsImpl</qualifiedname>
+        <param>
+          <type>std::vector&lt; char &gt; &amp;</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>std::index_sequence&lt; Is... &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="182" column="10" bodyfile="src/EntityInterface.hpp" bodystart="182" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1a2b2aff59b43c20ee8e1104e5e5e487db" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void EntityInterface::serializeComponent</definition>
+        <argsstring>(std::vector&lt; char &gt; &amp;buffer) const</argsstring>
+        <name>serializeComponent</name>
+        <qualifiedname>EntityInterface::serializeComponent</qualifiedname>
+        <param>
+          <type>std::vector&lt; char &gt; &amp;</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="187" column="10" bodyfile="src/EntityInterface.hpp" bodystart="187" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1af9739e3873c9193e82d4c2337cdc3663" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EntityInterface::deserializeComponents</definition>
+        <argsstring>(const char *data, size_t size, size_t &amp;offset)</argsstring>
+        <name>deserializeComponents</name>
+        <qualifiedname>EntityInterface::deserializeComponents</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="194" column="10" bodyfile="src/EntityInterface.hpp" bodystart="194" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1a29e58e56506ac667ccea99f2c6808182" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>std::size_t...</type>
+            <declname>Is</declname>
+            <defname>Is</defname>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void EntityInterface::deserializeComponentsImpl</definition>
+        <argsstring>(const char *data, size_t size, size_t &amp;offset, std::index_sequence&lt; Is... &gt;)</argsstring>
+        <name>deserializeComponentsImpl</name>
+        <qualifiedname>EntityInterface::deserializeComponentsImpl</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>std::index_sequence&lt; Is... &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="200" column="10" bodyfile="src/EntityInterface.hpp" bodystart="200" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityInterface_1ad0c9844e52934517d6c126b6138453bb" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void EntityInterface::deserializeComponent</definition>
+        <argsstring>(const char *data, size_t size, size_t &amp;offset)</argsstring>
+        <name>deserializeComponent</name>
+        <qualifiedname>EntityInterface::deserializeComponent</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EntityInterface.hpp" line="206" column="10" bodyfile="src/EntityInterface.hpp" bodystart="206" bodyend="217"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EntityInterface.hpp" line="61" column="1" bodyfile="src/EntityInterface.hpp" bodystart="61" bodyend="218"/>
+    <listofallmembers>
+      <member refid="classEntityInterface_1a1ae3c0cfee45f00e1fb8156355ad7504" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>addComponent</name></member>
+      <member refid="classEntityInterface_1aadea43359bf0481e98c63a5677b50f3e" prot="private" virt="non-virtual"><scope>EntityInterface</scope><name>componentFlag</name></member>
+      <member refid="classEntityInterface_1a3445603833ac42b394c58ed9568303f1" prot="private" virt="non-virtual"><scope>EntityInterface</scope><name>componentFlagImpl</name></member>
+      <member refid="classEntityInterface_1ad90cd9d61cd9c5eefe86040084ca4610" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>componentMask</name></member>
+      <member refid="classEntityInterface_1acebff8b4d3ffe5b671a58c3f06080db9" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>components</name></member>
+      <member refid="classEntityInterface_1a158b483e4ae772dac6dd504b343ad50a" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>deserialize</name></member>
+      <member refid="classEntityInterface_1ad0c9844e52934517d6c126b6138453bb" prot="private" virt="non-virtual"><scope>EntityInterface</scope><name>deserializeComponent</name></member>
+      <member refid="classEntityInterface_1af9739e3873c9193e82d4c2337cdc3663" prot="private" virt="non-virtual"><scope>EntityInterface</scope><name>deserializeComponents</name></member>
+      <member refid="classEntityInterface_1a29e58e56506ac667ccea99f2c6808182" prot="private" virt="non-virtual"><scope>EntityInterface</scope><name>deserializeComponentsImpl</name></member>
+      <member refid="classEntityInterface_1a052339bc027e2269f9aa33c329941afd" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>entityId</name></member>
+      <member refid="classEntityInterface_1af0b3c1fd78fa9c67024df2854370a913" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>getComponent</name></member>
+      <member refid="classEntityInterface_1a89e3aa8347ead1b0a69a187294d11907" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>getComponent</name></member>
+      <member refid="classEntityInterface_1a5276f59993b2195ef55fb33fbf74af48" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>getEntityId</name></member>
+      <member refid="classEntityInterface_1a5049dcdffde6775d181f60248a8e8dc5" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>hasComponent</name></member>
+      <member refid="classEntityInterface_1a29ce6b5473b7e4ea7d1e1fbe9a8c465e" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>py_deserialize</name></member>
+      <member refid="classEntityInterface_1a29e30836ea07297bd1ecd35306c16e33" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>py_serialize</name></member>
+      <member refid="classEntityInterface_1aa0b3b5cd26ece87ca632ade806a063fb" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>removeComponent</name></member>
+      <member refid="classEntityInterface_1a956eb6d4fbce590f29c9f3fd9aa68f7c" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>serialize</name></member>
+      <member refid="classEntityInterface_1a2b2aff59b43c20ee8e1104e5e5e487db" prot="private" virt="non-virtual"><scope>EntityInterface</scope><name>serializeComponent</name></member>
+      <member refid="classEntityInterface_1ad1212c52a9066b35357d794dbc928360" prot="private" virt="non-virtual"><scope>EntityInterface</scope><name>serializeComponents</name></member>
+      <member refid="classEntityInterface_1a595023367521aed5fb0ba3bdbcd50730" prot="private" virt="non-virtual"><scope>EntityInterface</scope><name>serializeComponentsImpl</name></member>
+      <member refid="classEntityInterface_1adf76092d1c6102e58d9fb0981278c1db" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>setComponent</name></member>
+      <member refid="classEntityInterface_1ad9923de2c6ebceb1d4d7f0a16ee3a7c1" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>setEntityId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

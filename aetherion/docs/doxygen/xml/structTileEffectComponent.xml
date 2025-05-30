@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTileEffectComponent" kind="struct" language="C++" prot="public">
+    <compoundname>TileEffectComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTileEffectComponent_1a89a133bd33a8935fa5e4b5003f1250b0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TileEffectComponent::tileEffectType</definition>
+        <argsstring></argsstring>
+        <name>tileEffectType</name>
+        <qualifiedname>TileEffectComponent::tileEffectType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="33" column="9" bodyfile="src/components/TerrainComponents.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTileEffectComponent_1a7711f78826befc68eedc6362e800b8ed" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TileEffectComponent::damageValue</definition>
+        <argsstring></argsstring>
+        <name>damageValue</name>
+        <qualifiedname>TileEffectComponent::damageValue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="34" column="11" bodyfile="src/components/TerrainComponents.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTileEffectComponent_1aecc871616d270b19416cb017930da90b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TileEffectComponent::effectTotalTime</definition>
+        <argsstring></argsstring>
+        <name>effectTotalTime</name>
+        <qualifiedname>TileEffectComponent::effectTotalTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="35" column="9" bodyfile="src/components/TerrainComponents.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTileEffectComponent_1a0dabed4bbb643e71389d7f330114931c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TileEffectComponent::effectRemainingTime</definition>
+        <argsstring></argsstring>
+        <name>effectRemainingTime</name>
+        <qualifiedname>TileEffectComponent::effectRemainingTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="36" column="9" bodyfile="src/components/TerrainComponents.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/TerrainComponents.hpp" line="32" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="32" bodyend="37"/>
+    <listofallmembers>
+      <member refid="structTileEffectComponent_1a7711f78826befc68eedc6362e800b8ed" prot="public" virt="non-virtual"><scope>TileEffectComponent</scope><name>damageValue</name></member>
+      <member refid="structTileEffectComponent_1a0dabed4bbb643e71389d7f330114931c" prot="public" virt="non-virtual"><scope>TileEffectComponent</scope><name>effectRemainingTime</name></member>
+      <member refid="structTileEffectComponent_1aecc871616d270b19416cb017930da90b" prot="public" virt="non-virtual"><scope>TileEffectComponent</scope><name>effectTotalTime</name></member>
+      <member refid="structTileEffectComponent_1a89a133bd33a8935fa5e4b5003f1250b0" prot="public" virt="non-virtual"><scope>TileEffectComponent</scope><name>tileEffectType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

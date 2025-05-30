@@ -4,7 +4,14 @@ set -e
 # Build and test
 echo "Building and testing..."
 rm -rf build && mkdir build && cd build
-cmake -DCMAKE_CXX_FLAGS="-fdiagnostics-color=always" -DBUILD_WORLD_TEST=OFF -G Ninja -DCMAKE_PREFIX_PATH="${PREFIX_PATH:-/default/path/to/your/env}" ..
+cmake \
+    -DCMAKE_BUILD_RPATH="\$ORIGIN" \
+    -DCMAKE_INSTALL_RPATH="\$ORIGIN" \
+    -DCMAKE_CXX_FLAGS="-fdiagnostics-color=always" \
+    -DBUILD_WORLD_TEST=OFF \
+    -G Ninja \
+    -DCMAKE_PREFIX_PATH="${PREFIX_PATH:-/default/path/to/your/env}" \
+    ..
 stdbuf -oL ninja
 cd .. 
 
@@ -17,7 +24,7 @@ cd ..
 echo "Installing package into site-packages/aetherion..."
 rm -rf site-packages/aetherion
 mkdir -p site-packages/aetherion
-cp aetherion/__init__.py site-packages/aetherion/
+cp src/aetherion/__init__.py site-packages/aetherion/
 cp build/_aetherion*.so site-packages/aetherion/
 if [ -f aetherion.pyi ]; then cp aetherion.pyi site-packages/aetherion/; fi
 if [ -f py.typed ]; then cp py.typed site-packages/aetherion/; else touch site-packages/aetherion/py.typed; fi

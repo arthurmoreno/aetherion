@@ -1,11 +1,13 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.15...3.27)
 
-# Intelligent conda environment detection
+find_package(PkgConfig      REQUIRED)
+set(CMAKE_FIND_DEBUG_MODE TRUE CACHE BOOL "Print debug info during find" FORCE)
+
 set(_conda_prefix "")
 if(DEFINED ENV{CONDA_PREFIX})
     set(_conda_prefix "$ENV{CONDA_PREFIX}")
-elseif(EXISTS "$ENV{HOME}/anaconda3/envs/lifesimcore-312")
-    set(_conda_prefix "$ENV{HOME}/anaconda3/envs/lifesimcore-312")
+elseif(EXISTS "$ENV{HOME}/anaconda3/envs/default-312")
+    set(_conda_prefix "$ENV{HOME}/anaconda3/envs/default-312")
 endif()
 
 if(_conda_prefix)
@@ -16,9 +18,8 @@ else()
     message(FATAL_ERROR "Could not detect a conda environment. Please set CONDA_PREFIX or ensure one of the default env paths exists.")
 endif()
 
-message(STATUS "▶ Forcing legacy FindPython to use Conda: $ENV{CONDA_PREFIX}/python.exe")
+message(STATUS "▶ Forcing legacy FindPython to use Conda: $ENV{CONDA_PREFIX}")
 
-# Configure Python interpreter for FindPython and FindPython3
 if(WIN32)
     set(Python_ROOT_DIR    "${_conda_prefix}" CACHE PATH     "Conda env root for Python" FORCE)
     set(Python_EXECUTABLE  "${_conda_prefix}/python.exe" CACHE FILEPATH "Path to Python executable" FORCE)
@@ -27,10 +28,17 @@ else()
     set(Python_EXECUTABLE  "${_conda_prefix}/bin/python" CACHE FILEPATH "Path to Python executable" FORCE)
 endif()
 
-# Align Python3 variables
+message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+
 set(Python3_ROOT_DIR     "${_conda_prefix}" CACHE PATH     "" FORCE)
 set(Python3_EXECUTABLE   "${Python_EXECUTABLE}" CACHE FILEPATH "" FORCE)
-message(STATUS "Using Python interpreter: ${Python_EXECUTABLE}")
+
+find_package(Python3 COMPONENTS Interpreter Development NumPy REQUIRED)
+
+message(STATUS "→ Python3 executable: ${Python3_EXECUTABLE}")
+message(STATUS "→ Python3 version:    ${Python3_VERSION_STRING}")
+message(STATUS "→ Python3 include dirs: ${Python3_INCLUDE_DIRS}")
+message(STATUS "→ Python3 libraries:   ${Python3_LIBRARIES}")
 
 set(NANOBIND_DIR "${CMAKE_SOURCE_DIR}/libs/nanobind")
 set(nanobind_DIR "${CMAKE_SOURCE_DIR}/libs/nanobind/cmake")
@@ -43,27 +51,35 @@ set(CMAKE_CXX_STANDARD 20)
 option(BUILD_WORLD_TEST "Build the world_test executable" ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
-# Find packages
-find_package(Python3 COMPONENTS Interpreter Development NumPy REQUIRED)
 find_package(SDL2 REQUIRED)
+
+message(STATUS "→ SDL2 include dirs:  ${SDL2_INCLUDE_DIRS}")
+message(STATUS "→ SDL2 libraries:     ${SDL2_LIBRARIES}")
+
 find_package(SDL2_image REQUIRED)
-find_package(SDL2_ttf REQUIRED)
+
+pkg_check_modules(SDL2_TTF   REQUIRED SDL2_ttf>=2.0.0)
+message(STATUS "→ SDL2_ttf include dirs: ${SDL2_TTF_INCLUDE_DIRS}")
+message(STATUS "→ SDL2_ttf libraries:    ${SDL2_TTF_LIBRARIES}")
+
+
 find_package(nanobind CONFIG REQUIRED)
-find_package(TBB REQUIRED)
-find_package(msgpack REQUIRED)
+pkg_check_modules(TBB REQUIRED tbb)
+pkg_check_modules(MSGPACK REQUIRED msgpack)
+message(STATUS "→ msgpack version:     ${msgpack_VERSION}")
 find_package(spdlog REQUIRED)
-find_package(PkgConfig REQUIRED)
+message(STATUS "→ spdlog version:     ${spdlog_VERSION}")
+
 pkg_check_modules(LMDB REQUIRED lmdb)
+message(STATUS "→ LMDB include dirs: ${LMDB_INCLUDE_DIRS}")
+message(STATUS "→ LMDB libraries:    ${LMDB_LIBRARIES}")
 find_package(SQLite3 REQUIRED)
 
-# message(STATUS "SDL2 include dirs: ${SDL2_INCLUDE_DIRS}")
-# message(STATUS "SDL2 libraries: ${SDL2_LIBRARIES}")
-# message(STATUS "SDL2_image include dirs: ${SDL2_IMAGE_INCLUDE_DIRS}")
-# message(STATUS "SDL2_image libraries: ${SDL2_IMAGE_LIBRARIES}")
+set(OPENVDB_INCLUDE_DIR /usr/local/include/openvdb)
+set(OPENVDB_LIBRARIES /usr/local/lib/libopenvdb.so)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -march=native -flto -ffast-math")
 
-# Enable colored output for GCC and Clang
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     add_compile_options(-fdiagnostics-color=always)
 endif()
@@ -71,18 +87,12 @@ add_compile_definitions(ENTT_ENTITY_TYPE=int)
 add_definitions(-DMDB_MAXKEYSIZE=0)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=always -fvisibility=hidden")
 
-# Manually set OpenVDB paths if CMake can't find it automatically
-set(OPENVDB_INCLUDE_DIR /usr/local/include/openvdb)
-set(OPENVDB_LIBRARIES /usr/local/lib/libopenvdb.so)
-
 message(STATUS "Using OpenVDB include directory: ${OPENVDB_INCLUDE_DIR}")
 message(STATUS "Using OpenVDB library: ${OPENVDB_LIBRARIES}")
 
-# Add FlatBuffers directly to our build
 set(FLATBUFFERS_SRC_DIR ${CMAKE_SOURCE_DIR}/libs/flatbuffers)
 add_subdirectory(${FLATBUFFERS_SRC_DIR} ${CMAKE_CURRENT_BINARY_DIR}/flatbuffers-build EXCLUDE_FROM_ALL)
 
-# Include directories
 include_directories(
     ${Python3_INCLUDE_DIRS}
     ${Python3_NumPy_INCLUDE_DIRS}
@@ -98,7 +108,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/libs/lmdb++
 )
 
-# Add FlatBuffers schema compilation
 find_program(FLATC_COMPILER flatc REQUIRED)
 if(NOT FLATC_COMPILER)
     message(FATAL_ERROR "flatc compiler not found. Please ensure it is installed and in your PATH.")
@@ -137,21 +146,17 @@ add_custom_target(GenerateFlatBuffers ALL DEPENDS ${FLATBUFFERS_GENERATED_CPP_HE
 
 include_directories(${FLATBUFFERS_GENERATED_CPP_DIR})
 
-# Dynamically search for all .cpp files except bindings.cpp and my_module.cpp
 file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp")
 list(REMOVE_ITEM SOURCES "${CMAKE_SOURCE_DIR}/src/aetherion.cpp")
 list(REMOVE_ITEM SOURCES "${CMAKE_SOURCE_DIR}/src/my_module.cpp")
 
 
-# Combine C++ and CUDA source files
 list(
     APPEND SOURCES
 )    
 
-# Add subdirectories - project source files
 add_subdirectory(src/components)
 add_subdirectory(src/LowLevelRenderer)
-# add_subdirectory(src/GameDB)
 add_subdirectory(src/Gui)
 add_subdirectory(src/neat)
 
@@ -181,7 +186,9 @@ target_link_libraries(_aetherion PRIVATE
     ${LMDB_LIBRARIES}
     ${LMDBPP_LIBRARIES}
     SQLite::SQLite3
+    fmt::fmt
 )
+
 
 # Ensure that your targets depend on the generated code
 add_dependencies(_aetherion GenerateFlatBuffers)
@@ -210,15 +217,33 @@ else()
     message(STATUS "Skipping world_test executable")
 endif()
 
+# ----------------------------------------------------------------------------
+# Automatically generate a stub for the “_aetherion” Python module at build time
+# ----------------------------------------------------------------------------
+
+nanobind_add_stub(
+    _aetherion_stub              # unique CMake target name
+    INSTALL_TIME
+    MODULE _aetherion           # the Python module name to import
+    OUTPUT _aetherion.pyi         # stub file path (relative to CMAKE_CURRENT_BINARY_DIR)
+    PYTHON_PATH                  # where to find the built extension when importing
+        $<TARGET_FILE_DIR:_aetherion> 
+    DEPENDS _aetherion           # ensure the extension is built first
+    MARKER_FILE py.typed      # uncomment to also emit a py.typed marker
+)
+
 # ------------------------------------------------------------------------------
 # Install directives
 # ------------------------------------------------------------------------------
-# Install the compiled Python extension module into the neat3p package directory
-install(TARGETS _aetherion LIBRARY DESTINATION neat3p)
 
-# Install the umbrella header for C++ users.
-# Adjust the path to neat3p.hpp if it's located somewhere else.
+install(TARGETS _aetherion LIBRARY DESTINATION aetherion)
 install(FILES ${CMAKE_SOURCE_DIR}/src/aetherion.hpp DESTINATION include/aetherion)
+install(
+    FILES
+        "${CMAKE_INSTALL_PREFIX}/_aetherion.pyi"
+        "${CMAKE_INSTALL_PREFIX}/py.typed"         # if you emitted it via MARKER_FILE
+    DESTINATION aetherion
+)
 
 # ------------------------------------------------------------------------------
 # Final Message

@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTextureManager" kind="class" language="C++" prot="public">
+    <compoundname>TextureManager</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classTextureManager_1ab78a1ae0477b016569b32ac4ceaeaaef" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, SDL_Texture * &gt;</type>
+        <definition>std::map&lt;std::string, SDL_Texture*&gt; TextureManager::m_textureMap</definition>
+        <argsstring></argsstring>
+        <name>m_textureMap</name>
+        <qualifiedname>TextureManager::m_textureMap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="55" column="14" bodyfile="src/LowLevelRenderer/TextureManager.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classTextureManager_1ab5434f5ba0cc3e02623f23699573a5a6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classTextureManager" kindref="compound">TextureManager</ref> *</type>
+        <definition>static TextureManager * TextureManager::Instance</definition>
+        <argsstring>()</argsstring>
+        <name>Instance</name>
+        <qualifiedname>TextureManager::Instance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="41" column="27" bodyfile="src/LowLevelRenderer/TextureManager.hpp" bodystart="41" bodyend="44"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTextureManager_1a1d38974d59ef4e308e22a94d5a8d3448" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TextureManager::load</definition>
+        <argsstring>(std::string fileName, std::string id, SDL_Renderer *pRenderer, int newWidth, int newHeight)</argsstring>
+        <name>load</name>
+        <qualifiedname>TextureManager::load</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>fileName</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>SDL_Renderer *</type>
+          <declname>pRenderer</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>newWidth</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>newHeight</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="46" column="10" bodyfile="src/LowLevelRenderer/TextureManager.cpp" bodystart="94" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="classTextureManager_1ac9770d93c5c897e6213fb81e7ee659b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TextureManager::draw</definition>
+        <argsstring>(std::string id, int x, int y, int width, int height, SDL_Renderer *pRenderer, SDL_RendererFlip flip=SDL_FLIP_NONE)</argsstring>
+        <name>draw</name>
+        <qualifiedname>TextureManager::draw</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>SDL_Renderer *</type>
+          <declname>pRenderer</declname>
+        </param>
+        <param>
+          <type>SDL_RendererFlip</type>
+          <declname>flip</declname>
+          <defval>SDL_FLIP_NONE</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="48" column="10" bodyfile="src/LowLevelRenderer/TextureManager.cpp" bodystart="199" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="classTextureManager_1a45bd96a998becc267419351a4dfe226c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>SDL_Texture *</type>
+        <definition>SDL_Texture * TextureManager::getTexture</definition>
+        <argsstring>(std::string id)</argsstring>
+        <name>getTexture</name>
+        <qualifiedname>TextureManager::getTexture</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="50" column="17" bodyfile="src/LowLevelRenderer/TextureManager.cpp" bodystart="214" bodyend="214"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classTextureManager_1ad76abb178b37cedf4514eb0154349935" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TextureManager::TextureManager</definition>
+        <argsstring>()</argsstring>
+        <name>TextureManager</name>
+        <qualifiedname>TextureManager::TextureManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="59" column="5" bodyfile="src/LowLevelRenderer/TextureManager.hpp" bodystart="59" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classTextureManager_1a001d6d74674961db79987e3222682576" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TextureManager::~TextureManager</definition>
+        <argsstring>()</argsstring>
+        <name>~TextureManager</name>
+        <qualifiedname>TextureManager::~TextureManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="60" column="5" bodyfile="src/LowLevelRenderer/TextureManager.hpp" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classTextureManager_1ae0a812052ff90565e3a0e3bcfc766240" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TextureManager::TextureManager</definition>
+        <argsstring>(const TextureManager &amp;)=delete</argsstring>
+        <name>TextureManager</name>
+        <qualifiedname>TextureManager::TextureManager</qualifiedname>
+        <param>
+          <type>const <ref refid="classTextureManager" kindref="compound">TextureManager</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="63" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classTextureManager_1ab69a7a235f3fa0a0e5a1cc6cf9c29ab3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classTextureManager" kindref="compound">TextureManager</ref> &amp;</type>
+        <definition>TextureManager &amp; TextureManager::operator=</definition>
+        <argsstring>(const TextureManager &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>TextureManager::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classTextureManager" kindref="compound">TextureManager</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="64" column="20"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/LowLevelRenderer/TextureManager.hpp" line="38" column="1" bodyfile="src/LowLevelRenderer/TextureManager.hpp" bodystart="38" bodyend="65"/>
+    <listofallmembers>
+      <member refid="classTextureManager_1ac9770d93c5c897e6213fb81e7ee659b1" prot="public" virt="non-virtual"><scope>TextureManager</scope><name>draw</name></member>
+      <member refid="classTextureManager_1a45bd96a998becc267419351a4dfe226c" prot="public" virt="non-virtual"><scope>TextureManager</scope><name>getTexture</name></member>
+      <member refid="classTextureManager_1ab5434f5ba0cc3e02623f23699573a5a6" prot="public" virt="non-virtual"><scope>TextureManager</scope><name>Instance</name></member>
+      <member refid="classTextureManager_1a1d38974d59ef4e308e22a94d5a8d3448" prot="public" virt="non-virtual"><scope>TextureManager</scope><name>load</name></member>
+      <member refid="classTextureManager_1ab78a1ae0477b016569b32ac4ceaeaaef" prot="public" virt="non-virtual"><scope>TextureManager</scope><name>m_textureMap</name></member>
+      <member refid="classTextureManager_1ab69a7a235f3fa0a0e5a1cc6cf9c29ab3" prot="private" virt="non-virtual"><scope>TextureManager</scope><name>operator=</name></member>
+      <member refid="classTextureManager_1ad76abb178b37cedf4514eb0154349935" prot="private" virt="non-virtual"><scope>TextureManager</scope><name>TextureManager</name></member>
+      <member refid="classTextureManager_1ae0a812052ff90565e3a0e3bcfc766240" prot="private" virt="non-virtual"><scope>TextureManager</scope><name>TextureManager</name></member>
+      <member refid="classTextureManager_1a001d6d74674961db79987e3222682576" prot="private" virt="non-virtual"><scope>TextureManager</scope><name>~TextureManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structPerceptionResponse" kind="struct" language="C++" prot="public">
+    <compoundname>PerceptionResponse</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structPerceptionResponse_1aa7e9e56d57fb2850fbcdaf24f2cfcfd9" prot="public" static="no" mutable="no">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+        <definition>EntityInterface PerceptionResponse::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>PerceptionResponse::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PerceptionResponse.hpp" line="96" column="21" bodyfile="src/PerceptionResponse.hpp" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPerceptionResponse_1a8b4db68598870381629b772032cd6f17" prot="public" static="no" mutable="no">
+        <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+        <definition>WorldView PerceptionResponse::world_view</definition>
+        <argsstring></argsstring>
+        <name>world_view</name>
+        <qualifiedname>PerceptionResponse::world_view</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PerceptionResponse.hpp" line="97" column="15" bodyfile="src/PerceptionResponse.hpp" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPerceptionResponse_1a6aa75700793436746908a90ff1034a8e" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t PerceptionResponse::ticks</definition>
+        <argsstring></argsstring>
+        <name>ticks</name>
+        <qualifiedname>PerceptionResponse::ticks</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PerceptionResponse.hpp" line="98" column="14" bodyfile="src/PerceptionResponse.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPerceptionResponse_1acdb8fe4db71a6f56dbdfcdd602401421" prot="public" static="no" mutable="no">
+        <type>std::unordered_map&lt; int, <ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &gt;</type>
+        <definition>std::unordered_map&lt;int, EntityInterface&gt; PerceptionResponse::itemsEntities</definition>
+        <argsstring></argsstring>
+        <name>itemsEntities</name>
+        <qualifiedname>PerceptionResponse::itemsEntities</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PerceptionResponse.hpp" line="99" column="24" bodyfile="src/PerceptionResponse.hpp" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPerceptionResponse_1ab98d202b3406698691eafd6830854150" prot="public" static="no" mutable="no">
+        <type>std::unordered_map&lt; int, std::shared_ptr&lt; <ref refid="classQueryResponse" kindref="compound">QueryResponse</ref> &gt; &gt;</type>
+        <definition>std::unordered_map&lt;int, std::shared_ptr&lt;QueryResponse&gt; &gt; PerceptionResponse::queryResponses</definition>
+        <argsstring></argsstring>
+        <name>queryResponses</name>
+        <qualifiedname>PerceptionResponse::queryResponses</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PerceptionResponse.hpp" line="100" column="24" bodyfile="src/PerceptionResponse.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structPerceptionResponse_1ad8406c62c388d0f02b164e7184c4c849" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PerceptionResponse::PerceptionResponse</definition>
+        <argsstring>()=default</argsstring>
+        <name>PerceptionResponse</name>
+        <qualifiedname>PerceptionResponse::PerceptionResponse</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PerceptionResponse.hpp" line="103" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structPerceptionResponse_1a15a1fc6e49f9bdbfceafbc93a61983eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PerceptionResponse::PerceptionResponse</definition>
+        <argsstring>(const EntityInterface &amp;entity, const WorldView &amp;world_view)</argsstring>
+        <name>PerceptionResponse</name>
+        <qualifiedname>PerceptionResponse::PerceptionResponse</qualifiedname>
+        <param>
+          <type>const <ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structWorldView" kindref="compound">WorldView</ref> &amp;</type>
+          <declname>world_view</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PerceptionResponse.hpp" line="105" column="5" bodyfile="src/PerceptionResponse.hpp" bodystart="105" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="structPerceptionResponse_1a990656e2ad5c30b664878b17d1008858" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; char &gt;</type>
+        <definition>std::vector&lt; char &gt; PerceptionResponse::serializeFlatBuffer</definition>
+        <argsstring>() const</argsstring>
+        <name>serializeFlatBuffer</name>
+        <qualifiedname>PerceptionResponse::serializeFlatBuffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PerceptionResponse.hpp" line="109" column="17" bodyfile="src/PerceptionResponse.hpp" bodystart="109" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="structPerceptionResponse_1a9a0e4f25cddebd30eee36fc82991a56a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::bytes</type>
+        <definition>nb::bytes PerceptionResponse::pySerializeFlatBuffer</definition>
+        <argsstring>() const</argsstring>
+        <name>pySerializeFlatBuffer</name>
+        <qualifiedname>PerceptionResponse::pySerializeFlatBuffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PerceptionResponse.hpp" line="183" column="15" bodyfile="src/PerceptionResponse.hpp" bodystart="183" bodyend="186"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>EntityInterface</label>
+        <link refid="classEntityInterface"/>
+      </node>
+      <node id="1">
+        <label>PerceptionResponse</label>
+        <link refid="structPerceptionResponse"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>entity</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>world_view</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>VoxelGridView</label>
+        <link refid="classVoxelGridView"/>
+      </node>
+      <node id="3">
+        <label>WorldView</label>
+        <link refid="structWorldView"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>voxelGridView</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/PerceptionResponse.hpp" line="95" column="1" bodyfile="src/PerceptionResponse.hpp" bodystart="95" bodyend="187"/>
+    <listofallmembers>
+      <member refid="structPerceptionResponse_1aa7e9e56d57fb2850fbcdaf24f2cfcfd9" prot="public" virt="non-virtual"><scope>PerceptionResponse</scope><name>entity</name></member>
+      <member refid="structPerceptionResponse_1acdb8fe4db71a6f56dbdfcdd602401421" prot="public" virt="non-virtual"><scope>PerceptionResponse</scope><name>itemsEntities</name></member>
+      <member refid="structPerceptionResponse_1ad8406c62c388d0f02b164e7184c4c849" prot="public" virt="non-virtual"><scope>PerceptionResponse</scope><name>PerceptionResponse</name></member>
+      <member refid="structPerceptionResponse_1a15a1fc6e49f9bdbfceafbc93a61983eb" prot="public" virt="non-virtual"><scope>PerceptionResponse</scope><name>PerceptionResponse</name></member>
+      <member refid="structPerceptionResponse_1a9a0e4f25cddebd30eee36fc82991a56a" prot="public" virt="non-virtual"><scope>PerceptionResponse</scope><name>pySerializeFlatBuffer</name></member>
+      <member refid="structPerceptionResponse_1ab98d202b3406698691eafd6830854150" prot="public" virt="non-virtual"><scope>PerceptionResponse</scope><name>queryResponses</name></member>
+      <member refid="structPerceptionResponse_1a990656e2ad5c30b664878b17d1008858" prot="public" virt="non-virtual"><scope>PerceptionResponse</scope><name>serializeFlatBuffer</name></member>
+      <member refid="structPerceptionResponse_1a6aa75700793436746908a90ff1034a8e" prot="public" virt="non-virtual"><scope>PerceptionResponse</scope><name>ticks</name></member>
+      <member refid="structPerceptionResponse_1a8b4db68598870381629b772032cd6f17" prot="public" virt="non-virtual"><scope>PerceptionResponse</scope><name>world_view</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

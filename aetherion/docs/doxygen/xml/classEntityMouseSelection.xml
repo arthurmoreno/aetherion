@@ -1,0 +1,429 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classEntityMouseSelection" kind="class" language="C++" prot="public">
+    <compoundname>EntityMouseSelection</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classEntityMouseSelection_1aa2486e108d1fecb9bc1fd5d85445d52d" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool EntityMouseSelection::currentEntitySelected</definition>
+        <argsstring></argsstring>
+        <name>currentEntitySelected</name>
+        <qualifiedname>EntityMouseSelection::currentEntitySelected</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="22" column="10" bodyfile="src/CameraUtils.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classEntityMouseSelection_1a3fdad4b5f8d3dc6404cfcb27a3313696" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::screenX</definition>
+        <argsstring></argsstring>
+        <name>screenX</name>
+        <qualifiedname>EntityMouseSelection::screenX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="64" column="9" bodyfile="src/CameraUtils.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1a44c83f2d3cd7b012b7a2109207702c24" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::screenY</definition>
+        <argsstring></argsstring>
+        <name>screenY</name>
+        <qualifiedname>EntityMouseSelection::screenY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="64" column="17" bodyfile="src/CameraUtils.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1ae0fe101dcf5690b49afdf232e7d2962d" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::offsetX</definition>
+        <argsstring></argsstring>
+        <name>offsetX</name>
+        <qualifiedname>EntityMouseSelection::offsetX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="65" column="9" bodyfile="src/CameraUtils.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1a6f4a1d691916a3bf55dca3969ceeee7a" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::offsetY</definition>
+        <argsstring></argsstring>
+        <name>offsetY</name>
+        <qualifiedname>EntityMouseSelection::offsetY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="65" column="17" bodyfile="src/CameraUtils.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1a0401f71d2ff257a18f5737ba32a32ac6" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::layerIndex</definition>
+        <argsstring></argsstring>
+        <name>layerIndex</name>
+        <qualifiedname>EntityMouseSelection::layerIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="66" column="9" bodyfile="src/CameraUtils.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1acfa5666b0c01507c45f2ee2cf3fb45f6" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::TILE_SIZE_ON_SCREEN</definition>
+        <argsstring></argsstring>
+        <name>TILE_SIZE_ON_SCREEN</name>
+        <qualifiedname>EntityMouseSelection::TILE_SIZE_ON_SCREEN</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="67" column="9" bodyfile="src/CameraUtils.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1a863c360c49b0d0b394a27390f21caaee" prot="private" static="no" mutable="no">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+        <definition>EntityInterface&amp; EntityMouseSelection::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>EntityMouseSelection::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="69" column="21" bodyfile="src/CameraUtils.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1a7e98d57bee1d2378d336b5fd0a4333c6" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::lockOnTarget</definition>
+        <argsstring></argsstring>
+        <name>lockOnTarget</name>
+        <qualifiedname>EntityMouseSelection::lockOnTarget</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="70" column="9" bodyfile="src/CameraUtils.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1a436b8a4ef7d4dc1a5a332c18837c5541" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::mouseX</definition>
+        <argsstring></argsstring>
+        <name>mouseX</name>
+        <qualifiedname>EntityMouseSelection::mouseX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="72" column="9" bodyfile="src/CameraUtils.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1aca66f1878eb2036589b7aad7537ec3b4" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::mouseY</definition>
+        <argsstring></argsstring>
+        <name>mouseY</name>
+        <qualifiedname>EntityMouseSelection::mouseY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="72" column="16" bodyfile="src/CameraUtils.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1a8d33101bdad10957f40705ba69b7ecce" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::entityX</definition>
+        <argsstring></argsstring>
+        <name>entityX</name>
+        <qualifiedname>EntityMouseSelection::entityX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="73" column="9" bodyfile="src/CameraUtils.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1a7249dd0e7c60fbbc98a1f62b1f692738" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::entityY</definition>
+        <argsstring></argsstring>
+        <name>entityY</name>
+        <qualifiedname>EntityMouseSelection::entityY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="73" column="17" bodyfile="src/CameraUtils.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1a2a891bbd460ed0fc7061ed78869cb104" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int EntityMouseSelection::entityZ</definition>
+        <argsstring></argsstring>
+        <name>entityZ</name>
+        <qualifiedname>EntityMouseSelection::entityZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="73" column="25" bodyfile="src/CameraUtils.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEntityMouseSelection_1ac4b694350192030e25f9565bab191de0" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool EntityMouseSelection::selectedSquareDrawn</definition>
+        <argsstring></argsstring>
+        <name>selectedSquareDrawn</name>
+        <qualifiedname>EntityMouseSelection::selectedSquareDrawn</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="75" column="10" bodyfile="src/CameraUtils.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEntityMouseSelection_1ac873622f9bb51d595c308125548d4b0d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EntityMouseSelection::EntityMouseSelection</definition>
+        <argsstring>(int screenX, int screenY, EntityInterface &amp;entity, int lockOnTarget, int layerIndex, const std::map&lt; std::string, int &gt; &amp;mouseState, int TILE_SIZE_ON_SCREEN)</argsstring>
+        <name>EntityMouseSelection</name>
+        <qualifiedname>EntityMouseSelection::EntityMouseSelection</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>screenX</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screenY</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>lockOnTarget</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layerIndex</declname>
+        </param>
+        <param>
+          <type>const std::map&lt; std::string, int &gt; &amp;</type>
+          <declname>mouseState</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>TILE_SIZE_ON_SCREEN</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="23" column="5" bodyfile="src/CameraUtils.hpp" bodystart="23" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityMouseSelection_1ad9661aa720d1621cb48ad57c029de35d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EntityMouseSelection::drawLockOnTarget</definition>
+        <argsstring>(std::shared_ptr&lt; RenderQueue &gt; renderQueuePtr, const std::string &amp;groupToDraw)</argsstring>
+        <name>drawLockOnTarget</name>
+        <qualifiedname>EntityMouseSelection::drawLockOnTarget</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classRenderQueue" kindref="compound">RenderQueue</ref> &gt;</type>
+          <declname>renderQueuePtr</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>groupToDraw</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="42" column="10" bodyfile="src/CameraUtils.cpp" bodystart="31" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityMouseSelection_1ad891c2fdf394d30ee1b5f5b36ca05b9c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool EntityMouseSelection::isMouseCoordinatesInvalid</definition>
+        <argsstring>() const</argsstring>
+        <name>isMouseCoordinatesInvalid</name>
+        <qualifiedname>EntityMouseSelection::isMouseCoordinatesInvalid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="45" column="10" bodyfile="src/CameraUtils.hpp" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityMouseSelection_1ab4c5de522e1ffee30b061de8bd3eb47e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EntityMouseSelection::setEntityCoordinates</definition>
+        <argsstring>()</argsstring>
+        <name>setEntityCoordinates</name>
+        <qualifiedname>EntityMouseSelection::setEntityCoordinates</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="47" column="10" bodyfile="src/CameraUtils.hpp" bodystart="47" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityMouseSelection_1a25abd6fbf663ec8387c777ca63d02cb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EntityMouseSelection::setSelectionAndDrawHovered</definition>
+        <argsstring>(std::shared_ptr&lt; RenderQueue &gt; renderQueuePtr, int layerIndex, const std::string &amp;groupToDraw)</argsstring>
+        <name>setSelectionAndDrawHovered</name>
+        <qualifiedname>EntityMouseSelection::setSelectionAndDrawHovered</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classRenderQueue" kindref="compound">RenderQueue</ref> &gt;</type>
+          <declname>renderQueuePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layerIndex</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>groupToDraw</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="54" column="10" bodyfile="src/CameraUtils.cpp" bodystart="50" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityMouseSelection_1ab9ba7037885a00db8c48602adfafafef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool EntityMouseSelection::checkVoxelBottomSelection</definition>
+        <argsstring>(WorldView &amp;worldView, std::shared_ptr&lt; RenderQueue &gt; renderQueuePtr, int layerIndex, const std::string &amp;groupToDraw)</argsstring>
+        <name>checkVoxelBottomSelection</name>
+        <qualifiedname>EntityMouseSelection::checkVoxelBottomSelection</qualifiedname>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref> &amp;</type>
+          <declname>worldView</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classRenderQueue" kindref="compound">RenderQueue</ref> &gt;</type>
+          <declname>renderQueuePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layerIndex</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>groupToDraw</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="57" column="10" bodyfile="src/CameraUtils.cpp" bodystart="60" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classEntityMouseSelection_1ade2d14080dc4665c69fd11ff45d6f119" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool EntityMouseSelection::checkVoxelTopSelection</definition>
+        <argsstring>(WorldView &amp;worldView, std::shared_ptr&lt; RenderQueue &gt; renderQueuePtr, int layerIndex, const std::string &amp;groupToDraw)</argsstring>
+        <name>checkVoxelTopSelection</name>
+        <qualifiedname>EntityMouseSelection::checkVoxelTopSelection</qualifiedname>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref> &amp;</type>
+          <declname>worldView</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classRenderQueue" kindref="compound">RenderQueue</ref> &gt;</type>
+          <declname>renderQueuePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layerIndex</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>groupToDraw</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CameraUtils.hpp" line="60" column="10" bodyfile="src/CameraUtils.cpp" bodystart="95" bodyend="120"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/CameraUtils.hpp" line="20" column="1" bodyfile="src/CameraUtils.hpp" bodystart="20" bodyend="76"/>
+    <listofallmembers>
+      <member refid="classEntityMouseSelection_1ab9ba7037885a00db8c48602adfafafef" prot="public" virt="non-virtual"><scope>EntityMouseSelection</scope><name>checkVoxelBottomSelection</name></member>
+      <member refid="classEntityMouseSelection_1ade2d14080dc4665c69fd11ff45d6f119" prot="public" virt="non-virtual"><scope>EntityMouseSelection</scope><name>checkVoxelTopSelection</name></member>
+      <member refid="classEntityMouseSelection_1aa2486e108d1fecb9bc1fd5d85445d52d" prot="public" virt="non-virtual"><scope>EntityMouseSelection</scope><name>currentEntitySelected</name></member>
+      <member refid="classEntityMouseSelection_1ad9661aa720d1621cb48ad57c029de35d" prot="public" virt="non-virtual"><scope>EntityMouseSelection</scope><name>drawLockOnTarget</name></member>
+      <member refid="classEntityMouseSelection_1a863c360c49b0d0b394a27390f21caaee" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>entity</name></member>
+      <member refid="classEntityMouseSelection_1ac873622f9bb51d595c308125548d4b0d" prot="public" virt="non-virtual"><scope>EntityMouseSelection</scope><name>EntityMouseSelection</name></member>
+      <member refid="classEntityMouseSelection_1a8d33101bdad10957f40705ba69b7ecce" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>entityX</name></member>
+      <member refid="classEntityMouseSelection_1a7249dd0e7c60fbbc98a1f62b1f692738" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>entityY</name></member>
+      <member refid="classEntityMouseSelection_1a2a891bbd460ed0fc7061ed78869cb104" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>entityZ</name></member>
+      <member refid="classEntityMouseSelection_1ad891c2fdf394d30ee1b5f5b36ca05b9c" prot="public" virt="non-virtual"><scope>EntityMouseSelection</scope><name>isMouseCoordinatesInvalid</name></member>
+      <member refid="classEntityMouseSelection_1a0401f71d2ff257a18f5737ba32a32ac6" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>layerIndex</name></member>
+      <member refid="classEntityMouseSelection_1a7e98d57bee1d2378d336b5fd0a4333c6" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>lockOnTarget</name></member>
+      <member refid="classEntityMouseSelection_1a436b8a4ef7d4dc1a5a332c18837c5541" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>mouseX</name></member>
+      <member refid="classEntityMouseSelection_1aca66f1878eb2036589b7aad7537ec3b4" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>mouseY</name></member>
+      <member refid="classEntityMouseSelection_1ae0fe101dcf5690b49afdf232e7d2962d" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>offsetX</name></member>
+      <member refid="classEntityMouseSelection_1a6f4a1d691916a3bf55dca3969ceeee7a" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>offsetY</name></member>
+      <member refid="classEntityMouseSelection_1a3fdad4b5f8d3dc6404cfcb27a3313696" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>screenX</name></member>
+      <member refid="classEntityMouseSelection_1a44c83f2d3cd7b012b7a2109207702c24" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>screenY</name></member>
+      <member refid="classEntityMouseSelection_1ac4b694350192030e25f9565bab191de0" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>selectedSquareDrawn</name></member>
+      <member refid="classEntityMouseSelection_1ab4c5de522e1ffee30b061de8bd3eb47e" prot="public" virt="non-virtual"><scope>EntityMouseSelection</scope><name>setEntityCoordinates</name></member>
+      <member refid="classEntityMouseSelection_1a25abd6fbf663ec8387c777ca63d02cb8" prot="public" virt="non-virtual"><scope>EntityMouseSelection</scope><name>setSelectionAndDrawHovered</name></member>
+      <member refid="classEntityMouseSelection_1acfa5666b0c01507c45f2ee2cf3fb45f6" prot="private" virt="non-virtual"><scope>EntityMouseSelection</scope><name>TILE_SIZE_ON_SCREEN</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

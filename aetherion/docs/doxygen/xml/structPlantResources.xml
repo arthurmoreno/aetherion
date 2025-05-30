@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structPlantResources" kind="struct" language="C++" prot="public">
+    <compoundname>PlantResources</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structPlantResources_1ab2edd08a6948178deddf53e7b61bccea" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PlantResources::maxEnergy</definition>
+        <argsstring></argsstring>
+        <name>maxEnergy</name>
+        <qualifiedname>PlantResources::maxEnergy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PlantsComponents.hpp" line="12" column="9" bodyfile="src/components/PlantsComponents.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPlantResources_1aa2d144e1c86567270353cbde990cbd07" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PlantResources::currentEnergy</definition>
+        <argsstring></argsstring>
+        <name>currentEnergy</name>
+        <qualifiedname>PlantResources::currentEnergy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PlantsComponents.hpp" line="13" column="9" bodyfile="src/components/PlantsComponents.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPlantResources_1a7d940de42f8347626616cc9000852207" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PlantResources::water</definition>
+        <argsstring></argsstring>
+        <name>water</name>
+        <qualifiedname>PlantResources::water</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PlantsComponents.hpp" line="14" column="11" bodyfile="src/components/PlantsComponents.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPlantResources_1ae9d8a8c900f3683ce0f1679979b40036" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PlantResources::bioMacronutrients</definition>
+        <argsstring></argsstring>
+        <name>bioMacronutrients</name>
+        <qualifiedname>PlantResources::bioMacronutrients</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PlantsComponents.hpp" line="15" column="11" bodyfile="src/components/PlantsComponents.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/PlantsComponents.hpp" line="11" column="1" bodyfile="src/components/PlantsComponents.hpp" bodystart="11" bodyend="16"/>
+    <listofallmembers>
+      <member refid="structPlantResources_1ae9d8a8c900f3683ce0f1679979b40036" prot="public" virt="non-virtual"><scope>PlantResources</scope><name>bioMacronutrients</name></member>
+      <member refid="structPlantResources_1aa2d144e1c86567270353cbde990cbd07" prot="public" virt="non-virtual"><scope>PlantResources</scope><name>currentEnergy</name></member>
+      <member refid="structPlantResources_1ab2edd08a6948178deddf53e7b61bccea" prot="public" virt="non-virtual"><scope>PlantResources</scope><name>maxEnergy</name></member>
+      <member refid="structPlantResources_1a7d940de42f8347626616cc9000852207" prot="public" virt="non-virtual"><scope>PlantResources</scope><name>water</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

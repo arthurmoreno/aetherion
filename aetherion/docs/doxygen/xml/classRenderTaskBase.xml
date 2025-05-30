@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classRenderTaskBase" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>RenderTaskBase</compoundname>
+    <derivedcompoundref refid="classRenderDrawRectTask" prot="public" virt="non-virtual">RenderDrawRectTask</derivedcompoundref>
+    <derivedcompoundref refid="classRenderLineTask" prot="public" virt="non-virtual">RenderLineTask</derivedcompoundref>
+    <derivedcompoundref refid="classRenderRectTask" prot="public" virt="non-virtual">RenderRectTask</derivedcompoundref>
+    <derivedcompoundref refid="classRenderTextTask" prot="public" virt="non-virtual">RenderTextTask</derivedcompoundref>
+    <derivedcompoundref refid="classRenderTextureTask" prot="public" virt="non-virtual">RenderTextureTask</derivedcompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classRenderTaskBase_1afa7ba1f0ab38fc6df88b54bf8f7ac6fa" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RenderTaskBase::z_layer</definition>
+        <argsstring></argsstring>
+        <name>z_layer</name>
+        <qualifiedname>RenderTaskBase::z_layer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="33" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRenderTaskBase_1aba444e27143e746979db33ed1b2ede95" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual RenderTaskBase::~RenderTaskBase</definition>
+        <argsstring>()=default</argsstring>
+        <name>~RenderTaskBase</name>
+        <qualifiedname>RenderTaskBase::~RenderTaskBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="23" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderTaskBase_1aca930dd0177845b4f1c9ecbd3da548a0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void RenderTaskBase::render</definition>
+        <argsstring>(SDL_Renderer *renderer) const =0</argsstring>
+        <name>render</name>
+        <qualifiedname>RenderTaskBase::render</qualifiedname>
+        <reimplementedby refid="classRenderTextureTask_1ac9df250fc7994127fb8ace8de0d62065">render</reimplementedby>
+        <reimplementedby refid="classRenderRectTask_1a45e32291900d153eaf50f4480fa8a715">render</reimplementedby>
+        <reimplementedby refid="classRenderDrawRectTask_1a7acd623eaf04e5b23c41a6160da5ab9d">render</reimplementedby>
+        <reimplementedby refid="classRenderLineTask_1a3425a29411bae6f5690bb3057051c7e0">render</reimplementedby>
+        <reimplementedby refid="classRenderTextTask_1ad70dd9e280194e7de87516df337375f1">render</reimplementedby>
+        <param>
+          <type>SDL_Renderer *</type>
+          <declname>renderer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="26" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderTaskBase_1a87f842d1663de2935efc9dfee89553e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void RenderTaskBase::setZLayer</definition>
+        <argsstring>(int z)</argsstring>
+        <name>setZLayer</name>
+        <qualifiedname>RenderTaskBase::setZLayer</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="29" column="18" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="29" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderTaskBase_1a083109259e992a8b0b759fdbcdc24cf8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int</type>
+        <definition>virtual int RenderTaskBase::getZLayer</definition>
+        <argsstring>() const</argsstring>
+        <name>getZLayer</name>
+        <qualifiedname>RenderTaskBase::getZLayer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="30" column="17" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="30" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>RenderDrawRectTask</label>
+        <link refid="classRenderDrawRectTask"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>RenderLineTask</label>
+        <link refid="classRenderLineTask"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>RenderRectTask</label>
+        <link refid="classRenderRectTask"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+      <node id="5">
+        <label>RenderTextTask</label>
+        <link refid="classRenderTextTask"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>RenderTextureTask</label>
+        <link refid="classRenderTextureTask"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="21" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="21" bodyend="34"/>
+    <listofallmembers>
+      <member refid="classRenderTaskBase_1a083109259e992a8b0b759fdbcdc24cf8" prot="public" virt="virtual"><scope>RenderTaskBase</scope><name>getZLayer</name></member>
+      <member refid="classRenderTaskBase_1aca930dd0177845b4f1c9ecbd3da548a0" prot="public" virt="pure-virtual"><scope>RenderTaskBase</scope><name>render</name></member>
+      <member refid="classRenderTaskBase_1a87f842d1663de2935efc9dfee89553e8" prot="public" virt="virtual"><scope>RenderTaskBase</scope><name>setZLayer</name></member>
+      <member refid="classRenderTaskBase_1afa7ba1f0ab38fc6df88b54bf8f7ac6fa" prot="protected" virt="non-virtual"><scope>RenderTaskBase</scope><name>z_layer</name></member>
+      <member refid="classRenderTaskBase_1aba444e27143e746979db33ed1b2ede95" prot="public" virt="virtual"><scope>RenderTaskBase</scope><name>~RenderTaskBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

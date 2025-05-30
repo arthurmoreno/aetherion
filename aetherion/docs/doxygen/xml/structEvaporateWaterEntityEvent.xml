@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structEvaporateWaterEntityEvent" kind="struct" language="C++" prot="public">
+    <compoundname>EvaporateWaterEntityEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structEvaporateWaterEntityEvent_1a2ec1c472e5c71604aae40091ca1ce6b1" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity EvaporateWaterEntityEvent::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>EvaporateWaterEntityEvent::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="38" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structEvaporateWaterEntityEvent_1adf535c1a11a65675c012ccc6a9c52a44" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float EvaporateWaterEntityEvent::sunIntensity</definition>
+        <argsstring></argsstring>
+        <name>sunIntensity</name>
+        <qualifiedname>EvaporateWaterEntityEvent::sunIntensity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="39" column="11" bodyfile="src/EcosystemEngine.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structEvaporateWaterEntityEvent_1add8b6a48c195ae3835a30d395e4f5ebe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EvaporateWaterEntityEvent::EvaporateWaterEntityEvent</definition>
+        <argsstring>(entt::entity entity, float sunIntensity)</argsstring>
+        <name>EvaporateWaterEntityEvent</name>
+        <qualifiedname>EvaporateWaterEntityEvent::EvaporateWaterEntityEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sunIntensity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="41" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="41" bodyend="42"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="37" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="37" bodyend="43"/>
+    <listofallmembers>
+      <member refid="structEvaporateWaterEntityEvent_1a2ec1c472e5c71604aae40091ca1ce6b1" prot="public" virt="non-virtual"><scope>EvaporateWaterEntityEvent</scope><name>entity</name></member>
+      <member refid="structEvaporateWaterEntityEvent_1add8b6a48c195ae3835a30d395e4f5ebe" prot="public" virt="non-virtual"><scope>EvaporateWaterEntityEvent</scope><name>EvaporateWaterEntityEvent</name></member>
+      <member refid="structEvaporateWaterEntityEvent_1adf535c1a11a65675c012ccc6a9c52a44" prot="public" virt="non-virtual"><scope>EvaporateWaterEntityEvent</scope><name>sunIntensity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structKillEntityEvent" kind="struct" language="C++" prot="public">
+    <compoundname>KillEntityEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structKillEntityEvent_1abe73d7b4488eff439e1e0a1321366c21" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity KillEntityEvent::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>KillEntityEvent::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="18" column="18" bodyfile="src/LifeEvents.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structKillEntityEvent_1a9cfa5143ade5686de50ea9d24c0cb678" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool KillEntityEvent::softKill</definition>
+        <argsstring></argsstring>
+        <name>softKill</name>
+        <qualifiedname>KillEntityEvent::softKill</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="19" column="10" bodyfile="src/LifeEvents.hpp" bodystart="19" bodyend="19"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structKillEntityEvent_1a3cbcc0864d7a1e28f54c59b125a279d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>KillEntityEvent::KillEntityEvent</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>KillEntityEvent</name>
+        <qualifiedname>KillEntityEvent::KillEntityEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="21" column="5" bodyfile="src/LifeEvents.hpp" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="structKillEntityEvent_1affd685e22e645611e18828e69aa49ae5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>KillEntityEvent::KillEntityEvent</definition>
+        <argsstring>(entt::entity entity, bool softKill)</argsstring>
+        <name>KillEntityEvent</name>
+        <qualifiedname>KillEntityEvent::KillEntityEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>softKill</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="23" column="5" bodyfile="src/LifeEvents.hpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/LifeEvents.hpp" line="17" column="1" bodyfile="src/LifeEvents.hpp" bodystart="17" bodyend="24"/>
+    <listofallmembers>
+      <member refid="structKillEntityEvent_1abe73d7b4488eff439e1e0a1321366c21" prot="public" virt="non-virtual"><scope>KillEntityEvent</scope><name>entity</name></member>
+      <member refid="structKillEntityEvent_1a3cbcc0864d7a1e28f54c59b125a279d5" prot="public" virt="non-virtual"><scope>KillEntityEvent</scope><name>KillEntityEvent</name></member>
+      <member refid="structKillEntityEvent_1affd685e22e645611e18828e69aa49ae5" prot="public" virt="non-virtual"><scope>KillEntityEvent</scope><name>KillEntityEvent</name></member>
+      <member refid="structKillEntityEvent_1a9cfa5143ade5686de50ea9d24c0cb678" prot="public" virt="non-virtual"><scope>KillEntityEvent</scope><name>softKill</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

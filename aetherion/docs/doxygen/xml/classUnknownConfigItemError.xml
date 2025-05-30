@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classUnknownConfigItemError" kind="class" language="C++" prot="public">
+    <compoundname>UnknownConfigItemError</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::runtime_error</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classUnknownConfigItemError_1abd95217e43ee07e7e5ac6eab38e94b32" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UnknownConfigItemError::UnknownConfigItemError</definition>
+        <argsstring>(const std::string &amp;msg)</argsstring>
+        <name>UnknownConfigItemError</name>
+        <qualifiedname>UnknownConfigItemError::UnknownConfigItemError</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="16" column="14" bodyfile="src/neat/config.hpp" bodystart="16" bodyend="16"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>UnknownConfigItemError</label>
+        <link refid="classUnknownConfigItemError"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::runtime_error</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>UnknownConfigItemError</label>
+        <link refid="classUnknownConfigItemError"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::runtime_error</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/neat/config.hpp" line="14" column="1" bodyfile="src/neat/config.hpp" bodystart="14" bodyend="17"/>
+    <listofallmembers>
+      <member refid="classUnknownConfigItemError_1abd95217e43ee07e7e5ac6eab38e94b32" prot="public" virt="non-virtual"><scope>UnknownConfigItemError</scope><name>UnknownConfigItemError</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

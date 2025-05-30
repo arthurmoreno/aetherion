@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classCombatSystem" kind="class" language="C++" prot="public">
+    <compoundname>CombatSystem</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classCombatSystem_1a7fd3620a59733244b83c696c6394a022" prot="private" static="no" mutable="no">
+        <type>entt::registry &amp;</type>
+        <definition>entt::registry&amp; CombatSystem::registry</definition>
+        <argsstring></argsstring>
+        <name>registry</name>
+        <qualifiedname>CombatSystem::registry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CombatSystem.hpp" line="29" column="20" bodyfile="src/CombatSystem.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCombatSystem_1ac3ae26f06da65102cc954a57242fa81a" prot="private" static="no" mutable="no">
+        <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+        <definition>VoxelGrid* CombatSystem::voxelGrid</definition>
+        <argsstring></argsstring>
+        <name>voxelGrid</name>
+        <qualifiedname>CombatSystem::voxelGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CombatSystem.hpp" line="30" column="15" bodyfile="src/CombatSystem.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCombatSystem_1ae48ad477a7eb1b2886ba51134844612b" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex CombatSystem::combatMutex</definition>
+        <argsstring></argsstring>
+        <name>combatMutex</name>
+        <qualifiedname>CombatSystem::combatMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CombatSystem.hpp" line="33" column="16" bodyfile="src/CombatSystem.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCombatSystem_1afe2aaaa2e97026c489e6ddcd64fc26f7" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CombatSystem::processingComplete</definition>
+        <argsstring></argsstring>
+        <name>processingComplete</name>
+        <qualifiedname>CombatSystem::processingComplete</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CombatSystem.hpp" line="34" column="10" bodyfile="src/CombatSystem.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCombatSystem_1a0da0bd865fade89c998a9562c7b4a681" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CombatSystem::CombatSystem</definition>
+        <argsstring>()=default</argsstring>
+        <name>CombatSystem</name>
+        <qualifiedname>CombatSystem::CombatSystem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CombatSystem.hpp" line="15" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classCombatSystem_1ad46f9bb8554d5c3cafd75b561f648302" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CombatSystem::CombatSystem</definition>
+        <argsstring>(entt::registry &amp;reg, VoxelGrid *voxelGrid)</argsstring>
+        <name>CombatSystem</name>
+        <qualifiedname>CombatSystem::CombatSystem</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CombatSystem.hpp" line="16" column="5" bodyfile="src/CombatSystem.hpp" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classCombatSystem_1ae90dd7d7714862a82a1a799a2683bcdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CombatSystem::processCombat</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid)</argsstring>
+        <name>processCombat</name>
+        <qualifiedname>CombatSystem::processCombat</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CombatSystem.hpp" line="19" column="10" bodyfile="src/CombatSystem.cpp" bodystart="4" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classCombatSystem_1aa253b68a047f5c94ee8c64cc86401069" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CombatSystem::processCombatAsync</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>processCombatAsync</name>
+        <qualifiedname>CombatSystem::processCombatAsync</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CombatSystem.hpp" line="20" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classCombatSystem_1adff02bbc0894d2045be31666b6f25ec7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CombatSystem::registerEventHandlers</definition>
+        <argsstring>(entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>registerEventHandlers</name>
+        <qualifiedname>CombatSystem::registerEventHandlers</qualifiedname>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CombatSystem.hpp" line="24" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classCombatSystem_1a2996825707308e5641d61c7ad5d2bb97" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CombatSystem::isProcessingComplete</definition>
+        <argsstring>() const</argsstring>
+        <name>isProcessingComplete</name>
+        <qualifiedname>CombatSystem::isProcessingComplete</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CombatSystem.hpp" line="26" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/CombatSystem.hpp" line="13" column="1" bodyfile="src/CombatSystem.hpp" bodystart="13" bodyend="35"/>
+    <listofallmembers>
+      <member refid="classCombatSystem_1ae48ad477a7eb1b2886ba51134844612b" prot="private" virt="non-virtual"><scope>CombatSystem</scope><name>combatMutex</name></member>
+      <member refid="classCombatSystem_1a0da0bd865fade89c998a9562c7b4a681" prot="public" virt="non-virtual"><scope>CombatSystem</scope><name>CombatSystem</name></member>
+      <member refid="classCombatSystem_1ad46f9bb8554d5c3cafd75b561f648302" prot="public" virt="non-virtual"><scope>CombatSystem</scope><name>CombatSystem</name></member>
+      <member refid="classCombatSystem_1a2996825707308e5641d61c7ad5d2bb97" prot="public" virt="non-virtual"><scope>CombatSystem</scope><name>isProcessingComplete</name></member>
+      <member refid="classCombatSystem_1ae90dd7d7714862a82a1a799a2683bcdf" prot="public" virt="non-virtual"><scope>CombatSystem</scope><name>processCombat</name></member>
+      <member refid="classCombatSystem_1aa253b68a047f5c94ee8c64cc86401069" prot="public" virt="non-virtual"><scope>CombatSystem</scope><name>processCombatAsync</name></member>
+      <member refid="classCombatSystem_1afe2aaaa2e97026c489e6ddcd64fc26f7" prot="private" virt="non-virtual"><scope>CombatSystem</scope><name>processingComplete</name></member>
+      <member refid="classCombatSystem_1adff02bbc0894d2045be31666b6f25ec7" prot="public" virt="non-virtual"><scope>CombatSystem</scope><name>registerEventHandlers</name></member>
+      <member refid="classCombatSystem_1a7fd3620a59733244b83c696c6394a022" prot="private" virt="non-virtual"><scope>CombatSystem</scope><name>registry</name></member>
+      <member refid="classCombatSystem_1ac3ae26f06da65102cc954a57242fa81a" prot="private" virt="non-virtual"><scope>CombatSystem</scope><name>voxelGrid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

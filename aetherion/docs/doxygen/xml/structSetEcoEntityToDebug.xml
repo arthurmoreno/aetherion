@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structSetEcoEntityToDebug" kind="struct" language="C++" prot="public">
+    <compoundname>SetEcoEntityToDebug</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structSetEcoEntityToDebug_1a3a91ad72701a6026d628ce7502b9ef2e" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity SetEcoEntityToDebug::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>SetEcoEntityToDebug::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="24" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structSetEcoEntityToDebug_1a69c115992230505985478aa2b453d122" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SetEcoEntityToDebug::SetEcoEntityToDebug</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>SetEcoEntityToDebug</name>
+        <qualifiedname>SetEcoEntityToDebug::SetEcoEntityToDebug</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="26" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="26" bodyend="26"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="23" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="23" bodyend="27"/>
+    <listofallmembers>
+      <member refid="structSetEcoEntityToDebug_1a3a91ad72701a6026d628ce7502b9ef2e" prot="public" virt="non-virtual"><scope>SetEcoEntityToDebug</scope><name>entity</name></member>
+      <member refid="structSetEcoEntityToDebug_1a69c115992230505985478aa2b453d122" prot="public" virt="non-virtual"><scope>SetEcoEntityToDebug</scope><name>SetEcoEntityToDebug</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structInventory" kind="struct" language="C++" prot="public">
+    <compoundname>Inventory</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structInventory_1a41257c087c0c0bed652e505bb8836505" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; Inventory::itemIDs</definition>
+        <argsstring></argsstring>
+        <name>itemIDs</name>
+        <qualifiedname>Inventory::itemIDs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="47" column="17" bodyfile="src/components/ItemsComponents.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structInventory_1a0b2dbcd02eaa66c6eddfc2925f8fae28" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Inventory::maxItems</definition>
+        <argsstring></argsstring>
+        <name>maxItems</name>
+        <qualifiedname>Inventory::maxItems</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="48" column="9" bodyfile="src/components/ItemsComponents.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structInventory_1afb23817d86b8b0afa9d3724e94bfd16d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Inventory::addItem</definition>
+        <argsstring>(int itemID)</argsstring>
+        <name>addItem</name>
+        <qualifiedname>Inventory::addItem</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>itemID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="50" column="9" bodyfile="src/components/ItemsComponents.cpp" bodystart="21" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1aa60b2be349051dd4d204c4352ec69e16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Inventory::addItemInSlot</definition>
+        <argsstring>(int itemID, int slot)</argsstring>
+        <name>addItemInSlot</name>
+        <qualifiedname>Inventory::addItemInSlot</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>itemID</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>slot</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="51" column="10" bodyfile="src/components/ItemsComponents.cpp" bodystart="39" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1a9dab35ef695408df54ead1a8069e44b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Inventory::popItem</definition>
+        <argsstring>()</argsstring>
+        <name>popItem</name>
+        <qualifiedname>Inventory::popItem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="53" column="9" bodyfile="src/components/ItemsComponents.cpp" bodystart="52" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1a43cf8590403ecebed82f324b06bc22b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Inventory::removeItemById</definition>
+        <argsstring>(int itemID)</argsstring>
+        <name>removeItemById</name>
+        <qualifiedname>Inventory::removeItemById</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>itemID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="54" column="10" bodyfile="src/components/ItemsComponents.cpp" bodystart="60" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1acfab7559aef30514caecf8b788e9a865" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Inventory::removeItemBySlot</definition>
+        <argsstring>(int slot)</argsstring>
+        <name>removeItemBySlot</name>
+        <qualifiedname>Inventory::removeItemBySlot</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>slot</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="55" column="9" bodyfile="src/components/ItemsComponents.cpp" bodystart="70" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1ab3b3e15f189ce342d6612ccd400df876" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Inventory::swapItems</definition>
+        <argsstring>(int slot1, int slot2)</argsstring>
+        <name>swapItems</name>
+        <qualifiedname>Inventory::swapItems</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>slot1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>slot2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="57" column="10" bodyfile="src/components/ItemsComponents.cpp" bodystart="85" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1ae64c114e81d5ee14653161f425510a26" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Inventory::isFull</definition>
+        <argsstring>() const</argsstring>
+        <name>isFull</name>
+        <qualifiedname>Inventory::isFull</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="59" column="10" bodyfile="src/components/ItemsComponents.cpp" bodystart="95" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1a42bcc644f45886493adee7aa7a8a00b3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Inventory::isEmpty</definition>
+        <argsstring>() const</argsstring>
+        <name>isEmpty</name>
+        <qualifiedname>Inventory::isEmpty</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="60" column="10" bodyfile="src/components/ItemsComponents.cpp" bodystart="101" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1a6d80f7d2dfcd6596b7782d10515cf4a9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Inventory::getItem</definition>
+        <argsstring>(int slot) const</argsstring>
+        <name>getItem</name>
+        <qualifiedname>Inventory::getItem</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>slot</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="62" column="9" bodyfile="src/components/ItemsComponents.cpp" bodystart="106" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1ab6c07c2be5014811265f7c82cccbf646" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Inventory::currentItemCount</definition>
+        <argsstring>() const</argsstring>
+        <name>currentItemCount</name>
+        <qualifiedname>Inventory::currentItemCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="64" column="9" bodyfile="src/components/ItemsComponents.cpp" bodystart="115" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1a324eaf3be1a1ac23667c7376c5391d77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Inventory::resizeInventory</definition>
+        <argsstring>(int newSize)</argsstring>
+        <name>resizeInventory</name>
+        <qualifiedname>Inventory::resizeInventory</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>newSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="66" column="10" bodyfile="src/components/ItemsComponents.cpp" bodystart="120" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1ad2d9e47c395e46569be0a57002901251" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Inventory::clearInventory</definition>
+        <argsstring>()</argsstring>
+        <name>clearInventory</name>
+        <qualifiedname>Inventory::clearInventory</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="68" column="10" bodyfile="src/components/ItemsComponents.cpp" bodystart="136" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="structInventory_1a847054b615ee8ff0d209f7b85c431038" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Inventory::printInventory</definition>
+        <argsstring>() const</argsstring>
+        <name>printInventory</name>
+        <qualifiedname>Inventory::printInventory</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="69" column="10" bodyfile="src/components/ItemsComponents.cpp" bodystart="139" bodyend="147"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/ItemsComponents.hpp" line="46" column="1" bodyfile="src/components/ItemsComponents.hpp" bodystart="46" bodyend="70"/>
+    <listofallmembers>
+      <member refid="structInventory_1afb23817d86b8b0afa9d3724e94bfd16d" prot="public" virt="non-virtual"><scope>Inventory</scope><name>addItem</name></member>
+      <member refid="structInventory_1aa60b2be349051dd4d204c4352ec69e16" prot="public" virt="non-virtual"><scope>Inventory</scope><name>addItemInSlot</name></member>
+      <member refid="structInventory_1ad2d9e47c395e46569be0a57002901251" prot="public" virt="non-virtual"><scope>Inventory</scope><name>clearInventory</name></member>
+      <member refid="structInventory_1ab6c07c2be5014811265f7c82cccbf646" prot="public" virt="non-virtual"><scope>Inventory</scope><name>currentItemCount</name></member>
+      <member refid="structInventory_1a6d80f7d2dfcd6596b7782d10515cf4a9" prot="public" virt="non-virtual"><scope>Inventory</scope><name>getItem</name></member>
+      <member refid="structInventory_1a42bcc644f45886493adee7aa7a8a00b3" prot="public" virt="non-virtual"><scope>Inventory</scope><name>isEmpty</name></member>
+      <member refid="structInventory_1ae64c114e81d5ee14653161f425510a26" prot="public" virt="non-virtual"><scope>Inventory</scope><name>isFull</name></member>
+      <member refid="structInventory_1a41257c087c0c0bed652e505bb8836505" prot="public" virt="non-virtual"><scope>Inventory</scope><name>itemIDs</name></member>
+      <member refid="structInventory_1a0b2dbcd02eaa66c6eddfc2925f8fae28" prot="public" virt="non-virtual"><scope>Inventory</scope><name>maxItems</name></member>
+      <member refid="structInventory_1a9dab35ef695408df54ead1a8069e44b4" prot="public" virt="non-virtual"><scope>Inventory</scope><name>popItem</name></member>
+      <member refid="structInventory_1a847054b615ee8ff0d209f7b85c431038" prot="public" virt="non-virtual"><scope>Inventory</scope><name>printInventory</name></member>
+      <member refid="structInventory_1a43cf8590403ecebed82f324b06bc22b9" prot="public" virt="non-virtual"><scope>Inventory</scope><name>removeItemById</name></member>
+      <member refid="structInventory_1acfab7559aef30514caecf8b788e9a865" prot="public" virt="non-virtual"><scope>Inventory</scope><name>removeItemBySlot</name></member>
+      <member refid="structInventory_1a324eaf3be1a1ac23667c7376c5391d77" prot="public" virt="non-virtual"><scope>Inventory</scope><name>resizeInventory</name></member>
+      <member refid="structInventory_1ab3b3e15f189ce342d6612ccd400df876" prot="public" virt="non-virtual"><scope>Inventory</scope><name>swapItems</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classConfig" kind="class" language="C++" prot="public">
+    <compoundname>Config</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename GenomeType</type>
+      </param>
+      <param>
+        <type>typename ReproductionType</type>
+      </param>
+      <param>
+        <type>typename SpeciesSetType</type>
+      </param>
+      <param>
+        <type>typename StagnationType</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classConfig_1a6d2005cfe987a37cd8fd9227cc2e3a82" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::pop_size</definition>
+        <argsstring></argsstring>
+        <name>pop_size</name>
+        <qualifiedname>Config::pop_size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="238" column="9" bodyfile="src/neat/config.hpp" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfig_1acbddb35868ac2fde2aa09baf5c1fda04" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::fitness_criterion</definition>
+        <argsstring></argsstring>
+        <name>fitness_criterion</name>
+        <qualifiedname>Config::fitness_criterion</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="239" column="17" bodyfile="src/neat/config.hpp" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfig_1ae5eb553954739052b6c5945ce8dcc1d6" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::fitness_threshold</definition>
+        <argsstring></argsstring>
+        <name>fitness_threshold</name>
+        <qualifiedname>Config::fitness_threshold</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="240" column="12" bodyfile="src/neat/config.hpp" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfig_1a1adb77ca4a3cd5a3e3fe22d670e6a705" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::reset_on_extinction</definition>
+        <argsstring></argsstring>
+        <name>reset_on_extinction</name>
+        <qualifiedname>Config::reset_on_extinction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="241" column="10" bodyfile="src/neat/config.hpp" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfig_1a1087e7c1996d9f15dcaee6d2b1c4fe40" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::no_fitness_termination</definition>
+        <argsstring></argsstring>
+        <name>no_fitness_termination</name>
+        <qualifiedname>Config::no_fitness_termination</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="242" column="10" bodyfile="src/neat/config.hpp" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfig_1ac9b6d99cca47340c91d49c27ccebedee" prot="public" static="no" mutable="no">
+        <type>GenomeType::ConfigType</type>
+        <definition>GenomeType::ConfigType Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::genome_config</definition>
+        <argsstring></argsstring>
+        <name>genome_config</name>
+        <qualifiedname>Config::genome_config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="245" column="37" bodyfile="src/neat/config.hpp" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfig_1a55c59feb9758c673020f4ca4c4a2ee1e" prot="public" static="no" mutable="no">
+        <type>SpeciesSetType::ConfigType</type>
+        <definition>SpeciesSetType::ConfigType Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::species_set_config</definition>
+        <argsstring></argsstring>
+        <name>species_set_config</name>
+        <qualifiedname>Config::species_set_config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="246" column="41" bodyfile="src/neat/config.hpp" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfig_1a856febd5f3878b24e6ad77fb764f5955" prot="public" static="no" mutable="no">
+        <type>StagnationType::ConfigType</type>
+        <definition>StagnationType::ConfigType Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::stagnation_config</definition>
+        <argsstring></argsstring>
+        <name>stagnation_config</name>
+        <qualifiedname>Config::stagnation_config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="247" column="41" bodyfile="src/neat/config.hpp" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classConfig_1a7b979d88de4e914151327d74f0989078" prot="public" static="no" mutable="no">
+        <type>ReproductionType::ConfigType</type>
+        <definition>ReproductionType::ConfigType Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::reproduction_config</definition>
+        <argsstring></argsstring>
+        <name>reproduction_config</name>
+        <qualifiedname>Config::reproduction_config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="248" column="43" bodyfile="src/neat/config.hpp" bodystart="248" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classConfig_1aabc173c910ed455f9546ea665e48ea98" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::Config</definition>
+        <argsstring>(const std::string &amp;filename)</argsstring>
+        <name>Config</name>
+        <qualifiedname>Config::Config</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="251" column="5" bodyfile="src/neat/config.hpp" bodystart="251" bodyend="314"/>
+      </memberdef>
+      <memberdef kind="function" id="classConfig_1afb465b6d0e57d06feb21cf68cb01b31a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Config&lt; GenomeType, ReproductionType, SpeciesSetType, StagnationType &gt;::save</definition>
+        <argsstring>(const std::string &amp;filename) const</argsstring>
+        <name>save</name>
+        <qualifiedname>Config::save</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/config.hpp" line="317" column="10" bodyfile="src/neat/config.hpp" bodystart="317" bodyend="343"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/neat/config.hpp" line="235" column="1" bodyfile="src/neat/config.hpp" bodystart="235" bodyend="344"/>
+    <listofallmembers>
+      <member refid="classConfig_1aabc173c910ed455f9546ea665e48ea98" prot="public" virt="non-virtual"><scope>Config</scope><name>Config</name></member>
+      <member refid="classConfig_1acbddb35868ac2fde2aa09baf5c1fda04" prot="public" virt="non-virtual"><scope>Config</scope><name>fitness_criterion</name></member>
+      <member refid="classConfig_1ae5eb553954739052b6c5945ce8dcc1d6" prot="public" virt="non-virtual"><scope>Config</scope><name>fitness_threshold</name></member>
+      <member refid="classConfig_1ac9b6d99cca47340c91d49c27ccebedee" prot="public" virt="non-virtual"><scope>Config</scope><name>genome_config</name></member>
+      <member refid="classConfig_1a1087e7c1996d9f15dcaee6d2b1c4fe40" prot="public" virt="non-virtual"><scope>Config</scope><name>no_fitness_termination</name></member>
+      <member refid="classConfig_1a6d2005cfe987a37cd8fd9227cc2e3a82" prot="public" virt="non-virtual"><scope>Config</scope><name>pop_size</name></member>
+      <member refid="classConfig_1a7b979d88de4e914151327d74f0989078" prot="public" virt="non-virtual"><scope>Config</scope><name>reproduction_config</name></member>
+      <member refid="classConfig_1a1adb77ca4a3cd5a3e3fe22d670e6a705" prot="public" virt="non-virtual"><scope>Config</scope><name>reset_on_extinction</name></member>
+      <member refid="classConfig_1afb465b6d0e57d06feb21cf68cb01b31a" prot="public" virt="non-virtual"><scope>Config</scope><name>save</name></member>
+      <member refid="classConfig_1a55c59feb9758c673020f4ca4c4a2ee1e" prot="public" virt="non-virtual"><scope>Config</scope><name>species_set_config</name></member>
+      <member refid="classConfig_1a856febd5f3878b24e6ad77fb764f5955" prot="public" virt="non-virtual"><scope>Config</scope><name>stagnation_config</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

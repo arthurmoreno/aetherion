@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_f292a226b1f5babe6c8057a2f2064fd5" kind="dir">
+    <compoundname>src/LowLevelRenderer</compoundname>
+    <innerfile refid="FontManager_8hpp">FontManager.hpp</innerfile>
+    <innerfile refid="RenderQueue_8hpp">RenderQueue.hpp</innerfile>
+    <innerfile refid="TextureManager_8cpp">TextureManager.cpp</innerfile>
+    <innerfile refid="TextureManager_8hpp">TextureManager.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/LowLevelRenderer/"/>
+  </compounddef>
+</doxygen>

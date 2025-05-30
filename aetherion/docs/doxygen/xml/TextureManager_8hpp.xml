@@ -1,0 +1,327 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="TextureManager_8hpp" kind="file" language="C++">
+    <compoundname>TextureManager.hpp</compoundname>
+    <includes local="no">SDL2/SDL.h</includes>
+    <includes local="no">SDL2/SDL_image.h</includes>
+    <includes local="no">nanobind/nanobind.h</includes>
+    <includes local="no">functional</includes>
+    <includes local="no">map</includes>
+    <includes local="no">string</includes>
+    <includes local="no">unordered_map</includes>
+    <includedby refid="Gui_8cpp" local="yes">src/Gui/Gui.cpp</includedby>
+    <includedby refid="ItemWindow_8cpp" local="yes">src/Gui/ItemWindow.cpp</includedby>
+    <includedby refid="RenderQueue_8hpp" local="yes">src/LowLevelRenderer/RenderQueue.hpp</includedby>
+    <includedby refid="TextureManager_8cpp" local="yes">src/LowLevelRenderer/TextureManager.cpp</includedby>
+    <includedby refid="aetherion_8hpp" local="yes">src/aetherion.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/LowLevelRenderer/TextureManager.hpp</label>
+        <link refid="TextureManager_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>SDL2/SDL.h</label>
+      </node>
+      <node id="3">
+        <label>SDL2/SDL_image.h</label>
+      </node>
+      <node id="5">
+        <label>functional</label>
+      </node>
+      <node id="6">
+        <label>map</label>
+      </node>
+      <node id="4">
+        <label>nanobind/nanobind.h</label>
+      </node>
+      <node id="7">
+        <label>string</label>
+      </node>
+      <node id="8">
+        <label>unordered_map</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>src/CameraUtils.hpp</label>
+        <link refid="CameraUtils_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/LowLevelRenderer/RenderQueue.hpp</label>
+        <link refid="RenderQueue_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/LowLevelRenderer/TextureManager.hpp</label>
+        <link refid="TextureManager_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/aetherion.hpp</label>
+        <link refid="aetherion_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classTextureManager" prot="public">TextureManager</innerclass>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="TextureManager_8hpp_1a36ecea3070424fd7bbf3d3c0fddfdc03" prot="public" static="no">
+        <type><ref refid="classTextureManager" kindref="compound">TextureManager</ref></type>
+        <definition>typedef TextureManager TheTextureManager</definition>
+        <argsstring></argsstring>
+        <name>TheTextureManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="67" column="24" bodyfile="src/LowLevelRenderer/TextureManager.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="TextureManager_8hpp_1a45aa423e6431ecf82105eb97fb6a1a8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uintptr_t</type>
+        <definition>uintptr_t load_texture</definition>
+        <argsstring>(uintptr_t renderer_ptr, const std::string &amp;image_path)</argsstring>
+        <name>load_texture</name>
+        <param>
+          <type>uintptr_t</type>
+          <declname>renderer_ptr</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>image_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="21" column="11" bodyfile="src/LowLevelRenderer/TextureManager.cpp" bodystart="6" bodyend="25" declfile="src/LowLevelRenderer/TextureManager.hpp" declline="21" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="TextureManager_8hpp_1a220cc15901da90ac346fdc3d30cc562a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void render_texture</definition>
+        <argsstring>(uintptr_t renderer_ptr, uintptr_t texture_ptr, int x, int y)</argsstring>
+        <name>render_texture</name>
+        <param>
+          <type>uintptr_t</type>
+          <declname>renderer_ptr</declname>
+        </param>
+        <param>
+          <type>uintptr_t</type>
+          <declname>texture_ptr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="24" column="6" bodyfile="src/LowLevelRenderer/TextureManager.cpp" bodystart="28" bodyend="45" declfile="src/LowLevelRenderer/TextureManager.hpp" declline="24" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="TextureManager_8hpp_1a5636974b2013df68e1c9463b148cd8f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void destroy_texture</definition>
+        <argsstring>(uintptr_t texture_ptr)</argsstring>
+        <name>destroy_texture</name>
+        <param>
+          <type>uintptr_t</type>
+          <declname>texture_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="27" column="6" bodyfile="src/LowLevelRenderer/TextureManager.cpp" bodystart="48" bodyend="51" declfile="src/LowLevelRenderer/TextureManager.hpp" declline="27" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="TextureManager_8hpp_1a5d8cf879afa071b01caffd08bfda575c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void loadTextureOnManager</definition>
+        <argsstring>(uintptr_t renderer_ptr, const std::string &amp;imagePath, const std::string &amp;id, int newWidth, int newHeight)</argsstring>
+        <name>loadTextureOnManager</name>
+        <param>
+          <type>uintptr_t</type>
+          <declname>renderer_ptr</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>imagePath</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>newWidth</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>newHeight</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="31" column="6" bodyfile="src/LowLevelRenderer/TextureManager.cpp" bodystart="53" bodyend="58" declfile="src/LowLevelRenderer/TextureManager.hpp" declline="31" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="TextureManager_8hpp_1a494e3433d5d85b0bebfb84fd9e10b09c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void renderTextureFromManager</definition>
+        <argsstring>(uintptr_t renderer_ptr, const std::string &amp;id, int x, int y)</argsstring>
+        <name>renderTextureFromManager</name>
+        <param>
+          <type>uintptr_t</type>
+          <declname>renderer_ptr</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="34" column="6" bodyfile="src/LowLevelRenderer/TextureManager.cpp" bodystart="60" bodyend="78" declfile="src/LowLevelRenderer/TextureManager.hpp" declline="34" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="TextureManager_8hpp_1ad6e01a6f1e13794b324a3bfdba2c8555" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>SDL_Texture *</type>
+        <definition>SDL_Texture * getTextureFromManager</definition>
+        <argsstring>(const std::string &amp;id)</argsstring>
+        <name>getTextureFromManager</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/TextureManager.hpp" line="36" column="13" bodyfile="src/LowLevelRenderer/TextureManager.cpp" bodystart="80" bodyend="92" declfile="src/LowLevelRenderer/TextureManager.hpp" declline="36" declcolumn="13"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>__TextureManager__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>__TextureManager__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;SDL2/SDL.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;SDL2/SDL_image.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&lt;imgui/backends/imgui_impl_sdl2.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&lt;imgui/backends/imgui_impl_sdlrenderer2.h&gt;<sp/><sp/>//<sp/>Updated<sp/>backend<sp/>header</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&lt;imgui/imgui.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;nanobind/nanobind.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;functional&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unordered_map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&quot;World.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">nb<sp/>=<sp/>nanobind;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Function<sp/>to<sp/>load<sp/>an<sp/>image<sp/>and<sp/>create<sp/>a<sp/>texture</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">uintptr_t<sp/>load_texture(uintptr_t<sp/>renderer_ptr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>image_path);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Function<sp/>to<sp/>render<sp/>the<sp/>texture</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>render_texture(uintptr_t<sp/>renderer_ptr,<sp/>uintptr_t<sp/>texture_ptr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Function<sp/>to<sp/>destroy<sp/>the<sp/>texture</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>destroy_texture(uintptr_t<sp/>texture_ptr);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/>typedef<sp/>TextureManager<sp/>TheTextureManager;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>loadTextureOnManager(uintptr_t<sp/>renderer_ptr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>imagePath,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>newWidth,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>newHeight);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>renderTextureFromManager(uintptr_t<sp/>renderer_ptr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">SDL_Texture*<sp/>getTextureFromManager(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="classTextureManager" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classTextureManager" kindref="compound">TextureManager</ref><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Meyer&apos;s<sp/>Singleton<sp/>pattern<sp/>-<sp/>thread-safe<sp/>in<sp/>C++11<sp/>and<sp/>later</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classTextureManager" kindref="compound">TextureManager</ref>*<sp/>Instance()<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classTextureManager" kindref="compound">TextureManager</ref><sp/>instance;<sp/><sp/></highlight><highlight class="comment">//<sp/>Guaranteed<sp/>to<sp/>be<sp/>initialized<sp/>only<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;instance;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>load(std::string<sp/>fileName,<sp/>std::string<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/>SDL_Renderer*<sp/>pRenderer,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>newWidth,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>newHeight);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>draw(std::string<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>width,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>height,<sp/>SDL_Renderer*<sp/>pRenderer,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SDL_RendererFlip<sp/>flip<sp/>=<sp/>SDL_FLIP_NONE);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_Texture*<sp/>getTexture(std::string<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>void<sp/>drawFrame(std::string<sp/>id,<sp/>int<sp/>x,<sp/>int<sp/>y,<sp/>int<sp/>width,<sp/>int<sp/>height,<sp/>int<sp/>currentRow,<sp/>int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>currentFrame,<sp/>SDL_Renderer<sp/>*pRenderer,<sp/>SDL_RendererFlip<sp/>flip<sp/>=<sp/>SDL_FLIP_NONE);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>std::map&lt;std::string,<sp/>SDL_Texture*&gt;<sp/>m_textureMap;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Private<sp/>constructor<sp/>and<sp/>destructor<sp/>for<sp/>singleton<sp/>pattern</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classTextureManager" kindref="compound">TextureManager</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classTextureManager" kindref="compound">~TextureManager</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Delete<sp/>copy<sp/>constructor<sp/>and<sp/>assignment<sp/>operator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classTextureManager" kindref="compound">TextureManager</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classTextureManager" kindref="compound">TextureManager</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classTextureManager" kindref="compound">TextureManager</ref>&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classTextureManager" kindref="compound">TextureManager</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="classTextureManager" kindref="compound">TextureManager</ref><sp/><ref refid="classTextureManager" kindref="compound">TheTextureManager</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>defined(__SDL_Game_Programming_Book__TextureManager__)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="src/LowLevelRenderer/TextureManager.hpp"/>
+  </compounddef>
+</doxygen>

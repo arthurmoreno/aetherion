@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structMovingComponent" kind="struct" language="C++" prot="public">
+    <compoundname>MovingComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMovingComponent_1ae384f6d3145d5b1aee208e874e21af1d" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MovingComponent::isMoving</definition>
+        <argsstring></argsstring>
+        <name>isMoving</name>
+        <qualifiedname>MovingComponent::isMoving</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="7" column="10" bodyfile="src/components/MovingComponent.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1ada8b275c821623243eead1ba37d5f66a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MovingComponent::movingFromX</definition>
+        <argsstring></argsstring>
+        <name>movingFromX</name>
+        <qualifiedname>MovingComponent::movingFromX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="9" column="9" bodyfile="src/components/MovingComponent.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a941a50f3cb4f2189567e200b4890a616" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MovingComponent::movingFromY</definition>
+        <argsstring></argsstring>
+        <name>movingFromY</name>
+        <qualifiedname>MovingComponent::movingFromY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="10" column="9" bodyfile="src/components/MovingComponent.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1ae9982b7866cf65e4f6b57b3a74b2395e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MovingComponent::movingFromZ</definition>
+        <argsstring></argsstring>
+        <name>movingFromZ</name>
+        <qualifiedname>MovingComponent::movingFromZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="11" column="9" bodyfile="src/components/MovingComponent.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a12c2219cf07531f38056608d55b34d68" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MovingComponent::movingToX</definition>
+        <argsstring></argsstring>
+        <name>movingToX</name>
+        <qualifiedname>MovingComponent::movingToX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="13" column="9" bodyfile="src/components/MovingComponent.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a0aab6c13dec847c2043c1afeacde3c20" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MovingComponent::movingToY</definition>
+        <argsstring></argsstring>
+        <name>movingToY</name>
+        <qualifiedname>MovingComponent::movingToY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="14" column="9" bodyfile="src/components/MovingComponent.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a99df0b4ccb5f4598937d7c4d5bd4f98e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MovingComponent::movingToZ</definition>
+        <argsstring></argsstring>
+        <name>movingToZ</name>
+        <qualifiedname>MovingComponent::movingToZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="15" column="9" bodyfile="src/components/MovingComponent.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a6ed3a5d56f57978431a1819deede8351" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MovingComponent::vx</definition>
+        <argsstring></argsstring>
+        <name>vx</name>
+        <qualifiedname>MovingComponent::vx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="17" column="11" bodyfile="src/components/MovingComponent.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a0893dd86e2e247f25e100a01dd73daa0" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MovingComponent::vy</definition>
+        <argsstring></argsstring>
+        <name>vy</name>
+        <qualifiedname>MovingComponent::vy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="18" column="11" bodyfile="src/components/MovingComponent.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1aec5c9728ce53a1fd71e9905453da913b" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MovingComponent::vz</definition>
+        <argsstring></argsstring>
+        <name>vz</name>
+        <qualifiedname>MovingComponent::vz</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="19" column="11" bodyfile="src/components/MovingComponent.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a415c4c10edf3a5967a70e0e4cebf11e5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MovingComponent::willStopX</definition>
+        <argsstring></argsstring>
+        <name>willStopX</name>
+        <qualifiedname>MovingComponent::willStopX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="21" column="10" bodyfile="src/components/MovingComponent.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a5bad79f901bd457958e50d3d3272e01e" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MovingComponent::willStopY</definition>
+        <argsstring></argsstring>
+        <name>willStopY</name>
+        <qualifiedname>MovingComponent::willStopY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="22" column="10" bodyfile="src/components/MovingComponent.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a126a82a9f7f51aaffbc8fd3a9bcc62c8" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MovingComponent::willStopZ</definition>
+        <argsstring></argsstring>
+        <name>willStopZ</name>
+        <qualifiedname>MovingComponent::willStopZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="23" column="10" bodyfile="src/components/MovingComponent.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a3ac9b81864d36cbd00941f097b47f1bf" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MovingComponent::completionTime</definition>
+        <argsstring></argsstring>
+        <name>completionTime</name>
+        <qualifiedname>MovingComponent::completionTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="25" column="9" bodyfile="src/components/MovingComponent.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a310ae08148778db9505d83237e416617" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MovingComponent::timeRemaining</definition>
+        <argsstring></argsstring>
+        <name>timeRemaining</name>
+        <qualifiedname>MovingComponent::timeRemaining</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="26" column="9" bodyfile="src/components/MovingComponent.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMovingComponent_1a93be1d25f725a545885a295e1000701c" prot="public" static="no" mutable="no">
+        <type>DirectionEnum</type>
+        <definition>DirectionEnum MovingComponent::direction</definition>
+        <argsstring></argsstring>
+        <name>direction</name>
+        <qualifiedname>MovingComponent::direction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MovingComponent.hpp" line="28" column="19" bodyfile="src/components/MovingComponent.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/MovingComponent.hpp" line="6" column="1" bodyfile="src/components/MovingComponent.hpp" bodystart="6" bodyend="29"/>
+    <listofallmembers>
+      <member refid="structMovingComponent_1a3ac9b81864d36cbd00941f097b47f1bf" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>completionTime</name></member>
+      <member refid="structMovingComponent_1a93be1d25f725a545885a295e1000701c" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>direction</name></member>
+      <member refid="structMovingComponent_1ae384f6d3145d5b1aee208e874e21af1d" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>isMoving</name></member>
+      <member refid="structMovingComponent_1ada8b275c821623243eead1ba37d5f66a" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>movingFromX</name></member>
+      <member refid="structMovingComponent_1a941a50f3cb4f2189567e200b4890a616" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>movingFromY</name></member>
+      <member refid="structMovingComponent_1ae9982b7866cf65e4f6b57b3a74b2395e" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>movingFromZ</name></member>
+      <member refid="structMovingComponent_1a12c2219cf07531f38056608d55b34d68" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>movingToX</name></member>
+      <member refid="structMovingComponent_1a0aab6c13dec847c2043c1afeacde3c20" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>movingToY</name></member>
+      <member refid="structMovingComponent_1a99df0b4ccb5f4598937d7c4d5bd4f98e" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>movingToZ</name></member>
+      <member refid="structMovingComponent_1a310ae08148778db9505d83237e416617" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>timeRemaining</name></member>
+      <member refid="structMovingComponent_1a6ed3a5d56f57978431a1819deede8351" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>vx</name></member>
+      <member refid="structMovingComponent_1a0893dd86e2e247f25e100a01dd73daa0" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>vy</name></member>
+      <member refid="structMovingComponent_1aec5c9728ce53a1fd71e9905453da913b" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>vz</name></member>
+      <member refid="structMovingComponent_1a415c4c10edf3a5967a70e0e4cebf11e5" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>willStopX</name></member>
+      <member refid="structMovingComponent_1a5bad79f901bd457958e50d3d3272e01e" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>willStopY</name></member>
+      <member refid="structMovingComponent_1a126a82a9f7f51aaffbc8fd3a9bcc62c8" prot="public" virt="non-virtual"><scope>MovingComponent</scope><name>willStopZ</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

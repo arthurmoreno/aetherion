@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structDigestionComponent" kind="struct" language="C++" prot="public">
+    <compoundname>DigestionComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structDigestionComponent_1ac7d2b1530798cb0b8a039234554c8114" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structDigestingFoodItem" kindref="compound">DigestingFoodItem</ref> &gt;</type>
+        <definition>std::vector&lt;DigestingFoodItem&gt; DigestionComponent::digestingItems</definition>
+        <argsstring></argsstring>
+        <name>digestingItems</name>
+        <qualifiedname>DigestionComponent::digestingItems</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="27" column="17" bodyfile="src/components/MetabolismComponents.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDigestionComponent_1a308c7a105715afeea9ce3110ca660a04" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float DigestionComponent::sizeOfStomach</definition>
+        <argsstring></argsstring>
+        <name>sizeOfStomach</name>
+        <qualifiedname>DigestionComponent::sizeOfStomach</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="28" column="11" bodyfile="src/components/MetabolismComponents.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structDigestionComponent_1aac135fcf06d1ed4c56b643ef63ac723b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int DigestionComponent::addItem</definition>
+        <argsstring>(int itemID, int processingTime, float energyLeft, float energyDensity, float mass, float volume, float convertionEfficiency, float energyHealthRatio)</argsstring>
+        <name>addItem</name>
+        <qualifiedname>DigestionComponent::addItem</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>itemID</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>processingTime</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>energyLeft</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>energyDensity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>mass</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>volume</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>convertionEfficiency</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>energyHealthRatio</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="30" column="9" bodyfile="src/components/MetabolismComponents.cpp" bodystart="4" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="structDigestionComponent_1aa59fe279231ee49c360fa281a78d7004" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DigestionComponent::removeItem</definition>
+        <argsstring>(int itemID)</argsstring>
+        <name>removeItem</name>
+        <qualifiedname>DigestionComponent::removeItem</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>itemID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="32" column="10" bodyfile="src/components/MetabolismComponents.cpp" bodystart="25" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="structDigestionComponent_1a1346c462ee8789a5068c49da618496d7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DigestionComponent::isFull</definition>
+        <argsstring>() const</argsstring>
+        <name>isFull</name>
+        <qualifiedname>DigestionComponent::isFull</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="34" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="structDigestionComponent_1a9ec1045f7f46b5c4f7e455a017ab21ee" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DigestionComponent::isEmpty</definition>
+        <argsstring>() const</argsstring>
+        <name>isEmpty</name>
+        <qualifiedname>DigestionComponent::isEmpty</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="35" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/MetabolismComponents.hpp" line="26" column="1" bodyfile="src/components/MetabolismComponents.hpp" bodystart="26" bodyend="36"/>
+    <listofallmembers>
+      <member refid="structDigestionComponent_1aac135fcf06d1ed4c56b643ef63ac723b" prot="public" virt="non-virtual"><scope>DigestionComponent</scope><name>addItem</name></member>
+      <member refid="structDigestionComponent_1ac7d2b1530798cb0b8a039234554c8114" prot="public" virt="non-virtual"><scope>DigestionComponent</scope><name>digestingItems</name></member>
+      <member refid="structDigestionComponent_1a9ec1045f7f46b5c4f7e455a017ab21ee" prot="public" virt="non-virtual"><scope>DigestionComponent</scope><name>isEmpty</name></member>
+      <member refid="structDigestionComponent_1a1346c462ee8789a5068c49da618496d7" prot="public" virt="non-virtual"><scope>DigestionComponent</scope><name>isFull</name></member>
+      <member refid="structDigestionComponent_1aa59fe279231ee49c360fa281a78d7004" prot="public" virt="non-virtual"><scope>DigestionComponent</scope><name>removeItem</name></member>
+      <member refid="structDigestionComponent_1a308c7a105715afeea9ce3110ca660a04" prot="public" virt="non-virtual"><scope>DigestionComponent</scope><name>sizeOfStomach</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

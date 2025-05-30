@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classEquipmentWindow" kind="class" language="C++" prot="public">
+    <compoundname>EquipmentWindow</compoundname>
+    <basecompoundref refid="classItemWindow" prot="public" virt="non-virtual">ItemWindow</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classEquipmentWindow_1a7183d739551ff34bc12290d21ca27744" prot="public" static="no" mutable="no">
+        <type>std::unordered_map&lt; std::string, int &gt;</type>
+        <definition>std::unordered_map&lt;std::string, int&gt; EquipmentWindow::slotIndices</definition>
+        <argsstring></argsstring>
+        <name>slotIndices</name>
+        <qualifiedname>EquipmentWindow::slotIndices</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="165" column="24" bodyfile="src/Gui/ItemWindow.hpp" bodystart="165" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEquipmentWindow_1ae2fd493944d97be1e7ac583f3ce3972c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EquipmentWindow::EquipmentWindow</definition>
+        <argsstring>()</argsstring>
+        <name>EquipmentWindow</name>
+        <qualifiedname>EquipmentWindow::EquipmentWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="167" column="5" bodyfile="src/Gui/ItemWindow.hpp" bodystart="167" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="classEquipmentWindow_1afadee153dbe1c5472c79192b29d009ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EquipmentWindow::EquipmentWindow</definition>
+        <argsstring>(std::vector&lt; InventoryItem &gt; &amp;items, nb::list &amp;commands)</argsstring>
+        <name>EquipmentWindow</name>
+        <qualifiedname>EquipmentWindow::EquipmentWindow</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="structInventoryItem" kindref="compound">InventoryItem</ref> &gt; &amp;</type>
+          <declname>items</declname>
+        </param>
+        <param>
+          <type>nb::list &amp;</type>
+          <declname>commands</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="176" column="5" bodyfile="src/Gui/ItemWindow.hpp" bodystart="176" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classEquipmentWindow_1a64f1f29e5594e538345c3f1483924217" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void EquipmentWindow::Render</definition>
+        <argsstring>() override</argsstring>
+        <name>Render</name>
+        <qualifiedname>EquipmentWindow::Render</qualifiedname>
+        <reimplements refid="classItemWindow_1af05b3fc6525fbf82da7b737bb9133a0b">Render</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="186" column="10" bodyfile="src/Gui/ItemWindow.hpp" bodystart="186" bodyend="209"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>EquipmentWindow</label>
+        <link refid="classEquipmentWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ItemWindow</label>
+        <link refid="classItemWindow"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>EquipmentWindow</label>
+        <link refid="classEquipmentWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ItemWindow</label>
+        <link refid="classItemWindow"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/ItemWindow.hpp" line="162" column="1" bodyfile="src/Gui/ItemWindow.hpp" bodystart="162" bodyend="210"/>
+    <listofallmembers>
+      <member refid="classItemWindow_1a8689a1f0b24cb1931e75c1868c8a5261" prot="public" virt="non-virtual"><scope>EquipmentWindow</scope><name>commands</name></member>
+      <member refid="classEquipmentWindow_1ae2fd493944d97be1e7ac583f3ce3972c" prot="public" virt="non-virtual"><scope>EquipmentWindow</scope><name>EquipmentWindow</name></member>
+      <member refid="classEquipmentWindow_1afadee153dbe1c5472c79192b29d009ad" prot="public" virt="non-virtual"><scope>EquipmentWindow</scope><name>EquipmentWindow</name></member>
+      <member refid="classItemWindow_1a389aed36fb39ecf0c258ed7fa9fce846" prot="public" virt="non-virtual"><scope>EquipmentWindow</scope><name>items</name></member>
+      <member refid="classItemWindow_1a2770295cd7f08469c643f8816ab8f2a9" prot="public" virt="non-virtual"><scope>EquipmentWindow</scope><name>ItemWindow</name></member>
+      <member refid="classItemWindow_1a84a348e0ea6b63688813a343ae0ad00b" prot="public" virt="non-virtual"><scope>EquipmentWindow</scope><name>ItemWindow</name></member>
+      <member refid="classEquipmentWindow_1a64f1f29e5594e538345c3f1483924217" prot="public" virt="virtual"><scope>EquipmentWindow</scope><name>Render</name></member>
+      <member refid="classItemWindow_1a8891305b070b9f6554a6536b589de284" prot="public" virt="non-virtual"><scope>EquipmentWindow</scope><name>selected_index</name></member>
+      <member refid="classItemWindow_1a74e74b341248e2812a205735f40c39a7" prot="public" virt="non-virtual"><scope>EquipmentWindow</scope><name>setCommands</name></member>
+      <member refid="classItemWindow_1a9a98c42464447ae14f7add2c83b85bea" prot="public" virt="non-virtual"><scope>EquipmentWindow</scope><name>setItems</name></member>
+      <member refid="classEquipmentWindow_1a7183d739551ff34bc12290d21ca27744" prot="public" virt="non-virtual"><scope>EquipmentWindow</scope><name>slotIndices</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

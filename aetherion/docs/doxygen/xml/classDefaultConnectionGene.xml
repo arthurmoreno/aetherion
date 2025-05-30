@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classDefaultConnectionGene" kind="class" language="C++" prot="public">
+    <compoundname>DefaultConnectionGene</compoundname>
+    <basecompoundref refid="classBaseGene" prot="public" virt="non-virtual">BaseGene</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classDefaultConnectionGene_1ab132589e348c636dbed24bea77c279b0" prot="public" static="no" mutable="no">
+        <type>std::pair&lt; int, int &gt;</type>
+        <definition>std::pair&lt;int, int&gt; DefaultConnectionGene::key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <qualifiedname>DefaultConnectionGene::key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="73" column="15" bodyfile="src/neat/genes.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultConnectionGene_1ab1cef5363bb77fff7bbec6e684e67b20" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float DefaultConnectionGene::weight</definition>
+        <argsstring></argsstring>
+        <name>weight</name>
+        <qualifiedname>DefaultConnectionGene::weight</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="74" column="11" bodyfile="src/neat/genes.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultConnectionGene_1ad2999f6ac769ea306d79291e336348cc" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool DefaultConnectionGene::enabled</definition>
+        <argsstring></argsstring>
+        <name>enabled</name>
+        <qualifiedname>DefaultConnectionGene::enabled</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="75" column="10" bodyfile="src/neat/genes.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classDefaultConnectionGene_1a42fe8a6328f7f6da38dac861cf8f12bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DefaultConnectionGene::DefaultConnectionGene</definition>
+        <argsstring>(const std::pair&lt; int, int &gt; &amp;key)</argsstring>
+        <name>DefaultConnectionGene</name>
+        <qualifiedname>DefaultConnectionGene::DefaultConnectionGene</qualifiedname>
+        <param>
+          <type>const std::pair&lt; int, int &gt; &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="78" column="5" bodyfile="src/neat/genes.cpp" bodystart="66" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultConnectionGene_1adb47cf183387d67892ed32939ca2ea32" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string DefaultConnectionGene::to_string</definition>
+        <argsstring>() const override</argsstring>
+        <name>to_string</name>
+        <qualifiedname>DefaultConnectionGene::to_string</qualifiedname>
+        <reimplements refid="classBaseGene_1a37871b1b6a63cb941fa4d8cc9a4dc45c">to_string</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="81" column="25" bodyfile="src/neat/genes.cpp" bodystart="69" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultConnectionGene_1a53576fb61528a30ebeb528c1add9abbe" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classDefaultConnectionGene" kindref="compound">DefaultConnectionGene</ref> *</type>
+        <definition>DefaultConnectionGene * DefaultConnectionGene::copy</definition>
+        <argsstring>() const override</argsstring>
+        <name>copy</name>
+        <qualifiedname>DefaultConnectionGene::copy</qualifiedname>
+        <reimplements refid="classBaseGene_1aca5621fe8e4781aa1b6e436a2f16ace7">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="84" column="35" bodyfile="src/neat/genes.cpp" bodystart="76" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultConnectionGene_1a01d3e9ec1ba555ffeca7301fc5f96655" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double DefaultConnectionGene::distance</definition>
+        <argsstring>(const DefaultConnectionGene &amp;other, const GenomeConfig &amp;config) const</argsstring>
+        <name>distance</name>
+        <qualifiedname>DefaultConnectionGene::distance</qualifiedname>
+        <param>
+          <type>const <ref refid="classDefaultConnectionGene" kindref="compound">DefaultConnectionGene</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structGenomeConfig" kindref="compound">GenomeConfig</ref> &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="87" column="12" bodyfile="src/neat/genes.cpp" bodystart="83" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultConnectionGene_1abd588a1f272af0cf62026dcfdedba958" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classDefaultConnectionGene" kindref="compound">DefaultConnectionGene</ref> *</type>
+        <definition>DefaultConnectionGene * DefaultConnectionGene::crossover</definition>
+        <argsstring>(const DefaultConnectionGene &amp;other) const</argsstring>
+        <name>crossover</name>
+        <qualifiedname>DefaultConnectionGene::crossover</qualifiedname>
+        <param>
+          <type>const <ref refid="classDefaultConnectionGene" kindref="compound">DefaultConnectionGene</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="90" column="27" bodyfile="src/neat/genes.cpp" bodystart="90" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultConnectionGene_1a043682d2fc52b8aa1bddac0e05f21d27" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classBaseGene" kindref="compound">BaseGene</ref> *</type>
+        <definition>BaseGene * DefaultConnectionGene::crossover</definition>
+        <argsstring>(const BaseGene &amp;other) const override</argsstring>
+        <name>crossover</name>
+        <qualifiedname>DefaultConnectionGene::crossover</qualifiedname>
+        <reimplements refid="classBaseGene_1a84782b89734a1a4d3ad4cf273c36e14e">crossover</reimplements>
+        <param>
+          <type>const <ref refid="classBaseGene" kindref="compound">BaseGene</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="93" column="22" bodyfile="src/neat/genes.cpp" bodystart="100" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultConnectionGene_1a919bbf059914b0780b50a8d5deb2ceae" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void DefaultConnectionGene::init_attributes</definition>
+        <argsstring>() override</argsstring>
+        <name>init_attributes</name>
+        <qualifiedname>DefaultConnectionGene::init_attributes</qualifiedname>
+        <reimplements refid="classBaseGene_1a8edc6492fed86f21383dc2d39e116715">init_attributes</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="96" column="18" bodyfile="src/neat/genes.cpp" bodystart="108" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultConnectionGene_1a2866484f0a2a7e9fd259f0ae135187aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void DefaultConnectionGene::mutate</definition>
+        <argsstring>() override</argsstring>
+        <name>mutate</name>
+        <qualifiedname>DefaultConnectionGene::mutate</qualifiedname>
+        <reimplements refid="classBaseGene_1ac6dc2ae6138fe1e7155f910c4c4e4077">mutate</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="98" column="10" bodyfile="src/neat/genes.hpp" bodystart="98" bodyend="98"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>BaseGene</label>
+        <link refid="classBaseGene"/>
+      </node>
+      <node id="1">
+        <label>DefaultConnectionGene</label>
+        <link refid="classDefaultConnectionGene"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>BaseGene</label>
+        <link refid="classBaseGene"/>
+      </node>
+      <node id="1">
+        <label>DefaultConnectionGene</label>
+        <link refid="classDefaultConnectionGene"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/neat/genes.hpp" line="71" column="1" bodyfile="src/neat/genes.hpp" bodystart="71" bodyend="99"/>
+    <listofallmembers>
+      <member refid="classBaseGene_1a37ca839c6c11ee7539c2b9d0f20a4733" prot="public" virt="non-virtual"><scope>DefaultConnectionGene</scope><name>BaseGene</name></member>
+      <member refid="classDefaultConnectionGene_1a53576fb61528a30ebeb528c1add9abbe" prot="public" virt="virtual"><scope>DefaultConnectionGene</scope><name>copy</name></member>
+      <member refid="classDefaultConnectionGene_1abd588a1f272af0cf62026dcfdedba958" prot="public" virt="non-virtual"><scope>DefaultConnectionGene</scope><name>crossover</name></member>
+      <member refid="classDefaultConnectionGene_1a043682d2fc52b8aa1bddac0e05f21d27" prot="public" virt="virtual"><scope>DefaultConnectionGene</scope><name>crossover</name></member>
+      <member refid="classDefaultConnectionGene_1a42fe8a6328f7f6da38dac861cf8f12bc" prot="public" virt="non-virtual"><scope>DefaultConnectionGene</scope><name>DefaultConnectionGene</name></member>
+      <member refid="classDefaultConnectionGene_1a01d3e9ec1ba555ffeca7301fc5f96655" prot="public" virt="non-virtual"><scope>DefaultConnectionGene</scope><name>distance</name></member>
+      <member refid="classDefaultConnectionGene_1ad2999f6ac769ea306d79291e336348cc" prot="public" virt="non-virtual"><scope>DefaultConnectionGene</scope><name>enabled</name></member>
+      <member refid="classDefaultConnectionGene_1a919bbf059914b0780b50a8d5deb2ceae" prot="public" virt="virtual"><scope>DefaultConnectionGene</scope><name>init_attributes</name></member>
+      <member refid="classDefaultConnectionGene_1ab132589e348c636dbed24bea77c279b0" prot="public" virt="non-virtual"><scope>DefaultConnectionGene</scope><name>key</name></member>
+      <member refid="classDefaultConnectionGene_1a2866484f0a2a7e9fd259f0ae135187aa" prot="public" virt="virtual"><scope>DefaultConnectionGene</scope><name>mutate</name></member>
+      <member refid="classDefaultConnectionGene_1adb47cf183387d67892ed32939ca2ea32" prot="public" virt="virtual"><scope>DefaultConnectionGene</scope><name>to_string</name></member>
+      <member refid="classDefaultConnectionGene_1ab1cef5363bb77fff7bbec6e684e67b20" prot="public" virt="non-virtual"><scope>DefaultConnectionGene</scope><name>weight</name></member>
+      <member refid="classBaseGene_1a5fb5d3bffb4b004ca077e18412d7c656" prot="public" virt="virtual"><scope>DefaultConnectionGene</scope><name>~BaseGene</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

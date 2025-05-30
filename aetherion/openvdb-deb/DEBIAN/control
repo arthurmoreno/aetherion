@@ -1,0 +1,10 @@
+Package: openvdb-custom
+Version: 1.0-1
+Section: libs
+Priority: optional
+Architecture: amd64
+Maintainer: Your Name <you@example.com>
+Description: OpenVDB library (custom .deb)
+ A simple Debian package that installs the OpenVDB headers and shared library
+ into /usr/local/include/openvdb and /usr/local/lib.
+

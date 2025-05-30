@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structFoodItem" kind="struct" language="C++" prot="public">
+    <compoundname>FoodItem</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structFoodItem_1aa995c4ae0f8f7a810ca980881baa1d9f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float FoodItem::energyDensity</definition>
+        <argsstring></argsstring>
+        <name>energyDensity</name>
+        <qualifiedname>FoodItem::energyDensity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="29" column="11" bodyfile="src/components/ItemsComponents.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structFoodItem_1a3daa8d6b3e59be93ffbc0f764d36bd9c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float FoodItem::mass</definition>
+        <argsstring></argsstring>
+        <name>mass</name>
+        <qualifiedname>FoodItem::mass</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="30" column="11" bodyfile="src/components/ItemsComponents.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structFoodItem_1a511374ff505160349a100d58a7740b9d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float FoodItem::volume</definition>
+        <argsstring></argsstring>
+        <name>volume</name>
+        <qualifiedname>FoodItem::volume</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="31" column="11" bodyfile="src/components/ItemsComponents.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structFoodItem_1ad2e003db94e37fc95a15e80af5a69160" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float FoodItem::energyHealthRatio</definition>
+        <argsstring></argsstring>
+        <name>energyHealthRatio</name>
+        <qualifiedname>FoodItem::energyHealthRatio</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="32" column="11" bodyfile="src/components/ItemsComponents.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structFoodItem_1a6309ac4ac702817586bba7702115f967" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float FoodItem::convertionEfficiency</definition>
+        <argsstring></argsstring>
+        <name>convertionEfficiency</name>
+        <qualifiedname>FoodItem::convertionEfficiency</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="33" column="11" bodyfile="src/components/ItemsComponents.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/ItemsComponents.hpp" line="28" column="1" bodyfile="src/components/ItemsComponents.hpp" bodystart="28" bodyend="34"/>
+    <listofallmembers>
+      <member refid="structFoodItem_1a6309ac4ac702817586bba7702115f967" prot="public" virt="non-virtual"><scope>FoodItem</scope><name>convertionEfficiency</name></member>
+      <member refid="structFoodItem_1aa995c4ae0f8f7a810ca980881baa1d9f" prot="public" virt="non-virtual"><scope>FoodItem</scope><name>energyDensity</name></member>
+      <member refid="structFoodItem_1ad2e003db94e37fc95a15e80af5a69160" prot="public" virt="non-virtual"><scope>FoodItem</scope><name>energyHealthRatio</name></member>
+      <member refid="structFoodItem_1a3daa8d6b3e59be93ffbc0f764d36bd9c" prot="public" virt="non-virtual"><scope>FoodItem</scope><name>mass</name></member>
+      <member refid="structFoodItem_1a511374ff505160349a100d58a7740b9d" prot="public" virt="non-virtual"><scope>FoodItem</scope><name>volume</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

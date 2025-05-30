@@ -1,0 +1,474 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classRenderQueue" kind="class" language="C++" prot="public">
+    <compoundname>RenderQueue</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRenderQueue_1a1427d8a566e4544bd2eff080101b9b19" prot="private" static="no" mutable="no">
+        <type>std::map&lt; int, std::map&lt; std::string, std::vector&lt; std::shared_ptr&lt; <ref refid="classRenderTaskBase" kindref="compound">RenderTaskBase</ref> &gt; &gt; &gt; &gt;</type>
+        <definition>std::map&lt;int, std::map&lt;std::string, std::vector&lt;std::shared_ptr&lt;RenderTaskBase&gt; &gt; &gt; &gt; RenderQueue::queue</definition>
+        <argsstring></argsstring>
+        <name>queue</name>
+        <qualifiedname>RenderQueue::queue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="402" column="14" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="402" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderQueue_1a55df5a457226c27760e3d0210aa3d834" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, int &gt;</type>
+        <definition>std::map&lt;std::string, int&gt; RenderQueue::priority_order</definition>
+        <argsstring></argsstring>
+        <name>priority_order</name>
+        <qualifiedname>RenderQueue::priority_order</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="405" column="14" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="405" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderQueue_1aa31c5650e03e7b942a0a256fe4fe0b7c" prot="private" static="no" mutable="yes">
+        <type>std::mutex</type>
+        <definition>std::mutex RenderQueue::queue_mutex</definition>
+        <argsstring></argsstring>
+        <name>queue_mutex</name>
+        <qualifiedname>RenderQueue::queue_mutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="407" column="24" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="407" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRenderQueue_1ae893f8a1ae83c2e55e85378ed92fd5b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RenderQueue::RenderQueue</definition>
+        <argsstring>()</argsstring>
+        <name>RenderQueue</name>
+        <qualifiedname>RenderQueue::RenderQueue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="251" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="251" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1a277092a4be11a04ff2980f0652746f1a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RenderQueue::add_task_by_id</definition>
+        <argsstring>(int z_layer, const std::string &amp;priority_group, const std::string &amp;texture_id, int x, int y, float lightIntensity, float opacity)</argsstring>
+        <name>add_task_by_id</name>
+        <qualifiedname>RenderQueue::add_task_by_id</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>z_layer</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>priority_group</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>texture_id</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lightIntensity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>opacity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="262" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="262" bodyend="273"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1a79abfc286cb5189f8a0509cb09943d55" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RenderQueue::add_task_by_texture</definition>
+        <argsstring>(int z_layer, const std::string &amp;priority_group, uintptr_t texture_ptr, int x, int y, float lightIntensity, float opacity)</argsstring>
+        <name>add_task_by_texture</name>
+        <qualifiedname>RenderQueue::add_task_by_texture</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>z_layer</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>priority_group</declname>
+        </param>
+        <param>
+          <type>uintptr_t</type>
+          <declname>texture_ptr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lightIntensity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>opacity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="276" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="276" bodyend="286"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1ad194eb8b60f0f1393d3345c914ca9730" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RenderQueue::add_task_rect</definition>
+        <argsstring>(int z_layer, const std::string &amp;priority_group, int x, int y, int width, int height, SDL_Color color)</argsstring>
+        <name>add_task_rect</name>
+        <qualifiedname>RenderQueue::add_task_rect</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>z_layer</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>priority_group</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>SDL_Color</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="289" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="289" bodyend="293"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1a47103e027c3322952bc836038343dd77" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RenderQueue::add_task_draw_rect</definition>
+        <argsstring>(int z_layer, const std::string &amp;priority_group, int x, int y, int width, int height, int thickness, SDL_Color color)</argsstring>
+        <name>add_task_draw_rect</name>
+        <qualifiedname>RenderQueue::add_task_draw_rect</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>z_layer</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>priority_group</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>thickness</declname>
+        </param>
+        <param>
+          <type>SDL_Color</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="296" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="296" bodyend="301"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1ae4a9f2f7539cd608e7cdb47a50b22c06" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RenderQueue::add_task_line</definition>
+        <argsstring>(int z_layer, const std::string &amp;priority_group, int x1, int y1, int x2, int y2, SDL_Color color)</argsstring>
+        <name>add_task_line</name>
+        <qualifiedname>RenderQueue::add_task_line</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>z_layer</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>priority_group</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x2</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y2</declname>
+        </param>
+        <param>
+          <type>SDL_Color</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="304" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="304" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1a5c67ce9f961adf089dcadfee4a0bbd21" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RenderQueue::add_task_text</definition>
+        <argsstring>(int z_layer, const std::string &amp;priority_group, const std::string &amp;text, const std::string &amp;font_id, SDL_Color color, int x, int y)</argsstring>
+        <name>add_task_text</name>
+        <qualifiedname>RenderQueue::add_task_text</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>z_layer</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>priority_group</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>font_id</declname>
+        </param>
+        <param>
+          <type>SDL_Color</type>
+          <declname>color</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="311" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="311" bodyend="315"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1a8f4c44eedd6d9cc788100022ed725568" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RenderQueue::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <qualifiedname>RenderQueue::clear</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="319" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="319" bodyend="322"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1a2d388dff92e9162ac5e291eb9cc2497c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt; int &gt; RenderQueue::get_sorted_layers</definition>
+        <argsstring>() const</argsstring>
+        <name>get_sorted_layers</name>
+        <qualifiedname>RenderQueue::get_sorted_layers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="324" column="17" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="324" bodyend="332"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1afcf77f5ae69bce986bb02ae1dc0883eb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int RenderQueue::get_priority_order_value</definition>
+        <argsstring>(const std::string &amp;priority_group) const</argsstring>
+        <name>get_priority_order_value</name>
+        <qualifiedname>RenderQueue::get_priority_order_value</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>priority_group</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="334" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="334" bodyend="340"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1ac79941fec0f76e686641ddee81116cf6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt; std::string &gt; RenderQueue::get_sorted_priority_groups</definition>
+        <argsstring>(const std::vector&lt; std::string &gt; &amp;groups) const</argsstring>
+        <name>get_sorted_priority_groups</name>
+        <qualifiedname>RenderQueue::get_sorted_priority_groups</qualifiedname>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>groups</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="342" column="17" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="342" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1a86a9ba3f3d8e8d9b545fb9fcdb5cda1f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RenderQueue::set_priority_order</definition>
+        <argsstring>(const std::map&lt; std::string, int &gt; &amp;new_priority_order)</argsstring>
+        <name>set_priority_order</name>
+        <qualifiedname>RenderQueue::set_priority_order</qualifiedname>
+        <param>
+          <type>const std::map&lt; std::string, int &gt; &amp;</type>
+          <declname>new_priority_order</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="352" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="352" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderQueue_1ac6335c5a87ccbaf82df10cd29859bae0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RenderQueue::render</definition>
+        <argsstring>(uintptr_t renderer_ptr) const</argsstring>
+        <name>render</name>
+        <qualifiedname>RenderQueue::render</qualifiedname>
+        <param>
+          <type>uintptr_t</type>
+          <declname>renderer_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="358" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="358" bodyend="398"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classRenderQueue_1a8c1c07ce79e2867d8c364f36f10d636f" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RenderQueue::add_task_internal</definition>
+        <argsstring>(int z_layer, const std::string &amp;priority_group, std::shared_ptr&lt; RenderTaskBase &gt; task)</argsstring>
+        <name>add_task_internal</name>
+        <qualifiedname>RenderQueue::add_task_internal</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>z_layer</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>priority_group</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classRenderTaskBase" kindref="compound">RenderTaskBase</ref> &gt;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="410" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="410" bodyend="414"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="249" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="249" bodyend="415"/>
+    <listofallmembers>
+      <member refid="classRenderQueue_1a277092a4be11a04ff2980f0652746f1a" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>add_task_by_id</name></member>
+      <member refid="classRenderQueue_1a79abfc286cb5189f8a0509cb09943d55" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>add_task_by_texture</name></member>
+      <member refid="classRenderQueue_1a47103e027c3322952bc836038343dd77" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>add_task_draw_rect</name></member>
+      <member refid="classRenderQueue_1a8c1c07ce79e2867d8c364f36f10d636f" prot="private" virt="non-virtual"><scope>RenderQueue</scope><name>add_task_internal</name></member>
+      <member refid="classRenderQueue_1ae4a9f2f7539cd608e7cdb47a50b22c06" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>add_task_line</name></member>
+      <member refid="classRenderQueue_1ad194eb8b60f0f1393d3345c914ca9730" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>add_task_rect</name></member>
+      <member refid="classRenderQueue_1a5c67ce9f961adf089dcadfee4a0bbd21" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>add_task_text</name></member>
+      <member refid="classRenderQueue_1a8f4c44eedd6d9cc788100022ed725568" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>clear</name></member>
+      <member refid="classRenderQueue_1afcf77f5ae69bce986bb02ae1dc0883eb" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>get_priority_order_value</name></member>
+      <member refid="classRenderQueue_1a2d388dff92e9162ac5e291eb9cc2497c" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>get_sorted_layers</name></member>
+      <member refid="classRenderQueue_1ac79941fec0f76e686641ddee81116cf6" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>get_sorted_priority_groups</name></member>
+      <member refid="classRenderQueue_1a55df5a457226c27760e3d0210aa3d834" prot="private" virt="non-virtual"><scope>RenderQueue</scope><name>priority_order</name></member>
+      <member refid="classRenderQueue_1a1427d8a566e4544bd2eff080101b9b19" prot="private" virt="non-virtual"><scope>RenderQueue</scope><name>queue</name></member>
+      <member refid="classRenderQueue_1aa31c5650e03e7b942a0a256fe4fe0b7c" prot="private" virt="non-virtual"><scope>RenderQueue</scope><name>queue_mutex</name></member>
+      <member refid="classRenderQueue_1ac6335c5a87ccbaf82df10cd29859bae0" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>render</name></member>
+      <member refid="classRenderQueue_1ae893f8a1ae83c2e55e85378ed92fd5b9" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>RenderQueue</name></member>
+      <member refid="classRenderQueue_1a86a9ba3f3d8e8d9b545fb9fcdb5cda1f" prot="public" virt="non-virtual"><scope>RenderQueue</scope><name>set_priority_order</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

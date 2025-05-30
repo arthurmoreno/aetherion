@@ -1,0 +1,429 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPhysicsManager" kind="class" language="C++" prot="public">
+    <compoundname>PhysicsManager</compoundname>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classPhysicsManager_1a4d1aea4e261e17395a768870d75421c1" prot="private" static="yes" mutable="no">
+        <type><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref> *</type>
+        <definition>PhysicsManager * PhysicsManager::s_pInstance</definition>
+        <argsstring></argsstring>
+        <name>s_pInstance</name>
+        <qualifiedname>PhysicsManager::s_pInstance</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="44" column="27" bodyfile="src/PhysicsManager.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classPhysicsManager_1a1eb65161c37ad88ed9e35acc4b0b59e2" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsManager::gravity</definition>
+        <argsstring></argsstring>
+        <name>gravity</name>
+        <qualifiedname>PhysicsManager::gravity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="47" column="11" bodyfile="src/PhysicsManager.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPhysicsManager_1ab5893bd1e267a3327a607bab3a3129cc" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsManager::friction</definition>
+        <argsstring></argsstring>
+        <name>friction</name>
+        <qualifiedname>PhysicsManager::friction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="48" column="11" bodyfile="src/PhysicsManager.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPhysicsManager_1ac2b2d75eb1158cc84a2fa8259f4fd584" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool PhysicsManager::allowMultiDirection</definition>
+        <argsstring></argsstring>
+        <name>allowMultiDirection</name>
+        <qualifiedname>PhysicsManager::allowMultiDirection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="49" column="10" bodyfile="src/PhysicsManager.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPhysicsManager_1ae09430e37a8f4d228d19e99bb1879d23" prot="private" static="no" mutable="no">
+        <type>const float</type>
+        <definition>const float PhysicsManager::EVAPORATION_COEFFICIENT</definition>
+        <argsstring></argsstring>
+        <name>EVAPORATION_COEFFICIENT</name>
+        <qualifiedname>PhysicsManager::EVAPORATION_COEFFICIENT</qualifiedname>
+        <initializer>= 8.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="51" column="17" bodyfile="src/PhysicsManager.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPhysicsManager_1a5d83cfc4a057f6004055e4679402ad5a" prot="private" static="no" mutable="no">
+        <type>const float</type>
+        <definition>const float PhysicsManager::HEAT_TO_WATER_EVAPORATION</definition>
+        <argsstring></argsstring>
+        <name>HEAT_TO_WATER_EVAPORATION</name>
+        <qualifiedname>PhysicsManager::HEAT_TO_WATER_EVAPORATION</qualifiedname>
+        <initializer>= 120.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="52" column="17" bodyfile="src/PhysicsManager.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPhysicsManager_1a41c64381031d8db6904ec8e9abc1b0a0" prot="private" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int PhysicsManager::waterMinimumUnits</definition>
+        <argsstring></argsstring>
+        <name>waterMinimumUnits</name>
+        <qualifiedname>PhysicsManager::waterMinimumUnits</qualifiedname>
+        <initializer>= 60&apos;000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="53" column="15" bodyfile="src/PhysicsManager.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPhysicsManager_1ab99e26682a1881bcfc09d007f8d269ce" prot="private" static="no" mutable="no">
+        <type>const float</type>
+        <definition>const float PhysicsManager::metabolismCostToApplyForce</definition>
+        <argsstring></argsstring>
+        <name>metabolismCostToApplyForce</name>
+        <qualifiedname>PhysicsManager::metabolismCostToApplyForce</qualifiedname>
+        <initializer>= 0.000002f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="61" column="17" bodyfile="src/PhysicsManager.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classPhysicsManager_1a8b62daf8ec0ecdfbcccaeffc55a2f7ff" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref> *</type>
+        <definition>PhysicsManager * PhysicsManager::Instance</definition>
+        <argsstring>()</argsstring>
+        <name>Instance</name>
+        <qualifiedname>PhysicsManager::Instance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="10" column="27" bodyfile="src/PhysicsManager.cpp" bodystart="9" bodyend="14"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPhysicsManager_1ac66e5bcb3c25299a4ba7ddb399337a6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsManager::setGravity</definition>
+        <argsstring>(float g)</argsstring>
+        <name>setGravity</name>
+        <qualifiedname>PhysicsManager::setGravity</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>g</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="13" column="10" bodyfile="src/PhysicsManager.cpp" bodystart="32" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1a4501031008f17f999e17a41329066c73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsManager::setFriction</definition>
+        <argsstring>(float f)</argsstring>
+        <name>setFriction</name>
+        <qualifiedname>PhysicsManager::setFriction</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="14" column="10" bodyfile="src/PhysicsManager.cpp" bodystart="37" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1adefe78e4f073ae76ded96effaed55a1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsManager::setAllowMultiDirection</definition>
+        <argsstring>(bool amd)</argsstring>
+        <name>setAllowMultiDirection</name>
+        <qualifiedname>PhysicsManager::setAllowMultiDirection</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>amd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="15" column="10" bodyfile="src/PhysicsManager.cpp" bodystart="42" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1ae676f79fad0ce978e85758e608a97d6a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float PhysicsManager::getGravity</definition>
+        <argsstring>() const</argsstring>
+        <name>getGravity</name>
+        <qualifiedname>PhysicsManager::getGravity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="18" column="11" bodyfile="src/PhysicsManager.cpp" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1a7e443b244a0c871a86e8644ec1f044fd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float PhysicsManager::getFriction</definition>
+        <argsstring>() const</argsstring>
+        <name>getFriction</name>
+        <qualifiedname>PhysicsManager::getFriction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="19" column="11" bodyfile="src/PhysicsManager.cpp" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1a4a3216db780a148fdfad204c108dbdd1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PhysicsManager::getAllowMultiDirection</definition>
+        <argsstring>() const</argsstring>
+        <name>getAllowMultiDirection</name>
+        <qualifiedname>PhysicsManager::getAllowMultiDirection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="20" column="10" bodyfile="src/PhysicsManager.cpp" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1a41a7bdca54be9db89881c0d8a924f5cf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float PhysicsManager::getMetabolismCostToApplyForce</definition>
+        <argsstring>() const</argsstring>
+        <name>getMetabolismCostToApplyForce</name>
+        <qualifiedname>PhysicsManager::getMetabolismCostToApplyForce</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="21" column="11" bodyfile="src/PhysicsManager.cpp" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1ad534a87cb2ba66e1b5843e9b7c88d81c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float PhysicsManager::getEvaporationCoefficient</definition>
+        <argsstring>() const</argsstring>
+        <name>getEvaporationCoefficient</name>
+        <qualifiedname>PhysicsManager::getEvaporationCoefficient</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="22" column="11" bodyfile="src/PhysicsManager.cpp" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1a00fe6e08581b6e5668492b8263a646d1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float PhysicsManager::getHeatToWaterEvaporation</definition>
+        <argsstring>() const</argsstring>
+        <name>getHeatToWaterEvaporation</name>
+        <qualifiedname>PhysicsManager::getHeatToWaterEvaporation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="23" column="11" bodyfile="src/PhysicsManager.cpp" bodystart="58" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1a36fe5298187232bb3753723142a62f6f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float PhysicsManager::getWaterMinimumUnits</definition>
+        <argsstring>() const</argsstring>
+        <name>getWaterMinimumUnits</name>
+        <qualifiedname>PhysicsManager::getWaterMinimumUnits</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="24" column="11" bodyfile="src/PhysicsManager.cpp" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1abcdf9174b82ab02c7fc642507322d6e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PhysicsManager::loadSettings</definition>
+        <argsstring>(const std::string &amp;fileName)</argsstring>
+        <name>loadSettings</name>
+        <qualifiedname>PhysicsManager::loadSettings</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="27" column="10" bodyfile="src/PhysicsManager.cpp" bodystart="63" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1aa2a68d057cf76d8b34e6cd96cf2efe93" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PhysicsManager::saveSettings</definition>
+        <argsstring>(const std::string &amp;fileName) const</argsstring>
+        <name>saveSettings</name>
+        <qualifiedname>PhysicsManager::saveSettings</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="30" column="10" bodyfile="src/PhysicsManager.cpp" bodystart="71" bodyend="76"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classPhysicsManager_1abee8b0945994b58f3847aade4a73cba9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PhysicsManager::PhysicsManager</definition>
+        <argsstring>()</argsstring>
+        <name>PhysicsManager</name>
+        <qualifiedname>PhysicsManager::PhysicsManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="34" column="5" bodyfile="src/PhysicsManager.cpp" bodystart="17" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1ac41c46fb62b8104b3d5d5bf6bcf7b2f5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PhysicsManager::~PhysicsManager</definition>
+        <argsstring>()</argsstring>
+        <name>~PhysicsManager</name>
+        <qualifiedname>PhysicsManager::~PhysicsManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="37" column="5" bodyfile="src/PhysicsManager.cpp" bodystart="27" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1aab262ac40685486b71bdacb6c4d41250" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PhysicsManager::PhysicsManager</definition>
+        <argsstring>(const PhysicsManager &amp;)=delete</argsstring>
+        <name>PhysicsManager</name>
+        <qualifiedname>PhysicsManager::PhysicsManager</qualifiedname>
+        <param>
+          <type>const <ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="40" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsManager_1a8ccca15acc8c7e4efcf92abd047e8edc" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref> &amp;</type>
+        <definition>PhysicsManager &amp; PhysicsManager::operator=</definition>
+        <argsstring>(const PhysicsManager &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>PhysicsManager::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsManager.hpp" line="41" column="20"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/PhysicsManager.hpp" line="7" column="1" bodyfile="src/PhysicsManager.hpp" bodystart="7" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classPhysicsManager_1ac2b2d75eb1158cc84a2fa8259f4fd584" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>allowMultiDirection</name></member>
+      <member refid="classPhysicsManager_1ae09430e37a8f4d228d19e99bb1879d23" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>EVAPORATION_COEFFICIENT</name></member>
+      <member refid="classPhysicsManager_1ab5893bd1e267a3327a607bab3a3129cc" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>friction</name></member>
+      <member refid="classPhysicsManager_1a4a3216db780a148fdfad204c108dbdd1" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>getAllowMultiDirection</name></member>
+      <member refid="classPhysicsManager_1ad534a87cb2ba66e1b5843e9b7c88d81c" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>getEvaporationCoefficient</name></member>
+      <member refid="classPhysicsManager_1a7e443b244a0c871a86e8644ec1f044fd" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>getFriction</name></member>
+      <member refid="classPhysicsManager_1ae676f79fad0ce978e85758e608a97d6a" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>getGravity</name></member>
+      <member refid="classPhysicsManager_1a00fe6e08581b6e5668492b8263a646d1" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>getHeatToWaterEvaporation</name></member>
+      <member refid="classPhysicsManager_1a41a7bdca54be9db89881c0d8a924f5cf" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>getMetabolismCostToApplyForce</name></member>
+      <member refid="classPhysicsManager_1a36fe5298187232bb3753723142a62f6f" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>getWaterMinimumUnits</name></member>
+      <member refid="classPhysicsManager_1a1eb65161c37ad88ed9e35acc4b0b59e2" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>gravity</name></member>
+      <member refid="classPhysicsManager_1a5d83cfc4a057f6004055e4679402ad5a" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>HEAT_TO_WATER_EVAPORATION</name></member>
+      <member refid="classPhysicsManager_1a8b62daf8ec0ecdfbcccaeffc55a2f7ff" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>Instance</name></member>
+      <member refid="classPhysicsManager_1abcdf9174b82ab02c7fc642507322d6e5" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>loadSettings</name></member>
+      <member refid="classPhysicsManager_1ab99e26682a1881bcfc09d007f8d269ce" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>metabolismCostToApplyForce</name></member>
+      <member refid="classPhysicsManager_1a8ccca15acc8c7e4efcf92abd047e8edc" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>operator=</name></member>
+      <member refid="classPhysicsManager_1abee8b0945994b58f3847aade4a73cba9" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>PhysicsManager</name></member>
+      <member refid="classPhysicsManager_1aab262ac40685486b71bdacb6c4d41250" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>PhysicsManager</name></member>
+      <member refid="classPhysicsManager_1a4d1aea4e261e17395a768870d75421c1" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>s_pInstance</name></member>
+      <member refid="classPhysicsManager_1aa2a68d057cf76d8b34e6cd96cf2efe93" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>saveSettings</name></member>
+      <member refid="classPhysicsManager_1adefe78e4f073ae76ded96effaed55a1c" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>setAllowMultiDirection</name></member>
+      <member refid="classPhysicsManager_1a4501031008f17f999e17a41329066c73" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>setFriction</name></member>
+      <member refid="classPhysicsManager_1ac66e5bcb3c25299a4ba7ddb399337a6c" prot="public" virt="non-virtual"><scope>PhysicsManager</scope><name>setGravity</name></member>
+      <member refid="classPhysicsManager_1a41c64381031d8db6904ec8e9abc1b0a0" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>waterMinimumUnits</name></member>
+      <member refid="classPhysicsManager_1ac41c46fb62b8104b3d5d5bf6bcf7b2f5" prot="private" virt="non-virtual"><scope>PhysicsManager</scope><name>~PhysicsManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

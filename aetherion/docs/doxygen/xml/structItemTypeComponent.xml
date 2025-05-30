@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structItemTypeComponent" kind="struct" language="C++" prot="public">
+    <compoundname>ItemTypeComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structItemTypeComponent_1ab478c8c19518c51759f10fa5a1c75baf" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ItemTypeComponent::mainType</definition>
+        <argsstring></argsstring>
+        <name>mainType</name>
+        <qualifiedname>ItemTypeComponent::mainType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="23" column="9" bodyfile="src/components/ItemsComponents.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structItemTypeComponent_1a1ec7706512aaee667c1c6bf034cef1cd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ItemTypeComponent::subType0</definition>
+        <argsstring></argsstring>
+        <name>subType0</name>
+        <qualifiedname>ItemTypeComponent::subType0</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="24" column="9" bodyfile="src/components/ItemsComponents.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structItemTypeComponent_1a54bfbf7c185addfefba9cad5a179e9e9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ItemTypeComponent::subType1</definition>
+        <argsstring></argsstring>
+        <name>subType1</name>
+        <qualifiedname>ItemTypeComponent::subType1</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="25" column="9" bodyfile="src/components/ItemsComponents.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/ItemsComponents.hpp" line="22" column="1" bodyfile="src/components/ItemsComponents.hpp" bodystart="22" bodyend="26"/>
+    <listofallmembers>
+      <member refid="structItemTypeComponent_1ab478c8c19518c51759f10fa5a1c75baf" prot="public" virt="non-virtual"><scope>ItemTypeComponent</scope><name>mainType</name></member>
+      <member refid="structItemTypeComponent_1a1ec7706512aaee667c1c6bf034cef1cd" prot="public" virt="non-virtual"><scope>ItemTypeComponent</scope><name>subType0</name></member>
+      <member refid="structItemTypeComponent_1a54bfbf7c185addfefba9cad5a179e9e9" prot="public" virt="non-virtual"><scope>ItemTypeComponent</scope><name>subType1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

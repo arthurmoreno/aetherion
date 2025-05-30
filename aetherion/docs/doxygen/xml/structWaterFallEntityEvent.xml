@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structWaterFallEntityEvent" kind="struct" language="C++" prot="public">
+    <compoundname>WaterFallEntityEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structWaterFallEntityEvent_1a7d842045dc921c3bbe19727132a15d91" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity WaterFallEntityEvent::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>WaterFallEntityEvent::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="54" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterFallEntityEvent_1a3a672b865f3f3a149e71fcb41a9c659a" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position WaterFallEntityEvent::position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <qualifiedname>WaterFallEntityEvent::position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="55" column="14" bodyfile="src/EcosystemEngine.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterFallEntityEvent_1a5d993f8c94a834dd9a27eb2bd2bdcb55" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterFallEntityEvent::fallingAmount</definition>
+        <argsstring></argsstring>
+        <name>fallingAmount</name>
+        <qualifiedname>WaterFallEntityEvent::fallingAmount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="56" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structWaterFallEntityEvent_1ac8c59470fc1d5f83d0045f4d427d1258" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>WaterFallEntityEvent::WaterFallEntityEvent</definition>
+        <argsstring>(entt::entity entity, Position position, int fallingAmount)</argsstring>
+        <name>WaterFallEntityEvent</name>
+        <qualifiedname>WaterFallEntityEvent::WaterFallEntityEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>position</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fallingAmount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="58" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="58" bodyend="59"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>Position</label>
+        <link refid="structPosition"/>
+      </node>
+      <node id="1">
+        <label>WaterFallEntityEvent</label>
+        <link refid="structWaterFallEntityEvent"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>position</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/EcosystemEngine.hpp" line="53" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="53" bodyend="60"/>
+    <listofallmembers>
+      <member refid="structWaterFallEntityEvent_1a7d842045dc921c3bbe19727132a15d91" prot="public" virt="non-virtual"><scope>WaterFallEntityEvent</scope><name>entity</name></member>
+      <member refid="structWaterFallEntityEvent_1a5d993f8c94a834dd9a27eb2bd2bdcb55" prot="public" virt="non-virtual"><scope>WaterFallEntityEvent</scope><name>fallingAmount</name></member>
+      <member refid="structWaterFallEntityEvent_1a3a672b865f3f3a149e71fcb41a9c659a" prot="public" virt="non-virtual"><scope>WaterFallEntityEvent</scope><name>position</name></member>
+      <member refid="structWaterFallEntityEvent_1ac8c59470fc1d5f83d0045f4d427d1258" prot="public" virt="non-virtual"><scope>WaterFallEntityEvent</scope><name>WaterFallEntityEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

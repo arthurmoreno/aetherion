@@ -1,0 +1,387 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="TerrainComponents_8hpp" kind="file" language="C++">
+    <compoundname>TerrainComponents.hpp</compoundname>
+    <includes local="no">unordered_set</includes>
+    <includes local="no">vector</includes>
+    <includedby refid="EcosystemEngine_8hpp" local="yes">src/EcosystemEngine.hpp</includedby>
+    <includedby refid="EffectsSystem_8hpp" local="yes">src/EffectsSystem.hpp</includedby>
+    <includedby refid="EntityInterface_8hpp" local="yes">src/EntityInterface.hpp</includedby>
+    <includedby refid="PhysicsEngine_8hpp" local="yes">src/PhysicsEngine.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/components/TerrainComponents.hpp</label>
+        <link refid="TerrainComponents_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>unordered_set</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="9">
+        <label>src/CameraUtils.hpp</label>
+        <link refid="CameraUtils_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/EcosystemEngine.hpp</label>
+        <link refid="EcosystemEngine_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/EffectsSystem.hpp</label>
+        <link refid="EffectsSystem_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/EntityInterface.hpp</label>
+        <link refid="EntityInterface_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>src/FlatbufferUtils.hpp</label>
+        <link refid="FlatbufferUtils_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>src/Gui/Gui.hpp</label>
+        <link refid="Gui_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>src/HealthSystem.hpp</label>
+        <link refid="HealthSystem_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>src/LifeEvents.hpp</label>
+        <link refid="LifeEvents_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>src/MetabolismSystem.hpp</label>
+        <link refid="MetabolismSystem_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>src/PerceptionResponse.hpp</label>
+        <link refid="PerceptionResponse_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/PhysicsEngine.hpp</label>
+        <link refid="PhysicsEngine_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/World.hpp</label>
+        <link refid="World_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>src/WorldView.hpp</label>
+        <link refid="WorldView_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>src/aetherion.hpp</label>
+        <link refid="aetherion_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>src/components/TerrainComponents.hpp</label>
+        <link refid="TerrainComponents_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structMatterContainer" prot="public">MatterContainer</innerclass>
+    <innerclass refid="structTileEffectComponent" prot="public">TileEffectComponent</innerclass>
+    <innerclass refid="structTileEffectsList" prot="public">TileEffectsList</innerclass>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="TerrainComponents_8hpp_1a2c2a355db2a37d45e74e114393f38911" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TerrainEnum</name>
+        <enumvalue id="TerrainComponents_8hpp_1a2c2a355db2a37d45e74e114393f38911aba2b45bdc11e2a4a6e86aab2ac693cbb" prot="public">
+          <name>EMPTY</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a2c2a355db2a37d45e74e114393f38911aa3030e42cd8f04255711905a9182399f" prot="public">
+          <name>GRASS</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a2c2a355db2a37d45e74e114393f38911a2add2964642f39099cb51edf4a4f5a70" prot="public">
+          <name>WATER</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="7" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="7" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="enum" id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TerrainVariantEnum</name>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07aba7de5bc6888294e5884b024a4c894f1" prot="public">
+          <name>FULL</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07aabe3b40b6e039435ce0e6c45c970649c" prot="public">
+          <name>RAMP_EAST</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a14743c2cf162155b6f9ab3d5bb09c49d" prot="public">
+          <name>RAMP_WEST</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a1c86c6d2b33c00ba4a3e9e6429d936d1" prot="public">
+          <name>CORNER_SOUTH_EAST</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a7a2259c1d2836fd46d355aa67896318e" prot="public">
+          <name>CORNER_SOUTH_EAST_INV</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07acc14723b4313452ab1cafa162d834e3b" prot="public">
+          <name>CORNER_NORTH_EAST</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a4a814701e12f9a9ac2c283fb0febee9a" prot="public">
+          <name>CORNER_NORTH_EAST_INV</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07afc81f2e4579c1b042faa8cdd2d5bbecf" prot="public">
+          <name>RAMP_SOUTH</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a4279e418c52cc3aebd13277159d6947a" prot="public">
+          <name>RAMP_NORTH</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07a16d9eb9e3b83d0c93e0af137ec5473bb" prot="public">
+          <name>CORNER_SOUTH_WEST</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07acd016f325e74ce31b4d60e311109ac49" prot="public">
+          <name>CORNER_NORTH_WEST</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="9" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="9" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="enum" id="TerrainComponents_8hpp_1a313c65ef6998c725725b5107a1c1df3e" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TileEffectTypeEnum</name>
+        <enumvalue id="TerrainComponents_8hpp_1a313c65ef6998c725725b5107a1c1df3eaba2b45bdc11e2a4a6e86aab2ac693cbb" prot="public">
+          <name>EMPTY</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a313c65ef6998c725725b5107a1c1df3eac264848b2ce535fb3b0ea86df85f66ad" prot="public">
+          <name>BLOOD_DAMAGE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a313c65ef6998c725725b5107a1c1df3eaa0d954b9f7bbce4a3a9ae504ba00c285" prot="public">
+          <name>GREEN_DAMAGE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="30" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="30" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>TERRAIN_COMPONENTS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TERRAIN_COMPONENTS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unordered_set&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>struct</highlight><highlight class="normal"><sp/>TerrainEnum<sp/>{<sp/>EMPTY<sp/>=<sp/>-1,<sp/>GRASS<sp/>=<sp/>0,<sp/>WATER<sp/>=<sp/>1<sp/>};</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>struct</highlight><highlight class="normal"><sp/>TerrainVariantEnum<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>FULL<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_EAST<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_WEST<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_SOUTH_EAST<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_SOUTH_EAST_INV<sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_NORTH_EAST<sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_NORTH_EAST_INV<sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_SOUTH<sp/>=<sp/>7,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_NORTH<sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_SOUTH_WEST<sp/>=<sp/>9,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_NORTH_WEST<sp/>=<sp/>10</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="structMatterContainer" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref><sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TerrainMatter;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WaterVapor;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WaterMatter;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BioMassMatter;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>struct</highlight><highlight class="normal"><sp/>TileEffectTypeEnum<sp/>{<sp/>EMPTY<sp/>=<sp/>-1,<sp/>BLOOD_DAMAGE<sp/>=<sp/>0,<sp/>GREEN_DAMAGE<sp/>=<sp/>1<sp/>};</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="structTileEffectComponent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structTileEffectComponent" kindref="compound">TileEffectComponent</ref><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tileEffectType;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>damageValue;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>effectTotalTime;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>effectRemainingTime;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="structTileEffectsList" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structTileEffectsList" kindref="compound">TileEffectsList</ref><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;int&gt;<sp/>tileEffectsIDs;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unordered_set&lt;int&gt;<sp/>unique_elements;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>addEffect(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tileEffectID)<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(unique_elements.insert(tileEffectID).second)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tileEffectsIDs.push_back(tileEffectID);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>TERRAIN_COMPONENTS_HPP</highlight></codeline>
+    </programlisting>
+    <location file="src/components/TerrainComponents.hpp"/>
+  </compounddef>
+</doxygen>

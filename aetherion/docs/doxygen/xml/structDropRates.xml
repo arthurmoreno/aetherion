@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structDropRates" kind="struct" language="C++" prot="public">
+    <compoundname>DropRates</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structDropRates_1a972904f3198bdd585202c27d443a619f" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, std::tuple&lt; float, int, int &gt; &gt;</type>
+        <definition>std::map&lt;std::string, std::tuple&lt;float, int, int&gt; &gt; DropRates::itemDropRates</definition>
+        <argsstring></argsstring>
+        <name>itemDropRates</name>
+        <qualifiedname>DropRates::itemDropRates</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="73" column="14" bodyfile="src/components/ItemsComponents.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structDropRates_1adbcfde668cb87044f4c780ccce07740b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DropRates::addItem</definition>
+        <argsstring>(std::string itemID, float dropRate, int minDrop, int maxDrop)</argsstring>
+        <name>addItem</name>
+        <qualifiedname>DropRates::addItem</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>itemID</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>dropRate</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>minDrop</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>maxDrop</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="75" column="10" bodyfile="src/components/ItemsComponents.cpp" bodystart="149" bodyend="165"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/ItemsComponents.hpp" line="72" column="1" bodyfile="src/components/ItemsComponents.hpp" bodystart="72" bodyend="76"/>
+    <listofallmembers>
+      <member refid="structDropRates_1adbcfde668cb87044f4c780ccce07740b" prot="public" virt="non-virtual"><scope>DropRates</scope><name>addItem</name></member>
+      <member refid="structDropRates_1a972904f3198bdd585202c27d443a619f" prot="public" virt="non-virtual"><scope>DropRates</scope><name>itemDropRates</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

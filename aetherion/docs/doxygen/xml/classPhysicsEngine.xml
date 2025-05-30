@@ -1,0 +1,388 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPhysicsEngine" kind="class" language="C++" prot="public">
+    <compoundname>PhysicsEngine</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classPhysicsEngine_1a715caa0b8d0bee78d897e705a5694d0c" prot="public" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex PhysicsEngine::physicsMutex</definition>
+        <argsstring></argsstring>
+        <name>physicsMutex</name>
+        <qualifiedname>PhysicsEngine::physicsMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="30" column="16" bodyfile="src/PhysicsEngine.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPhysicsEngine_1a5d51129040d6888dd28f33f415a41f7b" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity PhysicsEngine::entityBeingDebugged</definition>
+        <argsstring></argsstring>
+        <name>entityBeingDebugged</name>
+        <qualifiedname>PhysicsEngine::entityBeingDebugged</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="32" column="18" bodyfile="src/PhysicsEngine.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classPhysicsEngine_1a94a517f3924b4fe00304a36f71ebe294" prot="private" static="no" mutable="no">
+        <type>entt::registry &amp;</type>
+        <definition>entt::registry&amp; PhysicsEngine::registry</definition>
+        <argsstring></argsstring>
+        <name>registry</name>
+        <qualifiedname>PhysicsEngine::registry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="60" column="20" bodyfile="src/PhysicsEngine.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPhysicsEngine_1a9acfa1e5e8a27f763f93afe320a5567b" prot="private" static="no" mutable="no">
+        <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+        <definition>VoxelGrid* PhysicsEngine::voxelGrid</definition>
+        <argsstring></argsstring>
+        <name>voxelGrid</name>
+        <qualifiedname>PhysicsEngine::voxelGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="61" column="15" bodyfile="src/PhysicsEngine.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPhysicsEngine_1a752aa641e02ef948c80a0334cb569aea" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool PhysicsEngine::processingComplete</definition>
+        <argsstring></argsstring>
+        <name>processingComplete</name>
+        <qualifiedname>PhysicsEngine::processingComplete</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="64" column="10" bodyfile="src/PhysicsEngine.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPhysicsEngine_1ae323fe119f294a4ffb42852b38b02e43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PhysicsEngine::PhysicsEngine</definition>
+        <argsstring>()=default</argsstring>
+        <name>PhysicsEngine</name>
+        <qualifiedname>PhysicsEngine::PhysicsEngine</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="34" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1a67dcbceaaaba446de86c2ad4feb150a0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PhysicsEngine::PhysicsEngine</definition>
+        <argsstring>(entt::registry &amp;reg, VoxelGrid *voxelGrid)</argsstring>
+        <name>PhysicsEngine</name>
+        <qualifiedname>PhysicsEngine::PhysicsEngine</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="35" column="5" bodyfile="src/PhysicsEngine.hpp" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1a461965e80d56474c6c4e5835bcb58406" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsEngine::processPhysics</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher, GameClock &amp;clock)</argsstring>
+        <name>processPhysics</name>
+        <qualifiedname>PhysicsEngine::processPhysics</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type><ref refid="classGameClock" kindref="compound">GameClock</ref> &amp;</type>
+          <declname>clock</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="38" column="10" bodyfile="src/PhysicsEngine.cpp" bodystart="635" bodyend="648"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1a694fade3c62cce3ecac2e2e2f4247c80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsEngine::processPhysicsAsync</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher, GameClock &amp;clock)</argsstring>
+        <name>processPhysicsAsync</name>
+        <qualifiedname>PhysicsEngine::processPhysicsAsync</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type><ref refid="classGameClock" kindref="compound">GameClock</ref> &amp;</type>
+          <declname>clock</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="40" column="10" bodyfile="src/PhysicsEngine.cpp" bodystart="650" bodyend="684"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1a64f0593fb2abdb4c3009051409c8cfaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsEngine::onMoveSolidEntityEvent</definition>
+        <argsstring>(const MoveSolidEntityEvent &amp;event)</argsstring>
+        <name>onMoveSolidEntityEvent</name>
+        <qualifiedname>PhysicsEngine::onMoveSolidEntityEvent</qualifiedname>
+        <param>
+          <type>const <ref refid="structMoveSolidEntityEvent" kindref="compound">MoveSolidEntityEvent</ref> &amp;</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="48" column="10" bodyfile="src/PhysicsEngine.cpp" bodystart="777" bodyend="847"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1ac740cd85a5110e49e73fda7cff5eab7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsEngine::onMoveGasEntityEvent</definition>
+        <argsstring>(const MoveGasEntityEvent &amp;event)</argsstring>
+        <name>onMoveGasEntityEvent</name>
+        <qualifiedname>PhysicsEngine::onMoveGasEntityEvent</qualifiedname>
+        <param>
+          <type>const <ref refid="structMoveGasEntityEvent" kindref="compound">MoveGasEntityEvent</ref> &amp;</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="49" column="10" bodyfile="src/PhysicsEngine.cpp" bodystart="708" bodyend="774"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1aa56976583ee5931a874ed705ef399a77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsEngine::onTakeItemEvent</definition>
+        <argsstring>(const TakeItemEvent &amp;event)</argsstring>
+        <name>onTakeItemEvent</name>
+        <qualifiedname>PhysicsEngine::onTakeItemEvent</qualifiedname>
+        <param>
+          <type>const <ref refid="structTakeItemEvent" kindref="compound">TakeItemEvent</ref> &amp;</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="50" column="10" bodyfile="src/PhysicsEngine.cpp" bodystart="849" bodyend="927"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1a72d8ca8ff3cc8c89acac6e455cd7b086" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsEngine::onUseItemEvent</definition>
+        <argsstring>(const UseItemEvent &amp;event)</argsstring>
+        <name>onUseItemEvent</name>
+        <qualifiedname>PhysicsEngine::onUseItemEvent</qualifiedname>
+        <param>
+          <type>const <ref refid="structUseItemEvent" kindref="compound">UseItemEvent</ref> &amp;</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="51" column="10" bodyfile="src/PhysicsEngine.cpp" bodystart="929" bodyend="944"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1a25f12fbb65717ef302d73538a5f3cbc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsEngine::onSetPhysicsEntityToDebug</definition>
+        <argsstring>(const SetPhysicsEntityToDebug &amp;event)</argsstring>
+        <name>onSetPhysicsEntityToDebug</name>
+        <qualifiedname>PhysicsEngine::onSetPhysicsEntityToDebug</qualifiedname>
+        <param>
+          <type>const <ref refid="structSetPhysicsEntityToDebug" kindref="compound">SetPhysicsEntityToDebug</ref> &amp;</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="52" column="10" bodyfile="src/PhysicsEngine.cpp" bodystart="946" bodyend="948"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1a1f03de7a556b2ff6e7b8b2c77b7e696d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsEngine::registerEventHandlers</definition>
+        <argsstring>(entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>registerEventHandlers</name>
+        <qualifiedname>PhysicsEngine::registerEventHandlers</qualifiedname>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="55" column="10" bodyfile="src/PhysicsEngine.cpp" bodystart="951" bodyend="958"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1ab90a52dd17f9360d118e7d158c9e208b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PhysicsEngine::isProcessingComplete</definition>
+        <argsstring>() const</argsstring>
+        <name>isProcessingComplete</name>
+        <qualifiedname>PhysicsEngine::isProcessingComplete</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="57" column="10" bodyfile="src/PhysicsEngine.cpp" bodystart="686" bodyend="686"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classPhysicsEngine_1a2ffa86023d5a549b63d27822e14452f6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PhysicsEngine::checkIfCanJump</definition>
+        <argsstring>(const MoveSolidEntityEvent &amp;event)</argsstring>
+        <name>checkIfCanJump</name>
+        <qualifiedname>PhysicsEngine::checkIfCanJump</qualifiedname>
+        <param>
+          <type>const <ref refid="structMoveSolidEntityEvent" kindref="compound">MoveSolidEntityEvent</ref> &amp;</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="67" column="10" bodyfile="src/PhysicsEngine.cpp" bodystart="9" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsEngine_1a9740cae95ddcc60c19e148ef5e1d8f15" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::tuple&lt; float, float, float &gt;</type>
+        <definition>std::tuple&lt; float, float, float &gt; PhysicsEngine::translatePhysicsToGridMovement</definition>
+        <argsstring>(float velocityX, float velocityY, float velocityZ, float accelerationX, float accelerationY, float accelerationZ, int16_t maxSpeed)</argsstring>
+        <name>translatePhysicsToGridMovement</name>
+        <qualifiedname>PhysicsEngine::translatePhysicsToGridMovement</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>velocityX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>velocityY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>velocityZ</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>accelerationX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>accelerationY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>accelerationZ</declname>
+        </param>
+        <param>
+          <type>int16_t</type>
+          <declname>maxSpeed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsEngine.hpp" line="68" column="16" bodyfile="src/PhysicsEngine.cpp" bodystart="15" bodyend="99"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/PhysicsEngine.hpp" line="28" column="1" bodyfile="src/PhysicsEngine.hpp" bodystart="28" bodyend="71"/>
+    <listofallmembers>
+      <member refid="classPhysicsEngine_1a2ffa86023d5a549b63d27822e14452f6" prot="private" virt="non-virtual"><scope>PhysicsEngine</scope><name>checkIfCanJump</name></member>
+      <member refid="classPhysicsEngine_1a5d51129040d6888dd28f33f415a41f7b" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>entityBeingDebugged</name></member>
+      <member refid="classPhysicsEngine_1ab90a52dd17f9360d118e7d158c9e208b" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>isProcessingComplete</name></member>
+      <member refid="classPhysicsEngine_1ac740cd85a5110e49e73fda7cff5eab7a" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>onMoveGasEntityEvent</name></member>
+      <member refid="classPhysicsEngine_1a64f0593fb2abdb4c3009051409c8cfaa" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>onMoveSolidEntityEvent</name></member>
+      <member refid="classPhysicsEngine_1a25f12fbb65717ef302d73538a5f3cbc7" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>onSetPhysicsEntityToDebug</name></member>
+      <member refid="classPhysicsEngine_1aa56976583ee5931a874ed705ef399a77" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>onTakeItemEvent</name></member>
+      <member refid="classPhysicsEngine_1a72d8ca8ff3cc8c89acac6e455cd7b086" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>onUseItemEvent</name></member>
+      <member refid="classPhysicsEngine_1ae323fe119f294a4ffb42852b38b02e43" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>PhysicsEngine</name></member>
+      <member refid="classPhysicsEngine_1a67dcbceaaaba446de86c2ad4feb150a0" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>PhysicsEngine</name></member>
+      <member refid="classPhysicsEngine_1a715caa0b8d0bee78d897e705a5694d0c" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>physicsMutex</name></member>
+      <member refid="classPhysicsEngine_1a752aa641e02ef948c80a0334cb569aea" prot="private" virt="non-virtual"><scope>PhysicsEngine</scope><name>processingComplete</name></member>
+      <member refid="classPhysicsEngine_1a461965e80d56474c6c4e5835bcb58406" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>processPhysics</name></member>
+      <member refid="classPhysicsEngine_1a694fade3c62cce3ecac2e2e2f4247c80" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>processPhysicsAsync</name></member>
+      <member refid="classPhysicsEngine_1a1f03de7a556b2ff6e7b8b2c77b7e696d" prot="public" virt="non-virtual"><scope>PhysicsEngine</scope><name>registerEventHandlers</name></member>
+      <member refid="classPhysicsEngine_1a94a517f3924b4fe00304a36f71ebe294" prot="private" virt="non-virtual"><scope>PhysicsEngine</scope><name>registry</name></member>
+      <member refid="classPhysicsEngine_1a9740cae95ddcc60c19e148ef5e1d8f15" prot="private" virt="non-virtual"><scope>PhysicsEngine</scope><name>translatePhysicsToGridMovement</name></member>
+      <member refid="classPhysicsEngine_1a9acfa1e5e8a27f763f93afe320a5567b" prot="private" virt="non-virtual"><scope>PhysicsEngine</scope><name>voxelGrid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

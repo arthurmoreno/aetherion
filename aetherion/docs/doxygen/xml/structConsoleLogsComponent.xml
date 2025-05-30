@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structConsoleLogsComponent" kind="struct" language="C++" prot="public">
+    <compoundname>ConsoleLogsComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structConsoleLogsComponent_1a0384812057051e771fae27e175207743" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, std::string &gt;</type>
+        <definition>std::map&lt;std::string, std::string&gt; ConsoleLogsComponent::log_buffer</definition>
+        <argsstring></argsstring>
+        <name>log_buffer</name>
+        <qualifiedname>ConsoleLogsComponent::log_buffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ConsoleLogsComponent.hpp" line="13" column="14" bodyfile="src/components/ConsoleLogsComponent.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structConsoleLogsComponent_1af51dd3ecae21df77db3b159963e89e3e" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t ConsoleLogsComponent::max_size</definition>
+        <argsstring></argsstring>
+        <name>max_size</name>
+        <qualifiedname>ConsoleLogsComponent::max_size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ConsoleLogsComponent.hpp" line="14" column="12" bodyfile="src/components/ConsoleLogsComponent.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structConsoleLogsComponent_1a3a10b15276cfb8c265695ae7ffbce635" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ConsoleLogsComponent::current_time_string</definition>
+        <argsstring>() const</argsstring>
+        <name>current_time_string</name>
+        <qualifiedname>ConsoleLogsComponent::current_time_string</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ConsoleLogsComponent.hpp" line="17" column="17" bodyfile="src/components/ConsoleLogsComponent.hpp" bodystart="17" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="structConsoleLogsComponent_1ac9dd56c3d9e901e3f131e1aecb5db371" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConsoleLogsComponent::add_log</definition>
+        <argsstring>(const std::string &amp;log)</argsstring>
+        <name>add_log</name>
+        <qualifiedname>ConsoleLogsComponent::add_log</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>log</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ConsoleLogsComponent.hpp" line="32" column="10" bodyfile="src/components/ConsoleLogsComponent.cpp" bodystart="4" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="structConsoleLogsComponent_1a0c230ce63b7bb7937878511ad459fe39" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::map&lt; std::string, std::string &gt;</type>
+        <definition>std::map&lt; std::string, std::string &gt; ConsoleLogsComponent::get_logs</definition>
+        <argsstring>() const</argsstring>
+        <name>get_logs</name>
+        <qualifiedname>ConsoleLogsComponent::get_logs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ConsoleLogsComponent.hpp" line="35" column="14" bodyfile="src/components/ConsoleLogsComponent.cpp" bodystart="15" bodyend="15"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/ConsoleLogsComponent.hpp" line="12" column="1" bodyfile="src/components/ConsoleLogsComponent.hpp" bodystart="12" bodyend="36"/>
+    <listofallmembers>
+      <member refid="structConsoleLogsComponent_1ac9dd56c3d9e901e3f131e1aecb5db371" prot="public" virt="non-virtual"><scope>ConsoleLogsComponent</scope><name>add_log</name></member>
+      <member refid="structConsoleLogsComponent_1a3a10b15276cfb8c265695ae7ffbce635" prot="public" virt="non-virtual"><scope>ConsoleLogsComponent</scope><name>current_time_string</name></member>
+      <member refid="structConsoleLogsComponent_1a0c230ce63b7bb7937878511ad459fe39" prot="public" virt="non-virtual"><scope>ConsoleLogsComponent</scope><name>get_logs</name></member>
+      <member refid="structConsoleLogsComponent_1a0384812057051e771fae27e175207743" prot="public" virt="non-virtual"><scope>ConsoleLogsComponent</scope><name>log_buffer</name></member>
+      <member refid="structConsoleLogsComponent_1af51dd3ecae21df77db3b159963e89e3e" prot="public" virt="non-virtual"><scope>ConsoleLogsComponent</scope><name>max_size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

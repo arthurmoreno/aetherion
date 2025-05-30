@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classDefaultGenome" kind="class" language="C++" prot="public">
+    <compoundname>DefaultGenome</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classDefaultGenome_1ae339dbe46f6aa519197d81807be93b22" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DefaultGenome::key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <qualifiedname>DefaultGenome::key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="66" column="9" bodyfile="src/neat/genome.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenome_1a8b409a9504ec3990ea455348c805a5ee" prot="public" static="no" mutable="no">
+        <type>std::map&lt; int, <ref refid="classDefaultNodeGene" kindref="compound">DefaultNodeGene</ref> &gt;</type>
+        <definition>std::map&lt;int, DefaultNodeGene&gt; DefaultGenome::nodes</definition>
+        <argsstring></argsstring>
+        <name>nodes</name>
+        <qualifiedname>DefaultGenome::nodes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="67" column="14" bodyfile="src/neat/genome.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenome_1a8a59843c91c048c1788e999665af4c89" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::pair&lt; int, int &gt;, <ref refid="classDefaultConnectionGene" kindref="compound">DefaultConnectionGene</ref> &gt;</type>
+        <definition>std::map&lt;std::pair&lt;int, int&gt;, DefaultConnectionGene&gt; DefaultGenome::connections</definition>
+        <argsstring></argsstring>
+        <name>connections</name>
+        <qualifiedname>DefaultGenome::connections</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="68" column="14" bodyfile="src/neat/genome.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDefaultGenome_1a4e32c4d30385bb8d93ec472f7ac14477" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DefaultGenome::fitness</definition>
+        <argsstring></argsstring>
+        <name>fitness</name>
+        <qualifiedname>DefaultGenome::fitness</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="69" column="12" bodyfile="src/neat/genome.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classDefaultGenome_1afbf73116c544e03e5774dd62d8c041bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DefaultGenome::DefaultGenome</definition>
+        <argsstring>(int key_)</argsstring>
+        <name>DefaultGenome</name>
+        <qualifiedname>DefaultGenome::DefaultGenome</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>key_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="72" column="5" bodyfile="src/neat/genome.cpp" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultGenome_1ac3618a1452ee765ea7fede16ae782d5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classDefaultNodeGene" kindref="compound">DefaultNodeGene</ref></type>
+        <definition>DefaultNodeGene DefaultGenome::create_node</definition>
+        <argsstring>(const DefaultGenomeConfig &amp;config, int node_key)</argsstring>
+        <name>create_node</name>
+        <qualifiedname>DefaultGenome::create_node</qualifiedname>
+        <param>
+          <type>const <ref refid="classDefaultGenomeConfig" kindref="compound">DefaultGenomeConfig</ref> &amp;</type>
+          <declname>config</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>node_key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="75" column="21" bodyfile="src/neat/genome.cpp" bodystart="62" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultGenome_1a9771974c91b9a76ce933a96819e3a3d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classDefaultConnectionGene" kindref="compound">DefaultConnectionGene</ref></type>
+        <definition>DefaultConnectionGene DefaultGenome::create_connection</definition>
+        <argsstring>(const std::pair&lt; int, int &gt; &amp;conn_key)</argsstring>
+        <name>create_connection</name>
+        <qualifiedname>DefaultGenome::create_connection</qualifiedname>
+        <param>
+          <type>const std::pair&lt; int, int &gt; &amp;</type>
+          <declname>conn_key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="78" column="27" bodyfile="src/neat/genome.cpp" bodystart="68" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultGenome_1ae47ec9e951831fd15905dd4259e33dd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DefaultGenome::configure_new</definition>
+        <argsstring>(DefaultGenomeConfig &amp;config)</argsstring>
+        <name>configure_new</name>
+        <qualifiedname>DefaultGenome::configure_new</qualifiedname>
+        <param>
+          <type><ref refid="classDefaultGenomeConfig" kindref="compound">DefaultGenomeConfig</ref> &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="82" column="10" bodyfile="src/neat/genome.cpp" bodystart="74" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="classDefaultGenome_1a7b85be4e73ce4cf272b09707f040ee21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DefaultGenome::mutate_add_node</definition>
+        <argsstring>(DefaultGenomeConfig &amp;config)</argsstring>
+        <name>mutate_add_node</name>
+        <qualifiedname>DefaultGenome::mutate_add_node</qualifiedname>
+        <param>
+          <type><ref refid="classDefaultGenomeConfig" kindref="compound">DefaultGenomeConfig</ref> &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="85" column="10" bodyfile="src/neat/genome.cpp" bodystart="99" bodyend="131"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/neat/genome.hpp" line="64" column="1" bodyfile="src/neat/genome.hpp" bodystart="64" bodyend="86"/>
+    <listofallmembers>
+      <member refid="classDefaultGenome_1ae47ec9e951831fd15905dd4259e33dd6" prot="public" virt="non-virtual"><scope>DefaultGenome</scope><name>configure_new</name></member>
+      <member refid="classDefaultGenome_1a8a59843c91c048c1788e999665af4c89" prot="public" virt="non-virtual"><scope>DefaultGenome</scope><name>connections</name></member>
+      <member refid="classDefaultGenome_1a9771974c91b9a76ce933a96819e3a3d7" prot="public" virt="non-virtual"><scope>DefaultGenome</scope><name>create_connection</name></member>
+      <member refid="classDefaultGenome_1ac3618a1452ee765ea7fede16ae782d5f" prot="public" virt="non-virtual"><scope>DefaultGenome</scope><name>create_node</name></member>
+      <member refid="classDefaultGenome_1afbf73116c544e03e5774dd62d8c041bb" prot="public" virt="non-virtual"><scope>DefaultGenome</scope><name>DefaultGenome</name></member>
+      <member refid="classDefaultGenome_1a4e32c4d30385bb8d93ec472f7ac14477" prot="public" virt="non-virtual"><scope>DefaultGenome</scope><name>fitness</name></member>
+      <member refid="classDefaultGenome_1ae339dbe46f6aa519197d81807be93b22" prot="public" virt="non-virtual"><scope>DefaultGenome</scope><name>key</name></member>
+      <member refid="classDefaultGenome_1a7b85be4e73ce4cf272b09707f040ee21" prot="public" virt="non-virtual"><scope>DefaultGenome</scope><name>mutate_add_node</name></member>
+      <member refid="classDefaultGenome_1a8b409a9504ec3990ea455348c805a5ee" prot="public" virt="non-virtual"><scope>DefaultGenome</scope><name>nodes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

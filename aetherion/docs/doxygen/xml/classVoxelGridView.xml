@@ -1,0 +1,332 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classVoxelGridView" kind="class" language="C++" prot="public">
+    <compoundname>VoxelGridView</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classVoxelGridView_1a12c0778697ff4b2d5a95b7fe2c2882e3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoxelGridView::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <qualifiedname>VoxelGridView::width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="136" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoxelGridView_1ae1b9f6877d24fa2266720799ee8226e1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoxelGridView::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <qualifiedname>VoxelGridView::height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="136" column="15" bodyfile="src/VoxelGrid.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoxelGridView_1a8c657fc5426df162e67a46ee31485d9a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoxelGridView::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <qualifiedname>VoxelGridView::depth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="136" column="22" bodyfile="src/VoxelGrid.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoxelGridView_1afed721a7a9d554dbdb45b9e4ca20d505" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoxelGridView::x_offset</definition>
+        <argsstring></argsstring>
+        <name>x_offset</name>
+        <qualifiedname>VoxelGridView::x_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="137" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoxelGridView_1aa5ab6d3a3a6479a188fa6e73fea11248" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoxelGridView::y_offset</definition>
+        <argsstring></argsstring>
+        <name>y_offset</name>
+        <qualifiedname>VoxelGridView::y_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="137" column="18" bodyfile="src/VoxelGrid.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoxelGridView_1ac013eee936b2925717df40e1d6cbd4b6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoxelGridView::z_offset</definition>
+        <argsstring></argsstring>
+        <name>z_offset</name>
+        <qualifiedname>VoxelGridView::z_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="137" column="27" bodyfile="src/VoxelGrid.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoxelGridView_1aeec8205ce0e07ee33609e16e37c5e6c8" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; VoxelGridView::terrainData</definition>
+        <argsstring></argsstring>
+        <name>terrainData</name>
+        <qualifiedname>VoxelGridView::terrainData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="138" column="17" bodyfile="src/VoxelGrid.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoxelGridView_1afdbcd8b54a405582186a6235a1cd1478" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; VoxelGridView::entityData</definition>
+        <argsstring></argsstring>
+        <name>entityData</name>
+        <qualifiedname>VoxelGridView::entityData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="139" column="17" bodyfile="src/VoxelGrid.hpp" bodystart="139" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classVoxelGridView_1a73d356ce5c9db35da6726ee5f5fa30d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VoxelGridView::initVoxelGridView</definition>
+        <argsstring>(int width, int height, int depth, int x_offset, int y_offset, int z_offset)</argsstring>
+        <name>initVoxelGridView</name>
+        <qualifiedname>VoxelGridView::initVoxelGridView</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>depth</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x_offset</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y_offset</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z_offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="142" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="238" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoxelGridView_1a70f57c4df376c688a6d1cbe7c8372b89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VoxelGridView::setTerrainVoxel</definition>
+        <argsstring>(int x, int y, int z, const int voxelData)</argsstring>
+        <name>setTerrainVoxel</name>
+        <qualifiedname>VoxelGridView::setTerrainVoxel</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>voxelData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="146" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="256" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoxelGridView_1a6738b02a3b317177d8b6b8916cffea4d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VoxelGridView::getTerrainVoxel</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainVoxel</name>
+        <qualifiedname>VoxelGridView::getTerrainVoxel</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="147" column="9" bodyfile="src/VoxelGrid.cpp" bodystart="271" bodyend="285"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoxelGridView_1a646f614b317d1e82693c77694f085f1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VoxelGridView::setEntityVoxel</definition>
+        <argsstring>(int x, int y, int z, const int voxelData)</argsstring>
+        <name>setEntityVoxel</name>
+        <qualifiedname>VoxelGridView::setEntityVoxel</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>voxelData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="150" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="287" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoxelGridView_1a3ca9ff3ce533ce60b2d6d791c9c59c63" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VoxelGridView::getEntityVoxel</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getEntityVoxel</name>
+        <qualifiedname>VoxelGridView::getEntityVoxel</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="151" column="9" bodyfile="src/VoxelGrid.cpp" bodystart="302" bodyend="316"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoxelGridView_1ae969a3c47c3bc2d499140f5b1db64f4b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>flatbuffers::Offset&lt; GameEngine::VoxelGridView &gt;</type>
+        <definition>flatbuffers::Offset&lt; GameEngine::VoxelGridView &gt; VoxelGridView::serializeFlatBuffers</definition>
+        <argsstring>(flatbuffers::FlatBufferBuilder &amp;builder) const</argsstring>
+        <name>serializeFlatBuffers</name>
+        <qualifiedname>VoxelGridView::serializeFlatBuffers</qualifiedname>
+        <param>
+          <type>flatbuffers::FlatBufferBuilder &amp;</type>
+          <declname>builder</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="154" column="25" bodyfile="src/VoxelGrid.hpp" bodystart="154" bodyend="165"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classVoxelGridView_1a6856150cafc76628c51425affdf25a99" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classVoxelGridView" kindref="compound">VoxelGridView</ref></type>
+        <definition>static VoxelGridView VoxelGridView::deserializeFlatBuffers</definition>
+        <argsstring>(const GameEngine::VoxelGridView *fbVoxelGridView)</argsstring>
+        <name>deserializeFlatBuffers</name>
+        <qualifiedname>VoxelGridView::deserializeFlatBuffers</qualifiedname>
+        <param>
+          <type>const GameEngine::VoxelGridView *</type>
+          <declname>fbVoxelGridView</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="168" column="26" bodyfile="src/VoxelGrid.hpp" bodystart="168" bodyend="202"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/VoxelGrid.hpp" line="134" column="1" bodyfile="src/VoxelGrid.hpp" bodystart="134" bodyend="203"/>
+    <listofallmembers>
+      <member refid="classVoxelGridView_1a8c657fc5426df162e67a46ee31485d9a" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>depth</name></member>
+      <member refid="classVoxelGridView_1a6856150cafc76628c51425affdf25a99" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>deserializeFlatBuffers</name></member>
+      <member refid="classVoxelGridView_1afdbcd8b54a405582186a6235a1cd1478" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>entityData</name></member>
+      <member refid="classVoxelGridView_1a3ca9ff3ce533ce60b2d6d791c9c59c63" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>getEntityVoxel</name></member>
+      <member refid="classVoxelGridView_1a6738b02a3b317177d8b6b8916cffea4d" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>getTerrainVoxel</name></member>
+      <member refid="classVoxelGridView_1ae1b9f6877d24fa2266720799ee8226e1" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>height</name></member>
+      <member refid="classVoxelGridView_1a73d356ce5c9db35da6726ee5f5fa30d1" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>initVoxelGridView</name></member>
+      <member refid="classVoxelGridView_1ae969a3c47c3bc2d499140f5b1db64f4b" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>serializeFlatBuffers</name></member>
+      <member refid="classVoxelGridView_1a646f614b317d1e82693c77694f085f1a" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>setEntityVoxel</name></member>
+      <member refid="classVoxelGridView_1a70f57c4df376c688a6d1cbe7c8372b89" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>setTerrainVoxel</name></member>
+      <member refid="classVoxelGridView_1aeec8205ce0e07ee33609e16e37c5e6c8" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>terrainData</name></member>
+      <member refid="classVoxelGridView_1a12c0778697ff4b2d5a95b7fe2c2882e3" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>width</name></member>
+      <member refid="classVoxelGridView_1afed721a7a9d554dbdb45b9e4ca20d505" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>x_offset</name></member>
+      <member refid="classVoxelGridView_1aa5ab6d3a3a6479a188fa6e73fea11248" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>y_offset</name></member>
+      <member refid="classVoxelGridView_1ac013eee936b2925717df40e1d6cbd4b6" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>z_offset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

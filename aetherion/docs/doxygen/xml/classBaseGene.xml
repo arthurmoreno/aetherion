@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classBaseGene" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>BaseGene</compoundname>
+    <derivedcompoundref refid="classDefaultConnectionGene" prot="public" virt="non-virtual">DefaultConnectionGene</derivedcompoundref>
+    <derivedcompoundref refid="classDefaultNodeGene" prot="public" virt="non-virtual">DefaultNodeGene</derivedcompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classBaseGene_1a37ca839c6c11ee7539c2b9d0f20a4733" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>BaseGene::BaseGene</definition>
+        <argsstring>()=default</argsstring>
+        <name>BaseGene</name>
+        <qualifiedname>BaseGene::BaseGene</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="21" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseGene_1a5fb5d3bffb4b004ca077e18412d7c656" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual BaseGene::~BaseGene</definition>
+        <argsstring>()=default</argsstring>
+        <name>~BaseGene</name>
+        <qualifiedname>BaseGene::~BaseGene</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="22" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseGene_1a37871b1b6a63cb941fa4d8cc9a4dc45c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string BaseGene::to_string</definition>
+        <argsstring>() const =0</argsstring>
+        <name>to_string</name>
+        <qualifiedname>BaseGene::to_string</qualifiedname>
+        <reimplementedby refid="classDefaultNodeGene_1ae5b4a022df98657b493c4546de383589">to_string</reimplementedby>
+        <reimplementedby refid="classDefaultConnectionGene_1adb47cf183387d67892ed32939ca2ea32">to_string</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="24" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseGene_1aca5621fe8e4781aa1b6e436a2f16ace7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classBaseGene" kindref="compound">BaseGene</ref> *</type>
+        <definition>virtual BaseGene * BaseGene::copy</definition>
+        <argsstring>() const =0</argsstring>
+        <name>copy</name>
+        <qualifiedname>BaseGene::copy</qualifiedname>
+        <reimplementedby refid="classDefaultNodeGene_1a6f3e5eb8ca9a6e1d48a229e6c8b4ff1b">copy</reimplementedby>
+        <reimplementedby refid="classDefaultConnectionGene_1a53576fb61528a30ebeb528c1add9abbe">copy</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="25" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseGene_1a84782b89734a1a4d3ad4cf273c36e14e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classBaseGene" kindref="compound">BaseGene</ref> *</type>
+        <definition>virtual BaseGene * BaseGene::crossover</definition>
+        <argsstring>(const BaseGene &amp;other) const =0</argsstring>
+        <name>crossover</name>
+        <qualifiedname>BaseGene::crossover</qualifiedname>
+        <reimplementedby refid="classDefaultNodeGene_1a779bd20e7a38eaa5555db27769c4e7b8">crossover</reimplementedby>
+        <reimplementedby refid="classDefaultConnectionGene_1a043682d2fc52b8aa1bddac0e05f21d27">crossover</reimplementedby>
+        <param>
+          <type>const <ref refid="classBaseGene" kindref="compound">BaseGene</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="26" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseGene_1a8edc6492fed86f21383dc2d39e116715" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void BaseGene::init_attributes</definition>
+        <argsstring>()=0</argsstring>
+        <name>init_attributes</name>
+        <qualifiedname>BaseGene::init_attributes</qualifiedname>
+        <reimplementedby refid="classDefaultNodeGene_1a468a9ca9ed501bfeb5dc63b3b174abb9">init_attributes</reimplementedby>
+        <reimplementedby refid="classDefaultConnectionGene_1a919bbf059914b0780b50a8d5deb2ceae">init_attributes</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="27" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseGene_1ac6dc2ae6138fe1e7155f910c4c4e4077" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void BaseGene::mutate</definition>
+        <argsstring>()=0</argsstring>
+        <name>mutate</name>
+        <qualifiedname>BaseGene::mutate</qualifiedname>
+        <reimplementedby refid="classDefaultNodeGene_1abc1cfb9c7bffcdf303bf74cbb369d3d8">mutate</reimplementedby>
+        <reimplementedby refid="classDefaultConnectionGene_1a2866484f0a2a7e9fd259f0ae135187aa">mutate</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="28" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>BaseGene</label>
+        <link refid="classBaseGene"/>
+      </node>
+      <node id="2">
+        <label>DefaultConnectionGene</label>
+        <link refid="classDefaultConnectionGene"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DefaultNodeGene</label>
+        <link refid="classDefaultNodeGene"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="src/neat/genes.hpp" line="18" column="1" bodyfile="src/neat/genes.hpp" bodystart="18" bodyend="29"/>
+    <listofallmembers>
+      <member refid="classBaseGene_1a37ca839c6c11ee7539c2b9d0f20a4733" prot="public" virt="non-virtual"><scope>BaseGene</scope><name>BaseGene</name></member>
+      <member refid="classBaseGene_1aca5621fe8e4781aa1b6e436a2f16ace7" prot="public" virt="pure-virtual"><scope>BaseGene</scope><name>copy</name></member>
+      <member refid="classBaseGene_1a84782b89734a1a4d3ad4cf273c36e14e" prot="public" virt="pure-virtual"><scope>BaseGene</scope><name>crossover</name></member>
+      <member refid="classBaseGene_1a8edc6492fed86f21383dc2d39e116715" prot="public" virt="pure-virtual"><scope>BaseGene</scope><name>init_attributes</name></member>
+      <member refid="classBaseGene_1ac6dc2ae6138fe1e7155f910c4c4e4077" prot="public" virt="pure-virtual"><scope>BaseGene</scope><name>mutate</name></member>
+      <member refid="classBaseGene_1a37871b1b6a63cb941fa4d8cc9a4dc45c" prot="public" virt="pure-virtual"><scope>BaseGene</scope><name>to_string</name></member>
+      <member refid="classBaseGene_1a5fb5d3bffb4b004ca077e18412d7c656" prot="public" virt="virtual"><scope>BaseGene</scope><name>~BaseGene</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

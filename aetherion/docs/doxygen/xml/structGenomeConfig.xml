@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structGenomeConfig" kind="struct" language="C++" prot="public">
+    <compoundname>GenomeConfig</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structGenomeConfig_1a5807b32ccff71d8226e1a73b8c34e066" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GenomeConfig::compatibility_weight_coefficient</definition>
+        <argsstring></argsstring>
+        <name>compatibility_weight_coefficient</name>
+        <qualifiedname>GenomeConfig::compatibility_weight_coefficient</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genes.hpp" line="12" column="12" bodyfile="src/neat/genes.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/neat/genes.hpp" line="11" column="1" bodyfile="src/neat/genes.hpp" bodystart="11" bodyend="13"/>
+    <listofallmembers>
+      <member refid="structGenomeConfig_1a5807b32ccff71d8226e1a73b8c34e066" prot="public" virt="non-virtual"><scope>GenomeConfig</scope><name>compatibility_weight_coefficient</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

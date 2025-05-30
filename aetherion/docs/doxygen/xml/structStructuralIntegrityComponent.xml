@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structStructuralIntegrityComponent" kind="struct" language="C++" prot="public">
+    <compoundname>StructuralIntegrityComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structStructuralIntegrityComponent_1ad37d79d04b51f8dcaf5fa3d9ffcd9bb9" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool StructuralIntegrityComponent::canStackEntities</definition>
+        <argsstring></argsstring>
+        <name>canStackEntities</name>
+        <qualifiedname>StructuralIntegrityComponent::canStackEntities</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="84" column="10" bodyfile="src/components/PhysicsComponents.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStructuralIntegrityComponent_1a19174b9f47984254eb4433b1cb630115" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StructuralIntegrityComponent::maxLoadCapacity</definition>
+        <argsstring></argsstring>
+        <name>maxLoadCapacity</name>
+        <qualifiedname>StructuralIntegrityComponent::maxLoadCapacity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="85" column="9" bodyfile="src/components/PhysicsComponents.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStructuralIntegrityComponent_1a6dfc674f7e49199f2027bae8cfe24e3b" prot="public" static="no" mutable="no">
+        <type>MatterState</type>
+        <definition>MatterState StructuralIntegrityComponent::matterState</definition>
+        <argsstring></argsstring>
+        <name>matterState</name>
+        <qualifiedname>StructuralIntegrityComponent::matterState</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="87" column="17" bodyfile="src/components/PhysicsComponents.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStructuralIntegrityComponent_1a2e099f6df8b2f08b0c49463f326fbbf7" prot="public" static="no" mutable="no">
+        <type><ref refid="structGradientVector" kindref="compound">GradientVector</ref></type>
+        <definition>GradientVector StructuralIntegrityComponent::gradientVector</definition>
+        <argsstring></argsstring>
+        <name>gradientVector</name>
+        <qualifiedname>StructuralIntegrityComponent::gradientVector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="88" column="20" bodyfile="src/components/PhysicsComponents.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>GradientVector</label>
+        <link refid="structGradientVector"/>
+      </node>
+      <node id="1">
+        <label>StructuralIntegrityComponent</label>
+        <link refid="structStructuralIntegrityComponent"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>gradientVector</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/components/PhysicsComponents.hpp" line="83" column="1" bodyfile="src/components/PhysicsComponents.hpp" bodystart="83" bodyend="89"/>
+    <listofallmembers>
+      <member refid="structStructuralIntegrityComponent_1ad37d79d04b51f8dcaf5fa3d9ffcd9bb9" prot="public" virt="non-virtual"><scope>StructuralIntegrityComponent</scope><name>canStackEntities</name></member>
+      <member refid="structStructuralIntegrityComponent_1a2e099f6df8b2f08b0c49463f326fbbf7" prot="public" virt="non-virtual"><scope>StructuralIntegrityComponent</scope><name>gradientVector</name></member>
+      <member refid="structStructuralIntegrityComponent_1a6dfc674f7e49199f2027bae8cfe24e3b" prot="public" virt="non-virtual"><scope>StructuralIntegrityComponent</scope><name>matterState</name></member>
+      <member refid="structStructuralIntegrityComponent_1a19174b9f47984254eb4433b1cb630115" prot="public" virt="non-virtual"><scope>StructuralIntegrityComponent</scope><name>maxLoadCapacity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

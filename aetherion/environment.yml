@@ -1,0 +1,31 @@
+name: aetherion-312
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - bzip2=1.0.8
+  - ca-certificates=2025.4.26
+  - fmt=10.2.1
+  - ld_impl_linux-64=2.40
+  - libgcc=15.1.0
+  - libgcc-ng=15.1.0
+  - libgomp=15.1.0
+  - libstdcxx=15.1.0
+  - libstdcxx-ng=15.1.0
+  - ncurses=6.4
+  - openssl=3.5.0
+  - pip=25.1
+  - readline=8.2
+  - setuptools=78.1.1
+  - spdlog=1.12.0
+  - sqlite=3.45.3
+  - tzdata=2025b
+  - wheel=0.45.1
+  - xz=5.6.4
+  - zlib=1.2.13
+  - pip:
+    - build==1.2.2.post1
+    - packaging==25.0
+    - pyproject-hooks==1.2.0
+prefix: /home/arthur/anaconda3/envs/aetherion-312

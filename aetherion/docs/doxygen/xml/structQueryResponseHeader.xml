@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structQueryResponseHeader" kind="struct" language="C++" prot="public">
+    <compoundname>QueryResponseHeader</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structQueryResponseHeader_1a2a79191db8e9d9fc6309637594beff77" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long QueryResponseHeader::responseMask</definition>
+        <argsstring></argsstring>
+        <name>responseMask</name>
+        <qualifiedname>QueryResponseHeader::responseMask</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="27" column="19" bodyfile="src/QueryResponse.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/QueryResponse.hpp" line="26" column="1" bodyfile="src/QueryResponse.hpp" bodystart="26" bodyend="28"/>
+    <listofallmembers>
+      <member refid="structQueryResponseHeader_1a2a79191db8e9d9fc6309637594beff77" prot="public" virt="non-virtual"><scope>QueryResponseHeader</scope><name>responseMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

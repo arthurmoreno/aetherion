@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structMetabolismComponent" kind="struct" language="C++" prot="public">
+    <compoundname>MetabolismComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMetabolismComponent_1ab1ebb7b920326c4a8313c9ecf74d5255" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MetabolismComponent::energyReserve</definition>
+        <argsstring></argsstring>
+        <name>energyReserve</name>
+        <qualifiedname>MetabolismComponent::energyReserve</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="22" column="11" bodyfile="src/components/MetabolismComponents.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMetabolismComponent_1abddabd46f7e40ba6cf13bf7b68a5eef1" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MetabolismComponent::maxEnergyReserve</definition>
+        <argsstring></argsstring>
+        <name>maxEnergyReserve</name>
+        <qualifiedname>MetabolismComponent::maxEnergyReserve</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="23" column="11" bodyfile="src/components/MetabolismComponents.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/MetabolismComponents.hpp" line="21" column="1" bodyfile="src/components/MetabolismComponents.hpp" bodystart="21" bodyend="24"/>
+    <listofallmembers>
+      <member refid="structMetabolismComponent_1ab1ebb7b920326c4a8313c9ecf74d5255" prot="public" virt="non-virtual"><scope>MetabolismComponent</scope><name>energyReserve</name></member>
+      <member refid="structMetabolismComponent_1abddabd46f7e40ba6cf13bf7b68a5eef1" prot="public" virt="non-virtual"><scope>MetabolismComponent</scope><name>maxEnergyReserve</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

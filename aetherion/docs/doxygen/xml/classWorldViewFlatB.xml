@@ -1,0 +1,297 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classWorldViewFlatB" kind="class" language="C++" prot="public">
+    <compoundname>WorldViewFlatB</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classWorldViewFlatB_1a0a8e42a169210d044462d52fdd20f0c2" prot="public" static="no" mutable="no">
+        <type>const GameEngine::WorldView *</type>
+        <definition>const GameEngine::WorldView* WorldViewFlatB::fbWorldView</definition>
+        <argsstring></argsstring>
+        <name>fbWorldView</name>
+        <qualifiedname>WorldViewFlatB::fbWorldView</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="22" column="33" bodyfile="src/WorldView.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorldViewFlatB_1a3414b3d1b05c46d4f54e184690c12b32" prot="public" static="no" mutable="no">
+        <type>std::unordered_map&lt; int, <ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &gt;</type>
+        <definition>std::unordered_map&lt;int, EntityInterface&gt; WorldViewFlatB::entities</definition>
+        <argsstring></argsstring>
+        <name>entities</name>
+        <qualifiedname>WorldViewFlatB::entities</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="23" column="24" bodyfile="src/WorldView.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classWorldViewFlatB_1af9a4386091f40dcab034c0b5975d5121" prot="private" static="no" mutable="no">
+        <type>const bool</type>
+        <definition>const bool WorldViewFlatB::prePopulateEntities</definition>
+        <argsstring></argsstring>
+        <name>prePopulateEntities</name>
+        <qualifiedname>WorldViewFlatB::prePopulateEntities</qualifiedname>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="116" column="16" bodyfile="src/WorldView.hpp" bodystart="116" bodyend="116"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classWorldViewFlatB_1a3eddcf4716699780bae7d0ed4232721c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>WorldViewFlatB::WorldViewFlatB</definition>
+        <argsstring>(const GameEngine::WorldView *fbWorldView, const bool prePopulateEntities)</argsstring>
+        <name>WorldViewFlatB</name>
+        <qualifiedname>WorldViewFlatB::WorldViewFlatB</qualifiedname>
+        <param>
+          <type>const GameEngine::WorldView *</type>
+          <declname>fbWorldView</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>prePopulateEntities</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="26" column="5" bodyfile="src/WorldView.hpp" bodystart="26" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1a93eeff995aa553d3e126d8f5316498ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>WorldViewFlatB::WorldViewFlatB</definition>
+        <argsstring>(const GameEngine::WorldView *fbWorldView)</argsstring>
+        <name>WorldViewFlatB</name>
+        <qualifiedname>WorldViewFlatB::WorldViewFlatB</qualifiedname>
+        <param>
+          <type>const GameEngine::WorldView *</type>
+          <declname>fbWorldView</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="35" column="5" bodyfile="src/WorldView.hpp" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1aae2f0fb7b485616bc9691d25c63c03a1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>WorldViewFlatB::WorldViewFlatB</definition>
+        <argsstring>(nb::bytes serialized_data)</argsstring>
+        <name>WorldViewFlatB</name>
+        <qualifiedname>WorldViewFlatB::WorldViewFlatB</qualifiedname>
+        <param>
+          <type>nb::bytes</type>
+          <declname>serialized_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="38" column="5" bodyfile="src/WorldView.hpp" bodystart="38" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1a2bdb43e446872cd17812528017b3e2a9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int WorldViewFlatB::getWidth</definition>
+        <argsstring>() const</argsstring>
+        <name>getWidth</name>
+        <qualifiedname>WorldViewFlatB::getWidth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="56" column="9" bodyfile="src/WorldView.hpp" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1a8e5ef75b30c980da2118dc704d371ba9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int WorldViewFlatB::getHeight</definition>
+        <argsstring>() const</argsstring>
+        <name>getHeight</name>
+        <qualifiedname>WorldViewFlatB::getHeight</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="59" column="9" bodyfile="src/WorldView.hpp" bodystart="59" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1a36b53c85d0834ca331ee0803127e1e26" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int WorldViewFlatB::getDepth</definition>
+        <argsstring>() const</argsstring>
+        <name>getDepth</name>
+        <qualifiedname>WorldViewFlatB::getDepth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="62" column="9" bodyfile="src/WorldView.hpp" bodystart="62" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1a9a1d65de6fb8c00d0acd9fa829d5210e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classVoxelGridViewFlatB" kindref="compound">VoxelGridViewFlatB</ref></type>
+        <definition>VoxelGridViewFlatB WorldViewFlatB::getVoxelGrid</definition>
+        <argsstring>() const</argsstring>
+        <name>getVoxelGrid</name>
+        <qualifiedname>WorldViewFlatB::getVoxelGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="65" column="24" bodyfile="src/WorldView.hpp" bodystart="65" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1aa22ab6e4d9dbeba4b826092f77c56a10" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::object</type>
+        <definition>nb::object WorldViewFlatB::getEntityByIdPrePopulated</definition>
+        <argsstring>(int entity_id) const</argsstring>
+        <name>getEntityByIdPrePopulated</name>
+        <qualifiedname>WorldViewFlatB::getEntityByIdPrePopulated</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entity_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="67" column="16" bodyfile="src/WorldView.hpp" bodystart="67" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1a4396835aaa0ae3110741cacc9b69eac5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::object</type>
+        <definition>nb::object WorldViewFlatB::getEntityByIdLazy</definition>
+        <argsstring>(int entity_id) const</argsstring>
+        <name>getEntityByIdLazy</name>
+        <qualifiedname>WorldViewFlatB::getEntityByIdLazy</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entity_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="76" column="16" bodyfile="src/WorldView.hpp" bodystart="76" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1ac1b24f193d07595d206033f61ff20820" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::object</type>
+        <definition>nb::object WorldViewFlatB::getEntityById</definition>
+        <argsstring>(int entity_id) const</argsstring>
+        <name>getEntityById</name>
+        <qualifiedname>WorldViewFlatB::getEntityById</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entity_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="86" column="16" bodyfile="src/WorldView.hpp" bodystart="86" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1a52a9f48e6ddc4167580060d0ad31778c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::object</type>
+        <definition>nb::object WorldViewFlatB::getTerrain</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrain</name>
+        <qualifiedname>WorldViewFlatB::getTerrain</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="95" column="16" bodyfile="src/WorldView.hpp" bodystart="95" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorldViewFlatB_1abf8ac75117c7b40a029241950c5ae6b0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::object</type>
+        <definition>nb::object WorldViewFlatB::getEntity</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getEntity</name>
+        <qualifiedname>WorldViewFlatB::getEntity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldView.hpp" line="105" column="16" bodyfile="src/WorldView.hpp" bodystart="105" bodyend="113"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/WorldView.hpp" line="20" column="1" bodyfile="src/WorldView.hpp" bodystart="20" bodyend="117"/>
+    <listofallmembers>
+      <member refid="classWorldViewFlatB_1a3414b3d1b05c46d4f54e184690c12b32" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>entities</name></member>
+      <member refid="classWorldViewFlatB_1a0a8e42a169210d044462d52fdd20f0c2" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>fbWorldView</name></member>
+      <member refid="classWorldViewFlatB_1a36b53c85d0834ca331ee0803127e1e26" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>getDepth</name></member>
+      <member refid="classWorldViewFlatB_1abf8ac75117c7b40a029241950c5ae6b0" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>getEntity</name></member>
+      <member refid="classWorldViewFlatB_1ac1b24f193d07595d206033f61ff20820" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>getEntityById</name></member>
+      <member refid="classWorldViewFlatB_1a4396835aaa0ae3110741cacc9b69eac5" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>getEntityByIdLazy</name></member>
+      <member refid="classWorldViewFlatB_1aa22ab6e4d9dbeba4b826092f77c56a10" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>getEntityByIdPrePopulated</name></member>
+      <member refid="classWorldViewFlatB_1a8e5ef75b30c980da2118dc704d371ba9" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>getHeight</name></member>
+      <member refid="classWorldViewFlatB_1a52a9f48e6ddc4167580060d0ad31778c" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>getTerrain</name></member>
+      <member refid="classWorldViewFlatB_1a9a1d65de6fb8c00d0acd9fa829d5210e" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>getVoxelGrid</name></member>
+      <member refid="classWorldViewFlatB_1a2bdb43e446872cd17812528017b3e2a9" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>getWidth</name></member>
+      <member refid="classWorldViewFlatB_1af9a4386091f40dcab034c0b5975d5121" prot="private" virt="non-virtual"><scope>WorldViewFlatB</scope><name>prePopulateEntities</name></member>
+      <member refid="classWorldViewFlatB_1a3eddcf4716699780bae7d0ed4232721c" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>WorldViewFlatB</name></member>
+      <member refid="classWorldViewFlatB_1a93eeff995aa553d3e126d8f5316498ad" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>WorldViewFlatB</name></member>
+      <member refid="classWorldViewFlatB_1aae2f0fb7b485616bc9691d25c63c03a1" prot="public" virt="non-virtual"><scope>WorldViewFlatB</scope><name>WorldViewFlatB</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

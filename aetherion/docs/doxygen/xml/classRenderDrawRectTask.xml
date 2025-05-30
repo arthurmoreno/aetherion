@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classRenderDrawRectTask" kind="class" language="C++" prot="public">
+    <compoundname>RenderDrawRectTask</compoundname>
+    <basecompoundref refid="classRenderTaskBase" prot="public" virt="non-virtual">RenderTaskBase</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRenderDrawRectTask_1aec976f045e2f1a9d1fe54cf78b7e9e9d" prot="private" static="no" mutable="no">
+        <type>SDL_Rect</type>
+        <definition>SDL_Rect RenderDrawRectTask::rect_</definition>
+        <argsstring></argsstring>
+        <name>rect_</name>
+        <qualifiedname>RenderDrawRectTask::rect_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="169" column="14" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderDrawRectTask_1ae98107f77a121a68774deae56f2ed592" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RenderDrawRectTask::thickness_</definition>
+        <argsstring></argsstring>
+        <name>thickness_</name>
+        <qualifiedname>RenderDrawRectTask::thickness_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="170" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderDrawRectTask_1af0d6123b3a878c837b2ed3f30e92d890" prot="private" static="no" mutable="no">
+        <type>SDL_Color</type>
+        <definition>SDL_Color RenderDrawRectTask::color_</definition>
+        <argsstring></argsstring>
+        <name>color_</name>
+        <qualifiedname>RenderDrawRectTask::color_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="171" column="15" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="171" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRenderDrawRectTask_1a117586dd731c2a42fd9750e7a0927326" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RenderDrawRectTask::RenderDrawRectTask</definition>
+        <argsstring>(int x_pos, int y_pos, int width, int height, int thickness, SDL_Color color)</argsstring>
+        <name>RenderDrawRectTask</name>
+        <qualifiedname>RenderDrawRectTask::RenderDrawRectTask</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x_pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y_pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>thickness</declname>
+        </param>
+        <param>
+          <type>SDL_Color</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="132" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="132" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderDrawRectTask_1a7acd623eaf04e5b23c41a6160da5ab9d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void RenderDrawRectTask::render</definition>
+        <argsstring>(SDL_Renderer *renderer) const override</argsstring>
+        <name>render</name>
+        <qualifiedname>RenderDrawRectTask::render</qualifiedname>
+        <reimplements refid="classRenderTaskBase_1aca930dd0177845b4f1c9ecbd3da548a0">render</reimplements>
+        <param>
+          <type>SDL_Renderer *</type>
+          <declname>renderer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="135" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="135" bodyend="166"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>RenderDrawRectTask</label>
+        <link refid="classRenderDrawRectTask"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>RenderDrawRectTask</label>
+        <link refid="classRenderDrawRectTask"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="130" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="130" bodyend="172"/>
+    <listofallmembers>
+      <member refid="classRenderDrawRectTask_1af0d6123b3a878c837b2ed3f30e92d890" prot="private" virt="non-virtual"><scope>RenderDrawRectTask</scope><name>color_</name></member>
+      <member refid="classRenderTaskBase_1a083109259e992a8b0b759fdbcdc24cf8" prot="public" virt="virtual"><scope>RenderDrawRectTask</scope><name>getZLayer</name></member>
+      <member refid="classRenderDrawRectTask_1aec976f045e2f1a9d1fe54cf78b7e9e9d" prot="private" virt="non-virtual"><scope>RenderDrawRectTask</scope><name>rect_</name></member>
+      <member refid="classRenderDrawRectTask_1a7acd623eaf04e5b23c41a6160da5ab9d" prot="public" virt="virtual"><scope>RenderDrawRectTask</scope><name>render</name></member>
+      <member refid="classRenderDrawRectTask_1a117586dd731c2a42fd9750e7a0927326" prot="public" virt="non-virtual"><scope>RenderDrawRectTask</scope><name>RenderDrawRectTask</name></member>
+      <member refid="classRenderTaskBase_1a87f842d1663de2935efc9dfee89553e8" prot="public" virt="virtual"><scope>RenderDrawRectTask</scope><name>setZLayer</name></member>
+      <member refid="classRenderDrawRectTask_1ae98107f77a121a68774deae56f2ed592" prot="private" virt="non-virtual"><scope>RenderDrawRectTask</scope><name>thickness_</name></member>
+      <member refid="classRenderTaskBase_1afa7ba1f0ab38fc6df88b54bf8f7ac6fa" prot="protected" virt="non-virtual"><scope>RenderDrawRectTask</scope><name>z_layer</name></member>
+      <member refid="classRenderTaskBase_1aba444e27143e746979db33ed1b2ede95" prot="public" virt="virtual"><scope>RenderDrawRectTask</scope><name>~RenderTaskBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

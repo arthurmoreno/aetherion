@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structGradientVector" kind="struct" language="C++" prot="public">
+    <compoundname>GradientVector</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structGradientVector_1a3002a59b294396fa542e4d48cf0e847f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float GradientVector::gx</definition>
+        <argsstring></argsstring>
+        <name>gx</name>
+        <qualifiedname>GradientVector::gx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="72" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGradientVector_1a2a7316a2e50a40185af657da34378d6f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float GradientVector::gy</definition>
+        <argsstring></argsstring>
+        <name>gy</name>
+        <qualifiedname>GradientVector::gy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="73" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGradientVector_1ab19f8b10e3bdc721711b7549c4278218" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float GradientVector::gz</definition>
+        <argsstring></argsstring>
+        <name>gz</name>
+        <qualifiedname>GradientVector::gz</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="74" column="11" bodyfile="src/components/PhysicsComponents.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structGradientVector_1af290e34661c3baeb9c4184628ed41a48" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GradientVector::print</definition>
+        <argsstring>() const</argsstring>
+        <name>print</name>
+        <qualifiedname>GradientVector::print</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PhysicsComponents.hpp" line="77" column="10" bodyfile="src/components/PhysicsComponents.hpp" bodystart="77" bodyend="80"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/PhysicsComponents.hpp" line="71" column="1" bodyfile="src/components/PhysicsComponents.hpp" bodystart="71" bodyend="81"/>
+    <listofallmembers>
+      <member refid="structGradientVector_1a3002a59b294396fa542e4d48cf0e847f" prot="public" virt="non-virtual"><scope>GradientVector</scope><name>gx</name></member>
+      <member refid="structGradientVector_1a2a7316a2e50a40185af657da34378d6f" prot="public" virt="non-virtual"><scope>GradientVector</scope><name>gy</name></member>
+      <member refid="structGradientVector_1ab19f8b10e3bdc721711b7549c4278218" prot="public" virt="non-virtual"><scope>GradientVector</scope><name>gz</name></member>
+      <member refid="structGradientVector_1af290e34661c3baeb9c4184628ed41a48" prot="public" virt="non-virtual"><scope>GradientVector</scope><name>print</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

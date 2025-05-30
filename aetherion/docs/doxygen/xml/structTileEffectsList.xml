@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTileEffectsList" kind="struct" language="C++" prot="public">
+    <compoundname>TileEffectsList</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTileEffectsList_1ae8b6e63d076ca47bd407ab0809dc79a7" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; TileEffectsList::tileEffectsIDs</definition>
+        <argsstring></argsstring>
+        <name>tileEffectsIDs</name>
+        <qualifiedname>TileEffectsList::tileEffectsIDs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="40" column="17" bodyfile="src/components/TerrainComponents.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTileEffectsList_1a24642acf052c4e54eb8fb1b718d8dbc9" prot="public" static="no" mutable="no">
+        <type>std::unordered_set&lt; int &gt;</type>
+        <definition>std::unordered_set&lt;int&gt; TileEffectsList::unique_elements</definition>
+        <argsstring></argsstring>
+        <name>unique_elements</name>
+        <qualifiedname>TileEffectsList::unique_elements</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="41" column="24" bodyfile="src/components/TerrainComponents.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structTileEffectsList_1af478e0a50ae2e9b8d042c32cfd981376" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TileEffectsList::addEffect</definition>
+        <argsstring>(int tileEffectID)</argsstring>
+        <name>addEffect</name>
+        <qualifiedname>TileEffectsList::addEffect</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>tileEffectID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="43" column="10" bodyfile="src/components/TerrainComponents.hpp" bodystart="43" bodyend="47"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/TerrainComponents.hpp" line="39" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="39" bodyend="48"/>
+    <listofallmembers>
+      <member refid="structTileEffectsList_1af478e0a50ae2e9b8d042c32cfd981376" prot="public" virt="non-virtual"><scope>TileEffectsList</scope><name>addEffect</name></member>
+      <member refid="structTileEffectsList_1ae8b6e63d076ca47bd407ab0809dc79a7" prot="public" virt="non-virtual"><scope>TileEffectsList</scope><name>tileEffectsIDs</name></member>
+      <member refid="structTileEffectsList_1a24642acf052c4e54eb8fb1b718d8dbc9" prot="public" virt="non-virtual"><scope>TileEffectsList</scope><name>unique_elements</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

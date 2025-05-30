@@ -1,0 +1,332 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGameClock" kind="class" language="C++" prot="public">
+    <compoundname>GameClock</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classGameClock_1a4cac301b1d9bef91efef86957dbb5c69" prot="private" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t GameClock::ticks</definition>
+        <argsstring></argsstring>
+        <name>ticks</name>
+        <qualifiedname>GameClock::ticks</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="9" column="14" bodyfile="src/GameClock.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classGameClock_1acca8604735b37246a2e1f973c0c384fc" prot="private" static="yes" mutable="no">
+        <type>const uint64_t</type>
+        <definition>const uint64_t GameClock::SECONDS_PER_MINUTE</definition>
+        <argsstring></argsstring>
+        <name>SECONDS_PER_MINUTE</name>
+        <qualifiedname>GameClock::SECONDS_PER_MINUTE</qualifiedname>
+        <initializer>= 10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="12" column="27" bodyfile="src/GameClock.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGameClock_1a70d4ab7c6a2842a6fee4f925306f38d4" prot="private" static="yes" mutable="no">
+        <type>const uint64_t</type>
+        <definition>const uint64_t GameClock::MINUTES_PER_HOUR</definition>
+        <argsstring></argsstring>
+        <name>MINUTES_PER_HOUR</name>
+        <qualifiedname>GameClock::MINUTES_PER_HOUR</qualifiedname>
+        <initializer>= 10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="14" column="27" bodyfile="src/GameClock.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGameClock_1a4969b036364dc847caca3e734339fd0e" prot="private" static="yes" mutable="no">
+        <type>const uint64_t</type>
+        <definition>const uint64_t GameClock::HOURS_PER_DAY</definition>
+        <argsstring></argsstring>
+        <name>HOURS_PER_DAY</name>
+        <qualifiedname>GameClock::HOURS_PER_DAY</qualifiedname>
+        <initializer>= 24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="15" column="27" bodyfile="src/GameClock.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGameClock_1a3d25d0c861f31c2eeea736459f7ee94e" prot="private" static="yes" mutable="no">
+        <type>const uint64_t</type>
+        <definition>const uint64_t GameClock::DAYS_PER_MONTH</definition>
+        <argsstring></argsstring>
+        <name>DAYS_PER_MONTH</name>
+        <qualifiedname>GameClock::DAYS_PER_MONTH</qualifiedname>
+        <initializer>= 28</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="16" column="27" bodyfile="src/GameClock.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGameClock_1abbe997f0d5edc01334b81d9058eefabf" prot="private" static="yes" mutable="no">
+        <type>const uint64_t</type>
+        <definition>const uint64_t GameClock::MONTHS_PER_YEAR</definition>
+        <argsstring></argsstring>
+        <name>MONTHS_PER_YEAR</name>
+        <qualifiedname>GameClock::MONTHS_PER_YEAR</qualifiedname>
+        <initializer>= 4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="17" column="27" bodyfile="src/GameClock.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGameClock_1ae0327e4a501cc63879ef7fa1efa76535" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GameClock::GameClock</definition>
+        <argsstring>()</argsstring>
+        <name>GameClock</name>
+        <qualifiedname>GameClock::GameClock</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="21" column="5" bodyfile="src/GameClock.hpp" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1ac43ad99f88f43d55265a6912486bedf1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GameClock::GameClock</definition>
+        <argsstring>(uint64_t initialTicks)</argsstring>
+        <name>GameClock</name>
+        <qualifiedname>GameClock::GameClock</qualifiedname>
+        <param>
+          <type>uint64_t</type>
+          <declname>initialTicks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="23" column="5" bodyfile="src/GameClock.hpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1a8be507a609f25f84e5b952db266254f4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GameClock::tick</definition>
+        <argsstring>()</argsstring>
+        <name>tick</name>
+        <qualifiedname>GameClock::tick</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="26" column="10" bodyfile="src/GameClock.hpp" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1a69266b5eee5ff5e58734d9f34561e9eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GameClock::setTicks</definition>
+        <argsstring>(uint64_t newTicks)</argsstring>
+        <name>setTicks</name>
+        <qualifiedname>GameClock::setTicks</qualifiedname>
+        <param>
+          <type>uint64_t</type>
+          <declname>newTicks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="29" column="10" bodyfile="src/GameClock.hpp" bodystart="29" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1a42a19f2ec9744f59db029a209afb9085" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t GameClock::getTicks</definition>
+        <argsstring>() const</argsstring>
+        <name>getTicks</name>
+        <qualifiedname>GameClock::getTicks</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="32" column="14" bodyfile="src/GameClock.hpp" bodystart="32" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1ad139aae1e99760be9fccee489497f426" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t GameClock::getSeconds</definition>
+        <argsstring>() const</argsstring>
+        <name>getSeconds</name>
+        <qualifiedname>GameClock::getSeconds</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="35" column="14" bodyfile="src/GameClock.hpp" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1a4f5ae59b00e29f0426885730deed98bc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t GameClock::getSecond</definition>
+        <argsstring>() const</argsstring>
+        <name>getSecond</name>
+        <qualifiedname>GameClock::getSecond</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="38" column="14" bodyfile="src/GameClock.hpp" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1a2009ef92579519120ef7bd7a5e6c4a0e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t GameClock::getMinute</definition>
+        <argsstring>() const</argsstring>
+        <name>getMinute</name>
+        <qualifiedname>GameClock::getMinute</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="41" column="14" bodyfile="src/GameClock.hpp" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1a80fa629a4374c79cdf39a116de24a743" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t GameClock::getMinutesPerHour</definition>
+        <argsstring>() const</argsstring>
+        <name>getMinutesPerHour</name>
+        <qualifiedname>GameClock::getMinutesPerHour</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="43" column="14" bodyfile="src/GameClock.hpp" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1a95599bacec3fdc85745657ea46b5b932" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t GameClock::getHour</definition>
+        <argsstring>() const</argsstring>
+        <name>getHour</name>
+        <qualifiedname>GameClock::getHour</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="46" column="14" bodyfile="src/GameClock.hpp" bodystart="46" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1aa667b042f737c5b998c405c4fe32fc39" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t GameClock::getDay</definition>
+        <argsstring>() const</argsstring>
+        <name>getDay</name>
+        <qualifiedname>GameClock::getDay</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="51" column="14" bodyfile="src/GameClock.hpp" bodystart="51" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1abf53eed18056b284c486857690e6f1c6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t GameClock::getMonth</definition>
+        <argsstring>() const</argsstring>
+        <name>getMonth</name>
+        <qualifiedname>GameClock::getMonth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="57" column="14" bodyfile="src/GameClock.hpp" bodystart="57" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1a3f5700da12782f2f1880ea22d8ed7838" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t GameClock::getYear</definition>
+        <argsstring>() const</argsstring>
+        <name>getYear</name>
+        <qualifiedname>GameClock::getYear</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="64" column="14" bodyfile="src/GameClock.hpp" bodystart="64" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameClock_1a15dd4d9015351cb1eb36d64efe113f38" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string GameClock::getSeason</definition>
+        <argsstring>() const</argsstring>
+        <name>getSeason</name>
+        <qualifiedname>GameClock::getSeason</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameClock.hpp" line="71" column="17" bodyfile="src/GameClock.hpp" bodystart="71" bodyend="84"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/GameClock.hpp" line="7" column="1" bodyfile="src/GameClock.hpp" bodystart="7" bodyend="85"/>
+    <listofallmembers>
+      <member refid="classGameClock_1a3d25d0c861f31c2eeea736459f7ee94e" prot="private" virt="non-virtual"><scope>GameClock</scope><name>DAYS_PER_MONTH</name></member>
+      <member refid="classGameClock_1ae0327e4a501cc63879ef7fa1efa76535" prot="public" virt="non-virtual"><scope>GameClock</scope><name>GameClock</name></member>
+      <member refid="classGameClock_1ac43ad99f88f43d55265a6912486bedf1" prot="public" virt="non-virtual"><scope>GameClock</scope><name>GameClock</name></member>
+      <member refid="classGameClock_1aa667b042f737c5b998c405c4fe32fc39" prot="public" virt="non-virtual"><scope>GameClock</scope><name>getDay</name></member>
+      <member refid="classGameClock_1a95599bacec3fdc85745657ea46b5b932" prot="public" virt="non-virtual"><scope>GameClock</scope><name>getHour</name></member>
+      <member refid="classGameClock_1a2009ef92579519120ef7bd7a5e6c4a0e" prot="public" virt="non-virtual"><scope>GameClock</scope><name>getMinute</name></member>
+      <member refid="classGameClock_1a80fa629a4374c79cdf39a116de24a743" prot="public" virt="non-virtual"><scope>GameClock</scope><name>getMinutesPerHour</name></member>
+      <member refid="classGameClock_1abf53eed18056b284c486857690e6f1c6" prot="public" virt="non-virtual"><scope>GameClock</scope><name>getMonth</name></member>
+      <member refid="classGameClock_1a15dd4d9015351cb1eb36d64efe113f38" prot="public" virt="non-virtual"><scope>GameClock</scope><name>getSeason</name></member>
+      <member refid="classGameClock_1a4f5ae59b00e29f0426885730deed98bc" prot="public" virt="non-virtual"><scope>GameClock</scope><name>getSecond</name></member>
+      <member refid="classGameClock_1ad139aae1e99760be9fccee489497f426" prot="public" virt="non-virtual"><scope>GameClock</scope><name>getSeconds</name></member>
+      <member refid="classGameClock_1a42a19f2ec9744f59db029a209afb9085" prot="public" virt="non-virtual"><scope>GameClock</scope><name>getTicks</name></member>
+      <member refid="classGameClock_1a3f5700da12782f2f1880ea22d8ed7838" prot="public" virt="non-virtual"><scope>GameClock</scope><name>getYear</name></member>
+      <member refid="classGameClock_1a4969b036364dc847caca3e734339fd0e" prot="private" virt="non-virtual"><scope>GameClock</scope><name>HOURS_PER_DAY</name></member>
+      <member refid="classGameClock_1a70d4ab7c6a2842a6fee4f925306f38d4" prot="private" virt="non-virtual"><scope>GameClock</scope><name>MINUTES_PER_HOUR</name></member>
+      <member refid="classGameClock_1abbe997f0d5edc01334b81d9058eefabf" prot="private" virt="non-virtual"><scope>GameClock</scope><name>MONTHS_PER_YEAR</name></member>
+      <member refid="classGameClock_1acca8604735b37246a2e1f973c0c384fc" prot="private" virt="non-virtual"><scope>GameClock</scope><name>SECONDS_PER_MINUTE</name></member>
+      <member refid="classGameClock_1a69266b5eee5ff5e58734d9f34561e9eb" prot="public" virt="non-virtual"><scope>GameClock</scope><name>setTicks</name></member>
+      <member refid="classGameClock_1a8be507a609f25f84e5b952db266254f4" prot="public" virt="non-virtual"><scope>GameClock</scope><name>tick</name></member>
+      <member refid="classGameClock_1a4cac301b1d9bef91efef86957dbb5c69" prot="private" virt="non-virtual"><scope>GameClock</scope><name>ticks</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

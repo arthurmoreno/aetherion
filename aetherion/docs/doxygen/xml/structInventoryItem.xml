@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structInventoryItem" kind="struct" language="C++" prot="public">
+    <compoundname>InventoryItem</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structInventoryItem_1a3f8562189d007661208f6b34f6208dd7" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string InventoryItem::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>InventoryItem::name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="22" column="17" bodyfile="src/Gui/ItemWindow.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structInventoryItem_1a22af6dd20e5e2b24313e59dd75f5535c" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string InventoryItem::textureId</definition>
+        <argsstring></argsstring>
+        <name>textureId</name>
+        <qualifiedname>InventoryItem::textureId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="23" column="17" bodyfile="src/Gui/ItemWindow.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structInventoryItem_1ac0c019b09280cb3d4e0076df61f6c6e2" prot="public" static="no" mutable="no">
+        <type>SDL_Texture *</type>
+        <definition>SDL_Texture* InventoryItem::texture</definition>
+        <argsstring></argsstring>
+        <name>texture</name>
+        <qualifiedname>InventoryItem::texture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="24" column="17" bodyfile="src/Gui/ItemWindow.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structInventoryItem_1a2d591459c610beb54cf401454c7dd4ed" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InventoryItem::quantity</definition>
+        <argsstring></argsstring>
+        <name>quantity</name>
+        <qualifiedname>InventoryItem::quantity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="25" column="9" bodyfile="src/Gui/ItemWindow.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structInventoryItem_1ab56cd901eeb2d2807cd7569b173a14f8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>InventoryItem::InventoryItem</definition>
+        <argsstring>(const std::string &amp;itemName, const std::string &amp;texId, SDL_Texture *tex, int qty)</argsstring>
+        <name>InventoryItem</name>
+        <qualifiedname>InventoryItem::InventoryItem</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>itemName</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>texId</declname>
+        </param>
+        <param>
+          <type>SDL_Texture *</type>
+          <declname>tex</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>qty</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/ItemWindow.hpp" line="28" column="5" bodyfile="src/Gui/ItemWindow.hpp" bodystart="28" bodyend="29"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Gui/ItemWindow.hpp" line="21" column="1" bodyfile="src/Gui/ItemWindow.hpp" bodystart="21" bodyend="30"/>
+    <listofallmembers>
+      <member refid="structInventoryItem_1ab56cd901eeb2d2807cd7569b173a14f8" prot="public" virt="non-virtual"><scope>InventoryItem</scope><name>InventoryItem</name></member>
+      <member refid="structInventoryItem_1a3f8562189d007661208f6b34f6208dd7" prot="public" virt="non-virtual"><scope>InventoryItem</scope><name>name</name></member>
+      <member refid="structInventoryItem_1a2d591459c610beb54cf401454c7dd4ed" prot="public" virt="non-virtual"><scope>InventoryItem</scope><name>quantity</name></member>
+      <member refid="structInventoryItem_1ac0c019b09280cb3d4e0076df61f6c6e2" prot="public" virt="non-virtual"><scope>InventoryItem</scope><name>texture</name></member>
+      <member refid="structInventoryItem_1a22af6dd20e5e2b24313e59dd75f5535c" prot="public" virt="non-virtual"><scope>InventoryItem</scope><name>textureId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

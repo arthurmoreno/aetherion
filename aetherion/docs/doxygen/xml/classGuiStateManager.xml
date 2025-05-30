@@ -1,0 +1,383 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGuiStateManager" kind="class" language="C++" prot="public">
+    <compoundname>GuiStateManager</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classGuiStateManager_1a62be0158cbefa7223478ace6d21843b9" prot="public" static="no" mutable="no">
+        <type><ref refid="classInventoryWindow" kindref="compound">InventoryWindow</ref></type>
+        <definition>InventoryWindow GuiStateManager::inventoryWindow</definition>
+        <argsstring></argsstring>
+        <name>inventoryWindow</name>
+        <qualifiedname>GuiStateManager::inventoryWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="11" column="21" bodyfile="src/Gui/GuiStateManager.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGuiStateManager_1a8ff605794de2b0f418114bfa43ee2f6f" prot="public" static="no" mutable="no">
+        <type><ref refid="classHotbarWindow" kindref="compound">HotbarWindow</ref></type>
+        <definition>HotbarWindow GuiStateManager::hotbarWindow</definition>
+        <argsstring></argsstring>
+        <name>hotbarWindow</name>
+        <qualifiedname>GuiStateManager::hotbarWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="12" column="18" bodyfile="src/Gui/GuiStateManager.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGuiStateManager_1a383379dd7a61b7d3596bab5b69f8fb26" prot="public" static="no" mutable="no">
+        <type><ref refid="classEquipmentWindow" kindref="compound">EquipmentWindow</ref></type>
+        <definition>EquipmentWindow GuiStateManager::equipmentWindow</definition>
+        <argsstring></argsstring>
+        <name>equipmentWindow</name>
+        <qualifiedname>GuiStateManager::equipmentWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="13" column="21" bodyfile="src/Gui/GuiStateManager.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGuiStateManager_1ab0c908e9038eb0357586884a48d81372" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GuiStateManager::isDraggingFromUI</definition>
+        <argsstring></argsstring>
+        <name>isDraggingFromUI</name>
+        <qualifiedname>GuiStateManager::isDraggingFromUI</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="15" column="10" bodyfile="src/Gui/GuiStateManager.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGuiStateManager_1a4061268fb8548dda5551611ba5b0836f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GuiStateManager::draggedItemIndex</definition>
+        <argsstring></argsstring>
+        <name>draggedItemIndex</name>
+        <qualifiedname>GuiStateManager::draggedItemIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="16" column="9" bodyfile="src/Gui/GuiStateManager.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGuiStateManager_1af7e92bd0edcc29862d9294614cd4121a" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string GuiStateManager::src_window_id</definition>
+        <argsstring></argsstring>
+        <name>src_window_id</name>
+        <qualifiedname>GuiStateManager::src_window_id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="17" column="17" bodyfile="src/Gui/GuiStateManager.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGuiStateManager_1ad35e79082e702745efac32a464536492" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GuiStateManager::waterCameraStats</definition>
+        <argsstring></argsstring>
+        <name>waterCameraStats</name>
+        <qualifiedname>GuiStateManager::waterCameraStats</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="20" column="10" bodyfile="src/Gui/GuiStateManager.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGuiStateManager_1a81dc47844f0efb646c311f1b1d748ee7" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GuiStateManager::terrainCameraStats</definition>
+        <argsstring></argsstring>
+        <name>terrainCameraStats</name>
+        <qualifiedname>GuiStateManager::terrainCameraStats</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="21" column="10" bodyfile="src/Gui/GuiStateManager.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classGuiStateManager_1aba623e0e73629803cd4b927caf8a69d9" prot="private" static="yes" mutable="no">
+        <type><ref refid="classGuiStateManager" kindref="compound">GuiStateManager</ref> *</type>
+        <definition>GuiStateManager * GuiStateManager::s_pInstance</definition>
+        <argsstring></argsstring>
+        <name>s_pInstance</name>
+        <qualifiedname>GuiStateManager::s_pInstance</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="52" column="28" bodyfile="src/Gui/GuiStateManager.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classGuiStateManager_1a4bcc1be3a4c997c2299235ebe2d768f3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classGuiStateManager" kindref="compound">GuiStateManager</ref> *</type>
+        <definition>GuiStateManager * GuiStateManager::Instance</definition>
+        <argsstring>()</argsstring>
+        <name>Instance</name>
+        <qualifiedname>GuiStateManager::Instance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="24" column="28" bodyfile="src/Gui/GuiStateManager.cpp" bodystart="9" bodyend="14"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGuiStateManager_1a2073cbbd3c9b3608d9049407ae3c2e22" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GuiStateManager::getWaterCameraStats</definition>
+        <argsstring>() const</argsstring>
+        <name>getWaterCameraStats</name>
+        <qualifiedname>GuiStateManager::getWaterCameraStats</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="26" column="10" bodyfile="src/Gui/GuiStateManager.cpp" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classGuiStateManager_1a5ada53a6f0db7d5808a1a289e887832e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GuiStateManager::getTerrainCameraStats</definition>
+        <argsstring>() const</argsstring>
+        <name>getTerrainCameraStats</name>
+        <qualifiedname>GuiStateManager::getTerrainCameraStats</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="28" column="10" bodyfile="src/Gui/GuiStateManager.cpp" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classGuiStateManager_1ac51686033225ede739d4b9843443005b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GuiStateManager::setWaterCameraStats</definition>
+        <argsstring>(const bool waterCameraStats)</argsstring>
+        <name>setWaterCameraStats</name>
+        <qualifiedname>GuiStateManager::setWaterCameraStats</qualifiedname>
+        <param>
+          <type>const bool</type>
+          <declname>waterCameraStats</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="30" column="10" bodyfile="src/Gui/GuiStateManager.cpp" bodystart="41" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classGuiStateManager_1a370e990cd78e615af717b0d4fe862667" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GuiStateManager::setTerrainCameraStats</definition>
+        <argsstring>(const bool terrainCameraStats)</argsstring>
+        <name>setTerrainCameraStats</name>
+        <qualifiedname>GuiStateManager::setTerrainCameraStats</qualifiedname>
+        <param>
+          <type>const bool</type>
+          <declname>terrainCameraStats</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="32" column="10" bodyfile="src/Gui/GuiStateManager.cpp" bodystart="45" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classGuiStateManager_1a469a1935c9c4b4711783d7f0f1c5d4e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GuiStateManager::loadSettings</definition>
+        <argsstring>(const std::string &amp;fileName)</argsstring>
+        <name>loadSettings</name>
+        <qualifiedname>GuiStateManager::loadSettings</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="35" column="10" bodyfile="src/Gui/GuiStateManager.cpp" bodystart="50" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classGuiStateManager_1a6cec996e0a1a357b74e4fa508008c67c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GuiStateManager::saveSettings</definition>
+        <argsstring>(const std::string &amp;fileName) const</argsstring>
+        <name>saveSettings</name>
+        <qualifiedname>GuiStateManager::saveSettings</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="38" column="10" bodyfile="src/Gui/GuiStateManager.cpp" bodystart="58" bodyend="63"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classGuiStateManager_1a4ea849e8bcf477b164193fec00097d6c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GuiStateManager::GuiStateManager</definition>
+        <argsstring>()</argsstring>
+        <name>GuiStateManager</name>
+        <qualifiedname>GuiStateManager::GuiStateManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="42" column="5" bodyfile="src/Gui/GuiStateManager.cpp" bodystart="17" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classGuiStateManager_1adc7ef54f4f21364fec33b1391287c7ed" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GuiStateManager::~GuiStateManager</definition>
+        <argsstring>()</argsstring>
+        <name>~GuiStateManager</name>
+        <qualifiedname>GuiStateManager::~GuiStateManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="45" column="5" bodyfile="src/Gui/GuiStateManager.cpp" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classGuiStateManager_1a71fb9d5e944db8631d79cffc3c7b07ef" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GuiStateManager::GuiStateManager</definition>
+        <argsstring>(const GuiStateManager &amp;)=delete</argsstring>
+        <name>GuiStateManager</name>
+        <qualifiedname>GuiStateManager::GuiStateManager</qualifiedname>
+        <param>
+          <type>const <ref refid="classGuiStateManager" kindref="compound">GuiStateManager</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="48" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classGuiStateManager_1a8f56a7a3037abe3c39fdf9af16d33a14" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classGuiStateManager" kindref="compound">GuiStateManager</ref> &amp;</type>
+        <definition>GuiStateManager &amp; GuiStateManager::operator=</definition>
+        <argsstring>(const GuiStateManager &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>GuiStateManager::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classGuiStateManager" kindref="compound">GuiStateManager</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiStateManager.hpp" line="49" column="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>EquipmentWindow</label>
+        <link refid="classEquipmentWindow"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>GuiStateManager</label>
+        <link refid="classGuiStateManager"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>inventoryWindow</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>hotbarWindow</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>equipmentWindow</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>HotbarWindow</label>
+        <link refid="classHotbarWindow"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>InventoryWindow</label>
+        <link refid="classInventoryWindow"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ItemWindow</label>
+        <link refid="classItemWindow"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/GuiStateManager.hpp" line="9" column="1" bodyfile="src/Gui/GuiStateManager.hpp" bodystart="9" bodyend="55"/>
+    <listofallmembers>
+      <member refid="classGuiStateManager_1a4061268fb8548dda5551611ba5b0836f" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>draggedItemIndex</name></member>
+      <member refid="classGuiStateManager_1a383379dd7a61b7d3596bab5b69f8fb26" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>equipmentWindow</name></member>
+      <member refid="classGuiStateManager_1a5ada53a6f0db7d5808a1a289e887832e" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>getTerrainCameraStats</name></member>
+      <member refid="classGuiStateManager_1a2073cbbd3c9b3608d9049407ae3c2e22" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>getWaterCameraStats</name></member>
+      <member refid="classGuiStateManager_1a4ea849e8bcf477b164193fec00097d6c" prot="private" virt="non-virtual"><scope>GuiStateManager</scope><name>GuiStateManager</name></member>
+      <member refid="classGuiStateManager_1a71fb9d5e944db8631d79cffc3c7b07ef" prot="private" virt="non-virtual"><scope>GuiStateManager</scope><name>GuiStateManager</name></member>
+      <member refid="classGuiStateManager_1a8ff605794de2b0f418114bfa43ee2f6f" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>hotbarWindow</name></member>
+      <member refid="classGuiStateManager_1a4bcc1be3a4c997c2299235ebe2d768f3" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>Instance</name></member>
+      <member refid="classGuiStateManager_1a62be0158cbefa7223478ace6d21843b9" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>inventoryWindow</name></member>
+      <member refid="classGuiStateManager_1ab0c908e9038eb0357586884a48d81372" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>isDraggingFromUI</name></member>
+      <member refid="classGuiStateManager_1a469a1935c9c4b4711783d7f0f1c5d4e0" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>loadSettings</name></member>
+      <member refid="classGuiStateManager_1a8f56a7a3037abe3c39fdf9af16d33a14" prot="private" virt="non-virtual"><scope>GuiStateManager</scope><name>operator=</name></member>
+      <member refid="classGuiStateManager_1aba623e0e73629803cd4b927caf8a69d9" prot="private" virt="non-virtual"><scope>GuiStateManager</scope><name>s_pInstance</name></member>
+      <member refid="classGuiStateManager_1a6cec996e0a1a357b74e4fa508008c67c" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>saveSettings</name></member>
+      <member refid="classGuiStateManager_1a370e990cd78e615af717b0d4fe862667" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>setTerrainCameraStats</name></member>
+      <member refid="classGuiStateManager_1ac51686033225ede739d4b9843443005b" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>setWaterCameraStats</name></member>
+      <member refid="classGuiStateManager_1af7e92bd0edcc29862d9294614cd4121a" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>src_window_id</name></member>
+      <member refid="classGuiStateManager_1a81dc47844f0efb646c311f1b1d748ee7" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>terrainCameraStats</name></member>
+      <member refid="classGuiStateManager_1ad35e79082e702745efac32a464536492" prot="public" virt="non-virtual"><scope>GuiStateManager</scope><name>waterCameraStats</name></member>
+      <member refid="classGuiStateManager_1adc7ef54f4f21364fec33b1391287c7ed" prot="private" virt="non-virtual"><scope>GuiStateManager</scope><name>~GuiStateManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

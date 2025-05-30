@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classQueryResponse" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>QueryResponse</compoundname>
+    <derivedcompoundref refid="classListDoubleResponse" prot="public" virt="non-virtual">ListDoubleResponse</derivedcompoundref>
+    <derivedcompoundref refid="classListStringResponse" prot="public" virt="non-virtual">ListStringResponse</derivedcompoundref>
+    <derivedcompoundref refid="classMapOfListsOfDoubleResponse" prot="public" virt="non-virtual">MapOfListsOfDoubleResponse</derivedcompoundref>
+    <derivedcompoundref refid="classMapOfMapsOfDoubleResponse" prot="public" virt="non-virtual">MapOfMapsOfDoubleResponse</derivedcompoundref>
+    <derivedcompoundref refid="classMapOfMapsResponse" prot="public" virt="non-virtual">MapOfMapsResponse</derivedcompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classQueryResponse_1aa41747e8f2a0497a37a97852a3799ee9" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long QueryResponse::responseMask</definition>
+        <argsstring></argsstring>
+        <name>responseMask</name>
+        <qualifiedname>QueryResponse::responseMask</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="32" column="19" bodyfile="src/QueryResponse.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classQueryResponse_1a7dd55dc41091c6d22935769c49f31e1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual QueryResponse::~QueryResponse</definition>
+        <argsstring>()=default</argsstring>
+        <name>~QueryResponse</name>
+        <qualifiedname>QueryResponse::~QueryResponse</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="34" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classQueryResponse_1ad78f2bdeba46189aff98a07b26cd958a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; char &gt;</type>
+        <definition>virtual std::vector&lt; char &gt; QueryResponse::serialize</definition>
+        <argsstring>() const =0</argsstring>
+        <name>serialize</name>
+        <qualifiedname>QueryResponse::serialize</qualifiedname>
+        <reimplementedby refid="classListStringResponse_1a626437069b6e7875a11d2992683e71be">serialize</reimplementedby>
+        <reimplementedby refid="classListDoubleResponse_1a4e2d3d601736ab094c7f03ee6736b4a5">serialize</reimplementedby>
+        <reimplementedby refid="classMapOfMapsResponse_1aff84d8bb991b1b6102f5e5396a88f073">serialize</reimplementedby>
+        <reimplementedby refid="classMapOfListsOfDoubleResponse_1a0dc7526f012767953fd35ada47516221">serialize</reimplementedby>
+        <reimplementedby refid="classMapOfMapsOfDoubleResponse_1a48e8633748f2ea9a3f42cd402741481e">serialize</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="37" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classQueryResponse_1aebd9d37dc360d3a18fcea0eaaf22ec62" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>nb::bytes</type>
+        <definition>virtual nb::bytes QueryResponse::py_serialize</definition>
+        <argsstring>() const =0</argsstring>
+        <name>py_serialize</name>
+        <qualifiedname>QueryResponse::py_serialize</qualifiedname>
+        <reimplementedby refid="classListStringResponse_1a65c07a3920340fd0c970bc2582ad5b69">py_serialize</reimplementedby>
+        <reimplementedby refid="classListDoubleResponse_1ad84083adce9dd7fb274285162ada1436">py_serialize</reimplementedby>
+        <reimplementedby refid="classMapOfMapsResponse_1ad060b97eb1e603f465969a62c41691cf">py_serialize</reimplementedby>
+        <reimplementedby refid="classMapOfListsOfDoubleResponse_1a593bec22de26ac0cc5411fd25867ed11">py_serialize</reimplementedby>
+        <reimplementedby refid="classMapOfMapsOfDoubleResponse_1aaaf6cac5146753eef43549c916a03008">py_serialize</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="43" column="23"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classQueryResponse_1a37712354e3df2a12218b43e50707c2e7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classQueryResponse" kindref="compound">QueryResponse</ref> *</type>
+        <definition>QueryResponse * QueryResponse::deserialize</definition>
+        <argsstring>(const char *data, size_t size)</argsstring>
+        <name>deserialize</name>
+        <qualifiedname>QueryResponse::deserialize</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="40" column="26" bodyfile="src/QueryResponse.cpp" bodystart="3" bodyend="22"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classQueryResponse_1ae337668bd1f7f8fd24c6716bb3218a74" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void QueryResponse::serializeHeader</definition>
+        <argsstring>(std::vector&lt; char &gt; &amp;buffer) const</argsstring>
+        <name>serializeHeader</name>
+        <qualifiedname>QueryResponse::serializeHeader</qualifiedname>
+        <param>
+          <type>std::vector&lt; char &gt; &amp;</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="47" column="10" bodyfile="src/QueryResponse.hpp" bodystart="47" bodyend="50"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="classQueryResponse_1a903611659aa798b9cdb99721fccd366b" prot="protected" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structQueryResponseHeader" kindref="compound">QueryResponseHeader</ref></type>
+        <definition>static QueryResponseHeader QueryResponse::deserializeHeader</definition>
+        <argsstring>(const char *data, size_t size, size_t &amp;offset)</argsstring>
+        <name>deserializeHeader</name>
+        <qualifiedname>QueryResponse::deserializeHeader</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="53" column="32" bodyfile="src/QueryResponse.hpp" bodystart="53" bodyend="62"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ListDoubleResponse</label>
+        <link refid="classListDoubleResponse"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ListStringResponse</label>
+        <link refid="classListStringResponse"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>MapOfListsOfDoubleResponse</label>
+        <link refid="classMapOfListsOfDoubleResponse"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>MapOfMapsOfDoubleResponse</label>
+        <link refid="classMapOfMapsOfDoubleResponse"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>MapOfMapsResponse</label>
+        <link refid="classMapOfMapsResponse"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>QueryResponse</label>
+        <link refid="classQueryResponse"/>
+      </node>
+    </inheritancegraph>
+    <location file="src/QueryResponse.hpp" line="30" column="1" bodyfile="src/QueryResponse.hpp" bodystart="30" bodyend="63"/>
+    <listofallmembers>
+      <member refid="classQueryResponse_1a37712354e3df2a12218b43e50707c2e7" prot="public" virt="non-virtual"><scope>QueryResponse</scope><name>deserialize</name></member>
+      <member refid="classQueryResponse_1a903611659aa798b9cdb99721fccd366b" prot="protected" virt="non-virtual"><scope>QueryResponse</scope><name>deserializeHeader</name></member>
+      <member refid="classQueryResponse_1aebd9d37dc360d3a18fcea0eaaf22ec62" prot="public" virt="pure-virtual"><scope>QueryResponse</scope><name>py_serialize</name></member>
+      <member refid="classQueryResponse_1aa41747e8f2a0497a37a97852a3799ee9" prot="public" virt="non-virtual"><scope>QueryResponse</scope><name>responseMask</name></member>
+      <member refid="classQueryResponse_1ad78f2bdeba46189aff98a07b26cd958a" prot="public" virt="pure-virtual"><scope>QueryResponse</scope><name>serialize</name></member>
+      <member refid="classQueryResponse_1ae337668bd1f7f8fd24c6716bb3218a74" prot="protected" virt="non-virtual"><scope>QueryResponse</scope><name>serializeHeader</name></member>
+      <member refid="classQueryResponse_1a7dd55dc41091c6d22935769c49f31e1d" prot="public" virt="virtual"><scope>QueryResponse</scope><name>~QueryResponse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

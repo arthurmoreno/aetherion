@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classEffectsSystem" kind="class" language="C++" prot="public">
+    <compoundname>EffectsSystem</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classEffectsSystem_1a7eb9da827b708001461ccf16fa6ab607" prot="private" static="no" mutable="no">
+        <type>entt::registry &amp;</type>
+        <definition>entt::registry&amp; EffectsSystem::registry</definition>
+        <argsstring></argsstring>
+        <name>registry</name>
+        <qualifiedname>EffectsSystem::registry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EffectsSystem.hpp" line="31" column="20" bodyfile="src/EffectsSystem.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEffectsSystem_1a62cd691e8d3bfceea0783534fe222e7b" prot="private" static="no" mutable="no">
+        <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+        <definition>VoxelGrid* EffectsSystem::voxelGrid</definition>
+        <argsstring></argsstring>
+        <name>voxelGrid</name>
+        <qualifiedname>EffectsSystem::voxelGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EffectsSystem.hpp" line="32" column="15" bodyfile="src/EffectsSystem.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEffectsSystem_1a2aaf2b0b25496d027c8374cab856e176" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex EffectsSystem::combatMutex</definition>
+        <argsstring></argsstring>
+        <name>combatMutex</name>
+        <qualifiedname>EffectsSystem::combatMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EffectsSystem.hpp" line="35" column="16" bodyfile="src/EffectsSystem.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEffectsSystem_1a4d4fc2e08b710cdc5c7e27b3d6e64ad6" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool EffectsSystem::processingComplete</definition>
+        <argsstring></argsstring>
+        <name>processingComplete</name>
+        <qualifiedname>EffectsSystem::processingComplete</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EffectsSystem.hpp" line="36" column="10" bodyfile="src/EffectsSystem.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEffectsSystem_1a3625dbe1f43f598116c11eeb03d91306" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>EffectsSystem::EffectsSystem</definition>
+        <argsstring>()=default</argsstring>
+        <name>EffectsSystem</name>
+        <qualifiedname>EffectsSystem::EffectsSystem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EffectsSystem.hpp" line="16" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classEffectsSystem_1a924c746df8854e9d37cca1dc664f7887" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EffectsSystem::EffectsSystem</definition>
+        <argsstring>(entt::registry &amp;reg, VoxelGrid *voxelGrid)</argsstring>
+        <name>EffectsSystem</name>
+        <qualifiedname>EffectsSystem::EffectsSystem</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EffectsSystem.hpp" line="17" column="5" bodyfile="src/EffectsSystem.hpp" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classEffectsSystem_1a0f173aa34311398c633cf1c0ab5e12e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EffectsSystem::processEffects</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>processEffects</name>
+        <qualifiedname>EffectsSystem::processEffects</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EffectsSystem.hpp" line="20" column="10" bodyfile="src/EffectsSystem.cpp" bodystart="4" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classEffectsSystem_1a10a81ab438ba8cc6b74c2542a0452410" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EffectsSystem::processEffectsAsync</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>processEffectsAsync</name>
+        <qualifiedname>EffectsSystem::processEffectsAsync</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EffectsSystem.hpp" line="22" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classEffectsSystem_1a711ef2420b55657a4d2f8442d94f9f7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EffectsSystem::registerEventHandlers</definition>
+        <argsstring>(entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>registerEventHandlers</name>
+        <qualifiedname>EffectsSystem::registerEventHandlers</qualifiedname>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EffectsSystem.hpp" line="26" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classEffectsSystem_1a3763c950f05fc842f6ecb32a3256bd1c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool EffectsSystem::isProcessingComplete</definition>
+        <argsstring>() const</argsstring>
+        <name>isProcessingComplete</name>
+        <qualifiedname>EffectsSystem::isProcessingComplete</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EffectsSystem.hpp" line="28" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EffectsSystem.hpp" line="14" column="1" bodyfile="src/EffectsSystem.hpp" bodystart="14" bodyend="37"/>
+    <listofallmembers>
+      <member refid="classEffectsSystem_1a2aaf2b0b25496d027c8374cab856e176" prot="private" virt="non-virtual"><scope>EffectsSystem</scope><name>combatMutex</name></member>
+      <member refid="classEffectsSystem_1a3625dbe1f43f598116c11eeb03d91306" prot="public" virt="non-virtual"><scope>EffectsSystem</scope><name>EffectsSystem</name></member>
+      <member refid="classEffectsSystem_1a924c746df8854e9d37cca1dc664f7887" prot="public" virt="non-virtual"><scope>EffectsSystem</scope><name>EffectsSystem</name></member>
+      <member refid="classEffectsSystem_1a3763c950f05fc842f6ecb32a3256bd1c" prot="public" virt="non-virtual"><scope>EffectsSystem</scope><name>isProcessingComplete</name></member>
+      <member refid="classEffectsSystem_1a0f173aa34311398c633cf1c0ab5e12e9" prot="public" virt="non-virtual"><scope>EffectsSystem</scope><name>processEffects</name></member>
+      <member refid="classEffectsSystem_1a10a81ab438ba8cc6b74c2542a0452410" prot="public" virt="non-virtual"><scope>EffectsSystem</scope><name>processEffectsAsync</name></member>
+      <member refid="classEffectsSystem_1a4d4fc2e08b710cdc5c7e27b3d6e64ad6" prot="private" virt="non-virtual"><scope>EffectsSystem</scope><name>processingComplete</name></member>
+      <member refid="classEffectsSystem_1a711ef2420b55657a4d2f8442d94f9f7a" prot="public" virt="non-virtual"><scope>EffectsSystem</scope><name>registerEventHandlers</name></member>
+      <member refid="classEffectsSystem_1a7eb9da827b708001461ccf16fa6ab607" prot="private" virt="non-virtual"><scope>EffectsSystem</scope><name>registry</name></member>
+      <member refid="classEffectsSystem_1a62cd691e8d3bfceea0783534fe222e7b" prot="private" virt="non-virtual"><scope>EffectsSystem</scope><name>voxelGrid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

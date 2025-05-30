@@ -1,0 +1,436 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPyRegistry" kind="class" language="C++" prot="public">
+    <compoundname>PyRegistry</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classPyRegistry_1abb4674562d3c5dac15695e8e3b03d755" prot="private" static="no" mutable="no">
+        <type>entt::registry &amp;</type>
+        <definition>entt::registry&amp; PyRegistry::registry</definition>
+        <argsstring></argsstring>
+        <name>registry</name>
+        <qualifiedname>PyRegistry::registry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="337" column="20" bodyfile="src/PyRegistry.hpp" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPyRegistry_1a91b109c18a3a081070ec02bef2592c0e" prot="private" static="no" mutable="no">
+        <type>entt::dispatcher &amp;</type>
+        <definition>entt::dispatcher&amp; PyRegistry::dispatcher</definition>
+        <argsstring></argsstring>
+        <name>dispatcher</name>
+        <qualifiedname>PyRegistry::dispatcher</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="338" column="22" bodyfile="src/PyRegistry.hpp" bodystart="338" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPyRegistry_1a6d77f39a8cb8d5421086169107ec5e3c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PyRegistry::PyRegistry</definition>
+        <argsstring>(entt::registry &amp;reg, entt::dispatcher &amp;disp)</argsstring>
+        <name>PyRegistry</name>
+        <qualifiedname>PyRegistry::PyRegistry</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>disp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="23" column="5" bodyfile="src/PyRegistry.hpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a97191bf3bfc996ae10696b71310e5354" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PyRegistry::PyRegistry</definition>
+        <argsstring>(const PyRegistry &amp;)=delete</argsstring>
+        <name>PyRegistry</name>
+        <qualifiedname>PyRegistry::PyRegistry</qualifiedname>
+        <param>
+          <type>const <ref refid="classPyRegistry" kindref="compound">PyRegistry</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="26" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a07e0e7ff22a4b11b01d57295362d9f88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classPyRegistry" kindref="compound">PyRegistry</ref> &amp;</type>
+        <definition>PyRegistry &amp; PyRegistry::operator=</definition>
+        <argsstring>(const PyRegistry &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>PyRegistry::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classPyRegistry" kindref="compound">PyRegistry</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="27" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a7d1a0f76b3867644cf55d19e5c460771" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PyRegistry::PyRegistry</definition>
+        <argsstring>(PyRegistry &amp;&amp;)=delete</argsstring>
+        <name>PyRegistry</name>
+        <qualifiedname>PyRegistry::PyRegistry</qualifiedname>
+        <param>
+          <type><ref refid="classPyRegistry" kindref="compound">PyRegistry</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="30" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1ab78246ac677384a18cf8ca7e4129aaa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classPyRegistry" kindref="compound">PyRegistry</ref> &amp;</type>
+        <definition>PyRegistry &amp; PyRegistry::operator=</definition>
+        <argsstring>(PyRegistry &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>PyRegistry::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classPyRegistry" kindref="compound">PyRegistry</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="31" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a47b0ec4073391d254b43f02c63c16577" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int PyRegistry::create_entity</definition>
+        <argsstring>()</argsstring>
+        <name>create_entity</name>
+        <qualifiedname>PyRegistry::create_entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="34" column="9" bodyfile="src/PyRegistry.hpp" bodystart="34" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a9ed0f2423419fabcf331be4f5bfb7da9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PyRegistry::destroy_entity</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>destroy_entity</name>
+        <qualifiedname>PyRegistry::destroy_entity</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="39" column="10" bodyfile="src/PyRegistry.hpp" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a92e3a24b0272580e7435eba5ec4162bf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::list</type>
+        <definition>nb::list PyRegistry::view</definition>
+        <argsstring>(const std::vector&lt; std::string &gt; &amp;component_names)</argsstring>
+        <name>view</name>
+        <qualifiedname>PyRegistry::view</qualifiedname>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>component_names</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="42" column="14" bodyfile="src/PyRegistry.hpp" bodystart="42" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a38ea6d56aebbe787890b2c08e79de7a1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool PyRegistry::all_of_single</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>all_of_single</name>
+        <qualifiedname>PyRegistry::all_of_single</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="86" column="10" bodyfile="src/PyRegistry.hpp" bodystart="86" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a130bd8471ad07dd59adb88070d8a69e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PyRegistry::has_all_components</definition>
+        <argsstring>(uint32_t entity_id, const std::vector&lt; std::string &gt; &amp;component_names)</argsstring>
+        <name>has_all_components</name>
+        <qualifiedname>PyRegistry::has_all_components</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>entity_id</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>component_names</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="90" column="10" bodyfile="src/PyRegistry.hpp" bodystart="90" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a35945f25275f097a84c9d5404705e4a5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+        </templateparamlist>
+        <type>Component *</type>
+        <definition>Component * PyRegistry::get</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>get</name>
+        <qualifiedname>PyRegistry::get</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="128" column="15" bodyfile="src/PyRegistry.hpp" bodystart="128" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a0a9048c50b8a61a07688892ff2c47cf3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void PyRegistry::set</definition>
+        <argsstring>(entt::entity entity, const Component &amp;component)</argsstring>
+        <name>set</name>
+        <qualifiedname>PyRegistry::set</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>const Component &amp;</type>
+          <declname>component</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="137" column="10" bodyfile="src/PyRegistry.hpp" bodystart="137" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a257386bf1cb06c4501070799a7922cd7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Component</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void PyRegistry::remove</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>remove</name>
+        <qualifiedname>PyRegistry::remove</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="143" column="10" bodyfile="src/PyRegistry.hpp" bodystart="143" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1ade40da3a7d1e22e07f1b74a96e5fbefc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::object</type>
+        <definition>nb::object PyRegistry::get_component</definition>
+        <argsstring>(uint32_t entity_id, const std::string &amp;component_name)</argsstring>
+        <name>get_component</name>
+        <qualifiedname>PyRegistry::get_component</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>entity_id</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>component_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="148" column="16" bodyfile="src/PyRegistry.hpp" bodystart="148" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a3e3ac54daf36778da4ccccb7bee5f619" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PyRegistry::set_component</definition>
+        <argsstring>(uint32_t entity_id, const std::string &amp;component_name, nb::object component_obj)</argsstring>
+        <name>set_component</name>
+        <qualifiedname>PyRegistry::set_component</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>entity_id</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>component_name</declname>
+        </param>
+        <param>
+          <type>nb::object</type>
+          <declname>component_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="220" column="10" bodyfile="src/PyRegistry.hpp" bodystart="220" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a750e756371762efb07597e958c776f8b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PyRegistry::remove_component</definition>
+        <argsstring>(uint32_t entity_id, const std::string &amp;component_name)</argsstring>
+        <name>remove_component</name>
+        <qualifiedname>PyRegistry::remove_component</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>entity_id</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>component_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="285" column="10" bodyfile="src/PyRegistry.hpp" bodystart="285" bodyend="329"/>
+      </memberdef>
+      <memberdef kind="function" id="classPyRegistry_1a53be8d606a590e8bb4f01058165c4948" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PyRegistry::is_valid</definition>
+        <argsstring>(uint32_t entity_id)</argsstring>
+        <name>is_valid</name>
+        <qualifiedname>PyRegistry::is_valid</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>entity_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="331" column="10" bodyfile="src/PyRegistry.hpp" bodystart="331" bodyend="334"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classPyRegistry_1a6d2d97a6a80bafafe0b11784b032995b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename View</type>
+          </param>
+        </templateparamlist>
+        <type>nb::list</type>
+        <definition>nb::list PyRegistry::entities_to_pylist</definition>
+        <argsstring>(View view)</argsstring>
+        <name>entities_to_pylist</name>
+        <qualifiedname>PyRegistry::entities_to_pylist</qualifiedname>
+        <param>
+          <type>View</type>
+          <declname>view</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PyRegistry.hpp" line="342" column="14" bodyfile="src/PyRegistry.hpp" bodystart="342" bodyend="348"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/PyRegistry.hpp" line="20" column="1" bodyfile="src/PyRegistry.hpp" bodystart="20" bodyend="349"/>
+    <listofallmembers>
+      <member refid="classPyRegistry_1a38ea6d56aebbe787890b2c08e79de7a1" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>all_of_single</name></member>
+      <member refid="classPyRegistry_1a47b0ec4073391d254b43f02c63c16577" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>create_entity</name></member>
+      <member refid="classPyRegistry_1a9ed0f2423419fabcf331be4f5bfb7da9" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>destroy_entity</name></member>
+      <member refid="classPyRegistry_1a91b109c18a3a081070ec02bef2592c0e" prot="private" virt="non-virtual"><scope>PyRegistry</scope><name>dispatcher</name></member>
+      <member refid="classPyRegistry_1a6d2d97a6a80bafafe0b11784b032995b" prot="private" virt="non-virtual"><scope>PyRegistry</scope><name>entities_to_pylist</name></member>
+      <member refid="classPyRegistry_1a35945f25275f097a84c9d5404705e4a5" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>get</name></member>
+      <member refid="classPyRegistry_1ade40da3a7d1e22e07f1b74a96e5fbefc" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>get_component</name></member>
+      <member refid="classPyRegistry_1a130bd8471ad07dd59adb88070d8a69e9" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>has_all_components</name></member>
+      <member refid="classPyRegistry_1a53be8d606a590e8bb4f01058165c4948" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>is_valid</name></member>
+      <member refid="classPyRegistry_1a07e0e7ff22a4b11b01d57295362d9f88" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>operator=</name></member>
+      <member refid="classPyRegistry_1ab78246ac677384a18cf8ca7e4129aaa7" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>operator=</name></member>
+      <member refid="classPyRegistry_1a6d77f39a8cb8d5421086169107ec5e3c" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>PyRegistry</name></member>
+      <member refid="classPyRegistry_1a97191bf3bfc996ae10696b71310e5354" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>PyRegistry</name></member>
+      <member refid="classPyRegistry_1a7d1a0f76b3867644cf55d19e5c460771" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>PyRegistry</name></member>
+      <member refid="classPyRegistry_1abb4674562d3c5dac15695e8e3b03d755" prot="private" virt="non-virtual"><scope>PyRegistry</scope><name>registry</name></member>
+      <member refid="classPyRegistry_1a257386bf1cb06c4501070799a7922cd7" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>remove</name></member>
+      <member refid="classPyRegistry_1a750e756371762efb07597e958c776f8b" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>remove_component</name></member>
+      <member refid="classPyRegistry_1a0a9048c50b8a61a07688892ff2c47cf3" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>set</name></member>
+      <member refid="classPyRegistry_1a3e3ac54daf36778da4ccccb7bee5f619" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>set_component</name></member>
+      <member refid="classPyRegistry_1a92e3a24b0272580e7435eba5ec4162bf" prot="public" virt="non-virtual"><scope>PyRegistry</scope><name>view</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

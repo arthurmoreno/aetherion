@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structMoveGasEntityEvent" kind="struct" language="C++" prot="public">
+    <compoundname>MoveGasEntityEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMoveGasEntityEvent_1aa912feeba9d1ec83666cc206bc575e0d" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity MoveGasEntityEvent::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>MoveGasEntityEvent::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="7" column="18" bodyfile="src/MoveEntityEvent.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveGasEntityEvent_1ae1468768d94a45416cf729eb6a758f8e" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MoveGasEntityEvent::forceApplyNewVelocity</definition>
+        <argsstring></argsstring>
+        <name>forceApplyNewVelocity</name>
+        <qualifiedname>MoveGasEntityEvent::forceApplyNewVelocity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="8" column="10" bodyfile="src/MoveEntityEvent.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveGasEntityEvent_1a3b5ac432d3f05342759c5f79ec06cbf9" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MoveGasEntityEvent::forceX</definition>
+        <argsstring></argsstring>
+        <name>forceX</name>
+        <qualifiedname>MoveGasEntityEvent::forceX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="9" column="11" bodyfile="src/MoveEntityEvent.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveGasEntityEvent_1ac30a8cc9ac44a384d9ba1701d9bee404" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MoveGasEntityEvent::forceY</definition>
+        <argsstring></argsstring>
+        <name>forceY</name>
+        <qualifiedname>MoveGasEntityEvent::forceY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="9" column="18" bodyfile="src/MoveEntityEvent.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveGasEntityEvent_1a97249295ab56a2feef1582a01802d9bb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MoveGasEntityEvent::rhoEnv</definition>
+        <argsstring></argsstring>
+        <name>rhoEnv</name>
+        <qualifiedname>MoveGasEntityEvent::rhoEnv</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="9" column="25" bodyfile="src/MoveEntityEvent.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveGasEntityEvent_1ac26fefcfbbd051489ab867204cb7611d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MoveGasEntityEvent::rhoGas</definition>
+        <argsstring></argsstring>
+        <name>rhoGas</name>
+        <qualifiedname>MoveGasEntityEvent::rhoGas</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="9" column="32" bodyfile="src/MoveEntityEvent.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMoveGasEntityEvent_1afb600e1e887b7e9a4ec765c1594adcd3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MoveGasEntityEvent::MoveGasEntityEvent</definition>
+        <argsstring>(entt::entity entity, float forceX, float forceY, float rhoEnv, float rhoGas)</argsstring>
+        <name>MoveGasEntityEvent</name>
+        <qualifiedname>MoveGasEntityEvent::MoveGasEntityEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>forceX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>forceY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>rhoEnv</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>rhoGas</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="11" column="5" bodyfile="src/MoveEntityEvent.hpp" bodystart="11" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="structMoveGasEntityEvent_1a4289fbba008bcd18fdd63d099ffcd6bf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MoveGasEntityEvent::setForceApplyNewVelocity</definition>
+        <argsstring>()</argsstring>
+        <name>setForceApplyNewVelocity</name>
+        <qualifiedname>MoveGasEntityEvent::setForceApplyNewVelocity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="16" column="10" bodyfile="src/MoveEntityEvent.hpp" bodystart="16" bodyend="16"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/MoveEntityEvent.hpp" line="6" column="1" bodyfile="src/MoveEntityEvent.hpp" bodystart="6" bodyend="17"/>
+    <listofallmembers>
+      <member refid="structMoveGasEntityEvent_1aa912feeba9d1ec83666cc206bc575e0d" prot="public" virt="non-virtual"><scope>MoveGasEntityEvent</scope><name>entity</name></member>
+      <member refid="structMoveGasEntityEvent_1ae1468768d94a45416cf729eb6a758f8e" prot="public" virt="non-virtual"><scope>MoveGasEntityEvent</scope><name>forceApplyNewVelocity</name></member>
+      <member refid="structMoveGasEntityEvent_1a3b5ac432d3f05342759c5f79ec06cbf9" prot="public" virt="non-virtual"><scope>MoveGasEntityEvent</scope><name>forceX</name></member>
+      <member refid="structMoveGasEntityEvent_1ac30a8cc9ac44a384d9ba1701d9bee404" prot="public" virt="non-virtual"><scope>MoveGasEntityEvent</scope><name>forceY</name></member>
+      <member refid="structMoveGasEntityEvent_1afb600e1e887b7e9a4ec765c1594adcd3" prot="public" virt="non-virtual"><scope>MoveGasEntityEvent</scope><name>MoveGasEntityEvent</name></member>
+      <member refid="structMoveGasEntityEvent_1a97249295ab56a2feef1582a01802d9bb" prot="public" virt="non-virtual"><scope>MoveGasEntityEvent</scope><name>rhoEnv</name></member>
+      <member refid="structMoveGasEntityEvent_1ac26fefcfbbd051489ab867204cb7611d" prot="public" virt="non-virtual"><scope>MoveGasEntityEvent</scope><name>rhoGas</name></member>
+      <member refid="structMoveGasEntityEvent_1a4289fbba008bcd18fdd63d099ffcd6bf" prot="public" virt="non-virtual"><scope>MoveGasEntityEvent</scope><name>setForceApplyNewVelocity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

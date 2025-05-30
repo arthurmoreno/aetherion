@@ -1,0 +1,47 @@
+# recipe/meta.yaml
+{% set name = "aetherion" %}
+{% set version = "0.1.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: "{{ version }}"
+
+source:
+  # if your code is in the parent directory:
+  path: ..
+
+build:
+  number: 0
+  # use scikit-build-core to drive CMake & Ninja
+  script: |
+    python -m scikit_build_core --ninja
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}       # gxx/clang++
+    - python
+    - scikit-build-core
+    - cmake
+    - ninja
+    - nanobind                  # your C++ ↔ Python binding lib
+    - spdlog 1.12.0             # header‐only, but we want the .pc file
+    - flatbuffers               # if you use it at build‐time
+
+  run:
+    - python
+    - nanobind
+    - spdlog 1.12.0             # ensure the same shared‐lib is available
+    - flatbuffers               # if your extension links against libflatbuffers
+
+test:
+  imports:
+    - aetherion                # replace with your actual import name
+
+about:
+  home: https://github.com/your-org/aetherion
+  license: MIT
+  summary: "Your extension’s one-line description"
+
+extra:
+  recipe-maintainers:
+    - arthurmoreno

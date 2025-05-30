@@ -1,0 +1,361 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGameDB" kind="class" language="C++" prot="public">
+    <compoundname>GameDB</compoundname>
+    <includes refid="GameDB_8hpp" local="no">GameDB.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classGameDB_1ab6047aa43f4497333dcdc15f1efb2460" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string GameDB::sqlitePath</definition>
+        <argsstring></argsstring>
+        <name>sqlitePath</name>
+        <qualifiedname>GameDB::sqlitePath</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="94" column="17" bodyfile="src/GameDB.hpp" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGameDB_1ab100eab9366d46931d424f11f1bdc531" prot="private" static="no" mutable="no">
+        <type>sqlite3 *</type>
+        <definition>sqlite3* GameDB::sqliteDb</definition>
+        <argsstring></argsstring>
+        <name>sqliteDb</name>
+        <qualifiedname>GameDB::sqliteDb</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="95" column="13" bodyfile="src/GameDB.hpp" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGameDB_1a41c98e5f0e227f0f4b46de76ff920f18" prot="private" static="no" mutable="no">
+        <type>entt::registry</type>
+        <definition>entt::registry GameDB::registry</definition>
+        <argsstring></argsstring>
+        <name>registry</name>
+        <qualifiedname>GameDB::registry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="98" column="20" bodyfile="src/GameDB.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGameDB_1a44ad6e51525f1f764f1ab59eb1a07ee3" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GameDB::needsSync</definition>
+        <argsstring></argsstring>
+        <name>needsSync</name>
+        <qualifiedname>GameDB::needsSync</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="101" column="10" bodyfile="src/GameDB.hpp" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGameDB_1a79cb4a499c1a9194dd973950ab391491" prot="private" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity GameDB::timeSeriesEntity</definition>
+        <argsstring></argsstring>
+        <name>timeSeriesEntity</name>
+        <qualifiedname>GameDB::timeSeriesEntity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="104" column="18" bodyfile="src/GameDB.hpp" bodystart="104" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGameDB_1a435b5054a2905cc41d879039439e1cab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GameDB::GameDB</definition>
+        <argsstring>(const std::string &amp;sqlite_path)</argsstring>
+        <name>GameDB</name>
+        <qualifiedname>GameDB::GameDB</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>sqlite_path</declname>
+        </param>
+        <briefdescription>
+<para>Constructor for <ref refid="classGameDB" kindref="compound">GameDB</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sqlite_path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path to the SQLite database file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="27" column="5" bodyfile="src/GameDB.cpp" bodystart="6" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameDB_1ad90edc7c3be5a43a795a5e78fd606a6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GameDB::~GameDB</definition>
+        <argsstring>()</argsstring>
+        <name>~GameDB</name>
+        <qualifiedname>GameDB::~GameDB</qualifiedname>
+        <briefdescription>
+<para>Destructor for <ref refid="classGameDB" kindref="compound">GameDB</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="32" column="5" bodyfile="src/GameDB.cpp" bodystart="28" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameDB_1a0e1c7896ed8be7abc1ce3e8e3c060ca3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GameDB::putTimeSeries</definition>
+        <argsstring>(const std::string &amp;seriesName, uint64_t timestamp, double value)</argsstring>
+        <name>putTimeSeries</name>
+        <qualifiedname>GameDB::putTimeSeries</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>seriesName</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>timestamp</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Store a time series data point. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>seriesName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the time series </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timestamp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time point for the data point </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to store </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool Success status </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="42" column="10" bodyfile="src/GameDB.cpp" bodystart="40" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameDB_1ad4f05a22d39f95c6f6f0ddecd9270521" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::pair&lt; uint64_t, double &gt; &gt;</type>
+        <definition>std::vector&lt; std::pair&lt; uint64_t, double &gt; &gt; GameDB::queryTimeSeries</definition>
+        <argsstring>(const std::string &amp;seriesName, uint64_t start_time, uint64_t end_time)</argsstring>
+        <name>queryTimeSeries</name>
+        <qualifiedname>GameDB::queryTimeSeries</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>seriesName</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start_time</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>end_time</declname>
+        </param>
+        <briefdescription>
+<para>Query time series data within a time range. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>seriesName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the time series </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>start_time</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start timestamp for the query range </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>end_time</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>End timestamp for the query range </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>std::vector&lt;std::pair&lt;uint64_t, double&gt;&gt; Vector of timestamp-value pairs </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="52" column="17" bodyfile="src/GameDB.cpp" bodystart="78" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameDB_1a18d9067896097b66c217097b70b7d59b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GameDB::executeSQL</definition>
+        <argsstring>(const std::string &amp;query)</argsstring>
+        <name>executeSQL</name>
+        <qualifiedname>GameDB::executeSQL</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+<para>Execute an arbitrary SQL query. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>query</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SQL query string </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool Success status </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="62" column="10" bodyfile="src/GameDB.cpp" bodystart="139" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameDB_1a1968d50e61b6d2482c3fda6bb2ff0ed7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GameDB::createTables</definition>
+        <argsstring>()</argsstring>
+        <name>createTables</name>
+        <qualifiedname>GameDB::createTables</qualifiedname>
+        <briefdescription>
+<para>Create database tables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>bool Success status </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="69" column="10" bodyfile="src/GameDB.cpp" bodystart="150" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameDB_1a768a47e110f402d164e8a26d95e7c7c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GameDB::resetDB</definition>
+        <argsstring>()</argsstring>
+        <name>resetDB</name>
+        <qualifiedname>GameDB::resetDB</qualifiedname>
+        <briefdescription>
+<para>Reset the database. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>bool Success status </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="76" column="10" bodyfile="src/GameDB.cpp" bodystart="173" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameDB_1a3a10acac94fc83808f483ace09609192" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GameDB::syncToDatabase</definition>
+        <argsstring>()</argsstring>
+        <name>syncToDatabase</name>
+        <qualifiedname>GameDB::syncToDatabase</qualifiedname>
+        <briefdescription>
+<para>Sync in-memory data to SQLite. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>bool Success status </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="83" column="10" bodyfile="src/GameDB.cpp" bodystart="210" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="function" id="classGameDB_1a44e41f333b536904e2b0008f54da38da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GameDB::loadFromDatabase</definition>
+        <argsstring>()</argsstring>
+        <name>loadFromDatabase</name>
+        <qualifiedname>GameDB::loadFromDatabase</qualifiedname>
+        <briefdescription>
+<para>Load data from SQLite to in-memory cache. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>bool Success status </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="90" column="10" bodyfile="src/GameDB.cpp" bodystart="273" bodyend="314"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Database handler for game data. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Provides persistent storage using SQLite and in-memory cache using EnTT </para>
+    </detaileddescription>
+    <location file="src/GameDB.hpp" line="20" column="1" bodyfile="src/GameDB.hpp" bodystart="20" bodyend="105"/>
+    <listofallmembers>
+      <member refid="classGameDB_1a1968d50e61b6d2482c3fda6bb2ff0ed7" prot="public" virt="non-virtual"><scope>GameDB</scope><name>createTables</name></member>
+      <member refid="classGameDB_1a18d9067896097b66c217097b70b7d59b" prot="public" virt="non-virtual"><scope>GameDB</scope><name>executeSQL</name></member>
+      <member refid="classGameDB_1a435b5054a2905cc41d879039439e1cab" prot="public" virt="non-virtual"><scope>GameDB</scope><name>GameDB</name></member>
+      <member refid="classGameDB_1a44e41f333b536904e2b0008f54da38da" prot="public" virt="non-virtual"><scope>GameDB</scope><name>loadFromDatabase</name></member>
+      <member refid="classGameDB_1a44ad6e51525f1f764f1ab59eb1a07ee3" prot="private" virt="non-virtual"><scope>GameDB</scope><name>needsSync</name></member>
+      <member refid="classGameDB_1a0e1c7896ed8be7abc1ce3e8e3c060ca3" prot="public" virt="non-virtual"><scope>GameDB</scope><name>putTimeSeries</name></member>
+      <member refid="classGameDB_1ad4f05a22d39f95c6f6f0ddecd9270521" prot="public" virt="non-virtual"><scope>GameDB</scope><name>queryTimeSeries</name></member>
+      <member refid="classGameDB_1a41c98e5f0e227f0f4b46de76ff920f18" prot="private" virt="non-virtual"><scope>GameDB</scope><name>registry</name></member>
+      <member refid="classGameDB_1a768a47e110f402d164e8a26d95e7c7c3" prot="public" virt="non-virtual"><scope>GameDB</scope><name>resetDB</name></member>
+      <member refid="classGameDB_1ab100eab9366d46931d424f11f1bdc531" prot="private" virt="non-virtual"><scope>GameDB</scope><name>sqliteDb</name></member>
+      <member refid="classGameDB_1ab6047aa43f4497333dcdc15f1efb2460" prot="private" virt="non-virtual"><scope>GameDB</scope><name>sqlitePath</name></member>
+      <member refid="classGameDB_1a3a10acac94fc83808f483ace09609192" prot="public" virt="non-virtual"><scope>GameDB</scope><name>syncToDatabase</name></member>
+      <member refid="classGameDB_1a79cb4a499c1a9194dd973950ab391491" prot="private" virt="non-virtual"><scope>GameDB</scope><name>timeSeriesEntity</name></member>
+      <member refid="classGameDB_1ad90edc7c3be5a43a795a5e78fd606a6d" prot="public" virt="non-virtual"><scope>GameDB</scope><name>~GameDB</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

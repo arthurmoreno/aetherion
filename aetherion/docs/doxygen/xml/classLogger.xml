@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classLogger" kind="class" language="C++" prot="public">
+    <compoundname>Logger</compoundname>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classLogger_1a5b0ebd6009d22aafd8a3ef6c0b1eb945" prot="private" static="yes" mutable="no">
+        <type>std::shared_ptr&lt; spdlog::logger &gt;</type>
+        <definition>std::shared_ptr&lt; spdlog::logger &gt; Logger::logger</definition>
+        <argsstring></argsstring>
+        <name>logger</name>
+        <qualifiedname>Logger::logger</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Logger.hpp" line="28" column="28" bodyfile="src/Logger.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classLogger_1a2571b780756cf3de00afbea04f0c54a0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; spdlog::logger &gt; &amp;</type>
+        <definition>std::shared_ptr&lt; spdlog::logger &gt; &amp; Logger::getLogger</definition>
+        <argsstring>()</argsstring>
+        <name>getLogger</name>
+        <qualifiedname>Logger::getLogger</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Logger.hpp" line="13" column="28" bodyfile="src/Logger.cpp" bodystart="51" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classLogger_1ae784283f1de7827b7e7049641eaf0a53" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Logger::initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <qualifiedname>Logger::initialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Logger.hpp" line="16" column="17" bodyfile="src/Logger.cpp" bodystart="10" bodyend="49"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLogger_1ab4c4d86279176eb0ede726bc5b4d5ddb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Logger::info</definition>
+        <argsstring>(const std::string &amp;message)</argsstring>
+        <name>info</name>
+        <qualifiedname>Logger::info</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Logger.hpp" line="19" column="10" bodyfile="src/Logger.cpp" bodystart="59" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classLogger_1a24b519e0f53e73937f93edd2da37ea76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Logger::warn</definition>
+        <argsstring>(const std::string &amp;message)</argsstring>
+        <name>warn</name>
+        <qualifiedname>Logger::warn</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Logger.hpp" line="20" column="10" bodyfile="src/Logger.cpp" bodystart="65" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classLogger_1ab6042fdfcbb14026098e0df9d6b32f27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Logger::error</definition>
+        <argsstring>(const std::string &amp;message)</argsstring>
+        <name>error</name>
+        <qualifiedname>Logger::error</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Logger.hpp" line="21" column="10" bodyfile="src/Logger.cpp" bodystart="71" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classLogger_1aed3ed4c4ba36c54a42feff7f2531ff39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Logger::critical</definition>
+        <argsstring>(const std::string &amp;message)</argsstring>
+        <name>critical</name>
+        <qualifiedname>Logger::critical</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Logger.hpp" line="22" column="10" bodyfile="src/Logger.cpp" bodystart="77" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classLogger_1a38b544d566463a65d0dbf4ff7f867962" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Logger::debug</definition>
+        <argsstring>(const std::string &amp;message)</argsstring>
+        <name>debug</name>
+        <qualifiedname>Logger::debug</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Logger.hpp" line="23" column="10" bodyfile="src/Logger.cpp" bodystart="83" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classLogger_1aab9e82f26fd173f9a6d9928d14c35860" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Logger::trace</definition>
+        <argsstring>(const std::string &amp;message)</argsstring>
+        <name>trace</name>
+        <qualifiedname>Logger::trace</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Logger.hpp" line="24" column="10" bodyfile="src/Logger.cpp" bodystart="89" bodyend="93"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classLogger_1ac45b6ef7069b222c094da3724d1aa8fb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Logger::Logger</definition>
+        <argsstring>()=default</argsstring>
+        <name>Logger</name>
+        <qualifiedname>Logger::Logger</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Logger.hpp" line="27" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Logger.hpp" line="10" column="1" bodyfile="src/Logger.hpp" bodystart="10" bodyend="29"/>
+    <listofallmembers>
+      <member refid="classLogger_1aed3ed4c4ba36c54a42feff7f2531ff39" prot="public" virt="non-virtual"><scope>Logger</scope><name>critical</name></member>
+      <member refid="classLogger_1a38b544d566463a65d0dbf4ff7f867962" prot="public" virt="non-virtual"><scope>Logger</scope><name>debug</name></member>
+      <member refid="classLogger_1ab6042fdfcbb14026098e0df9d6b32f27" prot="public" virt="non-virtual"><scope>Logger</scope><name>error</name></member>
+      <member refid="classLogger_1a2571b780756cf3de00afbea04f0c54a0" prot="public" virt="non-virtual"><scope>Logger</scope><name>getLogger</name></member>
+      <member refid="classLogger_1ab4c4d86279176eb0ede726bc5b4d5ddb" prot="public" virt="non-virtual"><scope>Logger</scope><name>info</name></member>
+      <member refid="classLogger_1ae784283f1de7827b7e7049641eaf0a53" prot="public" virt="non-virtual"><scope>Logger</scope><name>initialize</name></member>
+      <member refid="classLogger_1a5b0ebd6009d22aafd8a3ef6c0b1eb945" prot="private" virt="non-virtual"><scope>Logger</scope><name>logger</name></member>
+      <member refid="classLogger_1ac45b6ef7069b222c094da3724d1aa8fb" prot="private" virt="non-virtual"><scope>Logger</scope><name>Logger</name></member>
+      <member refid="classLogger_1aab9e82f26fd173f9a6d9928d14c35860" prot="public" virt="non-virtual"><scope>Logger</scope><name>trace</name></member>
+      <member refid="classLogger_1a24b519e0f53e73937f93edd2da37ea76" prot="public" virt="non-virtual"><scope>Logger</scope><name>warn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

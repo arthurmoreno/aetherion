@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structGridData" kind="struct" language="C++" prot="public">
+    <compoundname>GridData</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structGridData_1a92da0e5557c18a5bd92b31ce9e4bd972" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GridData::terrainID</definition>
+        <argsstring></argsstring>
+        <name>terrainID</name>
+        <qualifiedname>GridData::terrainID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="47" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridData_1a0d2c9ba8f8a2667b9514e5c1fc645106" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GridData::entityID</definition>
+        <argsstring></argsstring>
+        <name>entityID</name>
+        <qualifiedname>GridData::entityID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="48" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridData_1aa5b88379a95b156308c800c987178db8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GridData::eventID</definition>
+        <argsstring></argsstring>
+        <name>eventID</name>
+        <qualifiedname>GridData::eventID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="49" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridData_1ab2ee86dcc50d3e62ae825eb8e6433111" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float GridData::lightingLevel</definition>
+        <argsstring></argsstring>
+        <name>lightingLevel</name>
+        <qualifiedname>GridData::lightingLevel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="50" column="11" bodyfile="src/VoxelGrid.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structGridData_1ad0d9a25de45e75fedfd30767a53268ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GridData::MSGPACK_DEFINE</definition>
+        <argsstring>(terrainID, entityID, eventID, lightingLevel)</argsstring>
+        <name>MSGPACK_DEFINE</name>
+        <qualifiedname>GridData::MSGPACK_DEFINE</qualifiedname>
+        <param>
+          <type>terrainID</type>
+        </param>
+        <param>
+          <type>entityID</type>
+        </param>
+        <param>
+          <type>eventID</type>
+        </param>
+        <param>
+          <type>lightingLevel</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="52" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/VoxelGrid.hpp" line="46" column="1" bodyfile="src/VoxelGrid.hpp" bodystart="46" bodyend="53"/>
+    <listofallmembers>
+      <member refid="structGridData_1a0d2c9ba8f8a2667b9514e5c1fc645106" prot="public" virt="non-virtual"><scope>GridData</scope><name>entityID</name></member>
+      <member refid="structGridData_1aa5b88379a95b156308c800c987178db8" prot="public" virt="non-virtual"><scope>GridData</scope><name>eventID</name></member>
+      <member refid="structGridData_1ab2ee86dcc50d3e62ae825eb8e6433111" prot="public" virt="non-virtual"><scope>GridData</scope><name>lightingLevel</name></member>
+      <member refid="structGridData_1ad0d9a25de45e75fedfd30767a53268ae" prot="public" virt="non-virtual"><scope>GridData</scope><name>MSGPACK_DEFINE</name></member>
+      <member refid="structGridData_1a92da0e5557c18a5bd92b31ce9e4bd972" prot="public" virt="non-virtual"><scope>GridData</scope><name>terrainID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structMoveSolidEntityEvent" kind="struct" language="C++" prot="public">
+    <compoundname>MoveSolidEntityEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMoveSolidEntityEvent_1a607600d0e531acfc7c5bcfbd538e73cd" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity MoveSolidEntityEvent::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>MoveSolidEntityEvent::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="20" column="18" bodyfile="src/MoveEntityEvent.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveSolidEntityEvent_1a16e884976e94c5f40fab7ba16ffe2379" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MoveSolidEntityEvent::forceX</definition>
+        <argsstring></argsstring>
+        <name>forceX</name>
+        <qualifiedname>MoveSolidEntityEvent::forceX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="21" column="11" bodyfile="src/MoveEntityEvent.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveSolidEntityEvent_1a8c322ca7326262ca3db7e361f50a31cf" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MoveSolidEntityEvent::forceY</definition>
+        <argsstring></argsstring>
+        <name>forceY</name>
+        <qualifiedname>MoveSolidEntityEvent::forceY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="21" column="18" bodyfile="src/MoveEntityEvent.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveSolidEntityEvent_1ab881a149827ebca342014b27a15b8410" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MoveSolidEntityEvent::forceZ</definition>
+        <argsstring></argsstring>
+        <name>forceZ</name>
+        <qualifiedname>MoveSolidEntityEvent::forceZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="21" column="25" bodyfile="src/MoveEntityEvent.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMoveSolidEntityEvent_1a573c2452821a993641041fad8bd86d84" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MoveSolidEntityEvent::MoveSolidEntityEvent</definition>
+        <argsstring>(entt::entity entity, float forceX, float forceY, float forceZ)</argsstring>
+        <name>MoveSolidEntityEvent</name>
+        <qualifiedname>MoveSolidEntityEvent::MoveSolidEntityEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>forceX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>forceY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>forceZ</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="23" column="5" bodyfile="src/MoveEntityEvent.hpp" bodystart="23" bodyend="24"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/MoveEntityEvent.hpp" line="19" column="1" bodyfile="src/MoveEntityEvent.hpp" bodystart="19" bodyend="25"/>
+    <listofallmembers>
+      <member refid="structMoveSolidEntityEvent_1a607600d0e531acfc7c5bcfbd538e73cd" prot="public" virt="non-virtual"><scope>MoveSolidEntityEvent</scope><name>entity</name></member>
+      <member refid="structMoveSolidEntityEvent_1a16e884976e94c5f40fab7ba16ffe2379" prot="public" virt="non-virtual"><scope>MoveSolidEntityEvent</scope><name>forceX</name></member>
+      <member refid="structMoveSolidEntityEvent_1a8c322ca7326262ca3db7e361f50a31cf" prot="public" virt="non-virtual"><scope>MoveSolidEntityEvent</scope><name>forceY</name></member>
+      <member refid="structMoveSolidEntityEvent_1ab881a149827ebca342014b27a15b8410" prot="public" virt="non-virtual"><scope>MoveSolidEntityEvent</scope><name>forceZ</name></member>
+      <member refid="structMoveSolidEntityEvent_1a573c2452821a993641041fad8bd86d84" prot="public" virt="non-virtual"><scope>MoveSolidEntityEvent</scope><name>MoveSolidEntityEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

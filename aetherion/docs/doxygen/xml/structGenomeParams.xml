@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structGenomeParams" kind="struct" language="C++" prot="public">
+    <compoundname>GenomeParams</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structGenomeParams_1a0f4ea64005ec9ea1f4f16890369fb277" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GenomeParams::num_inputs</definition>
+        <argsstring></argsstring>
+        <name>num_inputs</name>
+        <qualifiedname>GenomeParams::num_inputs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="12" column="9" bodyfile="src/neat/genome.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1ab9524595386db18f7d9d3cd597c80bbe" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GenomeParams::num_outputs</definition>
+        <argsstring></argsstring>
+        <name>num_outputs</name>
+        <qualifiedname>GenomeParams::num_outputs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="13" column="9" bodyfile="src/neat/genome.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1addd171f7abedbbd3a5d5e96a100edc6e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GenomeParams::num_hidden</definition>
+        <argsstring></argsstring>
+        <name>num_hidden</name>
+        <qualifiedname>GenomeParams::num_hidden</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="14" column="9" bodyfile="src/neat/genome.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1afb4bba2bf839c14b8edf1f85084fa145" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GenomeParams::feed_forward</definition>
+        <argsstring></argsstring>
+        <name>feed_forward</name>
+        <qualifiedname>GenomeParams::feed_forward</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="15" column="10" bodyfile="src/neat/genome.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1ae6cb20ebfc77111a70af6d68c51ece9a" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GenomeParams::compatibility_disjoint_coefficient</definition>
+        <argsstring></argsstring>
+        <name>compatibility_disjoint_coefficient</name>
+        <qualifiedname>GenomeParams::compatibility_disjoint_coefficient</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="16" column="12" bodyfile="src/neat/genome.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1a22069192cdad39afbc86860a7501e9d3" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GenomeParams::compatibility_weight_coefficient</definition>
+        <argsstring></argsstring>
+        <name>compatibility_weight_coefficient</name>
+        <qualifiedname>GenomeParams::compatibility_weight_coefficient</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="17" column="12" bodyfile="src/neat/genome.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1aff416e2f8165a95c26dbb6e38e22ed1a" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GenomeParams::conn_add_prob</definition>
+        <argsstring></argsstring>
+        <name>conn_add_prob</name>
+        <qualifiedname>GenomeParams::conn_add_prob</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="18" column="12" bodyfile="src/neat/genome.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1a3bd7415658cb15613d653bbf297334b2" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GenomeParams::conn_delete_prob</definition>
+        <argsstring></argsstring>
+        <name>conn_delete_prob</name>
+        <qualifiedname>GenomeParams::conn_delete_prob</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="19" column="12" bodyfile="src/neat/genome.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1a602b4ca294f3cad5027f9da10a8d5f6e" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GenomeParams::node_add_prob</definition>
+        <argsstring></argsstring>
+        <name>node_add_prob</name>
+        <qualifiedname>GenomeParams::node_add_prob</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="20" column="12" bodyfile="src/neat/genome.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1a97c8104f24d8c60520fa64951a2edaf8" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double GenomeParams::node_delete_prob</definition>
+        <argsstring></argsstring>
+        <name>node_delete_prob</name>
+        <qualifiedname>GenomeParams::node_delete_prob</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="21" column="12" bodyfile="src/neat/genome.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1a46d0e124e5a76eeb9bb9e733766d101f" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool GenomeParams::single_structural_mutation</definition>
+        <argsstring></argsstring>
+        <name>single_structural_mutation</name>
+        <qualifiedname>GenomeParams::single_structural_mutation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="22" column="10" bodyfile="src/neat/genome.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1a5feff6efc0725f198b0b2c78a013da46" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string GenomeParams::structural_mutation_surer</definition>
+        <argsstring></argsstring>
+        <name>structural_mutation_surer</name>
+        <qualifiedname>GenomeParams::structural_mutation_surer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="23" column="17" bodyfile="src/neat/genome.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGenomeParams_1a36fd8b53e6e9d788a6ad18bb9c0600d4" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string GenomeParams::initial_connection</definition>
+        <argsstring></argsstring>
+        <name>initial_connection</name>
+        <qualifiedname>GenomeParams::initial_connection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/neat/genome.hpp" line="24" column="17" bodyfile="src/neat/genome.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/neat/genome.hpp" line="11" column="1" bodyfile="src/neat/genome.hpp" bodystart="11" bodyend="25"/>
+    <listofallmembers>
+      <member refid="structGenomeParams_1ae6cb20ebfc77111a70af6d68c51ece9a" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>compatibility_disjoint_coefficient</name></member>
+      <member refid="structGenomeParams_1a22069192cdad39afbc86860a7501e9d3" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>compatibility_weight_coefficient</name></member>
+      <member refid="structGenomeParams_1aff416e2f8165a95c26dbb6e38e22ed1a" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>conn_add_prob</name></member>
+      <member refid="structGenomeParams_1a3bd7415658cb15613d653bbf297334b2" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>conn_delete_prob</name></member>
+      <member refid="structGenomeParams_1afb4bba2bf839c14b8edf1f85084fa145" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>feed_forward</name></member>
+      <member refid="structGenomeParams_1a36fd8b53e6e9d788a6ad18bb9c0600d4" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>initial_connection</name></member>
+      <member refid="structGenomeParams_1a602b4ca294f3cad5027f9da10a8d5f6e" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>node_add_prob</name></member>
+      <member refid="structGenomeParams_1a97c8104f24d8c60520fa64951a2edaf8" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>node_delete_prob</name></member>
+      <member refid="structGenomeParams_1addd171f7abedbbd3a5d5e96a100edc6e" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>num_hidden</name></member>
+      <member refid="structGenomeParams_1a0f4ea64005ec9ea1f4f16890369fb277" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>num_inputs</name></member>
+      <member refid="structGenomeParams_1ab9524595386db18f7d9d3cd597c80bbe" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>num_outputs</name></member>
+      <member refid="structGenomeParams_1a46d0e124e5a76eeb9bb9e733766d101f" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>single_structural_mutation</name></member>
+      <member refid="structGenomeParams_1a5feff6efc0725f198b0b2c78a013da46" prot="public" virt="non-virtual"><scope>GenomeParams</scope><name>structural_mutation_surer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

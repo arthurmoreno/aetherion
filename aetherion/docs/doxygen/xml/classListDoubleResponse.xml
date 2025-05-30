@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classListDoubleResponse" kind="class" language="C++" prot="public">
+    <compoundname>ListDoubleResponse</compoundname>
+    <basecompoundref refid="classQueryResponse" prot="public" virt="non-virtual">QueryResponse</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classListDoubleResponse_1a8988758b725842fee75cf8ef4c7c17e4" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; ListDoubleResponse::values</definition>
+        <argsstring></argsstring>
+        <name>values</name>
+        <qualifiedname>ListDoubleResponse::values</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="104" column="17" bodyfile="src/QueryResponse.hpp" bodystart="104" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classListDoubleResponse_1ad7ec640bdc5a9f6783af6554139e1fa0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ListDoubleResponse::ListDoubleResponse</definition>
+        <argsstring>()</argsstring>
+        <name>ListDoubleResponse</name>
+        <qualifiedname>ListDoubleResponse::ListDoubleResponse</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="106" column="5" bodyfile="src/QueryResponse.hpp" bodystart="106" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="classListDoubleResponse_1a1323b69c27e02eaea7ffe6a3fbadbe22" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ListDoubleResponse::ListDoubleResponse</definition>
+        <argsstring>(const std::vector&lt; double &gt; &amp;vals)</argsstring>
+        <name>ListDoubleResponse</name>
+        <qualifiedname>ListDoubleResponse::ListDoubleResponse</qualifiedname>
+        <param>
+          <type>const std::vector&lt; double &gt; &amp;</type>
+          <declname>vals</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="108" column="5" bodyfile="src/QueryResponse.hpp" bodystart="108" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classListDoubleResponse_1a4e2d3d601736ab094c7f03ee6736b4a5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::vector&lt; char &gt;</type>
+        <definition>std::vector&lt; char &gt; ListDoubleResponse::serialize</definition>
+        <argsstring>() const override</argsstring>
+        <name>serialize</name>
+        <qualifiedname>ListDoubleResponse::serialize</qualifiedname>
+        <reimplements refid="classQueryResponse_1ad78f2bdeba46189aff98a07b26cd958a">serialize</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="113" column="17" bodyfile="src/QueryResponse.hpp" bodystart="113" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classListDoubleResponse_1ad84083adce9dd7fb274285162ada1436" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>nb::bytes</type>
+        <definition>nb::bytes ListDoubleResponse::py_serialize</definition>
+        <argsstring>() const override</argsstring>
+        <name>py_serialize</name>
+        <qualifiedname>ListDoubleResponse::py_serialize</qualifiedname>
+        <reimplements refid="classQueryResponse_1aebd9d37dc360d3a18fcea0eaaf22ec62">py_serialize</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="133" column="15" bodyfile="src/QueryResponse.hpp" bodystart="133" bodyend="136"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classListDoubleResponse_1a7ee042b16a48bef9aeb858bff443fad3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classListDoubleResponse" kindref="compound">ListDoubleResponse</ref> *</type>
+        <definition>static ListDoubleResponse * ListDoubleResponse::deserialize</definition>
+        <argsstring>(const char *data, size_t size, size_t &amp;offset)</argsstring>
+        <name>deserialize</name>
+        <qualifiedname>ListDoubleResponse::deserialize</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/QueryResponse.hpp" line="121" column="31" bodyfile="src/QueryResponse.hpp" bodystart="121" bodyend="130"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ListDoubleResponse</label>
+        <link refid="classListDoubleResponse"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QueryResponse</label>
+        <link refid="classQueryResponse"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ListDoubleResponse</label>
+        <link refid="classListDoubleResponse"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QueryResponse</label>
+        <link refid="classQueryResponse"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/QueryResponse.hpp" line="102" column="1" bodyfile="src/QueryResponse.hpp" bodystart="102" bodyend="137"/>
+    <listofallmembers>
+      <member refid="classListDoubleResponse_1a7ee042b16a48bef9aeb858bff443fad3" prot="public" virt="non-virtual"><scope>ListDoubleResponse</scope><name>deserialize</name></member>
+      <member refid="classQueryResponse_1a37712354e3df2a12218b43e50707c2e7" prot="public" virt="non-virtual" ambiguityscope="QueryResponse::"><scope>ListDoubleResponse</scope><name>deserialize</name></member>
+      <member refid="classQueryResponse_1a903611659aa798b9cdb99721fccd366b" prot="protected" virt="non-virtual"><scope>ListDoubleResponse</scope><name>deserializeHeader</name></member>
+      <member refid="classListDoubleResponse_1ad7ec640bdc5a9f6783af6554139e1fa0" prot="public" virt="non-virtual"><scope>ListDoubleResponse</scope><name>ListDoubleResponse</name></member>
+      <member refid="classListDoubleResponse_1a1323b69c27e02eaea7ffe6a3fbadbe22" prot="public" virt="non-virtual"><scope>ListDoubleResponse</scope><name>ListDoubleResponse</name></member>
+      <member refid="classListDoubleResponse_1ad84083adce9dd7fb274285162ada1436" prot="public" virt="virtual"><scope>ListDoubleResponse</scope><name>py_serialize</name></member>
+      <member refid="classQueryResponse_1aa41747e8f2a0497a37a97852a3799ee9" prot="public" virt="non-virtual"><scope>ListDoubleResponse</scope><name>responseMask</name></member>
+      <member refid="classListDoubleResponse_1a4e2d3d601736ab094c7f03ee6736b4a5" prot="public" virt="virtual"><scope>ListDoubleResponse</scope><name>serialize</name></member>
+      <member refid="classQueryResponse_1ae337668bd1f7f8fd24c6716bb3218a74" prot="protected" virt="non-virtual"><scope>ListDoubleResponse</scope><name>serializeHeader</name></member>
+      <member refid="classListDoubleResponse_1a8988758b725842fee75cf8ef4c7c17e4" prot="public" virt="non-virtual"><scope>ListDoubleResponse</scope><name>values</name></member>
+      <member refid="classQueryResponse_1a7dd55dc41091c6d22935769c49f31e1d" prot="public" virt="virtual"><scope>ListDoubleResponse</scope><name>~QueryResponse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

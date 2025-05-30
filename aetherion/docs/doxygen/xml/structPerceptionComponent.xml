@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structPerceptionComponent" kind="struct" language="C++" prot="public">
+    <compoundname>PerceptionComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structPerceptionComponent_1a124461a87ec49508d936acf8b4f688c9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PerceptionComponent::perception_area</definition>
+        <argsstring></argsstring>
+        <name>perception_area</name>
+        <qualifiedname>PerceptionComponent::perception_area</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PerceptionComponent.hpp" line="7" column="9" bodyfile="src/components/PerceptionComponent.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structPerceptionComponent_1aa06b54aff7c7dab26b035f14738da0ad" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PerceptionComponent::z_perception_area</definition>
+        <argsstring></argsstring>
+        <name>z_perception_area</name>
+        <qualifiedname>PerceptionComponent::z_perception_area</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PerceptionComponent.hpp" line="8" column="9" bodyfile="src/components/PerceptionComponent.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structPerceptionComponent_1a77466490b1f6785c9e511d4f487ac4bc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int PerceptionComponent::getPerceptionArea</definition>
+        <argsstring>() const</argsstring>
+        <name>getPerceptionArea</name>
+        <qualifiedname>PerceptionComponent::getPerceptionArea</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PerceptionComponent.hpp" line="11" column="9" bodyfile="src/components/PerceptionComponent.hpp" bodystart="11" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="structPerceptionComponent_1a8ede1310df93a47d5c992663bdfc25c8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int PerceptionComponent::getZPerceptionArea</definition>
+        <argsstring>() const</argsstring>
+        <name>getZPerceptionArea</name>
+        <qualifiedname>PerceptionComponent::getZPerceptionArea</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PerceptionComponent.hpp" line="13" column="9" bodyfile="src/components/PerceptionComponent.hpp" bodystart="13" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="structPerceptionComponent_1ac0d8ba171316890d08cc2c3458ea28e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PerceptionComponent::setPerceptionArea</definition>
+        <argsstring>(int area)</argsstring>
+        <name>setPerceptionArea</name>
+        <qualifiedname>PerceptionComponent::setPerceptionArea</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>area</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PerceptionComponent.hpp" line="16" column="10" bodyfile="src/components/PerceptionComponent.hpp" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="structPerceptionComponent_1a93ec3520be72faa704dc43450d8d84b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PerceptionComponent::setZPerceptionArea</definition>
+        <argsstring>(int area)</argsstring>
+        <name>setZPerceptionArea</name>
+        <qualifiedname>PerceptionComponent::setZPerceptionArea</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>area</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PerceptionComponent.hpp" line="18" column="10" bodyfile="src/components/PerceptionComponent.hpp" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="structPerceptionComponent_1af93c5bc43fea7eeb6a9a45857daccf45" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PerceptionComponent::print</definition>
+        <argsstring>() const</argsstring>
+        <name>print</name>
+        <qualifiedname>PerceptionComponent::print</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/PerceptionComponent.hpp" line="21" column="10" bodyfile="src/components/PerceptionComponent.hpp" bodystart="21" bodyend="24"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/PerceptionComponent.hpp" line="6" column="1" bodyfile="src/components/PerceptionComponent.hpp" bodystart="6" bodyend="25"/>
+    <listofallmembers>
+      <member refid="structPerceptionComponent_1a77466490b1f6785c9e511d4f487ac4bc" prot="public" virt="non-virtual"><scope>PerceptionComponent</scope><name>getPerceptionArea</name></member>
+      <member refid="structPerceptionComponent_1a8ede1310df93a47d5c992663bdfc25c8" prot="public" virt="non-virtual"><scope>PerceptionComponent</scope><name>getZPerceptionArea</name></member>
+      <member refid="structPerceptionComponent_1a124461a87ec49508d936acf8b4f688c9" prot="public" virt="non-virtual"><scope>PerceptionComponent</scope><name>perception_area</name></member>
+      <member refid="structPerceptionComponent_1af93c5bc43fea7eeb6a9a45857daccf45" prot="public" virt="non-virtual"><scope>PerceptionComponent</scope><name>print</name></member>
+      <member refid="structPerceptionComponent_1ac0d8ba171316890d08cc2c3458ea28e3" prot="public" virt="non-virtual"><scope>PerceptionComponent</scope><name>setPerceptionArea</name></member>
+      <member refid="structPerceptionComponent_1a93ec3520be72faa704dc43450d8d84b3" prot="public" virt="non-virtual"><scope>PerceptionComponent</scope><name>setZPerceptionArea</name></member>
+      <member refid="structPerceptionComponent_1aa06b54aff7c7dab26b035f14738da0ad" prot="public" virt="non-virtual"><scope>PerceptionComponent</scope><name>z_perception_area</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

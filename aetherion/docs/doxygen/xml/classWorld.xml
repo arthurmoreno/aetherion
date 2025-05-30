@@ -1,0 +1,1183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classWorld" kind="class" language="C++" prot="public">
+    <compoundname>World</compoundname>
+    <includes refid="World_8hpp" local="no">World.hpp</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classWorld_1a25a68b69af20b02aaa942f6a1464fd96" prot="public" static="no" mutable="no">
+        <type><ref refid="classGameClock" kindref="compound">GameClock</ref></type>
+        <definition>GameClock World::gameClock</definition>
+        <argsstring></argsstring>
+        <name>gameClock</name>
+        <qualifiedname>World::gameClock</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="38" column="15" bodyfile="src/World.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1ad441f046e49a274301278a3cf9339944" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int World::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <qualifiedname>World::width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="40" column="9" bodyfile="src/World.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1ad2e63a39659cb400a619a0d16e3b4f9e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int World::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <qualifiedname>World::height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="41" column="9" bodyfile="src/World.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a90909285b9df8e25bafd18aa12db20b8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int World::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <qualifiedname>World::depth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="42" column="9" bodyfile="src/World.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a8a40a5a51a8a56f038f4b76b3d78202c" prot="public" static="no" mutable="no">
+        <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+        <definition>VoxelGrid* World::voxelGrid</definition>
+        <argsstring></argsstring>
+        <name>voxelGrid</name>
+        <qualifiedname>World::voxelGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="44" column="15" bodyfile="src/World.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a0d6a16c91503878ac2a7fbadd04072ca" prot="public" static="no" mutable="no">
+        <type>entt::registry</type>
+        <definition>entt::registry World::registry</definition>
+        <argsstring></argsstring>
+        <name>registry</name>
+        <qualifiedname>World::registry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="45" column="20" bodyfile="src/World.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a61c942761c2eb86c87fc5b43aa697f32" prot="public" static="no" mutable="no">
+        <type>entt::dispatcher</type>
+        <definition>entt::dispatcher World::dispatcher</definition>
+        <argsstring></argsstring>
+        <name>dispatcher</name>
+        <qualifiedname>World::dispatcher</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="46" column="22" bodyfile="src/World.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a7d6d493a9d49ce89cb78cd10d25c442e" prot="public" static="no" mutable="no">
+        <type><ref refid="classPyRegistry" kindref="compound">PyRegistry</ref></type>
+        <definition>PyRegistry World::pyRegistry</definition>
+        <argsstring></argsstring>
+        <name>pyRegistry</name>
+        <qualifiedname>World::pyRegistry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="47" column="16" bodyfile="src/World.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classWorld_1a6710bbd345ecc3682e7cf2efe2a7848a" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex World::registryMutex</definition>
+        <argsstring></argsstring>
+        <name>registryMutex</name>
+        <qualifiedname>World::registryMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="117" column="16" bodyfile="src/World.hpp" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a671a70a2e7c14ede6e41e1f2b6861b0e" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classGameDBHandler" kindref="compound">GameDBHandler</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;GameDBHandler&gt; World::dbHandler</definition>
+        <argsstring></argsstring>
+        <name>dbHandler</name>
+        <qualifiedname>World::dbHandler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="118" column="21" bodyfile="src/World.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a5584ac605f8ae79c8d9bfcb81dd4d3dd" prot="private" static="no" mutable="no">
+        <type><ref refid="classPhysicsEngine" kindref="compound">PhysicsEngine</ref> *</type>
+        <definition>PhysicsEngine* World::physicsEngine</definition>
+        <argsstring></argsstring>
+        <name>physicsEngine</name>
+        <qualifiedname>World::physicsEngine</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="121" column="19" bodyfile="src/World.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a6a72856a3ec5eb824fab599937f002b5" prot="private" static="no" mutable="no">
+        <type>std::future&lt; void &gt;</type>
+        <definition>std::future&lt;void&gt; World::physicsFuture</definition>
+        <argsstring></argsstring>
+        <name>physicsFuture</name>
+        <qualifiedname>World::physicsFuture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="122" column="17" bodyfile="src/World.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a023f66283fc337338b191c8b5963729f" prot="private" static="no" mutable="no">
+        <type><ref refid="classLifeEngine" kindref="compound">LifeEngine</ref> *</type>
+        <definition>LifeEngine* World::lifeEngine</definition>
+        <argsstring></argsstring>
+        <name>lifeEngine</name>
+        <qualifiedname>World::lifeEngine</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="125" column="16" bodyfile="src/World.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1ac5e39b20abe3c066b6fdc59d9ec8a356" prot="private" static="no" mutable="no">
+        <type><ref refid="classEcosystemEngine" kindref="compound">EcosystemEngine</ref> *</type>
+        <definition>EcosystemEngine* World::ecosystemEngine</definition>
+        <argsstring></argsstring>
+        <name>ecosystemEngine</name>
+        <qualifiedname>World::ecosystemEngine</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="128" column="21" bodyfile="src/World.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a5b5ca272c8dbcc920cb3b450f36e4757" prot="private" static="no" mutable="no">
+        <type>std::future&lt; void &gt;</type>
+        <definition>std::future&lt;void&gt; World::ecosystemFuture</definition>
+        <argsstring></argsstring>
+        <name>ecosystemFuture</name>
+        <qualifiedname>World::ecosystemFuture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="129" column="17" bodyfile="src/World.hpp" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1acf163870291188e1759a0bc0e4b7f7ee" prot="private" static="no" mutable="no">
+        <type><ref refid="classMetabolismSystem" kindref="compound">MetabolismSystem</ref> *</type>
+        <definition>MetabolismSystem* World::metabolismSystem</definition>
+        <argsstring></argsstring>
+        <name>metabolismSystem</name>
+        <qualifiedname>World::metabolismSystem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="132" column="22" bodyfile="src/World.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1ae30edfd4067bd378988ec8f520f3ef09" prot="private" static="no" mutable="no">
+        <type>std::future&lt; void &gt;</type>
+        <definition>std::future&lt;void&gt; World::metabolismFuture</definition>
+        <argsstring></argsstring>
+        <name>metabolismFuture</name>
+        <qualifiedname>World::metabolismFuture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="133" column="17" bodyfile="src/World.hpp" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a523eb1b8cabb41ed65e27a7c39b8e943" prot="private" static="no" mutable="no">
+        <type>const bool</type>
+        <definition>const bool World::processMetabolismAsync</definition>
+        <argsstring></argsstring>
+        <name>processMetabolismAsync</name>
+        <qualifiedname>World::processMetabolismAsync</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="134" column="16" bodyfile="src/World.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1ac76412e926c7d807a679156ee5b3c092" prot="private" static="no" mutable="no">
+        <type><ref refid="classHealthSystem" kindref="compound">HealthSystem</ref> *</type>
+        <definition>HealthSystem* World::healthSystem</definition>
+        <argsstring></argsstring>
+        <name>healthSystem</name>
+        <qualifiedname>World::healthSystem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="137" column="18" bodyfile="src/World.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1ae99e36aded172b0dfa6f54c604e64ceb" prot="private" static="no" mutable="no">
+        <type><ref refid="classCombatSystem" kindref="compound">CombatSystem</ref> *</type>
+        <definition>CombatSystem* World::combatSystem</definition>
+        <argsstring></argsstring>
+        <name>combatSystem</name>
+        <qualifiedname>World::combatSystem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="140" column="18" bodyfile="src/World.hpp" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a27ca0f837e690677bf982e32ec0c7600" prot="private" static="no" mutable="no">
+        <type><ref refid="classEffectsSystem" kindref="compound">EffectsSystem</ref> *</type>
+        <definition>EffectsSystem* World::effectsSystem</definition>
+        <argsstring></argsstring>
+        <name>effectsSystem</name>
+        <qualifiedname>World::effectsSystem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="143" column="19" bodyfile="src/World.hpp" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a5d0b41f8b292bd914b42b25185416eda" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; nb::object &gt;</type>
+        <definition>std::vector&lt;nb::object&gt; World::pythonSystems</definition>
+        <argsstring></argsstring>
+        <name>pythonSystems</name>
+        <qualifiedname>World::pythonSystems</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="145" column="17" bodyfile="src/World.hpp" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWorld_1a6636eb01033723ecdb29d5b610559e9b" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, nb::object &gt;</type>
+        <definition>std::map&lt;std::string, nb::object&gt; World::pythonScripts</definition>
+        <argsstring></argsstring>
+        <name>pythonScripts</name>
+        <qualifiedname>World::pythonScripts</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="146" column="14" bodyfile="src/World.hpp" bodystart="146" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classWorld_1aa7b9a06c8f96a1a3173fa505393da6d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>World::World</definition>
+        <argsstring>(int width, int height, int depth)</argsstring>
+        <name>World</name>
+        <qualifiedname>World::World</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>depth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="49" column="5" bodyfile="src/World.cpp" bodystart="21" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a8c73fba541a5817fff65147ba47cd827" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>World::~World</definition>
+        <argsstring>()</argsstring>
+        <name>~World</name>
+        <qualifiedname>World::~World</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="53" column="5" bodyfile="src/World.cpp" bodystart="50" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a4c5cddbe433074a311019e497144bc2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::initializeVoxelGrid</definition>
+        <argsstring>()</argsstring>
+        <name>initializeVoxelGrid</name>
+        <qualifiedname>World::initializeVoxelGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="58" column="10" bodyfile="src/World.cpp" bodystart="64" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1af85800f5b2fabeb7ed973aa6a338e5f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::setVoxel</definition>
+        <argsstring>(int x, int y, int z, const GridData &amp;data)</argsstring>
+        <name>setVoxel</name>
+        <qualifiedname>World::setVoxel</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structGridData" kindref="compound">GridData</ref> &amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="59" column="10" bodyfile="src/World.cpp" bodystart="69" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a8a69a9d349ff64d4166a560fd64475e0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structGridData" kindref="compound">GridData</ref></type>
+        <definition>GridData World::getVoxel</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getVoxel</name>
+        <qualifiedname>World::getVoxel</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="60" column="14" bodyfile="src/World.cpp" bodystart="73" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a667696d8cef828c547cdd59f38212155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>entt::entity</type>
+        <definition>entt::entity World::createEntity</definition>
+        <argsstring>(const EntityInterface &amp;entityInterface)</argsstring>
+        <name>createEntity</name>
+        <qualifiedname>World::createEntity</qualifiedname>
+        <param>
+          <type>const <ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+          <declname>entityInterface</declname>
+        </param>
+        <briefdescription>
+<para>Create an entity using the <ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="65" column="18" bodyfile="src/World.cpp" bodystart="89" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a83e13cf05322ebc25fa9b4b484d6e2fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>entt::entity</type>
+        <definition>entt::entity World::createEntityFromPython</definition>
+        <argsstring>(nb::object pyEntity)</argsstring>
+        <name>createEntityFromPython</name>
+        <qualifiedname>World::createEntityFromPython</qualifiedname>
+        <param>
+          <type>nb::object</type>
+          <declname>pyEntity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="66" column="18" bodyfile="src/World.cpp" bodystart="118" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1aa5fe3a327e576e6d9a675cd506f3c3b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::removeEntity</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>removeEntity</name>
+        <qualifiedname>World::removeEntity</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="67" column="10" bodyfile="src/World.cpp" bodystart="62" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a1877102c6687e3b7a9da56c7eb30b16f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>nb::list</type>
+        <definition>nb::list World::getEntityIdsByType</definition>
+        <argsstring>(int entityMainType, int entitySubType0)</argsstring>
+        <name>getEntityIdsByType</name>
+        <qualifiedname>World::getEntityIdsByType</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entityMainType</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>entitySubType0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="69" column="14" bodyfile="src/World.cpp" bodystart="294" bodyend="313"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a11c5cbf36f460970e9178db279981493" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>nb::dict</type>
+        <definition>nb::dict World::getEntitiesByType</definition>
+        <argsstring>(int entityMainType, int entitySubType0)</argsstring>
+        <name>getEntitiesByType</name>
+        <qualifiedname>World::getEntitiesByType</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entityMainType</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>entitySubType0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="70" column="14" bodyfile="src/World.cpp" bodystart="268" bodyend="291"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a4a1a9a36d6699886d129b692701ec3ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>nb::object</type>
+        <definition>nb::object World::getEntityById</definition>
+        <argsstring>(int entityId)</argsstring>
+        <name>getEntityById</name>
+        <qualifiedname>World::getEntityById</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entityId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="71" column="16" bodyfile="src/World.cpp" bodystart="402" bodyend="409"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a8a51f3a056b8ef9f9128a797329f8346" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::setTerrain</definition>
+        <argsstring>(int x, int y, int z, const EntityInterface &amp;entityInterface)</argsstring>
+        <name>setTerrain</name>
+        <qualifiedname>World::setTerrain</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classEntityInterface" kindref="compound">EntityInterface</ref> &amp;</type>
+          <declname>entityInterface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="73" column="10" bodyfile="src/World.cpp" bodystart="75" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1acf007bbb37792e7f6dd0b8d923214eff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int World::getTerrain</definition>
+        <argsstring>(int x, int y, int z)</argsstring>
+        <name>getTerrain</name>
+        <qualifiedname>World::getTerrain</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="74" column="9" bodyfile="src/World.cpp" bodystart="422" bodyend="422"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a59b0b6f0c573ef0cf9d04aaba335975c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int World::getEntity</definition>
+        <argsstring>(int x, int y, int z)</argsstring>
+        <name>getEntity</name>
+        <qualifiedname>World::getEntity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="75" column="9" bodyfile="src/World.cpp" bodystart="424" bodyend="424"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a0ca5903e1dd8e40a999850d67feb07d3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structGridData" kindref="compound">GridData</ref></type>
+        <definition>GridData World::getEntityOnVoxel</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getEntityOnVoxel</name>
+        <qualifiedname>World::getEntityOnVoxel</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="77" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a5c2b73bcca22d5f7f1c6ec3b1c9f1d99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::dispatchMoveSolidEntityEventById</definition>
+        <argsstring>(int entityId, std::vector&lt; DirectionEnum &gt; directionsToApply)</argsstring>
+        <name>dispatchMoveSolidEntityEventById</name>
+        <qualifiedname>World::dispatchMoveSolidEntityEventById</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entityId</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; DirectionEnum &gt;</type>
+          <declname>directionsToApply</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="80" column="10" bodyfile="src/World.cpp" bodystart="426" bodyend="466"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a13270f86b3eed049daf957a1483000e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::dispatchMoveSolidEntityEventByPosition</definition>
+        <argsstring>(int x, int y, int z, GridType gridType, float deltaX, float deltaY, float deltaZ)</argsstring>
+        <name>dispatchMoveSolidEntityEventByPosition</name>
+        <qualifiedname>World::dispatchMoveSolidEntityEventByPosition</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>GridType</type>
+          <declname>gridType</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deltaX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deltaY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deltaZ</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="82" column="10" bodyfile="src/World.cpp" bodystart="468" bodyend="488"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a74069fe6686cd5d68f0093c36bf20baa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::dispatchTakeItemEventById</definition>
+        <argsstring>(int entityId, int hoveredEntityId, int selectedEntityId)</argsstring>
+        <name>dispatchTakeItemEventById</name>
+        <qualifiedname>World::dispatchTakeItemEventById</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entityId</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>hoveredEntityId</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>selectedEntityId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="84" column="10" bodyfile="src/World.cpp" bodystart="490" bodyend="501"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1ac5105ae887619c677656671c939b5bda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::dispatchUseItemEventById</definition>
+        <argsstring>(int entityId, int itemSlot, int hoveredEntityId, int selectedEntityId)</argsstring>
+        <name>dispatchUseItemEventById</name>
+        <qualifiedname>World::dispatchUseItemEventById</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entityId</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>itemSlot</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>hoveredEntityId</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>selectedEntityId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="85" column="10" bodyfile="src/World.cpp" bodystart="503" bodyend="515"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1adc7dfb57cef1abcdcb1cbfcedaf83d89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::dispatchSetEntityToDebug</definition>
+        <argsstring>(int entityId)</argsstring>
+        <name>dispatchSetEntityToDebug</name>
+        <qualifiedname>World::dispatchSetEntityToDebug</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entityId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="87" column="10" bodyfile="src/World.cpp" bodystart="517" bodyend="521"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1aac8c1fde63c06577ffc648aaefdb37f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::update</definition>
+        <argsstring>()</argsstring>
+        <name>update</name>
+        <qualifiedname>World::update</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="90" column="10" bodyfile="src/World.cpp" bodystart="581" bodyend="729"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a384e0a7c83a50d2059ca0ee2c3f0a384" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::processOptionalQueries</definition>
+        <argsstring>(const std::vector&lt; QueryCommand &gt; &amp;commands, PerceptionResponse &amp;response)</argsstring>
+        <name>processOptionalQueries</name>
+        <qualifiedname>World::processOptionalQueries</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="structQueryCommand" kindref="compound">QueryCommand</ref> &gt; &amp;</type>
+          <declname>commands</declname>
+        </param>
+        <param>
+          <type><ref refid="structPerceptionResponse" kindref="compound">PerceptionResponse</ref> &amp;</type>
+          <declname>response</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="92" column="10" bodyfile="src/WorldCreatePerception.cpp" bodystart="313" bodyend="400"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a90118dfa10d4a371ad23ac9110c53b23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>nb::bytes</type>
+        <definition>nb::bytes World::createPerceptionResponse</definition>
+        <argsstring>(int entityId, nb::list optionalQueries)</argsstring>
+        <name>createPerceptionResponse</name>
+        <qualifiedname>World::createPerceptionResponse</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entityId</declname>
+        </param>
+        <param>
+          <type>nb::list</type>
+          <declname>optionalQueries</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="94" column="15" bodyfile="src/WorldCreatePerception.cpp" bodystart="746" bodyend="750"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a3502b5e056406f23a85ab610292b49a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; char &gt;</type>
+        <definition>std::vector&lt; char &gt; World::createPerceptionResponseC</definition>
+        <argsstring>(int entityId, const std::vector&lt; QueryCommand &gt; &amp;commands)</argsstring>
+        <name>createPerceptionResponseC</name>
+        <qualifiedname>World::createPerceptionResponseC</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>entityId</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structQueryCommand" kindref="compound">QueryCommand</ref> &gt; &amp;</type>
+          <declname>commands</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="95" column="17" bodyfile="src/WorldCreatePerception.cpp" bodystart="402" bodyend="744"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a8d34910ab810f5e81472f5eb917cf904" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>nb::dict</type>
+        <definition>nb::dict World::createPerceptionResponses</definition>
+        <argsstring>(nb::dict entitiesWithQueries)</argsstring>
+        <name>createPerceptionResponses</name>
+        <qualifiedname>World::createPerceptionResponses</qualifiedname>
+        <param>
+          <type>nb::dict</type>
+          <declname>entitiesWithQueries</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="97" column="14" bodyfile="src/World.cpp" bodystart="315" bodyend="400"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1ae7aacf02569cf277eed3f48a41f47156" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::addPythonSystem</definition>
+        <argsstring>(nb::object system)</argsstring>
+        <name>addPythonSystem</name>
+        <qualifiedname>World::addPythonSystem</qualifiedname>
+        <param>
+          <type>nb::object</type>
+          <declname>system</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="101" column="10" bodyfile="src/World.cpp" bodystart="523" bodyend="532"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a3fc9e94a98b0a9037241e281dcdf00aa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>nb::object</type>
+        <definition>nb::object World::getPythonSystem</definition>
+        <argsstring>(size_t index) const</argsstring>
+        <name>getPythonSystem</name>
+        <qualifiedname>World::getPythonSystem</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="102" column="16" bodyfile="src/World.cpp" bodystart="534" bodyend="539"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1ad8a789ca10bbe58ec278384ef208dff7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::addPythonScript</definition>
+        <argsstring>(std::string &amp;key, nb::object script)</argsstring>
+        <name>addPythonScript</name>
+        <qualifiedname>World::addPythonScript</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>nb::object</type>
+          <declname>script</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="104" column="10" bodyfile="src/World.cpp" bodystart="541" bodyend="550"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1aade8de7d589e5e781186c64ed3b6b99b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::runPythonScript</definition>
+        <argsstring>(std::string &amp;key)</argsstring>
+        <name>runPythonScript</name>
+        <qualifiedname>World::runPythonScript</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="105" column="10" bodyfile="src/World.cpp" bodystart="552" bodyend="567"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1ac8c90ffa18aba1d0c524fd8c8fd4644b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::capsule</type>
+        <definition>nb::capsule World::get_ptr</definition>
+        <argsstring>()</argsstring>
+        <name>get_ptr</name>
+        <qualifiedname>World::get_ptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="108" column="17" bodyfile="src/World.hpp" bodystart="108" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a1c5a8283b916965bfd1d282d2b5f0a4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::putTimeSeries</definition>
+        <argsstring>(const std::string &amp;seriesName, long long timestamp, double value)</argsstring>
+        <name>putTimeSeries</name>
+        <qualifiedname>World::putTimeSeries</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>seriesName</declname>
+        </param>
+        <param>
+          <type>long long</type>
+          <declname>timestamp</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="111" column="10" bodyfile="src/World.cpp" bodystart="731" bodyend="734"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a282803c1dd2354b335be998c7af6167c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::pair&lt; uint64_t, double &gt; &gt;</type>
+        <definition>std::vector&lt; std::pair&lt; uint64_t, double &gt; &gt; World::queryTimeSeries</definition>
+        <argsstring>(const std::string &amp;seriesName, long long start, long long end)</argsstring>
+        <name>queryTimeSeries</name>
+        <qualifiedname>World::queryTimeSeries</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>seriesName</declname>
+        </param>
+        <param>
+          <type>long long</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>long long</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="112" column="17" bodyfile="src/World.cpp" bodystart="736" bodyend="739"/>
+      </memberdef>
+      <memberdef kind="function" id="classWorld_1a9485ee586fcac7acbd699d8b4334906c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void World::executeSQL</definition>
+        <argsstring>(const std::string &amp;sql)</argsstring>
+        <name>executeSQL</name>
+        <qualifiedname>World::executeSQL</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>sql</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="114" column="10" bodyfile="src/World.cpp" bodystart="741" bodyend="741"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classWorld_1a8a89e21ac72172072080ba4b18f37456" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int World::getPerceptionBounds</definition>
+        <argsstring>(int pos, int perception) const</argsstring>
+        <name>getPerceptionBounds</name>
+        <qualifiedname>World::getPerceptionBounds</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>perception</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/World.hpp" line="148" column="9" bodyfile="src/World.cpp" bodystart="412" bodyend="412"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>This is the <ref refid="classWorld" kindref="compound">World</ref> class that represents the game world. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>GameClock</label>
+        <link refid="classGameClock"/>
+      </node>
+      <node id="4">
+        <label>PyRegistry</label>
+        <link refid="classPyRegistry"/>
+      </node>
+      <node id="3">
+        <label>VoxelGrid</label>
+        <link refid="classVoxelGrid"/>
+      </node>
+      <node id="1">
+        <label>World</label>
+        <link refid="classWorld"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>gameClock</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>voxelGrid</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>pyRegistry</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/World.hpp" line="36" column="1" bodyfile="src/World.hpp" bodystart="36" bodyend="149"/>
+    <listofallmembers>
+      <member refid="classWorld_1ad8a789ca10bbe58ec278384ef208dff7" prot="public" virt="non-virtual"><scope>World</scope><name>addPythonScript</name></member>
+      <member refid="classWorld_1ae7aacf02569cf277eed3f48a41f47156" prot="public" virt="non-virtual"><scope>World</scope><name>addPythonSystem</name></member>
+      <member refid="classWorld_1ae99e36aded172b0dfa6f54c604e64ceb" prot="private" virt="non-virtual"><scope>World</scope><name>combatSystem</name></member>
+      <member refid="classWorld_1a667696d8cef828c547cdd59f38212155" prot="public" virt="non-virtual"><scope>World</scope><name>createEntity</name></member>
+      <member refid="classWorld_1a83e13cf05322ebc25fa9b4b484d6e2fd" prot="public" virt="non-virtual"><scope>World</scope><name>createEntityFromPython</name></member>
+      <member refid="classWorld_1a90118dfa10d4a371ad23ac9110c53b23" prot="public" virt="non-virtual"><scope>World</scope><name>createPerceptionResponse</name></member>
+      <member refid="classWorld_1a3502b5e056406f23a85ab610292b49a9" prot="public" virt="non-virtual"><scope>World</scope><name>createPerceptionResponseC</name></member>
+      <member refid="classWorld_1a8d34910ab810f5e81472f5eb917cf904" prot="public" virt="non-virtual"><scope>World</scope><name>createPerceptionResponses</name></member>
+      <member refid="classWorld_1a671a70a2e7c14ede6e41e1f2b6861b0e" prot="private" virt="non-virtual"><scope>World</scope><name>dbHandler</name></member>
+      <member refid="classWorld_1a90909285b9df8e25bafd18aa12db20b8" prot="public" virt="non-virtual"><scope>World</scope><name>depth</name></member>
+      <member refid="classWorld_1a61c942761c2eb86c87fc5b43aa697f32" prot="public" virt="non-virtual"><scope>World</scope><name>dispatcher</name></member>
+      <member refid="classWorld_1a5c2b73bcca22d5f7f1c6ec3b1c9f1d99" prot="public" virt="non-virtual"><scope>World</scope><name>dispatchMoveSolidEntityEventById</name></member>
+      <member refid="classWorld_1a13270f86b3eed049daf957a1483000e3" prot="public" virt="non-virtual"><scope>World</scope><name>dispatchMoveSolidEntityEventByPosition</name></member>
+      <member refid="classWorld_1adc7dfb57cef1abcdcb1cbfcedaf83d89" prot="public" virt="non-virtual"><scope>World</scope><name>dispatchSetEntityToDebug</name></member>
+      <member refid="classWorld_1a74069fe6686cd5d68f0093c36bf20baa" prot="public" virt="non-virtual"><scope>World</scope><name>dispatchTakeItemEventById</name></member>
+      <member refid="classWorld_1ac5105ae887619c677656671c939b5bda" prot="public" virt="non-virtual"><scope>World</scope><name>dispatchUseItemEventById</name></member>
+      <member refid="classWorld_1ac5e39b20abe3c066b6fdc59d9ec8a356" prot="private" virt="non-virtual"><scope>World</scope><name>ecosystemEngine</name></member>
+      <member refid="classWorld_1a5b5ca272c8dbcc920cb3b450f36e4757" prot="private" virt="non-virtual"><scope>World</scope><name>ecosystemFuture</name></member>
+      <member refid="classWorld_1a27ca0f837e690677bf982e32ec0c7600" prot="private" virt="non-virtual"><scope>World</scope><name>effectsSystem</name></member>
+      <member refid="classWorld_1a9485ee586fcac7acbd699d8b4334906c" prot="public" virt="non-virtual"><scope>World</scope><name>executeSQL</name></member>
+      <member refid="classWorld_1a25a68b69af20b02aaa942f6a1464fd96" prot="public" virt="non-virtual"><scope>World</scope><name>gameClock</name></member>
+      <member refid="classWorld_1ac8c90ffa18aba1d0c524fd8c8fd4644b" prot="public" virt="non-virtual"><scope>World</scope><name>get_ptr</name></member>
+      <member refid="classWorld_1a11c5cbf36f460970e9178db279981493" prot="public" virt="non-virtual"><scope>World</scope><name>getEntitiesByType</name></member>
+      <member refid="classWorld_1a59b0b6f0c573ef0cf9d04aaba335975c" prot="public" virt="non-virtual"><scope>World</scope><name>getEntity</name></member>
+      <member refid="classWorld_1a4a1a9a36d6699886d129b692701ec3ef" prot="public" virt="non-virtual"><scope>World</scope><name>getEntityById</name></member>
+      <member refid="classWorld_1a1877102c6687e3b7a9da56c7eb30b16f" prot="public" virt="non-virtual"><scope>World</scope><name>getEntityIdsByType</name></member>
+      <member refid="classWorld_1a0ca5903e1dd8e40a999850d67feb07d3" prot="public" virt="non-virtual"><scope>World</scope><name>getEntityOnVoxel</name></member>
+      <member refid="classWorld_1a8a89e21ac72172072080ba4b18f37456" prot="private" virt="non-virtual"><scope>World</scope><name>getPerceptionBounds</name></member>
+      <member refid="classWorld_1a3fc9e94a98b0a9037241e281dcdf00aa" prot="public" virt="non-virtual"><scope>World</scope><name>getPythonSystem</name></member>
+      <member refid="classWorld_1acf007bbb37792e7f6dd0b8d923214eff" prot="public" virt="non-virtual"><scope>World</scope><name>getTerrain</name></member>
+      <member refid="classWorld_1a8a69a9d349ff64d4166a560fd64475e0" prot="public" virt="non-virtual"><scope>World</scope><name>getVoxel</name></member>
+      <member refid="classWorld_1ac76412e926c7d807a679156ee5b3c092" prot="private" virt="non-virtual"><scope>World</scope><name>healthSystem</name></member>
+      <member refid="classWorld_1ad2e63a39659cb400a619a0d16e3b4f9e" prot="public" virt="non-virtual"><scope>World</scope><name>height</name></member>
+      <member refid="classWorld_1a4c5cddbe433074a311019e497144bc2b" prot="public" virt="non-virtual"><scope>World</scope><name>initializeVoxelGrid</name></member>
+      <member refid="classWorld_1a023f66283fc337338b191c8b5963729f" prot="private" virt="non-virtual"><scope>World</scope><name>lifeEngine</name></member>
+      <member refid="classWorld_1ae30edfd4067bd378988ec8f520f3ef09" prot="private" virt="non-virtual"><scope>World</scope><name>metabolismFuture</name></member>
+      <member refid="classWorld_1acf163870291188e1759a0bc0e4b7f7ee" prot="private" virt="non-virtual"><scope>World</scope><name>metabolismSystem</name></member>
+      <member refid="classWorld_1a5584ac605f8ae79c8d9bfcb81dd4d3dd" prot="private" virt="non-virtual"><scope>World</scope><name>physicsEngine</name></member>
+      <member refid="classWorld_1a6a72856a3ec5eb824fab599937f002b5" prot="private" virt="non-virtual"><scope>World</scope><name>physicsFuture</name></member>
+      <member refid="classWorld_1a523eb1b8cabb41ed65e27a7c39b8e943" prot="private" virt="non-virtual"><scope>World</scope><name>processMetabolismAsync</name></member>
+      <member refid="classWorld_1a384e0a7c83a50d2059ca0ee2c3f0a384" prot="public" virt="non-virtual"><scope>World</scope><name>processOptionalQueries</name></member>
+      <member refid="classWorld_1a1c5a8283b916965bfd1d282d2b5f0a4e" prot="public" virt="non-virtual"><scope>World</scope><name>putTimeSeries</name></member>
+      <member refid="classWorld_1a7d6d493a9d49ce89cb78cd10d25c442e" prot="public" virt="non-virtual"><scope>World</scope><name>pyRegistry</name></member>
+      <member refid="classWorld_1a6636eb01033723ecdb29d5b610559e9b" prot="private" virt="non-virtual"><scope>World</scope><name>pythonScripts</name></member>
+      <member refid="classWorld_1a5d0b41f8b292bd914b42b25185416eda" prot="private" virt="non-virtual"><scope>World</scope><name>pythonSystems</name></member>
+      <member refid="classWorld_1a282803c1dd2354b335be998c7af6167c" prot="public" virt="non-virtual"><scope>World</scope><name>queryTimeSeries</name></member>
+      <member refid="classWorld_1a0d6a16c91503878ac2a7fbadd04072ca" prot="public" virt="non-virtual"><scope>World</scope><name>registry</name></member>
+      <member refid="classWorld_1a6710bbd345ecc3682e7cf2efe2a7848a" prot="private" virt="non-virtual"><scope>World</scope><name>registryMutex</name></member>
+      <member refid="classWorld_1aa5fe3a327e576e6d9a675cd506f3c3b0" prot="public" virt="non-virtual"><scope>World</scope><name>removeEntity</name></member>
+      <member refid="classWorld_1aade8de7d589e5e781186c64ed3b6b99b" prot="public" virt="non-virtual"><scope>World</scope><name>runPythonScript</name></member>
+      <member refid="classWorld_1a8a51f3a056b8ef9f9128a797329f8346" prot="public" virt="non-virtual"><scope>World</scope><name>setTerrain</name></member>
+      <member refid="classWorld_1af85800f5b2fabeb7ed973aa6a338e5f8" prot="public" virt="non-virtual"><scope>World</scope><name>setVoxel</name></member>
+      <member refid="classWorld_1aac8c1fde63c06577ffc648aaefdb37f0" prot="public" virt="non-virtual"><scope>World</scope><name>update</name></member>
+      <member refid="classWorld_1a8a40a5a51a8a56f038f4b76b3d78202c" prot="public" virt="non-virtual"><scope>World</scope><name>voxelGrid</name></member>
+      <member refid="classWorld_1ad441f046e49a274301278a3cf9339944" prot="public" virt="non-virtual"><scope>World</scope><name>width</name></member>
+      <member refid="classWorld_1aa7b9a06c8f96a1a3173fa505393da6d1" prot="public" virt="non-virtual"><scope>World</scope><name>World</name></member>
+      <member refid="classWorld_1a8c73fba541a5817fff65147ba47cd827" prot="public" virt="non-virtual"><scope>World</scope><name>~World</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

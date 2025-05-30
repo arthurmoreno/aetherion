@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structToBeCreatedWaterTile" kind="struct" language="C++" prot="public">
+    <compoundname>ToBeCreatedWaterTile</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structToBeCreatedWaterTile_1a3255f707454f5a9b961fed62d79ece14" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity ToBeCreatedWaterTile::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>ToBeCreatedWaterTile::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="30" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structToBeCreatedWaterTile_1a2214599b43599535a9451a16c4660d7c" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position ToBeCreatedWaterTile::position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <qualifiedname>ToBeCreatedWaterTile::position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="31" column="14" bodyfile="src/EcosystemEngine.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structToBeCreatedWaterTile_1aca37d5f9ea603fa69f0d4ef85da4e3ac" prot="public" static="no" mutable="no">
+        <type><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref></type>
+        <definition>EntityTypeComponent ToBeCreatedWaterTile::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>ToBeCreatedWaterTile::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="32" column="25" bodyfile="src/EcosystemEngine.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structToBeCreatedWaterTile_1a11ae2b06f33a284a0807485384beacce" prot="public" static="no" mutable="no">
+        <type><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref></type>
+        <definition>MatterContainer ToBeCreatedWaterTile::matterContainer</definition>
+        <argsstring></argsstring>
+        <name>matterContainer</name>
+        <qualifiedname>ToBeCreatedWaterTile::matterContainer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="33" column="21" bodyfile="src/EcosystemEngine.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structToBeCreatedWaterTile_1a0f92e71251d69f29d890f31a29c64042" prot="public" static="no" mutable="no">
+        <type><ref refid="structStructuralIntegrityComponent" kindref="compound">StructuralIntegrityComponent</ref></type>
+        <definition>StructuralIntegrityComponent ToBeCreatedWaterTile::structuralIntegrity</definition>
+        <argsstring></argsstring>
+        <name>structuralIntegrity</name>
+        <qualifiedname>ToBeCreatedWaterTile::structuralIntegrity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="34" column="34" bodyfile="src/EcosystemEngine.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>EntityTypeComponent</label>
+        <link refid="structEntityTypeComponent"/>
+      </node>
+      <node id="6">
+        <label>GradientVector</label>
+        <link refid="structGradientVector"/>
+      </node>
+      <node id="4">
+        <label>MatterContainer</label>
+        <link refid="structMatterContainer"/>
+      </node>
+      <node id="2">
+        <label>Position</label>
+        <link refid="structPosition"/>
+      </node>
+      <node id="5">
+        <label>StructuralIntegrityComponent</label>
+        <link refid="structStructuralIntegrityComponent"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>gradientVector</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ToBeCreatedWaterTile</label>
+        <link refid="structToBeCreatedWaterTile"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>position</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>matterContainer</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>structuralIntegrity</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/EcosystemEngine.hpp" line="29" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="29" bodyend="35"/>
+    <listofallmembers>
+      <member refid="structToBeCreatedWaterTile_1a3255f707454f5a9b961fed62d79ece14" prot="public" virt="non-virtual"><scope>ToBeCreatedWaterTile</scope><name>entity</name></member>
+      <member refid="structToBeCreatedWaterTile_1a11ae2b06f33a284a0807485384beacce" prot="public" virt="non-virtual"><scope>ToBeCreatedWaterTile</scope><name>matterContainer</name></member>
+      <member refid="structToBeCreatedWaterTile_1a2214599b43599535a9451a16c4660d7c" prot="public" virt="non-virtual"><scope>ToBeCreatedWaterTile</scope><name>position</name></member>
+      <member refid="structToBeCreatedWaterTile_1a0f92e71251d69f29d890f31a29c64042" prot="public" virt="non-virtual"><scope>ToBeCreatedWaterTile</scope><name>structuralIntegrity</name></member>
+      <member refid="structToBeCreatedWaterTile_1aca37d5f9ea603fa69f0d4ef85da4e3ac" prot="public" virt="non-virtual"><scope>ToBeCreatedWaterTile</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

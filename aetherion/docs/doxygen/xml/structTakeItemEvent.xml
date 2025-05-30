@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTakeItemEvent" kind="struct" language="C++" prot="public">
+    <compoundname>TakeItemEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTakeItemEvent_1aebaca6ece0d98b227b91d16eaa6fbfd0" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity TakeItemEvent::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>TakeItemEvent::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemsEvents.hpp" line="13" column="18" bodyfile="src/ItemsEvents.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTakeItemEvent_1aaedf8f1a123855175d8d4c0c8955fc16" prot="public" static="no" mutable="no">
+        <type>nb::object</type>
+        <definition>nb::object TakeItemEvent::pyRegistryObj</definition>
+        <argsstring></argsstring>
+        <name>pyRegistryObj</name>
+        <qualifiedname>TakeItemEvent::pyRegistryObj</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemsEvents.hpp" line="14" column="16" bodyfile="src/ItemsEvents.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTakeItemEvent_1a0ca76e407e64247eaa3f32dacfa29c4e" prot="public" static="no" mutable="no">
+        <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref></type>
+        <definition>VoxelGrid TakeItemEvent::voxelGrid</definition>
+        <argsstring></argsstring>
+        <name>voxelGrid</name>
+        <qualifiedname>TakeItemEvent::voxelGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemsEvents.hpp" line="15" column="15" bodyfile="src/ItemsEvents.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTakeItemEvent_1a4c2b94ddf1eef3365cfb1f53ae8f2d05" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TakeItemEvent::hoveredEntityId</definition>
+        <argsstring></argsstring>
+        <name>hoveredEntityId</name>
+        <qualifiedname>TakeItemEvent::hoveredEntityId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemsEvents.hpp" line="17" column="9" bodyfile="src/ItemsEvents.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTakeItemEvent_1a3ec0c3d00f1e51e79147f44be4cbcdc9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TakeItemEvent::selectedEntityId</definition>
+        <argsstring></argsstring>
+        <name>selectedEntityId</name>
+        <qualifiedname>TakeItemEvent::selectedEntityId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemsEvents.hpp" line="18" column="9" bodyfile="src/ItemsEvents.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structTakeItemEvent_1aadef3c35456ebcfb2bf2cfc0ae96cc41" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TakeItemEvent::TakeItemEvent</definition>
+        <argsstring>(entt::entity entity, nb::object pyRegistryObj, VoxelGrid &amp;voxelGrid, int hoveredEntityId, int selectedEntityId)</argsstring>
+        <name>TakeItemEvent</name>
+        <qualifiedname>TakeItemEvent::TakeItemEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>nb::object</type>
+          <declname>pyRegistryObj</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>hoveredEntityId</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>selectedEntityId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ItemsEvents.hpp" line="20" column="5" bodyfile="src/ItemsEvents.hpp" bodystart="20" bodyend="26"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>TakeItemEvent</label>
+        <link refid="structTakeItemEvent"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>voxelGrid</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>VoxelGrid</label>
+        <link refid="classVoxelGrid"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/ItemsEvents.hpp" line="12" column="1" bodyfile="src/ItemsEvents.hpp" bodystart="12" bodyend="27"/>
+    <listofallmembers>
+      <member refid="structTakeItemEvent_1aebaca6ece0d98b227b91d16eaa6fbfd0" prot="public" virt="non-virtual"><scope>TakeItemEvent</scope><name>entity</name></member>
+      <member refid="structTakeItemEvent_1a4c2b94ddf1eef3365cfb1f53ae8f2d05" prot="public" virt="non-virtual"><scope>TakeItemEvent</scope><name>hoveredEntityId</name></member>
+      <member refid="structTakeItemEvent_1aaedf8f1a123855175d8d4c0c8955fc16" prot="public" virt="non-virtual"><scope>TakeItemEvent</scope><name>pyRegistryObj</name></member>
+      <member refid="structTakeItemEvent_1a3ec0c3d00f1e51e79147f44be4cbcdc9" prot="public" virt="non-virtual"><scope>TakeItemEvent</scope><name>selectedEntityId</name></member>
+      <member refid="structTakeItemEvent_1aadef3c35456ebcfb2bf2cfc0ae96cc41" prot="public" virt="non-virtual"><scope>TakeItemEvent</scope><name>TakeItemEvent</name></member>
+      <member refid="structTakeItemEvent_1a0ca76e407e64247eaa3f32dacfa29c4e" prot="public" virt="non-virtual"><scope>TakeItemEvent</scope><name>voxelGrid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

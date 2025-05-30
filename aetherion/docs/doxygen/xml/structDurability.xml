@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structDurability" kind="struct" language="C++" prot="public">
+    <compoundname>Durability</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structDurability_1a0dceafe3d109277e198ba6c1436fc011" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Durability::current</definition>
+        <argsstring></argsstring>
+        <name>current</name>
+        <qualifiedname>Durability::current</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="42" column="9" bodyfile="src/components/ItemsComponents.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDurability_1a34904749e49e60832736c480d8a9b0ab" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Durability::max</definition>
+        <argsstring></argsstring>
+        <name>max</name>
+        <qualifiedname>Durability::max</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/ItemsComponents.hpp" line="43" column="9" bodyfile="src/components/ItemsComponents.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/ItemsComponents.hpp" line="41" column="1" bodyfile="src/components/ItemsComponents.hpp" bodystart="41" bodyend="44"/>
+    <listofallmembers>
+      <member refid="structDurability_1a0dceafe3d109277e198ba6c1436fc011" prot="public" virt="non-virtual"><scope>Durability</scope><name>current</name></member>
+      <member refid="structDurability_1a34904749e49e60832736c480d8a9b0ab" prot="public" virt="non-virtual"><scope>Durability</scope><name>max</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

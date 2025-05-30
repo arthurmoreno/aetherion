@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structVoxelGridCoordinates" kind="struct" language="C++" prot="public">
+    <compoundname>VoxelGridCoordinates</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structVoxelGridCoordinates_1a414a22b1bd452f82f248ec412de81c36" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoxelGridCoordinates::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>VoxelGridCoordinates::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="24" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVoxelGridCoordinates_1a732bbe1cd476efddb30dc15d11be2e21" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoxelGridCoordinates::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>VoxelGridCoordinates::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="24" column="11" bodyfile="src/VoxelGrid.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVoxelGridCoordinates_1a5d51822a25be643963c7ba2e2dc07c93" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoxelGridCoordinates::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>VoxelGridCoordinates::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="24" column="13" bodyfile="src/VoxelGrid.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structVoxelGridCoordinates_1a8aa11093e6331cdf6cdcb62cbeae5cd4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VoxelGridCoordinates::VoxelGridCoordinates</definition>
+        <argsstring>()</argsstring>
+        <name>VoxelGridCoordinates</name>
+        <qualifiedname>VoxelGridCoordinates::VoxelGridCoordinates</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="27" column="5" bodyfile="src/VoxelGrid.hpp" bodystart="27" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="structVoxelGridCoordinates_1aa91ed6b5c05c79922dc29747cd85a48f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VoxelGridCoordinates::VoxelGridCoordinates</definition>
+        <argsstring>(int x_val, int y_val, int z_val)</argsstring>
+        <name>VoxelGridCoordinates</name>
+        <qualifiedname>VoxelGridCoordinates::VoxelGridCoordinates</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x_val</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y_val</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z_val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="30" column="5" bodyfile="src/VoxelGrid.hpp" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="structVoxelGridCoordinates_1a4188aed91d29e7c7e4595de411188378" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VoxelGridCoordinates::operator&lt;</definition>
+        <argsstring>(const VoxelGridCoordinates &amp;other) const</argsstring>
+        <name>operator&lt;</name>
+        <qualifiedname>VoxelGridCoordinates::operator&lt;</qualifiedname>
+        <param>
+          <type>const <ref refid="structVoxelGridCoordinates" kindref="compound">VoxelGridCoordinates</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="33" column="5" bodyfile="src/VoxelGrid.hpp" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="structVoxelGridCoordinates_1a08d73ea46ccff1bf35d25024d24f5358" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VoxelGridCoordinates::operator==</definition>
+        <argsstring>(const VoxelGridCoordinates &amp;other) const</argsstring>
+        <name>operator==</name>
+        <qualifiedname>VoxelGridCoordinates::operator==</qualifiedname>
+        <param>
+          <type>const <ref refid="structVoxelGridCoordinates" kindref="compound">VoxelGridCoordinates</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="38" column="10" bodyfile="src/VoxelGrid.hpp" bodystart="38" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="structVoxelGridCoordinates_1ac8c879aea615e8c29c19117a69edc62f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>VoxelGridCoordinates::MSGPACK_DEFINE</definition>
+        <argsstring>(x, y, z)</argsstring>
+        <name>MSGPACK_DEFINE</name>
+        <qualifiedname>VoxelGridCoordinates::MSGPACK_DEFINE</qualifiedname>
+        <param>
+          <type>x</type>
+        </param>
+        <param>
+          <type>y</type>
+        </param>
+        <param>
+          <type>z</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/VoxelGrid.hpp" line="42" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/VoxelGrid.hpp" line="23" column="1" bodyfile="src/VoxelGrid.hpp" bodystart="23" bodyend="43"/>
+    <listofallmembers>
+      <member refid="structVoxelGridCoordinates_1ac8c879aea615e8c29c19117a69edc62f" prot="public" virt="non-virtual"><scope>VoxelGridCoordinates</scope><name>MSGPACK_DEFINE</name></member>
+      <member refid="structVoxelGridCoordinates_1a4188aed91d29e7c7e4595de411188378" prot="public" virt="non-virtual"><scope>VoxelGridCoordinates</scope><name>operator&lt;</name></member>
+      <member refid="structVoxelGridCoordinates_1a08d73ea46ccff1bf35d25024d24f5358" prot="public" virt="non-virtual"><scope>VoxelGridCoordinates</scope><name>operator==</name></member>
+      <member refid="structVoxelGridCoordinates_1a8aa11093e6331cdf6cdcb62cbeae5cd4" prot="public" virt="non-virtual"><scope>VoxelGridCoordinates</scope><name>VoxelGridCoordinates</name></member>
+      <member refid="structVoxelGridCoordinates_1aa91ed6b5c05c79922dc29747cd85a48f" prot="public" virt="non-virtual"><scope>VoxelGridCoordinates</scope><name>VoxelGridCoordinates</name></member>
+      <member refid="structVoxelGridCoordinates_1a414a22b1bd452f82f248ec412de81c36" prot="public" virt="non-virtual"><scope>VoxelGridCoordinates</scope><name>x</name></member>
+      <member refid="structVoxelGridCoordinates_1a732bbe1cd476efddb30dc15d11be2e21" prot="public" virt="non-virtual"><scope>VoxelGridCoordinates</scope><name>y</name></member>
+      <member refid="structVoxelGridCoordinates_1a5d51822a25be643963c7ba2e2dc07c93" prot="public" virt="non-virtual"><scope>VoxelGridCoordinates</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

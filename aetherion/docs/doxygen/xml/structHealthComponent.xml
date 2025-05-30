@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structHealthComponent" kind="struct" language="C++" prot="public">
+    <compoundname>HealthComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structHealthComponent_1a317ec9b26ecbc1ce2b621f317a4366d0" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float HealthComponent::healthLevel</definition>
+        <argsstring></argsstring>
+        <name>healthLevel</name>
+        <qualifiedname>HealthComponent::healthLevel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/HealthComponents.hpp" line="9" column="11" bodyfile="src/components/HealthComponents.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structHealthComponent_1accf041eb7c2dd76070db0d54465d2377" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float HealthComponent::maxHealth</definition>
+        <argsstring></argsstring>
+        <name>maxHealth</name>
+        <qualifiedname>HealthComponent::maxHealth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/HealthComponents.hpp" line="10" column="11" bodyfile="src/components/HealthComponents.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structHealthComponent_1a35a34fa1c079eeaff7b5721ecc14f1d0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HealthComponent::print</definition>
+        <argsstring>() const</argsstring>
+        <name>print</name>
+        <qualifiedname>HealthComponent::print</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/HealthComponents.hpp" line="13" column="10" bodyfile="src/components/HealthComponents.hpp" bodystart="13" bodyend="16"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/HealthComponents.hpp" line="8" column="1" bodyfile="src/components/HealthComponents.hpp" bodystart="8" bodyend="17"/>
+    <listofallmembers>
+      <member refid="structHealthComponent_1a317ec9b26ecbc1ce2b621f317a4366d0" prot="public" virt="non-virtual"><scope>HealthComponent</scope><name>healthLevel</name></member>
+      <member refid="structHealthComponent_1accf041eb7c2dd76070db0d54465d2377" prot="public" virt="non-virtual"><scope>HealthComponent</scope><name>maxHealth</name></member>
+      <member refid="structHealthComponent_1a35a34fa1c079eeaff7b5721ecc14f1d0" prot="public" virt="non-virtual"><scope>HealthComponent</scope><name>print</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

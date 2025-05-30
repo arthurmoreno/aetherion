@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structMatterContainer" kind="struct" language="C++" prot="public">
+    <compoundname>MatterContainer</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMatterContainer_1a26b77d74c4f7ba87741525962cd10ac4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MatterContainer::TerrainMatter</definition>
+        <argsstring></argsstring>
+        <name>TerrainMatter</name>
+        <qualifiedname>MatterContainer::TerrainMatter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="24" column="9" bodyfile="src/components/TerrainComponents.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMatterContainer_1a2da05a13081c608fbc00260de97524a6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MatterContainer::WaterVapor</definition>
+        <argsstring></argsstring>
+        <name>WaterVapor</name>
+        <qualifiedname>MatterContainer::WaterVapor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="25" column="9" bodyfile="src/components/TerrainComponents.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMatterContainer_1aa599307c12311e4312974577a3df128b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MatterContainer::WaterMatter</definition>
+        <argsstring></argsstring>
+        <name>WaterMatter</name>
+        <qualifiedname>MatterContainer::WaterMatter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="26" column="9" bodyfile="src/components/TerrainComponents.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMatterContainer_1af8dfcc6d1e6f22b3bc6d22ad47d48e3d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MatterContainer::BioMassMatter</definition>
+        <argsstring></argsstring>
+        <name>BioMassMatter</name>
+        <qualifiedname>MatterContainer::BioMassMatter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="27" column="9" bodyfile="src/components/TerrainComponents.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/TerrainComponents.hpp" line="23" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="23" bodyend="28"/>
+    <listofallmembers>
+      <member refid="structMatterContainer_1af8dfcc6d1e6f22b3bc6d22ad47d48e3d" prot="public" virt="non-virtual"><scope>MatterContainer</scope><name>BioMassMatter</name></member>
+      <member refid="structMatterContainer_1a26b77d74c4f7ba87741525962cd10ac4" prot="public" virt="non-virtual"><scope>MatterContainer</scope><name>TerrainMatter</name></member>
+      <member refid="structMatterContainer_1aa599307c12311e4312974577a3df128b" prot="public" virt="non-virtual"><scope>MatterContainer</scope><name>WaterMatter</name></member>
+      <member refid="structMatterContainer_1a2da05a13081c608fbc00260de97524a6" prot="public" virt="non-virtual"><scope>MatterContainer</scope><name>WaterVapor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

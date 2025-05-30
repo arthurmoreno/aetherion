@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTimeSeriesComponent" kind="struct" language="C++" prot="public">
+    <compoundname>TimeSeriesComponent</compoundname>
+    <includes refid="TimeSeriesComponent_8hpp" local="no">TimeSeriesComponent.hpp</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTimeSeriesComponent_1a2dd9fbeb7e9607bf5914bb09432aa644" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string TimeSeriesComponent::timeSeriesName</definition>
+        <argsstring></argsstring>
+        <name>timeSeriesName</name>
+        <qualifiedname>TimeSeriesComponent::timeSeriesName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TimeSeriesComponent.hpp" line="19" column="17" bodyfile="src/components/TimeSeriesComponent.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTimeSeriesComponent_1ac4e27aeb69dec1980a3b12ef393be708" prot="public" static="no" mutable="no">
+        <type>std::map&lt; uint64_t, double &gt;</type>
+        <definition>std::map&lt;uint64_t, double&gt; TimeSeriesComponent::timeSeriesData</definition>
+        <argsstring></argsstring>
+        <name>timeSeriesData</name>
+        <qualifiedname>TimeSeriesComponent::timeSeriesData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TimeSeriesComponent.hpp" line="20" column="14" bodyfile="src/components/TimeSeriesComponent.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structTimeSeriesComponent_1af96a338a67c5e5ca475abd4ffccfafb2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TimeSeriesComponent::addDataPoint</definition>
+        <argsstring>(uint64_t timestamp, double value)</argsstring>
+        <name>addDataPoint</name>
+        <qualifiedname>TimeSeriesComponent::addDataPoint</qualifiedname>
+        <param>
+          <type>uint64_t</type>
+          <declname>timestamp</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TimeSeriesComponent.hpp" line="23" column="10" bodyfile="src/components/TimeSeriesComponent.hpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="structTimeSeriesComponent_1a0597d067fdeadcff2a0cbc0f8cab1348" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; std::pair&lt; uint64_t, double &gt; &gt;</type>
+        <definition>std::vector&lt; std::pair&lt; uint64_t, double &gt; &gt; TimeSeriesComponent::getDataPoints</definition>
+        <argsstring>(uint64_t startTime, uint64_t endTime) const</argsstring>
+        <name>getDataPoints</name>
+        <qualifiedname>TimeSeriesComponent::getDataPoints</qualifiedname>
+        <param>
+          <type>uint64_t</type>
+          <declname>startTime</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>endTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TimeSeriesComponent.hpp" line="26" column="17" bodyfile="src/components/TimeSeriesComponent.hpp" bodystart="26" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="structTimeSeriesComponent_1a2f14e057676e3fb8b5bb8bb2f87113a0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TimeSeriesComponent::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <qualifiedname>TimeSeriesComponent::clear</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TimeSeriesComponent.hpp" line="43" column="10" bodyfile="src/components/TimeSeriesComponent.hpp" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="structTimeSeriesComponent_1ac2862ee18a0aa31bdc967ebfd5d5dd2c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t TimeSeriesComponent::size</definition>
+        <argsstring>() const</argsstring>
+        <name>size</name>
+        <qualifiedname>TimeSeriesComponent::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TimeSeriesComponent.hpp" line="46" column="12" bodyfile="src/components/TimeSeriesComponent.hpp" bodystart="46" bodyend="46"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Component to store time series data in memory using EnTT. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This component stores time series data in memory for efficient access. Data is stored in a std::map for quick lookups by timestamp. </para>
+    </detaileddescription>
+    <location file="src/components/TimeSeriesComponent.hpp" line="16" column="1" bodyfile="src/components/TimeSeriesComponent.hpp" bodystart="16" bodyend="47"/>
+    <listofallmembers>
+      <member refid="structTimeSeriesComponent_1af96a338a67c5e5ca475abd4ffccfafb2" prot="public" virt="non-virtual"><scope>TimeSeriesComponent</scope><name>addDataPoint</name></member>
+      <member refid="structTimeSeriesComponent_1a2f14e057676e3fb8b5bb8bb2f87113a0" prot="public" virt="non-virtual"><scope>TimeSeriesComponent</scope><name>clear</name></member>
+      <member refid="structTimeSeriesComponent_1a0597d067fdeadcff2a0cbc0f8cab1348" prot="public" virt="non-virtual"><scope>TimeSeriesComponent</scope><name>getDataPoints</name></member>
+      <member refid="structTimeSeriesComponent_1ac2862ee18a0aa31bdc967ebfd5d5dd2c" prot="public" virt="non-virtual"><scope>TimeSeriesComponent</scope><name>size</name></member>
+      <member refid="structTimeSeriesComponent_1ac4e27aeb69dec1980a3b12ef393be708" prot="public" virt="non-virtual"><scope>TimeSeriesComponent</scope><name>timeSeriesData</name></member>
+      <member refid="structTimeSeriesComponent_1a2dd9fbeb7e9607bf5914bb09432aa644" prot="public" virt="non-virtual"><scope>TimeSeriesComponent</scope><name>timeSeriesName</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classRenderTextTask" kind="class" language="C++" prot="public">
+    <compoundname>RenderTextTask</compoundname>
+    <basecompoundref refid="classRenderTaskBase" prot="public" virt="non-virtual">RenderTaskBase</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRenderTextTask_1ad483755c3f3c1faa9a6f55b084d0d6f2" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string RenderTextTask::text_</definition>
+        <argsstring></argsstring>
+        <name>text_</name>
+        <qualifiedname>RenderTextTask::text_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="242" column="17" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderTextTask_1a34c0f48deb67a61a350f744c0b542a07" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string RenderTextTask::font_id_</definition>
+        <argsstring></argsstring>
+        <name>font_id_</name>
+        <qualifiedname>RenderTextTask::font_id_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="243" column="17" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderTextTask_1a0c50b05822a43a52ef223cda2939f833" prot="private" static="no" mutable="no">
+        <type>SDL_Color</type>
+        <definition>SDL_Color RenderTextTask::color_</definition>
+        <argsstring></argsstring>
+        <name>color_</name>
+        <qualifiedname>RenderTextTask::color_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="244" column="15" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderTextTask_1a8dd980f08f522029aacb2971a6610ca2" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RenderTextTask::x_</definition>
+        <argsstring></argsstring>
+        <name>x_</name>
+        <qualifiedname>RenderTextTask::x_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="245" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderTextTask_1acdff0be2b1bb6ff17a9a3d3d08ac00ce" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RenderTextTask::y_</definition>
+        <argsstring></argsstring>
+        <name>y_</name>
+        <qualifiedname>RenderTextTask::y_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="246" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="246" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRenderTextTask_1add12c318fa972081381444f273d69e51" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RenderTextTask::RenderTextTask</definition>
+        <argsstring>(const std::string &amp;text, const std::string &amp;font_id, SDL_Color color, int x_pos, int y_pos)</argsstring>
+        <name>RenderTextTask</name>
+        <qualifiedname>RenderTextTask::RenderTextTask</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>font_id</declname>
+        </param>
+        <param>
+          <type>SDL_Color</type>
+          <declname>color</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x_pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y_pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="202" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="202" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderTextTask_1ad70dd9e280194e7de87516df337375f1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void RenderTextTask::render</definition>
+        <argsstring>(SDL_Renderer *renderer) const override</argsstring>
+        <name>render</name>
+        <qualifiedname>RenderTextTask::render</qualifiedname>
+        <reimplements refid="classRenderTaskBase_1aca930dd0177845b4f1c9ecbd3da548a0">render</reimplements>
+        <param>
+          <type>SDL_Renderer *</type>
+          <declname>renderer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="206" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="206" bodyend="239"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+      <node id="1">
+        <label>RenderTextTask</label>
+        <link refid="classRenderTextTask"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>RenderTaskBase</label>
+        <link refid="classRenderTaskBase"/>
+      </node>
+      <node id="1">
+        <label>RenderTextTask</label>
+        <link refid="classRenderTextTask"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="200" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="200" bodyend="247"/>
+    <listofallmembers>
+      <member refid="classRenderTextTask_1a0c50b05822a43a52ef223cda2939f833" prot="private" virt="non-virtual"><scope>RenderTextTask</scope><name>color_</name></member>
+      <member refid="classRenderTextTask_1a34c0f48deb67a61a350f744c0b542a07" prot="private" virt="non-virtual"><scope>RenderTextTask</scope><name>font_id_</name></member>
+      <member refid="classRenderTaskBase_1a083109259e992a8b0b759fdbcdc24cf8" prot="public" virt="virtual"><scope>RenderTextTask</scope><name>getZLayer</name></member>
+      <member refid="classRenderTextTask_1ad70dd9e280194e7de87516df337375f1" prot="public" virt="virtual"><scope>RenderTextTask</scope><name>render</name></member>
+      <member refid="classRenderTextTask_1add12c318fa972081381444f273d69e51" prot="public" virt="non-virtual"><scope>RenderTextTask</scope><name>RenderTextTask</name></member>
+      <member refid="classRenderTaskBase_1a87f842d1663de2935efc9dfee89553e8" prot="public" virt="virtual"><scope>RenderTextTask</scope><name>setZLayer</name></member>
+      <member refid="classRenderTextTask_1ad483755c3f3c1faa9a6f55b084d0d6f2" prot="private" virt="non-virtual"><scope>RenderTextTask</scope><name>text_</name></member>
+      <member refid="classRenderTextTask_1a8dd980f08f522029aacb2971a6610ca2" prot="private" virt="non-virtual"><scope>RenderTextTask</scope><name>x_</name></member>
+      <member refid="classRenderTextTask_1acdff0be2b1bb6ff17a9a3d3d08ac00ce" prot="private" virt="non-virtual"><scope>RenderTextTask</scope><name>y_</name></member>
+      <member refid="classRenderTaskBase_1afa7ba1f0ab38fc6df88b54bf8f7ac6fa" prot="protected" virt="non-virtual"><scope>RenderTextTask</scope><name>z_layer</name></member>
+      <member refid="classRenderTaskBase_1aba444e27143e746979db33ed1b2ede95" prot="public" virt="virtual"><scope>RenderTextTask</scope><name>~RenderTaskBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

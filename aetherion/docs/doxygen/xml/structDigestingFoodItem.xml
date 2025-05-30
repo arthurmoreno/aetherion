@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structDigestingFoodItem" kind="struct" language="C++" prot="public">
+    <compoundname>DigestingFoodItem</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structDigestingFoodItem_1a5308df0c87c5d10aee6152e59d1bff87" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DigestingFoodItem::foodItemID</definition>
+        <argsstring></argsstring>
+        <name>foodItemID</name>
+        <qualifiedname>DigestingFoodItem::foodItemID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="10" column="9" bodyfile="src/components/MetabolismComponents.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDigestingFoodItem_1a9f92983b899b7595f1010a44884f8b74" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DigestingFoodItem::processingTime</definition>
+        <argsstring></argsstring>
+        <name>processingTime</name>
+        <qualifiedname>DigestingFoodItem::processingTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="11" column="9" bodyfile="src/components/MetabolismComponents.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDigestingFoodItem_1ac4ed4869d625177620935b4371e44d48" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float DigestingFoodItem::energyLeft</definition>
+        <argsstring></argsstring>
+        <name>energyLeft</name>
+        <qualifiedname>DigestingFoodItem::energyLeft</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="12" column="11" bodyfile="src/components/MetabolismComponents.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDigestingFoodItem_1a4fe071e6f7d9c9df23f1f73e0bfcf6b6" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float DigestingFoodItem::energyDensity</definition>
+        <argsstring></argsstring>
+        <name>energyDensity</name>
+        <qualifiedname>DigestingFoodItem::energyDensity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="14" column="11" bodyfile="src/components/MetabolismComponents.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDigestingFoodItem_1a95b5561a09b9ecb7b137f84cc61e044e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float DigestingFoodItem::mass</definition>
+        <argsstring></argsstring>
+        <name>mass</name>
+        <qualifiedname>DigestingFoodItem::mass</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="15" column="11" bodyfile="src/components/MetabolismComponents.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDigestingFoodItem_1a8b116097473488dbcd22f0d1132405b1" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float DigestingFoodItem::volume</definition>
+        <argsstring></argsstring>
+        <name>volume</name>
+        <qualifiedname>DigestingFoodItem::volume</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="16" column="11" bodyfile="src/components/MetabolismComponents.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDigestingFoodItem_1a4203a76309b9af47dce682c638723e81" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float DigestingFoodItem::energyHealthRatio</definition>
+        <argsstring></argsstring>
+        <name>energyHealthRatio</name>
+        <qualifiedname>DigestingFoodItem::energyHealthRatio</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="17" column="11" bodyfile="src/components/MetabolismComponents.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDigestingFoodItem_1a91833b1b6b7e70192690ebb932eda2d7" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float DigestingFoodItem::convertionEfficiency</definition>
+        <argsstring></argsstring>
+        <name>convertionEfficiency</name>
+        <qualifiedname>DigestingFoodItem::convertionEfficiency</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/MetabolismComponents.hpp" line="18" column="11" bodyfile="src/components/MetabolismComponents.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/components/MetabolismComponents.hpp" line="9" column="1" bodyfile="src/components/MetabolismComponents.hpp" bodystart="9" bodyend="19"/>
+    <listofallmembers>
+      <member refid="structDigestingFoodItem_1a91833b1b6b7e70192690ebb932eda2d7" prot="public" virt="non-virtual"><scope>DigestingFoodItem</scope><name>convertionEfficiency</name></member>
+      <member refid="structDigestingFoodItem_1a4fe071e6f7d9c9df23f1f73e0bfcf6b6" prot="public" virt="non-virtual"><scope>DigestingFoodItem</scope><name>energyDensity</name></member>
+      <member refid="structDigestingFoodItem_1a4203a76309b9af47dce682c638723e81" prot="public" virt="non-virtual"><scope>DigestingFoodItem</scope><name>energyHealthRatio</name></member>
+      <member refid="structDigestingFoodItem_1ac4ed4869d625177620935b4371e44d48" prot="public" virt="non-virtual"><scope>DigestingFoodItem</scope><name>energyLeft</name></member>
+      <member refid="structDigestingFoodItem_1a5308df0c87c5d10aee6152e59d1bff87" prot="public" virt="non-virtual"><scope>DigestingFoodItem</scope><name>foodItemID</name></member>
+      <member refid="structDigestingFoodItem_1a95b5561a09b9ecb7b137f84cc61e044e" prot="public" virt="non-virtual"><scope>DigestingFoodItem</scope><name>mass</name></member>
+      <member refid="structDigestingFoodItem_1a9f92983b899b7595f1010a44884f8b74" prot="public" virt="non-virtual"><scope>DigestingFoodItem</scope><name>processingTime</name></member>
+      <member refid="structDigestingFoodItem_1a8b116097473488dbcd22f0d1132405b1" prot="public" virt="non-virtual"><scope>DigestingFoodItem</scope><name>volume</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
