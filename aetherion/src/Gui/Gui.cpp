@@ -213,6 +213,10 @@ void RenderGeneralMetricsWindow(int worldTicks, float availableFps) {
 }
 
 void RenderPlayerStatsWindow(std::shared_ptr<World> world_ptr) {
+    if (!world_ptr) {
+        return;
+    }
+
     // ImGui::Begin("Players Stats");
     auto view = world_ptr->registry.view<EntityTypeComponent>();
     for (auto entity : view) {
@@ -930,13 +934,13 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
                 showCameraSettings = true;
             }
             if (ImGui::Button("Physics Settings")) {
-                showPhysicsSettings = true;
+                showPhysicsSettings = false;
             }
             if (ImGui::Button("General Metrics")) {
                 showGeneralMetrics = true;
             }
             if (ImGui::Button("Player Stats")) {
-                showPlayerStats = true;
+                showPlayerStats = false;
             }
 
             // Add spacing before the new button to avoid layout issues
@@ -1064,7 +1068,12 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
 }
 
 void imguiRender(uintptr_t renderer_ptr) {
-    SDL_Renderer* renderer = reinterpret_cast<SDL_Renderer*>(renderer_ptr);
     ImGui::Render();
-    ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), renderer);
+    ImDrawData* draw_data = ImGui::GetDrawData();
+    // Skip if there's nothing to draw
+    if (draw_data == nullptr || draw_data->CmdListsCount == 0) {
+        return;
+    }
+    SDL_Renderer* renderer = reinterpret_cast<SDL_Renderer*>(renderer_ptr);
+    ImGui_ImplSDLRenderer2_RenderDrawData(draw_data, renderer);
 }
