@@ -15,7 +15,9 @@ requires-python = ">=3.12"
 authors = [
     { name = "Arthur Moreno", email = "morenorarthur@gmail.com" }
 ]
-dependencies = []
+dependencies = [
+  "PySDL2>=0.9.17",
+]
 
 [project.urls]
 Homepage = "https://github.com/yourusername/aetherion"
