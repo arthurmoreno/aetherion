@@ -7,3 +7,4 @@ from aetherion._aetherion import *  # noqa
 
 from aetherion.entities import *
 from aetherion.windowing.window import *
+from aetherion.renderer import *
