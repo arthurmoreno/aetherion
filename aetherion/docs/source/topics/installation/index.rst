@@ -10,11 +10,21 @@ This guide explains how to install the Aetherion game engine on Ubuntu 24.04 LTS
 Ubuntu 24.04 LTS
 #################
 
-Bla bla
+The examples below target Ubuntu 24.04 LTS. Other distributions may require
+adjustments to package names or paths. All commands are intended to be run from
+the terminal.
+
+Ensure you have Python 3.12 available::
+
+   python3 --version
+
+After installing the ``lifesimcore`` package you can verify it with::
+
+   python -c "import lifesimcore, sys; print('lifesimcore', lifesimcore.__version__, 'on', sys.version)"
 
 =================
 Installing OpenVDB v11.0
-=================
+=======================
 
 
 1. Installing pre compiled OpenVDB v11.0

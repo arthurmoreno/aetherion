@@ -10,5 +10,6 @@ In this section, you'll learn how to install the project, get it up and running,
    :caption: Contents
 
    installation
+   engine_overview
    quick_start
    faq
