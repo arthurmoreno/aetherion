@@ -6,6 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import os
+
 project = "Aetherion"
 copyright = "2025, Arthur Moreno"
 author = "Arthur Moreno"
@@ -27,8 +29,6 @@ extensions = [
 
 templates_path = ["_templates"]
 exclude_patterns = []
-
-import os
 
 # Adjust the path if your Doxygen XML is in a different location
 breathe_projects = {"Aetherion": os.path.abspath("../doxygen/xml")}

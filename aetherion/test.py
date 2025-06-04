@@ -92,10 +92,6 @@ class WorldHandler:
 
 world_handler = WorldHandler()
 
-import ipdb
-
-ipdb.set_trace()
-
 # Create a world instance
 world = lifesimcore.World()
 

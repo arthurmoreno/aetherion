@@ -5,6 +5,6 @@
 # but its module name is resolved as "lifesimcore".
 from aetherion._aetherion import *  # noqa
 
-from aetherion.entities import *
-from aetherion.windowing.window import *
-from aetherion.renderer import *
+from aetherion.entities import *  # noqa: F403
+from aetherion.windowing.window import *  # noqa: F403
+from aetherion.renderer import *  # noqa: F403

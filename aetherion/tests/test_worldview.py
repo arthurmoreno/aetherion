@@ -73,7 +73,6 @@ def test_world_view_flatbuffer_access():
     entity2.set_position(position2)
     world_view.addEntity(2, entity2)
     world_view.voxelGridView.set_entity(3, 2, 2, 2)
-    entity = world_view.get_entity_by_id(1)
 
     # Serialize the world view
     serialized_data = world_view.serialize_flatbuffer()
