@@ -32,3 +32,11 @@ mv $CONDA_PREFIX/lib/libstdc++.so.6 $CONDA_PREFIX/lib/libstdc++.so.6.bak
 # Issues:
 
 OpenVDB it needs to be build with the system library not conta
+
+## Development Standards
+
+Install the development tools with:
+
+```bash
+pip install -r dev-requirements.txt
+```

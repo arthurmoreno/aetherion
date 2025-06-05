@@ -35,8 +35,13 @@ clang-format:
 	find ./src -type f -regex '.*\.\(cpp\|hpp\|h\|cxx\|cc\)' | \
 	xargs clang-format -i
 
+.PHONY: python-format
+python-format:
+	@echo "Formatting and sorting imports with Ruff..."
+	ruff format . && ruff check --fix .
+
 .PHONY: format
-format: clang-format
+format: clang-format python-format
 	@echo "All formatting complete."
 
 .PHONY: generate-stubs

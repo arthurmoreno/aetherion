@@ -17,8 +17,6 @@
 
 #include <cstdint>
 
-
-
 // #include "CameraUtils.hpp"
 // #include "EntityInterface.hpp"
 // #include "Gui/Gui.hpp"
@@ -85,47 +83,24 @@ NB_MODULE(_aetherion, m) {
 
     m.def("imgui_init", &imguiInit, "Load an image and create a texture", nb::arg("window_ptr"),
           nb::arg("gl_context_ptr"));
-    
-    m.def("imgui_prepare_windows",
+
+    m.def(
+        "imgui_prepare_windows",
         // lambda wrapper that takes a nullable shared_ptr<World>
-        [](int worldTicks,
-        float availableFps,
-        std::shared_ptr<World> world_ptr,    // now can be nullptr
-        nb::dict physicsChanges,
-        nb::dict inventoryData,
-        nb::list consoleLogs,
-        nb::list entitiesData,
-        nb::list commands,
-        nb::dict statistics,
-        nb::dict &shared_data,
-        std::shared_ptr<EntityInterface> entityInterface_ptr
-        ) {
-            imguiPrepareWindows(
-                worldTicks,
-                availableFps,
-                world_ptr,
-                physicsChanges,
-                inventoryData,
-                consoleLogs,
-                entitiesData,
-                commands,
-                statistics,
-                shared_data,
-                entityInterface_ptr
-            );
+        [](int worldTicks, float availableFps,
+           std::shared_ptr<World> world_ptr,  // now can be nullptr
+           nb::dict physicsChanges, nb::dict inventoryData, nb::list consoleLogs,
+           nb::list entitiesData, nb::list commands, nb::dict statistics, nb::dict& shared_data,
+           std::shared_ptr<EntityInterface> entityInterface_ptr) {
+            imguiPrepareWindows(worldTicks, availableFps, world_ptr, physicsChanges, inventoryData,
+                                consoleLogs, entitiesData, commands, statistics, shared_data,
+                                entityInterface_ptr);
         },
-        nb::arg("worldTicks"),
-        nb::arg("availableFps"),
-        nb::arg("world_ptr") = nullptr,         // <-- makes None legal
-        nb::arg("physicsChanges"),
-        nb::arg("inventoryData"),
-        nb::arg("consoleLogs"),
-        nb::arg("entitiesData"),
-        nb::arg("commands"),
-        nb::arg("statistics"),
-        nb::arg("shared_data"),
-        nb::arg("entityInterface_ptr")
-    );
+        nb::arg("worldTicks"), nb::arg("availableFps"),
+        nb::arg("world_ptr") = nullptr,  // <-- makes None legal
+        nb::arg("physicsChanges"), nb::arg("inventoryData"), nb::arg("consoleLogs"),
+        nb::arg("entitiesData"), nb::arg("commands"), nb::arg("statistics"), nb::arg("shared_data"),
+        nb::arg("entityInterface_ptr"));
     m.def("imgui_process_event", &imguiProcessEvent);
     m.def("imgui_render", &imguiRender, "Load an image and create a texture",
           nb::arg("renderer_ptr"));

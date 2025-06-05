@@ -52,3 +52,28 @@ aetherion = [
   "include/aetherion/aetherion.hpp"
 ]
 "" = ["*.hpp", "*.h"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+extend-select = ["I"]
+select = ["E", "F", "W", "I"]
+ignore = ["E203"]
+
+# Exclude directories and files:
+exclude = [
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".tox",
+    ".venv",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "libs/**",
+    "lifesimcore.pyi",
+]
