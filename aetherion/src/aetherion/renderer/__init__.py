@@ -7,7 +7,10 @@ from aetherion import BasicGameWindow, GameWindow, OpenGLGameWindow
 
 from .fonts import Font as Font
 from .shapes import Rectangle as Rectangle
+from .sprites import Sprite as Sprite
 from .text import Text as Text
+from .utils import apply_lighting_to_sprite as apply_lighting_to_sprite
+from .views import BaseView as BaseView
 
 
 class Renderer:
