@@ -5,6 +5,9 @@ from sdl2.render import SDL_Renderer
 
 from aetherion import BasicGameWindow, GameWindow, OpenGLGameWindow
 
+from .fonts import Font as Font
+from .text import Text as Text
+
 
 class Renderer:
     _renderer: SDL_Renderer
