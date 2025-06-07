@@ -30,6 +30,7 @@
 // #include "VoxelGrid.hpp"
 // #include "World.hpp"
 // #include "neat/genome.hpp"
+#include "PhysicsSettings.hpp"
 
 // Create a shortcut for nanobind
 namespace nb = nanobind;
@@ -450,6 +451,15 @@ NB_MODULE(_aetherion, m) {
         .def_rw("force_x", &PhysicsStats::forceX)
         .def_rw("force_y", &PhysicsStats::forceY)
         .def_rw("force_z", &PhysicsStats::forceZ);
+
+    nb::class_<PhysicsSettings>(m, "PhysicsSettings")
+        .def(nb::init<>())
+        .def("set_gravity", &PhysicsSettings::setGravity)
+        .def("set_friction", &PhysicsSettings::setFriction)
+        .def("set_allow_multi_direction", &PhysicsSettings::setAllowMultiDirection)
+        .def("get_gravity", &PhysicsSettings::getGravity)
+        .def("get_friction", &PhysicsSettings::getFriction)
+        .def("get_allow_multi_direction", &PhysicsSettings::getAllowMultiDirection);
 
     nb::enum_<DirectionEnum>(m, "DirectionEnum")
         .value("UP", DirectionEnum::UP)
