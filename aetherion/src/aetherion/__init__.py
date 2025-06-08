@@ -8,3 +8,4 @@ from aetherion._aetherion import *  # noqa
 from aetherion.entities import *  # noqa: F403
 from aetherion.windowing.window import *  # noqa: F403
 from aetherion.renderer import *  # noqa: F403
+from aetherion.scenes import *  # noqa: F403
