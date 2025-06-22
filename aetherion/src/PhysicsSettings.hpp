@@ -8,6 +8,10 @@ class PhysicsSettings {
     void setGravity(float g);
     void setFriction(float f);
     void setAllowMultiDirection(bool amd);
+    void setMetabolismCostToApplyForce(float value);
+    void setEvaporationCoefficient(float value);
+    void setHeatToWaterEvaporation(float value);
+    void setWaterMinimumUnits(float value);
 
     float getGravity() const;
     float getFriction() const;

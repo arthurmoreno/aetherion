@@ -1171,7 +1171,7 @@ void imguiPrepareWorldFormWindows(nb::list& commands, nb::dict& shared_data) {
 
     // Center the world form window on screen
     ImVec2 displaySize = ImGui::GetIO().DisplaySize;
-    ImVec2 windowSize = ImVec2(600, 500);
+    ImVec2 windowSize = ImVec2(800, 600);
     ImVec2 windowPos = ImVec2((displaySize.x - windowSize.x) * 0.5f, (displaySize.y - windowSize.y) * 0.5f);
 
     ImGui::SetNextWindowPos(windowPos, ImGuiCond_Always);
@@ -1207,6 +1207,19 @@ void imguiPrepareWorldFormWindows(nb::list& commands, nb::dict& shared_data) {
     static int difficultyLevel = 1;
     static float resourceDensity = 0.5f;
 
+    // Physics settings
+    static float gravity = 5.0f;
+    static float friction = 1.0f;
+    static bool allowMultiDirection = true;
+    static float evaporationCoefficient = 8.0f;
+    static float heatToWaterEvaporation = 120.0f;
+    static int waterMinimumUnits = 120000;
+    static float metabolismCostToApplyForce = 0.000002f;
+
+    // Create scrollable child region for form content, leaving space for buttons
+    float buttonAreaHeight = 60.0f; // Height for buttons and spacing
+    ImGui::BeginChild("FormScrollRegion", ImVec2(0, -buttonAreaHeight), false, ImGuiWindowFlags_None);
+
     // Form fields
     ImGui::Text("World Name:");
     ImGui::InputText("##WorldName", worldName, sizeof(worldName));
@@ -1239,6 +1252,27 @@ void imguiPrepareWorldFormWindows(nb::list& commands, nb::dict& shared_data) {
     ImGui::SliderFloat("Resource Density", &resourceDensity, 0.1f, 2.0f, "%.2f");
 
     ImGui::Spacing();
+
+    ImGui::Text("Physics Settings:");
+    ImGui::SliderFloat("Gravity", &gravity, 0.0f, 20.0f, "%.2f");
+    ImGui::SliderFloat("Friction", &friction, 0.0f, 10.0f, "%.2f");
+    ImGui::Checkbox("Allow Multi Direction", &allowMultiDirection);
+    
+    ImGui::Spacing();
+    ImGui::Text("Environmental Physics:");
+    ImGui::SliderFloat("Evaporation Coefficient", &evaporationCoefficient, 1.0f, 20.0f, "%.2f");
+    ImGui::SliderFloat("Heat to Water Evaporation", &heatToWaterEvaporation, 50.0f, 300.0f, "%.2f");
+    ImGui::SliderInt("Water Minimum Units", &waterMinimumUnits, 10000, 500000);
+    
+    ImGui::Spacing();
+    ImGui::Text("Metabolism Settings:");
+    ImGui::SliderFloat("Metabolism Cost to Apply Force", &metabolismCostToApplyForce, 0.0000001f, 0.00001f, "%.8f");
+
+    ImGui::Spacing();
+
+    ImGui::EndChild();
+
+    ImGui::Separator();
     ImGui::Spacing();
 
     // Store form data in shared_data
@@ -1253,6 +1287,15 @@ void imguiPrepareWorldFormWindows(nb::list& commands, nb::dict& shared_data) {
     shared_data["generate_vegetation"] = nb::bool_(generateVegetation);
     shared_data["difficulty_level"] = nb::int_(difficultyLevel);
     shared_data["resource_density"] = nb::float_(resourceDensity);
+
+    // Store physics settings in shared_data
+    shared_data["gravity"] = nb::float_(gravity);
+    shared_data["friction"] = nb::float_(friction);
+    shared_data["allow_multi_direction"] = nb::bool_(allowMultiDirection);
+    shared_data["evaporation_coefficient"] = nb::float_(evaporationCoefficient);
+    shared_data["heat_to_water_evaporation"] = nb::float_(heatToWaterEvaporation);
+    shared_data["water_minimum_units"] = nb::int_(waterMinimumUnits);
+    shared_data["metabolism_cost_to_apply_force"] = nb::float_(metabolismCostToApplyForce);
 
     // Buttons
     ImVec2 buttonSize = ImVec2(120, 35);
@@ -1314,6 +1357,10 @@ void imguiPrepareWorldListWindows(nb::list& commands, nb::dict& shared_data) {
     // Static variable to track selected world
     static int selectedWorldIndex = -1;
     static std::string selectedWorldKey = "";
+
+    // Create scrollable child region for table content, leaving space for buttons
+    float buttonAreaHeight = 60.0f; // Height for buttons and spacing
+    ImGui::BeginChild("WorldTableScrollRegion", ImVec2(0, -buttonAreaHeight), false, ImGuiWindowFlags_None);
 
     // Create the world list table
     if (ImGui::BeginTable(
@@ -1392,7 +1439,9 @@ void imguiPrepareWorldListWindows(nb::list& commands, nb::dict& shared_data) {
         ImGui::EndTable();
     }
 
-    ImGui::Spacing();
+    ImGui::EndChild();
+
+    ImGui::Separator();
     ImGui::Spacing();
 
     // Action buttons
@@ -1523,6 +1572,10 @@ void imguiPrepareCharacterFormWindows(nb::list& commands, nb::dict& shared_data)
 
     const char* characterClasses[] = {"Warrior", "Mage", "Archer", "Rogue"};
 
+    // Create scrollable child region for form content, leaving space for buttons
+    float buttonAreaHeight = 60.0f; // Height for buttons and spacing
+    ImGui::BeginChild("CharacterFormScrollRegion", ImVec2(0, -buttonAreaHeight), false, ImGuiWindowFlags_None);
+
     // Form fields
     ImGui::Text("Character Name:");
     ImGui::InputText("##CharacterName", characterName, sizeof(characterName));
@@ -1559,6 +1612,10 @@ void imguiPrepareCharacterFormWindows(nb::list& commands, nb::dict& shared_data)
     ImGui::Checkbox("Enable Crafting", &enableCrafting);
     
     ImGui::Spacing();
+
+    ImGui::EndChild();
+
+    ImGui::Separator();
     ImGui::Spacing();
 
     // Store form data in shared_data
@@ -1635,6 +1692,10 @@ void imguiPrepareCharacterListWindows(nb::list& commands, nb::dict& shared_data)
     // Static variable to track selected character
     static int selectedCharacterIndex = -1;
     static std::string selectedCharacterKey = "";
+
+    // Create scrollable child region for table content, leaving space for buttons
+    float buttonAreaHeight = 60.0f; // Height for buttons and spacing
+    ImGui::BeginChild("CharacterTableScrollRegion", ImVec2(0, -buttonAreaHeight), false, ImGuiWindowFlags_None);
 
     // Create the character list table
     if (ImGui::BeginTable("CharacterTable", 5, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_ScrollY)) {
@@ -1716,7 +1777,9 @@ void imguiPrepareCharacterListWindows(nb::list& commands, nb::dict& shared_data)
         ImGui::EndTable();
     }
 
-    ImGui::Spacing();
+    ImGui::EndChild();
+
+    ImGui::Separator();
     ImGui::Spacing();
 
     // Action buttons

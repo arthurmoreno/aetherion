@@ -44,6 +44,26 @@ void PhysicsManager::setAllowMultiDirection(bool amd) {
     std::cout << "AllowMultidirection set to: " << amd << std::endl;
 }
 
+void PhysicsManager::setMetabolismCostToApplyForce(float value) {
+    metabolismCostToApplyForce = value;
+    std::cout << "Metabolism cost to apply force set to: " << value << std::endl;
+}
+
+void PhysicsManager::setEvaporationCoefficient(float value) {
+    EVAPORATION_COEFFICIENT = value;
+    std::cout << "Evaporation coefficient set to: " << value << std::endl;
+}
+
+void PhysicsManager::setHeatToWaterEvaporation(float value) {
+    HEAT_TO_WATER_EVAPORATION = value;
+    std::cout << "Heat to water evaporation set to: " << value << std::endl;
+}
+
+void PhysicsManager::setWaterMinimumUnits(float value) {
+    waterMinimumUnits = value;
+    std::cout << "Water minimum units set to: " << value << std::endl;
+}
+
 // Getters
 float PhysicsManager::getGravity() const { return gravity; }
 

@@ -486,6 +486,10 @@ NB_MODULE(_aetherion, m) {
         .def("set_gravity", &PhysicsSettings::setGravity)
         .def("set_friction", &PhysicsSettings::setFriction)
         .def("set_allow_multi_direction", &PhysicsSettings::setAllowMultiDirection)
+        .def("set_metabolism_cost_to_apply_force", &PhysicsSettings::setMetabolismCostToApplyForce)
+        .def("set_evaporation_coefficient", &PhysicsSettings::setEvaporationCoefficient)
+        .def("set_heat_to_water_evaporation", &PhysicsSettings::setHeatToWaterEvaporation)
+        .def("set_water_minimum_units", &PhysicsSettings::setWaterMinimumUnits)
         .def("get_gravity", &PhysicsSettings::getGravity)
         .def("get_friction", &PhysicsSettings::getFriction)
         .def("get_allow_multi_direction", &PhysicsSettings::getAllowMultiDirection);

@@ -13,6 +13,10 @@ class PhysicsManager {
     void setGravity(float g);
     void setFriction(float f);
     void setAllowMultiDirection(bool amd);
+    void setMetabolismCostToApplyForce(float value);
+    void setEvaporationCoefficient(float value);
+    void setHeatToWaterEvaporation(float value);
+    void setWaterMinimumUnits(float value);
 
     // Getters
     float getGravity() const;
@@ -48,10 +52,10 @@ class PhysicsManager {
     float friction;
     bool allowMultiDirection;
 
-    const float EVAPORATION_COEFFICIENT = 8.0f;
-    const float HEAT_TO_WATER_EVAPORATION = 120.0f;
+    float EVAPORATION_COEFFICIENT = 8.0f;
+    float HEAT_TO_WATER_EVAPORATION = 120.0f;
     // const int waterMinimumUnits = 60'000;   // Good for a 10x100x100
-    const int waterMinimumUnits = 120'000;
+    int waterMinimumUnits = 120'000;
     // const int waterMinimumUnits = 8'000'000;  // 8 million is a lot of water
 
     // Constant that worked well:
@@ -60,7 +64,7 @@ class PhysicsManager {
     // Easier to survive
     // const float metabolismCostToApplyForce = 0.000001f;
     // Harder to survive
-    const float metabolismCostToApplyForce = 0.000002f;
+    float metabolismCostToApplyForce = 0.000002f;
     // Very Harder to survive
     // const float metabolismCostToApplyForce = 0.000005f;
     // const float metabolismCostToApplyForce = 0.00001f;
