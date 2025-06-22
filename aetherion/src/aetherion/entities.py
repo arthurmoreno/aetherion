@@ -1,6 +1,6 @@
 from typing import Self
 
-from aetherion import DirectionEnum, EntityInterface, Position
+from aetherion import DirectionEnum, EntityInterface, Position, EntityTypeComponent
 
 
 class BaseEntity:
@@ -19,6 +19,8 @@ class BaseEntity:
     # entity_type: EntityTypeComponent
     # mass: int
     position: Position
+    entity_type: EntityTypeComponent | None
+    entity_id: int | None = None
 
     def __init__(self, x: int = -1, y: int = -1, z: int = -1, direction: DirectionEnum = DirectionEnum.DOWN):
         super().__init__()
@@ -28,6 +30,7 @@ class BaseEntity:
         self.position.y = y
         self.position.z = z
         self.position.direction = direction
+        self.entity_type = EntityTypeComponent()
 
     def behavior(self):
         """

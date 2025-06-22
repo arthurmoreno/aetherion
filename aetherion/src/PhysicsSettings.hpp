@@ -4,7 +4,7 @@
 #include "PhysicsManager.hpp"
 
 class PhysicsSettings {
-public:
+   public:
     void setGravity(float g);
     void setFriction(float f);
     void setAllowMultiDirection(bool amd);
@@ -14,4 +14,4 @@ public:
     bool getAllowMultiDirection() const;
 };
 
-#endif // PHYSICS_SETTINGS_HPP
+#endif  // PHYSICS_SETTINGS_HPP

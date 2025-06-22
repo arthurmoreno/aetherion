@@ -9,4 +9,5 @@ from aetherion.entities import *  # noqa: F403
 from aetherion.windowing.window import *  # noqa: F403
 from aetherion.renderer import *  # noqa: F403
 from aetherion.scenes import *  # noqa: F403
+from aetherion.events import *  # noqa: F403
 from aetherion.resource_manager import *  # noqa: F403

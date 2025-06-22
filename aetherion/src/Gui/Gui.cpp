@@ -927,6 +927,7 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
     RenderTopBar();
 
     /*──────────────── Settings window ─────────────*/
+    bool gotoTitleScreen = false;
     if (showSettings) {
         if (ImGui::Begin("Settings", &showSettings, ImGuiWindowFlags_AlwaysAutoResize)) {
             // Settings buttons to open sub-windows
@@ -948,6 +949,10 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
 
             if (ImGui::Button("Entity Interface")) {
                 showEntityInterface = true;
+            }
+
+            if (ImGui::Button("Title Screen")) {
+                gotoTitleScreen = true;
             }
         }
         ImGui::End();
@@ -1064,7 +1069,731 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
     RenderConsoleWindow(consoleLogs, commands);
     HandleDragDropToWorld(commands);
 
+    if (gotoTitleScreen) {
+        physicsChanges["GOTO_TITLE_SCREEN"] = true;
+    }
     // ImGui::ShowDemoWindow();  // Show demo window! :)
+}
+
+void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data) {
+    /*──────────────── Frame setup ────────────────*/
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
+    // Center the title window on screen
+    ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+    ImVec2 windowSize = ImVec2(500, 400);
+    ImVec2 windowPos =
+        ImVec2((displaySize.x - windowSize.x) * 0.5f, (displaySize.y - windowSize.y) * 0.5f);
+
+    ImGui::SetNextWindowPos(windowPos, ImGuiCond_Always);
+    ImGui::SetNextWindowSize(windowSize, ImGuiCond_Always);
+
+    ImGui::Begin("Title Screen", nullptr,
+                 ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse |
+                     ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+
+    // Add some spacing from the top
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Game title - big text centered with larger font scale
+    ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[0]);  // Use default font
+    ImGui::SetWindowFontScale(2.5f);  // Scale font to 2.5x larger
+    ImVec2 titleSize = ImGui::CalcTextSize("LIFE SIMULATION GAME");
+    ImGui::SetCursorPosX((windowSize.x - titleSize.x) * 0.5f);
+    ImGui::TextColored(ImVec4(0.6f, 0.8f, 1.0f, 1.0f), "LIFE SIMULATION GAME");
+    ImGui::SetWindowFontScale(1.0f);  // Reset font scale to normal
+    ImGui::PopFont();
+
+    // Add spacing before buttons
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Button styling
+    ImVec2 buttonSize = ImVec2(200, 40);
+    float buttonPosX = (windowSize.x - buttonSize.x) * 0.5f;
+
+    // Start Game Button
+    ImGui::SetCursorPosX(buttonPosX);
+    if (ImGui::Button("Start Game", buttonSize)) {
+        // Create command to start the game
+        nb::dict command;
+        command["type"] = nb::str("start_game");
+        commands.append(command);
+    }
+
+    ImGui::Spacing();
+
+    // Settings Button
+    ImGui::SetCursorPosX(buttonPosX);
+    if (ImGui::Button("Settings", buttonSize)) {
+        // Create command to open settings
+        nb::dict command;
+        command["type"] = nb::str("open_settings");
+        commands.append(command);
+    }
+
+    ImGui::Spacing();
+
+    // Credits Button
+    ImGui::SetCursorPosX(buttonPosX);
+    if (ImGui::Button("Credits", buttonSize)) {
+        // Create command to show credits
+        nb::dict command;
+        command["type"] = nb::str("show_credits");
+        commands.append(command);
+    }
+
+    ImGui::Spacing();
+
+    // Quit Button
+    ImGui::SetCursorPosX(buttonPosX);
+    if (ImGui::Button("Quit", buttonSize)) {
+        // Create command to quit the game
+        nb::dict command;
+        command["type"] = nb::str("quit_game");
+        commands.append(command);
+    }
+
+    ImGui::End();
+}
+
+void imguiPrepareWorldFormWindows(nb::list& commands, nb::dict& shared_data) {
+    /*──────────────── Frame setup ────────────────*/
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
+    // Center the world form window on screen
+    ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+    ImVec2 windowSize = ImVec2(600, 500);
+    ImVec2 windowPos = ImVec2((displaySize.x - windowSize.x) * 0.5f, (displaySize.y - windowSize.y) * 0.5f);
+
+    ImGui::SetNextWindowPos(windowPos, ImGuiCond_Always);
+    ImGui::SetNextWindowSize(windowSize, ImGuiCond_Always);
+
+    ImGui::Begin("Create New World", nullptr,
+                 ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse |
+                     ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+
+    // Add some spacing from the top
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Form title
+    ImGui::SetCursorPosX((windowSize.x - ImGui::CalcTextSize("CREATE NEW WORLD").x) * 0.5f);
+    ImGui::TextColored(ImVec4(0.6f, 0.8f, 1.0f, 1.0f), "CREATE NEW WORLD");
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    // Static variables to hold form data
+    static char worldName[128] = "New World";
+    static char worldDescription[256] = "A fresh world ready for exploration";
+    static int worldWidth = 100;
+    static int worldHeight = 100;
+    static int worldDepth = 10;
+    static int seed = 12345;
+    static bool generateTerrain = true;
+    static bool generateWater = true;
+    static bool generateVegetation = false;
+    static int difficultyLevel = 1;
+    static float resourceDensity = 0.5f;
+
+    // Form fields
+    ImGui::Text("World Name:");
+    ImGui::InputText("##WorldName", worldName, sizeof(worldName));
+
+    ImGui::Spacing();
+
+    ImGui::Text("Description:");
+    ImGui::InputTextMultiline("##WorldDescription", worldDescription, sizeof(worldDescription),
+                              ImVec2(0, 60));
+
+    ImGui::Spacing();
+
+    ImGui::Text("World Dimensions:");
+    ImGui::SliderInt("Width", &worldWidth, 1, 500);
+    ImGui::SliderInt("Height", &worldHeight, 1, 500);
+    ImGui::SliderInt("Depth", &worldDepth, 1, 100);
+
+    ImGui::Spacing();
+
+    ImGui::Text("Generation Settings:");
+    ImGui::InputInt("Seed", &seed);
+    ImGui::Checkbox("Generate Terrain", &generateTerrain);
+    ImGui::Checkbox("Generate Water Bodies", &generateWater);
+    ImGui::Checkbox("Generate Vegetation", &generateVegetation);
+
+    ImGui::Spacing();
+
+    ImGui::Text("Game Settings:");
+    ImGui::SliderInt("Difficulty Level", &difficultyLevel, 1, 5);
+    ImGui::SliderFloat("Resource Density", &resourceDensity, 0.1f, 2.0f, "%.2f");
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Store form data in shared_data
+    shared_data["world_name"] = nb::str(worldName);
+    shared_data["world_description"] = nb::str(worldDescription);
+    shared_data["world_width"] = nb::int_(worldWidth);
+    shared_data["world_height"] = nb::int_(worldHeight);
+    shared_data["world_depth"] = nb::int_(worldDepth);
+    shared_data["seed"] = nb::int_(seed);
+    shared_data["generate_terrain"] = nb::bool_(generateTerrain);
+    shared_data["generate_water"] = nb::bool_(generateWater);
+    shared_data["generate_vegetation"] = nb::bool_(generateVegetation);
+    shared_data["difficulty_level"] = nb::int_(difficultyLevel);
+    shared_data["resource_density"] = nb::float_(resourceDensity);
+
+    // Buttons
+    ImVec2 buttonSize = ImVec2(120, 35);
+    float totalButtonWidth = buttonSize.x * 2 + 20;  // Two buttons + spacing
+    float buttonStartX = (windowSize.x - totalButtonWidth) * 0.5f;
+
+    ImGui::SetCursorPosX(buttonStartX);
+    if (ImGui::Button("Create", buttonSize)) {
+        // Create command to create the world with form data
+        nb::dict command;
+        command["type"] = nb::str("create_world");
+        command["data"] = shared_data;
+        commands.append(command);
+    }
+
+    ImGui::SameLine();
+    ImGui::SetCursorPosX(buttonStartX + buttonSize.x + 20);
+    if (ImGui::Button("Cancel", buttonSize)) {
+        // Create command to cancel world creation
+        nb::dict command;
+        command["type"] = nb::str("cancel_world_creation");
+        commands.append(command);
+    }
+
+    ImGui::End();
+}
+
+void imguiPrepareWorldListWindows(nb::list& commands, nb::dict& shared_data) {
+    /*──────────────── Frame setup ────────────────*/
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
+    // Center the world list window on screen
+    ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+    ImVec2 windowSize = ImVec2(800, 600);
+    ImVec2 windowPos = ImVec2((displaySize.x - windowSize.x) * 0.5f, (displaySize.y - windowSize.y) * 0.5f);
+    
+    ImGui::SetNextWindowPos(windowPos, ImGuiCond_Always);
+    ImGui::SetNextWindowSize(windowSize, ImGuiCond_Always);
+    
+    ImGui::Begin("World Selection", nullptr,
+                 ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse |
+                     ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+
+    // Add some spacing from the top
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Window title
+    ImGui::SetCursorPosX((windowSize.x - ImGui::CalcTextSize("SELECT WORLD").x) * 0.5f);
+    ImGui::TextColored(ImVec4(0.6f, 0.8f, 1.0f, 1.0f), "SELECT WORLD");
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    // Static variable to track selected world
+    static int selectedWorldIndex = -1;
+    static std::string selectedWorldKey = "";
+
+    // Create the world list table
+    if (ImGui::BeginTable(
+            "WorldTable", 4,
+            ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_ScrollY)) {
+        // Set up table headers
+        ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_WidthFixed, 200.0f);
+        ImGui::TableSetupColumn("Description", ImGuiTableColumnFlags_WidthStretch);
+        ImGui::TableSetupColumn("Status", ImGuiTableColumnFlags_WidthFixed, 100.0f);
+        ImGui::TableSetupColumn("Select", ImGuiTableColumnFlags_WidthFixed, 80.0f);
+        ImGui::TableHeadersRow();
+
+        // Iterate through worlds in shared_data
+        int worldIndex = 0;
+        for (auto [world_key, world_data] : shared_data) {
+            ImGui::TableNextRow();
+
+            // Extract world information
+            std::string worldName = "Unknown";
+            std::string worldDescription = "";
+            std::string worldStatus = "unknown";
+
+            if (nb::isinstance<nb::dict>(world_data)) {
+                auto world_dict = nb::cast<nb::dict>(world_data);
+
+                if (world_dict.contains("name")) {
+                    worldName = nb::cast<std::string>(world_dict["name"]);
+                }
+                if (world_dict.contains("description")) {
+                    worldDescription = nb::cast<std::string>(world_dict["description"]);
+                }
+                if (world_dict.contains("status")) {
+                    worldStatus = nb::cast<std::string>(world_dict["status"]);
+                }
+            }
+
+            // Name column
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text("%s", worldName.c_str());
+
+            // Description column
+            ImGui::TableSetColumnIndex(1);
+            if (worldDescription.empty()) {
+                ImGui::TextDisabled("No description");
+            } else {
+                ImGui::Text("%s", worldDescription.c_str());
+            }
+
+            // Status column
+            ImGui::TableSetColumnIndex(2);
+            ImVec4 statusColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);  // Default white
+            if (worldStatus == "creating") {
+                statusColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);  // Yellow
+            } else if (worldStatus == "ready") {
+                statusColor = ImVec4(0.0f, 1.0f, 0.0f, 1.0f);  // Green
+            } else if (worldStatus == "paused") {
+                statusColor = ImVec4(0.0f, 1.0f, 0.0f, 1.0f);  // Green
+            } else if (worldStatus == "error") {
+                statusColor = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);  // Red
+            }
+            ImGui::TextColored(statusColor, "%s", worldStatus.c_str());
+
+            // Select column
+            ImGui::TableSetColumnIndex(3);
+            bool isSelected = (worldIndex == selectedWorldIndex);
+            std::string radioButtonId = "##select_" + std::to_string(worldIndex);
+
+            if (ImGui::RadioButton(radioButtonId.c_str(), isSelected)) {
+                selectedWorldIndex = worldIndex;
+                selectedWorldKey = nb::cast<std::string>(world_key);
+            }
+
+            worldIndex++;
+        }
+
+        ImGui::EndTable();
+    }
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Action buttons
+    ImVec2 buttonSize = ImVec2(120, 35);
+    float totalButtonWidth = buttonSize.x * 3 + 40;  // Three buttons + spacing
+    float buttonStartX = (windowSize.x - totalButtonWidth) * 0.5f;
+
+    // New World button
+    ImGui::SetCursorPosX(buttonStartX);
+    if (ImGui::Button("New World", buttonSize)) {
+        nb::dict command;
+        command["type"] = "new_world_requested";
+        commands.append(command);
+    }
+
+    // Delete button (only enabled if a world is selected)
+    ImGui::SameLine();
+    ImGui::SetCursorPosX(buttonStartX + buttonSize.x + 20);
+
+    bool hasSelection = selectedWorldIndex >= 0 && !selectedWorldKey.empty();
+    if (!hasSelection) {
+        ImGui::BeginDisabled();
+    }
+
+    if (ImGui::Button("Delete", buttonSize)) {
+        nb::dict command;
+        command["type"] = "delete_world_requested";
+        command["world_key"] = selectedWorldKey.c_str();
+        commands.append(command);
+
+        // Reset selection after delete request
+        selectedWorldIndex = -1;
+        selectedWorldKey = "";
+    }
+
+    if (!hasSelection) {
+        ImGui::EndDisabled();
+    }
+
+    // Connect button (only enabled if a world is selected and ready)
+    ImGui::SameLine();
+    ImGui::SetCursorPosX(buttonStartX + buttonSize.x * 2 + 40);
+
+    bool canConnect = false;
+    if (hasSelection && shared_data.contains(selectedWorldKey.c_str())) {
+        auto selected_world = nb::cast<nb::dict>(shared_data[selectedWorldKey.c_str()]);
+        if (selected_world.contains("status")) {
+            std::string status = nb::cast<std::string>(selected_world["status"]);
+            canConnect = (status == "ready" || status == "paused");
+        }
+    }
+
+    auto logger = Logger::getLogger();
+    logger->info("Can connect to world '{}': {}", selectedWorldKey, canConnect);
+
+    if (!canConnect) {
+        ImGui::BeginDisabled();
+    }
+
+    if (ImGui::Button("Connect", buttonSize)) {
+        nb::dict command;
+        logger->info("Clicking connect button for world '{}'", selectedWorldKey);
+        command["type"] = "connect_world_requested";
+        command["world_key"] = selectedWorldKey.c_str();
+        commands.append(command);
+    }
+
+    if (!canConnect) {
+        ImGui::EndDisabled();
+    }
+
+    // Store selected world in shared_data for other components to access
+    if (hasSelection) {
+        shared_data["selected_world_key"] = selectedWorldKey.c_str();
+    } else {
+        if (shared_data.contains("selected_world_key")) {
+            nb::del(shared_data["selected_world_key"]);
+        }
+    }
+
+    ImGui::End();
+}
+
+void imguiPrepareCharacterFormWindows(nb::list& commands, nb::dict& shared_data) {
+    /*──────────────── Frame setup ────────────────*/
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
+    // Center the character form window on screen
+    ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+    ImVec2 windowSize = ImVec2(650, 550);
+    ImVec2 windowPos = ImVec2((displaySize.x - windowSize.x) * 0.5f, (displaySize.y - windowSize.y) * 0.5f);
+    
+    ImGui::SetNextWindowPos(windowPos, ImGuiCond_Always);
+    ImGui::SetNextWindowSize(windowSize, ImGuiCond_Always);
+    
+    ImGui::Begin("Create New Character", nullptr, 
+                 ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | 
+                 ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+
+    // Add some spacing from the top
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Form title
+    ImGui::SetCursorPosX((windowSize.x - ImGui::CalcTextSize("CREATE NEW CHARACTER").x) * 0.5f);
+    ImGui::TextColored(ImVec4(0.6f, 0.8f, 1.0f, 1.0f), "CREATE NEW CHARACTER");
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    // Static variables to hold form data
+    static char characterName[128] = "Hero";
+    static char characterDescription[256] = "A brave adventurer ready to explore the world";
+    static int characterClass = 0; // 0=Warrior, 1=Mage, 2=Archer, 3=Rogue
+    static int strength = 10;
+    static int intelligence = 10;
+    static int dexterity = 10;
+    static int constitution = 10;
+    static int startingLevel = 1;
+    static float experienceMultiplier = 1.0f;
+    static bool enablePvP = false;
+    static bool enableMagic = true;
+    static bool enableCrafting = true;
+
+    const char* characterClasses[] = {"Warrior", "Mage", "Archer", "Rogue"};
+
+    // Form fields
+    ImGui::Text("Character Name:");
+    ImGui::InputText("##CharacterName", characterName, sizeof(characterName));
+    
+    ImGui::Spacing();
+    
+    ImGui::Text("Description:");
+    ImGui::InputTextMultiline("##CharacterDescription", characterDescription, sizeof(characterDescription), ImVec2(0, 60));
+    
+    ImGui::Spacing();
+    
+    ImGui::Text("Character Class:");
+    ImGui::Combo("##CharacterClass", &characterClass, characterClasses, IM_ARRAYSIZE(characterClasses));
+    
+    ImGui::Spacing();
+    
+    ImGui::Text("Attributes:");
+    ImGui::SliderInt("Strength", &strength, 1, 20);
+    ImGui::SliderInt("Intelligence", &intelligence, 1, 20);
+    ImGui::SliderInt("Dexterity", &dexterity, 1, 20);
+    ImGui::SliderInt("Constitution", &constitution, 1, 20);
+    
+    ImGui::Spacing();
+    
+    ImGui::Text("Character Settings:");
+    ImGui::SliderInt("Starting Level", &startingLevel, 1, 10);
+    ImGui::SliderFloat("Experience Multiplier", &experienceMultiplier, 0.5f, 3.0f, "%.2f");
+    
+    ImGui::Spacing();
+    
+    ImGui::Text("Game Features:");
+    ImGui::Checkbox("Enable PvP", &enablePvP);
+    ImGui::Checkbox("Enable Magic", &enableMagic);
+    ImGui::Checkbox("Enable Crafting", &enableCrafting);
+    
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Store form data in shared_data
+    shared_data["character_name"] = characterName;
+    shared_data["character_description"] = characterDescription;
+    shared_data["character_class"] = characterClasses[characterClass];
+    shared_data["strength"] = nb::int_(strength);
+    shared_data["intelligence"] = nb::int_(intelligence);
+    shared_data["dexterity"] = nb::int_(dexterity);
+    shared_data["constitution"] = nb::int_(constitution);
+    shared_data["starting_level"] = nb::int_(startingLevel);
+    shared_data["experience_multiplier"] = nb::float_(experienceMultiplier);
+    shared_data["enable_pvp"] = nb::bool_(enablePvP);
+    shared_data["enable_magic"] = nb::bool_(enableMagic);
+    shared_data["enable_crafting"] = nb::bool_(enableCrafting);
+
+    // Buttons
+    ImVec2 buttonSize = ImVec2(120, 35);
+    float totalButtonWidth = buttonSize.x * 2 + 20; // Two buttons + spacing
+    float buttonStartX = (windowSize.x - totalButtonWidth) * 0.5f;
+
+    ImGui::SetCursorPosX(buttonStartX);
+    if (ImGui::Button("Create", buttonSize)) {
+        // Create command to create the character with form data
+        nb::dict command;
+        command["type"] = "create_character";
+        command["data"] = shared_data;
+        commands.append(command);
+    }
+
+    ImGui::SameLine();
+    ImGui::SetCursorPosX(buttonStartX + buttonSize.x + 20);
+    if (ImGui::Button("Cancel", buttonSize)) {
+        // Create command to cancel character creation
+        nb::dict command;
+        command["type"] = "cancel_character_creation";
+        commands.append(command);
+    }
+
+    ImGui::End();
+}
+
+void imguiPrepareCharacterListWindows(nb::list& commands, nb::dict& shared_data) {
+    /*──────────────── Frame setup ────────────────*/
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
+    // Center the character list window on screen
+    ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+    ImVec2 windowSize = ImVec2(850, 650);
+    ImVec2 windowPos = ImVec2((displaySize.x - windowSize.x) * 0.5f, (displaySize.y - windowSize.y) * 0.5f);
+    
+    ImGui::SetNextWindowPos(windowPos, ImGuiCond_Always);
+    ImGui::SetNextWindowSize(windowSize, ImGuiCond_Always);
+    
+    ImGui::Begin("Character Selection", nullptr, 
+                 ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | 
+                 ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+
+    // Add some spacing from the top
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Window title
+    ImGui::SetCursorPosX((windowSize.x - ImGui::CalcTextSize("SELECT CHARACTER").x) * 0.5f);
+    ImGui::TextColored(ImVec4(0.6f, 0.8f, 1.0f, 1.0f), "SELECT CHARACTER");
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    // Static variable to track selected character
+    static int selectedCharacterIndex = -1;
+    static std::string selectedCharacterKey = "";
+
+    // Create the character list table
+    if (ImGui::BeginTable("CharacterTable", 5, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_ScrollY)) {
+        // Set up table headers
+        ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_WidthFixed, 150.0f);
+        ImGui::TableSetupColumn("Class", ImGuiTableColumnFlags_WidthFixed, 100.0f);
+        ImGui::TableSetupColumn("Level", ImGuiTableColumnFlags_WidthFixed, 80.0f);
+        ImGui::TableSetupColumn("Status", ImGuiTableColumnFlags_WidthFixed, 100.0f);
+        ImGui::TableSetupColumn("Select", ImGuiTableColumnFlags_WidthFixed, 80.0f);
+        ImGui::TableHeadersRow();
+
+        // Iterate through characters in shared_data
+        int characterIndex = 0;
+        for (auto [character_key, character_data] : shared_data) {
+            ImGui::TableNextRow();
+            
+            // Extract character information
+            std::string characterName = "Unknown";
+            std::string characterClass = "Warrior";
+            int characterLevel = 1;
+            std::string characterStatus = "unknown";
+            
+            if (nb::isinstance<nb::dict>(character_data)) {
+                auto character_dict = nb::cast<nb::dict>(character_data);
+                
+                if (character_dict.contains("name")) {
+                    characterName = nb::cast<std::string>(character_dict["name"]);
+                }
+                if (character_dict.contains("class")) {
+                    characterClass = nb::cast<std::string>(character_dict["class"]);
+                }
+                if (character_dict.contains("level")) {
+                    characterLevel = nb::cast<int>(character_dict["level"]);
+                }
+                if (character_dict.contains("status")) {
+                    characterStatus = nb::cast<std::string>(character_dict["status"]);
+                }
+            }
+
+            // Name column
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text("%s", characterName.c_str());
+
+            // Class column
+            ImGui::TableSetColumnIndex(1);
+            ImGui::Text("%s", characterClass.c_str());
+
+            // Level column
+            ImGui::TableSetColumnIndex(2);
+            ImGui::Text("%d", characterLevel);
+
+            // Status column
+            ImGui::TableSetColumnIndex(3);
+            ImVec4 statusColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // Default white
+            if (characterStatus == "creating") {
+                statusColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow
+            } else if (characterStatus == "ready") {
+                statusColor = ImVec4(0.0f, 1.0f, 0.0f, 1.0f); // Green
+            } else if (characterStatus == "in_game") {
+                statusColor = ImVec4(0.0f, 0.8f, 1.0f, 1.0f); // Cyan
+            } else if (characterStatus == "error") {
+                statusColor = ImVec4(1.0f, 0.0f, 0.0f, 1.0f); // Red
+            }
+            ImGui::TextColored(statusColor, "%s", characterStatus.c_str());
+
+            // Select column
+            ImGui::TableSetColumnIndex(4);
+            bool isSelected = (characterIndex == selectedCharacterIndex);
+            std::string radioButtonId = "##select_" + std::to_string(characterIndex);
+            
+            if (ImGui::RadioButton(radioButtonId.c_str(), isSelected)) {
+                selectedCharacterIndex = characterIndex;
+                selectedCharacterKey = nb::cast<std::string>(character_key);
+            }
+
+            characterIndex++;
+        }
+
+        ImGui::EndTable();
+    }
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Action buttons
+    ImVec2 buttonSize = ImVec2(120, 35);
+    float totalButtonWidth = buttonSize.x * 3 + 40; // Three buttons + spacing
+    float buttonStartX = (windowSize.x - totalButtonWidth) * 0.5f;
+
+    // New Character button
+    ImGui::SetCursorPosX(buttonStartX);
+    if (ImGui::Button("New Character", buttonSize)) {
+        nb::dict command;
+        command["type"] = "new_character_requested";
+        commands.append(command);
+    }
+
+    // Delete button (only enabled if a character is selected)
+    ImGui::SameLine();
+    ImGui::SetCursorPosX(buttonStartX + buttonSize.x + 20);
+    
+    bool hasSelection = selectedCharacterIndex >= 0 && !selectedCharacterKey.empty();
+    if (!hasSelection) {
+        ImGui::BeginDisabled();
+    }
+    
+    if (ImGui::Button("Delete", buttonSize)) {
+        nb::dict command;
+        command["type"] = "delete_character_requested";
+        command["world_key"] = selectedCharacterKey.c_str();
+        commands.append(command);
+        
+        // Reset selection after delete request
+        selectedCharacterIndex = -1;
+        selectedCharacterKey = "";
+    }
+    
+    if (!hasSelection) {
+        ImGui::EndDisabled();
+    }
+
+    // Play button (only enabled if a character is selected and ready)
+    ImGui::SameLine();
+    ImGui::SetCursorPosX(buttonStartX + buttonSize.x * 2 + 40);
+    
+    bool canPlay = false;
+    if (hasSelection && shared_data.contains(selectedCharacterKey.c_str())) {
+        auto selected_character = nb::cast<nb::dict>(shared_data[selectedCharacterKey.c_str()]);
+        if (selected_character.contains("status")) {
+            std::string status = nb::cast<std::string>(selected_character["status"]);
+            canPlay = (status == "ready");
+        }
+    }
+    
+    if (!canPlay) {
+        ImGui::BeginDisabled();
+    }
+    
+    if (ImGui::Button("Play", buttonSize)) {
+        nb::dict command;
+        command["type"] = "play_character_requested";
+        command["character_key"] = selectedCharacterKey.c_str();
+        commands.append(command);
+    }
+    
+    if (!canPlay) {
+        ImGui::EndDisabled();
+    }
+
+    // Store selected character in shared_data for other components to access
+    if (hasSelection) {
+        shared_data["selected_character_key"] = selectedCharacterKey.c_str();
+    } else {
+        if (shared_data.contains("selected_character_key")) {
+            nb::del(shared_data["selected_character_key"]);
+        }
+    }
+
+    ImGui::End();
 }
 
 void imguiRender(uintptr_t renderer_ptr) {

@@ -102,6 +102,16 @@ NB_MODULE(_aetherion, m) {
         nb::arg("physicsChanges"), nb::arg("inventoryData"), nb::arg("consoleLogs"),
         nb::arg("entitiesData"), nb::arg("commands"), nb::arg("statistics"), nb::arg("shared_data"),
         nb::arg("entityInterface_ptr"));
+    m.def("imgui_prepare_title_windows", &imguiPrepareTitleWindows, nb::arg("commands"),
+          nb::arg("shared_data"), "Prepare the title windows for ImGui rendering");
+    m.def("imgui_prepare_world_form_windows", &imguiPrepareWorldFormWindows, nb::arg("commands"),
+          nb::arg("shared_data"), "Prepare the world creation form windows for ImGui rendering");
+    m.def("imgui_prepare_world_list_windows", &imguiPrepareWorldListWindows, nb::arg("commands"),
+          nb::arg("shared_data"), "Prepare the world list selection windows for ImGui rendering");
+    m.def("imgui_prepare_character_form_windows", &imguiPrepareCharacterFormWindows, nb::arg("commands"),
+          nb::arg("shared_data"), "Prepare the character creation form windows for ImGui rendering");
+    m.def("imgui_prepare_character_list_windows", &imguiPrepareCharacterListWindows, nb::arg("commands"),
+          nb::arg("shared_data"), "Prepare the character list selection windows for ImGui rendering");
     m.def("imgui_process_event", &imguiProcessEvent);
     m.def("imgui_render", &imguiRender, "Load an image and create a texture",
           nb::arg("renderer_ptr"));
@@ -113,6 +123,25 @@ NB_MODULE(_aetherion, m) {
 
     m.def("load_texture_on_manager", &loadTextureOnManager);
     m.def("render_texture_from_manager", &renderTextureFromManager);
+
+    // OpenGL texture functions
+    m.def("load_texture_gl", &load_texture_gl, "Load an image and create an OpenGL texture",
+          nb::arg("gl_context_ptr"), nb::arg("image_path"));
+    m.def("render_texture_gl", &render_texture_gl, "Render an OpenGL texture",
+          nb::arg("gl_context_ptr"), nb::arg("texture_id"), nb::arg("x"), nb::arg("y"),
+          nb::arg("width") = -1, nb::arg("height") = -1);
+    m.def("destroy_texture_gl", &destroy_texture_gl, "Destroy an OpenGL texture",
+          nb::arg("texture_id"));
+
+    // OpenGL texture manager functions
+    m.def("load_texture_on_manager_gl", &loadTextureOnManagerGL, "Load texture into OpenGL manager",
+          nb::arg("gl_context_ptr"), nb::arg("imagePath"), nb::arg("id"), nb::arg("newWidth") = -1,
+          nb::arg("newHeight") = -1);
+    m.def("render_texture_from_manager_gl", &renderTextureFromManagerGL,
+          "Render texture from OpenGL manager", nb::arg("gl_context_ptr"), nb::arg("id"),
+          nb::arg("x"), nb::arg("y"), nb::arg("width") = -1, nb::arg("height") = -1);
+    m.def("get_texture_from_manager_gl", &getTextureFromManagerGL,
+          "Get OpenGL texture ID from manager", nb::arg("id"));
 
     m.def("wants_capture_keyboard", &wants_capture_keyboard,
           "Returns True if ImGui wants to capture keyboard inputs, False otherwise");

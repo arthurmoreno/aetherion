@@ -1,7 +1,18 @@
 #include "TextureManager.hpp"
 
+#include <SDL2/SDL_opengl.h>
+
 #include <algorithm>
+#include <fstream>
 #include <iostream>
+#include <vector>
+
+// Simplified OpenGL texture rendering without modern pipeline
+// Uses basic OpenGL 1.1 functionality available in SDL2
+
+// Initialize static OpenGL members (simplified for OpenGL 1.1)
+std::map<std::string, GLuint> TextureManager::s_textureMapGL;
+bool TextureManager::s_openglInitialized = false;
 
 uintptr_t load_texture(uintptr_t renderer_ptr, const std::string& image_path) {
     SDL_Renderer* renderer = reinterpret_cast<SDL_Renderer*>(renderer_ptr);
@@ -212,3 +223,262 @@ void TextureManager::draw(std::string id, int x, int y, int width, int height,
 }
 
 SDL_Texture* TextureManager::getTexture(std::string id) { return m_textureMap[id]; }
+
+// -------------------
+// Work in progress  |
+// -------------------
+
+// OpenGL TextureManager methods (OpenGL 1.1 compatible)
+void TextureManager::initOpenGL() {
+    if (s_openglInitialized) return;
+
+    // Enable 2D texturing and basic OpenGL features for texture rendering
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    s_openglInitialized = true;
+    std::cout << "OpenGL TextureManager initialized successfully (OpenGL 1.1)" << std::endl;
+}
+
+void TextureManager::cleanupOpenGL() {
+    if (!s_openglInitialized) return;
+
+    // Clean up textures
+    for (auto& pair : s_textureMapGL) {
+        glDeleteTextures(1, &pair.second);
+    }
+    s_textureMapGL.clear();
+
+    s_openglInitialized = false;
+    std::cout << "OpenGL TextureManager cleaned up" << std::endl;
+}
+
+bool TextureManager::loadGL(std::string fileName, std::string id, uintptr_t gl_context_ptr,
+                            int newWidth, int newHeight) {
+    // Initialize OpenGL if not already done
+    if (!s_openglInitialized) {
+        initOpenGL();
+    }
+
+    // Load image surface using SDL2_image (same as SDL version)
+    SDL_Surface* surface = IMG_Load(fileName.c_str());
+    if (!surface) {
+        std::cerr << "Failed to load image: " << IMG_GetError() << std::endl;
+        return false;
+    }
+
+    // Convert surface to RGBA format for OpenGL
+    SDL_Surface* rgbaSurface = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_RGBA32, 0);
+    SDL_FreeSurface(surface);
+
+    if (!rgbaSurface) {
+        std::cerr << "Failed to convert surface to RGBA: " << SDL_GetError() << std::endl;
+        return false;
+    }
+
+    // Generate OpenGL texture
+    GLuint texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    // Set texture parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // Upload texture data
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, rgbaSurface->w, rgbaSurface->h, 0, GL_RGBA,
+                 GL_UNSIGNED_BYTE, rgbaSurface->pixels);
+
+    SDL_FreeSurface(rgbaSurface);
+
+    // Store in texture map
+    s_textureMapGL[id] = texture;
+
+    std::cout << "OpenGL texture '" << id << "' loaded successfully (ID: " << texture << ")"
+              << std::endl;
+    return true;
+}
+
+void TextureManager::renderGL(std::string id, int x, int y, int width, int height) {
+    if (!s_openglInitialized) {
+        initOpenGL();
+    }
+
+    auto it = s_textureMapGL.find(id);
+    if (it == s_textureMapGL.end()) {
+        std::cerr << "OpenGL texture '" << id << "' not found" << std::endl;
+        return;
+    }
+
+    GLuint texture = it->second;
+
+    // Use default size if not specified
+    if (width <= 0 || height <= 0) {
+        width = 100;  // Default size
+        height = 100;
+    }
+
+    // Save current OpenGL state
+    glPushMatrix();
+    glPushAttrib(GL_ENABLE_BIT | GL_TEXTURE_BIT);
+
+    // Enable texturing
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    // Set up orthographic projection for 2D rendering
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+
+    // Get viewport to set up coordinate system
+    GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    glOrtho(0, viewport[2], viewport[3], 0, -1, 1);  // Top-left origin, like screen coordinates
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    // Render textured quad using immediate mode
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(x, y);  // Top-left
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(x + width, y);  // Top-right
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(x + width, y + height);  // Bottom-right
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(x, y + height);  // Bottom-left
+    glEnd();
+
+    // Restore OpenGL state
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+
+    glPopAttrib();
+    glPopMatrix();
+}
+
+GLuint TextureManager::getTextureGL(std::string id) {
+    auto it = s_textureMapGL.find(id);
+    if (it != s_textureMapGL.end()) {
+        return it->second;
+    }
+    return 0;
+}
+
+// OpenGL C-style wrapper functions
+GLuint load_texture_gl(uintptr_t gl_context_ptr, const std::string& image_path) {
+    // Initialize OpenGL if not already done
+    if (!TextureManager::s_openglInitialized) {
+        TextureManager::initOpenGL();
+    }
+
+    // Load image surface
+    SDL_Surface* surface = IMG_Load(image_path.c_str());
+    if (!surface) {
+        throw std::runtime_error(std::string("Failed to load image: ") + IMG_GetError());
+    }
+
+    // Convert to RGBA format
+    SDL_Surface* rgbaSurface = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_RGBA32, 0);
+    SDL_FreeSurface(surface);
+
+    if (!rgbaSurface) {
+        throw std::runtime_error(std::string("Failed to convert surface to RGBA: ") +
+                                 SDL_GetError());
+    }
+
+    // Generate OpenGL texture
+    GLuint texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    // Set texture parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // Upload texture data
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, rgbaSurface->w, rgbaSurface->h, 0, GL_RGBA,
+                 GL_UNSIGNED_BYTE, rgbaSurface->pixels);
+
+    SDL_FreeSurface(rgbaSurface);
+
+    return texture;
+}
+
+void render_texture_gl(uintptr_t gl_context_ptr, GLuint texture_id, int x, int y, int width,
+                       int height) {
+    if (!TextureManager::s_openglInitialized) {
+        TextureManager::initOpenGL();
+    }
+
+    // Use default size if not specified
+    if (width <= 0 || height <= 0) {
+        width = 100;
+        height = 100;
+    }
+
+    // Save current OpenGL state
+    glPushMatrix();
+    glPushAttrib(GL_ENABLE_BIT | GL_TEXTURE_BIT);
+
+    // Enable texturing
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+
+    // Set up orthographic projection for 2D rendering
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+
+    // Get viewport to set up coordinate system
+    GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    glOrtho(0, viewport[2], viewport[3], 0, -1, 1);  // Top-left origin
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    // Render textured quad using immediate mode
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(x, y);  // Top-left
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(x + width, y);  // Top-right
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(x + width, y + height);  // Bottom-right
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(x, y + height);  // Bottom-left
+    glEnd();
+
+    // Restore OpenGL state
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+
+    glPopAttrib();
+    glPopMatrix();
+}
+
+void destroy_texture_gl(GLuint texture_id) { glDeleteTextures(1, &texture_id); }
+
+void loadTextureOnManagerGL(uintptr_t gl_context_ptr, const std::string& imagePath,
+                            const std::string& id, int newWidth, int newHeight) {
+    TextureManager::Instance()->loadGL(imagePath, id, gl_context_ptr, newWidth, newHeight);
+}
+
+void renderTextureFromManagerGL(uintptr_t gl_context_ptr, const std::string& id, int x, int y,
+                                int width, int height) {
+    TextureManager::Instance()->renderGL(id, x, y, width, height);
+}
+
+GLuint getTextureFromManagerGL(const std::string& id) {
+    return TextureManager::Instance()->getTextureGL(id);
+}

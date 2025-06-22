@@ -58,6 +58,10 @@ message(STATUS "→ SDL2 libraries:     ${SDL2_LIBRARIES}")
 
 find_package(SDL2_image REQUIRED)
 
+find_package(OpenGL REQUIRED)
+message(STATUS "→ OpenGL include dirs: ${OPENGL_INCLUDE_DIRS}")
+message(STATUS "→ OpenGL libraries:    ${OPENGL_LIBRARIES}")
+
 pkg_check_modules(SDL2_TTF   REQUIRED SDL2_ttf>=2.0.0)
 message(STATUS "→ SDL2_ttf include dirs: ${SDL2_TTF_INCLUDE_DIRS}")
 message(STATUS "→ SDL2_ttf libraries:    ${SDL2_TTF_LIBRARIES}")
@@ -99,6 +103,7 @@ include_directories(
     ${SDL2_INCLUDE_DIRS}
     ${SDL2_IMAGE_INCLUDE_DIRS}
     ${SDL2_TTF_INCLUDE_DIRS}
+    ${OPENGL_INCLUDE_DIRS}
     ${OPENVDB_INCLUDE_DIR}
     ${CMAKE_SOURCE_DIR}/src
     ${NANOBIND_DIR}/include
@@ -176,6 +181,7 @@ target_link_libraries(_aetherion PRIVATE
     ${SDL2_LIBRARIES}
     ${SDL2_IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES}
+    ${OPENGL_LIBRARIES}
     ${OPENVDB_LIBRARIES}
     ${TBB_LIBRARIES}
     ${MSGPACK_LIBRARIES}

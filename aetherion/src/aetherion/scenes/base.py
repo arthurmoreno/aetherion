@@ -7,13 +7,13 @@ class BaseScene(ABC):
     """Defines the lifecycle of a game scene."""
 
     @abstractmethod
-    def __init__(self, game_window: GameWindow, renderer, player_connection, views, **kwargs):
+    def __init__(self, game_window: GameWindow, renderer, views, event_bus, **kwargs):
         """
         Initialize the scene.
         :param game_window: the main game window
         :param renderer: rendering backend
-        :param player_connection: connection to player/server
         :param views: camera/views configuration
+        :param event_bus: event bus for communication
         :param kwargs: any extra parameters
         """
         pass
@@ -29,12 +29,12 @@ class BaseScene(ABC):
         pass
 
     @abstractmethod
-    def update(self, dt, shared_state):
+    def update(self, dt, shared_state, player_connection=None):
         """Advance logic; dt is time since last frame."""
         pass
 
     @abstractmethod
-    def render(self, renderer, shared_state):
+    def render(self, renderer, shared_state, player_connection=None):
         """Draw the current frame."""
         pass
 
@@ -101,18 +101,18 @@ class SceneManager:
         if self.current:
             self.current.on_enter()
 
-    def update(self, dt, shared_state):
+    def update(self, dt, shared_state, player_connection=None):
         """Update the current scene; handle automatic transitions."""
         if not self.current:
             return
-        next_scene = self.current.update(dt, shared_state)
+        next_scene = self.current.update(dt, shared_state, player_connection)
         if isinstance(next_scene, str):
             self.change(next_scene)
 
-    def render(self, renderer, shared_state):
+    def render(self, renderer, shared_state, player_connection=None):
         """Render the current scene."""
         if self.current:
-            self.current.render(renderer, shared_state)
+            self.current.render(renderer, shared_state, player_connection)
 
 
 # Provide a global manager instance for convenience

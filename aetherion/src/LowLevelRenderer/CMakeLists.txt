@@ -8,6 +8,7 @@ include_directories(${NANOBIND_DIR}/include)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
+find_package(OpenGL REQUIRED)
 set(nanobind_DIR "${CMAKE_SOURCE_DIR}/libs/nanobind/cmake")
 find_package(nanobind CONFIG REQUIRED)
 
@@ -34,6 +35,7 @@ target_include_directories(LowLevelRenderer PUBLIC
     ${SDL2_INCLUDE_DIRS}
     ${SDL2_IMAGE_INCLUDE_DIRS}
     ${SDL2_TTF_INCLUDE_DIRS}
+    ${OPENGL_INCLUDE_DIRS}
     ${Python3_INCLUDE_DIRS}
 )
 
@@ -43,6 +45,7 @@ target_link_libraries(LowLevelRenderer PUBLIC
     ${SDL2_LIBRARIES}
     ${SDL2_IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES}
+    ${OPENGL_LIBRARIES}
     SDL2_ttf
     Python3::Python
 )

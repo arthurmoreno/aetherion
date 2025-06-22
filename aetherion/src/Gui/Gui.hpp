@@ -56,6 +56,16 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
                          nb::dict& shared_data,
                          std::shared_ptr<EntityInterface> entityInterface_ptr);
 
+void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data);
+
+void imguiPrepareWorldFormWindows(nb::list& commands, nb::dict& shared_data);
+
+void imguiPrepareWorldListWindows(nb::list& commands, nb::dict& shared_data);
+
+void imguiPrepareCharacterFormWindows(nb::list& commands, nb::dict& shared_data);
+
+void imguiPrepareCharacterListWindows(nb::list& commands, nb::dict& shared_data);
+
 void imguiRender(uintptr_t renderer_ptr);
 
 #endif /* defined(__SDL_Game_Programming_Book__DebuggingTools__) */
