@@ -67,7 +67,11 @@ class VoxelGridViewFlatB {
             throw std::runtime_error("Serialized data is empty");
         }
 
-        fbVoxelGridView = GameEngine::GetVoxelGridView(data_ptr);  // Deserialize FlatBuffer
+        // Store a copy of the serialized data to keep it alive
+        serialized_buffer.assign(data_ptr, data_ptr + data_size);
+
+        // Deserialize FlatBuffer using our owned copy
+        fbVoxelGridView = GameEngine::GetVoxelGridView(serialized_buffer.data());
     }
 
     // Accessor methods to access fields directly
@@ -129,6 +133,8 @@ class VoxelGridViewFlatB {
 
    private:
     const GameEngine::VoxelGridView* fbVoxelGridView;
+    std::vector<char>
+        serialized_buffer;  // Owns the serialized data when constructed from nb::bytes
 };
 
 class VoxelGridView {

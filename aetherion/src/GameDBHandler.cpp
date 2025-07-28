@@ -8,7 +8,7 @@
 GameDBHandler::GameDBHandler(const std::string& sqliteFile)
     : sqliteFile_(sqliteFile), gameDB(std::make_unique<GameDB>(sqliteFile)) {
     // Ensure tables exist
-    Logger::getLogger()->debug("Creating tables in GameDBHandler constructor");
+    // Logger::getLogger()->debug("Creating tables in GameDBHandler constructor");
     createTables();
 }
 
@@ -38,9 +38,9 @@ void GameDBHandler::createTables() {
 
 void GameDBHandler::putTimeSeries(const std::string& seriesName, long long timestamp,
                                   double value) {
-    Logger::getLogger()->info(
-        "[GameDBHandler::putTimeSeries] Called with seriesName={}, timestamp={}, value={}",
-        seriesName, timestamp, value);
+    // Logger::getLogger()->debug(
+    //     "[GameDBHandler::putTimeSeries] Called with seriesName={}, timestamp={}, value={}",
+    //     seriesName, timestamp, value);
 
     // Convert timestamp to uint64_t for storage
     uint64_t ts = static_cast<uint64_t>(timestamp);
@@ -53,9 +53,9 @@ void GameDBHandler::putTimeSeries(const std::string& seriesName, long long times
 
 std::vector<std::pair<uint64_t, double>> GameDBHandler::queryTimeSeries(
     const std::string& seriesName, long long start, long long end) {
-    Logger::getLogger()->info(
-        "[GameDBHandler::queryTimeSeries] Called with seriesName={}, start={}, end={}", seriesName,
-        start, end);
+    // Logger::getLogger()->info(
+    //     "[GameDBHandler::queryTimeSeries] Called with seriesName={}, start={}, end={}",
+    //     seriesName, start, end);
 
     // Convert to uint64_t
     uint64_t startTime = static_cast<uint64_t>(start);
@@ -64,8 +64,8 @@ std::vector<std::pair<uint64_t, double>> GameDBHandler::queryTimeSeries(
     // Query from our improved GameDB
     auto results = gameDB->queryTimeSeries(seriesName, startTime, endTime);
 
-    Logger::getLogger()->info("Found {} results in time series query for {}", results.size(),
-                              seriesName);
+    // Logger::getLogger()->info("Found {} results in time series query for {}", results.size(),
+    //                           seriesName);
     return results;
 }
 

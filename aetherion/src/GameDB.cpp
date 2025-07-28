@@ -89,7 +89,8 @@ std::vector<std::pair<uint64_t, double>> GameDB::queryTimeSeries(const std::stri
 
                 // If we have results, return them
                 if (!results.empty()) {
-                    Logger::getLogger()->info("Found {} results in memory cache", results.size());
+                    // Logger::getLogger()->info("Found {} results in memory cache",
+                    // results.size());
                     return results;
                 }
             }

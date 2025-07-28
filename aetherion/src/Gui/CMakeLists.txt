@@ -43,11 +43,13 @@ target_include_directories(imgui_lib PUBLIC
 # Collect all .cpp source files in Gui
 file(GLOB GUI_SOURCES
     "${CMAKE_SOURCE_DIR}/src/Gui/*.cpp"
+    "${CMAKE_SOURCE_DIR}/src/Gui/Windows/*.cpp"
 )
 
 # Collect all .hpp header files in Gui
 file(GLOB GUI_HEADERS
     "${CMAKE_SOURCE_DIR}/src/Gui/*.hpp"
+    "${CMAKE_SOURCE_DIR}/src/Gui/Windows/*.hpp"
 )
 
 # Create a static library for Gui

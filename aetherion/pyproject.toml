@@ -57,6 +57,39 @@ aetherion = [
 line-length = 120
 target-version = "py312"
 
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git/**",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+    "aetherion/**",
+    "libs/**",
+    "aetherion.pyi",
+]
+
 [tool.ruff.lint]
 extend-select = ["I"]
 select = ["E", "F", "W", "I"]

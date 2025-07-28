@@ -2,6 +2,7 @@
 #define PERCEPTION_RESPONSE_HPP
 
 #include <cstdint>  // For uint64_t
+#include <vector>   // For std::vector
 // #include <iostream>
 #include <nanobind/nanobind.h>
 
@@ -28,9 +29,12 @@ class PerceptionResponseFlatB {
             throw std::runtime_error("Serialized data is empty");
         }
 
-        // Deserialize FlatBuffer
-        fbPerceptionResponse =
-            GameEngine::GetPerceptionResponse(data_ptr);  // Get PerceptionResponse from FlatBuffer
+        // Store a copy of the serialized data to keep it alive
+        serialized_buffer.assign(data_ptr, data_ptr + data_size);
+
+        // Deserialize FlatBuffer using our owned copy
+        fbPerceptionResponse = GameEngine::GetPerceptionResponse(
+            serialized_buffer.data());  // Get PerceptionResponse from FlatBuffer
     }
 
     // Get the WorldViewFlatB object
@@ -90,6 +94,8 @@ class PerceptionResponseFlatB {
 
    private:
     const GameEngine::PerceptionResponse* fbPerceptionResponse;
+    // Owns the serialized data when constructed from nb::bytes
+    std::vector<char> serialized_buffer;
 };
 
 struct PerceptionResponse {

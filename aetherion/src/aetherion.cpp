@@ -104,14 +104,22 @@ NB_MODULE(_aetherion, m) {
         nb::arg("entityInterface_ptr"));
     m.def("imgui_prepare_title_windows", &imguiPrepareTitleWindows, nb::arg("commands"),
           nb::arg("shared_data"), "Prepare the title windows for ImGui rendering");
+    m.def("imgui_prepare_world_type_form_windows", &imguiPrepareWorldTypeFormWindows,
+          nb::arg("commands"), nb::arg("shared_data"),
+          "Prepare the world type selection form windows for ImGui rendering");
+    m.def("imgui_prepare_server_world_form_windows", &imguiPrepareServerWorldFormWindows,
+          nb::arg("commands"), nb::arg("shared_data"),
+          "Prepare the server world form windows for ImGui rendering");
     m.def("imgui_prepare_world_form_windows", &imguiPrepareWorldFormWindows, nb::arg("commands"),
           nb::arg("shared_data"), "Prepare the world creation form windows for ImGui rendering");
     m.def("imgui_prepare_world_list_windows", &imguiPrepareWorldListWindows, nb::arg("commands"),
           nb::arg("shared_data"), "Prepare the world list selection windows for ImGui rendering");
-    m.def("imgui_prepare_character_form_windows", &imguiPrepareCharacterFormWindows, nb::arg("commands"),
-          nb::arg("shared_data"), "Prepare the character creation form windows for ImGui rendering");
-    m.def("imgui_prepare_character_list_windows", &imguiPrepareCharacterListWindows, nb::arg("commands"),
-          nb::arg("shared_data"), "Prepare the character list selection windows for ImGui rendering");
+    m.def("imgui_prepare_character_form_windows", &imguiPrepareCharacterFormWindows,
+          nb::arg("commands"), nb::arg("shared_data"),
+          "Prepare the character creation form windows for ImGui rendering");
+    m.def("imgui_prepare_character_list_windows", &imguiPrepareCharacterListWindows,
+          nb::arg("commands"), nb::arg("shared_data"),
+          "Prepare the character list selection windows for ImGui rendering");
     m.def("imgui_process_event", &imguiProcessEvent);
     m.def("imgui_render", &imguiRender, "Load an image and create a texture",
           nb::arg("renderer_ptr"));
@@ -350,6 +358,7 @@ NB_MODULE(_aetherion, m) {
         .def("get_python_system", &World::getPythonSystem)
         .def("add_python_script", &World::addPythonScript)
         .def("run_python_script", &World::runPythonScript)
+        .def("register_python_event_handler", &World::registerPythonEventHandler)
         .def("update", &World::update)
         .def("dispatch_move_entity_event_by_pos", &World::dispatchMoveSolidEntityEventByPosition)
         .def("dispatch_move_entity_event_by_id", &World::dispatchMoveSolidEntityEventById)
@@ -360,7 +369,6 @@ NB_MODULE(_aetherion, m) {
         // Updated method bindings for GameDBHandler interface with automatic type conversion:
         .def("put_time_series",
              [](World& w, nb::object seriesName, nb::object timestamp, nb::object value) {
-                 std::cout << "[binding World::put_time_series] Called" << std::endl;
                  std::string name = nb::cast<std::string>(seriesName);
                  long long ts = nb::cast<long long>(timestamp);
                  double v = nb::cast<double>(value);

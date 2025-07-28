@@ -21,6 +21,8 @@ class WorldViewFlatB {
    public:
     const GameEngine::WorldView* fbWorldView;
     std::unordered_map<int, EntityInterface> entities;
+    // Owns the serialized data when constructed from nb::bytes
+    std::vector<char> serialized_buffer;
 
     // Constructor accepts the raw FlatBuffer data pointer
     WorldViewFlatB(const GameEngine::WorldView* fbWorldView, const bool prePopulateEntities)
@@ -44,7 +46,11 @@ class WorldViewFlatB {
             throw std::runtime_error("Serialized data is empty");
         }
 
-        fbWorldView = GameEngine::GetWorldView(data_ptr);  // Deserialize FlatBuffer
+        // Store a copy of the serialized data to keep it alive
+        serialized_buffer.assign(data_ptr, data_ptr + data_size);
+
+        // Deserialize FlatBuffer using our owned copy
+        fbWorldView = GameEngine::GetWorldView(serialized_buffer.data());  // Deserialize FlatBuffer
 
         if (prePopulateEntities) {
             const auto* flatbuffersEntities = fbWorldView->entities();

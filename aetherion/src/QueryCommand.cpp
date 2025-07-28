@@ -57,7 +57,7 @@ std::vector<QueryCommand> toCommandList(const nb::list& optionalQueries) {
                 val = nb::cast<std::string>(str_obj);
             }
 
-            Logger::getLogger()->debug("[toCommandList] Adding param: {} = {}", key, val);
+            // Logger::getLogger()->debug("[toCommandList] Adding param: {} = {}", key, val);
             cmd.params[key] = val;
         }
 

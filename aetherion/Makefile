@@ -49,6 +49,7 @@ generate-stubs:
 	@echo "Generating stubs for lifesimcore..."
 	PYTHONPATH=build python -m nanobind.stubgen -m site-packages.lifesimcore -M py.typed -o lifesimcore.pyi
 
+# TODO: Refactor to new way of installing the package (using pip or similar)
 .PHONY: install-package
 install-package:
 	@echo "Installing package into site-packages/lifesimcore..."

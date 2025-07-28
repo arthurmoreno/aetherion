@@ -46,6 +46,8 @@ class World {
     entt::dispatcher dispatcher;  // Event dispatcher
     PyRegistry pyRegistry;
 
+    std::unordered_map<std::string, std::vector<nb::object>> pythonEventCallbacks;
+
     World(int width, int height, int depth);
 
     // World(int width, int height, int depth) : width(width), height(height),
@@ -104,6 +106,8 @@ class World {
     void addPythonScript(std::string& key, nb::object script);
     void runPythonScript(std::string& key);
 
+    void registerPythonEventHandler(const std::string& eventType, nb::object callback);
+
     // Method to return a capsule containing the pointer to this instance
     nb::capsule get_ptr() { return nb::capsule(this, "World"); }
 
@@ -146,6 +150,8 @@ class World {
     std::map<std::string, nb::object> pythonScripts;
 
     int getPerceptionBounds(int pos, int perception) const;
+    void onTakeItemEventPython(const TakeItemEvent& event);
+    void onUseItemEventPython(const UseItemEvent& event);
 };
 
 #endif  // WORLD_H

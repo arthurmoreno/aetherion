@@ -294,8 +294,8 @@ void addTimeSeriesDataToResponse(std::shared_ptr<MapOfMapsOfDoubleResponse> resp
     std::vector<std::pair<uint64_t, double>> result =
         dbHandler->queryTimeSeries(seriesName, start, end);
 
-    Logger::getLogger()->info("[World::processOptionalQueries] Querying {} data from {} to {}",
-                              seriesName, start, end);
+    // Logger::getLogger()->debug("[World::processOptionalQueries] Querying {} data from {} to {}",
+    //                           seriesName, start, end);
 
     // Create a nested map for the time series data
     std::map<std::string, double> timeSeriesMap;
@@ -365,8 +365,8 @@ void World::processOptionalQueries(const std::vector<QueryCommand>& commands,
             // Perform the move operation as needed
         } else if (cmd.type == "get_ai_statistics") {
             // Example handling for 'get_ai_statistics' command
-            Logger::getLogger()->info(
-                "[World::processOptionalQueries] Processing 'get_ai_statistics' command");
+            // Logger::getLogger()->debug(
+            //     "[World::processOptionalQueries] Processing 'get_ai_statistics' command");
             auto it = cmd.params.find("start");
             long long start = 0;
             if (it != cmd.params.end()) {
@@ -390,8 +390,8 @@ void World::processOptionalQueries(const std::vector<QueryCommand>& commands,
 
             response.queryResponses.emplace(2, mapOfMapsOfDoubleResponse);
 
-            Logger::getLogger()->info(
-                "[World::processOptionalQueries] Processing 'get_ai_statistics' command");
+            // Logger::getLogger()->debug(
+            //     "[World::processOptionalQueries] Processing 'get_ai_statistics' command");
         } else {
             // Handle unknown command types
             std::cerr << "Error: Unknown command type '" << cmd.type << "'." << std::endl;

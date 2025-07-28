@@ -1,6 +1,6 @@
 from typing import Self
 
-from aetherion import DirectionEnum, EntityInterface, Position, EntityTypeComponent
+from aetherion import DirectionEnum, EntityInterface, EntityTypeComponent, Position
 
 
 class BaseEntity:

@@ -372,8 +372,20 @@ nb::dict World::createPerceptionResponses(nb::dict entitiesWithQueries) {
 
                 for (size_t i = start; i < end; ++i) {
                     auto& job = jobs[i];
-                    std::vector<char> serializedResponse =
-                        createPerceptionResponseC(job.entityId, job.commands);
+                    std::vector<char> serializedResponse;
+
+                    try {
+                        serializedResponse = createPerceptionResponseC(job.entityId, job.commands);
+                    } catch (const std::exception& e) {
+                        // Log the error for debugging
+                        Logger::getLogger()->error(
+                            "Failed to create perception response for entity " +
+                            std::to_string(job.entityId) + ": " + e.what());
+
+                        // Create an empty response or null response to handle later
+                        serializedResponse.clear();
+                    }
+
                     batchResult.emplace_back(job.entityId, std::move(serializedResponse));
                 }
                 return batchResult;
@@ -566,14 +578,81 @@ void World::runPythonScript(std::string& key) {
     }
 }
 
+void World::registerPythonEventHandler(const std::string& eventType, nb::object callback) {
+    // Validate that the callback is callable
+    if (!nb::hasattr(callback, "__call__")) {
+        throw std::runtime_error("Python callback must be callable");
+    }
+
+    // Store the callback
+    pythonEventCallbacks[eventType].push_back(callback);
+
+    // Register C++ handlers if this is the first callback for this event type
+    if (pythonEventCallbacks[eventType].size() == 1) {
+        // if (eventType == "MoveSolidEntityEvent") {
+        //     dispatcher.sink<MoveSolidEntityEvent>().connect<&World::onMoveSolidEntityEventPython>(*this);
+        if (eventType == "TakeItemEvent") {
+            dispatcher.sink<TakeItemEvent>().connect<&World::onTakeItemEventPython>(*this);
+        } else if (eventType == "UseItemEvent") {
+            dispatcher.sink<UseItemEvent>().connect<&World::onUseItemEventPython>(*this);
+        }
+        // Add more event types as needed
+    }
+}
+
+void World::onTakeItemEventPython(const TakeItemEvent& event) {
+    nb::gil_scoped_acquire acquire;
+
+    auto it = pythonEventCallbacks.find("TakeItemEvent");
+    if (it != pythonEventCallbacks.end()) {
+        nb::dict eventData;
+        eventData["entity_id"] = nb::int_(static_cast<int>(event.entity));
+        eventData["hovered_entity_id"] = nb::int_(event.hoveredEntityId);
+        eventData["selected_entity_id"] = nb::int_(event.selectedEntityId);
+        eventData["event_type"] = nb::str("TakeItemEvent");
+
+        for (const auto& callback : it->second) {
+            try {
+                callback(eventData, nb::cast(&pyRegistry));
+            } catch (const nb::cast_error& e) {
+                Logger::getLogger()->error("Error in Python TakeItemEvent callback: " +
+                                           std::string(e.what()));
+            }
+        }
+    }
+}
+
+void World::onUseItemEventPython(const UseItemEvent& event) {
+    nb::gil_scoped_acquire acquire;
+
+    auto it = pythonEventCallbacks.find("UseItemEvent");
+    if (it != pythonEventCallbacks.end()) {
+        nb::dict eventData;
+        eventData["entity_id"] = nb::int_(static_cast<int>(event.entity));
+        eventData["item_slot"] = nb::int_(event.itemSlot);
+        eventData["hovered_entity_id"] = nb::int_(event.hoveredEntityId);
+        eventData["selected_entity_id"] = nb::int_(event.selectedEntityId);
+        eventData["event_type"] = nb::str("UseItemEvent");
+
+        for (const auto& callback : it->second) {
+            try {
+                callback(eventData, nb::cast(&pyRegistry));
+            } catch (const nb::cast_error& e) {
+                Logger::getLogger()->error("Error in Python UseItemEvent callback: " +
+                                           std::string(e.what()));
+            }
+        }
+    }
+}
+
 void safeExecute(const std::function<void()>& func, const std::string& taskName) {
     try {
         func();  // Execute the task
     } catch (const std::exception& e) {
-        std::cerr << taskName << " async task crashed: " << e.what() << std::endl;
+        Logger::getLogger()->error(taskName + " async task crashed: " + e.what());
         // Optionally, implement additional error handling here (e.g., logging, retry mechanisms)
     } catch (...) {
-        std::cerr << taskName << " async task crashed with an unknown error." << std::endl;
+        Logger::getLogger()->error(taskName + " async task crashed with an unknown error.");
         // Handle non-standard exceptions if necessary
     }
 }
@@ -729,7 +808,7 @@ void World::update() {
 }
 
 void World::putTimeSeries(const std::string& seriesName, long long timestamp, double value) {
-    Logger::getLogger()->info("[World::putTimeSeries] Called");
+    // Logger::getLogger()->debug("[World::putTimeSeries] Called");
     dbHandler->putTimeSeries(seriesName, timestamp, value);
 }
 

@@ -58,6 +58,10 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
 
 void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data);
 
+void imguiPrepareWorldTypeFormWindows(nb::list& commands, nb::dict& shared_data);
+
+void imguiPrepareServerWorldFormWindows(nb::list& commands, nb::dict& shared_data);
+
 void imguiPrepareWorldFormWindows(nb::list& commands, nb::dict& shared_data);
 
 void imguiPrepareWorldListWindows(nb::list& commands, nb::dict& shared_data);
