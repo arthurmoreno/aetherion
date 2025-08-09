@@ -7,7 +7,7 @@ class BaseScene(ABC):
     """Defines the lifecycle of a game scene."""
 
     @abstractmethod
-    def __init__(self, game_window: GameWindow, renderer, views, event_bus, **kwargs):
+    def __init__(self, game_window: GameWindow, renderer, views, event_bus, pubsub_broker, **kwargs):
         """
         Initialize the scene.
         :param game_window: the main game window

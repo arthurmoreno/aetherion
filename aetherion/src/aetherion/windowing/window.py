@@ -18,6 +18,12 @@ from sdl2 import (
 class GameWindow(ABC):
     """Interface for SDL windows."""
 
+    window: SDL_Window
+    width: int
+    height: int
+    title: str
+    flags: int
+
     @abstractmethod
     def show(self) -> None: ...
 

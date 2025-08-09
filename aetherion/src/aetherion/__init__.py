@@ -10,4 +10,11 @@ from aetherion.windowing.window import *  # noqa: F403
 from aetherion.renderer import *  # noqa: F403
 from aetherion.scenes import *  # noqa: F403
 from aetherion.events import *  # noqa: F403
+from aetherion.events.action_event import *  # noqa: F403
+from aetherion.constants import *  # noqa: F403
+from aetherion.game_state.connections import *  # noqa: F403
+from aetherion.game_state.state import *  # noqa: F403
+from aetherion.game_state.world_interface import *  # noqa: F403
+from aetherion.input.action_processor import *  # noqa: F403
+from aetherion.input.event_action_handler import *  # noqa: F403
 from aetherion.resource_manager import *  # noqa: F403
