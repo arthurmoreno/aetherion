@@ -70,7 +70,7 @@ class World {
 
     nb::list getEntityIdsByType(int entityMainType, int entitySubType0);
     nb::dict getEntitiesByType(int entityMainType, int entitySubType0);
-    nb::object getEntityById(int entityId);
+    EntityInterface getEntityById(int entityId);
 
     void setTerrain(int x, int y, int z, const EntityInterface& entityInterface);
     int getTerrain(int x, int y, int z);

@@ -1,4 +1,4 @@
-from lifesimcore import DirectionEnum, EntityInterface, HealthComponent, Position, Velocity
+from aetherion import DirectionEnum, EntityInterface, HealthComponent, Position, Velocity
 
 
 # Sample test data for your components

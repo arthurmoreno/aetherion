@@ -29,6 +29,19 @@ mv $CONDA_PREFIX/lib/libstdc++.so.6 $CONDA_PREFIX/lib/libstdc++.so.6.bak
 4. make build-and-install
 
 
+flatc --ts -o webclient/flatbuffers \
+  schemas/Components.fbs \
+  schemas/Health.fbs \
+  schemas/GridData.fbs \
+  schemas/VoxelGridView.fbs \
+  schemas/PhysicsComponents.fbs \
+  schemas/PerceptionComponent.fbs \
+  schemas/EntityTypeComponent.fbs \
+  schemas/EntityInterface.fbs \
+  schemas/WorldView.fbs \
+  schemas/PerceptionResponse.fbs
+
+
 # Issues:
 
 OpenVDB it needs to be build with the system library not conta

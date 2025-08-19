@@ -168,10 +168,51 @@ NB_MODULE(_aetherion, m) {
     //     .def_rw("x", &RenderTask::x)
     //     .def_rw("y", &RenderTask::y);
 
+    // Expose TextureQuadrant enum for partial rendering
+    nb::enum_<RenderQueue::TextureQuadrant>(m, "TextureQuadrant")
+        .value("TOP_LEFT", RenderQueue::TextureQuadrant::TOP_LEFT)
+        .value("TOP_RIGHT", RenderQueue::TextureQuadrant::TOP_RIGHT)
+        .value("BOTTOM_LEFT", RenderQueue::TextureQuadrant::BOTTOM_LEFT)
+        .value("BOTTOM_RIGHT", RenderQueue::TextureQuadrant::BOTTOM_RIGHT)
+        .export_values();
+
     nb::class_<RenderQueue>(m, "RenderQueue")
         .def(nb::init<>())
         .def("add_task_by_id", &RenderQueue::add_task_by_id)
         .def("add_task_by_texture", &RenderQueue::add_task_by_texture)
+
+        // Partial texture rendering methods
+        .def("add_task_by_id_partial", &RenderQueue::add_task_by_id_partial, nb::arg("z_layer"),
+             nb::arg("priority_group"), nb::arg("texture_id"), nb::arg("x"), nb::arg("y"),
+             nb::arg("lightIntensity"), nb::arg("opacity"), nb::arg("src_x"), nb::arg("src_y"),
+             nb::arg("src_w"), nb::arg("src_h"),
+             "Add a RenderTextureTask with partial texture rendering by texture ID")
+        .def("add_task_by_texture_partial", &RenderQueue::add_task_by_texture_partial,
+             nb::arg("z_layer"), nb::arg("priority_group"), nb::arg("texture_ptr"), nb::arg("x"),
+             nb::arg("y"), nb::arg("lightIntensity"), nb::arg("opacity"), nb::arg("src_x"),
+             nb::arg("src_y"), nb::arg("src_w"), nb::arg("src_h"),
+             "Add a RenderTextureTask with partial texture rendering by texture pointer")
+
+        // Convenience methods for common partial texture rendering scenarios
+        .def(
+            "add_task_by_id_quadrant",
+            [](RenderQueue& self, int z_layer, const std::string& priority_group,
+               const std::string& texture_id, int x, int y, float lightIntensity, float opacity,
+               int quadrant) {
+                RenderQueue::TextureQuadrant quad =
+                    static_cast<RenderQueue::TextureQuadrant>(quadrant);
+                self.add_task_by_id_quadrant(z_layer, priority_group, texture_id, x, y,
+                                             lightIntensity, opacity, quad);
+            },
+            nb::arg("z_layer"), nb::arg("priority_group"), nb::arg("texture_id"), nb::arg("x"),
+            nb::arg("y"), nb::arg("lightIntensity"), nb::arg("opacity"), nb::arg("quadrant"),
+            "Add a RenderTextureTask for a specific quadrant (0=TOP_LEFT, 1=TOP_RIGHT, "
+            "2=BOTTOM_LEFT, 3=BOTTOM_RIGHT)")
+        .def("add_task_by_id_fraction", &RenderQueue::add_task_by_id_fraction, nb::arg("z_layer"),
+             nb::arg("priority_group"), nb::arg("texture_id"), nb::arg("x"), nb::arg("y"),
+             nb::arg("lightIntensity"), nb::arg("opacity"), nb::arg("x_start_ratio"),
+             nb::arg("y_start_ratio"), nb::arg("width_ratio"), nb::arg("height_ratio"),
+             "Add a RenderTextureTask for a fractional portion of texture (ratios 0.0-1.0)")
         // Updated add_task_rect binding to accept a tuple
         .def(
             "add_task_rect",
@@ -360,8 +401,12 @@ NB_MODULE(_aetherion, m) {
         .def("run_python_script", &World::runPythonScript)
         .def("register_python_event_handler", &World::registerPythonEventHandler)
         .def("update", &World::update)
-        .def("dispatch_move_entity_event_by_pos", &World::dispatchMoveSolidEntityEventByPosition)
-        .def("dispatch_move_entity_event_by_id", &World::dispatchMoveSolidEntityEventById)
+        .def("dispatch_move_entity_event_by_pos", &World::dispatchMoveSolidEntityEventByPosition,
+             nb::sig("def dispatch_move_entity_event_by_pos(self, arg0: int, arg1: "
+                     "list[DirectionEnum], /) -> None: ..."))
+        .def("dispatch_move_entity_event_by_id", &World::dispatchMoveSolidEntityEventById,
+             nb::sig("def dispatch_move_entity_event_by_id(self, arg0: int, arg1: "
+                     "list[DirectionEnum], /) -> None: ..."))
         .def("dispatch_take_item_event_by_id", &World::dispatchTakeItemEventById)
         .def("dispatch_use_item_event_by_id", &World::dispatchUseItemEventById)
         .def("dispatch_set_entity_to_debug", &World::dispatchSetEntityToDebug)
@@ -775,13 +820,6 @@ NB_MODULE(_aetherion, m) {
                  self.setComponent<EntityTypeComponent>(value);
              })
 
-        .def("get_mass",
-             [](EntityInterface& self) -> const PhysicsStats& {
-                 return self.getComponent<PhysicsStats>();
-             })
-        .def("set_mass", [](EntityInterface& self,
-                            const PhysicsStats& value) { self.setComponent<PhysicsStats>(value); })
-
         .def("get_position",
              [](EntityInterface& self) -> const Position& { return self.getComponent<Position>(); })
         .def("set_position", [](EntityInterface& self,
@@ -917,6 +955,16 @@ NB_MODULE(_aetherion, m) {
         .def("set_parents",
              [](EntityInterface& self, const ParentsComponent& value) {
                  self.setComponent<ParentsComponent>(value);
+             })
+        .def(
+            "get_physics_stats",
+            [](EntityInterface& self) -> const PhysicsStats& {
+                return self.getComponent<PhysicsStats>();
+            },
+            nb::rv_policy::reference_internal)
+        .def("set_physics_stats",
+             [](EntityInterface& self, const PhysicsStats& value) {
+                 self.setComponent<PhysicsStats>(value);
              })
 
         // has_component method
@@ -1056,6 +1104,7 @@ NB_MODULE(_aetherion, m) {
     m.def("should_draw_terrain", &shouldDrawTerrain);
     m.def("is_terrain_an_empty_water", &isTerrainAnEmptyWater);
     m.def("is_occluding_entity_perspective", &isOccludingEntityPerspective);
+    m.def("is_occluding_some_entity", &isOccludingSomeEntity);
 
     nb::class_<GenomeParams>(m, "GenomeParams")
         .def(nb::init<>())

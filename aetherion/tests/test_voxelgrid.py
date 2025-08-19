@@ -1,4 +1,4 @@
-from lifesimcore import GridData, VoxelGrid, VoxelGridCoordinates
+from aetherion import GridData, VoxelGrid, VoxelGridCoordinates
 
 
 def test_set_and_get_voxel():

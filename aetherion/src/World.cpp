@@ -411,13 +411,13 @@ nb::dict World::createPerceptionResponses(nb::dict entitiesWithQueries) {
     return perceptionResponses;
 }
 
-nb::object World::getEntityById(int entityId) {
+EntityInterface World::getEntityById(int entityId) {
     // Convert the entity ID to the entt::entity type
     entt::entity entity = static_cast<entt::entity>(entityId);
 
     EntityInterface entityInterface = createEntityInterface(registry, entity);
 
-    return nb::cast(entityInterface);
+    return entityInterface;
 }
 
 // Helper function to get bounds for perception

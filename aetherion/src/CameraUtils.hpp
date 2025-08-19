@@ -90,5 +90,6 @@ bool shouldDrawTerrain(const EntityInterface& terrain, const bool EMPTY_TILE_DEB
 bool isTerrainAnEmptyWater(const EntityInterface& terrain);
 bool isOccludingEntityPerspective(const EntityInterface& entity, const WorldView& worldView,
                                   const EntityInterface& occludingEntity);
+bool isOccludingSomeEntity(const WorldView& worldView, const EntityInterface& occludingEntity);
 
 #endif  // CAMERA_UTILS_HPP

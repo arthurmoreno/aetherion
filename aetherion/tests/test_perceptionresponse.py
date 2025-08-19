@@ -1,4 +1,4 @@
-from lifesimcore import (
+from aetherion import (
     DirectionEnum,
     EntityInterface,
     PerceptionResponse,

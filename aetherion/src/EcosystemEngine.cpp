@@ -1077,11 +1077,11 @@ void processPlants(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatc
                     raspberryFruit,
                     ItemTypeComponent{static_cast<int>(ItemEnum::FOOD),
                                       static_cast<int>(ItemFoodEnum::RASPBERRY_FRUIT)});
-                registry.emplace<FoodItem>(raspberryFruit, FoodItem{.energyDensity = 0.52,
+                registry.emplace<FoodItem>(raspberryFruit, FoodItem{.energyDensity = 0.1,
                                                                     .mass = 60,
                                                                     .volume = 20,
-                                                                    .energyHealthRatio = 0.8,
-                                                                    .convertionEfficiency = 0.8});
+                                                                    .energyHealthRatio = 0.3,
+                                                                    .convertionEfficiency = 0.3});
 
                 auto entityId = entt::to_integral(raspberryFruit);
                 inventory.itemIDs.push_back(entityId);

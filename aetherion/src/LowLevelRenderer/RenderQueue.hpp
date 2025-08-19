@@ -36,7 +36,23 @@ class RenderTaskBase {
 class RenderTextureTask : public RenderTaskBase {
    public:
     RenderTextureTask(SDL_Texture* tex, int x_pos, int y_pos, float lightIntensity, float opacity)
-        : texture(tex), x(x_pos), y(y_pos), lightIntensity(lightIntensity), opacity(opacity) {}
+        : texture(tex),
+          x(x_pos),
+          y(y_pos),
+          lightIntensity(lightIntensity),
+          opacity(opacity),
+          use_source_rect(false) {}
+
+    // Constructor for partial texture rendering
+    RenderTextureTask(SDL_Texture* tex, int x_pos, int y_pos, float lightIntensity, float opacity,
+                      int src_x, int src_y, int src_w, int src_h)
+        : texture(tex),
+          x(x_pos),
+          y(y_pos),
+          lightIntensity(lightIntensity),
+          opacity(opacity),
+          use_source_rect(true),
+          source_rect{src_x, src_y, src_w, src_h} {}
 
     void render(SDL_Renderer* renderer) const override {
         if (!texture) {
@@ -46,10 +62,21 @@ class RenderTextureTask : public RenderTaskBase {
         }
 
         SDL_Rect dst_rect;
-        if (SDL_QueryTexture(texture, NULL, NULL, &dst_rect.w, &dst_rect.h) != 0) {
-            SDL_Log("SDL_QueryTexture Error: %s", SDL_GetError());
-            return;
+        SDL_Rect* src_rect_ptr = nullptr;
+
+        if (use_source_rect) {
+            // Use partial texture rendering
+            dst_rect.w = source_rect.w;
+            dst_rect.h = source_rect.h;
+            src_rect_ptr = const_cast<SDL_Rect*>(&source_rect);
+        } else {
+            // Use full texture rendering
+            if (SDL_QueryTexture(texture, NULL, NULL, &dst_rect.w, &dst_rect.h) != 0) {
+                SDL_Log("SDL_QueryTexture Error: %s", SDL_GetError());
+                return;
+            }
         }
+
         dst_rect.x = x;
         dst_rect.y = y;
 
@@ -78,8 +105,8 @@ class RenderTextureTask : public RenderTaskBase {
             // Handle error as needed
         }
 
-        // Render the texture
-        if (SDL_RenderCopy(renderer, texture, NULL, &dst_rect) != 0) {
+        // Render the texture (full or partial based on src_rect_ptr)
+        if (SDL_RenderCopy(renderer, texture, src_rect_ptr, &dst_rect) != 0) {
             // Handle rendering error
             SDL_Log("SDL_RenderCopy Error: %s", SDL_GetError());
         }
@@ -102,6 +129,8 @@ class RenderTextureTask : public RenderTaskBase {
     int y;
     float lightIntensity;
     float opacity;
+    bool use_source_rect;
+    SDL_Rect source_rect;
 };
 
 class RenderRectTask : public RenderTaskBase {
@@ -283,6 +312,121 @@ class RenderQueue {
         add_task_internal(
             z_layer, priority_group,
             std::make_shared<RenderTextureTask>(texture, x, y, lightIntensity, opacity));
+    }
+
+    // Add RenderTextureTask with partial texture rendering by Texture ID (string)
+    void add_task_by_id_partial(int z_layer, const std::string& priority_group,
+                                const std::string& texture_id, int x, int y, float lightIntensity,
+                                float opacity, int src_x, int src_y, int src_w, int src_h) {
+        SDL_Texture* tex = TextureManager::Instance()->getTexture(texture_id);
+        if (!tex) {
+            std::cerr << "Warning: Texture ID '" << texture_id << "' not found. Task skipped."
+                      << std::endl;
+            return;
+        }
+        add_task_internal(z_layer, priority_group,
+                          std::make_shared<RenderTextureTask>(tex, x, y, lightIntensity, opacity,
+                                                              src_x, src_y, src_w, src_h));
+    }
+
+    // Add RenderTextureTask with partial texture rendering by SDL_Texture* (uintptr_t for safe
+    // casting)
+    void add_task_by_texture_partial(int z_layer, const std::string& priority_group,
+                                     uintptr_t texture_ptr, int x, int y, float lightIntensity,
+                                     float opacity, int src_x, int src_y, int src_w, int src_h) {
+        SDL_Texture* texture = reinterpret_cast<SDL_Texture*>(texture_ptr);
+        if (!texture) {
+            std::cerr << "Warning: Null texture provided. Task skipped." << std::endl;
+            return;
+        }
+        add_task_internal(z_layer, priority_group,
+                          std::make_shared<RenderTextureTask>(texture, x, y, lightIntensity,
+                                                              opacity, src_x, src_y, src_w, src_h));
+    }
+
+    // Convenience methods for common partial texture rendering scenarios
+
+    // Render a quadrant of a texture (useful for 32x32 sprites split into 16x16 quadrants)
+    enum class TextureQuadrant { TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT };
+
+    void add_task_by_id_quadrant(int z_layer, const std::string& priority_group,
+                                 const std::string& texture_id, int x, int y, float lightIntensity,
+                                 float opacity, TextureQuadrant quadrant) {
+        SDL_Texture* tex = TextureManager::Instance()->getTexture(texture_id);
+        if (!tex) {
+            std::cerr << "Warning: Texture ID '" << texture_id << "' not found. Task skipped."
+                      << std::endl;
+            return;
+        }
+
+        // Get texture dimensions
+        int tex_width, tex_height;
+        if (SDL_QueryTexture(tex, NULL, NULL, &tex_width, &tex_height) != 0) {
+            std::cerr << "Warning: Could not query texture dimensions. Task skipped." << std::endl;
+            return;
+        }
+
+        int half_width = tex_width / 2;
+        int half_height = tex_height / 2;
+        int src_x = 0, src_y = 0;
+
+        switch (quadrant) {
+            case TextureQuadrant::TOP_LEFT:
+                src_x = 0;
+                src_y = 0;
+                break;
+            case TextureQuadrant::TOP_RIGHT:
+                src_x = half_width;
+                src_y = 0;
+                break;
+            case TextureQuadrant::BOTTOM_LEFT:
+                src_x = 0;
+                src_y = half_height;
+                break;
+            case TextureQuadrant::BOTTOM_RIGHT:
+                src_x = half_width;
+                src_y = half_height;
+                break;
+        }
+
+        add_task_internal(
+            z_layer, priority_group,
+            std::make_shared<RenderTextureTask>(tex, x, y, lightIntensity, opacity, src_x, src_y,
+                                                half_width, half_height));
+    }
+
+    // Render a custom fraction of a texture (e.g., left half, top third, etc.)
+    void add_task_by_id_fraction(int z_layer, const std::string& priority_group,
+                                 const std::string& texture_id, int x, int y, float lightIntensity,
+                                 float opacity, float x_start_ratio, float y_start_ratio,
+                                 float width_ratio, float height_ratio) {
+        SDL_Texture* tex = TextureManager::Instance()->getTexture(texture_id);
+        if (!tex) {
+            std::cerr << "Warning: Texture ID '" << texture_id << "' not found. Task skipped."
+                      << std::endl;
+            return;
+        }
+
+        // Get texture dimensions
+        int tex_width, tex_height;
+        if (SDL_QueryTexture(tex, NULL, NULL, &tex_width, &tex_height) != 0) {
+            std::cerr << "Warning: Could not query texture dimensions. Task skipped." << std::endl;
+            return;
+        }
+
+        // Calculate source rectangle based on ratios
+        int src_x = static_cast<int>(tex_width * std::max(0.0f, std::min(1.0f, x_start_ratio)));
+        int src_y = static_cast<int>(tex_height * std::max(0.0f, std::min(1.0f, y_start_ratio)));
+        int src_w = static_cast<int>(tex_width * std::max(0.0f, std::min(1.0f, width_ratio)));
+        int src_h = static_cast<int>(tex_height * std::max(0.0f, std::min(1.0f, height_ratio)));
+
+        // Ensure we don't go beyond texture bounds
+        src_w = std::min(src_w, tex_width - src_x);
+        src_h = std::min(src_h, tex_height - src_y);
+
+        add_task_internal(z_layer, priority_group,
+                          std::make_shared<RenderTextureTask>(tex, x, y, lightIntensity, opacity,
+                                                              src_x, src_y, src_w, src_h));
     }
 
     // Add RenderRectTask

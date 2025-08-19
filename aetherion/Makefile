@@ -32,7 +32,7 @@ device-info:
 .PHONY: clang-format
 clang-format:
 	@echo "Formatting C++ files with clang-format..."
-	find ./src -type f -regex '.*\.\(cpp\|hpp\|h\|cxx\|cc\)' | \
+	find ./src ./webclient/wasm -type f -regex '.*\.\(cpp\|hpp\|h\|cxx\|cc\)' | \
 	xargs clang-format -i
 
 .PHONY: python-format

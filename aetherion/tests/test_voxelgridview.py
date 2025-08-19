@@ -1,4 +1,4 @@
-from lifesimcore import VoxelGridView
+from aetherion import VoxelGridView
 
 
 def test_voxelgridview_serialization():

@@ -103,7 +103,7 @@ void MetabolismSystem::processMetabolism(entt::registry& registry, VoxelGrid& vo
                       << ") is above the threshold. Cloning the entity and generating new beast."
                       << std::endl;
 
-            metabolism.energyReserve -= 50;
+            metabolism.energyReserve -= 60;
 
             // Clone the entity
             entt::entity cloned = clone_entity(registry, entity);
@@ -129,7 +129,7 @@ void MetabolismSystem::processMetabolism(entt::registry& registry, VoxelGrid& vo
 
             if (registry.any_of<MetabolismComponent>(cloned)) {
                 auto& metabolism = registry.get<MetabolismComponent>(cloned);
-                metabolism.energyReserve = 40;
+                metabolism.energyReserve = 10;
             }
 
             if (registry.any_of<Inventory>(cloned)) {

@@ -5,8 +5,11 @@ from collections import defaultdict, deque
 from enum import StrEnum
 from typing import Any, Callable, Generic, TypeVar
 
-from lifesim.logger import logger
 from pydantic import BaseModel, Field
+
+from aetherion.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class GameEventType(StrEnum):

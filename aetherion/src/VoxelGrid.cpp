@@ -275,13 +275,12 @@ int VoxelGridView::getTerrainVoxel(int x, int y, int z) const {
 
     if (local_x >= 0 && local_x < width && local_y >= 0 && local_y < height && local_z >= 0 &&
         local_z < depth) {
-        return terrainData[local_x + local_y * width + local_z * width * height];
-    } else {
-        // Handle out-of-bounds access
-        // std::cerr << "Attempted to get voxel out of bounds at (" << x << ", " << y << ", " << z
-        //           << ")" << std::endl;
-        return -1;  // Return default-initialized GridData
+        int retrievedTerrainId = terrainData[local_x + local_y * width + local_z * width * height];
+        if (retrievedTerrainId != 0) {
+            return retrievedTerrainId;
+        }
     }
+    return -1;
 }
 
 void VoxelGridView::setEntityVoxel(int x, int y, int z, const int voxelData) {
@@ -306,13 +305,12 @@ int VoxelGridView::getEntityVoxel(int x, int y, int z) const {
 
     if (local_x >= 0 && local_x < width && local_y >= 0 && local_y < height && local_z >= 0 &&
         local_z < depth) {
-        return entityData[local_x + local_y * width + local_z * width * height];
-    } else {
-        // Handle out-of-bounds access
-        // std::cerr << "Attempted to get voxel out of bounds at (" << x << ", " << y << ", " << z
-        //           << ")" << std::endl;
-        return -1;  // Return default-initialized GridData
+        int retrievedEntityId = entityData[local_x + local_y * width + local_z * width * height];
+        if (retrievedEntityId != 0) {
+            return retrievedEntityId;
+        }
     }
+    return -1;
 }
 
 std::vector<int> VoxelGrid::getAllTerrainIdsInRegion(int x_min, int y_min, int z_min, int x_max,

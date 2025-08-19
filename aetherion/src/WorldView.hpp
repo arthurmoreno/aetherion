@@ -181,11 +181,12 @@ struct WorldView {
 
     int getEntityId(int x, int y, int z) const { return voxelGridView.getEntityVoxel(x, y, z); }
 
-    bool checkIfTerrainExist(int x, int y, int z) {
+    bool checkIfTerrainExist(int x, int y, int z) const {
         return voxelGridView.getTerrainVoxel(x, y, z) != -1;
     }
 
-    bool checkIfEntityExist(int x, int y, int z) {
+    // TODO: There is a bug here, because voxelGridView is not set to -1, instead it is set to 0
+    bool checkIfEntityExist(int x, int y, int z) const {
         return voxelGridView.getEntityVoxel(x, y, z) != -1;
     }
 

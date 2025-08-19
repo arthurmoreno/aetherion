@@ -296,3 +296,50 @@ bool isOccludingEntityPerspective(const EntityInterface& entity, const WorldView
 
     return false;
 }
+
+bool isOccludingSomeEntity(const WorldView& worldView, const EntityInterface& occludingEntity) {
+    // Get the position of the occluding entity
+    const Position occludingEntityPos = occludingEntity.getComponent<Position>();
+    const int occludingEntityX = occludingEntityPos.x;
+    const int occludingEntityY = occludingEntityPos.y;
+    const int occludingEntityZ = occludingEntityPos.z;
+
+    // Get the occluding entity type
+    const EntityTypeComponent occludingEntityType =
+        occludingEntity.getComponent<EntityTypeComponent>();
+
+    // Check if the occluding entity is of type TERRAIN
+    if (occludingEntityType.mainType == static_cast<int>(EntityEnum::TERRAIN)) {
+        // Check the 3 critical voxel positions for terrain occlusion at same Z level:
+        // 1. Direct overlap position
+        if (worldView.checkIfEntityExist(occludingEntityX, occludingEntityY, occludingEntityZ)) {
+            return true;
+        }
+
+        // 2. Southeast diagonal offset positions
+        if (worldView.checkIfEntityExist(occludingEntityX - 1, occludingEntityY - 1,
+                                         occludingEntityZ) ||
+            worldView.checkIfEntityExist(occludingEntityX - 1, occludingEntityY - 2,
+                                         occludingEntityZ) ||
+            worldView.checkIfEntityExist(occludingEntityX, occludingEntityY - 1,
+                                         occludingEntityZ) ||
+            worldView.checkIfEntityExist(occludingEntityX - 1, occludingEntityY,
+                                         occludingEntityZ)) {
+            return true;
+        }
+    }
+
+    // Check for entities at lower Z levels that could be occluded
+    // 1. Direct overlap at lower Z
+    if (worldView.checkIfEntityExist(occludingEntityX, occludingEntityY, occludingEntityZ - 1)) {
+        return true;
+    }
+
+    // 2. Diagonal overlap at lower Z
+    if (worldView.checkIfEntityExist(occludingEntityX - 1, occludingEntityY - 1,
+                                     occludingEntityZ - 1)) {
+        return true;
+    }
+
+    return false;
+}

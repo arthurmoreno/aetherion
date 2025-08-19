@@ -1,4 +1,4 @@
-from lifesimcore import DirectionEnum, EntityInterface, Position, WorldView, WorldViewFlatB
+from aetherion import DirectionEnum, EntityInterface, Position, WorldView, WorldViewFlatB
 
 
 def test_world_view_structpack_serialization():

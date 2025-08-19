@@ -11,7 +11,7 @@
 
 struct ConsoleLogsComponent {
     std::map<std::string, std::string> log_buffer;
-    size_t max_size;
+    uint32_t max_size;
 
     // Helper function to get current time as string
     std::string current_time_string() const {

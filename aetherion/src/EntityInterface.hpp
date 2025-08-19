@@ -1,9 +1,12 @@
 #ifndef ENTITYINTERFACE_HPP
 #define ENTITYINTERFACE_HPP
 
-#include <nanobind/nanobind.h>
+#if !defined(__EMSCRIPTEN__)
+    #include <nanobind/nanobind.h>
+#endif
 
 #include <bitset>
+#include <cstdint>
 #include <entt/entt.hpp>
 #include <tuple>
 #include <type_traits>
@@ -22,7 +25,9 @@
 #include "components/PlantsComponents.hpp"
 #include "components/TerrainComponents.hpp"
 
+#if !defined(__EMSCRIPTEN__)
 namespace nb = nanobind;
+#endif
 
 // Define readable component bitmask flags
 enum ComponentFlag {
@@ -53,9 +58,10 @@ using ComponentTypes =
                MatterContainer, ItemEnum, FoodItem, ParentsComponent, ItemTypeComponent,
                TileEffectComponent, TileEffectsList, MetabolismComponent>;
 
+// Use fixed-width integer for cross-platform stable serialization (WASM vs. native)
 struct EntityHeader {
     int entityId;
-    unsigned long componentMask;
+    std::uint64_t componentMask;
 };
 
 class EntityInterface {
@@ -99,7 +105,8 @@ class EntityInterface {
     // Serialization function
     std::vector<char> serialize() const {
         std::vector<char> buffer;
-        EntityHeader header{entityId, componentMask.to_ulong()};
+        // Serialize component mask as 64-bit to avoid width differences across platforms
+        EntityHeader header{entityId, componentMask.to_ullong()};
         struct_pack::serialize_to(buffer, header);
 
         serializeComponents(buffer);
@@ -133,7 +140,8 @@ class EntityInterface {
         return entityInterface;
     }
 
-    // Python serialization wrapper functions
+    // Python serialization wrapper functions (disabled for Emscripten/WASM)
+#if !defined(__EMSCRIPTEN__)
     nb::bytes py_serialize() const {
         std::vector<char> serialized_data = serialize();
         return nb::bytes(serialized_data.data(), serialized_data.size());
@@ -149,6 +157,7 @@ class EntityInterface {
 
         return deserialize(data_ptr, data_size);
     }
+#endif
 
    private:
     // Helper to get the ComponentFlag for a given component type
