@@ -162,6 +162,44 @@ NB_MODULE(_aetherion, m) {
     m.def("get_terrain_camera_stats", &getTerrainCameraStats,
           "Returns value if the water camera feature is on or off");
 
+    // TerrainStorage bindings
+    nb::class_<TerrainStorage>(m, "TerrainStorage")
+        .def(nb::init<>())
+        .def("initialize", &TerrainStorage::initialize)
+        .def("apply_transform", &TerrainStorage::applyTransform, nb::arg("voxel_size"))
+        .def("mem_usage", &TerrainStorage::memUsage)
+        // Entity type components
+        .def("set_terrain_main_type", &TerrainStorage::setTerrainMainType)
+        .def("get_terrain_main_type", &TerrainStorage::getTerrainMainType)
+        .def("set_terrain_sub_type0", &TerrainStorage::setTerrainSubType0)
+        .def("get_terrain_sub_type0", &TerrainStorage::getTerrainSubType0)
+        .def("set_terrain_sub_type1", &TerrainStorage::setTerrainSubType1)
+        .def("get_terrain_sub_type1", &TerrainStorage::getTerrainSubType1)
+        // Matter containers
+        .def("set_terrain_matter", &TerrainStorage::setTerrainMatter)
+        .def("get_terrain_matter", &TerrainStorage::getTerrainMatter)
+        .def("set_terrain_water_matter", &TerrainStorage::setTerrainWaterMatter)
+        .def("get_terrain_water_matter", &TerrainStorage::getTerrainWaterMatter)
+        .def("set_terrain_vapor_matter", &TerrainStorage::setTerrainVaporMatter)
+        .def("get_terrain_vapor_matter", &TerrainStorage::getTerrainVaporMatter)
+        .def("set_terrain_biomass_matter", &TerrainStorage::setTerrainBiomassMatter)
+        .def("get_terrain_biomass_matter", &TerrainStorage::getTerrainBiomassMatter)
+        // Physics
+        .def("set_terrain_mass", &TerrainStorage::setTerrainMass)
+        .def("get_terrain_mass", &TerrainStorage::getTerrainMass)
+        .def("set_terrain_max_speed", &TerrainStorage::setTerrainMaxSpeed)
+        .def("get_terrain_max_speed", &TerrainStorage::getTerrainMaxSpeed)
+        .def("set_terrain_min_speed", &TerrainStorage::setTerrainMinSpeed)
+        .def("get_terrain_min_speed", &TerrainStorage::getTerrainMinSpeed)
+        // Flags
+        .def("set_flag_bits", &TerrainStorage::setFlagBits)
+        .def("get_flag_bits", &TerrainStorage::getFlagBits)
+        .def("set_terrain_max_load_capacity", &TerrainStorage::setTerrainMaxLoadCapacity)
+        .def("get_terrain_max_load_capacity", &TerrainStorage::getTerrainMaxLoadCapacity)
+        // Activity and maintenance
+        .def("is_active", &TerrainStorage::isActive)
+        .def("prune", &TerrainStorage::prune);
+
     // nb::class_<RenderTask>(m, "RenderTask")
     //     .def(nb::init<SDL_Texture*, int, int>())
     //     .def_rw("texture", &RenderTask::texture)

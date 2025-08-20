@@ -17,6 +17,7 @@
 
 #include "CameraUtils.hpp"
 #include "EntityInterface.hpp"
+#include "terrain/TerrainStorage.hpp"
 #include "Gui/Gui.hpp"
 #include "Gui/GuiStateManager.hpp"
 #include "ItemConfiguration.hpp"
