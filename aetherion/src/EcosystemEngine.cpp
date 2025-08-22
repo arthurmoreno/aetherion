@@ -984,7 +984,7 @@ void EcosystemEngine::loopTiles(entt::registry& registry, VoxelGrid& voxelGrid,
         waterUnits += matterContainer.WaterVapor;
 
         count++;
-        // Pause execution after every 1000 entities processed
+        // Pause execution after every 2000 entities processed
         if (count >= 2'000) {
             count = 0;  // Reset the counter
             std::this_thread::sleep_for(

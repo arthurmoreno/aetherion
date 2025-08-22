@@ -164,6 +164,7 @@ add_subdirectory(src/components)
 add_subdirectory(src/LowLevelRenderer)
 add_subdirectory(src/Gui)
 add_subdirectory(src/neat)
+add_subdirectory(src/terrain)
 
 # ------------------------------------------------------------------------------
 # Build the Python Module (nanobind)
@@ -178,6 +179,7 @@ target_link_libraries(_aetherion PRIVATE
     LowLevelRenderer
     Gui
     neat
+    terrain
     ${SDL2_LIBRARIES}
     ${SDL2_IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES}

@@ -61,8 +61,8 @@ thread_local TerrainStorage::ThreadCache TerrainStorage::s_threadCache;
 TerrainStorage::TerrainStorage() {
     // Allocate terrain-related grids (terrainGrid attached externally)
     terrainGrid = openvdb::Int32Grid::create(-1);  // Default background terrain type
+    // Entity type component grids
     mainTypeGrid = openvdb::Int32Grid::create(0);
-    // Sub-type grids
     subType0Grid = openvdb::Int32Grid::create(0);
     subType1Grid = openvdb::Int32Grid::create(-1);
 
