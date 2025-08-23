@@ -169,4 +169,43 @@ class TerrainGridRepository {
     void onConstructMoving(entt::registry& reg, entt::entity e);
 };
 
+// ================ Template Method Implementations ================
+// These must be in the header for proper instantiation
+
+template <typename Callback>
+void TerrainGridRepository::iterateWaterMatter(Callback callback) const {
+    storage_.iterateWaterMatter([this, callback](int x, int y, int z, int amount) {
+        // Provide both static water amount and full terrain info (including transients)
+        TerrainInfo info = this->readTerrainInfo(x, y, z);
+        callback(x, y, z, amount, info);
+    });
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateVaporMatter(Callback callback) const {
+    storage_.iterateVaporMatter([this, callback](int x, int y, int z, int amount) {
+        // Provide both static vapor amount and full terrain info (including transients)
+        TerrainInfo info = this->readTerrainInfo(x, y, z);
+        callback(x, y, z, amount, info);
+    });
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateBiomassMatter(Callback callback) const {
+    storage_.iterateBiomassMatter([this, callback](int x, int y, int z, int amount) {
+        // Provide both static biomass amount and full terrain info (including transients)
+        TerrainInfo info = this->readTerrainInfo(x, y, z);
+        callback(x, y, z, amount, info);
+    });
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateActiveVoxels(Callback callback) const {
+    // Iterate through all active coordinates and provide full terrain info
+    for (const auto& [key, entity] : byCoord_) {
+        TerrainInfo info = readTerrainInfo(key.x, key.y, key.z);
+        callback(key.x, key.y, key.z, info);
+    }
+}
+
 #endif  // TERRAIN_GRID_REPOSITORY_HPP

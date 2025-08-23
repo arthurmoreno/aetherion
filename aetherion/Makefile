@@ -87,3 +87,24 @@ build-and-install:
 		echo "Using default TARGET_PREFIX_PATH from script"; \
 		bash ./scripts/build_and_install.sh; \
 	fi
+
+.PHONY: cpp-tests
+cpp-tests:
+	@echo "Building and running C++ tests..."
+	@rm -rf build-tests && mkdir build-tests
+	@cd build-tests && \
+	cmake ../tests/cpp \
+		-DCMAKE_PREFIX_PATH="$(PREFIX_PATH)" \
+		-DCMAKE_BUILD_TYPE=Debug && \
+	make test_water_simulation
+	@echo "Running water simulation test..."
+	@./build-tests/test_water_simulation
+
+.PHONY: cpp-tests-only
+cpp-tests-only:
+	@echo "Running existing C++ tests..."
+	@if [ -d "build-tests" ] && [ -f "build-tests/test_water_simulation" ]; then \
+		./build-tests/test_water_simulation; \
+	else \
+		echo "No test build found. Run 'make cpp-tests' first."; \
+	fi
