@@ -14,6 +14,25 @@ namespace {
 //  bit  27:    canStack (1 bit)
 //  bits 28-29: matterState (2 bits, stores enum-1)
 
+// Bit field constants for flagsGrid manipulation
+namespace FlagBits {
+// Gradient vector field (bits 0-23)
+constexpr uint32_t GRADIENT_MASK = 0xFFFFFF;  // 24 bits: 0x00FFFFFF
+constexpr int GRADIENT_SHIFT = 0;
+
+// Direction field (bits 24-26)
+constexpr uint32_t DIRECTION_MASK = 0x7;  // 3 bits: 0x00000007
+constexpr int DIRECTION_SHIFT = 24;
+
+// CanStack field (bit 27)
+constexpr uint32_t CANSTACK_MASK = 0x1;  // 1 bit: 0x00000001
+constexpr int CANSTACK_SHIFT = 27;
+
+// MatterState field (bits 28-29)
+constexpr uint32_t MATTERSTATE_MASK = 0x3;  // 2 bits: 0x00000003
+constexpr int MATTERSTATE_SHIFT = 28;
+}  // namespace FlagBits
+
 inline int8_t quantizeGrad(float v) {
     float clamped = std::clamp(v, -1.0f, 1.0f);
     int q = static_cast<int>(std::round(clamped * 127.0f));
@@ -52,6 +71,67 @@ inline uint32_t setBits(uint32_t flags, int shift, uint32_t mask, uint32_t value
 inline uint32_t getBits(uint32_t flags, int shift, uint32_t mask) {
     return (flags >> shift) & mask;
 }
+
+// Helper functions to decode from flags directly without additional tree lookups
+inline bool decodeCanStackEntities(uint32_t flags) {
+    return getBits(flags, FlagBits::CANSTACK_SHIFT, FlagBits::CANSTACK_MASK) != 0u;
+}
+
+inline GradientVector decodeGradientVector(uint32_t flags) {
+    uint32_t gradBits = getBits(flags, FlagBits::GRADIENT_SHIFT, FlagBits::GRADIENT_MASK);
+    return unpackGradFromBits(gradBits);
+}
+
+inline DirectionEnum decodeDirection(uint32_t flags) {
+    uint32_t dirVal = getBits(flags, FlagBits::DIRECTION_SHIFT, FlagBits::DIRECTION_MASK);
+    if (dirVal == 0) return DirectionEnum::UP;  // default
+    return static_cast<DirectionEnum>(static_cast<int>(dirVal));
+}
+
+inline MatterState decodeMatterState(uint32_t flags) {
+    uint32_t val = getBits(flags, FlagBits::MATTERSTATE_SHIFT, FlagBits::MATTERSTATE_MASK);
+    return static_cast<MatterState>(static_cast<int>(val) + 1);
+}
+
+// Helper function to encode StructuralIntegrityComponent into flags
+inline uint32_t encodeStructuralIntegrity(const StructuralIntegrityComponent& sic,
+                                          uint32_t existingFlags) {
+    uint32_t flags = existingFlags;
+
+    // Set canStackEntities (bit 27)
+    flags = setBits(flags, FlagBits::CANSTACK_SHIFT, FlagBits::CANSTACK_MASK,
+                    sic.canStackEntities ? 1u : 0u);
+
+    // Set gradient vector (bits 0-23)
+    flags = setBits(flags, FlagBits::GRADIENT_SHIFT, FlagBits::GRADIENT_MASK,
+                    packGradToBits(sic.gradientVector));
+
+    return flags;
+}
+
+// Helper functions to encode individual flag components
+inline uint32_t encodeDirection(uint32_t flags, DirectionEnum direction) {
+    uint32_t dirVal = static_cast<uint32_t>(direction) & FlagBits::DIRECTION_MASK;
+    return setBits(flags, FlagBits::DIRECTION_SHIFT, FlagBits::DIRECTION_MASK, dirVal);
+}
+
+inline uint32_t encodeCanStackEntities(uint32_t flags, bool canStack) {
+    return setBits(flags, FlagBits::CANSTACK_SHIFT, FlagBits::CANSTACK_MASK, canStack ? 1u : 0u);
+}
+
+inline uint32_t encodeMatterState(uint32_t flags, MatterState state) {
+    int val = static_cast<int>(state) - 1;
+    if (val < 0) val = 0;
+    if (val > 3) val = 3;
+    return setBits(flags, FlagBits::MATTERSTATE_SHIFT, FlagBits::MATTERSTATE_MASK,
+                   static_cast<uint32_t>(val));
+}
+
+inline uint32_t encodeGradientVector(uint32_t flags, const GradientVector& gradient) {
+    // Clear existing gradient bits (0..23) and set
+    return setBits(flags, FlagBits::GRADIENT_SHIFT, FlagBits::GRADIENT_MASK,
+                   packGradToBits(gradient));
+}
 }  // namespace
 
 // ------------------ TerrainStorage implementation ------------------
@@ -63,7 +143,8 @@ TerrainStorage::TerrainStorage() {
     // (e.g., in tests that don't create a VoxelGrid, which normally initializes OpenVDB).
     openvdb::initialize();
     // Allocate terrain-related grids (terrainGrid attached externally)
-    terrainGrid = openvdb::Int32Grid::create(-1);  // Default background terrain type
+    terrainGrid =
+        openvdb::Int32Grid::create(-2);  // -2 = off nodes, -1 = terrain exists but no enTT entity
     // Entity type component grids
     mainTypeGrid = openvdb::Int32Grid::create(0);
     subType0Grid = openvdb::Int32Grid::create(0);
@@ -340,62 +421,53 @@ int TerrainStorage::getTerrainMinSpeed(int x, int y, int z) const {
 void TerrainStorage::setTerrainDirection(int x, int y, int z, DirectionEnum direction) {
     auto c = openvdb::Coord(x, y, z);
     uint32_t flags = static_cast<uint32_t>(flagsGrid->tree().getValue(c));
-    uint32_t dirVal = static_cast<uint32_t>(direction) & 0x7u;
-    flags = setBits(flags, 24, 0x7u, dirVal);
+    flags = encodeDirection(flags, direction);
     flagsGrid->tree().setValue(c, static_cast<int>(flags));
 }
 
 DirectionEnum TerrainStorage::getTerrainDirection(int x, int y, int z) const {
     auto c = openvdb::Coord(x, y, z);
     uint32_t flags = static_cast<uint32_t>(flagsGrid->tree().getValue(c));
-    uint32_t dirVal = getBits(flags, 24, 0x7u);
-    if (dirVal == 0) return DirectionEnum::UP;  // default
-    return static_cast<DirectionEnum>(static_cast<int>(dirVal));
+    return decodeDirection(flags);
 }
 
 void TerrainStorage::setTerrainCanStackEntities(int x, int y, int z, bool canStack) {
     auto c = openvdb::Coord(x, y, z);
     uint32_t flags = static_cast<uint32_t>(flagsGrid->tree().getValue(c));
-    flags = setBits(flags, 27, 0x1u, canStack ? 1u : 0u);
+    flags = encodeCanStackEntities(flags, canStack);
     flagsGrid->tree().setValue(c, static_cast<int>(flags));
 }
 
 bool TerrainStorage::getTerrainCanStackEntities(int x, int y, int z) const {
     auto c = openvdb::Coord(x, y, z);
     uint32_t flags = static_cast<uint32_t>(flagsGrid->tree().getValue(c));
-    return getBits(flags, 27, 0x1u) != 0u;
+    return decodeCanStackEntities(flags);
 }
 
 void TerrainStorage::setTerrainMatterState(int x, int y, int z, MatterState state) {
     auto c = openvdb::Coord(x, y, z);
     uint32_t flags = static_cast<uint32_t>(flagsGrid->tree().getValue(c));
-    int val = static_cast<int>(state) - 1;
-    if (val < 0) val = 0;
-    if (val > 3) val = 3;
-    flags = setBits(flags, 28, 0x3u, static_cast<uint32_t>(val));
+    flags = encodeMatterState(flags, state);
     flagsGrid->tree().setValue(c, static_cast<int>(flags));
 }
 
 MatterState TerrainStorage::getTerrainMatterState(int x, int y, int z) const {
     auto c = openvdb::Coord(x, y, z);
     uint32_t flags = static_cast<uint32_t>(flagsGrid->tree().getValue(c));
-    uint32_t val = getBits(flags, 28, 0x3u);
-    return static_cast<MatterState>(static_cast<int>(val) + 1);
+    return decodeMatterState(flags);
 }
 
 void TerrainStorage::setTerrainGradientVector(int x, int y, int z, const GradientVector& gradient) {
     auto c = openvdb::Coord(x, y, z);
     uint32_t flags = static_cast<uint32_t>(flagsGrid->tree().getValue(c));
-    // Clear existing gradient bits (0..23) and set
-    flags = setBits(flags, 0, 0xFFFFFFu, packGradToBits(gradient));
+    flags = encodeGradientVector(flags, gradient);
     flagsGrid->tree().setValue(c, static_cast<int>(flags));
 }
 
 GradientVector TerrainStorage::getTerrainGradientVector(int x, int y, int z) const {
     auto c = openvdb::Coord(x, y, z);
     uint32_t flags = static_cast<uint32_t>(flagsGrid->tree().getValue(c));
-    uint32_t gradBits = getBits(flags, 0, 0xFFFFFFu);
-    return unpackGradFromBits(gradBits);
+    return decodeGradientVector(flags);
 }
 
 void TerrainStorage::setTerrainMaxLoadCapacity(int x, int y, int z, int capacity) {
@@ -456,17 +528,17 @@ size_t TerrainStorage::prune(int currentTick) {
 bool TerrainStorage::checkIfTerrainExists(int x, int y, int z) const {
     if (!terrainGrid) return false;
     int terrainType = terrainGrid->tree().getValue(openvdb::Coord(x, y, z));
-    return terrainType != -1;  // Assuming -1 indicates no terrain
+    return terrainType != -2;  // -2 = off nodes (no terrain), -1/-0/+ = terrain exists
 }
 
 void TerrainStorage::deleteTerrain(int x, int y, int z) {
     openvdb::Coord coord(x, y, z);
-    
+
     // Deactivate the voxel in all grids to keep the tree clean
     if (terrainGrid) {
         terrainGrid->tree().setValueOff(coord);
     }
-    
+
     // Also deactivate in all other grids for this coordinate
     mainTypeGrid->tree().setValueOff(coord);
     subType0Grid->tree().setValueOff(coord);
@@ -480,4 +552,25 @@ void TerrainStorage::deleteTerrain(int x, int y, int z) {
     minSpeedGrid->tree().setValueOff(coord);
     flagsGrid->tree().setValueOff(coord);
     maxLoadCapacityGrid->tree().setValueOff(coord);
+}
+
+// StructuralIntegrityComponent accessors:
+void TerrainStorage::setTerrainStructuralIntegrity(int x, int y, int z,
+                                                   const StructuralIntegrityComponent& sic) {
+    int encodedFlags = flagsGrid->tree().getValue(openvdb::Coord(x, y, z));
+    // Combine the structural integrity data with the existing flags
+    flagsGrid->tree().setValue(openvdb::Coord(x, y, z),
+                               encodeStructuralIntegrity(sic, encodedFlags));
+}
+
+StructuralIntegrityComponent TerrainStorage::getTerrainStructuralIntegrity(int x, int y,
+                                                                           int z) const {
+    openvdb::Coord coord(x, y, z);
+    uint32_t encodedFlags = static_cast<uint32_t>(flagsGrid->tree().getValue(coord));
+
+    StructuralIntegrityComponent sic;
+    sic.canStackEntities = decodeCanStackEntities(encodedFlags);
+    sic.gradientVector = decodeGradientVector(encodedFlags);
+    sic.maxLoadCapacity = maxLoadCapacityGrid->tree().getValue(coord);
+    return sic;
 }

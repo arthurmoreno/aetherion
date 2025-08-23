@@ -170,7 +170,7 @@ class TestWorldEdgeCases:
 
         first_world_type = type(worlds[0])
         for world in worlds:
-            assert type(world) == first_world_type
+            assert isinstance(world, first_world_type)
             assert isinstance(world, World)
 
 

@@ -42,7 +42,7 @@ void VoxelGrid::initializeGrids() {
 void VoxelGrid::setVoxel(int x, int y, int z, const GridData& data) {
     // Set terrain using TerrainGridRepository (using mainType for now as terrainID)
     if (terrainGridRepository) {
-        terrainGridRepository->setMainType(x, y, z, data.terrainID);
+        terrainGridRepository->setTerrainMainType(x, y, z, data.terrainID);
     }
 
     // Set entity, event, and lighting in respective grids
@@ -57,7 +57,10 @@ GridData VoxelGrid::getVoxel(int x, int y, int z) const {
 
     // Retrieve data from terrain repository and other grids
     if (terrainGridRepository) {
-        data.terrainID = terrainGridRepository->getMainType(x, y, z);
+        std::optional<int> terrainId = terrainGridRepository->getTerrainIdIfExists(x, y, z);
+        if (terrainId && *terrainId != -2) {
+            data.terrainID = *terrainId;
+        }
     } else {
         data.terrainID = defaultEmptyValue;
     }
@@ -73,7 +76,7 @@ void VoxelGrid::setTerrain(int x, int y, int z, int terrainID) {
     if (terrainGridRepository) {
         // Instead of directly setting mainType, we need to check if there's an entity
         // at this location that needs to be migrated to OpenVDB storage
-        
+
         // For now, if there's no existing entity, directly set the mainType
         // This maintains compatibility with direct terrain setting
         // terrainGridRepository->setMainType(x, y, z, terrainID);
@@ -86,7 +89,10 @@ void VoxelGrid::setTerrain(int x, int y, int z, int terrainID) {
 
 int VoxelGrid::getTerrain(int x, int y, int z) const {
     if (terrainGridRepository) {
-        return terrainGridRepository->getMainType(x, y, z);
+        std::optional<int> terrainId = terrainGridRepository->getTerrainIdIfExists(x, y, z);
+        if (terrainId && *terrainId != -2) {
+            return *terrainId;
+        }
     }
     return defaultEmptyValue;
 }
@@ -191,8 +197,8 @@ void VoxelGrid::deserializeFromBytes(const std::vector<char>& byteData) {
 
         // Set terrain data using TerrainGridRepository
         if (terrainGridRepository) {
-            terrainGridRepository->setMainType(coordinates.x, coordinates.y, coordinates.z,
-                                               data.terrainID);
+            terrainGridRepository->setTerrainMainType(coordinates.x, coordinates.y, coordinates.z,
+                                                      data.terrainID);
         }
 
         entityGrid->tree().setValue(coord, data.entityID);

@@ -13,12 +13,12 @@
 class TerrainStorage {
    public:
     // Configuration metadata
-    int bgTerrainType = -1;
+    int bgTerrainType = -2;  // -2 = off nodes, -1 = terrain exists but no enTT entity
     int bgVariant = 0;
     int bgMatter = 0;
     int bgFlags = 0;
     float bgHeat = 0.0f;
-    int bgEntityId = -1;
+    int bgEntityId = -2;        // -2 = off nodes, -1 = terrain exists but no enTT entity
     bool useActiveMask = true;  // If false, entityGrid is the authoritative activity
 
     // Voxel transform metadata
@@ -73,6 +73,11 @@ class TerrainStorage {
 
     void setTerrainSubType1(int x, int y, int z, int subType);
     int getTerrainSubType1(int x, int y, int z) const;
+
+    // StructuralIntegrityComponent accessors:
+    void setTerrainStructuralIntegrity(int x, int y, int z,
+                                       const StructuralIntegrityComponent& sic);
+    StructuralIntegrityComponent getTerrainStructuralIntegrity(int x, int y, int z) const;
 
     // MatterContainer accessors:
     void setTerrainMatter(int x, int y, int z, int amount);

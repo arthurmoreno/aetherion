@@ -65,18 +65,25 @@ class TerrainGridRepository {
 
     // ---------------- Static getters/setters (VDB-backed) ----------------
 
+    std::optional<int> getTerrainIdIfExists(int x, int y, int z) const;
+
     // EntityTypeComponent
     EntityTypeComponent getTerrainEntityType(int x, int y, int z) const;
     void setTerrainEntityType(int x, int y, int z, EntityTypeComponent etc);
 
-    int getMainType(int x, int y, int z) const;
-    void setMainType(int x, int y, int z, int v);
+    int getTerrainMainType(int x, int y, int z) const;
+    void setTerrainMainType(int x, int y, int z, int v);
 
-    int getSubType0(int x, int y, int z) const;
-    void setSubType0(int x, int y, int z, int v);
+    int getTerrainSubType0(int x, int y, int z) const;
+    void setTerrainSubType0(int x, int y, int z, int v);
 
-    int getSubType1(int x, int y, int z) const;
-    void setSubType1(int x, int y, int z, int v);
+    int getTerrainSubType1(int x, int y, int z) const;
+    void setTerrainSubType1(int x, int y, int z, int v);
+
+    // StructuralIntegrityComponent
+    StructuralIntegrityComponent getTerrainStructuralIntegrity(int x, int y, int z) const;
+    void setTerrainStructuralIntegrity(int x, int y, int z,
+                                       const StructuralIntegrityComponent& sic);
 
     // Matter
     MatterContainer getTerrainMatterContainer(int x, int y, int z) const;

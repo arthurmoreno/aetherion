@@ -23,6 +23,14 @@ entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
     return it->second;
 }
 
+std::optional<int> TerrainGridRepository::getTerrainIdIfExists(int x, int y, int z) const {
+    int entityId = storage_.terrainGrid->tree().getValue(C(x, y, z));
+    if (entityId != -1 && entityId != -2) {
+        return entityId;
+    }
+    return std::nullopt;
+}
+
 void TerrainGridRepository::markActive(int x, int y, int z, entt::entity e) {
     // Update TerrainStorage activation indicator based on strategy
     if (storage_.useActiveMask) {
@@ -84,16 +92,16 @@ bool TerrainGridRepository::isActive(int x, int y, int z) const {
 // ---------------- EntityTypeComponent aggregation ----------------
 EntityTypeComponent TerrainGridRepository::getTerrainEntityType(int x, int y, int z) const {
     EntityTypeComponent etc{};
-    etc.mainType = getMainType(x, y, z);
-    etc.subType0 = getSubType0(x, y, z);
-    etc.subType1 = getSubType1(x, y, z);
+    etc.mainType = getTerrainMainType(x, y, z);
+    etc.subType0 = getTerrainSubType0(x, y, z);
+    etc.subType1 = getTerrainSubType1(x, y, z);
     return etc;
 }
 
 void TerrainGridRepository::setTerrainEntityType(int x, int y, int z, EntityTypeComponent etc) {
-    setMainType(x, y, z, etc.mainType);
-    setSubType0(x, y, z, etc.subType0);
-    setSubType1(x, y, z, etc.subType1);
+    setTerrainMainType(x, y, z, etc.mainType);
+    setTerrainSubType0(x, y, z, etc.subType0);
+    setTerrainSubType1(x, y, z, etc.subType1);
 }
 
 TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y, int z) const {
@@ -134,52 +142,25 @@ TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y, int z) const {
     return info;
 }
 
-// void TerrainGridRepository::tick(int dtTicks) {
-//     // Iterate all active entities; update transient-only components.
-//     // Example policy: decrement MovingComponent timers and deactivate when done.
-//     for (auto it = byCoord_.begin(); it != byCoord_.end();) {
-//         const Key key = it->first;
-//         entt::entity e = it->second;
-
-//         // Ensure position stays in sync with key (authoritative location)
-//         if (auto pos = registry_.try_get<Position>(e)) {
-//             pos->x = key.x;
-//             pos->y = key.y;
-//             pos->z = key.z;
-//         }
-
-//         if (auto mc = registry_.try_get<MovingComponent>(e)) {
-//             if (mc->ticksRemaining > 0) mc->ticksRemaining -= dtTicks;
-//             if (mc->ticksRemaining <= 0) {
-//                 // On completion, write-through any static effect if needed (example no-op)
-//                 clearActive(key.x, key.y, key.z);
-//                 registry_.destroy(e);
-//                 it = byCoord_.erase(it);
-//                 continue;  // skip iterator increment
-//             }
-//         }
-
-//         ++it;
-//     }
-// }
 
 // ---------------- Static arbitration passthrough ----------------
-int TerrainGridRepository::getMainType(int x, int y, int z) const {
+
+int TerrainGridRepository::getTerrainMainType(int x, int y, int z) const {
     return storage_.getTerrainMainType(x, y, z);
 }
-void TerrainGridRepository::setMainType(int x, int y, int z, int v) {
+void TerrainGridRepository::setTerrainMainType(int x, int y, int z, int v) {
     storage_.setTerrainMainType(x, y, z, v);
 }
-int TerrainGridRepository::getSubType0(int x, int y, int z) const {
+int TerrainGridRepository::getTerrainSubType0(int x, int y, int z) const {
     return storage_.getTerrainSubType0(x, y, z);
 }
-void TerrainGridRepository::setSubType0(int x, int y, int z, int v) {
+void TerrainGridRepository::setTerrainSubType0(int x, int y, int z, int v) {
     storage_.setTerrainSubType0(x, y, z, v);
 }
-int TerrainGridRepository::getSubType1(int x, int y, int z) const {
+int TerrainGridRepository::getTerrainSubType1(int x, int y, int z) const {
     return storage_.getTerrainSubType1(x, y, z);
 }
-void TerrainGridRepository::setSubType1(int x, int y, int z, int v) {
+void TerrainGridRepository::setTerrainSubType1(int x, int y, int z, int v) {
     storage_.setTerrainSubType1(x, y, z, v);
 }
 
@@ -328,13 +309,13 @@ void TerrainGridRepository::setVelocity(int x, int y, int z, const Velocity& vel
 // ---------------- Migration Methods ----------------
 void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
     if (!registry_.valid(entity)) {
-        return; // Invalid entity, nothing to migrate
+        return;  // Invalid entity, nothing to migrate
     }
 
     // Get the position to know where to store the data
     Position* position = registry_.try_get<Position>(entity);
     if (!position) {
-        return; // No position, cannot determine where to store terrain data
+        return;  // No position, cannot determine where to store terrain data
     }
 
     int x = position->x;
@@ -365,7 +346,8 @@ void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
     }
 
     // Migrate StructuralIntegrityComponent
-    if (StructuralIntegrityComponent* sic = registry_.try_get<StructuralIntegrityComponent>(entity)) {
+    if (StructuralIntegrityComponent* sic =
+            registry_.try_get<StructuralIntegrityComponent>(entity)) {
         setCanStackEntities(x, y, z, sic->canStackEntities);
         setMaxLoadCapacity(x, y, z, sic->maxLoadCapacity);
         setMatterState(x, y, z, sic->matterState);
@@ -379,10 +361,9 @@ void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
 
     // Check if only transient components remain
     bool hasTransientComponents = false;
-    
+
     // Check for known transient components
-    if (registry_.try_get<Velocity>(entity) || 
-        registry_.try_get<MovingComponent>(entity)) {
+    if (registry_.try_get<Velocity>(entity) || registry_.try_get<MovingComponent>(entity)) {
         hasTransientComponents = true;
     }
 
@@ -402,8 +383,15 @@ bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
     return storage_.checkIfTerrainExists(x, y, z);
 }
 
-
 // Delete terrain at a specific voxel
-void TerrainGridRepository::deleteTerrain(int x, int y, int z) {
-    storage_.deleteTerrain(x, y, z);
+void TerrainGridRepository::deleteTerrain(int x, int y, int z) { storage_.deleteTerrain(x, y, z); }
+
+StructuralIntegrityComponent TerrainGridRepository::getTerrainStructuralIntegrity(int x, int y,
+                                                                                  int z) const {
+    return storage_.getTerrainStructuralIntegrity(x, y, z);
+}
+
+void TerrainGridRepository::setTerrainStructuralIntegrity(int x, int y, int z,
+                                                          const StructuralIntegrityComponent& sic) {
+    storage_.setTerrainStructuralIntegrity(x, y, z, sic);
 }
