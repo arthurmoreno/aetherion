@@ -62,6 +62,8 @@ class TerrainStorage {
     // Memory usage of all terrain-related grids
     size_t memUsage() const;
 
+    bool checkIfTerrainExists(int x, int y, int z) const;
+
     // Entity type component accessors:
     void setTerrainMainType(int x, int y, int z, int terrainType);
     int getTerrainMainType(int x, int y, int z) const;
@@ -121,6 +123,9 @@ class TerrainStorage {
 
     bool isActive(int x, int y, int z) const;
     size_t prune(int currentTick);
+
+    // Delete terrain at a specific voxel
+    void deleteTerrain(int x, int y, int z);
 
     // ================ Iterator Methods ================
     // Efficient full-grid iteration for specific grids

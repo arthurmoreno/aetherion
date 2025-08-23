@@ -1,14 +1,23 @@
 #include "VoxelGrid.hpp"
 
+#include <memory>
+
 // Constructor
-VoxelGrid::VoxelGrid() {
+VoxelGrid::VoxelGrid(entt::registry& reg) : registry(reg) {
     openvdb::initialize();  // Initialize OpenVDB
 
-    // Create empty grids for terrain, entity, event, and lighting
-    terrainGrid = openvdb::Int32Grid::create(defaultEmptyValue);  // Default terrain ID = 0
-    entityGrid = openvdb::Int32Grid::create(defaultEmptyValue);   // Default entity ID = 0
-    eventGrid = openvdb::Int32Grid::create(defaultEmptyValue);    // Default event ID = 0
-    lightingGrid = openvdb::FloatGrid::create(0.0f);              // Default lighting level = 0.0
+    // Initialize TerrainStorage
+    terrainStorage = std::make_unique<TerrainStorage>();
+    terrainStorage->initialize();
+
+    // Create TerrainGridRepository with the provided registry and storage
+    terrainGridRepository = std::make_unique<TerrainGridRepository>(registry, *terrainStorage);
+
+    // Create empty grids for entity, event, and lighting (terrain now managed by
+    // TerrainGridRepository)
+    entityGrid = openvdb::Int32Grid::create(defaultEmptyValue);  // Default entity ID = 0
+    eventGrid = openvdb::Int32Grid::create(defaultEmptyValue);   // Default event ID = 0
+    lightingGrid = openvdb::FloatGrid::create(0.0f);             // Default lighting level = 0.0
 }
 
 // Destructor
@@ -18,16 +27,25 @@ VoxelGrid::~VoxelGrid() {
 
 // Initialize all the grids (if needed, can be extended)
 void VoxelGrid::initializeGrids() {
-    terrainGrid->setTransform(openvdb::math::Transform::createLinearTransform(1.0));
+    // Terrain grid is now managed by TerrainGridRepository, so we only initialize the others
     entityGrid->setTransform(openvdb::math::Transform::createLinearTransform(1.0));
     eventGrid->setTransform(openvdb::math::Transform::createLinearTransform(1.0));
     lightingGrid->setTransform(openvdb::math::Transform::createLinearTransform(1.0));
+
+    // Apply transform to terrain storage as well
+    if (terrainStorage) {
+        terrainStorage->applyTransform(1.0);
+    }
 }
 
 // Set voxel data for all grids
 void VoxelGrid::setVoxel(int x, int y, int z, const GridData& data) {
-    // Set terrain, entity, event, and lighting in respective grids
-    terrainGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.terrainID);
+    // Set terrain using TerrainGridRepository (using mainType for now as terrainID)
+    if (terrainGridRepository) {
+        terrainGridRepository->setMainType(x, y, z, data.terrainID);
+    }
+
+    // Set entity, event, and lighting in respective grids
     entityGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.entityID);
     eventGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.eventID);
     lightingGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.lightingLevel);
@@ -37,8 +55,13 @@ void VoxelGrid::setVoxel(int x, int y, int z, const GridData& data) {
 GridData VoxelGrid::getVoxel(int x, int y, int z) const {
     GridData data;
 
-    // Retrieve data from terrain, entity, event, and lighting grids
-    data.terrainID = terrainGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
+    // Retrieve data from terrain repository and other grids
+    if (terrainGridRepository) {
+        data.terrainID = terrainGridRepository->getMainType(x, y, z);
+    } else {
+        data.terrainID = defaultEmptyValue;
+    }
+
     data.entityID = entityGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
     data.eventID = eventGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
     data.lightingLevel = lightingGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
@@ -47,17 +70,53 @@ GridData VoxelGrid::getVoxel(int x, int y, int z) const {
 }
 
 void VoxelGrid::setTerrain(int x, int y, int z, int terrainID) {
-    terrainGrid->tree().setValue(openvdb::Coord(x, y, z), terrainID);
+    if (terrainGridRepository) {
+        // Instead of directly setting mainType, we need to check if there's an entity
+        // at this location that needs to be migrated to OpenVDB storage
+        
+        // For now, if there's no existing entity, directly set the mainType
+        // This maintains compatibility with direct terrain setting
+        // terrainGridRepository->setMainType(x, y, z, terrainID);
+        Position pos{x, y, z};
+        entt::entity terrain = static_cast<entt::entity>(terrainID);
+        registry.emplace<Position>(terrain, pos);
+        terrainGridRepository->setTerrainFromEntt(terrain);
+    }
 }
 
 int VoxelGrid::getTerrain(int x, int y, int z) const {
-    return terrainGrid->tree().getValue(openvdb::Coord(x, y, z));
+    if (terrainGridRepository) {
+        return terrainGridRepository->getMainType(x, y, z);
+    }
+    return defaultEmptyValue;
 }
 
 // Delete terrain at a specific voxel
 void VoxelGrid::deleteTerrain(int x, int y, int z) {
-    terrainGrid->tree().setValue(openvdb::Coord(x, y, z), defaultEmptyValue);
+    if (terrainGridRepository) {
+        terrainGridRepository->deleteTerrain(x, y, z);
+    }
 }
+
+bool VoxelGrid::checkIfTerrainExists(int x, int y, int z) const {
+    if (terrainGridRepository) {
+        return terrainGridRepository->checkIfTerrainExists(x, y, z);
+    }
+    return false;
+}
+
+EntityTypeComponent VoxelGrid::getTerrainEntityTypeComponent(int x, int y, int z) const {
+    if (terrainGridRepository) {
+        return terrainGridRepository->getTerrainEntityType(x, y, z);
+    }
+    return EntityTypeComponent();  // Return a default-constructed EntityTypeComponent if not found
+}
+
+// void VoxelGrid::setTerrainFromEntt(entt::entity entity) {
+//     if (terrainGridRepository) {
+//         terrainGridRepository->setTerrainFromEntt(entity);
+//     }
+// }
 
 void VoxelGrid::setEntity(int x, int y, int z, int entityID) {
     entityGrid->tree().setValue(openvdb::Coord(x, y, z), entityID);
@@ -86,18 +145,20 @@ float VoxelGrid::getLightingLevel(int x, int y, int z) const {
 std::vector<char> VoxelGrid::serializeToBytes() const {
     std::map<VoxelGridCoordinates, GridData> voxelDataMap;
 
-    // Populate the map with voxel data from the grids
-    for (auto iter = terrainGrid->cbeginValueOn(); iter.test(); ++iter) {
-        openvdb::Coord coord = iter.getCoord();
-        VoxelGridCoordinates coordinates = {coord.x(), coord.y(), coord.z()};
+    // Populate the map with voxel data using TerrainStorage's mainTypeGrid iterator
+    if (terrainStorage && terrainStorage->mainTypeGrid) {
+        for (auto iter = terrainStorage->mainTypeGrid->cbeginValueOn(); iter.test(); ++iter) {
+            openvdb::Coord coord = iter.getCoord();
+            VoxelGridCoordinates coordinates = {coord.x(), coord.y(), coord.z()};
 
-        GridData data;
-        data.terrainID = terrainGrid->tree().getValue(coord);
-        data.entityID = entityGrid->tree().getValue(coord);
-        data.eventID = eventGrid->tree().getValue(coord);
-        data.lightingLevel = lightingGrid->tree().getValue(coord);
+            GridData data;
+            data.terrainID = terrainStorage->getTerrainMainType(coord.x(), coord.y(), coord.z());
+            data.entityID = entityGrid->tree().getValue(coord);
+            data.eventID = eventGrid->tree().getValue(coord);
+            data.lightingLevel = lightingGrid->tree().getValue(coord);
 
-        voxelDataMap[coordinates] = data;
+            voxelDataMap[coordinates] = data;
+        }
     }
 
     // Serialize the map using msgpack
@@ -117,7 +178,9 @@ void VoxelGrid::deserializeFromBytes(const std::vector<char>& byteData) {
     obj.convert(voxelDataMap);
 
     // Clear existing grids before populating them
-    terrainGrid->clear();
+    if (terrainStorage && terrainStorage->mainTypeGrid) {
+        terrainStorage->mainTypeGrid->clear();
+    }
     entityGrid->clear();
     eventGrid->clear();
     lightingGrid->clear();
@@ -125,7 +188,13 @@ void VoxelGrid::deserializeFromBytes(const std::vector<char>& byteData) {
     // Populate the grids using the data from the map
     for (const auto& [coordinates, data] : voxelDataMap) {
         openvdb::Coord coord(coordinates.x, coordinates.y, coordinates.z);
-        terrainGrid->tree().setValue(coord, data.terrainID);
+
+        // Set terrain data using TerrainGridRepository
+        if (terrainGridRepository) {
+            terrainGridRepository->setMainType(coordinates.x, coordinates.y, coordinates.z,
+                                               data.terrainID);
+        }
+
         entityGrid->tree().setValue(coord, data.entityID);
         eventGrid->tree().setValue(coord, data.eventID);
         lightingGrid->tree().setValue(coord, data.lightingLevel);
@@ -164,14 +233,16 @@ std::vector<VoxelGridCoordinates> VoxelGrid::getAllTerrainInRegion(int x_min, in
                                                                    int z_max) const {
     std::vector<VoxelGridCoordinates> result;
 
-    // Iterate over all active terrain voxels
-    for (auto iter = terrainGrid->cbeginValueOn(); iter; ++iter) {
-        openvdb::Coord coord = iter.getCoord();
+    // Use TerrainStorage's mainTypeGrid for iteration
+    if (terrainStorage && terrainStorage->mainTypeGrid) {
+        for (auto iter = terrainStorage->mainTypeGrid->cbeginValueOn(); iter; ++iter) {
+            openvdb::Coord coord = iter.getCoord();
 
-        // Manual bounding box check
-        if (coord.x() >= x_min && coord.x() <= x_max && coord.y() >= y_min && coord.y() <= y_max &&
-            coord.z() >= z_min && coord.z() <= z_max) {
-            result.emplace_back(VoxelGridCoordinates{coord.x(), coord.y(), coord.z()});
+            // Manual bounding box check
+            if (coord.x() >= x_min && coord.x() <= x_max && coord.y() >= y_min &&
+                coord.y() <= y_max && coord.z() >= z_min && coord.z() <= z_max) {
+                result.emplace_back(VoxelGridCoordinates{coord.x(), coord.y(), coord.z()});
+            }
         }
     }
 
@@ -318,8 +389,12 @@ std::vector<int> VoxelGrid::getAllTerrainIdsInRegion(int x_min, int y_min, int z
                                                      VoxelGridView& gridView) const {
     std::vector<int> result;
 
-    // Accessor for direct voxel access within the grid
-    openvdb::Int32Grid::ConstAccessor accessor = terrainGrid->getConstAccessor();
+    // Use TerrainStorage's mainTypeGrid accessor for direct voxel access
+    if (!terrainStorage || !terrainStorage->mainTypeGrid) {
+        return result;
+    }
+
+    openvdb::Int32Grid::ConstAccessor accessor = terrainStorage->mainTypeGrid->getConstAccessor();
 
 // Parallelize the outer loop (x) using OpenMP
 #pragma omp parallel
@@ -335,12 +410,12 @@ std::vector<int> VoxelGrid::getAllTerrainIdsInRegion(int x_min, int y_min, int z
 
                     // Check if the voxel is active and get its value
                     if (accessor.isValueOn(coord)) {
-                        // Retrieve and cast the entity ID from the voxel value
-                        int entity_id = static_cast<int>(accessor.getValue(coord));
+                        // Retrieve the terrain ID from the voxel value
+                        int terrain_id = static_cast<int>(accessor.getValue(coord));
 
-                        gridView.setTerrainVoxel(x, y, z, entity_id);
+                        gridView.setTerrainVoxel(x, y, z, terrain_id);
 
-                        localResult.emplace_back(entity_id);
+                        localResult.emplace_back(terrain_id);
                     }
                 }
             }

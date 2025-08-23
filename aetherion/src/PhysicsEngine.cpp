@@ -291,11 +291,9 @@ bool checkIfCanFall(entt::registry& registry, VoxelGrid& voxelGrid, int i, int j
     // return false;
 
     int movingToEntityId = voxelGrid.getEntity(i, j, k - 1);
-    int movingToTerrainId = voxelGrid.getTerrain(i, j, k - 1);
-
     bool canFallOnterrain = false;
-    if (movingToTerrainId != -1) {
-        auto& etc = registry.get<EntityTypeComponent>(static_cast<entt::entity>(movingToTerrainId));
+    if (voxelGrid.checkIfTerrainExists(i, j, k - 1)) {
+        EntityTypeComponent etc = voxelGrid.terrainGridRepository->getTerrainEntityType(i, j, k - 1);
         // Any terrain that is different than water
         if (etc.subType0 == 1) {
             canFallOnterrain = true;
