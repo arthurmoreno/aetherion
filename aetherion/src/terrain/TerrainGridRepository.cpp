@@ -3,6 +3,7 @@
 #include <openvdb/openvdb.h>
 
 #include <cassert>
+#include <functional>
 
 namespace {
 inline openvdb::Coord C(int x, int y, int z) { return openvdb::Coord(x, y, z); }
@@ -95,8 +96,7 @@ void TerrainGridRepository::setTerrainEntityType(int x, int y, int z, EntityType
     setSubType1(x, y, z, etc.subType1);
 }
 
-TerrainGridRepository::TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y,
-                                                                          int z) const {
+TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y, int z) const {
     TerrainInfo info;
     info.x = x;
     info.y = y;
@@ -325,18 +325,54 @@ void TerrainGridRepository::setVelocity(int x, int y, int z, const Velocity& vel
     }
 }
 
-int TerrainGridRepository::getMovingTicksRemaining(int x, int y, int z) const {
-    entt::entity e = getEntityAt(x, y, z);
-    if (e == entt::null) return 0;
-    if (auto mc = registry_.try_get<MovingComponent>(e)) return mc->ticksRemaining;
-    return 0;
+// ================ High-Level Iterator Methods Implementation ================
+
+template <typename Callback>
+void TerrainGridRepository::iterateWaterMatter(Callback callback) const {
+    storage_.iterateWaterMatter([this, callback](int x, int y, int z, int amount) {
+        // Provide both static water amount and full terrain info (including transients)
+        TerrainInfo info = this->readTerrainInfo(x, y, z);
+        callback(x, y, z, amount, info);
+    });
 }
 
-void TerrainGridRepository::setMovingTicksRemaining(int x, int y, int z, int ticks) {
-    entt::entity e = ensureActive(x, y, z);
-    if (auto mc = registry_.try_get<MovingComponent>(e)) {
-        mc->ticksRemaining = ticks;
-    } else {
-        registry_.emplace<MovingComponent>(e, MovingComponent{ticks});
+template <typename Callback>
+void TerrainGridRepository::iterateVaporMatter(Callback callback) const {
+    storage_.iterateVaporMatter([this, callback](int x, int y, int z, int amount) {
+        // Provide both static vapor amount and full terrain info (including transients)
+        TerrainInfo info = this->readTerrainInfo(x, y, z);
+        callback(x, y, z, amount, info);
+    });
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateBiomassMatter(Callback callback) const {
+    storage_.iterateBiomassMatter([this, callback](int x, int y, int z, int amount) {
+        // Provide both static biomass amount and full terrain info (including transients)
+        TerrainInfo info = this->readTerrainInfo(x, y, z);
+        callback(x, y, z, amount, info);
+    });
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateActiveVoxels(Callback callback) const {
+    // Iterate through all active coordinates and provide full terrain info
+    for (const auto& [key, entity] : byCoord_) {
+        TerrainInfo info = readTerrainInfo(key.x, key.y, key.z);
+        callback(key.x, key.y, key.z, info);
     }
 }
+
+// Explicit template instantiations for common callback types
+template void TerrainGridRepository::iterateWaterMatter<
+    std::function<void(int, int, int, int, const TerrainInfo&)>>(
+    std::function<void(int, int, int, int, const TerrainInfo&)>) const;
+template void TerrainGridRepository::iterateVaporMatter<
+    std::function<void(int, int, int, int, const TerrainInfo&)>>(
+    std::function<void(int, int, int, int, const TerrainInfo&)>) const;
+template void TerrainGridRepository::iterateBiomassMatter<
+    std::function<void(int, int, int, int, const TerrainInfo&)>>(
+    std::function<void(int, int, int, int, const TerrainInfo&)>) const;
+template void TerrainGridRepository::iterateActiveVoxels<
+    std::function<void(int, int, int, const TerrainInfo&)>>(
+    std::function<void(int, int, int, const TerrainInfo&)>) const;

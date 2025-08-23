@@ -6,6 +6,7 @@
 #include <unordered_map>
 
 #include "components/EntityTypeComponent.hpp"
+#include "components/MovingComponent.hpp"
 #include "components/PhysicsComponents.hpp"
 #include "components/TerrainComponents.hpp"
 #include "terrain/TerrainStorage.hpp"
@@ -19,41 +20,38 @@
 // - Activation creates an ECS entity mapped to a voxel and marks activity via
 //   TerrainStorage's active mask or entity-id grid strategy.
 // - Deactivation clears the activity indicator and destroys the ECS entity.
+
+// Snapshot of static attributes for a voxel
+struct StaticData {
+    int mainType{0};
+    int subType0{0};
+    int subType1{-1};
+    MatterContainer matter{0, 0, 0, 0};
+    int mass{0};
+    int maxSpeed{0};
+    int minSpeed{0};
+    DirectionEnum direction{DirectionEnum::UP};
+    bool canStackEntities{false};
+    MatterState matterState{MatterState::SOLID};
+    GradientVector gradient{0.f, 0.f, 0.f};
+    int maxLoadCapacity{0};
+};
+
+// Optional transient overlay data (only present when active)
+struct TransientData {
+    Velocity velocity{0.f, 0.f, 0.f};
+    MovingComponent moving{};
+};
+
+struct TerrainInfo {
+    int x{0}, y{0}, z{0};
+    bool active{false};
+    StaticData stat{};
+    std::optional<TransientData> transient{};
+};
+
 class TerrainGridRepository {
    public:
-    // Lightweight transient-only component example (timers, markers, etc.)
-    struct MovingComponent {
-        int ticksRemaining{0};
-    };
-
-    // Snapshot of static attributes for a voxel
-    struct StaticData {
-        int mainType{0};
-        int subType0{0};
-        int subType1{-1};
-        MatterContainer matter{0, 0, 0, 0};
-        int mass{0};
-        int maxSpeed{0};
-        int minSpeed{0};
-        DirectionEnum direction{DirectionEnum::UP};
-        bool canStackEntities{false};
-        MatterState matterState{MatterState::SOLID};
-        GradientVector gradient{0.f, 0.f, 0.f};
-        int maxLoadCapacity{0};
-    };
-
-    // Optional transient overlay data (only present when active)
-    struct TransientData {
-        Velocity velocity{0.f, 0.f, 0.f};
-        MovingComponent moving{};
-    };
-
-    struct TerrainInfo {
-        int x{0}, y{0}, z{0};
-        bool active{false};
-        StaticData stat{};
-        std::optional<TransientData> transient{};
-    };
 
     TerrainGridRepository(entt::registry& registry, TerrainStorage& storage);
 
@@ -126,8 +124,20 @@ class TerrainGridRepository {
     // Setting a transient auto-activates voxel and writes to ECS only
     void setVelocity(int x, int y, int z, const Velocity& vel);
 
-    int getMovingTicksRemaining(int x, int y, int z) const;
-    void setMovingTicksRemaining(int x, int y, int z, int ticks);
+    // ================ High-Level Iterator Methods ================
+    // Efficient full-grid iteration with access to both static and transient data
+    template <typename Callback>
+    void iterateWaterMatter(Callback callback) const;
+
+    template <typename Callback>
+    void iterateVaporMatter(Callback callback) const;
+
+    template <typename Callback>
+    void iterateBiomassMatter(Callback callback) const;
+
+    // Generic iterator that provides TerrainInfo for each active voxel
+    template <typename Callback>
+    void iterateActiveVoxels(Callback callback) const;
 
    private:
     struct Key {

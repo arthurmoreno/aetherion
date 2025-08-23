@@ -3,7 +3,9 @@
 
 #include <openvdb/openvdb.h>
 
+#include <functional>
 #include <memory>
+#include <vector>
 
 #include "components/PhysicsComponents.hpp"
 
@@ -120,6 +122,22 @@ class TerrainStorage {
     bool isActive(int x, int y, int z) const;
     size_t prune(int currentTick);
 
+    // ================ Iterator Methods ================
+    // Efficient full-grid iteration for specific grids
+    template <typename Callback>
+    void iterateWaterMatter(Callback callback) const;
+
+    template <typename Callback>
+    void iterateVaporMatter(Callback callback) const;
+
+    template <typename Callback>
+    void iterateBiomassMatter(Callback callback) const;
+
+    // Generic grid iterator - can iterate over any Int32Grid with a predicate
+    template <typename Callback>
+    void iterateGrid(const openvdb::Int32Grid::Ptr& grid, Callback callback,
+                     int minValue = 1) const;
+
    private:
     // Thread-local accessor cache for fast O(1) get/set
     struct ThreadCache {
@@ -171,5 +189,36 @@ class TerrainStorage {
     static thread_local ThreadCache s_threadCache;
     void configureThreadCache();
 };
+
+// ================ Template Method Implementations ================
+
+template <typename Callback>
+void TerrainStorage::iterateGrid(const openvdb::Int32Grid::Ptr& grid, Callback callback,
+                                 int minValue) const {
+    if (!grid) return;
+
+    for (auto it = grid->cbeginValueOn(); it; ++it) {
+        const auto coord = it.getCoord();
+        const int amount = it.getValue();
+        if (amount >= minValue) {
+            callback(coord.x(), coord.y(), coord.z(), amount);
+        }
+    }
+}
+
+template <typename Callback>
+void TerrainStorage::iterateWaterMatter(Callback callback) const {
+    iterateGrid(waterMatterGrid, callback, 1);
+}
+
+template <typename Callback>
+void TerrainStorage::iterateVaporMatter(Callback callback) const {
+    iterateGrid(vaporMatterGrid, callback, 1);
+}
+
+template <typename Callback>
+void TerrainStorage::iterateBiomassMatter(Callback callback) const {
+    iterateGrid(biomassMatterGrid, callback, 1);
+}
 
 #endif  // TERRAIN_STORAGE_HPP

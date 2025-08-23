@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "VoxelGridView_generated.h"
+#include "terrain/TerrainGridRepository.hpp"
 
 namespace nb = nanobind;
 
@@ -211,6 +212,7 @@ class VoxelGridView {
 class VoxelGrid {
    public:
     int width, height, depth;
+    TerrainGridRepository* terrainGridRepository = nullptr;
     openvdb::Int32Grid::Ptr terrainGrid;   // Grid for terrain ID
     openvdb::Int32Grid::Ptr entityGrid;    // Grid for entity ID
     openvdb::Int32Grid::Ptr eventGrid;     // Grid for event ID
