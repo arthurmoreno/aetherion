@@ -530,7 +530,7 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                     //     entityTypeView.get<EntityTypeComponent>(neighboorTerrainEntity);
                     EntityTypeComponent terrainEtc = voxelGrid->getTerrainEntityTypeComponent(x + 1, y + 1, z + 1);
 
-                    hasValidNeighbor = (neighboorEntityId != -1);
+                    hasValidNeighbor = (neighboorEntityId != -2);
                     isMainTypeTerrain = (terrainEtc.mainType == 0);
                     isSubTypeOccluding =
                         terrainEtc.subType0 != static_cast<int>(TerrainEnum::EMPTY) &&

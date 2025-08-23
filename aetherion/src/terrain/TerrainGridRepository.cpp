@@ -24,11 +24,7 @@ entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
 }
 
 std::optional<int> TerrainGridRepository::getTerrainIdIfExists(int x, int y, int z) const {
-    int entityId = storage_.terrainGrid->tree().getValue(C(x, y, z));
-    if (entityId != -1 && entityId != -2) {
-        return entityId;
-    }
-    return -2;
+    return storage_.getTerrainIdIfExists(x, y, z);
 }
 
 void TerrainGridRepository::markActive(int x, int y, int z, entt::entity e) {
