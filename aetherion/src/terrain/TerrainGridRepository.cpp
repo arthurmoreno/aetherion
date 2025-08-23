@@ -28,7 +28,7 @@ std::optional<int> TerrainGridRepository::getTerrainIdIfExists(int x, int y, int
     if (entityId != -1 && entityId != -2) {
         return entityId;
     }
-    return std::nullopt;
+    return -2;
 }
 
 void TerrainGridRepository::markActive(int x, int y, int z, entt::entity e) {
@@ -376,6 +376,9 @@ void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
             byCoord_.erase(it);
         }
         registry_.destroy(entity);
+        storage_.setTerrainId(x, y, z, static_cast<int>(entity));
+    } else {
+        storage_.setTerrainId(x, y, z, -1);
     }
 }
 

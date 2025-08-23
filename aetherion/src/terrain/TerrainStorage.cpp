@@ -525,6 +525,12 @@ size_t TerrainStorage::prune(int currentTick) {
     return activeCount;
 }
 
+void TerrainStorage::setTerrainId(int x, int y, int z, int id) {
+    if (terrainGrid) {
+        terrainGrid->tree().setValue(openvdb::Coord(x, y, z), id);
+    }
+}
+
 bool TerrainStorage::checkIfTerrainExists(int x, int y, int z) const {
     if (!terrainGrid) return false;
     int terrainType = terrainGrid->tree().getValue(openvdb::Coord(x, y, z));

@@ -474,6 +474,9 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
     response.entity = entity_interface;
 
     VoxelGridView voxelGridView = VoxelGridView();
+
+    int terrainVirtualIdCounter = -1000;
+    std::unordered_map<int, EntityInterface> terrainEntities;
     voxelGridView.initVoxelGridView(view_width, view_height, view_depth, x_min, y_min, z_min);
 
     auto entityTypeView = registry.view<EntityTypeComponent>();
@@ -495,7 +498,7 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
 
         // Get terrain ID at this coordinate
         int terrainId = voxelGrid->getTerrain(x, y, z);
-        if (terrainId != 0) {  // Assuming 0 means no terrain
+        if (terrainId != -2) {  // Assuming -2 means no terrain
 
             // std::cout << "createPerceptionResponse -> Inside terrain check.\n";
 
@@ -504,7 +507,7 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
 
             bool isCurrentTerrainOccluded = false;
             int neighborTerrainId = voxelGrid->getTerrain(x + 1, y + 1, z + 1);
-            if (neighborTerrainId != 0) {
+            if (neighborTerrainId != -2) {
                 // Use neighbor terrain ID directly
                 int neighboorEntityId = neighborTerrainId;
 
@@ -512,19 +515,20 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                 bool isMainTypeTerrain;
                 bool isSubTypeOccluding;
 
-                if (neighboorEntityId != -1) {
+                if (neighboorEntityId != -2 && neighboorEntityId != -1 && neighboorEntityId != 0) {
                     entt::entity neighboorTerrainEntity =
                         static_cast<entt::entity>(neighboorEntityId);
 
-                    if (!entityTypeView.contains(neighboorTerrainEntity)) {
+                    if (entityTypeView.contains(neighboorTerrainEntity)) {
                         std::ostringstream oss;
                         oss << "createPerceptionResponse: Entity (ID: " << neighboorEntityId
-                            << ") is missing the required EntityTypeComponent while "
+                            << ") contains EntityTypeComponent in EnTT (migration error) while "
                                "retrieving terrains in view.";
                         throw std::runtime_error(oss.str());
                     }
-                    const EntityTypeComponent& terrainEtc =
-                        entityTypeView.get<EntityTypeComponent>(neighboorTerrainEntity);
+                    // const EntityTypeComponent& terrainEtc =
+                    //     entityTypeView.get<EntityTypeComponent>(neighboorTerrainEntity);
+                    EntityTypeComponent terrainEtc = voxelGrid->getTerrainEntityTypeComponent(x + 1, y + 1, z + 1);
 
                     hasValidNeighbor = (neighboorEntityId != -1);
                     isMainTypeTerrain = (terrainEtc.mainType == 0);
@@ -542,7 +546,7 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                 // TODO: fix me
                 // bool isNeighboorOccluded = voxelGridView.getTerrainVoxel(x + 1, y +
                 // 1, z + 1) == -2;
-                bool isNeighboorOccluded = voxelGridView.getTerrainVoxel(x, y, z) == -2;
+                bool isNeighboorOccluded = voxelGridView.getTerrainVoxel(x, y, z) == -3;
                 // First, check if the terrain is exactly one level below the player
                 bool isOneLevelBelow = (z == pos.z - 1);
 
@@ -569,10 +573,32 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
             }
 
             if (isCurrentTerrainOccluded) {
-                voxelGridView.setTerrainVoxel(x, y, z, -2);
+                voxelGridView.setTerrainVoxel(x, y, z, -3);
             } else {
-                voxelGridView.setTerrainVoxel(x, y, z, entity_id);
-                terrainsIds.emplace_back(entity_id);
+                int virtualTerrainId;
+                if (terrainId != -1) {
+                    virtualTerrainId = terrainVirtualIdCounter--;
+                } else {
+                    virtualTerrainId = terrainId;
+                }
+
+                EntityInterface entity_interface;
+                entity_interface.entityId = virtualTerrainId;
+
+                EntityTypeComponent terrainEtc = voxelGrid->getTerrainEntityTypeComponent(x, y, z);
+                Position pos = voxelGrid->terrainGridRepository->getPosition(x, y, z);
+
+                entity_interface.setComponent<EntityTypeComponent>(terrainEtc);
+                entity_interface.setComponent<Position>(pos);
+
+                voxelGridView.setTerrainVoxel(x, y, z, virtualTerrainId);
+                response.world_view.entities.emplace(entity_interface.entityId,
+                                                    std::move(entity_interface));
+
+                // terrainsIds.emplace_back(virtualTerrainId);
+
+                terrainEntities[virtualTerrainId] = std::move(entity_interface);
+
             }
         }
     }
@@ -585,6 +611,14 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
     // Create a new vector to hold the merged results
     std::vector<int> combinedIds = terrainsIds;
 
+    // for (const auto& terrainId : terrainsIds) {
+    //     if (terrainId != -1 && terrainId != -2 && terrainId != -3) {
+    //         combinedIds.push_back(terrainId);
+    //     } else if (terrainId == -1) {
+    //         EntityTypeComponent etc = voxelGrid->getTerrainEntityTypeComponentById(terrainId);
+    //     }
+    // }
+
     // Use std::vector::insert to append entitiesIds to combinedIds
     combinedIds.insert(combinedIds.end(), entitiesIds.begin(), entitiesIds.end());
 
@@ -592,8 +626,8 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
     std::vector<entt::entity> entitiesInView;
 
 #pragma omp parallel for
-    for (const auto& entityId : combinedIds) {
-        if (entityId != -1) {
+    for (const auto& entityId : entitiesIds) {
+        if (entityId != -1 && entityId != -2 && entityId != -3) {
             entitiesInView.push_back(static_cast<entt::entity>(entityId));
         }
     }
@@ -608,7 +642,11 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
     auto tileEffectCompView = registry.view<TileEffectComponent>();
 
     // Preallocate space if possible
-    response.world_view.entities.reserve(entitiesInView.size());
+    response.world_view.entities.reserve(entitiesInView.size() + terrainEntities.size());
+
+    for (const auto& [id, entity] : terrainEntities) {
+        response.world_view.entities.emplace(id, std::move(entity));
+    }
 
     // openvdb::Int32Grid::ConstAccessor accessor = voxelGrid->terrainGrid->getConstAccessor();
 
@@ -653,62 +691,62 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
             entity_interface.setComponent<Inventory>(inventory);
         }
 
-        if (etc.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-            inventoryView.contains(entity)) {
-            const Inventory& inventory = inventoryView.get<Inventory>(entity);
-            entity_interface.setComponent<Inventory>(inventory);
+        // if (etc.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+        //     inventoryView.contains(entity)) {
+        //     const Inventory& inventory = inventoryView.get<Inventory>(entity);
+        //     entity_interface.setComponent<Inventory>(inventory);
 
-            for (auto itemEntityID : inventory.itemIDs) {
-                entt::entity itemEntity = static_cast<entt::entity>(itemEntityID);
+        //     for (auto itemEntityID : inventory.itemIDs) {
+        //         entt::entity itemEntity = static_cast<entt::entity>(itemEntityID);
 
-                EntityInterface item_entity_interface;
-                item_entity_interface.entityId = itemEntityID;
+        //         EntityInterface item_entity_interface;
+        //         item_entity_interface.entityId = itemEntityID;
 
-                if (itemEnumView.contains(itemEntity)) {
-                    const ItemTypeComponent& itemTypeC =
-                        itemEnumView.get<ItemTypeComponent>(itemEntity);
-                    item_entity_interface.setComponent<ItemTypeComponent>(itemTypeC);
-                }
+        //         if (itemEnumView.contains(itemEntity)) {
+        //             const ItemTypeComponent& itemTypeC =
+        //                 itemEnumView.get<ItemTypeComponent>(itemEntity);
+        //             item_entity_interface.setComponent<ItemTypeComponent>(itemTypeC);
+        //         }
 
-                response.world_view.entities.emplace(item_entity_interface.entityId,
-                                                     std::move(item_entity_interface));
-            }
-        }
+        //         response.world_view.entities.emplace(item_entity_interface.entityId,
+        //                                              std::move(item_entity_interface));
+        //     }
+        // }
 
-        if (etc.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-            matterContainerView.contains(entity)) {
-            const MatterContainer& matterContainer =
-                matterContainerView.get<MatterContainer>(entity);
-            entity_interface.setComponent<MatterContainer>(matterContainer);
-        }
+        // if (etc.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+        //     matterContainerView.contains(entity)) {
+        //     const MatterContainer& matterContainer =
+        //         matterContainerView.get<MatterContainer>(entity);
+        //     entity_interface.setComponent<MatterContainer>(matterContainer);
+        // }
 
-        if (etc.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-            tileEffectsView.contains(entity)) {
-            const TileEffectsList& tileEffectList = tileEffectsView.get<TileEffectsList>(entity);
-            entity_interface.setComponent<TileEffectsList>(tileEffectList);
+        // if (etc.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+        //     tileEffectsView.contains(entity)) {
+        //     const TileEffectsList& tileEffectList = tileEffectsView.get<TileEffectsList>(entity);
+        //     entity_interface.setComponent<TileEffectsList>(tileEffectList);
 
-            for (auto tileEffectEntityID : tileEffectList.tileEffectsIDs) {
-                entt::entity tileEffectEntity = static_cast<entt::entity>(tileEffectEntityID);
+        //     for (auto tileEffectEntityID : tileEffectList.tileEffectsIDs) {
+        //         entt::entity tileEffectEntity = static_cast<entt::entity>(tileEffectEntityID);
 
-                EntityInterface tile_effect_entt_interface;
-                tile_effect_entt_interface.entityId = tileEffectEntityID;
+        //         EntityInterface tile_effect_entt_interface;
+        //         tile_effect_entt_interface.entityId = tileEffectEntityID;
 
-                if (entityTypeView.contains(tileEffectEntity)) {
-                    const EntityTypeComponent& etc =
-                        entityTypeView.get<EntityTypeComponent>(tileEffectEntity);
-                    tile_effect_entt_interface.setComponent<EntityTypeComponent>(etc);
-                }
+        //         if (entityTypeView.contains(tileEffectEntity)) {
+        //             const EntityTypeComponent& etc =
+        //                 entityTypeView.get<EntityTypeComponent>(tileEffectEntity);
+        //             tile_effect_entt_interface.setComponent<EntityTypeComponent>(etc);
+        //         }
 
-                if (tileEffectCompView.contains(tileEffectEntity)) {
-                    const TileEffectComponent& tec =
-                        tileEffectCompView.get<TileEffectComponent>(tileEffectEntity);
-                    tile_effect_entt_interface.setComponent<TileEffectComponent>(tec);
-                }
+        //         if (tileEffectCompView.contains(tileEffectEntity)) {
+        //             const TileEffectComponent& tec =
+        //                 tileEffectCompView.get<TileEffectComponent>(tileEffectEntity);
+        //             tile_effect_entt_interface.setComponent<TileEffectComponent>(tec);
+        //         }
 
-                response.world_view.entities.emplace(tile_effect_entt_interface.entityId,
-                                                     std::move(tile_effect_entt_interface));
-            }
-        }
+        //         response.world_view.entities.emplace(tile_effect_entt_interface.entityId,
+        //                                              std::move(tile_effect_entt_interface));
+        //     }
+        // }
 
         // Use emplace for efficiency
         response.world_view.entities.emplace(entity_interface.entityId,

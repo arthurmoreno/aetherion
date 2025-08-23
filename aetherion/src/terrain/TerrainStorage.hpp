@@ -62,6 +62,7 @@ class TerrainStorage {
     // Memory usage of all terrain-related grids
     size_t memUsage() const;
 
+    void setTerrainId(int x, int y, int z, int id);
     bool checkIfTerrainExists(int x, int y, int z) const;
 
     // Entity type component accessors:

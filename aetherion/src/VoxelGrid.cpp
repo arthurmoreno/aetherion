@@ -62,7 +62,7 @@ GridData VoxelGrid::getVoxel(int x, int y, int z) const {
             data.terrainID = *terrainId;
         }
     } else {
-        data.terrainID = defaultEmptyValue;
+        data.terrainID = -2;
     }
 
     data.entityID = entityGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
@@ -94,7 +94,7 @@ int VoxelGrid::getTerrain(int x, int y, int z) const {
             return *terrainId;
         }
     }
-    return defaultEmptyValue;
+    return -2;
 }
 
 // Delete terrain at a specific voxel
