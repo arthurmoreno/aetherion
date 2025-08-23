@@ -52,7 +52,6 @@ struct TerrainInfo {
 
 class TerrainGridRepository {
    public:
-
     TerrainGridRepository(entt::registry& registry, TerrainStorage& storage);
 
     // Query whether a voxel is currently active (ECS-managed); kept for inspection
@@ -123,6 +122,13 @@ class TerrainGridRepository {
     Velocity getVelocity(int x, int y, int z) const;
     // Setting a transient auto-activates voxel and writes to ECS only
     void setVelocity(int x, int y, int z, const Velocity& vel);
+
+    // ---------------- Migration Methods ----------------
+    // Extract terrain components from EnTT entity and save to OpenVDB storage
+    // If no transient components remain after migration, destroys the entity
+    void setTerrainFromEntt(entt::entity entity);
+    bool checkIfTerrainExists(int x, int y, int z) const;
+    void deleteTerrain(int x, int y, int z);
 
     // ================ High-Level Iterator Methods ================
     // Efficient full-grid iteration with access to both static and transient data

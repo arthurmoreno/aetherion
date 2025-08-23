@@ -6,9 +6,11 @@
 #include <openvdb/openvdb.h>
 #include <openvdb/tools/Interpolation.h>
 
+#include <entt/entt.hpp>
 #include <functional>
 #include <iostream>
 #include <map>
+#include <memory>
 #include <msgpack.hpp>
 #include <sstream>
 #include <tuple>
@@ -16,6 +18,7 @@
 
 #include "VoxelGridView_generated.h"
 #include "terrain/TerrainGridRepository.hpp"
+#include "terrain/TerrainStorage.hpp"
 
 namespace nb = nanobind;
 
@@ -212,20 +215,27 @@ class VoxelGridView {
 class VoxelGrid {
    public:
     int width, height, depth;
-    TerrainGridRepository* terrainGridRepository = nullptr;
-    openvdb::Int32Grid::Ptr terrainGrid;   // Grid for terrain ID
+
+    // Storage and ECS components
+    entt::registry& registry;
+    std::unique_ptr<TerrainStorage> terrainStorage;
+    std::unique_ptr<TerrainGridRepository> terrainGridRepository;
+
+    // Other grids (not terrain - that's handled by TerrainGridRepository)
     openvdb::Int32Grid::Ptr entityGrid;    // Grid for entity ID
     openvdb::Int32Grid::Ptr eventGrid;     // Grid for event ID
     openvdb::FloatGrid::Ptr lightingGrid;  // Grid for lighting level
 
-    VoxelGrid();   // Constructor
-    ~VoxelGrid();  // Destructor
+    VoxelGrid(entt::registry& registry);  // Constructor that takes registry
+    ~VoxelGrid();                         // Destructor
 
     void initializeGrids();                                    // Initializes the grids
     void setVoxel(int x, int y, int z, const GridData& data);  // Set voxel data
     GridData getVoxel(int x, int y, int z) const;              // Get voxel data
 
     // Individual component setters and getters
+    bool checkIfTerrainExists(int x, int y, int z) const;
+    EntityTypeComponent getTerrainEntityTypeComponent(int x, int y, int z) const;
     void setTerrain(int x, int y, int z, int terrainID);
     int getTerrain(int x, int y, int z) const;
     void deleteTerrain(int x, int y, int z);

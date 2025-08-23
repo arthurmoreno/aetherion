@@ -174,7 +174,7 @@ void imguiPrepareWorldListWindows(nb::list& commands, nb::dict& shared_data) {
     }
 
     auto logger = Logger::getLogger();
-    logger->info("Can connect to world '{}': {}", selectedWorldKey, canConnect);
+    // logger->info("Can connect to world '{}': {}", selectedWorldKey, canConnect);
 
     if (!canConnect) {
         ImGui::BeginDisabled();

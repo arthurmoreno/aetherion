@@ -19,7 +19,7 @@
 #include "flatbuffers/flatbuffers.h"
 
 World::World(int width, int height, int depth)
-    : voxelGrid(new VoxelGrid()),
+    : voxelGrid(new VoxelGrid(registry)),
       pyRegistry(registry, dispatcher),
       // Update to use just SQLite file path parameter
       dbHandler(std::make_unique<GameDBHandler>("./data/game.sqlite")),
@@ -30,6 +30,11 @@ World::World(int width, int height, int depth)
       combatSystem(new CombatSystem(registry, voxelGrid)),
       effectsSystem(new EffectsSystem(registry, voxelGrid)),
       healthSystem(new HealthSystem(registry, voxelGrid)) {
+    // Initialize World dimensions
+    this->width = width;
+    this->height = height;
+    this->depth = depth;
+
     voxelGrid->initializeGrids();
     voxelGrid->width = width;
     voxelGrid->height = height;
@@ -505,7 +510,7 @@ void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId, int sel
     // Safely get PhysicsStats
     if (auto* inventory = registry.try_get<Inventory>(entity)) {
         nb::object pyRegistryObj = nb::cast(&pyRegistry);
-        dispatcher.enqueue<TakeItemEvent>(entity, pyRegistryObj, *voxelGrid, hoveredEntityId,
+        dispatcher.enqueue<TakeItemEvent>(entity, pyRegistryObj, voxelGrid, hoveredEntityId,
                                           selectedEntityId);
     } else {
         std::cout << "Entity does not have Inventory component.\n";
@@ -519,7 +524,7 @@ void World::dispatchUseItemEventById(int entityId, int itemSlot, int hoveredEnti
     // Safely get PhysicsStats
     if (auto* inventory = registry.try_get<Inventory>(entity)) {
         nb::object pyRegistryObj = nb::cast(&pyRegistry);
-        dispatcher.enqueue<UseItemEvent>(entity, pyRegistryObj, *voxelGrid, itemSlot,
+        dispatcher.enqueue<UseItemEvent>(entity, pyRegistryObj, voxelGrid, itemSlot,
                                          hoveredEntityId, selectedEntityId);
     } else {
         std::cout << "Entity does not have Inventory component.\n";

@@ -12,12 +12,12 @@ namespace nb = nanobind;
 struct TakeItemEvent {
     entt::entity entity;
     nb::object pyRegistryObj;
-    VoxelGrid voxelGrid;
+    VoxelGrid* voxelGrid;
 
     int hoveredEntityId;
     int selectedEntityId;
 
-    TakeItemEvent(entt::entity entity, nb::object pyRegistryObj, VoxelGrid& voxelGrid,
+    TakeItemEvent(entt::entity entity, nb::object pyRegistryObj, VoxelGrid* voxelGrid,
                   int hoveredEntityId, int selectedEntityId)
         : entity(entity),
           pyRegistryObj(pyRegistryObj),
@@ -33,13 +33,13 @@ struct OnTakeItemBehavior {
 struct UseItemEvent {
     entt::entity entity;
     nb::object pyRegistryObj;
-    VoxelGrid voxelGrid;
+    VoxelGrid* voxelGrid;
 
     int itemSlot;
     int hoveredEntityId;
     int selectedEntityId;
 
-    UseItemEvent(entt::entity entity, nb::object pyRegistryObj, VoxelGrid& voxelGrid, int itemSlot,
+    UseItemEvent(entt::entity entity, nb::object pyRegistryObj, VoxelGrid* voxelGrid, int itemSlot,
                  int hoveredEntityId, int selectedEntityId)
         : entity(entity),
           pyRegistryObj(pyRegistryObj),

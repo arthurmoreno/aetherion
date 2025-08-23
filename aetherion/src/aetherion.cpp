@@ -1079,7 +1079,7 @@ NB_MODULE(_aetherion, m) {
 
     // Bind VoxelGrid class
     nb::class_<VoxelGrid>(m, "VoxelGrid")
-        .def(nb::init<>())
+        .def(nb::init<entt::registry&>())
         .def("initialize_grids", &VoxelGrid::initializeGrids)
         .def("set_voxel", &VoxelGrid::setVoxel, nb::arg("x"), nb::arg("y"), nb::arg("z"),
              nb::arg("data"), "Set voxel data at (x, y, z)")

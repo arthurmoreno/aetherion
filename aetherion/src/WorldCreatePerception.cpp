@@ -87,85 +87,72 @@ std::vector<int> processTerrainVoxels(entt::registry& registry, VoxelGrid& voxel
                                       const Position& pos, VoxelGridView& voxelGridView) {
     std::vector<int> terrainsIds;
 
-    // Accessor for direct voxel access within the grid
-    openvdb::Int32Grid::ConstAccessor accessor = voxelGrid.terrainGrid->getConstAccessor();
+    // Use efficient region-based terrain query instead of individual coordinate lookups
+    std::vector<VoxelGridCoordinates> terrainCoords =
+        voxelGrid.getAllTerrainInRegion(x_min, y_min, z_min, x_max, y_max, z_max);
 
-// Parallelize using OpenMP
-#pragma omp parallel
-    {
-        // Each thread maintains its own local result vector
-        std::vector<int> localResult;
+    // Reserve space for efficiency
+    terrainsIds.reserve(terrainCoords.size());
 
-#pragma omp for collapse(2)
-        for (int x = x_min; x <= x_max; ++x) {
-            for (int y = y_min; y <= y_max; ++y) {
-                for (int z = z_max; z >= z_min; --z) {
-                    openvdb::Coord coord(x, y, z);
+    // Process each terrain voxel found in the region
+    for (const auto& coord : terrainCoords) {
+        int x = coord.x;
+        int y = coord.y;
+        int z = coord.z;
 
-                    // Check if the voxel is active and get its value
-                    if (accessor.isValueOn(coord)) {
-                        // Retrieve and cast the entity ID from the voxel value
-                        int entity_id = static_cast<int>(accessor.getValue(coord));
+        // Get terrain ID at this coordinate
+        int terrainId = voxelGrid.getTerrain(x, y, z);
+        if (terrainId != 0) {  // Assuming 0 means no terrain
+            // Use terrain ID directly
+            int entity_id = terrainId;
 
-                        bool isCurrentTerrainOccluded = false;
-                        openvdb::Coord neighborCoord(x + 1, y + 1, z + 1);
-                        if (accessor.isValueOn(neighborCoord)) {
-                            // Retrieve and cast the entity ID from the voxel value
-                            int neighborEntityId =
-                                static_cast<int>(accessor.getValue(neighborCoord));
-                            entt::entity neighborTerrainEntity =
-                                static_cast<entt::entity>(neighborEntityId);
+            bool isCurrentTerrainOccluded = false;
+            int neighborTerrainId = voxelGrid.getTerrain(x + 1, y + 1, z + 1);
+            if (neighborTerrainId != 0) {
+                // Use neighbor terrain ID directly
+                int neighborEntityId = neighborTerrainId;
+                entt::entity neighborTerrainEntity = static_cast<entt::entity>(neighborEntityId);
 
-                            const EntityTypeComponent& terrainEtc =
-                                registry.get<EntityTypeComponent>(neighborTerrainEntity);
+                const EntityTypeComponent& terrainEtc =
+                    registry.get<EntityTypeComponent>(neighborTerrainEntity);
 
-                            // Define meaningful boolean variables for complex conditions
-                            bool hasValidNeighbor = (neighborEntityId != -1);
-                            bool isMainTypeTerrain = (terrainEtc.mainType == 0);
-                            bool isSubTypeOccluding =
-                                terrainEtc.subType0 != 1 &&
-                                (terrainEtc.subType1 == 0 || terrainEtc.subType1 == 1);
+                // Define meaningful boolean variables for complex conditions
+                bool hasValidNeighbor = (neighborEntityId != -1);
+                bool isMainTypeTerrain = (terrainEtc.mainType == 0);
+                bool isSubTypeOccluding = terrainEtc.subType0 != 1 &&
+                                          (terrainEtc.subType1 == 0 || terrainEtc.subType1 == 1);
 
-                            // First, check if the terrain is exactly one level below the player
-                            bool isOneLevelBelow = (z == pos.z - 1);
+                // First, check if the terrain is exactly one level below the player
+                bool isOneLevelBelow = (z == pos.z - 1);
 
-                            // Then, check if the terrain position is directly below or adjacent in
-                            // a cross pattern
-                            bool isAdjacentInCross =
-                                (x == pos.x && y == pos.y) ||      // Directly below
-                                (x == pos.x + 1 && y == pos.y) ||  // +X direction
-                                (x == pos.x - 1 && y == pos.y) ||  // -X direction
-                                (x == pos.x && y == pos.y + 1) ||  // +Y direction
-                                (x == pos.x && y == pos.y - 1);    // -Y direction
+                // Then, check if the terrain position is directly below or adjacent in
+                // a cross pattern
+                bool isAdjacentInCross = (x == pos.x && y == pos.y) ||      // Directly below
+                                         (x == pos.x + 1 && y == pos.y) ||  // +X direction
+                                         (x == pos.x - 1 && y == pos.y) ||  // -X direction
+                                         (x == pos.x && y == pos.y + 1) ||  // +Y direction
+                                         (x == pos.x && y == pos.y - 1);    // -Y direction
 
-                            // Combine the two conditions with isMainTypeTerrain
-                            bool isTerrainNearPlayer =
-                                isMainTypeTerrain && isOneLevelBelow && isAdjacentInCross;
+                // Combine the two conditions with isMainTypeTerrain
+                bool isTerrainNearPlayer =
+                    isMainTypeTerrain && isOneLevelBelow && isAdjacentInCross;
 
-                            // This is necessary because we might use transparency during rendering
-                            // to show player below terrain
-                            if (isTerrainNearPlayer) {
-                                isCurrentTerrainOccluded = false;
-                            } else if (hasValidNeighbor &&
-                                       ((isMainTypeTerrain && isSubTypeOccluding))) {
-                                isCurrentTerrainOccluded = true;
-                            }
-                        }
-
-                        if (isCurrentTerrainOccluded) {
-                            voxelGridView.setTerrainVoxel(x, y, z, -2);
-                        } else {
-                            voxelGridView.setTerrainVoxel(x, y, z, entity_id);
-                            localResult.emplace_back(entity_id);
-                        }
-                    }
+                // This is necessary because we might use transparency during rendering
+                // to show player below terrain
+                if (isTerrainNearPlayer) {
+                    isCurrentTerrainOccluded = false;
+                } else if (hasValidNeighbor && ((isMainTypeTerrain && isSubTypeOccluding))) {
+                    isCurrentTerrainOccluded = true;
                 }
             }
-        }
 
-// Merge each thread's local result vector into the shared result vector
-#pragma omp critical
-        terrainsIds.insert(terrainsIds.end(), localResult.begin(), localResult.end());
+            if (isCurrentTerrainOccluded) {
+                voxelGridView.setTerrainVoxel(x, y, z, -2);
+            } else {
+                voxelGridView.setTerrainVoxel(x, y, z, entity_id);
+                terrainsIds.emplace_back(entity_id);
+            }
+        }
     }
 
     return terrainsIds;
@@ -493,110 +480,101 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
 
     std::vector<int> terrainsIds;
 
-    // Accessor for direct voxel access within the grid
-    openvdb::Int32Grid::ConstAccessor accessor = voxelGrid->terrainGrid->getConstAccessor();
+    // Use efficient region-based terrain query instead of individual coordinate lookups
+    std::vector<VoxelGridCoordinates> terrainCoords =
+        voxelGrid->getAllTerrainInRegion(x_min, y_min, z_min, x_max, y_max, z_max);
 
-// Parallelize the outer loop (x) using OpenMP
-#pragma omp parallel
-    {
-        // Each thread maintains its own local result vector
-        std::vector<int> localResult;
+    // Reserve space for efficiency
+    terrainsIds.reserve(terrainCoords.size());
 
-#pragma omp for collapse(2)  // Parallelize both x and y loops
-        for (int x = x_min; x <= x_max; ++x) {
-            for (int y = y_min; y <= y_max; ++y) {
-                for (int z = z_max; z >= z_min; --z) {
-                    openvdb::Coord coord(x, y, z);
+    // Process each terrain voxel found in the region
+    for (const auto& coord : terrainCoords) {
+        int x = coord.x;
+        int y = coord.y;
+        int z = coord.z;
 
-                    // Check if the voxel is active and get its value
-                    if (accessor.isValueOn(coord)) {
-                        // Retrieve and cast the entity ID from the voxel value
-                        int entity_id = static_cast<int>(accessor.getValue(coord));
+        // Get terrain ID at this coordinate
+        int terrainId = voxelGrid->getTerrain(x, y, z);
+        if (terrainId != 0) {  // Assuming 0 means no terrain
 
-                        bool isCurrentTerrainOccluded = false;
-                        openvdb::Coord neighboorCoord(x + 1, y + 1, z + 1);
-                        if (accessor.isValueOn(neighboorCoord)) {
-                            // Retrieve and cast the entity ID from the voxel value
-                            int neighboorEntityId =
-                                static_cast<int>(accessor.getValue(neighboorCoord));
+            // std::cout << "createPerceptionResponse -> Inside terrain check.\n";
 
-                            bool hasValidNeighbor;
-                            bool isMainTypeTerrain;
-                            bool isSubTypeOccluding;
+            // Use terrain ID directly
+            int entity_id = terrainId;
 
-                            if (neighboorEntityId != -1) {
-                                entt::entity neighboorTerrainEntity =
-                                    static_cast<entt::entity>(neighboorEntityId);
+            bool isCurrentTerrainOccluded = false;
+            int neighborTerrainId = voxelGrid->getTerrain(x + 1, y + 1, z + 1);
+            if (neighborTerrainId != 0) {
+                // Use neighbor terrain ID directly
+                int neighboorEntityId = neighborTerrainId;
 
-                                if (!entityTypeView.contains(neighboorTerrainEntity)) {
-                                    std::ostringstream oss;
-                                    oss << "createPerceptionResponse: Entity (ID: "
-                                        << neighboorEntityId
-                                        << ") is missing the required EntityTypeComponent while "
-                                           "retrieving terrains in view.";
-                                    throw std::runtime_error(oss.str());
-                                }
-                                const EntityTypeComponent& terrainEtc =
-                                    entityTypeView.get<EntityTypeComponent>(neighboorTerrainEntity);
+                bool hasValidNeighbor;
+                bool isMainTypeTerrain;
+                bool isSubTypeOccluding;
 
-                                hasValidNeighbor = (neighboorEntityId != -1);
-                                isMainTypeTerrain = (terrainEtc.mainType == 0);
-                                isSubTypeOccluding =
-                                    terrainEtc.subType0 != static_cast<int>(TerrainEnum::EMPTY) &&
-                                    terrainEtc.subType0 != static_cast<int>(TerrainEnum::WATER) &&
-                                    (terrainEtc.subType1 == 0 || terrainEtc.subType1 == 1);
+                if (neighboorEntityId != -1) {
+                    entt::entity neighboorTerrainEntity =
+                        static_cast<entt::entity>(neighboorEntityId);
 
-                            } else {
-                                hasValidNeighbor = false;
-                                isMainTypeTerrain = false;
-                                isSubTypeOccluding = false;
-                            }
-
-                            // TODO: fix me
-                            // bool isNeighboorOccluded = voxelGridView.getTerrainVoxel(x + 1, y +
-                            // 1, z + 1) == -2;
-                            bool isNeighboorOccluded = voxelGridView.getTerrainVoxel(x, y, z) == -2;
-                            // First, check if the terrain is exactly one level below the player
-                            bool isOneLevelBelow = (z == pos.z - 1);
-
-                            // Then, check if the terrain position is directly below or adjacent in
-                            // a cross pattern
-                            bool isAdjacentInCross =
-                                (x == pos.x && y == pos.y) ||      // Directly below
-                                (x == pos.x + 1 && y == pos.y) ||  // +X direction
-                                (x == pos.x - 1 && y == pos.y) ||  // -X direction
-                                (x == pos.x && y == pos.y + 1) ||  // +Y direction
-                                (x == pos.x && y == pos.y - 1);    // -Y direction
-
-                            // Combine the two conditions with isMainTypeTerrain
-                            bool isTerrainNearPlayer =
-                                isMainTypeTerrain && isOneLevelBelow && isAdjacentInCross;
-
-                            // This is necessary because we might use transparency during rendering
-                            // to show player bellow terrain
-                            if (isTerrainNearPlayer) {
-                                isCurrentTerrainOccluded = false;
-                            } else if (hasValidNeighbor &&
-                                       ((isMainTypeTerrain && isSubTypeOccluding) ||
-                                        isNeighboorOccluded)) {
-                                isCurrentTerrainOccluded = true;
-                            }
-                        }
-
-                        if (isCurrentTerrainOccluded) {
-                            voxelGridView.setTerrainVoxel(x, y, z, -2);
-                        } else {
-                            voxelGridView.setTerrainVoxel(x, y, z, entity_id);
-                            localResult.emplace_back(entity_id);
-                        }
+                    if (!entityTypeView.contains(neighboorTerrainEntity)) {
+                        std::ostringstream oss;
+                        oss << "createPerceptionResponse: Entity (ID: " << neighboorEntityId
+                            << ") is missing the required EntityTypeComponent while "
+                               "retrieving terrains in view.";
+                        throw std::runtime_error(oss.str());
                     }
+                    const EntityTypeComponent& terrainEtc =
+                        entityTypeView.get<EntityTypeComponent>(neighboorTerrainEntity);
+
+                    hasValidNeighbor = (neighboorEntityId != -1);
+                    isMainTypeTerrain = (terrainEtc.mainType == 0);
+                    isSubTypeOccluding =
+                        terrainEtc.subType0 != static_cast<int>(TerrainEnum::EMPTY) &&
+                        terrainEtc.subType0 != static_cast<int>(TerrainEnum::WATER) &&
+                        (terrainEtc.subType1 == 0 || terrainEtc.subType1 == 1);
+
+                } else {
+                    hasValidNeighbor = false;
+                    isMainTypeTerrain = false;
+                    isSubTypeOccluding = false;
+                }
+
+                // TODO: fix me
+                // bool isNeighboorOccluded = voxelGridView.getTerrainVoxel(x + 1, y +
+                // 1, z + 1) == -2;
+                bool isNeighboorOccluded = voxelGridView.getTerrainVoxel(x, y, z) == -2;
+                // First, check if the terrain is exactly one level below the player
+                bool isOneLevelBelow = (z == pos.z - 1);
+
+                // Then, check if the terrain position is directly below or adjacent in
+                // a cross pattern
+                bool isAdjacentInCross = (x == pos.x && y == pos.y) ||      // Directly below
+                                         (x == pos.x + 1 && y == pos.y) ||  // +X direction
+                                         (x == pos.x - 1 && y == pos.y) ||  // -X direction
+                                         (x == pos.x && y == pos.y + 1) ||  // +Y direction
+                                         (x == pos.x && y == pos.y - 1);    // -Y direction
+
+                // Combine the two conditions with isMainTypeTerrain
+                bool isTerrainNearPlayer =
+                    isMainTypeTerrain && isOneLevelBelow && isAdjacentInCross;
+
+                // This is necessary because we might use transparency during rendering
+                // to show player bellow terrain
+                if (isTerrainNearPlayer) {
+                    isCurrentTerrainOccluded = false;
+                } else if (hasValidNeighbor &&
+                           ((isMainTypeTerrain && isSubTypeOccluding) || isNeighboorOccluded)) {
+                    isCurrentTerrainOccluded = true;
                 }
             }
-        }
 
-// Merge each thread's local result vector into the shared result vector
-#pragma omp critical
-        terrainsIds.insert(terrainsIds.end(), localResult.begin(), localResult.end());
+            if (isCurrentTerrainOccluded) {
+                voxelGridView.setTerrainVoxel(x, y, z, -2);
+            } else {
+                voxelGridView.setTerrainVoxel(x, y, z, entity_id);
+                terrainsIds.emplace_back(entity_id);
+            }
+        }
     }
 
     std::vector<int> entitiesIds =

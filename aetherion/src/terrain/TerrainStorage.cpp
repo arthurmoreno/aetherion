@@ -452,3 +452,32 @@ size_t TerrainStorage::prune(int currentTick) {
     lastPruneTick = currentTick;
     return activeCount;
 }
+
+bool TerrainStorage::checkIfTerrainExists(int x, int y, int z) const {
+    if (!terrainGrid) return false;
+    int terrainType = terrainGrid->tree().getValue(openvdb::Coord(x, y, z));
+    return terrainType != -1;  // Assuming -1 indicates no terrain
+}
+
+void TerrainStorage::deleteTerrain(int x, int y, int z) {
+    openvdb::Coord coord(x, y, z);
+    
+    // Deactivate the voxel in all grids to keep the tree clean
+    if (terrainGrid) {
+        terrainGrid->tree().setValueOff(coord);
+    }
+    
+    // Also deactivate in all other grids for this coordinate
+    mainTypeGrid->tree().setValueOff(coord);
+    subType0Grid->tree().setValueOff(coord);
+    subType1Grid->tree().setValueOff(coord);
+    terrainMatterGrid->tree().setValueOff(coord);
+    waterMatterGrid->tree().setValueOff(coord);
+    vaporMatterGrid->tree().setValueOff(coord);
+    biomassMatterGrid->tree().setValueOff(coord);
+    massGrid->tree().setValueOff(coord);
+    maxSpeedGrid->tree().setValueOff(coord);
+    minSpeedGrid->tree().setValueOff(coord);
+    flagsGrid->tree().setValueOff(coord);
+    maxLoadCapacityGrid->tree().setValueOff(coord);
+}

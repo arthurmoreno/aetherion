@@ -324,3 +324,86 @@ void TerrainGridRepository::setVelocity(int x, int y, int z, const Velocity& vel
         registry_.emplace<Velocity>(e, vel);
     }
 }
+
+// ---------------- Migration Methods ----------------
+void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
+    if (!registry_.valid(entity)) {
+        return; // Invalid entity, nothing to migrate
+    }
+
+    // Get the position to know where to store the data
+    Position* position = registry_.try_get<Position>(entity);
+    if (!position) {
+        return; // No position, cannot determine where to store terrain data
+    }
+
+    int x = position->x;
+    int y = position->y;
+    int z = position->z;
+
+    bool hasStaticComponents = false;
+
+    // Migrate EntityTypeComponent
+    if (EntityTypeComponent* etc = registry_.try_get<EntityTypeComponent>(entity)) {
+        setTerrainEntityType(x, y, z, *etc);
+        registry_.remove<EntityTypeComponent>(entity);
+        hasStaticComponents = true;
+    }
+
+    // Migrate MatterContainer
+    if (MatterContainer* mc = registry_.try_get<MatterContainer>(entity)) {
+        setTerrainMatterContainer(x, y, z, *mc);
+        registry_.remove<MatterContainer>(entity);
+        hasStaticComponents = true;
+    }
+
+    // Migrate PhysicsStats
+    if (PhysicsStats* ps = registry_.try_get<PhysicsStats>(entity)) {
+        setPhysicsStats(x, y, z, *ps);
+        registry_.remove<PhysicsStats>(entity);
+        hasStaticComponents = true;
+    }
+
+    // Migrate StructuralIntegrityComponent
+    if (StructuralIntegrityComponent* sic = registry_.try_get<StructuralIntegrityComponent>(entity)) {
+        setCanStackEntities(x, y, z, sic->canStackEntities);
+        setMaxLoadCapacity(x, y, z, sic->maxLoadCapacity);
+        setMatterState(x, y, z, sic->matterState);
+        setGradient(x, y, z, sic->gradientVector);
+        registry_.remove<StructuralIntegrityComponent>(entity);
+        hasStaticComponents = true;
+    }
+
+    // Store direction from Position component (but don't remove Position if entity has transients)
+    setDirection(x, y, z, position->direction);
+
+    // Check if only transient components remain
+    bool hasTransientComponents = false;
+    
+    // Check for known transient components
+    if (registry_.try_get<Velocity>(entity) || 
+        registry_.try_get<MovingComponent>(entity)) {
+        hasTransientComponents = true;
+    }
+
+    // If no transient components remain, we can remove the entity
+    if (!hasTransientComponents) {
+        // Clear the activation state and remove entity from mapping
+        clearActive(x, y, z);
+        auto it = byCoord_.find(Key{x, y, z});
+        if (it != byCoord_.end()) {
+            byCoord_.erase(it);
+        }
+        registry_.destroy(entity);
+    }
+}
+
+bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
+    return storage_.checkIfTerrainExists(x, y, z);
+}
+
+
+// Delete terrain at a specific voxel
+void TerrainGridRepository::deleteTerrain(int x, int y, int z) {
+    storage_.deleteTerrain(x, y, z);
+}
