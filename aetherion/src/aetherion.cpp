@@ -200,6 +200,21 @@ NB_MODULE(_aetherion, m) {
         .def("is_active", &TerrainStorage::isActive)
         .def("prune", &TerrainStorage::prune);
 
+    nb::class_<TerrainGridRepository>(m, "TerrainGridRepository")
+        .def(nb::init<entt::registry&, TerrainStorage&>())
+        .def("is_active", &TerrainGridRepository::isActive)
+        .def("read_terrain_info", &TerrainGridRepository::readTerrainInfo)
+        .def("get_terrain_entity_type", &TerrainGridRepository::getTerrainEntityType)
+        .def("set_terrain_entity_type", &TerrainGridRepository::setTerrainEntityType)
+        .def("get_terrain_matter_container", &TerrainGridRepository::getTerrainMatterContainer)
+        .def("set_terrain_matter_container", &TerrainGridRepository::setTerrainMatterContainer)
+        .def("get_matter_state", &TerrainGridRepository::getMatterState)
+        .def("set_matter_state", &TerrainGridRepository::setMatterState)
+        .def("get_position", &TerrainGridRepository::getPosition)
+        .def("set_position", &TerrainGridRepository::setPosition)
+        .def("get_physics_stats", &TerrainGridRepository::getPhysicsStats)
+        .def("set_physics_stats", &TerrainGridRepository::setPhysicsStats);
+
     // nb::class_<RenderTask>(m, "RenderTask")
     //     .def(nb::init<SDL_Texture*, int, int>())
     //     .def_rw("texture", &RenderTask::texture)

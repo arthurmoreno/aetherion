@@ -6,10 +6,15 @@
 
 namespace {
 inline openvdb::Coord C(int x, int y, int z) { return openvdb::Coord(x, y, z); }
-}
+}  // namespace
 
 TerrainGridRepository::TerrainGridRepository(entt::registry& registry, TerrainStorage& storage)
-    : registry_(registry), storage_(storage) {}
+    : registry_(registry), storage_(storage) {
+    // Auto-mark active when Velocity or MovingComponent are emplaced
+    registry_.on_construct<Velocity>().connect<&TerrainGridRepository::onConstructVelocity>(*this);
+    registry_.on_construct<MovingComponent>().connect<&TerrainGridRepository::onConstructMoving>(
+        *this);
+}
 
 entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
     auto it = byCoord_.find(Key{x, y, z});
@@ -36,6 +41,23 @@ void TerrainGridRepository::clearActive(int x, int y, int z) {
         storage_.terrainGrid->tree().setValue(C(x, y, z), 0);
     } else {
         storage_.terrainGrid->tree().setValue(C(x, y, z), storage_.bgEntityId);
+    }
+}
+
+void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entity e) {
+    // If entity has a Position, mark active in the TerrainStorage grid
+    if (auto pos = reg.try_get<Position>(e)) {
+        Key key{pos->x, pos->y, pos->z};
+        byCoord_[key] = e;
+        markActive(pos->x, pos->y, pos->z, e);
+    }
+}
+
+void TerrainGridRepository::onConstructMoving(entt::registry& reg, entt::entity e) {
+    if (auto pos = reg.try_get<Position>(e)) {
+        Key key{pos->x, pos->y, pos->z};
+        byCoord_[key] = e;
+        markActive(pos->x, pos->y, pos->z, e);
     }
 }
 
@@ -73,7 +95,8 @@ void TerrainGridRepository::setTerrainEntityType(int x, int y, int z, EntityType
     setSubType1(x, y, z, etc.subType1);
 }
 
-TerrainGridRepository::TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y, int z) const {
+TerrainGridRepository::TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y,
+                                                                          int z) const {
     TerrainInfo info;
     info.x = x;
     info.y = y;
@@ -160,6 +183,23 @@ void TerrainGridRepository::setSubType1(int x, int y, int z, int v) {
     storage_.setTerrainSubType1(x, y, z, v);
 }
 
+MatterContainer TerrainGridRepository::getTerrainMatterContainer(int x, int y, int z) const {
+    MatterContainer mc{};
+    mc.TerrainMatter = getTerrainMatter(x, y, z);
+    mc.WaterVapor = getVaporMatter(x, y, z);
+    mc.WaterMatter = getWaterMatter(x, y, z);
+    mc.BioMassMatter = getBiomassMatter(x, y, z);
+    return mc;
+}
+
+void TerrainGridRepository::setTerrainMatterContainer(int x, int y, int z,
+                                                      const MatterContainer& mc) {
+    setTerrainMatter(x, y, z, mc.TerrainMatter);
+    setVaporMatter(x, y, z, mc.WaterVapor);
+    setWaterMatter(x, y, z, mc.WaterMatter);
+    setBiomassMatter(x, y, z, mc.BioMassMatter);
+}
+
 int TerrainGridRepository::getTerrainMatter(int x, int y, int z) const {
     return storage_.getTerrainMatter(x, y, z);
 }
@@ -185,15 +225,42 @@ void TerrainGridRepository::setBiomassMatter(int x, int y, int z, int v) {
     storage_.setTerrainBiomassMatter(x, y, z, v);
 }
 
-int TerrainGridRepository::getMass(int x, int y, int z) const { return storage_.getTerrainMass(x, y, z); }
-void TerrainGridRepository::setMass(int x, int y, int z, int v) { storage_.setTerrainMass(x, y, z, v); }
-int TerrainGridRepository::getMaxSpeed(int x, int y, int z) const { return storage_.getTerrainMaxSpeed(x, y, z); }
+int TerrainGridRepository::getMass(int x, int y, int z) const {
+    return storage_.getTerrainMass(x, y, z);
+}
+void TerrainGridRepository::setMass(int x, int y, int z, int v) {
+    storage_.setTerrainMass(x, y, z, v);
+}
+int TerrainGridRepository::getMaxSpeed(int x, int y, int z) const {
+    return storage_.getTerrainMaxSpeed(x, y, z);
+}
 void TerrainGridRepository::setMaxSpeed(int x, int y, int z, int v) {
     storage_.setTerrainMaxSpeed(x, y, z, v);
 }
-int TerrainGridRepository::getMinSpeed(int x, int y, int z) const { return storage_.getTerrainMinSpeed(x, y, z); }
+int TerrainGridRepository::getMinSpeed(int x, int y, int z) const {
+    return storage_.getTerrainMinSpeed(x, y, z);
+}
 void TerrainGridRepository::setMinSpeed(int x, int y, int z, int v) {
     storage_.setTerrainMinSpeed(x, y, z, v);
+}
+
+PhysicsStats TerrainGridRepository::getPhysicsStats(int x, int y, int z) const {
+    PhysicsStats ps{};
+    ps.mass = static_cast<float>(getMass(x, y, z));
+    ps.maxSpeed = static_cast<float>(getMaxSpeed(x, y, z));
+    ps.minSpeed = static_cast<float>(getMinSpeed(x, y, z));
+    ps.forceX = 0.0f;
+    ps.forceY = 0.0f;
+    ps.forceZ = 0.0f;
+    ps.heat = 0.0f;
+    return ps;
+}
+
+void TerrainGridRepository::setPhysicsStats(int x, int y, int z, const PhysicsStats& ps) {
+    setMass(x, y, z, static_cast<int>(ps.mass));
+    setMaxSpeed(x, y, z, static_cast<int>(ps.maxSpeed));
+    setMinSpeed(x, y, z, static_cast<int>(ps.minSpeed));
+    // forceX/forceY/forceZ/heat are transient or derived; not persisted to VDB here.
 }
 
 DirectionEnum TerrainGridRepository::getDirection(int x, int y, int z) const {
@@ -201,6 +268,20 @@ DirectionEnum TerrainGridRepository::getDirection(int x, int y, int z) const {
 }
 void TerrainGridRepository::setDirection(int x, int y, int z, DirectionEnum dir) {
     storage_.setTerrainDirection(x, y, z, dir);
+}
+
+Position TerrainGridRepository::getPosition(int x, int y, int z) const {
+    Position pos{};
+    pos.x = x;
+    pos.y = y;
+    pos.z = z;
+    pos.direction = getDirection(x, y, z);
+    return pos;
+}
+
+void TerrainGridRepository::setPosition(int x, int y, int z, const Position& pos) {
+    // Coordinates are implied by (x,y,z); only persist direction.
+    setDirection(x, y, z, pos.direction);
 }
 bool TerrainGridRepository::getCanStackEntities(int x, int y, int z) const {
     return storage_.getTerrainCanStackEntities(x, y, z);

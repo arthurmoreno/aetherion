@@ -123,6 +123,9 @@ class TerrainStorage {
    private:
     // Thread-local accessor cache for fast O(1) get/set
     struct ThreadCache {
+        // Which TerrainStorage instance this cache is bound to
+        const TerrainStorage* owner = nullptr;
+
         // Tree identity pointers, to detect when grids change and refresh accessors
         const void* terrainPtr = nullptr;
         const void* mainTypePtr = nullptr;

@@ -5,9 +5,9 @@
 #include <optional>
 #include <unordered_map>
 
+#include "components/EntityTypeComponent.hpp"
 #include "components/PhysicsComponents.hpp"
 #include "components/TerrainComponents.hpp"
-#include "components/EntityTypeComponent.hpp"
 #include "terrain/TerrainStorage.hpp"
 
 // TerrainGridRepository provides an ECS overlay for transient behavior while
@@ -153,6 +153,10 @@ class TerrainGridRepository {
     entt::entity ensureActive(int x, int y, int z);
     void markActive(int x, int y, int z, entt::entity e);
     void clearActive(int x, int y, int z);
+
+    // EnTT hooks to auto-activate on transient component emplacement
+    void onConstructVelocity(entt::registry& reg, entt::entity e);
+    void onConstructMoving(entt::registry& reg, entt::entity e);
 };
 
 #endif  // TERRAIN_GRID_REPOSITORY_HPP

@@ -59,6 +59,9 @@ inline uint32_t getBits(uint32_t flags, int shift, uint32_t mask) {
 thread_local TerrainStorage::ThreadCache TerrainStorage::s_threadCache;
 
 TerrainStorage::TerrainStorage() {
+    // Ensure OpenVDB is initialized when TerrainStorage is used standalone
+    // (e.g., in tests that don't create a VoxelGrid, which normally initializes OpenVDB).
+    openvdb::initialize();
     // Allocate terrain-related grids (terrainGrid attached externally)
     terrainGrid = openvdb::Int32Grid::create(-1);  // Default background terrain type
     // Entity type component grids
@@ -122,6 +125,45 @@ size_t TerrainStorage::memUsage() const {
 
 void TerrainStorage::configureThreadCache() {
     auto& tc = s_threadCache;
+
+    // If a different TerrainStorage instance is now in use, clear the cache fully
+    const bool newOwner = (tc.owner != this);
+    if (newOwner) {
+        tc.owner = this;
+        tc.configured = false;
+
+        // Reset all tree pointers
+        tc.terrainPtr = nullptr;
+        tc.mainTypePtr = nullptr;
+        tc.subType0Ptr = nullptr;
+        tc.subType1Ptr = nullptr;
+        tc.terrainMatterPtr = nullptr;
+        tc.waterMatterPtr = nullptr;
+        tc.vaporMatterPtr = nullptr;
+        tc.biomassMatterPtr = nullptr;
+        tc.massPtr = nullptr;
+        tc.maxSpeedPtr = nullptr;
+        tc.minSpeedPtr = nullptr;
+        tc.flagsPtr = nullptr;
+        tc.maxLoadCapacityPtr = nullptr;
+
+        // Reset all accessors to drop stale references into previous instance trees
+        tc.terrainAcc.reset();
+        tc.mainTypeAcc.reset();
+        tc.subType0Acc.reset();
+        tc.subType1Acc.reset();
+        tc.terrainMatterAcc.reset();
+        tc.waterMatterAcc.reset();
+        tc.vaporMatterAcc.reset();
+        tc.biomassMatterAcc.reset();
+        tc.massAcc.reset();
+        tc.maxSpeedAcc.reset();
+        tc.minSpeedAcc.reset();
+        tc.flagsAcc.reset();
+        tc.maxLoadCapacityAcc.reset();
+    }
+
+    // Collect current tree identity pointers
     const void* tptr = terrainGrid ? static_cast<const void*>(&terrainGrid->tree()) : nullptr;
     const void* mtPtr = static_cast<const void*>(&mainTypeGrid->tree());
     const void* st0Ptr = static_cast<const void*>(&subType0Grid->tree());
@@ -136,11 +178,15 @@ void TerrainStorage::configureThreadCache() {
     const void* fptr = static_cast<const void*>(&flagsGrid->tree());
     const void* mlcPtr = static_cast<const void*>(&maxLoadCapacityGrid->tree());
 
-    if (!tc.configured || tc.terrainPtr != tptr || tc.terrainMatterPtr != tmPtr ||
-        tc.waterMatterPtr != wmPtr || tc.vaporMatterPtr != vapPtr || tc.biomassMatterPtr != bmPtr ||
-        tc.flagsPtr != fptr || tc.mainTypePtr != mtPtr || tc.subType0Ptr != st0Ptr ||
-        tc.subType1Ptr != st1Ptr || tc.massPtr != mPtr || tc.maxSpeedPtr != mxPtr ||
-        tc.minSpeedPtr != mnPtr || tc.maxLoadCapacityPtr != mlcPtr) {
+    const bool changed = newOwner || tc.terrainPtr != tptr || tc.mainTypePtr != mtPtr ||
+                         tc.subType0Ptr != st0Ptr || tc.subType1Ptr != st1Ptr ||
+                         tc.terrainMatterPtr != tmPtr || tc.waterMatterPtr != wmPtr ||
+                         tc.vaporMatterPtr != vapPtr || tc.biomassMatterPtr != bmPtr ||
+                         tc.massPtr != mPtr || tc.maxSpeedPtr != mxPtr || tc.minSpeedPtr != mnPtr ||
+                         tc.flagsPtr != fptr || tc.maxLoadCapacityPtr != mlcPtr;
+
+    if (!tc.configured || changed) {
+        // Rebuild all accessors from current grids
         if (terrainGrid)
             tc.terrainAcc =
                 std::make_unique<openvdb::Int32Grid::Accessor>(terrainGrid->getAccessor());
@@ -166,6 +212,8 @@ void TerrainStorage::configureThreadCache() {
         tc.flagsAcc = std::make_unique<openvdb::Int32Grid::Accessor>(flagsGrid->getAccessor());
         tc.maxLoadCapacityAcc =
             std::make_unique<openvdb::Int32Grid::Accessor>(maxLoadCapacityGrid->getAccessor());
+
+        // Update identity pointers
         tc.terrainPtr = tptr;
         tc.mainTypePtr = mtPtr;
         tc.subType0Ptr = st0Ptr;
@@ -174,11 +222,12 @@ void TerrainStorage::configureThreadCache() {
         tc.waterMatterPtr = wmPtr;
         tc.vaporMatterPtr = vapPtr;
         tc.biomassMatterPtr = bmPtr;
-        tc.flagsPtr = fptr;
         tc.massPtr = mPtr;
         tc.maxSpeedPtr = mxPtr;
         tc.minSpeedPtr = mnPtr;
+        tc.flagsPtr = fptr;
         tc.maxLoadCapacityPtr = mlcPtr;
+
         tc.configured = true;
     }
 }
