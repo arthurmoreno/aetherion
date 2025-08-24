@@ -564,11 +564,13 @@ bool TerrainStorage::checkIfTerrainExists(int x, int y, int z) const {
     return terrainType != -2;  // -2 = off nodes (no terrain), -1/-0/+ = terrain exists
 }
 
-void TerrainStorage::deleteTerrain(int x, int y, int z) {
+int TerrainStorage::deleteTerrain(int x, int y, int z) {
     openvdb::Coord coord(x, y, z);
 
     // Deactivate the voxel in all grids to keep the tree clean
+    int terrainId = -2;
     if (terrainGrid) {
+        terrainId = terrainGrid->tree().getValue(coord);
         terrainGrid->tree().setValueOff(coord);
     }
 
@@ -585,6 +587,8 @@ void TerrainStorage::deleteTerrain(int x, int y, int z) {
     minSpeedGrid->tree().setValueOff(coord);
     flagsGrid->tree().setValueOff(coord);
     maxLoadCapacityGrid->tree().setValueOff(coord);
+
+    return terrainId;
 }
 
 // StructuralIntegrityComponent accessors:

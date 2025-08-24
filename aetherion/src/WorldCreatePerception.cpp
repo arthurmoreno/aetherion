@@ -390,7 +390,8 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                                                    const std::vector<QueryCommand>& commands) {
     auto logger = Logger::getLogger();
     // logger->debug("createPerceptionResponse -> entered");
-    // std::lock_guard<std::mutex> lock(registryMutex);
+    // Protect registry access against concurrent destruction/updates
+    std::lock_guard<std::mutex> lock(registryMutex);
 
     entt::entity entity = static_cast<entt::entity>(entityId);
 
@@ -655,6 +656,9 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
     std::for_each(entitiesInView.begin(), entitiesInView.end(), [&](entt::entity entity) {
         // Assuming entitiesInView comes from allView, so no need for validity
         // checks
+        if (!registry.valid(entity)) {
+            return;
+        }
 
         EntityInterface entity_interface;
         entity_interface.entityId = static_cast<int>(entity);

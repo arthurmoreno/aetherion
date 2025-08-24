@@ -52,17 +52,21 @@ void TerrainGridRepository::clearActive(int x, int y, int z) {
 void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entity e) {
     // If entity has a Position, mark active in the TerrainStorage grid
     if (auto pos = reg.try_get<Position>(e)) {
-        Key key{pos->x, pos->y, pos->z};
-        byCoord_[key] = e;
-        markActive(pos->x, pos->y, pos->z, e);
+        if (storage_.checkIfTerrainExists(pos->x, pos->y, pos->z)) {
+            Key key{pos->x, pos->y, pos->z};
+            byCoord_[key] = e;
+            markActive(pos->x, pos->y, pos->z, e);
+        }
     }
 }
 
 void TerrainGridRepository::onConstructMoving(entt::registry& reg, entt::entity e) {
     if (auto pos = reg.try_get<Position>(e)) {
-        Key key{pos->x, pos->y, pos->z};
-        byCoord_[key] = e;
-        markActive(pos->x, pos->y, pos->z, e);
+        if (storage_.checkIfTerrainExists(pos->x, pos->y, pos->z)) {
+            Key key{pos->x, pos->y, pos->z};
+            byCoord_[key] = e;
+            markActive(pos->x, pos->y, pos->z, e);
+        }
     }
 }
 
@@ -383,7 +387,15 @@ bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
 }
 
 // Delete terrain at a specific voxel
-void TerrainGridRepository::deleteTerrain(int x, int y, int z) { storage_.deleteTerrain(x, y, z); }
+void TerrainGridRepository::deleteTerrain(int x, int y, int z) {
+    int terrainId = storage_.deleteTerrain(x, y, z);
+    if (terrainId != -2 && terrainId != -1) {
+        // TODO: Handle dropping components and remove from EnTT
+        std::cout << "Deleting terrain entity: " << terrainId << std::endl;
+        entt::entity entity = static_cast<entt::entity>(terrainId);
+        registry_.destroy(entity);
+    }
+}
 
 StructuralIntegrityComponent TerrainGridRepository::getTerrainStructuralIntegrity(int x, int y,
                                                                                   int z) const {

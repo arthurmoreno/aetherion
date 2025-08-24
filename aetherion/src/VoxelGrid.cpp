@@ -80,10 +80,22 @@ void VoxelGrid::setTerrain(int x, int y, int z, int terrainID) {
         // For now, if there's no existing entity, directly set the mainType
         // This maintains compatibility with direct terrain setting
         // terrainGridRepository->setMainType(x, y, z, terrainID);
-        Position pos{x, y, z};
-        entt::entity terrain = static_cast<entt::entity>(terrainID);
-        registry.emplace<Position>(terrain, pos);
-        terrainGridRepository->setTerrainFromEntt(terrain);
+        if (terrainID == -2) {
+            // If setting to -2 (no terrain), delete the terrain at this voxel
+            terrainGridRepository->deleteTerrain(x, y, z);
+            return;
+        } else if (terrainID == -1) {
+            Position pos{x, y, z};
+            entt::entity terrain = registry.create();
+            registry.emplace<Position>(terrain, pos);
+            terrainGridRepository->setTerrainFromEntt(terrain);
+        } else {
+            Position pos{x, y, z};
+            entt::entity terrain = static_cast<entt::entity>(terrainID);
+            registry.emplace<Position>(terrain, pos);
+            terrainGridRepository->setTerrainFromEntt(terrain);
+            // terrainGridRepository->setTerrainMainType(x, y, z, terrainID);
+        }
     }
 }
 
@@ -239,14 +251,21 @@ std::vector<VoxelGridCoordinates> VoxelGrid::getAllTerrainInRegion(int x_min, in
                                                                    int z_max) const {
     std::vector<VoxelGridCoordinates> result;
 
-    // Use TerrainStorage's mainTypeGrid for iteration
+    // Use OpenVDB's spatial iteration for the bounding box region
     if (terrainStorage && terrainStorage->mainTypeGrid) {
-        for (auto iter = terrainStorage->mainTypeGrid->cbeginValueOn(); iter; ++iter) {
-            openvdb::Coord coord = iter.getCoord();
-
-            // Manual bounding box check
-            if (coord.x() >= x_min && coord.x() <= x_max && coord.y() >= y_min &&
-                coord.y() <= y_max && coord.z() >= z_min && coord.z() <= z_max) {
+        // Create bounding box for the region
+        openvdb::CoordBBox bbox(openvdb::Coord(x_min, y_min, z_min), 
+                               openvdb::Coord(x_max, y_max, z_max));
+        
+        // Use OpenVDB's efficient spatial iteration - only traverses voxels in the bbox
+        auto accessor = terrainStorage->mainTypeGrid->getConstAccessor();
+        
+        // Iterate only through coordinates in the bounding box
+        for (openvdb::CoordBBox::Iterator coordIter = bbox.begin(); coordIter; ++coordIter) {
+            const openvdb::Coord& coord = *coordIter;
+            
+            // Check if this coordinate has an active voxel (much faster than full iteration)
+            if (accessor.isValueOn(coord)) {
                 result.emplace_back(VoxelGridCoordinates{coord.x(), coord.y(), coord.z()});
             }
         }

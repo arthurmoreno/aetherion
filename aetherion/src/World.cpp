@@ -778,18 +778,23 @@ void World::update() {
 
     if (allTasksComplete && hasEntitiesToDelete) {
         for (const auto& [entity, softKill] : lifeEngine->entitiesToDelete) {
-            if (registry.valid(entity)) {
+            int entityId = static_cast<int>(entity);
+            bool isSpecialId = entityId == -1 || entityId == -2;
+            if (!isSpecialId && registry.valid(entity)) {
                 const bool shouldRemoveFromGrid = !softKill;
                 if (shouldRemoveFromGrid) {
                     lifeEngine->removeEntityFromGrid(entity);
                 }
 
-                registry.destroy(entity);
+                if (entityId != -1 && entityId != -2) {
+                    std::cout << "Destroying entity: " << entityId << std::endl;
+                    registry.destroy(entity);
+                }
 
                 // std::cout << "Destroyed entity: " << static_cast<int>(entity) << std::endl;
             } else {
                 std::ostringstream ossMessage;
-                ossMessage << "Entity " << static_cast<int>(entity) << " is already invalid.";
+                ossMessage << "Entity " << entityId << " is already invalid.";
                 spdlog::get("console")->info(ossMessage.str());
             }
         }

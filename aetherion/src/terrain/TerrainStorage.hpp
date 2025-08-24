@@ -133,7 +133,7 @@ class TerrainStorage {
     size_t prune(int currentTick);
 
     // Delete terrain at a specific voxel
-    void deleteTerrain(int x, int y, int z);
+    int deleteTerrain(int x, int y, int z);
 
     // ================ Iterator Methods ================
     // Efficient full-grid iteration for specific grids
