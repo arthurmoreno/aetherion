@@ -529,7 +529,8 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                     }
                     // const EntityTypeComponent& terrainEtc =
                     //     entityTypeView.get<EntityTypeComponent>(neighboorTerrainEntity);
-                    EntityTypeComponent terrainEtc = voxelGrid->getTerrainEntityTypeComponent(x + 1, y + 1, z + 1);
+                    EntityTypeComponent terrainEtc =
+                        voxelGrid->getTerrainEntityTypeComponent(x + 1, y + 1, z + 1);
 
                     hasValidNeighbor = (neighboorEntityId != -2);
                     isMainTypeTerrain = (terrainEtc.mainType == 0);
@@ -594,12 +595,11 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
 
                 voxelGridView.setTerrainVoxel(x, y, z, virtualTerrainId);
                 response.world_view.entities.emplace(entity_interface.entityId,
-                                                    std::move(entity_interface));
+                                                     std::move(entity_interface));
 
                 // terrainsIds.emplace_back(virtualTerrainId);
 
                 terrainEntities[virtualTerrainId] = std::move(entity_interface);
-
             }
         }
     }

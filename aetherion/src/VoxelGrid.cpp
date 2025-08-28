@@ -45,8 +45,15 @@ void VoxelGrid::setVoxel(int x, int y, int z, const GridData& data) {
         terrainGridRepository->setTerrainMainType(x, y, z, data.terrainID);
     }
 
-    // Set entity, event, and lighting in respective grids
-    entityGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.entityID);
+    // PROTECTED: Set entity data with mutex protection
+    {
+        std::unique_lock<std::shared_mutex> lock(entityGridMutex);
+        if (entityGrid) {
+            entityGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.entityID);
+        }
+    }
+
+    // Set event and lighting in respective grids
     eventGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.eventID);
     lightingGrid->getAccessor().setValue(openvdb::Coord(x, y, z), data.lightingLevel);
 }
@@ -65,7 +72,15 @@ GridData VoxelGrid::getVoxel(int x, int y, int z) const {
         data.terrainID = -2;
     }
 
-    data.entityID = entityGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
+    // PROTECTED: Read entity data with mutex protection
+    {
+        std::shared_lock<std::shared_mutex> lock(entityGridMutex);
+        if (entityGrid) {
+            data.entityID = entityGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
+        } else {
+            data.entityID = defaultEmptyValue;
+        }
+    }
     data.eventID = eventGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
     data.lightingLevel = lightingGrid->getConstAccessor().getValue(openvdb::Coord(x, y, z));
 
@@ -137,11 +152,55 @@ EntityTypeComponent VoxelGrid::getTerrainEntityTypeComponent(int x, int y, int z
 // }
 
 void VoxelGrid::setEntity(int x, int y, int z, int entityID) {
-    entityGrid->tree().setValue(openvdb::Coord(x, y, z), entityID);
+    // Write operations require exclusive lock
+    std::unique_lock<std::shared_mutex> lock(entityGridMutex);
+    if (!entityGrid) return;
+    
+    openvdb::Coord coord(x, y, z);
+    auto accessor = entityGrid->getAccessor();
+    accessor.setValue(coord, entityID);
 }
 
 int VoxelGrid::getEntity(int x, int y, int z) const {
-    return entityGrid->tree().getValue(openvdb::Coord(x, y, z));
+    // Read operations use shared lock (multiple readers allowed)
+    std::shared_lock<std::shared_mutex> lock(entityGridMutex);
+    if (!entityGrid) return defaultEmptyValue;
+    
+    openvdb::Coord coord(x, y, z);
+    auto accessor = entityGrid->getConstAccessor();
+    
+    // Performance optimization: check if voxel is active first to avoid tree traversal
+    if (!accessor.isValueOn(coord)) {
+        return defaultEmptyValue;  // Inactive voxel = empty space
+    }
+    
+    return accessor.getValue(coord);
+}
+
+int VoxelGrid::getEntityUnsafe(int x, int y, int z) const {
+    // Unsafe fast read - NO LOCKING for performance-critical paths
+    // WARNING: Only use this when you're certain no writes are happening
+    if (!entityGrid) return defaultEmptyValue;
+    
+    openvdb::Coord coord(x, y, z);
+    auto accessor = entityGrid->getConstAccessor();
+    
+    // Performance optimization: check if voxel is active first to avoid tree traversal
+    if (!accessor.isValueOn(coord)) {
+        return defaultEmptyValue;  // Inactive voxel = empty space
+    }
+    
+    return accessor.getValue(coord);
+}
+
+void VoxelGrid::deleteEntity(int x, int y, int z) {
+    // Write operations require exclusive lock
+    std::unique_lock<std::shared_mutex> lock(entityGridMutex);
+    if (!entityGrid) return;
+    
+    openvdb::Coord coord(x, y, z);
+    auto accessor = entityGrid->getAccessor();
+    accessor.setValueOff(coord, defaultEmptyValue);  // Properly deactivate node for OpenVDB tree cleanliness
 }
 
 void VoxelGrid::setEvent(int x, int y, int z, int eventID) {
@@ -165,13 +224,22 @@ std::vector<char> VoxelGrid::serializeToBytes() const {
 
     // Populate the map with voxel data using TerrainStorage's mainTypeGrid iterator
     if (terrainStorage && terrainStorage->mainTypeGrid) {
+        std::shared_lock<std::shared_mutex> lock(entityGridMutex);  // PROTECT entity grid access
+        
         for (auto iter = terrainStorage->mainTypeGrid->cbeginValueOn(); iter.test(); ++iter) {
             openvdb::Coord coord = iter.getCoord();
             VoxelGridCoordinates coordinates = {coord.x(), coord.y(), coord.z()};
 
             GridData data;
             data.terrainID = terrainStorage->getTerrainMainType(coord.x(), coord.y(), coord.z());
-            data.entityID = entityGrid->tree().getValue(coord);
+            
+            // PROTECTED: Read entity data with mutex protection
+            if (entityGrid) {
+                data.entityID = entityGrid->tree().getValue(coord);  // Line 206 - NOW PROTECTED
+            } else {
+                data.entityID = defaultEmptyValue;
+            }
+            
             data.eventID = eventGrid->tree().getValue(coord);
             data.lightingLevel = lightingGrid->tree().getValue(coord);
 
@@ -199,23 +267,39 @@ void VoxelGrid::deserializeFromBytes(const std::vector<char>& byteData) {
     if (terrainStorage && terrainStorage->mainTypeGrid) {
         terrainStorage->mainTypeGrid->clear();
     }
-    entityGrid->clear();
+    
+    // PROTECTED: Clear entity grid with mutex protection
+    {
+        std::unique_lock<std::shared_mutex> lock(entityGridMutex);
+        if (entityGrid) {
+            entityGrid->clear();  // Line 234 - NOW PROTECTED
+        }
+    }
+    
     eventGrid->clear();
     lightingGrid->clear();
 
     // Populate the grids using the data from the map
-    for (const auto& [coordinates, data] : voxelDataMap) {
-        openvdb::Coord coord(coordinates.x, coordinates.y, coordinates.z);
+    {
+        std::unique_lock<std::shared_mutex> lock(entityGridMutex);
+        for (const auto& [coordinates, data] : voxelDataMap) {
+            openvdb::Coord coord(coordinates.x, coordinates.y, coordinates.z);
 
-        // Set terrain data using TerrainGridRepository
-        if (terrainGridRepository) {
-            terrainGridRepository->setTerrainMainType(coordinates.x, coordinates.y, coordinates.z,
-                                                      data.terrainID);
+            // Set terrain data using TerrainGridRepository
+            if (terrainGridRepository) {
+                terrainGridRepository->setTerrainMainType(coordinates.x, coordinates.y, coordinates.z,
+                                                          data.terrainID);
+            }
+
+            // PROTECTED: Set entity data with mutex protection
+            if (entityGrid && data.entityID != defaultEmptyValue) {
+                entityGrid->tree().setValue(coord, data.entityID);  // Line 248 - NOW PROTECTED
+            }
+            
+            // Set other grid data (outside the entity mutex - these can be moved outside if needed)
+            eventGrid->tree().setValue(coord, data.eventID);
+            lightingGrid->tree().setValue(coord, data.lightingLevel);
         }
-
-        entityGrid->tree().setValue(coord, data.entityID);
-        eventGrid->tree().setValue(coord, data.eventID);
-        lightingGrid->tree().setValue(coord, data.lightingLevel);
     }
 }
 
@@ -254,16 +338,16 @@ std::vector<VoxelGridCoordinates> VoxelGrid::getAllTerrainInRegion(int x_min, in
     // Use OpenVDB's spatial iteration for the bounding box region
     if (terrainStorage && terrainStorage->mainTypeGrid) {
         // Create bounding box for the region
-        openvdb::CoordBBox bbox(openvdb::Coord(x_min, y_min, z_min), 
-                               openvdb::Coord(x_max, y_max, z_max));
-        
+        openvdb::CoordBBox bbox(openvdb::Coord(x_min, y_min, z_min),
+                                openvdb::Coord(x_max, y_max, z_max));
+
         // Use OpenVDB's efficient spatial iteration - only traverses voxels in the bbox
         auto accessor = terrainStorage->mainTypeGrid->getConstAccessor();
-        
+
         // Iterate only through coordinates in the bounding box
         for (openvdb::CoordBBox::Iterator coordIter = bbox.begin(); coordIter; ++coordIter) {
             const openvdb::Coord& coord = *coordIter;
-            
+
             // Check if this coordinate has an active voxel (much faster than full iteration)
             if (accessor.isValueOn(coord)) {
                 result.emplace_back(VoxelGridCoordinates{coord.x(), coord.y(), coord.z()});
@@ -277,7 +361,12 @@ std::vector<VoxelGridCoordinates> VoxelGrid::getAllTerrainInRegion(int x_min, in
 std::vector<VoxelGridCoordinates> VoxelGrid::getAllEntityInRegion(int x_min, int y_min, int z_min,
                                                                   int x_max, int y_max,
                                                                   int z_max) const {
+    // Read operations use shared lock (multiple readers allowed)
+    std::shared_lock<std::shared_mutex> lock(entityGridMutex);
+    
     std::vector<VoxelGridCoordinates> result;
+    
+    if (!entityGrid) return result;
 
     // Iterate over all active entity voxels
     for (auto iter = entityGrid->cbeginValueOn(); iter; ++iter) {
@@ -457,7 +546,12 @@ std::vector<int> VoxelGrid::getAllTerrainIdsInRegion(int x_min, int y_min, int z
 std::vector<int> VoxelGrid::getAllEntityIdsInRegion(int x_min, int y_min, int z_min, int x_max,
                                                     int y_max, int z_max,
                                                     VoxelGridView& gridView) const {
+    // Read operations use shared lock (multiple readers allowed)
+    std::shared_lock<std::shared_mutex> lock(entityGridMutex);
+    
     std::vector<int> result;
+    
+    if (!entityGrid) return result;
 
     // Accessor for direct voxel access within the grid
     openvdb::Int32Grid::ConstAccessor accessor = entityGrid->getConstAccessor();
@@ -533,4 +627,32 @@ std::vector<int> VoxelGrid::getAllLightingIdsInRegion(int x_min, int y_min, int 
     }
 
     return result;
+}
+
+
+void VoxelGrid::moveEntity(entt::entity entity, Position movingToPosition) {
+    std::unique_lock<std::shared_mutex> lock(entityGridMutex);
+    if (!entityGrid) return;
+
+    // This should be a swap operation and must be moved to the voxelGrid class
+    int entityId = static_cast<int>(entity);
+    Position pos = registry.get<Position>(entity);
+    
+    // Use unsafe method since we already hold the lock - avoids recursive locking
+    int entityVoxelGridId = getEntityUnsafe(pos.x, pos.y, pos.z);
+    
+    if (entityId == entityVoxelGridId) {
+        // Direct OpenVDB access since we hold the lock - avoids recursive locking
+        openvdb::Coord oldCoord(pos.x, pos.y, pos.z);
+        openvdb::Coord newCoord(movingToPosition.x, movingToPosition.y, movingToPosition.z);
+        
+        auto accessor = entityGrid->getAccessor();
+        accessor.setValue(oldCoord, defaultEmptyValue);     // Set to -1 (empty) instead of setValueOff()
+        accessor.setValue(newCoord, entityId);   // Set at new position
+    } else {
+        // This should not happen
+        std::cout << "Error: entity id mismatch when creating MovingComponent."
+                    << "Entity id: " << entityId
+                    << "VoxelGrid entity id: " << entityVoxelGridId << std::endl;
+    }
 }

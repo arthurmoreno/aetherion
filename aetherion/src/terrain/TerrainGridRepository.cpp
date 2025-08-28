@@ -142,7 +142,6 @@ TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y, int z) const {
     return info;
 }
 
-
 // ---------------- Static arbitration passthrough ----------------
 
 int TerrainGridRepository::getTerrainMainType(int x, int y, int z) const {

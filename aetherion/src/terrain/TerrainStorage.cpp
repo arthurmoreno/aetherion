@@ -329,7 +329,6 @@ int TerrainStorage::getFlagBits(int x, int y, int z) const {
     return flagsGrid->tree().getValue(openvdb::Coord(x, y, z));
 }
 
-
 int TerrainStorage::getTerrainIdIfExists(int x, int y, int z) const {
     if (s_threadCache.terrainAcc) {
         int entityId = s_threadCache.terrainAcc->getValue(openvdb::Coord(x, y, z));
@@ -344,7 +343,6 @@ int TerrainStorage::getTerrainIdIfExists(int x, int y, int z) const {
     }
     return -2;
 }
-
 
 // ------------------ New Accessors: Entity type components ------------------
 void TerrainStorage::setTerrainMainType(int x, int y, int z, int terrainType) {

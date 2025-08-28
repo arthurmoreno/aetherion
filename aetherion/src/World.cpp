@@ -13,6 +13,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+#include <string>
 
 #include "PerceptionResponse_generated.h"
 #include "VoxelGrid.hpp"
@@ -420,6 +421,16 @@ EntityInterface World::getEntityById(int entityId) {
     // Convert the entity ID to the entt::entity type
     entt::entity entity = static_cast<entt::entity>(entityId);
 
+    // TODO: Make this a more robust check.
+    Position position = registry.get<Position>(entity);
+    int entityIdVoxel = voxelGrid->getEntity(position.x, position.y, position.z);
+    if (entityIdVoxel != entityId) {
+        std::cout << "Warning: Entity " << entityId
+                  << " is not at its recorded voxel position (" << position.x << "," << position.y
+                  << "," << position.z << "). Actual voxel entity: " << entityIdVoxel << std::endl;
+        throw std::runtime_error("Entity Position mismatch with VoxelGrid");
+    }
+
     EntityInterface entityInterface = createEntityInterface(registry, entity);
 
     return entityInterface;
@@ -443,6 +454,18 @@ int World::getEntity(int x, int y, int z) { return voxelGrid->getEntity(x, y, z)
 void World::dispatchMoveSolidEntityEventById(int entityId,
                                              std::vector<DirectionEnum> directionsToApply) {
     entt::entity entity = static_cast<entt::entity>(entityId);
+
+    // TODO: Make this a more robust check.
+    Position position = registry.get<Position>(entity);
+    int entityIdVoxel = voxelGrid->getEntity(position.x, position.y, position.z);
+    if (entityIdVoxel != entityId) {
+        std::string errorMessage = "Entity id on EntityInterface: " + std::to_string(entityId) +
+                                   " Position on EntityInterface: (" + std::to_string(position.x) +
+                                   "," + std::to_string(position.y) + "," +
+                                   std::to_string(position.z) + ")" + "Entity id on VoxelGrid: " +
+                                   std::to_string(entityIdVoxel);
+        throw std::runtime_error(errorMessage);
+    }
 
     // Safely get PhysicsStats
     if (auto* physicsStats = registry.try_get<PhysicsStats>(entity)) {
@@ -507,6 +530,18 @@ void World::dispatchMoveSolidEntityEventByPosition(int x, int y, int z, GridType
 void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId, int selectedEntityId) {
     entt::entity entity = static_cast<entt::entity>(entityId);
 
+    // TODO: Make this a more robust check.
+    Position position = registry.get<Position>(entity);
+    int entityIdVoxel = voxelGrid->getEntity(position.x, position.y, position.z);
+    if (entityIdVoxel != entityId) {
+        std::string errorMessage = "Entity id on EntityInterface: " + std::to_string(entityId) +
+                                   " Position on EntityInterface: (" + std::to_string(position.x) +
+                                   "," + std::to_string(position.y) + "," +
+                                   std::to_string(position.z) + ")" + "Entity id on VoxelGrid: " +
+                                   std::to_string(entityIdVoxel);
+        throw std::runtime_error(errorMessage);
+    }
+
     // Safely get PhysicsStats
     if (auto* inventory = registry.try_get<Inventory>(entity)) {
         nb::object pyRegistryObj = nb::cast(&pyRegistry);
@@ -520,6 +555,16 @@ void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId, int sel
 void World::dispatchUseItemEventById(int entityId, int itemSlot, int hoveredEntityId,
                                      int selectedEntityId) {
     entt::entity entity = static_cast<entt::entity>(entityId);
+
+    // TODO: Make this a more robust check.
+    Position position = registry.get<Position>(entity);
+    int entityIdVoxel = voxelGrid->getEntity(position.x, position.y, position.z);
+    if (entityIdVoxel != entityId) {
+        std::cout << "Warning: Entity " << entityId
+                  << " is not at its recorded voxel position (" << position.x << "," << position.y
+                  << "," << position.z << "). Actual voxel entity: " << entityIdVoxel << std::endl;
+        throw std::runtime_error("Entity Position mismatch with VoxelGrid");
+    }
 
     // Safely get PhysicsStats
     if (auto* inventory = registry.try_get<Inventory>(entity)) {
@@ -696,124 +741,125 @@ void World::update() {
     bool hasWaterToEvaporate = !ecosystemEngine->pendingEvaporateWater.empty();
     bool hasWaterToCondense = !ecosystemEngine->pendingCondenseWater.empty();
     bool hasWaterToFall = !ecosystemEngine->pendingWaterFall.empty();
+    bool hasAnyCleanup =
+        hasEntitiesToDelete || hasWaterToEvaporate || hasWaterToCondense || hasWaterToFall;
 
-    if (!hasEntitiesToDelete && !hasWaterToEvaporate && !hasWaterToCondense && !hasWaterToFall) {
-        // Handle Physics Async Task
-        if (!physicsFuture.valid() ||
-            physicsFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
-            // Optionally handle exceptions from the previous task
-            if (physicsFuture.valid()) {
-                try {
-                    physicsFuture.get();  // This will rethrow any exception from the async task
-                } catch (const std::exception& e) {
-                    std::cerr << "PhysicsEngine async task crashed: " << e.what() << std::endl;
-                    // Implement additional error handling here (e.g., retry limits, state cleanup)
-                }
-            }
-
-            // Launch a new async task using the standalone safeExecute
-            physicsFuture = std::async(
-                std::launch::async, safeExecute,
-                [this]() {
-                    physicsEngine->processPhysicsAsync(registry, *voxelGrid, dispatcher, gameClock);
-                },
-                "PhysicsEngine");
-        }
-
-        // Handle Ecosystem Async Task
-        if (!ecosystemFuture.valid() ||
-            ecosystemFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
-            if (ecosystemFuture.valid()) {
-                try {
-                    ecosystemFuture.get();
-                } catch (const std::exception& e) {
-                    std::cerr << "EcosystemEngine async task crashed: " << e.what() << std::endl;
-                    // Handle the exception
-                }
-            }
-
-            ecosystemFuture = std::async(
-                std::launch::async, safeExecute,
-                [this]() {
-                    ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, dispatcher,
-                                                           gameClock);
-                },
-                "EcosystemEngine");
-        }
-
-        if (processMetabolismAsync) {
-            // Handle Metabolism Async Task
-            if (!metabolismFuture.valid() ||
-                metabolismFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
-                if (metabolismFuture.valid()) {
-                    try {
-                        metabolismFuture.get();
-                    } catch (const std::exception& e) {
-                        std::cerr << "MetabolismSystem async task crashed: " << e.what()
-                                  << std::endl;
-                        // Handle the exception
-                    }
-                }
-
-                metabolismFuture = std::async(
-                    std::launch::async, safeExecute,
-                    [this]() {
-                        metabolismSystem->processMetabolismAsync(registry, *voxelGrid, dispatcher);
-                    },
-                    "MetabolismSystem");
-            }
-        }
-    }
-
-    // At the end of the update, check if all async tasks are complete and delete entities
-    bool allTasksComplete = true;
-    if ((physicsFuture.valid() &&
+    // Check if any async tasks are still running
+    bool anyAsyncTasksRunning =
+        (physicsFuture.valid() &&
          physicsFuture.wait_for(std::chrono::seconds(0)) != std::future_status::ready) ||
         (ecosystemFuture.valid() &&
          ecosystemFuture.wait_for(std::chrono::seconds(0)) != std::future_status::ready) ||
         (metabolismFuture.valid() &&
-         metabolismFuture.wait_for(std::chrono::seconds(0)) != std::future_status::ready)) {
-        allTasksComplete = false;
+         metabolismFuture.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
+
+    // Only perform cleanup if we have cleanup work AND no async tasks are running
+    if (hasAnyCleanup && !anyAsyncTasksRunning) {
+        // SAFE to do cleanup - no async tasks are accessing the data
+        if (hasEntitiesToDelete) {
+            for (const auto& [entity, softKill] : lifeEngine->entitiesToDelete) {
+                int entityId = static_cast<int>(entity);
+                bool isSpecialId = entityId == -1 || entityId == -2;
+                if (!isSpecialId && registry.valid(entity)) {
+                    const bool shouldRemoveFromGrid = !softKill;
+                    if (shouldRemoveFromGrid) {
+                        lifeEngine->removeEntityFromGrid(entity);
+                    }
+
+                    // if (entityId != -1 && entityId != -2) {
+                    //     std::cout << "Destroying entity: " << entityId << std::endl;
+                    //     registry.destroy(entity);
+                    // }
+
+                    // std::cout << "Destroyed entity: " << static_cast<int>(entity) << std::endl;
+                } else {
+                    std::ostringstream ossMessage;
+                    ossMessage << "Entity " << entityId << " is already invalid.";
+                    spdlog::get("console")->info(ossMessage.str());
+                }
+            }
+            lifeEngine->entitiesToDelete.clear();
+        }
+
+        if (hasWaterToEvaporate) {
+            ecosystemEngine->processEvaporateWaterEvents(registry, *voxelGrid,
+                                                         ecosystemEngine->pendingEvaporateWater);
+        }
+
+        if (hasWaterToCondense) {
+            ecosystemEngine->processCondenseWaterEvents(registry, *voxelGrid,
+                                                        ecosystemEngine->pendingCondenseWater);
+        }
+
+        if (hasWaterToFall) {
+            ecosystemEngine->processWaterFallEvents(registry, *voxelGrid,
+                                                    ecosystemEngine->pendingWaterFall);
+        }
     }
 
-    if (allTasksComplete && hasEntitiesToDelete) {
-        for (const auto& [entity, softKill] : lifeEngine->entitiesToDelete) {
-            int entityId = static_cast<int>(entity);
-            bool isSpecialId = entityId == -1 || entityId == -2;
-            if (!isSpecialId && registry.valid(entity)) {
-                const bool shouldRemoveFromGrid = !softKill;
-                if (shouldRemoveFromGrid) {
-                    lifeEngine->removeEntityFromGrid(entity);
-                }
-
-                if (entityId != -1 && entityId != -2) {
-                    std::cout << "Destroying entity: " << entityId << std::endl;
-                    registry.destroy(entity);
-                }
-
-                // std::cout << "Destroyed entity: " << static_cast<int>(entity) << std::endl;
-            } else {
-                std::ostringstream ossMessage;
-                ossMessage << "Entity " << entityId << " is already invalid.";
-                spdlog::get("console")->info(ossMessage.str());
+    // Handle async task lifecycle - always check for completed tasks and launch new ones
+    // Handle Physics Async Task
+    if (!physicsFuture.valid() ||
+        physicsFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+        // Optionally handle exceptions from the previous task
+        if (physicsFuture.valid()) {
+            try {
+                physicsFuture.get();  // This will rethrow any exception from the async task
+            } catch (const std::exception& e) {
+                std::cerr << "PhysicsEngine async task crashed: " << e.what() << std::endl;
+                // Implement additional error handling here (e.g., retry limits, state cleanup)
             }
         }
-        lifeEngine->entitiesToDelete.clear();
+
+        // Launch a new async task using the standalone safeExecute
+        physicsFuture = std::async(
+            std::launch::async, safeExecute,
+            [this]() {
+                physicsEngine->processPhysicsAsync(registry, *voxelGrid, dispatcher, gameClock);
+            },
+            "PhysicsEngine");
     }
 
-    if (allTasksComplete && hasWaterToEvaporate) {
-        ecosystemEngine->processEvaporateWaterEvents(registry, *voxelGrid,
-                                                     ecosystemEngine->pendingEvaporateWater);
+    // Handle Ecosystem Async Task
+    if (!ecosystemFuture.valid() ||
+        ecosystemFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+        if (ecosystemFuture.valid()) {
+            try {
+                ecosystemFuture.get();
+            } catch (const std::exception& e) {
+                std::cerr << "EcosystemEngine async task crashed: " << e.what() << std::endl;
+                // Handle the exception
+            }
+        }
+
+        ecosystemFuture = std::async(
+            std::launch::async, safeExecute,
+            [this]() {
+                ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, dispatcher, gameClock);
+            },
+            "EcosystemEngine");
     }
 
-    if (allTasksComplete && hasWaterToCondense) {
-        ecosystemEngine->processCondenseWaterEvents(registry, *voxelGrid,
-                                                    ecosystemEngine->pendingCondenseWater);
-    }
+    if (processMetabolismAsync) {
+        // Handle Metabolism Async Task
+        if (!metabolismFuture.valid() ||
+            metabolismFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+            if (metabolismFuture.valid()) {
+                try {
+                    metabolismFuture.get();
+                } catch (const std::exception& e) {
+                    std::cerr << "MetabolismSystem async task crashed: " << e.what() << std::endl;
+                    // Handle the exception
+                }
+            }
 
-    if (allTasksComplete && hasWaterToFall) {
-        ecosystemEngine->processWaterFallEvents(registry, *voxelGrid,
-                                                ecosystemEngine->pendingWaterFall);
+            metabolismFuture = std::async(
+                std::launch::async, safeExecute,
+                [this]() {
+                    metabolismSystem->processMetabolismAsync(registry, *voxelGrid, dispatcher);
+                },
+                "MetabolismSystem");
+        }
     }
 }
 

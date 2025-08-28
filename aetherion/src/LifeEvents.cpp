@@ -47,18 +47,29 @@ void LifeEngine::removeEntityFromGrid(entt::entity entity) {
         std::cout << "Removing entity from grid: " << entt::to_integral(entity) << std::endl;
         auto&& [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
 
+        // CHECK: Make sure the grid actually contains THIS entity
+        int currentGridEntity = voxelGrid->getEntity(pos.x, pos.y, pos.z);
+        if (currentGridEntity != entityId) {
+            std::cout << "WARNING: Grid position (" << pos.x << "," << pos.y << "," << pos.z
+                      << ") contains entity " << currentGridEntity
+                      << " but trying to remove entity " << entityId << std::endl;
+            return;  // Don't clear grid if it's not our entity
+        }
+
         if (type.mainType == static_cast<int>(EntityEnum::TERRAIN)) {
             voxelGrid->deleteTerrain(pos.x, pos.y, pos.z);
         } else if (type.mainType == static_cast<int>(EntityEnum::BEAST) ||
                    type.mainType == static_cast<int>(EntityEnum::PLANT)) {
-            voxelGrid->setEntity(pos.x, pos.y, pos.z, -1);
+            voxelGrid->deleteEntity(pos.x, pos.y, pos.z);  // Use thread-safe deleteEntity
         }
     } else if (isSpecialId) {
         // voxelGrid->deleteTerrain(pos.x, pos.y, pos.z);
-        std::cout << "Entity " << entityId << " is a special ID, skipping grid removal." << std::endl;
+        std::cout << "Entity " << entityId << " is a special ID, skipping grid removal."
+                  << std::endl;
 
     } else if (!isSpecialId && registry.valid(entity)) {
-        std::cout << "Entity " << entityId << " is valid, proceeding with grid removal [FAKE]." << std::endl;
+        std::cout << "Entity " << entityId << " is valid, proceeding with grid removal [FAKE]."
+                  << std::endl;
 
     } else {
         std::cout << "Entity " << entityId << " is invalid, skipping grid removal." << std::endl;

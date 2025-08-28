@@ -12,6 +12,8 @@
 #include <map>
 #include <memory>
 #include <msgpack.hpp>
+#include <mutex>
+#include <shared_mutex>
 #include <sstream>
 #include <tuple>
 #include <vector>
@@ -242,7 +244,9 @@ class VoxelGrid {
 
     void setEntity(int x, int y, int z, int entityID);
     int getEntity(int x, int y, int z) const;
+    int getEntityUnsafe(int x, int y, int z) const;  // Fast unsafe read for performance-critical paths
     void deleteEntity(int x, int y, int z);
+    void moveEntity(entt::entity entity, Position movingToPosition);
 
     void setEvent(int x, int y, int z, int eventID);
     int getEvent(int x, int y, int z) const;
@@ -289,6 +293,9 @@ class VoxelGrid {
 
    private:
     int defaultEmptyValue = -1;
+    
+    // Mutex specifically for entityGrid thread safety
+    mutable std::shared_mutex entityGridMutex;
 };
 
 #endif  // VOXELGRID_HPP

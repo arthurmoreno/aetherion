@@ -398,9 +398,11 @@ void createMovingComponent(entt::registry& registry, VoxelGrid& voxelGrid, entt:
             movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ,
             etc->mainType);
     } else {
-        voxelGrid.setEntity(position.x, position.y, position.z, -1);
-        voxelGrid.setEntity(movingComponent.movingToX, movingComponent.movingToY,
-                            movingComponent.movingToZ, static_cast<int>(entity));
+        Position movingToPosition;
+        movingToPosition.x = movingComponent.movingToX;
+        movingToPosition.y = movingComponent.movingToY;
+        movingToPosition.z = movingComponent.movingToZ;
+        voxelGrid.moveEntity(entity, movingToPosition);
     }
 
     position.x = movingComponent.movingToX;
@@ -645,7 +647,13 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
 
     auto velocityView = registry.view<Velocity>();
     for (auto entity : velocityView) {
-        handleMovement(registry, voxelGrid, entity, entityBeingDebugged);
+
+        Position pos = registry.get<Position>(entity);
+        int entityId = static_cast<int>(entity);
+        int entityVoxelGridId = voxelGrid.getEntity(pos.x, pos.y, pos.z);
+        if (entityId == entityVoxelGridId) {
+            handleMovement(registry, voxelGrid, entity, entityBeingDebugged);
+        }
     }
 
     auto movingComponentView = registry.view<MovingComponent>();
