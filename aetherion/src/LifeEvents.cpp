@@ -3,7 +3,7 @@
 #include <iostream>
 
 void LifeEngine::dropItems(entt::entity entity) {
-    if (registry.all_of<Position, DropRates>(entity)) {
+    if (registry.valid(entity) && registry.all_of<Position, DropRates>(entity)) {
         auto&& [pos, dropRates] = registry.get<Position, DropRates>(entity);
 
         auto terrainBellowId = voxelGrid->getTerrain(pos.x, pos.y, pos.z - 1);
@@ -43,8 +43,8 @@ void LifeEngine::dropItems(entt::entity entity) {
 void LifeEngine::removeEntityFromGrid(entt::entity entity) {
     int entityId = static_cast<int>(entity);
     bool isSpecialId = entityId == -1 || entityId == -2;
-    if (!isSpecialId && registry.all_of<Position, EntityTypeComponent>(entity)) {
-        std::cout << "Removing entity from grid: " << entt::to_integral(entity) << std::endl;
+    if (!isSpecialId && registry.valid(entity) && registry.all_of<Position, EntityTypeComponent>(entity)) {
+        std::cout << "Removing entity from grid: " << entityId << std::endl;
         auto&& [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
 
         // CHECK: Make sure the grid actually contains THIS entity
@@ -77,14 +77,41 @@ void LifeEngine::removeEntityFromGrid(entt::entity entity) {
 }
 
 void LifeEngine::onKillEntity(const KillEntityEvent& event) {
-    if (event.softKill) {
-        std::cout << "Deleting entity soft kill" << std::endl;
-        removeEntityFromGrid(event.entity);
-    }
-    dropItems(event.entity);
     int entityId = static_cast<int>(event.entity);
+    
+    // Check if entity is already scheduled for deletion
+    if (entitiesScheduledForDeletion.find(event.entity) != entitiesScheduledForDeletion.end()) {
+        std::cout << "Entity " << entityId << " already scheduled for deletion, ignoring duplicate KillEntityEvent" << std::endl;
+        return; // Skip duplicate deletion requests
+    }
+    
+    // Add to set to prevent future duplicates
+    entitiesScheduledForDeletion.insert(event.entity);
+    
+    if (event.softKill) {
+        std::cout << "Deleting entity soft kill: " << entityId << std::endl;
+
+        // Safely remove MetabolismComponent if it exists
+        if (registry.all_of<MetabolismComponent>(event.entity)) {
+            registry.remove<MetabolismComponent>(event.entity);
+            std::cout << "Removed MetabolismComponent from entity " << entityId << std::endl;
+        }
+        
+        // Safely remove HealthComponent if it exists
+        if (registry.all_of<HealthComponent>(event.entity)) {
+            registry.remove<HealthComponent>(event.entity);
+            std::cout << "Removed HealthComponent from entity " << entityId << std::endl;
+        }
+        removeEntityFromGrid(event.entity);
+    } else {
+        std::cout << "Deleting entity hard kill: " << entityId << std::endl;
+    }
+    
+    dropItems(event.entity);
+    
     if (entityId != -1 && entityId != -2) {
         entitiesToDelete.emplace_back(event.entity, event.softKill);
+        std::cout << "Added entity " << entityId << " to deletion queue (softKill: " << event.softKill << ")" << std::endl;
     }
 }
 

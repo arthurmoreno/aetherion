@@ -390,11 +390,20 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                                                    const std::vector<QueryCommand>& commands) {
     auto logger = Logger::getLogger();
     // logger->debug("createPerceptionResponse -> entered");
+    
+    // Acquire shared lock to prevent entity destruction during perception creation
+    std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+    
     // Protect registry access against concurrent destruction/updates
     std::lock_guard<std::mutex> lock(registryMutex);
 
+    
     entt::entity entity = static_cast<entt::entity>(entityId);
-
+    // Ensure the entity is valid
+    if (!registry.valid(entity)) {
+        throw std::runtime_error("Invalid entity ID: " + std::to_string(entityId));
+    }
+    
     PerceptionResponse response{};
     response.ticks = gameClock.getTicks();
     // WorldView world_view;  // Create an instance of WorldView

@@ -10,6 +10,7 @@
 #include <future>
 #include <map>
 #include <memory>
+#include <shared_mutex>
 
 #include "CombatSystem.hpp"
 #include "EcosystemEngine.hpp"
@@ -119,6 +120,7 @@ class World {
 
    private:
     std::mutex registryMutex;
+    mutable std::shared_mutex entityLifecycleMutex;  // Protects entity creation/destruction vs perception
     std::unique_ptr<GameDBHandler> dbHandler;
 
     // Physics

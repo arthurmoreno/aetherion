@@ -272,6 +272,9 @@ entt::entity World::createEntityFromPython(nb::object pyEntity) {
 
 // Get entities based on their type
 nb::dict World::getEntitiesByType(int entityMainType, int entitySubType0) {
+    // Acquire shared lock to prevent entity destruction during entity queries
+    std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+    
     nb::dict entitiesMetadata;
 
     // Iterate through all entities that have the EntityTypeComponent
@@ -298,6 +301,9 @@ nb::dict World::getEntitiesByType(int entityMainType, int entitySubType0) {
 
 // Get entity IDs based on their type
 nb::list World::getEntityIdsByType(int entityMainType, int entitySubType0) {
+    // Acquire shared lock to prevent entity destruction during entity ID queries
+    std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+    
     nb::list entityIds;
 
     // Iterate through all entities that have the EntityTypeComponent
@@ -321,6 +327,9 @@ nb::list World::getEntityIdsByType(int entityMainType, int entitySubType0) {
 nb::dict World::createPerceptionResponses(nb::dict entitiesWithQueries) {
     const size_t BATCH_NUMBER = 16;
     nb::dict perceptionResponses;
+
+    // Acquire shared lock to prevent entity destruction during perception creation
+    std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
 
     // We'll collect a list of (entityId, vectorOfCommands) that we can process in threads
     struct Job {
@@ -390,6 +399,7 @@ nb::dict World::createPerceptionResponses(nb::dict entitiesWithQueries) {
 
                         // Create an empty response or null response to handle later
                         serializedResponse.clear();
+                        // throw std::runtime_error("Failed to create perception response");
                     }
 
                     batchResult.emplace_back(job.entityId, std::move(serializedResponse));
@@ -420,6 +430,23 @@ nb::dict World::createPerceptionResponses(nb::dict entitiesWithQueries) {
 EntityInterface World::getEntityById(int entityId) {
     // Convert the entity ID to the entt::entity type
     entt::entity entity = static_cast<entt::entity>(entityId);
+    
+    // Acquire shared lock to prevent entity destruction during perception
+    std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+    
+    // CRITICAL: Always check entity validity first
+    if (!registry.valid(entity)) {
+        // Logger::getLogger()->error("[getEntityById] Entity " + std::to_string(entityId) + " is invalid");
+        throw std::runtime_error("Entity " + std::to_string(entityId) + " is no longer valid");
+    }
+    
+    // Logger::getLogger()->debug("[getEntityById] Entity " + std::to_string(entityId) + " is valid, checking components");
+
+    // Check if entity has required components BEFORE accessing them
+    if (!registry.all_of<Position>(entity)) {
+        // Logger::getLogger()->error("[getEntityById] Entity " + std::to_string(entityId) + " missing Position component");
+        throw std::runtime_error("Entity " + std::to_string(entityId) + " does not have Position component");
+    }
 
     // TODO: Make this a more robust check.
     Position position = registry.get<Position>(entity);
@@ -453,6 +480,9 @@ int World::getEntity(int x, int y, int z) { return voxelGrid->getEntity(x, y, z)
 
 void World::dispatchMoveSolidEntityEventById(int entityId,
                                              std::vector<DirectionEnum> directionsToApply) {
+    // Acquire shared lock to prevent entity destruction during movement dispatch
+    std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+    
     entt::entity entity = static_cast<entt::entity>(entityId);
 
     // TODO: Make this a more robust check.
@@ -528,6 +558,9 @@ void World::dispatchMoveSolidEntityEventByPosition(int x, int y, int z, GridType
 }
 
 void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId, int selectedEntityId) {
+    // Acquire shared lock to prevent entity destruction during item take dispatch
+    std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+    
     entt::entity entity = static_cast<entt::entity>(entityId);
 
     // TODO: Make this a more robust check.
@@ -554,6 +587,9 @@ void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId, int sel
 
 void World::dispatchUseItemEventById(int entityId, int itemSlot, int hoveredEntityId,
                                      int selectedEntityId) {
+    // Acquire shared lock to prevent entity destruction during item use dispatch
+    std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+    
     entt::entity entity = static_cast<entt::entity>(entityId);
 
     // TODO: Make this a more robust check.
@@ -757,27 +793,70 @@ void World::update() {
     if (hasAnyCleanup && !anyAsyncTasksRunning) {
         // SAFE to do cleanup - no async tasks are accessing the data
         if (hasEntitiesToDelete) {
+            // Acquire EXCLUSIVE lock to prevent any perception operations during entity destruction
+            std::unique_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+            
+            std::cout << "\n=== ENTITY DELETION DEBUG ===" << std::endl;
+            std::cout << "Total entities to delete: " << lifeEngine->entitiesToDelete.size() << std::endl;
+            
             for (const auto& [entity, softKill] : lifeEngine->entitiesToDelete) {
                 int entityId = static_cast<int>(entity);
                 bool isSpecialId = entityId == -1 || entityId == -2;
-                if (!isSpecialId && registry.valid(entity)) {
+                bool isValidEntity = registry.valid(entity);
+                
+                std::cout << "\n--- Processing deletion request ---" << std::endl;
+                std::cout << "Entity handle: " << static_cast<uint32_t>(entity) << std::endl;
+                std::cout << "Entity ID (cast): " << entityId << std::endl;
+                std::cout << "Is special ID: " << isSpecialId << std::endl;
+                std::cout << "Registry valid: " << isValidEntity << std::endl;
+                std::cout << "Soft kill: " << softKill << std::endl;
+                
+                if (!isSpecialId && isValidEntity) {
+                    // Get entity details before destruction
+                    if (registry.all_of<Position, EntityTypeComponent>(entity)) {
+                        auto [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
+                        std::cout << "Entity position: (" << pos.x << "," << pos.y << "," << pos.z << ")" << std::endl;
+                        std::cout << "Entity type: " << type.mainType << "," << type.subType0 << std::endl;
+                        
+                        // Check what's actually in the voxel grid at this position
+                        int gridEntity = voxelGrid->getEntity(pos.x, pos.y, pos.z);
+                        std::cout << "Grid entity at position: " << gridEntity << std::endl;
+                        
+                        if (gridEntity != entityId) {
+                            std::cout << "ERROR: Grid mismatch! Grid has " << gridEntity 
+                                      << " but trying to delete " << entityId << std::endl;
+                        }
+                    } else {
+                        std::cout << "Entity " << entityId << " missing Position or EntityTypeComponent" << std::endl;
+                    }
+            
                     const bool shouldRemoveFromGrid = !softKill;
                     if (shouldRemoveFromGrid) {
+                        std::cout << "Removing from grid..." << std::endl;
                         lifeEngine->removeEntityFromGrid(entity);
                     }
 
-                    // if (entityId != -1 && entityId != -2) {
-                    //     std::cout << "Destroying entity: " << entityId << std::endl;
-                    //     registry.destroy(entity);
-                    // }
+                    if (entityId != -1 && entityId != -2) {
+                        std::cout << "Calling registry.destroy() on entity " << entityId << std::endl;
+                        registry.destroy(entity);
+                        std::cout << "Destroyed entity " << entityId << std::endl;
+                    }
 
                     // std::cout << "Destroyed entity: " << static_cast<int>(entity) << std::endl;
                 } else {
+                    if (isSpecialId) {
+                        std::cout << "Skipping special ID: " << entityId << std::endl;
+                    } else if (!isValidEntity) {
+                        std::cout << "Entity " << entityId << " already invalid, skipping" << std::endl;
+                    }
+                    
                     std::ostringstream ossMessage;
                     ossMessage << "Entity " << entityId << " is already invalid.";
                     spdlog::get("console")->info(ossMessage.str());
                 }
             }
+            
+            std::cout << "=== END ENTITY DELETION DEBUG ===\n" << std::endl;
             lifeEngine->entitiesToDelete.clear();
         }
 

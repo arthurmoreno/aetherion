@@ -5,6 +5,7 @@
 
 #include <entt/entt.hpp>
 #include <tuple>
+#include <unordered_set>
 #include <vector>
 
 #include "EntityInterface.hpp"
@@ -26,6 +27,7 @@ struct KillEntityEvent {
 class LifeEngine {
    public:
     std::vector<std::tuple<entt::entity, bool>> entitiesToDelete;
+    std::unordered_set<entt::entity> entitiesScheduledForDeletion;
 
     LifeEngine() = default;
     LifeEngine(entt::registry& reg, VoxelGrid* voxelGrid) : registry(reg), voxelGrid(voxelGrid) {}
