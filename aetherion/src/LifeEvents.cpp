@@ -3,47 +3,48 @@
 #include <iostream>
 
 void LifeEngine::dropItems(entt::entity entity) {
-    if (registry.valid(entity) && registry.all_of<Position, DropRates>(entity)) {
-        auto&& [pos, dropRates] = registry.get<Position, DropRates>(entity);
+    // if (registry.valid(entity) && registry.all_of<Position, DropRates>(entity)) {
+    //     auto&& [pos, dropRates] = registry.get<Position, DropRates>(entity);
 
-        auto terrainBellowId = voxelGrid->getTerrain(pos.x, pos.y, pos.z - 1);
+    //     auto terrainBellowId = voxelGrid->getTerrain(pos.x, pos.y, pos.z - 1);
 
-        // TODO: TerrainRepository is not supporting Inventory yet. (Only Pure ECS entities)
-        // if (terrainBellowId != -1 && terrainBellowId != -2) {
-        //     entt::entity terrainBellow = static_cast<entt::entity>(terrainBellowId);
+    //     // TODO: TerrainRepository is not supporting Inventory yet. (Only Pure ECS entities)
+    //     if (terrainBellowId != -1 && terrainBellowId != -2) {
+    //         entt::entity terrainBellow = static_cast<entt::entity>(terrainBellowId);
 
-        //     Inventory* inventory = registry.try_get<Inventory>(terrainBellow);
-        //     bool shouldEmplaceInventory{inventory == nullptr};
-        //     if (inventory == nullptr) {
-        //         inventory = new Inventory();
-        //     }
+    //         Inventory* inventory = registry.try_get<Inventory>(terrainBellow);
+    //         bool shouldEmplaceInventory{inventory == nullptr};
+    //         if (inventory == nullptr) {
+    //             inventory = new Inventory();
+    //         }
 
-        //     if (!dropRates.itemDropRates.empty()) {
-        //         for (const auto& [combinedItemId, valuesTuple] : dropRates.itemDropRates) {
-        //             auto [itemMainType, itemSubType0] = splitStringToInts(combinedItemId);
+    //         if (!dropRates.itemDropRates.empty()) {
+    //             for (const auto& [combinedItemId, valuesTuple] : dropRates.itemDropRates) {
+    //                 auto [itemMainType, itemSubType0] = splitStringToInts(combinedItemId);
 
-        //             if (itemMainType == static_cast<int>(ItemEnum::FOOD)) {
-        //                 std::shared_ptr<ItemConfiguration> itemConfiguration =
-        //                     getItemConfigurationOnManager(combinedItemId);
-        //                 auto newFoodItem = itemConfiguration->createFoodItem(registry);
+    //                 if (itemMainType == static_cast<int>(ItemEnum::FOOD)) {
+    //                     std::shared_ptr<ItemConfiguration> itemConfiguration =
+    //                         getItemConfigurationOnManager(combinedItemId);
+    //                     auto newFoodItem = itemConfiguration->createFoodItem(registry);
 
-        //                 auto entityId = entt::to_integral(newFoodItem);
-        //                 inventory->itemIDs.push_back(entityId);
-        //             }
-        //         }
+    //                     auto entityId = entt::to_integral(newFoodItem);
+    //                     inventory->itemIDs.push_back(entityId);
+    //                 }
+    //             }
 
-        //         if (shouldEmplaceInventory) {
-        //             registry.emplace<Inventory>(terrainBellow, *inventory);
-        //         }
-        //     }
-        // }
-    }
+    //             if (shouldEmplaceInventory) {
+    //                 registry.emplace<Inventory>(terrainBellow, *inventory);
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 void LifeEngine::removeEntityFromGrid(entt::entity entity) {
     int entityId = static_cast<int>(entity);
     bool isSpecialId = entityId == -1 || entityId == -2;
-    if (!isSpecialId && registry.valid(entity) && registry.all_of<Position, EntityTypeComponent>(entity)) {
+    if (!isSpecialId && registry.valid(entity) &&
+        registry.all_of<Position, EntityTypeComponent>(entity)) {
         std::cout << "Removing entity from grid: " << entityId << std::endl;
         auto&& [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
 
@@ -78,16 +79,18 @@ void LifeEngine::removeEntityFromGrid(entt::entity entity) {
 
 void LifeEngine::onKillEntity(const KillEntityEvent& event) {
     int entityId = static_cast<int>(event.entity);
-    
+
     // Check if entity is already scheduled for deletion
     if (entitiesScheduledForDeletion.find(event.entity) != entitiesScheduledForDeletion.end()) {
-        std::cout << "Entity " << entityId << " already scheduled for deletion, ignoring duplicate KillEntityEvent" << std::endl;
-        return; // Skip duplicate deletion requests
+        std::cout << "Entity " << entityId
+                  << " already scheduled for deletion, ignoring duplicate KillEntityEvent"
+                  << std::endl;
+        return;  // Skip duplicate deletion requests
     }
-    
+
     // Add to set to prevent future duplicates
     entitiesScheduledForDeletion.insert(event.entity);
-    
+
     if (event.softKill) {
         std::cout << "Deleting entity soft kill: " << entityId << std::endl;
 
@@ -96,7 +99,7 @@ void LifeEngine::onKillEntity(const KillEntityEvent& event) {
             registry.remove<MetabolismComponent>(event.entity);
             std::cout << "Removed MetabolismComponent from entity " << entityId << std::endl;
         }
-        
+
         // Safely remove HealthComponent if it exists
         if (registry.all_of<HealthComponent>(event.entity)) {
             registry.remove<HealthComponent>(event.entity);
@@ -106,12 +109,13 @@ void LifeEngine::onKillEntity(const KillEntityEvent& event) {
     } else {
         std::cout << "Deleting entity hard kill: " << entityId << std::endl;
     }
-    
+
     dropItems(event.entity);
-    
+
     if (entityId != -1 && entityId != -2) {
         entitiesToDelete.emplace_back(event.entity, event.softKill);
-        std::cout << "Added entity " << entityId << " to deletion queue (softKill: " << event.softKill << ")" << std::endl;
+        std::cout << "Added entity " << entityId
+                  << " to deletion queue (softKill: " << event.softKill << ")" << std::endl;
     }
 }
 

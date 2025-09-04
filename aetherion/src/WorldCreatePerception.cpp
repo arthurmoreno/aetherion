@@ -1,3 +1,4 @@
+#include "Logger.hpp"
 #include "World.hpp"
 
 // Step 1: Retrieve entity's position and perception component
@@ -86,6 +87,7 @@ std::vector<int> processTerrainVoxels(entt::registry& registry, VoxelGrid& voxel
                                       int x_max, int y_min, int y_max, int z_min, int z_max,
                                       const Position& pos, VoxelGridView& voxelGridView) {
     std::vector<int> terrainsIds;
+    // auto logger = Logger::getLogger();
 
     // Use efficient region-based terrain query instead of individual coordinate lookups
     std::vector<VoxelGridCoordinates> terrainCoords =
@@ -113,8 +115,20 @@ std::vector<int> processTerrainVoxels(entt::registry& registry, VoxelGrid& voxel
                 int neighborEntityId = neighborTerrainId;
                 entt::entity neighborTerrainEntity = static_cast<entt::entity>(neighborEntityId);
 
-                const EntityTypeComponent& terrainEtc =
-                    registry.get<EntityTypeComponent>(neighborTerrainEntity);
+                // Guarded access to EntityTypeComponent
+                const EntityTypeComponent* terrainEtcPtr =
+                    registry.try_get<EntityTypeComponent>(neighborTerrainEntity);
+                if (!terrainEtcPtr) {
+                    std::cout << "perception: neighbor terrain entity " << neighborEntityId
+                              << " missing EntityTypeComponent at (" << (x + 1) << ", " << (y + 1)
+                              << ", " << (z + 1) << ")\n";
+                    // logger->debug(
+                    //     "perception: neighbor terrain entity {} missing EntityTypeComponent at "
+                    //     "({}, {}, {})",
+                    //     neighborEntityId, x + 1, y + 1, z + 1);
+                    continue;
+                }
+                const EntityTypeComponent& terrainEtc = *terrainEtcPtr;
 
                 // Define meaningful boolean variables for complex conditions
                 bool hasValidNeighbor = (neighborEntityId != -1);
@@ -144,6 +158,19 @@ std::vector<int> processTerrainVoxels(entt::registry& registry, VoxelGrid& voxel
                 } else if (hasValidNeighbor && ((isMainTypeTerrain && isSubTypeOccluding))) {
                     isCurrentTerrainOccluded = true;
                 }
+                std::cout << "perception: occlusion check at (" << x << ", " << y << ", " << z
+                          << ") id=" << entity_id << " neighbor_id=" << neighborEntityId
+                          << " hasNeighbor=" << hasValidNeighbor
+                          << " mainTerrain=" << isMainTypeTerrain
+                          << " subOccluding=" << isSubTypeOccluding
+                          << " neighOccluded=" << isCurrentTerrainOccluded
+                          << " nearPlayer=" << isTerrainNearPlayer
+                          << " -> occluded=" << isCurrentTerrainOccluded << "\n";
+                // logger->debug(
+                //     "perception: terrain ({}, {}, {}) id={} neighbor_id={} near_player={} "
+                //     "occluding={} -> occluded={}",
+                //     x, y, z, entity_id, neighborEntityId, isTerrainNearPlayer,
+                //     isSubTypeOccluding, isCurrentTerrainOccluded);
             }
 
             if (isCurrentTerrainOccluded) {
@@ -389,21 +416,21 @@ void World::processOptionalQueries(const std::vector<QueryCommand>& commands,
 std::vector<char> World::createPerceptionResponseC(int entityId,
                                                    const std::vector<QueryCommand>& commands) {
     auto logger = Logger::getLogger();
-    // logger->debug("createPerceptionResponse -> entered");
-    
+    // logger->info("createPerceptionResponse: start entity={} cmds={} ticks={}", entityId,
+    //              commands.size(), gameClock.getTicks());
+
     // Acquire shared lock to prevent entity destruction during perception creation
     std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
-    
+
     // Protect registry access against concurrent destruction/updates
     std::lock_guard<std::mutex> lock(registryMutex);
 
-    
     entt::entity entity = static_cast<entt::entity>(entityId);
     // Ensure the entity is valid
     if (!registry.valid(entity)) {
         throw std::runtime_error("Invalid entity ID: " + std::to_string(entityId));
     }
-    
+
     PerceptionResponse response{};
     response.ticks = gameClock.getTicks();
     // WorldView world_view;  // Create an instance of WorldView
@@ -418,6 +445,11 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
     const Position& pos = allView.get<Position>(entity);
     const PerceptionComponent& perception = allView.get<PerceptionComponent>(entity);
     const EntityTypeComponent& etc = allView.get<EntityTypeComponent>(entity);
+    // std::cout << "perception: entity pos=(" << pos.x << ", " << pos.y << ", " << pos.z
+    //           << ") area_xy=" << perception.getPerceptionArea()
+    //           << " area_z=" << perception.getZPerceptionArea() << "\n";
+    // logger->info("perception: entity pos=({}, {}, {}) area_xy={} area_z={}", pos.x, pos.y, pos.z,
+    //               perception.getPerceptionArea(), perception.getZPerceptionArea());
 
     // Get the bounds of the perception area (horizontal and vertical)
     // int x_min = pos.x - perception.getPerceptionArea();
@@ -510,7 +542,8 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
         int terrainId = voxelGrid->getTerrain(x, y, z);
         if (terrainId != -2) {  // Assuming -2 means no terrain
 
-            // std::cout << "createPerceptionResponse -> Inside terrain check.\n";
+            // std::cout << "createPerceptionResponse -> Inside terrain check. terrainId="
+            //           << terrainId << "\n";
 
             // Use terrain ID directly
             int entity_id = terrainId;
@@ -525,17 +558,17 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                 bool isMainTypeTerrain;
                 bool isSubTypeOccluding;
 
-                if (neighboorEntityId != -2 && neighboorEntityId != -1 && neighboorEntityId != 0) {
-                    entt::entity neighboorTerrainEntity =
-                        static_cast<entt::entity>(neighboorEntityId);
+                if (neighboorEntityId != -2 && neighboorEntityId != 0) {
+                    // entt::entity neighboorTerrainEntity =
+                    //     static_cast<entt::entity>(neighboorEntityId);
 
-                    if (entityTypeView.contains(neighboorTerrainEntity)) {
-                        std::ostringstream oss;
-                        oss << "createPerceptionResponse: Entity (ID: " << neighboorEntityId
-                            << ") contains EntityTypeComponent in EnTT (migration error) while "
-                               "retrieving terrains in view.";
-                        throw std::runtime_error(oss.str());
-                    }
+                    // if (entityTypeView.contains(neighboorTerrainEntity)) {
+                    //     std::ostringstream oss;
+                    //     oss << "createPerceptionResponse: Entity (ID: " << neighboorEntityId
+                    //         << ") contains EntityTypeComponent in EnTT (migration error) while "
+                    //            "retrieving terrains in view.";
+                    //     throw std::runtime_error(oss.str());
+                    // }
                     // const EntityTypeComponent& terrainEtc =
                     //     entityTypeView.get<EntityTypeComponent>(neighboorTerrainEntity);
                     EntityTypeComponent terrainEtc =
@@ -554,10 +587,8 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                     isSubTypeOccluding = false;
                 }
 
-                // TODO: fix me
-                // bool isNeighboorOccluded = voxelGridView.getTerrainVoxel(x + 1, y +
-                // 1, z + 1) == -2;
-                bool isNeighboorOccluded = voxelGridView.getTerrainVoxel(x, y, z) == -3;
+                // Correctly check neighbor occlusion state within the view
+                bool isNeighboorOccluded = voxelGridView.getTerrainVoxel(x + 1, y + 1, z + 1) == -3;
                 // First, check if the terrain is exactly one level below the player
                 bool isOneLevelBelow = (z == pos.z - 1);
 
@@ -579,15 +610,38 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                     isCurrentTerrainOccluded = false;
                 } else if (hasValidNeighbor &&
                            ((isMainTypeTerrain && isSubTypeOccluding) || isNeighboorOccluded)) {
+                    // std::cout << "perception: occlusion true due to neighbor at (" << (x + 1)
+                    //           << ", " << (y + 1) << ", " << (z + 1) << ") id="
+                    //           << neighboorEntityId << " isNeighboorOccluded=" <<
+                    //           isNeighboorOccluded
+                    //           << " isMainTypeTerrain=" << isMainTypeTerrain
+                    //           << " isSubTypeOccluding=" << isSubTypeOccluding
+                    //           << " hasValidNeighbor=" << hasValidNeighbor << "\n";
                     isCurrentTerrainOccluded = true;
                 }
+                // std::cout << "perception: occlusion check at (" << x << ", " << y << ", " << z
+                //           << ") id=" << entity_id << " neighbor_id=" << neighboorEntityId
+                //           << " hasNeighbor=" << hasValidNeighbor
+                //           << " mainTerrain=" << isMainTypeTerrain
+                //           << " subOccluding=" << isSubTypeOccluding
+                //           << " neighOccluded=" << isNeighboorOccluded
+                //           << " nearPlayer=" << isTerrainNearPlayer
+                //           << " -> occluded=" << isCurrentTerrainOccluded << "\n";
+                // logger->info(
+                //     "perception: occlusion check at ({}, {}, {}) id={} neighbor_id={} "
+                //     "hasNeighbor={} mainTerrain={} subOccluding={} neighOccluded={} nearPlayer={}
+                //     "
+                //     "-> occluded={}",
+                //     x, y, z, entity_id, neighboorEntityId, hasValidNeighbor, isMainTypeTerrain,
+                //     isSubTypeOccluding, isNeighboorOccluded, isTerrainNearPlayer,
+                //     isCurrentTerrainOccluded);
             }
 
             if (isCurrentTerrainOccluded) {
                 voxelGridView.setTerrainVoxel(x, y, z, -3);
             } else {
                 int virtualTerrainId;
-                if (terrainId != -1) {
+                if (terrainId == -1) {
                     virtualTerrainId = terrainVirtualIdCounter--;
                 } else {
                     virtualTerrainId = terrainId;
@@ -603,8 +657,13 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                 entity_interface.setComponent<Position>(pos);
 
                 voxelGridView.setTerrainVoxel(x, y, z, virtualTerrainId);
-                response.world_view.entities.emplace(entity_interface.entityId,
-                                                     std::move(entity_interface));
+                // std::cout << "perception: visible terrain (" << x << ", " << y << ", " << z
+                //           << ") terr_id=" << terrainId << " virt_id=" << virtualTerrainId <<
+                //           "\n";
+                // logger->info("perception: visible terrain ({}, {}, {}) terr_id={} virt_id={}", x,
+                //               y, z, terrainId, virtualTerrainId);
+                // response.world_view.entities.emplace(entity_interface.entityId,
+                //                                      std::move(entity_interface));
 
                 // terrainsIds.emplace_back(virtualTerrainId);
 

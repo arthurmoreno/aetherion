@@ -133,8 +133,10 @@ class TerrainGridRepository {
     // ---------------- Migration Methods ----------------
     // Extract terrain components from EnTT entity and save to OpenVDB storage
     // If no transient components remain after migration, destroys the entity
+    // void setTerrain(int x, int y, int z, int terrainID);
     void setTerrainFromEntt(entt::entity entity);
     bool checkIfTerrainExists(int x, int y, int z) const;
+    bool checkIfTerrainHasEntity(int x, int y, int z) const;
     void deleteTerrain(int x, int y, int z);
 
     // ================ High-Level Iterator Methods ================

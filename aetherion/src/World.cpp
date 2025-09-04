@@ -12,8 +12,8 @@
 #include <future>
 #include <iostream>
 #include <stdexcept>
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "PerceptionResponse_generated.h"
 #include "VoxelGrid.hpp"
@@ -80,15 +80,16 @@ GridData World::getVoxel(int x, int y, int z) const { return voxelGrid->getVoxel
 
 void World::setTerrain(int x, int y, int z, const EntityInterface& entityInterface) {
     // Create a new entity in the EnTT registry
-    entt::entity entity = registry.create();
+    // entt::entity entity = registry.create();
 
     // Assign Position and Velocity components from the EntityInterface
-    if (entityInterface.hasComponent(ComponentFlag::POSITION)) {
-        registry.emplace<Position>(entity, entityInterface.getComponent<Position>());
-    }
+    // if (entityInterface.hasComponent(ComponentFlag::POSITION)) {
+    //     registry.emplace<Position>(entity, entityInterface.getComponent<Position>());
+    // }
 
-    int terrainID = static_cast<int>(entity);
-    voxelGrid->setTerrain(x, y, z, terrainID);
+    // int terrainID = static_cast<int>(entity);
+    // voxelGrid->setTerrain(x, y, z, terrainID);
+    throw std::runtime_error("World::setTerrain not implemented yet");
 }
 
 // Create an entity in the EnTT registry with data from EntityInterface
@@ -274,7 +275,7 @@ entt::entity World::createEntityFromPython(nb::object pyEntity) {
 nb::dict World::getEntitiesByType(int entityMainType, int entitySubType0) {
     // Acquire shared lock to prevent entity destruction during entity queries
     std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
-    
+
     nb::dict entitiesMetadata;
 
     // Iterate through all entities that have the EntityTypeComponent
@@ -303,7 +304,7 @@ nb::dict World::getEntitiesByType(int entityMainType, int entitySubType0) {
 nb::list World::getEntityIdsByType(int entityMainType, int entitySubType0) {
     // Acquire shared lock to prevent entity destruction during entity ID queries
     std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
-    
+
     nb::list entityIds;
 
     // Iterate through all entities that have the EntityTypeComponent
@@ -430,31 +431,35 @@ nb::dict World::createPerceptionResponses(nb::dict entitiesWithQueries) {
 EntityInterface World::getEntityById(int entityId) {
     // Convert the entity ID to the entt::entity type
     entt::entity entity = static_cast<entt::entity>(entityId);
-    
+
     // Acquire shared lock to prevent entity destruction during perception
     std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
-    
+
     // CRITICAL: Always check entity validity first
     if (!registry.valid(entity)) {
-        // Logger::getLogger()->error("[getEntityById] Entity " + std::to_string(entityId) + " is invalid");
+        // Logger::getLogger()->error("[getEntityById] Entity " + std::to_string(entityId) + " is
+        // invalid");
         throw std::runtime_error("Entity " + std::to_string(entityId) + " is no longer valid");
     }
-    
-    // Logger::getLogger()->debug("[getEntityById] Entity " + std::to_string(entityId) + " is valid, checking components");
+
+    // Logger::getLogger()->debug("[getEntityById] Entity " + std::to_string(entityId) + " is valid,
+    // checking components");
 
     // Check if entity has required components BEFORE accessing them
     if (!registry.all_of<Position>(entity)) {
-        // Logger::getLogger()->error("[getEntityById] Entity " + std::to_string(entityId) + " missing Position component");
-        throw std::runtime_error("Entity " + std::to_string(entityId) + " does not have Position component");
+        // Logger::getLogger()->error("[getEntityById] Entity " + std::to_string(entityId) + "
+        // missing Position component");
+        throw std::runtime_error("Entity " + std::to_string(entityId) +
+                                 " does not have Position component");
     }
 
     // TODO: Make this a more robust check.
     Position position = registry.get<Position>(entity);
     int entityIdVoxel = voxelGrid->getEntity(position.x, position.y, position.z);
     if (entityIdVoxel != entityId) {
-        std::cout << "Warning: Entity " << entityId
-                  << " is not at its recorded voxel position (" << position.x << "," << position.y
-                  << "," << position.z << "). Actual voxel entity: " << entityIdVoxel << std::endl;
+        std::cout << "Warning: Entity " << entityId << " is not at its recorded voxel position ("
+                  << position.x << "," << position.y << "," << position.z
+                  << "). Actual voxel entity: " << entityIdVoxel << std::endl;
         throw std::runtime_error("Entity Position mismatch with VoxelGrid");
     }
 
@@ -482,7 +487,7 @@ void World::dispatchMoveSolidEntityEventById(int entityId,
                                              std::vector<DirectionEnum> directionsToApply) {
     // Acquire shared lock to prevent entity destruction during movement dispatch
     std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
-    
+
     entt::entity entity = static_cast<entt::entity>(entityId);
 
     // TODO: Make this a more robust check.
@@ -492,8 +497,8 @@ void World::dispatchMoveSolidEntityEventById(int entityId,
         std::string errorMessage = "Entity id on EntityInterface: " + std::to_string(entityId) +
                                    " Position on EntityInterface: (" + std::to_string(position.x) +
                                    "," + std::to_string(position.y) + "," +
-                                   std::to_string(position.z) + ")" + "Entity id on VoxelGrid: " +
-                                   std::to_string(entityIdVoxel);
+                                   std::to_string(position.z) + ")" +
+                                   "Entity id on VoxelGrid: " + std::to_string(entityIdVoxel);
         throw std::runtime_error(errorMessage);
     }
 
@@ -560,7 +565,7 @@ void World::dispatchMoveSolidEntityEventByPosition(int x, int y, int z, GridType
 void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId, int selectedEntityId) {
     // Acquire shared lock to prevent entity destruction during item take dispatch
     std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
-    
+
     entt::entity entity = static_cast<entt::entity>(entityId);
 
     // TODO: Make this a more robust check.
@@ -570,8 +575,8 @@ void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId, int sel
         std::string errorMessage = "Entity id on EntityInterface: " + std::to_string(entityId) +
                                    " Position on EntityInterface: (" + std::to_string(position.x) +
                                    "," + std::to_string(position.y) + "," +
-                                   std::to_string(position.z) + ")" + "Entity id on VoxelGrid: " +
-                                   std::to_string(entityIdVoxel);
+                                   std::to_string(position.z) + ")" +
+                                   "Entity id on VoxelGrid: " + std::to_string(entityIdVoxel);
         throw std::runtime_error(errorMessage);
     }
 
@@ -589,16 +594,16 @@ void World::dispatchUseItemEventById(int entityId, int itemSlot, int hoveredEnti
                                      int selectedEntityId) {
     // Acquire shared lock to prevent entity destruction during item use dispatch
     std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
-    
+
     entt::entity entity = static_cast<entt::entity>(entityId);
 
     // TODO: Make this a more robust check.
     Position position = registry.get<Position>(entity);
     int entityIdVoxel = voxelGrid->getEntity(position.x, position.y, position.z);
     if (entityIdVoxel != entityId) {
-        std::cout << "Warning: Entity " << entityId
-                  << " is not at its recorded voxel position (" << position.x << "," << position.y
-                  << "," << position.z << "). Actual voxel entity: " << entityIdVoxel << std::endl;
+        std::cout << "Warning: Entity " << entityId << " is not at its recorded voxel position ("
+                  << position.x << "," << position.y << "," << position.z
+                  << "). Actual voxel entity: " << entityIdVoxel << std::endl;
         throw std::runtime_error("Entity Position mismatch with VoxelGrid");
     }
 
@@ -795,49 +800,54 @@ void World::update() {
         if (hasEntitiesToDelete) {
             // Acquire EXCLUSIVE lock to prevent any perception operations during entity destruction
             std::unique_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
-            
+
             std::cout << "\n=== ENTITY DELETION DEBUG ===" << std::endl;
-            std::cout << "Total entities to delete: " << lifeEngine->entitiesToDelete.size() << std::endl;
-            
+            std::cout << "Total entities to delete: " << lifeEngine->entitiesToDelete.size()
+                      << std::endl;
+
             for (const auto& [entity, softKill] : lifeEngine->entitiesToDelete) {
                 int entityId = static_cast<int>(entity);
                 bool isSpecialId = entityId == -1 || entityId == -2;
                 bool isValidEntity = registry.valid(entity);
-                
+
                 std::cout << "\n--- Processing deletion request ---" << std::endl;
                 std::cout << "Entity handle: " << static_cast<uint32_t>(entity) << std::endl;
                 std::cout << "Entity ID (cast): " << entityId << std::endl;
                 std::cout << "Is special ID: " << isSpecialId << std::endl;
                 std::cout << "Registry valid: " << isValidEntity << std::endl;
                 std::cout << "Soft kill: " << softKill << std::endl;
-                
+
                 if (!isSpecialId && isValidEntity) {
                     // Get entity details before destruction
                     if (registry.all_of<Position, EntityTypeComponent>(entity)) {
                         auto [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
-                        std::cout << "Entity position: (" << pos.x << "," << pos.y << "," << pos.z << ")" << std::endl;
-                        std::cout << "Entity type: " << type.mainType << "," << type.subType0 << std::endl;
-                        
+                        std::cout << "Entity position: (" << pos.x << "," << pos.y << "," << pos.z
+                                  << ")" << std::endl;
+                        std::cout << "Entity type: " << type.mainType << "," << type.subType0
+                                  << std::endl;
+
                         // Check what's actually in the voxel grid at this position
                         int gridEntity = voxelGrid->getEntity(pos.x, pos.y, pos.z);
                         std::cout << "Grid entity at position: " << gridEntity << std::endl;
-                        
+
                         if (gridEntity != entityId) {
-                            std::cout << "ERROR: Grid mismatch! Grid has " << gridEntity 
+                            std::cout << "ERROR: Grid mismatch! Grid has " << gridEntity
                                       << " but trying to delete " << entityId << std::endl;
                         }
                     } else {
-                        std::cout << "Entity " << entityId << " missing Position or EntityTypeComponent" << std::endl;
+                        std::cout << "Entity " << entityId
+                                  << " missing Position or EntityTypeComponent" << std::endl;
                     }
-            
+
                     const bool shouldRemoveFromGrid = !softKill;
                     if (shouldRemoveFromGrid) {
                         std::cout << "Removing from grid..." << std::endl;
                         lifeEngine->removeEntityFromGrid(entity);
                     }
 
-                    if (entityId != -1 && entityId != -2) {
-                        std::cout << "Calling registry.destroy() on entity " << entityId << std::endl;
+                    if (entityId != -1 && entityId != -2 && registry.valid(entity)) {
+                        std::cout << "Calling registry.destroy() on entity " << entityId
+                                  << std::endl;
                         registry.destroy(entity);
                         std::cout << "Destroyed entity " << entityId << std::endl;
                     }
@@ -847,15 +857,16 @@ void World::update() {
                     if (isSpecialId) {
                         std::cout << "Skipping special ID: " << entityId << std::endl;
                     } else if (!isValidEntity) {
-                        std::cout << "Entity " << entityId << " already invalid, skipping" << std::endl;
+                        std::cout << "Entity " << entityId << " already invalid, skipping"
+                                  << std::endl;
                     }
-                    
+
                     std::ostringstream ossMessage;
                     ossMessage << "Entity " << entityId << " is already invalid.";
                     spdlog::get("console")->info(ossMessage.str());
                 }
             }
-            
+
             std::cout << "=== END ENTITY DELETION DEBUG ===\n" << std::endl;
             lifeEngine->entitiesToDelete.clear();
         }

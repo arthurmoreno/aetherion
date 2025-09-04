@@ -27,16 +27,15 @@ std::optional<int> TerrainGridRepository::getTerrainIdIfExists(int x, int y, int
     return storage_.getTerrainIdIfExists(x, y, z);
 }
 
+bool TerrainGridRepository::checkIfTerrainHasEntity(int x, int y, int z) const {
+    std::optional<int> entityId = getTerrainIdIfExists(x, y, z);
+    return entityId.has_value() && entityId.value() >= 0;
+}
+
 void TerrainGridRepository::markActive(int x, int y, int z, entt::entity e) {
     // Update TerrainStorage activation indicator based on strategy
-    if (storage_.useActiveMask) {
-        if (storage_.terrainGrid) {
-            storage_.terrainGrid->tree().setValue(C(x, y, z), 1);  // mark as active
-        }
-    } else {
-        if (storage_.terrainGrid) {
-            storage_.terrainGrid->tree().setValue(C(x, y, z), static_cast<int>(e));
-        }
+    if (storage_.terrainGrid) {
+        storage_.terrainGrid->tree().setValue(C(x, y, z), static_cast<int>(e));
     }
 }
 
@@ -51,8 +50,11 @@ void TerrainGridRepository::clearActive(int x, int y, int z) {
 
 void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entity e) {
     // If entity has a Position, mark active in the TerrainStorage grid
+    if (!reg.valid(e)) return;
     if (auto pos = reg.try_get<Position>(e)) {
-        if (storage_.checkIfTerrainExists(pos->x, pos->y, pos->z)) {
+        if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z)) {
+            std::cout << "TerrainGridRepository: onConstructVelocity at (" << pos->x << ", "
+                      << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
             Key key{pos->x, pos->y, pos->z};
             byCoord_[key] = e;
             markActive(pos->x, pos->y, pos->z, e);
@@ -61,8 +63,11 @@ void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entit
 }
 
 void TerrainGridRepository::onConstructMoving(entt::registry& reg, entt::entity e) {
+    if (!reg.valid(e)) return;
     if (auto pos = reg.try_get<Position>(e)) {
-        if (storage_.checkIfTerrainExists(pos->x, pos->y, pos->z)) {
+        if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z)) {
+            std::cout << "TerrainGridRepository: onConstructMoving at (" << pos->x << ", " << pos->y
+                      << ", " << pos->z << ") entity=" << int(e) << "\n";
             Key key{pos->x, pos->y, pos->z};
             byCoord_[key] = e;
             markActive(pos->x, pos->y, pos->z, e);
@@ -305,6 +310,18 @@ void TerrainGridRepository::setVelocity(int x, int y, int z, const Velocity& vel
     }
 }
 
+// void TerrainGridRepository::setTerrain(int x, int y, int z, int terrainID) {
+//     if (terrainID == -2) {
+//         deleteTerrain(x, y, z);
+//     } else if (terrainID == -1) {
+//         throw std::runtime_error(
+//             "TerrainGridRepository::setTerrain: debugging placeholder -1 not supported here");
+//     } else {
+//         throw std::runtime_error(
+//             "TerrainGridRepository::setTerrain: debugging placeholder -1 not supported here");
+//     }
+// }
+
 // ---------------- Migration Methods ----------------
 void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
     if (!registry_.valid(entity)) {
@@ -375,9 +392,11 @@ void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
             byCoord_.erase(it);
         }
         registry_.destroy(entity);
-        storage_.setTerrainId(x, y, z, static_cast<int>(entity));
-    } else {
+        // Set terrain ID to -1 to indicate no active entity, but that terrain exists
         storage_.setTerrainId(x, y, z, -1);
+    } else {
+        // Otherwise, just update the terrain ID to point to this entity
+        storage_.setTerrainId(x, y, z, static_cast<int>(entity));
     }
 }
 
@@ -388,7 +407,8 @@ bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
 // Delete terrain at a specific voxel
 void TerrainGridRepository::deleteTerrain(int x, int y, int z) {
     int terrainId = storage_.deleteTerrain(x, y, z);
-    if (terrainId != -2 && terrainId != -1) {
+    if (terrainId != -2 && terrainId != -1 &&
+        registry_.valid(static_cast<entt::entity>(terrainId))) {
         // TODO: Handle dropping components and remove from EnTT
         std::cout << "Deleting terrain entity: " << terrainId << std::endl;
         entt::entity entity = static_cast<entt::entity>(terrainId);

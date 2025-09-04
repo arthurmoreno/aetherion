@@ -332,13 +332,14 @@ int TerrainStorage::getFlagBits(int x, int y, int z) const {
 int TerrainStorage::getTerrainIdIfExists(int x, int y, int z) const {
     if (s_threadCache.terrainAcc) {
         int entityId = s_threadCache.terrainAcc->getValue(openvdb::Coord(x, y, z));
-        if (entityId != -1 && entityId != -2) {
+        if (entityId != -2) {
+            // std::cout << "Found entity ID on terrainGrid: " << entityId << std::endl;
             return entityId;
         }
         return -2;
     }
     int entityId = terrainGrid->tree().getValue(openvdb::Coord(x, y, z));
-    if (entityId != -1 && entityId != -2) {
+    if (entityId != -2) {
         return entityId;
     }
     return -2;

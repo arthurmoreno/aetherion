@@ -120,7 +120,8 @@ class World {
 
    private:
     std::mutex registryMutex;
-    mutable std::shared_mutex entityLifecycleMutex;  // Protects entity creation/destruction vs perception
+    mutable std::shared_mutex
+        entityLifecycleMutex;  // Protects entity creation/destruction vs perception
     std::unique_ptr<GameDBHandler> dbHandler;
 
     // Physics

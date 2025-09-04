@@ -647,7 +647,6 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
 
     auto velocityView = registry.view<Velocity>();
     for (auto entity : velocityView) {
-
         Position pos = registry.get<Position>(entity);
         int entityId = static_cast<int>(entity);
         int entityVoxelGridId = voxelGrid.getEntity(pos.x, pos.y, pos.z);
