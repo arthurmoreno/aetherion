@@ -11,6 +11,87 @@
 
 /**********************
  *
+ * GridBoxProcessor Implementation *
+ *
+ * ********************
+ */
+
+void GridBoxProcessor::initializeAccessors(entt::registry& registry, VoxelGrid& voxelGrid) {
+    accessors_ = std::make_unique<ThreadAccessors>();
+    registry_ = &registry;
+    voxelGrid_ = &voxelGrid;
+    
+    // Get TerrainStorage from VoxelGrid
+    TerrainStorage* storage = voxelGrid.terrainStorage.get();
+    if (!storage) {
+        throw std::runtime_error("GridBoxProcessor: TerrainStorage not available in VoxelGrid");
+    }
+    
+    // Create fresh Accessors for this thread - these are internally ValueAccessors 
+    // providing optimal performance for spatially coherent voxel traversal
+    // Each thread gets its own accessor for optimal cache performance
+    accessors_->waterAccessor = storage->waterMatterGrid->getAccessor();
+    accessors_->vaporAccessor = storage->vaporMatterGrid->getAccessor();
+    accessors_->mainTypeAccessor = storage->mainTypeGrid->getAccessor();
+    accessors_->subType0Accessor = storage->subType0Grid->getAccessor();
+    accessors_->flagsAccessor = storage->flagsGrid->getConstAccessor();
+}
+
+std::vector<WaterFlow> GridBoxProcessor::processBox(const GridBox& box) {
+    std::vector<WaterFlow> pendingFlows;
+    
+    // Cache-friendly iteration order (Z->Y->X)
+    for (int z = box.minZ; z <= box.maxZ; ++z) {
+        for (int y = box.minY; y <= box.maxY; ++y) {
+            for (int x = box.minX; x <= box.maxX; ++x) {
+                processVoxelWater(x, y, z, pendingFlows);
+                processVoxelEvaporation(x, y, z, pendingFlows);
+            }
+        }
+    }
+    
+    return pendingFlows;
+}
+
+void GridBoxProcessor::processVoxelWater(int x, int y, int z, std::vector<WaterFlow>& flows) {
+    if (!accessors_ || !accessors_->waterAccessor) return; // Safety check
+    
+    int water = accessors_->waterAccessor->getValue(openvdb::Coord(x, y, z));
+    if (water <= 0) return;
+    
+    // Process water flow logic using cached accessors
+    // Check if this voxel can flow to neighbors
+    int mainType = accessors_->mainTypeAccessor->getValue(openvdb::Coord(x, y, z));
+    int subType0 = accessors_->subType0Accessor->getValue(openvdb::Coord(x, y, z));
+    
+    // Simple flow downward if space available
+    int belowWater = accessors_->waterAccessor->getValue(openvdb::Coord(x, y, z - 1));
+    int belowMainType = accessors_->mainTypeAccessor->getValue(openvdb::Coord(x, y, z - 1));
+    
+    // If there's space below and we have water to flow
+    if (belowMainType == -2 || belowWater < 100) { // -2 = empty space, or below has room for more water
+        int flowAmount = std::min(water / 2, 10); // Flow half the water, max 10 units
+        if (flowAmount > 0) {
+            flows.emplace_back(WaterFlowType::WATER_FLOW, x, y, z, flowAmount, x, y, z - 1);
+        }
+    }
+}
+
+void GridBoxProcessor::processVoxelEvaporation(int x, int y, int z, std::vector<WaterFlow>& flows) {
+    if (!accessors_ || !accessors_->waterAccessor) return; // Safety check
+    
+    int water = accessors_->waterAccessor->getValue(openvdb::Coord(x, y, z));
+    if (water <= 0) return;
+    
+    // Simple evaporation logic - convert small amounts of water to vapor
+    if (water > 0 && water < 50) { // Only evaporate small amounts
+        int evaporationRate = std::max(1, water / 10); // Evaporate 10% minimum 1
+        flows.emplace_back(WaterFlowType::EVAPORATION, x, y, z, evaporationRate);
+    }
+}
+
+/**********************
+ *
  * Utils *
  *
  * ********************
@@ -210,7 +291,7 @@ void makePlantSuckWater(entt::registry& registry, entt::entity& terrainEntity,
 void spreadWater(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                  entt::entity entity, EntityTypeComponent& type, MatterContainer& matterContainer,
                  int x, int y, int z, DirectionEnum direction,
-                 std::vector<WaterFallEntityEvent>& pendingWaterFall) {
+                 tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall) {
     auto logger = Logger::getLogger();
     if (matterContainer.WaterMatter <= 0) {
         // No water to spread
@@ -310,7 +391,7 @@ void spreadWater(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             const int transferAmount = 1;
             Position pos{x, y, z};
             WaterFallEntityEvent waterFallEntityEvent{entity, pos, transferAmount};
-            pendingWaterFall.push_back(waterFallEntityEvent);
+            pendingWaterFall.push(waterFallEntityEvent);
             actionPerformed = true;
         }
 
@@ -323,7 +404,7 @@ void spreadWater(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             const int transferAmount = 1;
             Position pos{x, y, z};
             WaterFallEntityEvent waterFallEntityEvent{entity, pos, transferAmount};
-            pendingWaterFall.push_back(waterFallEntityEvent);
+            pendingWaterFall.push(waterFallEntityEvent);
 
             actionPerformed = true;
         }
@@ -334,7 +415,7 @@ bool moveWater(entt::entity entity, entt::registry& registry, VoxelGrid& voxelGr
                entt::dispatcher& dispatcher, bool& actionPerformed, Position& pos,
                EntityTypeComponent& type, MatterContainer& matterContainer, std::random_device& rd,
                std::mt19937& gen, std::uniform_int_distribution<>& disWaterSpreading,
-               std::vector<WaterFallEntityEvent>& pendingWaterFall) {
+               tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall) {
     const bool isGrass = (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
                           type.subType0 == static_cast<int>(TerrainEnum::GRASS));
     const bool isWater = (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
@@ -569,7 +650,7 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, int x, int
 void condenseVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                    entt::entity entity, Position& pos, EntityTypeComponent& type,
                    MatterContainer& matterContainer,
-                   std::vector<CondenseWaterEntityEvent>& pendingCondenseWater) {
+                   tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCondenseWater) {
     auto logger = Logger::getLogger();
 
     int condensationAmount = 1;
@@ -603,7 +684,7 @@ void condenseVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatc
         }
     } else {
         CondenseWaterEntityEvent evaporateWaterEntityEvent{entity, condensationAmount};
-        pendingCondenseWater.push_back(evaporateWaterEntityEvent);
+        pendingCondenseWater.push(evaporateWaterEntityEvent);
         return;
     }
 }
@@ -769,7 +850,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
 void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                entt::entity entity, Position& pos, EntityTypeComponent& type,
                MatterContainer& matterContainer,
-               std::vector<CondenseWaterEntityEvent>& pendingCondenseWater,
+               tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCondenseWater,
                entt::entity entityBeingDebugged) {
     int maxAltitude = voxelGrid.depth - 1;  // Example maximum altitude for vapor to rise
 
@@ -826,9 +907,9 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
 
 void processTileWater(entt::entity entity, entt::registry& registry, VoxelGrid& voxelGrid,
                       entt::dispatcher& dispatcher, float sunIntensity,
-                      std::vector<EvaporateWaterEntityEvent>& pendingEvaporateWater,
-                      std::vector<CondenseWaterEntityEvent>& pendingCreateWater,
-                      std::vector<WaterFallEntityEvent>& pendingWaterFall, std::random_device& rd,
+                      tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater,
+                      tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCreateWater,
+                      tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall, std::random_device& rd,
                       std::mt19937& gen, std::uniform_int_distribution<>& disWaterSpreading,
                       entt::entity entityBeingDebugged) {
     if (registry.all_of<Position, EntityTypeComponent, MatterContainer>(entity)) {
@@ -925,7 +1006,7 @@ void processTileWater(entt::entity entity, entt::registry& registry, VoxelGrid& 
                             if (physicsStats.heat > HEAT_TO_WATER_EVAPORATION) {
                                 EvaporateWaterEntityEvent evaporateWaterEntityEvent{entity,
                                                                                     sunIntensity};
-                                pendingEvaporateWater.push_back(evaporateWaterEntityEvent);
+                                pendingEvaporateWater.push(evaporateWaterEntityEvent);
                                 physicsStats.heat = 0.0f;
                             }
 
@@ -1130,11 +1211,12 @@ bool EcosystemEngine::isProcessingComplete() const { return processingComplete; 
 
 void EcosystemEngine::processEvaporateWaterEvents(
     entt::registry& registry, VoxelGrid& voxelGrid,
-    std::vector<EvaporateWaterEntityEvent>& pendingEvaporateWater) {
+    tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater) {
     // std::cout << "Before processing Pending Evaporate Water\n";
     auto all_view = registry.view<Position, EntityTypeComponent, MatterContainer>();
 
-    for (const auto& event : pendingEvaporateWater) {
+    EvaporateWaterEntityEvent event{entt::null, 0.0f};
+    while (pendingEvaporateWater.try_pop(event)) {
         if (all_view.contains(event.entity) && registry.valid(event.entity)) {
             // if (registry.valid(event.entity)) {
             if (registry.all_of<Position, EntityTypeComponent, MatterContainer>(event.entity)) {
@@ -1172,17 +1254,18 @@ void EcosystemEngine::processEvaporateWaterEvents(
 
     // std::cout << "Total water evaporated: " << countCreatedEvaporatedWater << " units\n";
     countCreatedEvaporatedWater = 0;
-    pendingEvaporateWater.clear();
+    // Queue is automatically emptied by try_pop() operations - no need to clear
     // std::cout << "Pending Evaporate Water Cleared\n";
 }
 
 void EcosystemEngine::processCondenseWaterEvents(
     entt::registry& registry, VoxelGrid& voxelGrid,
-    std::vector<CondenseWaterEntityEvent>& pendingCondenseWater) {
+    tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCondenseWater) {
     // std::cout << "Before processing Pending Condense Water\n";
     auto all_view = registry.view<Position, EntityTypeComponent, MatterContainer>();
 
-    for (const auto& event : pendingCondenseWater) {
+    CondenseWaterEntityEvent event{entt::null, 0};
+    while (pendingCondenseWater.try_pop(event)) {
         if (all_view.contains(event.entity) && registry.valid(event.entity)) {
             // if (registry.valid(event.entity)) {
             if (registry.all_of<Position, EntityTypeComponent, MatterContainer>(event.entity)) {
@@ -1256,16 +1339,17 @@ void EcosystemEngine::processCondenseWaterEvents(
         }
     }
 
-    pendingCondenseWater.clear();
+    // Queue is automatically emptied by try_pop() operations - no need to clear
     // std::cout << "Pending Condense Water Cleared\n";
 }
 
 void EcosystemEngine::processWaterFallEvents(entt::registry& registry, VoxelGrid& voxelGrid,
-                                             std::vector<WaterFallEntityEvent>& pendingWaterFall) {
+                                             tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall) {
     // std::cout << "Before processing Pending Create Water Fall\n";
     auto all_view = registry.view<Position, EntityTypeComponent, MatterContainer>();
 
-    for (const auto& event : pendingWaterFall) {
+    WaterFallEntityEvent event{entt::null, Position{0, 0, 0}, 0};
+    while (pendingWaterFall.try_pop(event)) {
         if (all_view.contains(event.entity) && registry.valid(event.entity)) {
             // if (registry.valid(event.entity)) {
             if (registry.all_of<Position, EntityTypeComponent, MatterContainer>(event.entity)) {
@@ -1336,7 +1420,7 @@ void EcosystemEngine::processWaterFallEvents(entt::registry& registry, VoxelGrid
         }
     }
 
-    pendingWaterFall.clear();
+    // Queue is automatically emptied by try_pop() operations - no need to clear
     // std::cout << "Pending Create Water Fall Cleared\n";
 }
 

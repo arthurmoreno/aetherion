@@ -4,6 +4,10 @@
 #include <spdlog/spdlog.h>
 
 #include <entt/entt.hpp>
+#include <openvdb/openvdb.h>
+#include <tbb/concurrent_queue.h>
+#include <memory>
+#include <optional>
 
 #include "GameClock.hpp"
 #include "LifeEvents.hpp"
@@ -19,6 +23,61 @@
 #include "components/PhysicsComponents.hpp"
 #include "components/PlantsComponents.hpp"
 #include "components/TerrainComponents.hpp"
+#include "terrain/TerrainStorage.hpp"
+
+// Forward declarations and supporting types for GridBoxProcessor
+struct GridBox {
+    int minX, minY, minZ;
+    int maxX, maxY, maxZ;
+    
+    GridBox(int minX, int minY, int minZ, int maxX, int maxY, int maxZ)
+        : minX(minX), minY(minY), minZ(minZ), maxX(maxX), maxY(maxY), maxZ(maxZ) {}
+};
+
+enum class WaterFlowType {
+    WATER_FLOW,
+    EVAPORATION,
+    CONDENSATION
+};
+
+struct WaterFlow {
+    WaterFlowType type;
+    int x, y, z;
+    int amount;
+    int targetX, targetY, targetZ; // For flow direction
+    
+    WaterFlow(WaterFlowType type, int x, int y, int z, int amount)
+        : type(type), x(x), y(y), z(z), amount(amount), targetX(x), targetY(y), targetZ(z) {}
+        
+    WaterFlow(WaterFlowType type, int x, int y, int z, int amount, int targetX, int targetY, int targetZ)
+        : type(type), x(x), y(y), z(z), amount(amount), targetX(targetX), targetY(targetY), targetZ(targetZ) {}
+};
+
+// GridBoxProcessor class for parallel water simulation
+class GridBoxProcessor {
+private:
+    struct ThreadAccessors {
+        std::optional<openvdb::Int32Grid::Accessor> waterAccessor;
+        std::optional<openvdb::Int32Grid::Accessor> vaporAccessor;
+        std::optional<openvdb::Int32Grid::Accessor> mainTypeAccessor;
+        std::optional<openvdb::Int32Grid::Accessor> subType0Accessor;
+        std::optional<openvdb::Int32Grid::ConstAccessor> flagsAccessor;
+    };
+    
+    std::unique_ptr<ThreadAccessors> accessors_;
+    entt::registry* registry_;
+    VoxelGrid* voxelGrid_;
+    
+public:
+    // Initialize accessors and registry when processor is created
+    void initializeAccessors(entt::registry& registry, VoxelGrid& voxelGrid);
+    
+    std::vector<WaterFlow> processBox(const GridBox& box);
+    
+private:
+    void processVoxelWater(int x, int y, int z, std::vector<WaterFlow>& flows);
+    void processVoxelEvaporation(int x, int y, int z, std::vector<WaterFlow>& flows);
+};
 
 struct SetEcoEntityToDebug {
     entt::entity entity;
@@ -61,16 +120,16 @@ struct WaterFallEntityEvent {
 
 void processTileWater(entt::entity entity, entt::registry& registry, VoxelGrid& voxelGrid,
                       entt::dispatcher& dispatcher, float sunIntensity,
-                      std::vector<EvaporateWaterEntityEvent>& pendingEvaporateWater,
-                      std::vector<CondenseWaterEntityEvent>& pendingCondenseWater,
-                      std::vector<WaterFallEntityEvent>& pendingWaterFall, std::random_device& rd,
+                      tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater,
+                      tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCondenseWater,
+                      tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall, std::random_device& rd,
                       std::mt19937& gen, std::uniform_int_distribution<>& disWaterSpreading);
 
 class EcosystemEngine {
    public:
-    std::vector<EvaporateWaterEntityEvent> pendingEvaporateWater;
-    std::vector<CondenseWaterEntityEvent> pendingCondenseWater;
-    std::vector<WaterFallEntityEvent> pendingWaterFall;
+    tbb::concurrent_queue<EvaporateWaterEntityEvent> pendingEvaporateWater;
+    tbb::concurrent_queue<CondenseWaterEntityEvent> pendingCondenseWater;
+    tbb::concurrent_queue<WaterFallEntityEvent> pendingWaterFall;
 
     entt::entity entityBeingDebugged;
 
@@ -88,11 +147,11 @@ class EcosystemEngine {
                    float sunIntensity);
 
     void processEvaporateWaterEvents(entt::registry& registry, VoxelGrid& voxelGrid,
-                                     std::vector<EvaporateWaterEntityEvent>& pendingEvaporateWater);
+                                     tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater);
     void processCondenseWaterEvents(entt::registry& registry, VoxelGrid& voxelGrid,
-                                    std::vector<CondenseWaterEntityEvent>& pendingCondenseWater);
+                                    tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCondenseWater);
     void processWaterFallEvents(entt::registry& registry, VoxelGrid& voxelGrid,
-                                std::vector<WaterFallEntityEvent>& pendingWaterFall);
+                                tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall);
 
     // Register the event handler
     void onSetEcoEntityToDebug(const SetEcoEntityToDebug& event);
