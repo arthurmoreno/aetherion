@@ -44,8 +44,9 @@ std::vector<WaterFlow> GridBoxProcessor::processBox(const GridBox& box) {
     for (int z = box.minZ; z <= box.maxZ; ++z) {
         for (int y = box.minY; y <= box.maxY; ++y) {
             for (int x = box.minX; x <= box.maxX; ++x) {
-                processVoxelWater(x, y, z, pendingFlows);
-                processVoxelEvaporation(x, y, z, pendingFlows);
+                // std::cout << "[GridBoxProcessor::processBox] Processing voxel (" << x << ", " << y << ", " << z << ")\n";
+                // processVoxelWater(x, y, z, pendingFlows);
+                // processVoxelEvaporation(x, y, z, pendingFlows);
             }
         }
     }
@@ -92,10 +93,246 @@ void GridBoxProcessor::processVoxelEvaporation(int x, int y, int z, std::vector<
 
 /**********************
  *
- * Utils *
+ * WaterSimulationManager Implementation *
  *
  * ********************
  */
+
+WaterSimulationManager::WaterSimulationManager(int numThreads) 
+    : numThreads_(numThreads) {
+    processors_.reserve(numThreads_);
+    workerThreads_.reserve(numThreads_);
+}
+
+WaterSimulationManager::~WaterSimulationManager() {
+    stopWorkerThreads();
+}
+
+void WaterSimulationManager::initializeProcessors(entt::registry& registry, VoxelGrid& voxelGrid) {
+    processors_.clear();
+    processors_.reserve(numThreads_);
+    
+    // Pre-compute grid boxes using minimum box dimensions for optimal cache performance
+    GridBox minBoxDimensions(0, 0, 0, DEFAULT_MIN_BOX_SIZE - 1, DEFAULT_MIN_BOX_SIZE - 1, DEFAULT_MIN_BOX_SIZE - 1);
+    gridBoxes_ = partitionGridIntoBoxes(voxelGrid, minBoxDimensions);
+
+    std::cout << "Initialized " << numThreads_ << " GridBoxProcessors." << std::endl;
+    
+    for (int i = 0; i < numThreads_; ++i) {
+        auto processor = std::make_unique<GridBoxProcessor>();
+        processor->initializeAccessors(registry, voxelGrid);
+        processors_.push_back(std::move(processor));
+    }
+}
+
+void WaterSimulationManager::startWorkerThreads(entt::registry& registry, VoxelGrid& voxelGrid) {
+    stopWorkers_ = false;
+    activeWorkers_ = 0;
+    completedTasks_ = 0;
+    
+    for (int i = 0; i < numThreads_; ++i) {
+        workerThreads_.emplace_back(&WaterSimulationManager::workerThreadFunction, this, i, std::ref(registry), std::ref(voxelGrid));
+    }
+}
+
+void WaterSimulationManager::stopWorkerThreads() {
+    stopWorkers_ = true;
+    taskAvailable_.notify_all();
+    
+    for (auto& thread : workerThreads_) {
+        if (thread.joinable()) {
+            thread.join();
+        }
+    }
+    workerThreads_.clear();
+}
+
+void WaterSimulationManager::workerThreadFunction(int threadId, entt::registry& registry, VoxelGrid& voxelGrid) {
+    while (!stopWorkers_) {
+        size_t boxIndex;
+        bool hasTask = scheduler_.getNextTask(boxIndex);
+
+        if (!hasTask) {
+            // No tasks available, wait briefly or until notified
+            std::cout << "[Worker " << threadId << "] No tasks available, waiting...\n";
+            std::unique_lock<std::mutex> lock(taskMutex_);
+            taskAvailable_.wait_for(lock, std::chrono::milliseconds(1));
+            continue;
+        }
+
+        if (boxIndex >= gridBoxes_.size()) {
+            continue; // Safety check
+        }
+
+        activeWorkers_++;
+
+        std::cout << "[Worker " << threadId << "] Processing box " << boxIndex 
+                  << " (" << gridBoxes_[boxIndex].minX << "," << gridBoxes_[boxIndex].minY << "," << gridBoxes_[boxIndex].minZ 
+                  << " to " << gridBoxes_[boxIndex].maxX << "," << gridBoxes_[boxIndex].maxY << "," << gridBoxes_[boxIndex].maxZ << ")\n";
+        
+        // Process the box
+        auto modifications = processBoxConcurrently(threadId % processors_.size(), gridBoxes_[boxIndex]);
+        
+        // Push results to concurrent queue
+        resultQueue_.push(std::move(modifications));
+        
+        activeWorkers_--;
+        completedTasks_++;
+    }
+}
+
+std::vector<GridBox> WaterSimulationManager::partitionGridIntoBoxes(const VoxelGrid& voxelGrid, const GridBox& minBoxDimensions) {
+    std::vector<GridBox> boxes;
+    
+    // Get grid dimensions
+    int width = voxelGrid.width;
+    int height = voxelGrid.height;
+    int depth = voxelGrid.depth;
+    
+    // Extract minimum box dimensions
+    int minBoxWidth = minBoxDimensions.maxX - minBoxDimensions.minX + 1;
+    int minBoxHeight = minBoxDimensions.maxY - minBoxDimensions.minY + 1;
+    int minBoxDepth = minBoxDimensions.maxZ - minBoxDimensions.minZ + 1;
+    
+    // Ensure minimum dimensions are at least 1
+    minBoxWidth = std::max(1, minBoxWidth);
+    minBoxHeight = std::max(1, minBoxHeight);
+    minBoxDepth = std::max(1, minBoxDepth);
+
+    std::cout << "Partitioning grid of size " << width << "x" << height << "x" << depth 
+              << " into boxes of minimum size " << minBoxWidth << "x" << minBoxHeight << "x" << minBoxDepth << std::endl;
+    
+    // Partition grid using minimum box dimensions
+    // Create boxes that are at least minBox size, with smaller edge boxes if needed
+    for (int z = 0; z < depth; z += minBoxDepth) {
+        for (int y = 0; y < height; y += minBoxHeight) {
+            for (int x = 0; x < width; x += minBoxWidth) {
+                // Calculate box boundaries, ensuring we don't exceed grid bounds
+                int maxX = std::min(x + minBoxWidth - 1, width - 1);
+                int maxY = std::min(y + minBoxHeight - 1, height - 1);
+                int maxZ = std::min(z + minBoxDepth - 1, depth - 1);
+                
+                // Only create box if it has positive dimensions
+                if (x <= maxX && y <= maxY && z <= maxZ) {
+                    boxes.emplace_back(x, y, z, maxX, maxY, maxZ);
+                }
+            }
+        }
+    }
+
+    std::cout << "Partitioned grid into " << boxes.size() << " boxes using minimum box size of "
+              << minBoxWidth << "x" << minBoxHeight << "x" << minBoxDepth << std::endl;
+
+    
+    
+    return boxes;
+}
+
+std::vector<WaterFlow> WaterSimulationManager::processBoxConcurrently(int processorIndex, const GridBox& box) {
+    if (processorIndex >= processors_.size()) {
+        return {}; // Safety check
+    }
+    
+    // Use shared_lock for concurrent reads
+    std::shared_lock<std::shared_mutex> readLock(gridWriteMutex_);
+    return processors_[processorIndex]->processBox(box);
+}
+
+void WaterSimulationManager::applyModificationsWithLock(entt::registry& registry, VoxelGrid& voxelGrid,
+                                                       const std::vector<WaterFlow>& modifications) {
+    // Apply modifications sequentially with exclusive write lock
+    std::unique_lock<std::shared_mutex> writeLock(gridWriteMutex_);
+    
+    // TerrainStorage* storage = voxelGrid.terrainStorage.get();
+    // if (!storage) return;
+    
+    // for (const auto& flow : modifications) {
+    //     switch (flow.type) {
+    //         case WaterFlowType::WATER_FLOW: {
+    //             // Transfer water from source to target
+    //             int currentWater = storage->getTerrainWaterMatter(flow.x, flow.y, flow.z);
+    //             int targetWater = storage->getTerrainWaterMatter(flow.targetX, flow.targetY, flow.targetZ);
+                
+    //             int transferAmount = std::min(flow.amount, currentWater);
+    //             if (transferAmount > 0) {
+    //                 storage->setTerrainWaterMatter(flow.x, flow.y, flow.z, currentWater - transferAmount);
+    //                 storage->setTerrainWaterMatter(flow.targetX, flow.targetY, flow.targetZ, targetWater + transferAmount);
+    //             }
+    //             break;
+    //         }
+    //         case WaterFlowType::EVAPORATION: {
+    //             // Convert water to vapor
+    //             int currentWater = storage->getTerrainWaterMatter(flow.x, flow.y, flow.z);
+    //             int currentVapor = storage->getTerrainVaporMatter(flow.x, flow.y, flow.z);
+                
+    //             int evaporateAmount = std::min(flow.amount, currentWater);
+    //             if (evaporateAmount > 0) {
+    //                 storage->setTerrainWaterMatter(flow.x, flow.y, flow.z, currentWater - evaporateAmount);
+    //                 storage->setTerrainVaporMatter(flow.x, flow.y, flow.z, currentVapor + evaporateAmount);
+    //             }
+    //             break;
+    //         }
+    //         case WaterFlowType::CONDENSATION: {
+    //             // Convert vapor to water
+    //             int currentVapor = storage->getTerrainVaporMatter(flow.x, flow.y, flow.z);
+    //             int currentWater = storage->getTerrainWaterMatter(flow.x, flow.y, flow.z);
+                
+    //             int condenseAmount = std::min(flow.amount, currentVapor);
+    //             if (condenseAmount > 0) {
+    //                 storage->setTerrainVaporMatter(flow.x, flow.y, flow.z, currentVapor - condenseAmount);
+    //                 storage->setTerrainWaterMatter(flow.x, flow.y, flow.z, currentWater + condenseAmount);
+    //             }
+    //             break;
+    //         }
+    //     }
+    // }
+}
+
+void WaterSimulationManager::processWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher, float sunIntensity) {
+    // Clear previous results
+    std::vector<WaterFlow> temp;
+    while (resultQueue_.try_pop(temp)) {
+        // Clear queue
+    }
+    
+    // Populate scheduler with all box indices using round robin priority
+    for (size_t i = 0; i < gridBoxes_.size(); ++i) {
+        scheduler_.addTask(i);
+    }
+    
+    // Start worker threads
+    startWorkerThreads(registry, voxelGrid);
+    
+    // Wait for all tasks to complete
+    int totalTasks = gridBoxes_.size();
+    std::cout << "[processWaterSimulation] Processing " << totalTasks << " grid boxes with " << numThreads_ << " threads." << std::endl;
+    while (completedTasks_.load() < totalTasks) {
+        // Age tasks periodically to ensure older tasks get higher priority
+        scheduler_.ageAllTasks();
+        
+        // Notify workers about potential new priorities
+        taskAvailable_.notify_all();
+        
+        // Brief pause to prevent busy waiting
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+        std::cout << "[processWaterSimulation] Completed " << completedTasks_.load() << " / " << totalTasks << " tasks." << std::endl;
+    }
+    
+    // Stop worker threads
+    stopWorkerThreads();
+    
+    // Collect all results
+    std::vector<WaterFlow> allModifications;
+    std::vector<WaterFlow> modifications;
+    
+    while (resultQueue_.try_pop(modifications)) {
+        allModifications.insert(allModifications.end(), modifications.begin(), modifications.end());
+    }
+    
+    // Apply modifications with exclusive write access
+    applyModificationsWithLock(registry, voxelGrid, allModifications);
+}
 
 bool isTerrainSoftEmpty(EntityTypeComponent& terrainType) {
     return (terrainType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
@@ -1202,7 +1439,11 @@ void EcosystemEngine::processEcosystemAsync(entt::registry& registry, VoxelGrid&
 
     std::vector<ToBeCreatedWaterTile> pendingEntities;
 
-    loopTiles(registry, voxelGrid, dispatcher, sunIntensity);
+    // loopTiles(registry, voxelGrid, dispatcher, sunIntensity);
+
+    std::cout << "[processEcosystemAsync] Before water simulation\n";
+
+    waterSimManager_->processWaterSimulation(registry, voxelGrid, dispatcher, sunIntensity);
 
     processingComplete = true;
 }
@@ -1432,3 +1673,13 @@ void EcosystemEngine::onSetEcoEntityToDebug(const SetEcoEntityToDebug& event) {
 void EcosystemEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     dispatcher.sink<SetEcoEntityToDebug>().connect<&EcosystemEngine::onSetEcoEntityToDebug>(*this);
 }
+
+// void EcosystemEngine::processParallelWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid) {
+//     if (!waterSimManager_) {
+//         waterSimManager_ = std::make_unique<WaterSimulationManager>();
+//     }
+    
+    
+//     // Execute parallel water simulation
+//     waterSimManager_->processWaterSimulation(registry, voxelGrid);
+// }

@@ -8,6 +8,12 @@
 #include <tbb/concurrent_queue.h>
 #include <memory>
 #include <optional>
+#include <shared_mutex>
+#include <thread>
+#include <queue>
+#include <atomic>
+#include <chrono>
+#include <random>
 
 #include "GameClock.hpp"
 #include "LifeEvents.hpp"
@@ -53,6 +59,83 @@ struct WaterFlow {
         : type(type), x(x), y(y), z(z), amount(amount), targetX(targetX), targetY(targetY), targetZ(targetZ) {}
 };
 
+// Forward declaration for WaterSimulationManager
+class WaterSimulationManager;
+
+// Task structure for grid box processing with priority
+struct GridBoxTask {
+    size_t boxIndex;
+    std::chrono::steady_clock::time_point creationTime;
+    int priority;  // Lower values = higher priority
+    
+    GridBoxTask(size_t idx) 
+        : boxIndex(idx), creationTime(std::chrono::steady_clock::now()), priority(0) {}
+        
+    // Comparison operator for priority queue (lower priority value = higher actual priority)
+    bool operator<(const GridBoxTask& other) const {
+        return priority > other.priority; // Reverse for min-heap behavior
+    }
+};
+
+// Round Robin scheduler with priority aging
+class RoundRobinScheduler {
+private:
+    std::priority_queue<GridBoxTask> taskQueue_;
+    mutable std::mutex queueMutex_;  // mutable allows locking in const methods
+    std::atomic<int> nextPriority_{0};
+    std::random_device rd_;
+    std::mt19937 gen_;
+    std::uniform_int_distribution<int> randomDist_;
+    
+    // Aging parameters
+    static constexpr int MAX_PRIORITY = 1000;
+    static constexpr int AGE_BONUS = 10;  // Priority reduction per aging cycle
+    
+public:
+    RoundRobinScheduler() : gen_(rd_()), randomDist_(0, 5) {}  // Small random variance
+    
+    void addTask(size_t boxIndex) {
+        std::lock_guard<std::mutex> lock(queueMutex_);
+        GridBoxTask task(boxIndex);
+        task.priority = nextPriority_.fetch_add(1) + randomDist_(gen_);  // FIFO with small randomization
+        taskQueue_.push(task);
+    }
+    
+    bool getNextTask(size_t& boxIndex) {
+        std::lock_guard<std::mutex> lock(queueMutex_);
+        if (taskQueue_.empty()) return false;
+        
+        auto task = taskQueue_.top();
+        taskQueue_.pop();
+        boxIndex = task.boxIndex;
+        return true;
+    }
+    
+    void ageAllTasks() {
+        std::lock_guard<std::mutex> lock(queueMutex_);
+        std::priority_queue<GridBoxTask> newQueue;
+        
+        while (!taskQueue_.empty()) {
+            auto task = taskQueue_.top();
+            taskQueue_.pop();
+            task.priority = std::max(0, task.priority - AGE_BONUS);  // Reduce priority (increase actual priority)
+            newQueue.push(task);
+        }
+        
+        taskQueue_ = std::move(newQueue);
+    }
+    
+    size_t size() const {
+        std::lock_guard<std::mutex> lock(queueMutex_);
+        return taskQueue_.size();
+    }
+    
+    bool empty() const {
+        std::lock_guard<std::mutex> lock(queueMutex_);
+        return taskQueue_.empty();
+    }
+};
+
 // GridBoxProcessor class for parallel water simulation
 class GridBoxProcessor {
 private:
@@ -77,6 +160,59 @@ public:
 private:
     void processVoxelWater(int x, int y, int z, std::vector<WaterFlow>& flows);
     void processVoxelEvaporation(int x, int y, int z, std::vector<WaterFlow>& flows);
+};
+
+// WaterSimulationManager class for coordinating parallel water simulation
+class WaterSimulationManager {
+private:
+    std::shared_mutex gridWriteMutex_;  // Reader-writer lock
+    std::vector<std::unique_ptr<GridBoxProcessor>> processors_;
+    std::vector<GridBox> gridBoxes_;  // Pre-computed grid boxes
+    std::vector<std::thread> workerThreads_;
+    RoundRobinScheduler scheduler_;
+    int numThreads_;
+    
+    // Thread pool control
+    std::atomic<bool> stopWorkers_{false};
+    std::condition_variable taskAvailable_;
+    std::mutex taskMutex_;
+    
+    // Results collection
+    tbb::concurrent_queue<std::vector<WaterFlow>> resultQueue_;
+    std::atomic<int> activeWorkers_{0};
+    std::atomic<int> completedTasks_{0};
+    
+    // Default minimum box dimensions for optimal cache performance (32x32x32)
+    static constexpr int DEFAULT_MIN_BOX_SIZE = 32;
+    
+public:
+    WaterSimulationManager(int numThreads = std::thread::hardware_concurrency());
+    ~WaterSimulationManager();
+    
+    // Initialize processors with terrain storage access
+    void initializeProcessors(entt::registry& registry, VoxelGrid& voxelGrid);
+    
+    // Main parallel water simulation processing
+    void processWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher, float sunIntensity);
+    
+private:
+    // Thread pool management
+    void startWorkerThreads(entt::registry& registry, VoxelGrid& voxelGrid);
+    void stopWorkerThreads();
+    void workerThreadFunction(int threadId, entt::registry& registry, VoxelGrid& voxelGrid);
+    
+    // Partition grid into boxes for parallel processing with minimum box dimensions
+    std::vector<GridBox> partitionGridIntoBoxes(const VoxelGrid& voxelGrid, const GridBox& minBoxDimensions);
+    
+    // Utility method to get recommended box dimensions for cache optimization
+    static GridBox getRecommendedBoxDimensions() { return GridBox(0, 0, 0, 31, 31, 31); } // 32x32x32
+    
+    // Process a single box concurrently
+    std::vector<WaterFlow> processBoxConcurrently(int processorIndex, const GridBox& box);
+    
+    // Apply water flow modifications with thread synchronization
+    void applyModificationsWithLock(entt::registry& registry, VoxelGrid& voxelGrid, 
+                                   const std::vector<WaterFlow>& modifications);
 };
 
 struct SetEcoEntityToDebug {
@@ -131,11 +267,16 @@ class EcosystemEngine {
     tbb::concurrent_queue<CondenseWaterEntityEvent> pendingCondenseWater;
     tbb::concurrent_queue<WaterFallEntityEvent> pendingWaterFall;
 
+    // Water simulation manager for parallel processing
+    std::unique_ptr<WaterSimulationManager> waterSimManager_;
+
     entt::entity entityBeingDebugged;
 
     int countCreatedEvaporatedWater = 0;
 
-    EcosystemEngine() = default;
+    EcosystemEngine() : waterSimManager_(std::make_unique<WaterSimulationManager>()) {
+        // waterSimManager_->initializeProcessors(reg, *voxelGrid);
+    }
     // EcosystemEngine() : registry(reg) {}
 
     // Method to process physics-related events
@@ -145,6 +286,9 @@ class EcosystemEngine {
                                entt::dispatcher& dispatcher, GameClock& clock);
     void loopTiles(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                    float sunIntensity);
+
+    // Parallel water simulation using WaterSimulationManager
+    void processParallelWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid);
 
     void processEvaporateWaterEvents(entt::registry& registry, VoxelGrid& voxelGrid,
                                      tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater);
