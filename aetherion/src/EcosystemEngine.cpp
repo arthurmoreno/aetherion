@@ -598,17 +598,14 @@ std::tuple<bool, bool> isNeighborWaterOrEmpty(entt::registry& registry, VoxelGri
     bool isTerrainNeighborSoftEmpty{false};
     bool isNeighborWater = false;
     // TODO: Uncomment and handle this properly when active EnTT terrains start to be used.
-    // if (terrainNeighborId != -1) {
-    //     auto terrainNeighbor = static_cast<entt::entity>(terrainNeighborId);
-    //     isTerrainNeighborSoftEmpty = getTypeAndCheckSoftEmpty(registry, terrainNeighbor);
-    //     if (registry.all_of<EntityTypeComponent, MatterContainer>(terrainNeighbor)) {
-    //         // Neighbor tile has terrain
-    //         auto&& [typeNeighbor, matterContainerNeighbor] =
-    //             registry.get<EntityTypeComponent, MatterContainer>(terrainNeighbor);
-    //         isNeighborWater = (typeNeighbor.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-    //                            typeNeighbor.subType0 == static_cast<int>(TerrainEnum::WATER));
-    //     }
-    // }
+    if (terrainNeighborId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        // auto terrainNeighbor = static_cast<entt::entity>(terrainNeighborId);
+        isTerrainNeighborSoftEmpty = getTypeAndCheckSoftEmpty(registry, voxelGrid, terrainNeighborId, x, y, z);
+        EntityTypeComponent typeNeighbor = voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
+        MatterContainer matterContainerNeighbor = voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
+        isNeighborWater = (typeNeighbor.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+                            typeNeighbor.subType0 == static_cast<int>(TerrainEnum::WATER));
+    }
     isNeighborEmpty = isNeighborEmpty || isTerrainNeighborSoftEmpty;
     return std::make_tuple(isNeighborEmpty, isNeighborWater);
 }
@@ -634,7 +631,7 @@ void makePlantSuckWater(entt::registry& registry, entt::entity& terrainEntity,
     }
 }
 
-void spreadWater(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
+void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ, entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                  entt::entity entity, EntityTypeComponent& type, MatterContainer& matterContainer,
                  int x, int y, int z, DirectionEnum direction,
                  tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall) {
@@ -649,112 +646,122 @@ void spreadWater(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
     const bool isAboveNeighborEmpty{
         isTerrainVoxelEmptyOrSoftEmpty(registry, voxelGrid, x, y, z + 1)};
 
-    if (terrainNeighborId != -1) {
+    if (terrainNeighborId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
         auto terrainNeighbor = static_cast<entt::entity>(terrainNeighborId);
         // checkAndConvertSoftEmptyIntoWater(registry, terrainNeighbor);
-        if (registry.all_of<EntityTypeComponent, MatterContainer>(terrainNeighbor)) {
-            // Neighbor tile has terrain
-            auto&& [typeNeighbor, matterContainerNeighbor] =
-                registry.get<EntityTypeComponent, MatterContainer>(terrainNeighbor);
+        EntityTypeComponent typeNeighbor = voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
+        MatterContainer matterContainerNeighbor = voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
+        // if (registry.all_of<EntityTypeComponent, MatterContainer>(terrainNeighbor)) {
+        //     // Neighbor tile has terrain
+        //     auto&& [typeNeighbor, matterContainerNeighbor] =
+        //         registry.get<EntityTypeComponent, MatterContainer>(terrainNeighbor);
 
-            // Water can only be taken from a water terrain and moved to a terrain that is not
-            // higher (not full type of terrain).
-            const int TERRAIN_MAIN_TYPE = static_cast<int>(EntityEnum::TERRAIN);
-            const int GRASS_SUB_TYPE0 = static_cast<int>(TerrainEnum::GRASS);
-            const int WATER_SUB_TYPE0 = static_cast<int>(TerrainEnum::WATER);
-            const int TERRAIN_SUB_TYPE1_FULL = 0;
+        // Water can only be taken from a water terrain and moved to a terrain that is not
+        // higher (not full type of terrain).
+        const int TERRAIN_MAIN_TYPE = static_cast<int>(EntityEnum::TERRAIN);
+        const int GRASS_SUB_TYPE0 = static_cast<int>(TerrainEnum::GRASS);
+        const int WATER_SUB_TYPE0 = static_cast<int>(TerrainEnum::WATER);
+        const int TERRAIN_SUB_TYPE1_FULL = 0;
 
-            bool canSpredWaterToNotFull =
-                (type.mainType == TERRAIN_MAIN_TYPE && type.subType0 == WATER_SUB_TYPE0 &&
-                 typeNeighbor.mainType == TERRAIN_MAIN_TYPE &&
-                 typeNeighbor.subType0 == GRASS_SUB_TYPE0 &&
-                 typeNeighbor.subType1 != TERRAIN_SUB_TYPE1_FULL);
+        bool canSpredWaterToNotFull =
+            (type.mainType == TERRAIN_MAIN_TYPE && type.subType0 == WATER_SUB_TYPE0 &&
+                typeNeighbor.mainType == TERRAIN_MAIN_TYPE &&
+                typeNeighbor.subType0 == GRASS_SUB_TYPE0 &&
+                typeNeighbor.subType1 != TERRAIN_SUB_TYPE1_FULL);
 
-            if (!actionPerformed && canSpredWaterToNotFull && matterContainer.WaterMatter > 0 &&
-                matterContainerNeighbor.WaterVapor == 0 &&
-                matterContainerNeighbor.WaterMatter < 4 &&
-                matterContainer.WaterMatter > matterContainerNeighbor.WaterMatter) {
-                // Transfer water to neighbor's MatterContainer
-                int transferAmount = 1;
-                matterContainerNeighbor.WaterMatter += transferAmount;
-                matterContainer.WaterMatter -= transferAmount;
-                actionPerformed = true;
-            }
-
-            bool canSpredWaterToWater =
-                (type.subType0 == WATER_SUB_TYPE0 && typeNeighbor.subType0 == WATER_SUB_TYPE0);
-
-            if (!actionPerformed && canSpredWaterToWater && matterContainer.WaterMatter > 0 &&
-                matterContainerNeighbor.WaterVapor == 0 &&
-                matterContainerNeighbor.WaterMatter < 14 &&
-                matterContainer.WaterMatter > matterContainerNeighbor.WaterMatter) {
-                // Transfer water to neighbor's MatterContainer
-                int transferAmount = 1;
-                matterContainerNeighbor.WaterMatter += transferAmount;
-                matterContainer.WaterMatter -= transferAmount;
-                actionPerformed = true;
-            }
-
-            const bool canSpredGrassToGrass =
-                (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-                 type.subType0 == static_cast<int>(TerrainEnum::GRASS) &&
-                 type.subType1 == static_cast<int>(TerrainVariantEnum::FULL) &&
-                 typeNeighbor.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-                 typeNeighbor.subType0 == static_cast<int>(TerrainEnum::GRASS) &&
-                 (typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::FULL) ||
-                  typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_EAST) ||
-                  typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_NORTH) ||
-                  typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_WEST) ||
-                  typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_SOUTH)) &&
-                 isAboveNeighborEmpty);
-
-            if (!actionPerformed && canSpredGrassToGrass && matterContainer.WaterMatter > 0 &&
-                matterContainerNeighbor.WaterVapor == 0 &&
-                matterContainerNeighbor.WaterMatter < 4) {
-                // Transfer water to neighbor's MatterContainer
-                int transferAmount = 1;
-                matterContainerNeighbor.WaterMatter += transferAmount;
-                matterContainer.WaterMatter -= transferAmount;
-                actionPerformed = true;
-            }
-        }
-    } else {
-        // Neighbor tile has no terrain
-        bool directionOutOfBounds = (x < 0 || x > voxelGrid.width - 1 || y < 0 ||
-                                     y > voxelGrid.height - 1 || z < 0 || z > voxelGrid.depth - 1);
-
-        const bool canSpredGrassRampToEmpty =
-            (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-             type.subType0 == static_cast<int>(TerrainEnum::GRASS) &&
-             (type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_EAST) ||
-              type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_NORTH) ||
-              type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_WEST) ||
-              type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_SOUTH)) &&
-             isAboveNeighborEmpty);
-
-        if (!actionPerformed && !directionOutOfBounds && canSpredGrassRampToEmpty &&
-            matterContainer.WaterMatter > 0) {
-            const int transferAmount = 1;
-            Position pos{x, y, z};
-            WaterFallEntityEvent waterFallEntityEvent{entity, pos, transferAmount};
-            pendingWaterFall.push(waterFallEntityEvent);
+        if (!actionPerformed && canSpredWaterToNotFull && matterContainer.WaterMatter > 0 &&
+            matterContainerNeighbor.WaterVapor == 0 &&
+            matterContainerNeighbor.WaterMatter < 4 &&
+            matterContainer.WaterMatter > matterContainerNeighbor.WaterMatter) {
+            // Transfer water to neighbor's MatterContainer
+            int transferAmount = 1;
+            matterContainerNeighbor.WaterMatter += transferAmount;
+            matterContainer.WaterMatter -= transferAmount;
+            voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z, matterContainerNeighbor);
+            voxelGrid.terrainGridRepository->setTerrainMatterContainer(terrainX, terrainY, terrainZ, matterContainer);
             actionPerformed = true;
         }
 
-        const bool canSpredWaterToEmpty =
-            (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-             type.subType0 == static_cast<int>(TerrainEnum::WATER) && isAboveNeighborEmpty);
+        bool canSpredWaterToWater =
+            (type.subType0 == WATER_SUB_TYPE0 && typeNeighbor.subType0 == WATER_SUB_TYPE0);
 
-        if (!actionPerformed && !directionOutOfBounds && canSpredWaterToEmpty &&
-            matterContainer.WaterMatter > 0) {
-            const int transferAmount = 1;
-            Position pos{x, y, z};
-            WaterFallEntityEvent waterFallEntityEvent{entity, pos, transferAmount};
-            pendingWaterFall.push(waterFallEntityEvent);
-
+        if (!actionPerformed && canSpredWaterToWater && matterContainer.WaterMatter > 0 &&
+            matterContainerNeighbor.WaterVapor == 0 &&
+            matterContainerNeighbor.WaterMatter < 14 &&
+            matterContainer.WaterMatter > matterContainerNeighbor.WaterMatter) {
+            // Transfer water to neighbor's MatterContainer
+            int transferAmount = 1;
+            matterContainerNeighbor.WaterMatter += transferAmount;
+            matterContainer.WaterMatter -= transferAmount;
+            voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z, matterContainerNeighbor);
+            voxelGrid.terrainGridRepository->setTerrainMatterContainer(terrainX, terrainY, terrainZ, matterContainer);
             actionPerformed = true;
         }
+
+        const bool canSpredGrassToGrass =
+            (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+                type.subType0 == static_cast<int>(TerrainEnum::GRASS) &&
+                type.subType1 == static_cast<int>(TerrainVariantEnum::FULL) &&
+                typeNeighbor.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+                typeNeighbor.subType0 == static_cast<int>(TerrainEnum::GRASS) &&
+                (typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::FULL) ||
+                typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_EAST) ||
+                typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_NORTH) ||
+                typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_WEST) ||
+                typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_SOUTH)) &&
+                isAboveNeighborEmpty);
+
+        if (!actionPerformed && canSpredGrassToGrass && matterContainer.WaterMatter > 0 &&
+            matterContainerNeighbor.WaterVapor == 0 &&
+            matterContainerNeighbor.WaterMatter < 4) {
+            // Transfer water to neighbor's MatterContainer
+            int transferAmount = 1;
+            matterContainerNeighbor.WaterMatter += transferAmount;
+            matterContainer.WaterMatter -= transferAmount;
+            voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z, matterContainerNeighbor);
+            voxelGrid.terrainGridRepository->setTerrainMatterContainer(terrainX, terrainY, terrainZ, matterContainer);
+            actionPerformed = true;
+        }
+        // }
     }
+    // TODO: Test first without spreading to empty tiles. Uncomment.
+    // else {
+    //     // Neighbor tile has no terrain
+    //     bool directionOutOfBounds = (x < 0 || x > voxelGrid.width - 1 || y < 0 ||
+    //                                  y > voxelGrid.height - 1 || z < 0 || z > voxelGrid.depth - 1);
+
+    //     const bool canSpredGrassRampToEmpty =
+    //         (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+    //          type.subType0 == static_cast<int>(TerrainEnum::GRASS) &&
+    //          (type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_EAST) ||
+    //           type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_NORTH) ||
+    //           type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_WEST) ||
+    //           type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_SOUTH)) &&
+    //          isAboveNeighborEmpty);
+
+    //     if (!actionPerformed && !directionOutOfBounds && canSpredGrassRampToEmpty &&
+    //         matterContainer.WaterMatter > 0) {
+    //         const int transferAmount = 1;
+    //         Position pos{x, y, z};
+    //         WaterFallEntityEvent waterFallEntityEvent{entity, pos, transferAmount};
+    //         pendingWaterFall.push(waterFallEntityEvent);
+    //         actionPerformed = true;
+    //     }
+
+    //     const bool canSpredWaterToEmpty =
+    //         (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+    //          type.subType0 == static_cast<int>(TerrainEnum::WATER) && isAboveNeighborEmpty);
+
+    //     if (!actionPerformed && !directionOutOfBounds && canSpredWaterToEmpty &&
+    //         matterContainer.WaterMatter > 0) {
+    //         const int transferAmount = 1;
+    //         Position pos{x, y, z};
+    //         WaterFallEntityEvent waterFallEntityEvent{entity, pos, transferAmount};
+    //         pendingWaterFall.push(waterFallEntityEvent);
+
+    //         actionPerformed = true;
+    //     }
+    // }
 }
 
 bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGrid,
@@ -772,145 +779,129 @@ bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGr
     bool canSpredWaterDown = false;
 
     bool haveMovement = false;
-    if (terrainEntityId == -1 && terrainEntityId == -2) {
-        auto terrainBellow = static_cast<entt::entity>(terrainBellowId);
-        haveMovement = registry.all_of<MovingComponent>(terrainBellow);
+    entt::entity terrain;
+    if (terrainEntityId != -1 && terrainEntityId != -2) {
+        terrain = static_cast<entt::entity>(terrainEntityId);
+        haveMovement = registry.all_of<MovingComponent>(terrain);
+    } else if (terrainEntityId == -1) {
+        terrain = entt::null;
+        haveMovement = false;
+    } else if (terrainEntityId == -2) {
+        terrain = entt::null;
+        haveMovement = false;
     }
 
     if (terrainBellowId != -2) {
         // auto terrainBellow = static_cast<entt::entity>(terrainBellowId);
         checkAndConvertSoftEmptyIntoWater(registry, voxelGrid, terrainBellowId, pos.x, pos.y, pos.z - 1);
-        if (registry.all_of<EntityTypeComponent, MatterContainer>(
-                static_cast<entt::entity>(terrainBellowId))) {
-            // Neighbor tile has terrain
-            auto&& [typeBellow, matterContainerBellow] =
-                registry.get<EntityTypeComponent, MatterContainer>(
-                    static_cast<entt::entity>(terrainBellowId));
+        EntityTypeComponent typeBellow = voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y, pos.z - 1);
+        MatterContainer matterContainerBellow = voxelGrid.terrainGridRepository->getTerrainMatterContainer(pos.x, pos.y, pos.z - 1);
 
-            // Water can only be taken from a water terrain and moved to a terrain that is not
-            // higher (not full type of terrain).
-            const bool isBellowWater =
-                (typeBellow.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-                 typeBellow.subType0 == static_cast<int>(TerrainEnum::WATER));
-            isBellowGrass = (typeBellow.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-                             typeBellow.subType0 == static_cast<int>(TerrainEnum::GRASS));
-            canSpredWaterDown =
-                (!haveMovement &&
-                 ((isWater && isBellowWater && matterContainerBellow.WaterMatter < 14 &&
-                   matterContainerBellow.WaterVapor == 0 && matterContainer.WaterMatter > 0) ||
-                  (isWater && isBellowGrass && matterContainerBellow.WaterMatter < 4 &&
-                   matterContainerBellow.WaterVapor == 0 && matterContainer.WaterMatter > 0)));
-            if (canSpredWaterDown) {
-                // Transfer water to neighbor's MatterContainer
-                int transferAmount = 1;
-                matterContainerBellow.WaterMatter += transferAmount;
-                matterContainer.WaterMatter -= transferAmount;
-                actionPerformed = true;
-            }
+        // Water can only be taken from a water terrain and moved to a terrain that is not
+        // higher (not full type of terrain).
+        const bool isBellowWater =
+            (typeBellow.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+                typeBellow.subType0 == static_cast<int>(TerrainEnum::WATER));
+        isBellowGrass = (typeBellow.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+                            typeBellow.subType0 == static_cast<int>(TerrainEnum::GRASS));
+        canSpredWaterDown =
+            (!haveMovement &&
+                ((isWater && isBellowWater && matterContainerBellow.WaterMatter < 14 &&
+                matterContainerBellow.WaterVapor == 0 && matterContainer.WaterMatter > 0) ||
+                (isWater && isBellowGrass && matterContainerBellow.WaterMatter < 4 &&
+                matterContainerBellow.WaterVapor == 0 && matterContainer.WaterMatter > 0)));
+        if (canSpredWaterDown) {
+            // Transfer water to neighbor's MatterContainer
+            int transferAmount = 1;
+            matterContainerBellow.WaterMatter += transferAmount;
+            matterContainer.WaterMatter -= transferAmount;
+            actionPerformed = true;
         }
+        // }
     }
 
     // TODO: Uncomment when movingDirection algorithm and plant sucking water is ready.
-    // if (!actionPerformed && !haveMovement) {
-    //     int movingDirection{};
-    //     if (isWater) {
-    //         if (terrainBellowId != -1 && isBellowGrass && !canSpredWaterDown) {
-    //             auto& positionBellow =
-    //                 registry.get<Position>(static_cast<entt::entity>(terrainBellowId));
-    //             movingDirection = static_cast<int>(positionBellow.direction);
+    if (!actionPerformed && !haveMovement) {
+        int movingDirection{};
+        if (isWater) {
+            if (terrainBellowId != static_cast<int>(TerrainIdTypeEnum::NONE) && isBellowGrass && !canSpredWaterDown) {
+                Position positionBellow = voxelGrid.terrainGridRepository->getPosition(pos.x, pos.y, pos.z - 1);
+                movingDirection = static_cast<int>(positionBellow.direction);
 
-    //             bool isNeighborEmpty = false;
-    //             bool isNeighborWater = false;
-    //             if (movingDirection == static_cast<int>(DirectionEnum::UP)) {
-    //                 std::tie(isNeighborEmpty, isNeighborWater) =
-    //                     isNeighborWaterOrEmpty(registry, voxelGrid, pos.x, pos.y - 1, pos.z);
-    //                 if (!isNeighborEmpty && isNeighborWater) {
-    //                     movingDirection = disWaterSpreading(gen);
-    //                 }
+                bool isNeighborEmpty = false;
+                bool isNeighborWater = false;
+                if (movingDirection == static_cast<int>(DirectionEnum::UP)) {
+                    std::tie(isNeighborEmpty, isNeighborWater) =
+                        isNeighborWaterOrEmpty(registry, voxelGrid, pos.x, pos.y - 1, pos.z);
+                    if (!isNeighborEmpty && isNeighborWater) {
+                        movingDirection = disWaterSpreading(gen);
+                    }
 
-    //             } else if (movingDirection == static_cast<int>(DirectionEnum::LEFT)) {
-    //                 std::tie(isNeighborEmpty, isNeighborWater) =
-    //                     isNeighborWaterOrEmpty(registry, voxelGrid, pos.x - 1, pos.y, pos.z);
-    //                 if (!isNeighborEmpty && isNeighborWater) {
-    //                     movingDirection = disWaterSpreading(gen);
-    //                 }
+                } else if (movingDirection == static_cast<int>(DirectionEnum::LEFT)) {
+                    std::tie(isNeighborEmpty, isNeighborWater) =
+                        isNeighborWaterOrEmpty(registry, voxelGrid, pos.x - 1, pos.y, pos.z);
+                    if (!isNeighborEmpty && isNeighborWater) {
+                        movingDirection = disWaterSpreading(gen);
+                    }
 
-    //             } else if (movingDirection == static_cast<int>(DirectionEnum::RIGHT)) {
-    //                 std::tie(isNeighborEmpty, isNeighborWater) =
-    //                     isNeighborWaterOrEmpty(registry, voxelGrid, pos.x + 1, pos.y, pos.z);
-    //                 if (!isNeighborEmpty && isNeighborWater) {
-    //                     movingDirection = disWaterSpreading(gen);
-    //                 }
+                } else if (movingDirection == static_cast<int>(DirectionEnum::RIGHT)) {
+                    std::tie(isNeighborEmpty, isNeighborWater) =
+                        isNeighborWaterOrEmpty(registry, voxelGrid, pos.x + 1, pos.y, pos.z);
+                    if (!isNeighborEmpty && isNeighborWater) {
+                        movingDirection = disWaterSpreading(gen);
+                    }
 
-    //             } else if (movingDirection == static_cast<int>(DirectionEnum::DOWN)) {
-    //                 std::tie(isNeighborEmpty, isNeighborWater) =
-    //                     isNeighborWaterOrEmpty(registry, voxelGrid, pos.x, pos.y + 1, pos.z);
-    //                 if (!isNeighborEmpty && isNeighborWater) {
-    //                     movingDirection = disWaterSpreading(gen);
-    //                 }
-    //             }
+                } else if (movingDirection == static_cast<int>(DirectionEnum::DOWN)) {
+                    std::tie(isNeighborEmpty, isNeighborWater) =
+                        isNeighborWaterOrEmpty(registry, voxelGrid, pos.x, pos.y + 1, pos.z);
+                    if (!isNeighborEmpty && isNeighborWater) {
+                        movingDirection = disWaterSpreading(gen);
+                    }
+                }
 
-    //         } else {
-    //             movingDirection = disWaterSpreading(gen);
-    //         }
-    //     } else if (isGrass) {
-    //         int entityAboveId = voxelGrid.getEntity(pos.x, pos.y, pos.z + 1);
-    //         auto entityAbove = static_cast<entt::entity>(entityAboveId);
-    //         EntityTypeComponent* entityAboveType =
-    //             registry.try_get<EntityTypeComponent>(entityAbove);
-    //         bool entityAbovePLant{};
-    //         if (entityAboveType) {
-    //             entityAbovePLant =
-    //                 (entityAboveType->mainType == static_cast<int>(EntityEnum::PLANT));
-    //         }
+            } else {
+                movingDirection = disWaterSpreading(gen);
+            }
+        }
+        // } else if (isGrass) {
+        //     int entityAboveId = voxelGrid.getEntity(pos.x, pos.y, pos.z + 1);
+        //     auto entityAbove = static_cast<entt::entity>(entityAboveId);
+        //     EntityTypeComponent* entityAboveType =
+        //         registry.try_get<EntityTypeComponent>(entityAbove);
+        //     bool entityAbovePLant{};
+        //     if (entityAboveType) {
+        //         entityAbovePLant =
+        //             (entityAboveType->mainType == static_cast<int>(EntityEnum::PLANT));
+        //     }
 
-    //         if (entityAbovePLant) {
-    //             makePlantSuckWater(registry, entity, entityAbove, actionPerformed);
+        //     if (entityAbovePLant) {
+        //         // TODO: Uncomment when plant sucking water is ready.
+        //         // makePlantSuckWater(registry, entity, entityAbove, actionPerformed);
+        //     }
 
-    //             // PlantResources* plantResourcesPtr = registry.try_get<PlantResources>(entity);
+        //     movingDirection = static_cast<int>(pos.direction);
 
-    //             // auto& matterContainer = registry.get<MatterContainer>(entity);
-    //             // if (plantResourcesPtr && plantResourcesPtr->water < 6 &&
-    //             // matterContainer.WaterMatter > 0) {
-    //             //     matterContainer.WaterMatter -= 1;
-    //             //     plantResourcesPtr->water += 1.0;
-    //             //     // std::cout << "plant sucking water..." << std::endl;
-    //             //     actionPerformed = true;
-    //             // } else if (plantResourcesPtr == nullptr && matterContainer.WaterMatter > 0) {
-    //             //     PlantResources plantResources = PlantResources();
-    //             //     matterContainer.WaterMatter -= 1;
-    //             //     plantResources.water += 1.0;
-
-    //             //     registry.emplace<PlantResources>(entity, plantResources);
-    //             //     // std::cout << "plant sucking water..." << std::endl;
-    //             //     actionPerformed = true;
-    //             // }
-    //         }
-
-    //         movingDirection = static_cast<int>(pos.direction);
-    //     }
-
-    //     if (!actionPerformed) {
-    //         if (movingDirection == static_cast<int>(DirectionEnum::UP)) {
-    //             spreadWater(registry, voxelGrid, dispatcher, entity, type, matterContainer, pos.x,
-    //                         pos.y - 1, pos.z, static_cast<DirectionEnum>(movingDirection),
-    //                         pendingWaterFall);
-    //         } else if (movingDirection == static_cast<int>(DirectionEnum::LEFT)) {
-    //             spreadWater(registry, voxelGrid, dispatcher, entity, type, matterContainer,
-    //                         pos.x - 1, pos.y, pos.z, static_cast<DirectionEnum>(movingDirection),
-    //                         pendingWaterFall);
-    //         } else if (movingDirection == static_cast<int>(DirectionEnum::RIGHT)) {
-    //             spreadWater(registry, voxelGrid, dispatcher, entity, type, matterContainer,
-    //                         pos.x + 1, pos.y, pos.z, static_cast<DirectionEnum>(movingDirection),
-    //                         pendingWaterFall);
-    //         } else if (movingDirection == static_cast<int>(DirectionEnum::DOWN)) {
-    //             spreadWater(registry, voxelGrid, dispatcher, entity, type, matterContainer, pos.x,
-    //                         pos.y + 1, pos.z, static_cast<DirectionEnum>(movingDirection),
-    //                         pendingWaterFall);
-    //         }
-    //         actionPerformed = true;
-    //     }
-    // }
+        if (!actionPerformed) {
+            if (movingDirection == static_cast<int>(DirectionEnum::UP)) {
+                spreadWater(terrainEntityId, pos.x, pos.y, pos.z, registry, voxelGrid, dispatcher, terrain, type, matterContainer, pos.x,
+                            pos.y - 1, pos.z, static_cast<DirectionEnum>(movingDirection),
+                            pendingWaterFall);
+            } else if (movingDirection == static_cast<int>(DirectionEnum::LEFT)) {
+                spreadWater(terrainEntityId, pos.x, pos.y, pos.z, registry, voxelGrid, dispatcher, terrain, type, matterContainer,
+                            pos.x - 1, pos.y, pos.z, static_cast<DirectionEnum>(movingDirection),
+                            pendingWaterFall);
+            } else if (movingDirection == static_cast<int>(DirectionEnum::RIGHT)) {
+                spreadWater(terrainEntityId, pos.x, pos.y, pos.z, registry, voxelGrid, dispatcher, terrain, type, matterContainer,
+                            pos.x + 1, pos.y, pos.z, static_cast<DirectionEnum>(movingDirection),
+                            pendingWaterFall);
+            } else if (movingDirection == static_cast<int>(DirectionEnum::DOWN)) {
+                spreadWater(terrainEntityId, pos.x, pos.y, pos.z, registry, voxelGrid, dispatcher, terrain, type, matterContainer, pos.x,
+                            pos.y + 1, pos.z, static_cast<DirectionEnum>(movingDirection),
+                            pendingWaterFall);
+            }
+            actionPerformed = true;
+        }
+    }
 
     return actionPerformed;
 }

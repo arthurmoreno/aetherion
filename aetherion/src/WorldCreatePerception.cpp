@@ -652,9 +652,12 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
 
                 EntityTypeComponent terrainEtc = voxelGrid->getTerrainEntityTypeComponent(x, y, z);
                 Position pos = voxelGrid->terrainGridRepository->getPosition(x, y, z);
+                MatterContainer matterContainer =
+                    voxelGrid->terrainGridRepository->getTerrainMatterContainer(x, y, z);
 
                 entity_interface.setComponent<EntityTypeComponent>(terrainEtc);
                 entity_interface.setComponent<Position>(pos);
+                entity_interface.setComponent<MatterContainer>(matterContainer);
 
                 voxelGridView.setTerrainVoxel(x, y, z, virtualTerrainId);
                 // std::cout << "perception: visible terrain (" << x << ", " << y << ", " << z

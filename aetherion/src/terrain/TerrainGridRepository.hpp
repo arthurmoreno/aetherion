@@ -3,6 +3,7 @@
 
 #include <entt/entt.hpp>
 #include <optional>
+#include <shared_mutex>
 #include <unordered_map>
 
 #include "components/EntityTypeComponent.hpp"
@@ -169,6 +170,9 @@ class TerrainGridRepository {
             return h;
         }
     };
+
+    // Mutex specifically for terrainGrid thread safety
+    mutable std::shared_mutex terrainGridMutex;
 
     entt::registry& registry_;
     TerrainStorage& storage_;

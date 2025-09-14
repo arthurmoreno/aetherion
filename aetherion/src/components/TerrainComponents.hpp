@@ -6,6 +6,8 @@
 
 enum struct TerrainEnum { EMPTY = -1, GRASS = 0, WATER = 1 };
 
+enum struct TerrainIdTypeEnum { NONE = -2, ON_GRID_STORAGE = -1, ON_ENTT = 0 };
+
 enum struct TerrainVariantEnum {
     FULL = 0,
     RAMP_EAST = 1,

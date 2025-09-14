@@ -4,6 +4,7 @@
 
 #include <cassert>
 #include <functional>
+#include <shared_mutex>
 
 namespace {
 inline openvdb::Coord C(int x, int y, int z) { return openvdb::Coord(x, y, z); }
@@ -24,22 +25,26 @@ entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
 }
 
 std::optional<int> TerrainGridRepository::getTerrainIdIfExists(int x, int y, int z) const {
+    std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
     return storage_.getTerrainIdIfExists(x, y, z);
 }
 
 bool TerrainGridRepository::checkIfTerrainHasEntity(int x, int y, int z) const {
-    std::optional<int> entityId = getTerrainIdIfExists(x, y, z);
+    std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
+    std::optional<int> entityId = storage_.getTerrainIdIfExists(x, y, z);
     return entityId.has_value() && entityId.value() >= 0;
 }
 
 void TerrainGridRepository::markActive(int x, int y, int z, entt::entity e) {
     // Update TerrainStorage activation indicator based on strategy
+    std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
     if (storage_.terrainGrid) {
         storage_.terrainGrid->tree().setValue(C(x, y, z), static_cast<int>(e));
     }
 }
 
 void TerrainGridRepository::clearActive(int x, int y, int z) {
+    std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
     if (!storage_.terrainGrid) return;
     if (storage_.useActiveMask) {
         storage_.terrainGrid->tree().setValue(C(x, y, z), 0);
@@ -80,8 +85,14 @@ entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {
     auto it = byCoord_.find(key);
     if (it != byCoord_.end()) return it->second;
 
+    DirectionEnum direction;
+    {
+        std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
+        direction = storage_.getTerrainDirection(x, y, z);
+    }
+    
     entt::entity e = registry_.create();
-    registry_.emplace<Position>(e, Position{x, y, z, storage_.getTerrainDirection(x, y, z)});
+    registry_.emplace<Position>(e, Position{x, y, z, direction});
     registry_.emplace<Velocity>(e, Velocity{0.f, 0.f, 0.f});
     registry_.emplace<MovingComponent>(e, MovingComponent{0});
     byCoord_.emplace(key, e);
@@ -91,22 +102,25 @@ entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {
 
 bool TerrainGridRepository::isActive(int x, int y, int z) const {
     // Prefer authoritative storage indicator; overlay map is a cache
+    std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
     return storage_.isActive(x, y, z);
 }
 
 // ---------------- EntityTypeComponent aggregation ----------------
 EntityTypeComponent TerrainGridRepository::getTerrainEntityType(int x, int y, int z) const {
+    std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
     EntityTypeComponent etc{};
-    etc.mainType = getTerrainMainType(x, y, z);
-    etc.subType0 = getTerrainSubType0(x, y, z);
-    etc.subType1 = getTerrainSubType1(x, y, z);
+    etc.mainType = storage_.getTerrainMainType(x, y, z);
+    etc.subType0 = storage_.getTerrainSubType0(x, y, z);
+    etc.subType1 = storage_.getTerrainSubType1(x, y, z);
     return etc;
 }
 
 void TerrainGridRepository::setTerrainEntityType(int x, int y, int z, EntityTypeComponent etc) {
-    setTerrainMainType(x, y, z, etc.mainType);
-    setTerrainSubType0(x, y, z, etc.subType0);
-    setTerrainSubType1(x, y, z, etc.subType1);
+    std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
+    storage_.setTerrainMainType(x, y, z, etc.mainType);
+    storage_.setTerrainSubType0(x, y, z, etc.subType0);
+    storage_.setTerrainSubType1(x, y, z, etc.subType1);
 }
 
 TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y, int z) const {
@@ -114,26 +128,31 @@ TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y, int z) const {
     info.x = x;
     info.y = y;
     info.z = z;
-    info.active = isActive(x, y, z);
-
-    // Populate static data from VDB grids
-    StaticData stat;
-    stat.mainType = storage_.getTerrainMainType(x, y, z);
-    stat.subType0 = storage_.getTerrainSubType0(x, y, z);
-    stat.subType1 = storage_.getTerrainSubType1(x, y, z);
-    stat.matter.TerrainMatter = storage_.getTerrainMatter(x, y, z);
-    stat.matter.WaterMatter = storage_.getTerrainWaterMatter(x, y, z);
-    stat.matter.WaterVapor = storage_.getTerrainVaporMatter(x, y, z);
-    stat.matter.BioMassMatter = storage_.getTerrainBiomassMatter(x, y, z);
-    stat.mass = storage_.getTerrainMass(x, y, z);
-    stat.maxSpeed = storage_.getTerrainMaxSpeed(x, y, z);
-    stat.minSpeed = storage_.getTerrainMinSpeed(x, y, z);
-    stat.direction = storage_.getTerrainDirection(x, y, z);
-    stat.canStackEntities = storage_.getTerrainCanStackEntities(x, y, z);
-    stat.matterState = storage_.getTerrainMatterState(x, y, z);
-    stat.gradient = storage_.getTerrainGradientVector(x, y, z);
-    stat.maxLoadCapacity = storage_.getTerrainMaxLoadCapacity(x, y, z);
-    info.stat = stat;
+    
+    // Use single shared lock for all storage reads
+    {
+        std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
+        info.active = storage_.isActive(x, y, z);
+        
+        // Populate static data from VDB grids
+        StaticData stat;
+        stat.mainType = storage_.getTerrainMainType(x, y, z);
+        stat.subType0 = storage_.getTerrainSubType0(x, y, z);
+        stat.subType1 = storage_.getTerrainSubType1(x, y, z);
+        stat.matter.TerrainMatter = storage_.getTerrainMatter(x, y, z);
+        stat.matter.WaterMatter = storage_.getTerrainWaterMatter(x, y, z);
+        stat.matter.WaterVapor = storage_.getTerrainVaporMatter(x, y, z);
+        stat.matter.BioMassMatter = storage_.getTerrainBiomassMatter(x, y, z);
+        stat.mass = storage_.getTerrainMass(x, y, z);
+        stat.maxSpeed = storage_.getTerrainMaxSpeed(x, y, z);
+        stat.minSpeed = storage_.getTerrainMinSpeed(x, y, z);
+        stat.direction = storage_.getTerrainDirection(x, y, z);
+        stat.canStackEntities = storage_.getTerrainCanStackEntities(x, y, z);
+        stat.matterState = storage_.getTerrainMatterState(x, y, z);
+        stat.gradient = storage_.getTerrainGradientVector(x, y, z);
+        stat.maxLoadCapacity = storage_.getTerrainMaxLoadCapacity(x, y, z);
+        info.stat = stat;
+    }
 
     if (info.active) {
         entt::entity e = getEntityAt(x, y, z);
@@ -169,20 +188,22 @@ void TerrainGridRepository::setTerrainSubType1(int x, int y, int z, int v) {
 }
 
 MatterContainer TerrainGridRepository::getTerrainMatterContainer(int x, int y, int z) const {
+    std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
     MatterContainer mc{};
-    mc.TerrainMatter = getTerrainMatter(x, y, z);
-    mc.WaterVapor = getVaporMatter(x, y, z);
-    mc.WaterMatter = getWaterMatter(x, y, z);
-    mc.BioMassMatter = getBiomassMatter(x, y, z);
+    mc.TerrainMatter = storage_.getTerrainMatter(x, y, z);
+    mc.WaterVapor = storage_.getTerrainVaporMatter(x, y, z);
+    mc.WaterMatter = storage_.getTerrainWaterMatter(x, y, z);
+    mc.BioMassMatter = storage_.getTerrainBiomassMatter(x, y, z);
     return mc;
 }
 
 void TerrainGridRepository::setTerrainMatterContainer(int x, int y, int z,
                                                       const MatterContainer& mc) {
-    setTerrainMatter(x, y, z, mc.TerrainMatter);
-    setVaporMatter(x, y, z, mc.WaterVapor);
-    setWaterMatter(x, y, z, mc.WaterMatter);
-    setBiomassMatter(x, y, z, mc.BioMassMatter);
+    std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
+    storage_.setTerrainMatter(x, y, z, mc.TerrainMatter);
+    storage_.setTerrainVaporMatter(x, y, z, mc.WaterVapor);
+    storage_.setTerrainWaterMatter(x, y, z, mc.WaterMatter);
+    storage_.setTerrainBiomassMatter(x, y, z, mc.BioMassMatter);
 }
 
 int TerrainGridRepository::getTerrainMatter(int x, int y, int z) const {
@@ -230,10 +251,11 @@ void TerrainGridRepository::setMinSpeed(int x, int y, int z, int v) {
 }
 
 PhysicsStats TerrainGridRepository::getPhysicsStats(int x, int y, int z) const {
+    std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
     PhysicsStats ps{};
-    ps.mass = static_cast<float>(getMass(x, y, z));
-    ps.maxSpeed = static_cast<float>(getMaxSpeed(x, y, z));
-    ps.minSpeed = static_cast<float>(getMinSpeed(x, y, z));
+    ps.mass = static_cast<float>(storage_.getTerrainMass(x, y, z));
+    ps.maxSpeed = static_cast<float>(storage_.getTerrainMaxSpeed(x, y, z));
+    ps.minSpeed = static_cast<float>(storage_.getTerrainMinSpeed(x, y, z));
     ps.forceX = 0.0f;
     ps.forceY = 0.0f;
     ps.forceZ = 0.0f;
@@ -242,9 +264,10 @@ PhysicsStats TerrainGridRepository::getPhysicsStats(int x, int y, int z) const {
 }
 
 void TerrainGridRepository::setPhysicsStats(int x, int y, int z, const PhysicsStats& ps) {
-    setMass(x, y, z, static_cast<int>(ps.mass));
-    setMaxSpeed(x, y, z, static_cast<int>(ps.maxSpeed));
-    setMinSpeed(x, y, z, static_cast<int>(ps.minSpeed));
+    std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
+    storage_.setTerrainMass(x, y, z, static_cast<int>(ps.mass));
+    storage_.setTerrainMaxSpeed(x, y, z, static_cast<int>(ps.maxSpeed));
+    storage_.setTerrainMinSpeed(x, y, z, static_cast<int>(ps.minSpeed));
     // forceX/forceY/forceZ/heat are transient or derived; not persisted to VDB here.
 }
 
@@ -256,17 +279,19 @@ void TerrainGridRepository::setDirection(int x, int y, int z, DirectionEnum dir)
 }
 
 Position TerrainGridRepository::getPosition(int x, int y, int z) const {
+    std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
     Position pos{};
     pos.x = x;
     pos.y = y;
     pos.z = z;
-    pos.direction = getDirection(x, y, z);
+    pos.direction = storage_.getTerrainDirection(x, y, z);
     return pos;
 }
 
 void TerrainGridRepository::setPosition(int x, int y, int z, const Position& pos) {
     // Coordinates are implied by (x,y,z); only persist direction.
-    setDirection(x, y, z, pos.direction);
+    std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
+    storage_.setTerrainDirection(x, y, z, pos.direction);
 }
 bool TerrainGridRepository::getCanStackEntities(int x, int y, int z) const {
     return storage_.getTerrainCanStackEntities(x, y, z);
@@ -401,11 +426,13 @@ void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
 }
 
 bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
+    std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
     return storage_.checkIfTerrainExists(x, y, z);
 }
 
 // Delete terrain at a specific voxel
 void TerrainGridRepository::deleteTerrain(int x, int y, int z) {
+    std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
     int terrainId = storage_.deleteTerrain(x, y, z);
     if (terrainId != -2 && terrainId != -1 &&
         registry_.valid(static_cast<entt::entity>(terrainId))) {
@@ -418,10 +445,12 @@ void TerrainGridRepository::deleteTerrain(int x, int y, int z) {
 
 StructuralIntegrityComponent TerrainGridRepository::getTerrainStructuralIntegrity(int x, int y,
                                                                                   int z) const {
+    std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
     return storage_.getTerrainStructuralIntegrity(x, y, z);
 }
 
 void TerrainGridRepository::setTerrainStructuralIntegrity(int x, int y, int z,
                                                           const StructuralIntegrityComponent& sic) {
+    std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
     storage_.setTerrainStructuralIntegrity(x, y, z, sic);
 }
