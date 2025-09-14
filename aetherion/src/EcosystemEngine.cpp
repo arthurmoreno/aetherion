@@ -16,18 +16,26 @@
  * ********************
  */
 
-void GridBoxProcessor::initializeAccessors(entt::registry& registry, VoxelGrid& voxelGrid) {
+void GridBoxProcessor::initializeAccessors(
+    entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
+    tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater,
+    tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCreateWater,
+    tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall) {
     accessors_ = std::make_unique<ThreadAccessors>();
     registry_ = &registry;
     voxelGrid_ = &voxelGrid;
-    
+    dispatcher_ = &dispatcher;
+    this->pendingEvaporateWater = &pendingEvaporateWater;
+    this->pendingCreateWater = &pendingCreateWater;
+    this->pendingWaterFall = &pendingWaterFall;
+
     // Get TerrainStorage from VoxelGrid
     TerrainStorage* storage = voxelGrid.terrainStorage.get();
     if (!storage) {
         throw std::runtime_error("GridBoxProcessor: TerrainStorage not available in VoxelGrid");
     }
-    
-    // Create fresh Accessors for this thread - these are internally ValueAccessors 
+
+    // Create fresh Accessors for this thread - these are internally ValueAccessors
     // providing optimal performance for spatially coherent voxel traversal
     // Each thread gets its own accessor for optimal cache performance
     accessors_->waterAccessor = storage->waterMatterGrid->getAccessor();
@@ -37,41 +45,51 @@ void GridBoxProcessor::initializeAccessors(entt::registry& registry, VoxelGrid& 
     accessors_->flagsAccessor = storage->flagsGrid->getConstAccessor();
 }
 
-std::vector<WaterFlow> GridBoxProcessor::processBox(const GridBox& box) {
+std::vector<WaterFlow> GridBoxProcessor::processBox(const GridBox& box, float sunIntensity) {
     std::vector<WaterFlow> pendingFlows;
-    
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    std::uniform_int_distribution<> disWaterSpreading(1, 4);
+
     // Cache-friendly iteration order (Z->Y->X)
     for (int z = box.minZ; z <= box.maxZ; ++z) {
         for (int y = box.minY; y <= box.maxY; ++y) {
             for (int x = box.minX; x <= box.maxX; ++x) {
-                // std::cout << "[GridBoxProcessor::processBox] Processing voxel (" << x << ", " << y << ", " << z << ")\n";
+                processTileWater(x, y, z, *registry_, *voxelGrid_, *dispatcher_, sunIntensity,
+                                 *pendingEvaporateWater, *pendingCreateWater, *pendingWaterFall, rd,
+                                 gen, disWaterSpreading);
+                std::cout << "[GridBoxProcessor::processBox] Processing voxel (" << x << ", " << y
+                          << ", " << z << ")\n";
                 // processVoxelWater(x, y, z, pendingFlows);
                 // processVoxelEvaporation(x, y, z, pendingFlows);
             }
         }
     }
-    
+
     return pendingFlows;
 }
 
 void GridBoxProcessor::processVoxelWater(int x, int y, int z, std::vector<WaterFlow>& flows) {
-    if (!accessors_ || !accessors_->waterAccessor) return; // Safety check
-    
+    if (!accessors_ || !accessors_->waterAccessor) return;  // Safety check
+
     int water = accessors_->waterAccessor->getValue(openvdb::Coord(x, y, z));
     if (water <= 0) return;
-    
+
     // Process water flow logic using cached accessors
     // Check if this voxel can flow to neighbors
     int mainType = accessors_->mainTypeAccessor->getValue(openvdb::Coord(x, y, z));
     int subType0 = accessors_->subType0Accessor->getValue(openvdb::Coord(x, y, z));
-    
+
     // Simple flow downward if space available
     int belowWater = accessors_->waterAccessor->getValue(openvdb::Coord(x, y, z - 1));
     int belowMainType = accessors_->mainTypeAccessor->getValue(openvdb::Coord(x, y, z - 1));
-    
+
     // If there's space below and we have water to flow
-    if (belowMainType == -2 || belowWater < 100) { // -2 = empty space, or below has room for more water
-        int flowAmount = std::min(water / 2, 10); // Flow half the water, max 10 units
+    if (belowMainType == -2 ||
+        belowWater < 100) {  // -2 = empty space, or below has room for more water
+        int flowAmount = std::min(water / 2, 10);  // Flow half the water, max 10 units
         if (flowAmount > 0) {
             flows.emplace_back(WaterFlowType::WATER_FLOW, x, y, z, flowAmount, x, y, z - 1);
         }
@@ -79,14 +97,14 @@ void GridBoxProcessor::processVoxelWater(int x, int y, int z, std::vector<WaterF
 }
 
 void GridBoxProcessor::processVoxelEvaporation(int x, int y, int z, std::vector<WaterFlow>& flows) {
-    if (!accessors_ || !accessors_->waterAccessor) return; // Safety check
-    
+    if (!accessors_ || !accessors_->waterAccessor) return;  // Safety check
+
     int water = accessors_->waterAccessor->getValue(openvdb::Coord(x, y, z));
     if (water <= 0) return;
-    
+
     // Simple evaporation logic - convert small amounts of water to vapor
-    if (water > 0 && water < 50) { // Only evaporate small amounts
-        int evaporationRate = std::max(1, water / 10); // Evaporate 10% minimum 1
+    if (water > 0 && water < 50) {                      // Only evaporate small amounts
+        int evaporationRate = std::max(1, water / 10);  // Evaporate 10% minimum 1
         flows.emplace_back(WaterFlowType::EVAPORATION, x, y, z, evaporationRate);
     }
 }
@@ -98,48 +116,65 @@ void GridBoxProcessor::processVoxelEvaporation(int x, int y, int z, std::vector<
  * ********************
  */
 
-WaterSimulationManager::WaterSimulationManager(int numThreads) 
-    : numThreads_(numThreads) {
+WaterSimulationManager::WaterSimulationManager(int numThreads)
+    : numThreads_(numThreads), stopWorkers_(false), activeWorkers_(0), completedTasks_(0) {
     processors_.reserve(numThreads_);
     workerThreads_.reserve(numThreads_);
 }
 
-WaterSimulationManager::~WaterSimulationManager() {
-    stopWorkerThreads();
-}
+WaterSimulationManager::~WaterSimulationManager() { stopWorkerThreads(); }
 
-void WaterSimulationManager::initializeProcessors(entt::registry& registry, VoxelGrid& voxelGrid) {
+void WaterSimulationManager::initializeProcessors(
+    entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
+    tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater,
+    tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCreateWater,
+    tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall) {
     processors_.clear();
     processors_.reserve(numThreads_);
-    
+
     // Pre-compute grid boxes using minimum box dimensions for optimal cache performance
-    GridBox minBoxDimensions(0, 0, 0, DEFAULT_MIN_BOX_SIZE - 1, DEFAULT_MIN_BOX_SIZE - 1, DEFAULT_MIN_BOX_SIZE - 1);
+    GridBox minBoxDimensions(0, 0, 0, DEFAULT_MIN_BOX_SIZE - 1, DEFAULT_MIN_BOX_SIZE - 1,
+                             DEFAULT_MIN_BOX_SIZE - 1);
     gridBoxes_ = partitionGridIntoBoxes(voxelGrid, minBoxDimensions);
 
     std::cout << "Initialized " << numThreads_ << " GridBoxProcessors." << std::endl;
-    
+
     for (int i = 0; i < numThreads_; ++i) {
         auto processor = std::make_unique<GridBoxProcessor>();
-        processor->initializeAccessors(registry, voxelGrid);
+        processor->initializeAccessors(registry, voxelGrid, dispatcher, pendingEvaporateWater,
+                                       pendingCreateWater, pendingWaterFall);
         processors_.push_back(std::move(processor));
     }
+
+    // Start worker threads after processors are initialized
+    startWorkerThreads(registry, voxelGrid);
 }
 
 void WaterSimulationManager::startWorkerThreads(entt::registry& registry, VoxelGrid& voxelGrid) {
+    // Only start threads if they don't already exist
+    if (!workerThreads_.empty()) {
+        return;  // Threads already running
+    }
+
     stopWorkers_ = false;
     activeWorkers_ = 0;
     completedTasks_ = 0;
-    
+
     for (int i = 0; i < numThreads_; ++i) {
-        workerThreads_.emplace_back(&WaterSimulationManager::workerThreadFunction, this, i, std::ref(registry), std::ref(voxelGrid));
+        workerThreads_.emplace_back(&WaterSimulationManager::workerThreadFunction, this, i,
+                                    std::ref(registry), std::ref(voxelGrid));
     }
+
+    std::cout << "[WaterSimulationManager] Started " << numThreads_ << " worker threads."
+              << std::endl;
 }
 
 void WaterSimulationManager::stopWorkerThreads() {
     stopWorkers_ = true;
     taskAvailable_.notify_all();
-    
+
     for (auto& thread : workerThreads_) {
+        std::cout << "[WaterSimulationManager] Stopping worker thread " << thread.get_id() << ".\n";
         if (thread.joinable()) {
             thread.join();
         }
@@ -147,10 +182,12 @@ void WaterSimulationManager::stopWorkerThreads() {
     workerThreads_.clear();
 }
 
-void WaterSimulationManager::workerThreadFunction(int threadId, entt::registry& registry, VoxelGrid& voxelGrid) {
+void WaterSimulationManager::workerThreadFunction(int threadId, entt::registry& registry,
+                                                  VoxelGrid& voxelGrid) {
     while (!stopWorkers_) {
         size_t boxIndex;
-        bool hasTask = scheduler_.getNextTask(boxIndex);
+        float sunIntensity;
+        bool hasTask = scheduler_.getNextTask(boxIndex, sunIntensity);
 
         if (!hasTask) {
             // No tasks available, wait briefly or until notified
@@ -161,47 +198,67 @@ void WaterSimulationManager::workerThreadFunction(int threadId, entt::registry& 
         }
 
         if (boxIndex >= gridBoxes_.size()) {
-            continue; // Safety check
+            continue;  // Safety check
         }
 
         activeWorkers_++;
 
-        std::cout << "[Worker " << threadId << "] Processing box " << boxIndex 
-                  << " (" << gridBoxes_[boxIndex].minX << "," << gridBoxes_[boxIndex].minY << "," << gridBoxes_[boxIndex].minZ 
-                  << " to " << gridBoxes_[boxIndex].maxX << "," << gridBoxes_[boxIndex].maxY << "," << gridBoxes_[boxIndex].maxZ << ")\n";
-        
         // Process the box
-        auto modifications = processBoxConcurrently(threadId % processors_.size(), gridBoxes_[boxIndex]);
-        
+        auto modifications = processBoxConcurrently(threadId % processors_.size(),
+                                                    gridBoxes_[boxIndex], sunIntensity);
+
         // Push results to concurrent queue
         resultQueue_.push(std::move(modifications));
-        
+
         activeWorkers_--;
         completedTasks_++;
     }
 }
 
-std::vector<GridBox> WaterSimulationManager::partitionGridIntoBoxes(const VoxelGrid& voxelGrid, const GridBox& minBoxDimensions) {
+void WaterSimulationManager::populateSchedulerWithSubset(float percentage, float sunIntensity) {
+    if (gridBoxes_.empty()) return;
+
+    size_t numBoxesToAdd = static_cast<size_t>(gridBoxes_.size() * percentage);
+    numBoxesToAdd = std::max(static_cast<size_t>(1), numBoxesToAdd);  // Ensure at least 1 box
+
+    // Add boxes in round-robin fashion up to the specified percentage
+    static size_t startIndex = 0;  // Static to maintain state between calls
+
+    for (size_t i = 0; i < numBoxesToAdd; ++i) {
+        size_t boxIndex = (startIndex + i) % gridBoxes_.size();
+        scheduler_.addTask(boxIndex, sunIntensity);
+    }
+
+    // Update start index for next call to ensure different boxes are processed
+    startIndex = (startIndex + numBoxesToAdd) % gridBoxes_.size();
+
+    std::cout << "[WaterSimulationManager] Added " << numBoxesToAdd << " boxes to scheduler ("
+              << (percentage * 100) << "% of total " << gridBoxes_.size() << " boxes)" << std::endl;
+}
+
+std::vector<GridBox> WaterSimulationManager::partitionGridIntoBoxes(
+    const VoxelGrid& voxelGrid, const GridBox& minBoxDimensions) {
     std::vector<GridBox> boxes;
-    
+
     // Get grid dimensions
     int width = voxelGrid.width;
     int height = voxelGrid.height;
     int depth = voxelGrid.depth;
-    
+
     // Extract minimum box dimensions
     int minBoxWidth = minBoxDimensions.maxX - minBoxDimensions.minX + 1;
     int minBoxHeight = minBoxDimensions.maxY - minBoxDimensions.minY + 1;
     int minBoxDepth = minBoxDimensions.maxZ - minBoxDimensions.minZ + 1;
-    
+
     // Ensure minimum dimensions are at least 1
     minBoxWidth = std::max(1, minBoxWidth);
     minBoxHeight = std::max(1, minBoxHeight);
     minBoxDepth = std::max(1, minBoxDepth);
 
-    std::cout << "Partitioning grid of size " << width << "x" << height << "x" << depth 
-              << " into boxes of minimum size " << minBoxWidth << "x" << minBoxHeight << "x" << minBoxDepth << std::endl;
-    
+    std::cout << "Partitioning grid of size " << width << "x" << height << "x" << depth
+              << " into boxes of minimum size " << minBoxWidth << "x" << minBoxHeight << "x"
+              << minBoxDepth << std::endl;
+
     // Partition grid using minimum box dimensions
     // Create boxes that are at least minBox size, with smaller edge boxes if needed
     for (int z = 0; z < depth; z += minBoxDepth) {
@@ -211,7 +268,7 @@ std::vector<GridBox> WaterSimulationManager::partitionGridIntoBoxes(const VoxelG
                 int maxX = std::min(x + minBoxWidth - 1, width - 1);
                 int maxY = std::min(y + minBoxHeight - 1, height - 1);
                 int maxZ = std::min(z + minBoxDepth - 1, depth - 1);
-                
+
                 // Only create box if it has positive dimensions
                 if (x <= maxX && y <= maxY && z <= maxZ) {
                     boxes.emplace_back(x, y, z, maxX, maxY, maxZ);
@@ -223,40 +280,42 @@ std::vector<GridBox> WaterSimulationManager::partitionGridIntoBoxes(const VoxelG
     std::cout << "Partitioned grid into " << boxes.size() << " boxes using minimum box size of "
               << minBoxWidth << "x" << minBoxHeight << "x" << minBoxDepth << std::endl;
 
-    
-    
     return boxes;
 }
 
-std::vector<WaterFlow> WaterSimulationManager::processBoxConcurrently(int processorIndex, const GridBox& box) {
+std::vector<WaterFlow> WaterSimulationManager::processBoxConcurrently(int processorIndex,
+                                                                      const GridBox& box,
+                                                                      float sunIntensity) {
     if (processorIndex >= processors_.size()) {
-        return {}; // Safety check
+        return {};  // Safety check
     }
-    
+
     // Use shared_lock for concurrent reads
     std::shared_lock<std::shared_mutex> readLock(gridWriteMutex_);
-    return processors_[processorIndex]->processBox(box);
+    return processors_[processorIndex]->processBox(box, sunIntensity);
 }
 
-void WaterSimulationManager::applyModificationsWithLock(entt::registry& registry, VoxelGrid& voxelGrid,
-                                                       const std::vector<WaterFlow>& modifications) {
+void WaterSimulationManager::applyModificationsWithLock(
+    entt::registry& registry, VoxelGrid& voxelGrid, const std::vector<WaterFlow>& modifications) {
     // Apply modifications sequentially with exclusive write lock
     std::unique_lock<std::shared_mutex> writeLock(gridWriteMutex_);
-    
+
     // TerrainStorage* storage = voxelGrid.terrainStorage.get();
     // if (!storage) return;
-    
+
     // for (const auto& flow : modifications) {
     //     switch (flow.type) {
     //         case WaterFlowType::WATER_FLOW: {
     //             // Transfer water from source to target
     //             int currentWater = storage->getTerrainWaterMatter(flow.x, flow.y, flow.z);
-    //             int targetWater = storage->getTerrainWaterMatter(flow.targetX, flow.targetY, flow.targetZ);
-                
+    //             int targetWater = storage->getTerrainWaterMatter(flow.targetX, flow.targetY,
+    //             flow.targetZ);
+
     //             int transferAmount = std::min(flow.amount, currentWater);
     //             if (transferAmount > 0) {
-    //                 storage->setTerrainWaterMatter(flow.x, flow.y, flow.z, currentWater - transferAmount);
-    //                 storage->setTerrainWaterMatter(flow.targetX, flow.targetY, flow.targetZ, targetWater + transferAmount);
+    //                 storage->setTerrainWaterMatter(flow.x, flow.y, flow.z, currentWater -
+    //                 transferAmount); storage->setTerrainWaterMatter(flow.targetX, flow.targetY,
+    //                 flow.targetZ, targetWater + transferAmount);
     //             }
     //             break;
     //         }
@@ -264,11 +323,12 @@ void WaterSimulationManager::applyModificationsWithLock(entt::registry& registry
     //             // Convert water to vapor
     //             int currentWater = storage->getTerrainWaterMatter(flow.x, flow.y, flow.z);
     //             int currentVapor = storage->getTerrainVaporMatter(flow.x, flow.y, flow.z);
-                
+
     //             int evaporateAmount = std::min(flow.amount, currentWater);
     //             if (evaporateAmount > 0) {
-    //                 storage->setTerrainWaterMatter(flow.x, flow.y, flow.z, currentWater - evaporateAmount);
-    //                 storage->setTerrainVaporMatter(flow.x, flow.y, flow.z, currentVapor + evaporateAmount);
+    //                 storage->setTerrainWaterMatter(flow.x, flow.y, flow.z, currentWater -
+    //                 evaporateAmount); storage->setTerrainVaporMatter(flow.x, flow.y, flow.z,
+    //                 currentVapor + evaporateAmount);
     //             }
     //             break;
     //         }
@@ -276,11 +336,12 @@ void WaterSimulationManager::applyModificationsWithLock(entt::registry& registry
     //             // Convert vapor to water
     //             int currentVapor = storage->getTerrainVaporMatter(flow.x, flow.y, flow.z);
     //             int currentWater = storage->getTerrainWaterMatter(flow.x, flow.y, flow.z);
-                
+
     //             int condenseAmount = std::min(flow.amount, currentVapor);
     //             if (condenseAmount > 0) {
-    //                 storage->setTerrainVaporMatter(flow.x, flow.y, flow.z, currentVapor - condenseAmount);
-    //                 storage->setTerrainWaterMatter(flow.x, flow.y, flow.z, currentWater + condenseAmount);
+    //                 storage->setTerrainVaporMatter(flow.x, flow.y, flow.z, currentVapor -
+    //                 condenseAmount); storage->setTerrainWaterMatter(flow.x, flow.y, flow.z,
+    //                 currentWater + condenseAmount);
     //             }
     //             break;
     //         }
@@ -288,50 +349,38 @@ void WaterSimulationManager::applyModificationsWithLock(entt::registry& registry
     // }
 }
 
-void WaterSimulationManager::processWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher, float sunIntensity) {
+void WaterSimulationManager::processWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid,
+                                                    float sunIntensity) {
     // Clear previous results
     std::vector<WaterFlow> temp;
     while (resultQueue_.try_pop(temp)) {
         // Clear queue
     }
-    
-    // Populate scheduler with all box indices using round robin priority
-    for (size_t i = 0; i < gridBoxes_.size(); ++i) {
-        scheduler_.addTask(i);
-    }
-    
-    // Start worker threads
-    startWorkerThreads(registry, voxelGrid);
-    
-    // Wait for all tasks to complete
-    int totalTasks = gridBoxes_.size();
-    std::cout << "[processWaterSimulation] Processing " << totalTasks << " grid boxes with " << numThreads_ << " threads." << std::endl;
-    while (completedTasks_.load() < totalTasks) {
-        // Age tasks periodically to ensure older tasks get higher priority
-        scheduler_.ageAllTasks();
-        
-        // Notify workers about potential new priorities
-        taskAvailable_.notify_all();
-        
-        // Brief pause to prevent busy waiting
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-        std::cout << "[processWaterSimulation] Completed " << completedTasks_.load() << " / " << totalTasks << " tasks." << std::endl;
+    // Check if scheduler has available slots and add 30% of boxes if needed
+    if (scheduler_.empty() || scheduler_.size() < (gridBoxes_.size() * 0.1f)) {
+        populateSchedulerWithSubset(0.3f, sunIntensity);
+
+        // Notify workers about new tasks
+        taskAvailable_.notify_all();
     }
-    
-    // Stop worker threads
-    stopWorkerThreads();
-    
-    // Collect all results
+
+    // Collect any completed results (non-blocking)
     std::vector<WaterFlow> allModifications;
     std::vector<WaterFlow> modifications;
-    
+
     while (resultQueue_.try_pop(modifications)) {
+        std::cout << "[WaterSimulationManager] Retrieved " << modifications.size()
+                  << " modifications from result queue.\n";
         allModifications.insert(allModifications.end(), modifications.begin(), modifications.end());
     }
-    
-    // Apply modifications with exclusive write access
-    applyModificationsWithLock(registry, voxelGrid, allModifications);
+
+    // Apply modifications if any were collected
+    if (!allModifications.empty()) {
+        std::cout << "[WaterSimulationManager] Applying total of " << allModifications.size()
+                  << " modifications.\n";
+        applyModificationsWithLock(registry, voxelGrid, allModifications);
+    }
 }
 
 bool isTerrainSoftEmpty(EntityTypeComponent& terrainType) {
@@ -1142,128 +1191,134 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
     }
 }
 
-void processTileWater(entt::entity entity, entt::registry& registry, VoxelGrid& voxelGrid,
+void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& voxelGrid,
                       entt::dispatcher& dispatcher, float sunIntensity,
                       tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater,
                       tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCreateWater,
-                      tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall, std::random_device& rd,
-                      std::mt19937& gen, std::uniform_int_distribution<>& disWaterSpreading,
-                      entt::entity entityBeingDebugged) {
-    if (registry.all_of<Position, EntityTypeComponent, MatterContainer>(entity)) {
-        auto entity_id_for_print = entt::to_integral(entity);
-        auto&& [pos, type, matterContainer] =
-            registry.get<Position, EntityTypeComponent, MatterContainer>(entity);
+                      tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall,
+                      std::random_device& rd, std::mt19937& gen,
+                      std::uniform_int_distribution<>& disWaterSpreading
+                      //   entt::entity entityBeingDebugged
+) {
+    std::cout << "[processTileWater] Processing tile at (" << x << ", " << y << ", " << z << ")\n";
 
-        // Flag to indicate whether an action has been performed
-        bool actionPerformed = false;
+    // if (registry.all_of<Position, EntityTypeComponent, MatterContainer>(entity)) {
+    //     auto entity_id_for_print = entt::to_integral(entity);
+    //     auto&& [pos, type, matterContainer] =
+    //         registry.get<Position, EntityTypeComponent, MatterContainer>(entity);
 
-        const bool isGrass = (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-                              type.subType0 == static_cast<int>(TerrainEnum::GRASS));
+    //     // Flag to indicate whether an action has been performed
+    //     bool actionPerformed = false;
 
-        const bool isWater = (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-                              type.subType0 == static_cast<int>(TerrainEnum::WATER));
+    //     const bool isGrass = (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+    //                           type.subType0 == static_cast<int>(TerrainEnum::GRASS));
 
-        const bool isEmptyTerrain = (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-                                     type.subType0 == static_cast<int>(TerrainEnum::EMPTY));
+    //     const bool isWater = (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+    //                           type.subType0 == static_cast<int>(TerrainEnum::WATER));
 
-        // Determine if the entity is vapor or liquid water
-        bool isVapor =
-            isWater && (matterContainer.WaterVapor > 0 && matterContainer.WaterMatter == 0);
-        bool isLiquidWater =
-            isWater && (matterContainer.WaterMatter > 0 && matterContainer.WaterVapor == 0);
-        bool isGrassWithWater =
-            isGrass && (matterContainer.WaterMatter > 0 && matterContainer.WaterVapor == 0);
+    //     const bool isEmptyTerrain = (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+    //                                  type.subType0 == static_cast<int>(TerrainEnum::EMPTY));
 
-        bool emptyWater =
-            isWater && (matterContainer.WaterMatter == 0 && matterContainer.WaterVapor == 0);
+    //     // Determine if the entity is vapor or liquid water
+    //     bool isVapor =
+    //         isWater && (matterContainer.WaterVapor > 0 && matterContainer.WaterMatter == 0);
+    //     bool isLiquidWater =
+    //         isWater && (matterContainer.WaterMatter > 0 && matterContainer.WaterVapor == 0);
+    //     bool isGrassWithWater =
+    //         isGrass && (matterContainer.WaterMatter > 0 && matterContainer.WaterVapor == 0);
 
-        bool emptyWithoutWater =
-            isEmptyTerrain && (matterContainer.WaterMatter == 0 && matterContainer.WaterVapor == 0);
+    //     bool emptyWater =
+    //         isWater && (matterContainer.WaterMatter == 0 && matterContainer.WaterVapor == 0);
 
-        // Vapor Movement Logic
-        if (isVapor) {
-            // TODO: This needs to be removed for performance reasons.
-            // It is only here to guarantee the bugfix to set vapor into GAS.
-            setVaporSI(registry, entity);
-            moveVapor(registry, voxelGrid, dispatcher, entity, pos, type, matterContainer,
-                      pendingCreateWater, entityBeingDebugged);
-            actionPerformed = true;
-            return;  // Vapor entities don't perform other actions
-        }
+    //     bool emptyWithoutWater =
+    //         isEmptyTerrain && (matterContainer.WaterMatter == 0 && matterContainer.WaterVapor ==
+    //         0);
 
-        // Randomized Action Order for Liquid Water
-        if (isLiquidWater || isGrassWithWater) {
-            // Create a list of action identifiers
-            std::vector<int> actions = {1, 2};  // 1: Movement, 2: Evaporation
+    //     // Vapor Movement Logic
+    //     if (isVapor) {
+    //         // TODO: This needs to be removed for performance reasons.
+    //         // It is only here to guarantee the bugfix to set vapor into GAS.
+    //         setVaporSI(registry, entity);
+    //         moveVapor(registry, voxelGrid, dispatcher, entity, pos, type, matterContainer,
+    //                   pendingCreateWater, entityBeingDebugged);
+    //         actionPerformed = true;
+    //         return;  // Vapor entities don't perform other actions
+    //     }
 
-            // Shuffle the actions to randomize their order
-            std::shuffle(actions.begin(), actions.end(), gen);
+    //     // Randomized Action Order for Liquid Water
+    //     if (isLiquidWater || isGrassWithWater) {
+    //         // Create a list of action identifiers
+    //         std::vector<int> actions = {1, 2};  // 1: Movement, 2: Evaporation
 
-            // Iterate through the actions in random order
-            for (int action : actions) {
-                if (actionPerformed) {
-                    break;
-                }
+    //         // Shuffle the actions to randomize their order
+    //         std::shuffle(actions.begin(), actions.end(), gen);
 
-                switch (action) {
-                    case 1:  // Water Movement Logic
-                    {
-                        actionPerformed = moveWater(entity, registry, voxelGrid, dispatcher,
-                                                    actionPerformed, pos, type, matterContainer, rd,
-                                                    gen, disWaterSpreading, pendingWaterFall);
-                    } break;
+    //         // Iterate through the actions in random order
+    //         for (int action : actions) {
+    //             if (actionPerformed) {
+    //                 break;
+    //             }
 
-                    case 2:  // Water Evaporation Logic
-                        bool canEvaporate =
-                            (sunIntensity > 0.0f &&
-                             type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-                             (type.subType0 == static_cast<int>(TerrainEnum::WATER) ||
-                              type.subType0 == static_cast<int>(TerrainEnum::GRASS)) &&
-                             matterContainer.WaterMatter > 0);
-                        if (canEvaporate) {
-                            if (!registry.all_of<PhysicsStats>(entity)) {
-                                PhysicsStats newPhysicsStats = {};
-                                newPhysicsStats.mass = 0.1;
-                                newPhysicsStats.maxSpeed = 10;
-                                newPhysicsStats.minSpeed = 0.0;
-                                newPhysicsStats.heat = 0.0f;
-                                registry.emplace<PhysicsStats>(entity, newPhysicsStats);
-                            }
+    //             switch (action) {
+    //                 case 1:  // Water Movement Logic
+    //                 {
+    //                     actionPerformed = moveWater(entity, registry, voxelGrid, dispatcher,
+    //                                                 actionPerformed, pos, type, matterContainer,
+    //                                                 rd, gen, disWaterSpreading,
+    //                                                 pendingWaterFall);
+    //                 } break;
 
-                            auto& physicsStats = registry.get<PhysicsStats>(entity);
+    //                 case 2:  // Water Evaporation Logic
+    //                     bool canEvaporate =
+    //                         (sunIntensity > 0.0f &&
+    //                          type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+    //                          (type.subType0 == static_cast<int>(TerrainEnum::WATER) ||
+    //                           type.subType0 == static_cast<int>(TerrainEnum::GRASS)) &&
+    //                          matterContainer.WaterMatter > 0);
+    //                     if (canEvaporate) {
+    //                         if (!registry.all_of<PhysicsStats>(entity)) {
+    //                             PhysicsStats newPhysicsStats = {};
+    //                             newPhysicsStats.mass = 0.1;
+    //                             newPhysicsStats.maxSpeed = 10;
+    //                             newPhysicsStats.minSpeed = 0.0;
+    //                             newPhysicsStats.heat = 0.0f;
+    //                             registry.emplace<PhysicsStats>(entity, newPhysicsStats);
+    //                         }
 
-                            float EVAPORATION_COEFFICIENT =
-                                PhysicsManager::Instance()->getEvaporationCoefficient();
-                            const float HEAT_TO_WATER_EVAPORATION =
-                                PhysicsManager::Instance()->getHeatToWaterEvaporation();
-                            float heat = EVAPORATION_COEFFICIENT * sunIntensity;
+    //                         auto& physicsStats = registry.get<PhysicsStats>(entity);
 
-                            physicsStats.heat += heat;
-                            // std::cout << "Water heat: " << physicsStats.heat << std::endl;
-                            if (physicsStats.heat > HEAT_TO_WATER_EVAPORATION) {
-                                EvaporateWaterEntityEvent evaporateWaterEntityEvent{entity,
-                                                                                    sunIntensity};
-                                pendingEvaporateWater.push(evaporateWaterEntityEvent);
-                                physicsStats.heat = 0.0f;
-                            }
+    //                         float EVAPORATION_COEFFICIENT =
+    //                             PhysicsManager::Instance()->getEvaporationCoefficient();
+    //                         const float HEAT_TO_WATER_EVAPORATION =
+    //                             PhysicsManager::Instance()->getHeatToWaterEvaporation();
+    //                         float heat = EVAPORATION_COEFFICIENT * sunIntensity;
 
-                            actionPerformed = true;
-                        }
-                        break;
-                }
-            }
-        }
+    //                         physicsStats.heat += heat;
+    //                         // std::cout << "Water heat: " << physicsStats.heat << std::endl;
+    //                         if (physicsStats.heat > HEAT_TO_WATER_EVAPORATION) {
+    //                             EvaporateWaterEntityEvent evaporateWaterEntityEvent{entity,
+    //                                                                                 sunIntensity};
+    //                             pendingEvaporateWater.push(evaporateWaterEntityEvent);
+    //                             physicsStats.heat = 0.0f;
+    //                         }
 
-        if (emptyWater || emptyWithoutWater) {
-            deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
-        }
+    //                         actionPerformed = true;
+    //                     }
+    //                     break;
+    //             }
+    //         }
+    //     }
 
-        // Ensure that both WaterMatter and WaterVapor cannot coexist
-        if (isWater && matterContainer.WaterMatter > 0 && matterContainer.WaterVapor > 0) {
-            // This should not happen; adjust accordingly
-            std::cerr << "Error: Entity has both WaterMatter and WaterVapor\n";
-        }
-    }
+    //     if (emptyWater || emptyWithoutWater) {
+    //         deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
+    //     }
+
+    //     // Ensure that both WaterMatter and WaterVapor cannot coexist
+    //     if (isWater && matterContainer.WaterMatter > 0 && matterContainer.WaterVapor > 0) {
+    //         // This should not happen; adjust accordingly
+    //         std::cerr << "Error: Entity has both WaterMatter and WaterVapor\n";
+    //     }
+    // }
 }
 
 /*****************************
@@ -1293,9 +1348,9 @@ void EcosystemEngine::loopTiles(entt::registry& registry, VoxelGrid& voxelGrid,
                  std::default_random_engine{std::random_device{}()});
 
     for (auto entity : entities) {
-        processTileWater(entity, registry, voxelGrid, dispatcher, sunIntensity,
-                         pendingEvaporateWater, pendingCondenseWater, pendingWaterFall, rd, gen,
-                         disWaterSpreading, entityBeingDebugged);
+        // processTileWater(entity, registry, voxelGrid, dispatcher, sunIntensity,
+        //                  pendingEvaporateWater, pendingCondenseWater, pendingWaterFall, rd, gen,
+        //                  disWaterSpreading, entityBeingDebugged);
 
         auto& matterContainer = matter_container_view.get<MatterContainer>(entity);
         waterUnits += matterContainer.WaterMatter;
@@ -1443,7 +1498,7 @@ void EcosystemEngine::processEcosystemAsync(entt::registry& registry, VoxelGrid&
 
     std::cout << "[processEcosystemAsync] Before water simulation\n";
 
-    waterSimManager_->processWaterSimulation(registry, voxelGrid, dispatcher, sunIntensity);
+    waterSimManager_->processWaterSimulation(registry, voxelGrid, sunIntensity);
 
     processingComplete = true;
 }
@@ -1584,8 +1639,9 @@ void EcosystemEngine::processCondenseWaterEvents(
     // std::cout << "Pending Condense Water Cleared\n";
 }
 
-void EcosystemEngine::processWaterFallEvents(entt::registry& registry, VoxelGrid& voxelGrid,
-                                             tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall) {
+void EcosystemEngine::processWaterFallEvents(
+    entt::registry& registry, VoxelGrid& voxelGrid,
+    tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall) {
     // std::cout << "Before processing Pending Create Water Fall\n";
     auto all_view = registry.view<Position, EntityTypeComponent, MatterContainer>();
 
@@ -1674,12 +1730,12 @@ void EcosystemEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     dispatcher.sink<SetEcoEntityToDebug>().connect<&EcosystemEngine::onSetEcoEntityToDebug>(*this);
 }
 
-// void EcosystemEngine::processParallelWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid) {
+// void EcosystemEngine::processParallelWaterSimulation(entt::registry& registry,
+//                                                      VoxelGrid& voxelGrid) {
 //     if (!waterSimManager_) {
 //         waterSimManager_ = std::make_unique<WaterSimulationManager>();
 //     }
-    
-    
+
 //     // Execute parallel water simulation
 //     waterSimManager_->processWaterSimulation(registry, voxelGrid);
 // }

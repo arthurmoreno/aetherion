@@ -45,7 +45,9 @@ World::World(int width, int height, int depth)
     physicsEngine->registerEventHandlers(dispatcher);
     lifeEngine->registerEventHandlers(dispatcher);
     ecosystemEngine->registerEventHandlers(dispatcher);
-    ecosystemEngine->waterSimManager_->initializeProcessors(registry, *voxelGrid);
+    ecosystemEngine->waterSimManager_->initializeProcessors(
+        registry, *voxelGrid, dispatcher, ecosystemEngine->pendingEvaporateWater,
+        ecosystemEngine->pendingCondenseWater, ecosystemEngine->pendingWaterFall);
 
     if (!Py_IsInitialized()) {
         std::cout << "Python was not initialized! Starting python interpreter." << std::endl;
