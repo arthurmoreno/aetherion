@@ -3,9 +3,9 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict
 
 from aetherion import (
+    EntityInterface,
     GameClock,
     PerceptionResponseFlatB,
-    EntityInterface,
 )
 from aetherion.game_state.connections import BeastConnectionMetadata
 from aetherion.game_state.world_interface import WorldInterfaceMetadata

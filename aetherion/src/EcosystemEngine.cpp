@@ -638,8 +638,6 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ, entt::
         //     auto&& [typeNeighbor, matterContainerNeighbor] =
         //         registry.get<EntityTypeComponent, MatterContainer>(terrainNeighbor);
 
-
-
         // Water can only be taken from a water terrain and moved to a terrain that is not
         // higher (not full type of terrain).
         const int TERRAIN_MAIN_TYPE = static_cast<int>(EntityEnum::TERRAIN);
@@ -759,7 +757,6 @@ bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGr
                EntityTypeComponent& type, MatterContainer& matterContainer, std::random_device& rd,
                std::mt19937& gen, std::uniform_int_distribution<>& disWaterSpreading,
                tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall) {
-
     const bool isGrass = (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
                           type.subType0 == static_cast<int>(TerrainEnum::GRASS));
     const bool isWater = (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
@@ -1337,7 +1334,8 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
                     case 2:  // Water Evaporation Logic
                     {
                         // std::cout << "[processTileWater] Checking evaporation for entity "
-                        //           << entity_id_for_print << " at (" << x << ", " << y << ", " << z
+                        //           << entity_id_for_print << " at (" << x << ", " << y << ", " <<
+                        //           z
                         //           << ") -- This is just fake for testing now\n";
                     } break;
 

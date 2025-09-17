@@ -40,7 +40,9 @@ bool GuiStateManager::getTerrainCameraStats() const { return terrainCameraStats;
 
 bool GuiStateManager::getHoveredEntityInterfaceStats() const { return hoveredEntityInterfaceStats; }
 
-bool GuiStateManager::getSelectedEntityInterfaceStats() const { return selectedEntityInterfaceStats; }
+bool GuiStateManager::getSelectedEntityInterfaceStats() const {
+    return selectedEntityInterfaceStats;
+}
 
 void GuiStateManager::setWaterCameraStats(const bool waterCameraStats) {
     this->waterCameraStats = waterCameraStats;

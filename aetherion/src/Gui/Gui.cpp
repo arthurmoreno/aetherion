@@ -831,7 +831,8 @@ void RenderEntityInterfaceWindow(std::shared_ptr<EntityInterface> entityInterfac
         ImGui::Text("Entity Type: Main %d, Sub0 %d, Sub1 %d", entityType.mainType,
                     entityType.subType0, entityType.subType1);
         EntityEnum mainType_typed = static_cast<EntityEnum>(entityType.mainType);
-        ImGui::Text("    Main %d (%s)", entityType.mainType, entityMainTypeToString(mainType_typed));
+        ImGui::Text("    Main %d (%s)", entityType.mainType,
+                    entityMainTypeToString(mainType_typed));
         ImGui::Text("    Sub0 %d", entityType.subType0);
         ImGui::Text("    Sub1 %d", entityType.subType1);
     } else {
@@ -1123,7 +1124,8 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
     /*──────────────── Gadgets ─────────────────────*/
     if (showGadgets) {
         if (ImGui::Begin("Gadgets", &showGadgets)) {
-            ShowGadgetsWindow(commands, shared_data, hoveredEntityInterface_ptr, selectedEntityInterface_ptr);
+            ShowGadgetsWindow(commands, shared_data, hoveredEntityInterface_ptr,
+                              selectedEntityInterface_ptr);
         }
         ImGui::End();
     }
