@@ -54,7 +54,9 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
                          nb::dict physicsChanges, nb::dict inventoryData, nb::list& consoleLogs,
                          nb::list& entitiesData, nb::list& commands, nb::dict statistics,
                          nb::dict& shared_data,
-                         std::shared_ptr<EntityInterface> entityInterface_ptr);
+                         std::shared_ptr<EntityInterface> entityInterface_ptr,
+                         std::shared_ptr<EntityInterface> hoveredEntityInterface_ptr,
+                         std::shared_ptr<EntityInterface> selectedEntityInterface_ptr);
 
 void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data);
 

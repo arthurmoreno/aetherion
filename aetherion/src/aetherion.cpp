@@ -92,16 +92,20 @@ NB_MODULE(_aetherion, m) {
            std::shared_ptr<World> world_ptr,  // now can be nullptr
            nb::dict physicsChanges, nb::dict inventoryData, nb::list consoleLogs,
            nb::list entitiesData, nb::list commands, nb::dict statistics, nb::dict& shared_data,
-           std::shared_ptr<EntityInterface> entityInterface_ptr) {
+           std::shared_ptr<EntityInterface> entityInterface_ptr,
+           std::shared_ptr<EntityInterface> hoveredEntityInterface_ptr,
+           std::shared_ptr<EntityInterface> selectedEntityInterface_ptr) {
             imguiPrepareWindows(worldTicks, availableFps, world_ptr, physicsChanges, inventoryData,
                                 consoleLogs, entitiesData, commands, statistics, shared_data,
-                                entityInterface_ptr);
+                                entityInterface_ptr, hoveredEntityInterface_ptr, selectedEntityInterface_ptr);
         },
         nb::arg("worldTicks"), nb::arg("availableFps"),
         nb::arg("world_ptr") = nullptr,  // <-- makes None legal
         nb::arg("physicsChanges"), nb::arg("inventoryData"), nb::arg("consoleLogs"),
         nb::arg("entitiesData"), nb::arg("commands"), nb::arg("statistics"), nb::arg("shared_data"),
-        nb::arg("entityInterface_ptr"));
+        nb::arg("entityInterface_ptr"),
+        nb::arg("hoveredEntityInterface_ptr"),
+        nb::arg("selectedEntityInterface_ptr"));
     m.def("imgui_prepare_title_windows", &imguiPrepareTitleWindows, nb::arg("commands"),
           nb::arg("shared_data"), "Prepare the title windows for ImGui rendering");
     m.def("imgui_prepare_world_type_form_windows", &imguiPrepareWorldTypeFormWindows,

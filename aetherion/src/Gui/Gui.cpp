@@ -822,9 +822,78 @@ const auto ACTION_TURN_OFF = "turn_off";
 
 // bool* water_camera_stats_ptr;
 
-void ShowGadgetsWindow(nb::list& commands, nb::dict shared_data) {
+void RenderEntityInterfaceWindow(std::shared_ptr<EntityInterface> entityInterface) {
+    // Display the basic entity information
+    ImGui::Text("Entity ID: %d", entityInterface->getEntityId());
+
+    if (entityInterface->hasComponent(ComponentFlag::ENTITY_TYPE)) {
+        EntityTypeComponent entityType = entityInterface->getComponent<EntityTypeComponent>();
+        ImGui::Text("Entity Type: Main %d, Sub0 %d, Sub1 %d", entityType.mainType,
+                    entityType.subType0, entityType.subType1);
+        EntityEnum mainType_typed = static_cast<EntityEnum>(entityType.mainType);
+        ImGui::Text("    Main %d (%s)", entityType.mainType, entityMainTypeToString(mainType_typed));
+        ImGui::Text("    Sub0 %d", entityType.subType0);
+        ImGui::Text("    Sub1 %d", entityType.subType1);
+    } else {
+        ImGui::Text("Entity Type: N/A");
+    }
+
+    if (entityInterface->hasComponent(ComponentFlag::POSITION)) {
+        Position pos = entityInterface->getComponent<Position>();
+        ImGui::Text("Position X: %d", pos.x);
+        ImGui::Text("Position Y: %d", pos.y);
+        ImGui::Text("Position Z: %d", pos.z);
+    } else {
+        ImGui::Text("Position: N/A");
+    }
+
+    if (entityInterface->hasComponent(ComponentFlag::VELOCITY)) {
+        Velocity vel = entityInterface->getComponent<Velocity>();
+        ImGui::Text("Velocity VX: %.4f", vel.vx);
+        ImGui::Text("Velocity VY: %.4f", vel.vy);
+        ImGui::Text("Velocity VZ: %.4f", vel.vz);
+    } else {
+        ImGui::Text("Velocity: N/A");
+    }
+
+    if (entityInterface->hasComponent(ComponentFlag::HEALTH)) {
+        HealthComponent health = entityInterface->getComponent<HealthComponent>();
+        ImGui::Text("Health Current: %f", health.healthLevel);
+        ImGui::Text("Max Health: %f", health.maxHealth);
+    } else {
+        ImGui::Text("Health: N/A");
+    }
+
+    if (entityInterface->hasComponent(ComponentFlag::MATTER_CONTAINER)) {
+        MatterContainer matterContainer = entityInterface->getComponent<MatterContainer>();
+        ImGui::Text("WaterMatter Container Current: %d", matterContainer.WaterMatter);
+        ImGui::Text("WaterVapor Container Max: %d", matterContainer.WaterVapor);
+    } else {
+        ImGui::Text("Water Matter Container: N/A");
+    }
+
+    // Convert the component mask to a string for display
+    std::string maskStr = entityInterface->componentMask.to_string();
+    ImGui::Text("Component Mask: %s", maskStr.c_str());
+
+    // Optionally, iterate over each component and show details for active ones.
+    // COMPONENT_COUNT is assumed to be defined appropriately.
+    for (int i = 0; i < COMPONENT_COUNT; ++i) {
+        // Check if the i-th component is present.
+        if (entityInterface->hasComponent(static_cast<ComponentFlag>(i))) {
+            ImGui::Text("Component %d is active", i);
+            // You can add more detailed component-specific info here if desired.
+        }
+    }
+}
+
+void ShowGadgetsWindow(nb::list& commands, nb::dict shared_data,
+                       std::shared_ptr<EntityInterface> hoveredEntityInterface_ptr,
+                       std::shared_ptr<EntityInterface> selectedEntityInterface_ptr) {
     bool waterCameraStats = GuiStateManager::Instance()->getWaterCameraStats();
     bool terrainCameraStats = GuiStateManager::Instance()->getTerrainCameraStats();
+    bool showHoveredEntitiesStats = GuiStateManager::Instance()->getHoveredEntityInterfaceStats();
+    bool showSelectedEntitiesStats = GuiStateManager::Instance()->getSelectedEntityInterfaceStats();
 
     // Display the checkbox
     if (ImGui::Checkbox("Water Camera Stats", &waterCameraStats)) {
@@ -841,24 +910,33 @@ void ShowGadgetsWindow(nb::list& commands, nb::dict shared_data) {
         std::cout << "Terrain Gradient Camera Stats "
                   << (waterCameraStats ? "turned on." : "turned off.") << std::endl;
     }
-}
 
-void RenderEntityInterfaceWindow(std::shared_ptr<EntityInterface> entityInterface) {
-    // Display the basic entity information
-    ImGui::Text("Entity ID: %d", entityInterface->getEntityId());
+    if (ImGui::Button("Hovered Entity Interface Stats")) {
+        showHoveredEntitiesStats = !showHoveredEntitiesStats;
+        GuiStateManager::Instance()->setHoveredEntityInterfaceStats(showHoveredEntitiesStats);
+    }
 
-    // Convert the component mask to a string for display
-    std::string maskStr = entityInterface->componentMask.to_string();
-    ImGui::Text("Component Mask: %s", maskStr.c_str());
+    if (ImGui::Button("Selected Entity Interface Stats")) {
+        showSelectedEntitiesStats = !showSelectedEntitiesStats;
+        GuiStateManager::Instance()->setSelectedEntityInterfaceStats(showSelectedEntitiesStats);
+    }
 
-    // Optionally, iterate over each component and show details for active ones.
-    // COMPONENT_COUNT is assumed to be defined appropriately.
-    for (int i = 0; i < COMPONENT_COUNT; ++i) {
-        // Check if the i-th component is present.
-        if (entityInterface->hasComponent(static_cast<ComponentFlag>(i))) {
-            ImGui::Text("Component %d is active", i);
-            // You can add more detailed component-specific info here if desired.
+    /*──────────────── Entity interface ────────────*/
+
+    if (showHoveredEntitiesStats) {
+        if (ImGui::Begin("Hovered Entity Interface", &showHoveredEntitiesStats,
+                         ImGuiWindowFlags_AlwaysAutoResize)) {
+            RenderEntityInterfaceWindow(hoveredEntityInterface_ptr);
         }
+        ImGui::End();
+    }
+
+    if (showSelectedEntitiesStats) {
+        if (ImGui::Begin("Selected Entity Interface", &showSelectedEntitiesStats,
+                         ImGuiWindowFlags_AlwaysAutoResize)) {
+            RenderEntityInterfaceWindow(selectedEntityInterface_ptr);
+        }
+        ImGui::End();
     }
 }
 
@@ -918,7 +996,9 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
                          nb::dict physicsChanges, nb::dict inventoryData, nb::list& consoleLogs,
                          nb::list& entitiesData, nb::list& commands, nb::dict statistics,
                          nb::dict& shared_data,
-                         std::shared_ptr<EntityInterface> entityInterface_ptr) {
+                         std::shared_ptr<EntityInterface> entityInterface_ptr,
+                         std::shared_ptr<EntityInterface> hoveredEntityInterface_ptr,
+                         std::shared_ptr<EntityInterface> selectedEntityInterface_ptr) {
     /*──────────────── Frame setup ────────────────*/
     ImGui_ImplSDLRenderer2_NewFrame();
     ImGui_ImplSDL2_NewFrame();
@@ -1043,7 +1123,7 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
     /*──────────────── Gadgets ─────────────────────*/
     if (showGadgets) {
         if (ImGui::Begin("Gadgets", &showGadgets)) {
-            ShowGadgetsWindow(commands, shared_data);
+            ShowGadgetsWindow(commands, shared_data, hoveredEntityInterface_ptr, selectedEntityInterface_ptr);
         }
         ImGui::End();
     }

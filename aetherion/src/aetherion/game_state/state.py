@@ -5,6 +5,7 @@ from pydantic import BaseModel, ConfigDict
 from aetherion import (
     GameClock,
     PerceptionResponseFlatB,
+    EntityInterface,
 )
 from aetherion.game_state.connections import BeastConnectionMetadata
 from aetherion.game_state.world_interface import WorldInterfaceMetadata
@@ -20,6 +21,9 @@ class SharedState(BaseModel):
     selected_entity_just_set: bool = False
     selected_entity: int | None = None
     hovered_entity: int | None = None
+    selected_entity_interface: EntityInterface | None = None
+    hovered_entity_interface: EntityInterface | None = None
+
     needs_render_imgui: bool = False
     commands: list[str] = []
     game_clock: GameClock | None = None  # Placeholder for game clock, should be set to an actual clock object

@@ -90,7 +90,7 @@ entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {
         std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
         direction = storage_.getTerrainDirection(x, y, z);
     }
-    
+
     entt::entity e = registry_.create();
     registry_.emplace<Position>(e, Position{x, y, z, direction});
     registry_.emplace<Velocity>(e, Velocity{0.f, 0.f, 0.f});
@@ -128,12 +128,12 @@ TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y, int z) const {
     info.x = x;
     info.y = y;
     info.z = z;
-    
+
     // Use single shared lock for all storage reads
     {
         std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
         info.active = storage_.isActive(x, y, z);
-        
+
         // Populate static data from VDB grids
         StaticData stat;
         stat.mainType = storage_.getTerrainMainType(x, y, z);

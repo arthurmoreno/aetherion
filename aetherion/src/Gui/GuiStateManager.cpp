@@ -38,12 +38,24 @@ bool GuiStateManager::getWaterCameraStats() const { return waterCameraStats; }
 
 bool GuiStateManager::getTerrainCameraStats() const { return terrainCameraStats; }
 
+bool GuiStateManager::getHoveredEntityInterfaceStats() const { return hoveredEntityInterfaceStats; }
+
+bool GuiStateManager::getSelectedEntityInterfaceStats() const { return selectedEntityInterfaceStats; }
+
 void GuiStateManager::setWaterCameraStats(const bool waterCameraStats) {
     this->waterCameraStats = waterCameraStats;
 }
 
 void GuiStateManager::setTerrainCameraStats(const bool terrainCameraStats) {
     this->terrainCameraStats = terrainCameraStats;
+}
+
+void GuiStateManager::setHoveredEntityInterfaceStats(const bool hoveredEntityInterfaceStats) {
+    this->hoveredEntityInterfaceStats = hoveredEntityInterfaceStats;
+}
+
+void GuiStateManager::setSelectedEntityInterfaceStats(const bool selectedEntityInterfaceStats) {
+    this->selectedEntityInterfaceStats = selectedEntityInterfaceStats;
 }
 
 // Optional: Load physics settings from a file

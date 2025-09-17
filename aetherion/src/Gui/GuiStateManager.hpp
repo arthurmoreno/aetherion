@@ -19,6 +19,8 @@ class GuiStateManager {
     // Gadgets
     bool waterCameraStats;
     bool terrainCameraStats;
+    bool hoveredEntityInterfaceStats;
+    bool selectedEntityInterfaceStats;
 
     // Retrieves the singleton instance
     static GuiStateManager* Instance();
@@ -27,9 +29,17 @@ class GuiStateManager {
 
     bool getTerrainCameraStats() const;
 
+    bool getHoveredEntityInterfaceStats() const;
+
+    bool getSelectedEntityInterfaceStats() const;
+
     void setWaterCameraStats(const bool waterCameraStats);
 
     void setTerrainCameraStats(const bool terrainCameraStats);
+
+    void setHoveredEntityInterfaceStats(const bool hoveredEntityInterfaceStats);
+
+    void setSelectedEntityInterfaceStats(const bool selectedEntityInterfaceStats);
 
     // Optional: Load physics settings from a file
     bool loadSettings(const std::string& fileName);
