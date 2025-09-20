@@ -33,10 +33,11 @@
 
 struct EvaporateWaterEntityEvent {
     entt::entity entity;
+    Position position;
     float sunIntensity;
 
-    EvaporateWaterEntityEvent(entt::entity entity, float sunIntensity)
-        : entity(entity), sunIntensity(sunIntensity) {}
+    EvaporateWaterEntityEvent(entt::entity entity, Position position, float sunIntensity)
+        : entity(entity), position(position), sunIntensity(sunIntensity) {}
 };
 
 struct CondenseWaterEntityEvent {

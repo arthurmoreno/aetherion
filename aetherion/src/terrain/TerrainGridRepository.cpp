@@ -26,7 +26,25 @@ entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
 
 std::optional<int> TerrainGridRepository::getTerrainIdIfExists(int x, int y, int z) const {
     std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
-    return storage_.getTerrainIdIfExists(x, y, z);
+    // std::cout << "[getTerrainIdIfExists] Checkpoint! Before: storage_.getTerrainIdIfExists (" <<
+    // x << ", " << y << ", " << z << ")\n";
+    int terrainId = storage_.getTerrainIdIfExists(x, y, z);
+    if (terrainId == -2) {
+        return std::nullopt;
+    } else if (terrainId == -1) {
+        // Terrain exists but no enTT entity
+        // std::cout << "TerrainGridRepository::getTerrainIdIfExists: Terrain exists but no enTT
+        // entity at ("
+        //           << x << ", " << y << ", " << z << ")\n";
+        return terrainId;
+    } else {
+        // std::cout << "TerrainGridRepository::getTerrainIdIfExists: Found terrain ID " <<
+        // terrainId
+        //           << " at (" << x << ", " << y << ", " << z << ")\n";
+        return terrainId;
+    }
+
+    return terrainId;
 }
 
 bool TerrainGridRepository::checkIfTerrainHasEntity(int x, int y, int z) const {
@@ -53,10 +71,21 @@ void TerrainGridRepository::clearActive(int x, int y, int z) {
     }
 }
 
+void TerrainGridRepository::setTerrainId(int x, int y, int z, int terrainID) {
+    std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
+    std::cout << "[setTerrainId] Setting terrain ID at (" << x << ", " << y << ", " << z << ") to "
+              << terrainID << std::endl;
+    storage_.terrainGrid->tree().setValue(C(x, y, z), terrainID);
+}
+
 void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entity e) {
     // If entity has a Position, mark active in the TerrainStorage grid
     if (!reg.valid(e)) return;
     if (auto pos = reg.try_get<Position>(e)) {
+        auto entityType = reg.try_get<EntityTypeComponent>(e);
+        if (entityType && entityType->mainType != static_cast<int>(EntityEnum::TERRAIN)) {
+            return;
+        }
         if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z)) {
             std::cout << "TerrainGridRepository: onConstructVelocity at (" << pos->x << ", "
                       << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
@@ -70,6 +99,10 @@ void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entit
 void TerrainGridRepository::onConstructMoving(entt::registry& reg, entt::entity e) {
     if (!reg.valid(e)) return;
     if (auto pos = reg.try_get<Position>(e)) {
+        auto entityType = reg.try_get<EntityTypeComponent>(e);
+        if (entityType && entityType->mainType != static_cast<int>(EntityEnum::TERRAIN)) {
+            return;
+        }
         if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z)) {
             std::cout << "TerrainGridRepository: onConstructMoving at (" << pos->x << ", " << pos->y
                       << ", " << pos->z << ") entity=" << int(e) << "\n";
@@ -256,15 +289,16 @@ PhysicsStats TerrainGridRepository::getPhysicsStats(int x, int y, int z) const {
     ps.mass = static_cast<float>(storage_.getTerrainMass(x, y, z));
     ps.maxSpeed = static_cast<float>(storage_.getTerrainMaxSpeed(x, y, z));
     ps.minSpeed = static_cast<float>(storage_.getTerrainMinSpeed(x, y, z));
+    ps.heat = static_cast<float>(storage_.getTerrainHeat(x, y, z));
     ps.forceX = 0.0f;
     ps.forceY = 0.0f;
     ps.forceZ = 0.0f;
-    ps.heat = 0.0f;
     return ps;
 }
 
 void TerrainGridRepository::setPhysicsStats(int x, int y, int z, const PhysicsStats& ps) {
     std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
+    storage_.setTerrainHeat(x, y, z, static_cast<int>(ps.heat));
     storage_.setTerrainMass(x, y, z, static_cast<int>(ps.mass));
     storage_.setTerrainMaxSpeed(x, y, z, static_cast<int>(ps.maxSpeed));
     storage_.setTerrainMinSpeed(x, y, z, static_cast<int>(ps.minSpeed));

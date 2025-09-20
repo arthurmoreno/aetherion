@@ -64,6 +64,8 @@ class TerrainGridRepository {
     // Tick transient systems; auto-deactivate when no transients remain
     void tick(int dtTicks = 1);
 
+    void setTerrainId(int x, int y, int z, int terrainID);
+
     // ---------------- Static getters/setters (VDB-backed) ----------------
 
     std::optional<int> getTerrainIdIfExists(int x, int y, int z) const;

@@ -160,6 +160,7 @@ TerrainStorage::TerrainStorage() {
     massGrid = openvdb::Int32Grid::create(0);
     maxSpeedGrid = openvdb::Int32Grid::create(0);
     minSpeedGrid = openvdb::Int32Grid::create(0);
+    heatGrid = openvdb::FloatGrid::create(0.0f);
 
     // Flags and aux grids
     flagsGrid = openvdb::Int32Grid::create(0);
@@ -184,6 +185,7 @@ void TerrainStorage::applyTransform(double voxelSize_) {
     minSpeedGrid->setTransform(xform);
     flagsGrid->setTransform(xform);
     maxLoadCapacityGrid->setTransform(xform);
+    if (heatGrid) heatGrid->setTransform(xform);
 }
 
 size_t TerrainStorage::memUsage() const {
@@ -201,6 +203,7 @@ size_t TerrainStorage::memUsage() const {
     total += minSpeedGrid ? minSpeedGrid->memUsage() : 0;
     total += flagsGrid ? flagsGrid->memUsage() : 0;
     total += maxLoadCapacityGrid ? maxLoadCapacityGrid->memUsage() : 0;
+    total += heatGrid ? heatGrid->memUsage() : 0;
     return total;
 }
 
@@ -227,6 +230,7 @@ void TerrainStorage::configureThreadCache() {
         tc.minSpeedPtr = nullptr;
         tc.flagsPtr = nullptr;
         tc.maxLoadCapacityPtr = nullptr;
+        tc.heatPtr = nullptr;
 
         // Reset all accessors to drop stale references into previous instance trees
         tc.terrainAcc.reset();
@@ -242,6 +246,7 @@ void TerrainStorage::configureThreadCache() {
         tc.minSpeedAcc.reset();
         tc.flagsAcc.reset();
         tc.maxLoadCapacityAcc.reset();
+        tc.heatAcc.reset();
     }
 
     // Collect current tree identity pointers
@@ -258,13 +263,14 @@ void TerrainStorage::configureThreadCache() {
     const void* mnPtr = static_cast<const void*>(&minSpeedGrid->tree());
     const void* fptr = static_cast<const void*>(&flagsGrid->tree());
     const void* mlcPtr = static_cast<const void*>(&maxLoadCapacityGrid->tree());
+    const void* hPtr = heatGrid ? static_cast<const void*>(&heatGrid->tree()) : nullptr;
 
-    const bool changed = newOwner || tc.terrainPtr != tptr || tc.mainTypePtr != mtPtr ||
-                         tc.subType0Ptr != st0Ptr || tc.subType1Ptr != st1Ptr ||
-                         tc.terrainMatterPtr != tmPtr || tc.waterMatterPtr != wmPtr ||
-                         tc.vaporMatterPtr != vapPtr || tc.biomassMatterPtr != bmPtr ||
-                         tc.massPtr != mPtr || tc.maxSpeedPtr != mxPtr || tc.minSpeedPtr != mnPtr ||
-                         tc.flagsPtr != fptr || tc.maxLoadCapacityPtr != mlcPtr;
+    const bool changed =
+        newOwner || tc.terrainPtr != tptr || tc.mainTypePtr != mtPtr || tc.subType0Ptr != st0Ptr ||
+        tc.subType1Ptr != st1Ptr || tc.terrainMatterPtr != tmPtr || tc.waterMatterPtr != wmPtr ||
+        tc.vaporMatterPtr != vapPtr || tc.biomassMatterPtr != bmPtr || tc.massPtr != mPtr ||
+        tc.maxSpeedPtr != mxPtr || tc.minSpeedPtr != mnPtr || tc.flagsPtr != fptr ||
+        tc.maxLoadCapacityPtr != mlcPtr || tc.heatPtr != hPtr;
 
     if (!tc.configured || changed) {
         // Rebuild all accessors from current grids
@@ -293,6 +299,10 @@ void TerrainStorage::configureThreadCache() {
         tc.flagsAcc = std::make_unique<openvdb::Int32Grid::Accessor>(flagsGrid->getAccessor());
         tc.maxLoadCapacityAcc =
             std::make_unique<openvdb::Int32Grid::Accessor>(maxLoadCapacityGrid->getAccessor());
+        if (heatGrid)
+            tc.heatAcc = std::make_unique<openvdb::FloatGrid::Accessor>(heatGrid->getAccessor());
+        else
+            tc.heatAcc.reset();
 
         // Update identity pointers
         tc.terrainPtr = tptr;
@@ -308,6 +318,7 @@ void TerrainStorage::configureThreadCache() {
         tc.minSpeedPtr = mnPtr;
         tc.flagsPtr = fptr;
         tc.maxLoadCapacityPtr = mlcPtr;
+        tc.heatPtr = hPtr;
 
         tc.configured = true;
     }
@@ -329,15 +340,29 @@ int TerrainStorage::getFlagBits(int x, int y, int z) const {
     return flagsGrid->tree().getValue(openvdb::Coord(x, y, z));
 }
 
-int TerrainStorage::getTerrainIdIfExists(int x, int y, int z) const {
+int TerrainStorage::getTerrainIdIfExists(int x, int y, int z) {
+    configureThreadCache();
     if (s_threadCache.terrainAcc) {
+        // std::cout << "[getTerrainIdIfExists] Checkpoint! Before:
+        // s_threadCache.terrainAcc->getValue (" << x << ", " << y << ", " << z << ")\n";
         int entityId = s_threadCache.terrainAcc->getValue(openvdb::Coord(x, y, z));
+        // std::cout << "[getTerrainIdIfExists] Checkpoint! After:
+        // s_threadCache.terrainAcc->getValue (" << x << ", " << y << ", " << z << ") is " <<
+        // entityId << std::endl;
         if (entityId != -2) {
             // std::cout << "Found entity ID on terrainGrid: " << entityId << std::endl;
+
+            // if (entityId != -1) {
+            //     std::cout << "[getTerrainIdIfExists] Checkpoint! (" << x << ", " << y << ", " <<
+            //     z << ")\n";
+            // }
             return entityId;
         }
         return -2;
     }
+    // std::cout << "[getTerrainIdIfExists] Checkpoint! Before: terrainGrid->tree().getValue (" << x
+    // << ", " << y << ", " << z << ")\n";
+    if (!terrainGrid) return -2;
     int entityId = terrainGrid->tree().getValue(openvdb::Coord(x, y, z));
     if (entityId != -2) {
         return entityId;
@@ -441,6 +466,14 @@ void TerrainStorage::setTerrainMinSpeed(int x, int y, int z, int minSpeed) {
 
 int TerrainStorage::getTerrainMinSpeed(int x, int y, int z) const {
     return minSpeedGrid->tree().getValue(openvdb::Coord(x, y, z));
+}
+
+void TerrainStorage::setTerrainHeat(int x, int y, int z, float heat) {
+    heatGrid->tree().setValue(openvdb::Coord(x, y, z), heat);
+}
+
+float TerrainStorage::getTerrainHeat(int x, int y, int z) const {
+    return heatGrid->tree().getValue(openvdb::Coord(x, y, z));
 }
 
 // ------------------ New Accessors: Flags ------------------

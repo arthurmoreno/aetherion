@@ -42,6 +42,7 @@ class TerrainStorage {
     openvdb::Int32Grid::Ptr massGrid;      // 0 default
     openvdb::Int32Grid::Ptr maxSpeedGrid;  // 0 default
     openvdb::Int32Grid::Ptr minSpeedGrid;  // 0 default
+    openvdb::FloatGrid::Ptr heatGrid;      // 0.0f default
 
     // Flags -- List of bit flags:
     //      DirectionEnum direction;
@@ -62,7 +63,7 @@ class TerrainStorage {
     // Memory usage of all terrain-related grids
     size_t memUsage() const;
 
-    int getTerrainIdIfExists(int x, int y, int z) const;
+    int getTerrainIdIfExists(int x, int y, int z);
 
     void setTerrainId(int x, int y, int z, int id);
     bool checkIfTerrainExists(int x, int y, int z) const;
@@ -104,6 +105,9 @@ class TerrainStorage {
 
     void setTerrainMinSpeed(int x, int y, int z, int minSpeed);
     int getTerrainMinSpeed(int x, int y, int z) const;
+
+    void setTerrainHeat(int x, int y, int z, float heat);
+    float getTerrainHeat(int x, int y, int z) const;
 
     // Flags accessors:
     //      DirectionEnum direction;
@@ -171,6 +175,7 @@ class TerrainStorage {
         const void* minSpeedPtr = nullptr;
         const void* flagsPtr = nullptr;
         const void* maxLoadCapacityPtr = nullptr;
+        const void* heatPtr = nullptr;
 
         // Accessors are not default-constructible; store as pointers and create on demand
         // Main terrain grid reference (source of truth) Accessor:
@@ -191,6 +196,7 @@ class TerrainStorage {
         std::unique_ptr<openvdb::Int32Grid::Accessor> massAcc;
         std::unique_ptr<openvdb::Int32Grid::Accessor> maxSpeedAcc;
         std::unique_ptr<openvdb::Int32Grid::Accessor> minSpeedAcc;
+        std::unique_ptr<openvdb::FloatGrid::Accessor> heatAcc;
 
         // Flags and other Accessors:
         std::unique_ptr<openvdb::Int32Grid::Accessor> flagsAcc;

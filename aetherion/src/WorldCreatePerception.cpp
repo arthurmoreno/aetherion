@@ -540,7 +540,8 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
 
         // Get terrain ID at this coordinate
         int terrainId = voxelGrid->getTerrain(x, y, z);
-        if (terrainId != -2) {  // Assuming -2 means no terrain
+        if (terrainId !=
+            static_cast<int>(TerrainIdTypeEnum::NONE)) {  // Assuming -2 means no terrain
 
             // std::cout << "createPerceptionResponse -> Inside terrain check. terrainId="
             //           << terrainId << "\n";
@@ -550,7 +551,7 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
 
             bool isCurrentTerrainOccluded = false;
             int neighborTerrainId = voxelGrid->getTerrain(x + 1, y + 1, z + 1);
-            if (neighborTerrainId != -2) {
+            if (neighborTerrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
                 // Use neighbor terrain ID directly
                 int neighboorEntityId = neighborTerrainId;
 
@@ -574,7 +575,8 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                     EntityTypeComponent terrainEtc =
                         voxelGrid->getTerrainEntityTypeComponent(x + 1, y + 1, z + 1);
 
-                    hasValidNeighbor = (neighboorEntityId != -2);
+                    hasValidNeighbor =
+                        (neighboorEntityId != static_cast<int>(TerrainIdTypeEnum::NONE));
                     isMainTypeTerrain = (terrainEtc.mainType == 0);
                     isSubTypeOccluding =
                         terrainEtc.subType0 != static_cast<int>(TerrainEnum::EMPTY) &&

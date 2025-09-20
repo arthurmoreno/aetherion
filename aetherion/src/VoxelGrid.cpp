@@ -121,8 +121,17 @@ void VoxelGrid::setTerrain(int x, int y, int z, int terrainID) {
 
 int VoxelGrid::getTerrain(int x, int y, int z) const {
     if (terrainGridRepository) {
+        // std::cout << "[getTerrain] Checkpoint! Before:
+        // terrainGridRepository->getTerrainIdIfExists (" << x << ", " << y << ", " << z << ")\n";
         std::optional<int> terrainId = terrainGridRepository->getTerrainIdIfExists(x, y, z);
         if (terrainId && *terrainId != -2) {
+            // if (*terrainId == -1) {
+            //     // std::cout << "VoxelGrid::getTerrain: Terrain exists but no enTT entity at ("
+            //     //           << x << ", " << y << ", " << z << ")\n";
+            // } else {
+            //     // std::cout << "VoxelGrid::getTerrain: Found terrain ID " << *terrainId
+            //     //           << " at (" << x << ", " << y << ", " << z << ")\n";
+            // }
             return *terrainId;
         }
     }

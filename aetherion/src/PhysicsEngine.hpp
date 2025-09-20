@@ -32,7 +32,8 @@ class PhysicsEngine {
     entt::entity entityBeingDebugged;
 
     PhysicsEngine() = default;
-    PhysicsEngine(entt::registry& reg, VoxelGrid* voxelGrid) : registry(reg) {}
+    PhysicsEngine(entt::registry& reg, VoxelGrid* voxelGrid)
+        : registry(reg), voxelGrid(voxelGrid) {}
 
     // Method to process physics-related events
     void processPhysics(entt::registry& registry, VoxelGrid& voxelGrid,
@@ -53,12 +54,13 @@ class PhysicsEngine {
 
     // Register the event handler
     void registerEventHandlers(entt::dispatcher& dispatcher);
+    void registerVoxelGrid(VoxelGrid* voxelGrid) { this->voxelGrid = voxelGrid; }
 
     bool isProcessingComplete() const;
 
    private:
     entt::registry& registry;
-    VoxelGrid* voxelGrid;
+    VoxelGrid* voxelGrid = nullptr;
 
     // Mutex for thread safety
     bool processingComplete = true;  // Flag to indicate processing state

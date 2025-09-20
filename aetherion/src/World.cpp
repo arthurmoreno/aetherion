@@ -43,6 +43,7 @@ World::World(int width, int height, int depth)
 
     // Register event handlers
     physicsEngine->registerEventHandlers(dispatcher);
+    physicsEngine->registerVoxelGrid(voxelGrid);
     lifeEngine->registerEventHandlers(dispatcher);
     ecosystemEngine->registerEventHandlers(dispatcher);
     ecosystemEngine->waterSimManager_->initializeProcessors(

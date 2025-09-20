@@ -411,11 +411,17 @@ void createMovingComponent(entt::registry& registry, VoxelGrid& voxelGrid, entt:
 }
 
 void handleMovement(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
-                    entt::entity entityBeingDebugged) {
+                    entt::entity entityBeingDebugged, bool isTerrain) {
     auto&& [position, velocity, physicsStats] =
         registry.get<Position, Velocity, PhysicsStats>(entity);
 
     bool haveMovement = registry.all_of<MovingComponent>(entity);
+
+    if (isTerrain) {
+        std::cout << "[handleMovement] Handling movement for terrain entity: "
+                  << static_cast<int>(entity) << " at position: (" << position.x << ", "
+                  << position.y << ", " << position.z << ")\n";
+    }
 
     // ### Applying other forces
     float newVelocityX, newVelocityY, newVelocityZ;
@@ -651,7 +657,13 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
         int entityId = static_cast<int>(entity);
         int entityVoxelGridId = voxelGrid.getEntity(pos.x, pos.y, pos.z);
         if (entityId == entityVoxelGridId) {
-            handleMovement(registry, voxelGrid, entity, entityBeingDebugged);
+            handleMovement(registry, voxelGrid, entity, entityBeingDebugged, false);
+        }
+        int terrainVoxelGridId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
+        if (terrainVoxelGridId != static_cast<int>(TerrainIdTypeEnum::NONE) &&
+            terrainVoxelGridId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
+            // This entity is actually terrain, remove its velocity
+            handleMovement(registry, voxelGrid, entity, entityBeingDebugged, true);
         }
     }
 
@@ -720,27 +732,86 @@ DirectionEnum getDirectionFromVelocities(float velocityX, float velocityY, float
 }
 
 void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
-    // spdlog::get("console")->debug("onMoveGasEntityEvent -> entered");
-    // std::ostringstream ossMessage;
+    // std::cout << "onMoveGasEntityEvent -> entered" << std::endl;
+    // std::cout << "onMoveGasEntityEvent: terrainId at position (" << event.position.x << ", "
+    //     << event.position.y << ", " << event.position.z << ") " << std::endl;
+    int terrainId = static_cast<int>(TerrainIdTypeEnum::NONE);
+    if (voxelGrid == nullptr) {
+        // Not initialized yet
+        // std::cout << "onMoveGasEntityEvent: voxelGrid is null" << std::endl;
+        throw std::runtime_error(
+            "onMoveGasEntityEvent: Exception thrown for testing purposes. voxelGrid is null.");
+    } else {
+        // std::cout << "onMoveGasEntityEvent: voxelGrid is not null" << std::endl;
+        terrainId = voxelGrid->getTerrain(event.position.x, event.position.y, event.position.z);
+        // std::cout << "onMoveGasEntityEvent: terrainId at position (" << event.position.x << ", "
+        //   << event.position.y << ", " << event.position.z << ") is " << terrainId << std::endl;
+        // throw std::runtime_error("onMoveGasEntityEvent: Exception thrown for testing purposes.
+        // voxelGrid is not null.");
+    }
+    // bool terrainExists = voxelGrid->checkIfTerrainExists(event.position.x, event.position.y,
+    // event.position.z); std::cout << "onMoveGasEntityEvent: terrainExists: " << terrainExists <<
+    // std::endl; int terrainId = voxelGrid->getTerrain(event.position.x, event.position.y,
+    // event.position.z); std::cout << "onMoveGasEntityEvent: terrainId at position (" <<
+    // event.position.x << ", "
+    //           << event.position.y << ", " << event.position.z << ") is " << terrainId <<
+    //           std::endl;
 
-    if (registry.valid(event.entity) &&
-        registry.all_of<Position, EntityTypeComponent, PhysicsStats>(event.entity)) {
-        auto&& [pos, type, physicsStats] =
-            registry.get<Position, EntityTypeComponent, PhysicsStats>(event.entity);
+    if (terrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        Position pos = voxelGrid->terrainGridRepository->getPosition(
+            event.position.x, event.position.y, event.position.z);
+        EntityTypeComponent etc =
+            voxelGrid->terrainGridRepository->getTerrainEntityType(pos.x, pos.y, pos.z);
+        PhysicsStats physicsStats =
+            voxelGrid->terrainGridRepository->getPhysicsStats(pos.x, pos.y, pos.z);
+        // }
+        // if (registry.valid(event.entity) &&
+        //     registry.all_of<Position, EntityTypeComponent, PhysicsStats>(event.entity)) {
+        //     auto&& [pos, type, physicsStats] =
+        //         registry.get<Position, EntityTypeComponent, PhysicsStats>(event.entity);
 
         // Attempt to retrieve the optional Velocity component
+        // std::cout << "onMoveGasEntityEvent: Just before checks for entity " <<
+        // static_cast<int>(event.entity) << std::endl;
+        bool hasEntity =
+            event.entity != entt::null &&
+            static_cast<int>(event.entity) != static_cast<int>(TerrainIdTypeEnum::NONE) &&
+            static_cast<int>(event.entity) != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE);
         bool haveMovement = registry.all_of<MovingComponent>(event.entity);
         bool hasVelocity = registry.all_of<Velocity>(event.entity);
+        bool hasEnTTPosition = registry.all_of<Position>(event.entity);
+        if (!hasEntity) {
+            std::cout << "onMoveGasEntityEvent: event.entity is null or invalid (Either none or on "
+                         "grid) :"
+                      << static_cast<int>(event.entity) << std::endl;
+            return;
+        }
+        if (!hasEnTTPosition) {
+            std::cout << "onMoveGasEntityEvent: entity does not have Position component. Emplacing "
+                         "Position component."
+                      << std::endl;
+            registry.emplace<Position>(event.entity, pos);
+            // throw std::runtime_error("onMoveGasEntityEvent: Entity does not have Position
+            // component");
+        }
         if (!hasVelocity) {
+            // std::cout << "onMoveGasEntityEvent: Adding Velocity component to entity " <<
+            // static_cast<int>(event.entity) << std::endl;
             Velocity velocity = {0.0f, 0.0f, 0.0f};  // Replace as needed
             registry.emplace<Velocity>(event.entity, velocity);
+            // std::cout << "onMoveGasEntityEvent: Added Velocity component to entity " <<
+            // static_cast<int>(event.entity) << std::endl;
         }
         auto& velocity = registry.get<Velocity>(event.entity);
 
-        if (event.entity == entityBeingDebugged) {
-            std::cout << "onMoveGasEntityEvent ->" << " rhoEnv: " << event.rhoEnv
-                      << " rhoGas: " << event.rhoGas << std::endl;
-        }
+        // std::cout << "onMoveGasEntityEvent: Retrieved Velocity component for entity " <<
+        // velocity.vx << ", "
+        //           << velocity.vy << ", " << velocity.vz << std::endl;
+
+        // if (event.entity == entityBeingDebugged) {
+        //     std::cout << "onMoveGasEntityEvent ->" << " rhoEnv: " << event.rhoEnv
+        //               << " rhoGas: " << event.rhoGas << std::endl;
+        // }
 
         float gravity = PhysicsManager::Instance()->getGravity();
         float accelerationX = static_cast<float>(event.forceX) / physicsStats.mass;
@@ -750,11 +821,11 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
             accelerationZ = ((event.rhoEnv - event.rhoGas) * gravity) / event.rhoGas;
         }
 
-        if (event.entity == entityBeingDebugged) {
-            std::cout << "onMoveGasEntityEvent ->" << " Acceleration X: " << accelerationX
-                      << " Acceleration Y: " << accelerationY
-                      << " Acceleration Z: " << accelerationZ << std::endl;
-        }
+        // if (event.entity == entityBeingDebugged) {
+        //     std::cout << "onMoveGasEntityEvent ->" << " Acceleration X: " << accelerationX
+        //               << " Acceleration Y: " << accelerationY
+        //               << " Acceleration Z: " << accelerationZ << std::endl;
+        // }
         // spdlog::get("console")->debug(ossMessage.str());
         // ossMessage.str("");
         // ossMessage.clear();
@@ -766,14 +837,15 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
                                            accelerationY, accelerationZ, physicsStats.maxSpeed);
 
         if (!haveMovement || event.forceApplyNewVelocity) {
-            if (event.entity == entityBeingDebugged) {
-                std::cout << "onMoveGasEntityEvent -> entered to apply newVelocity: "
-                          << " newVelocityX: " << newVelocityX << " newVelocityY: " << newVelocityY
-                          << " newVelocityZ: " << newVelocityZ << std::endl;
-            }
+            // if (event.entity == entityBeingDebugged) {
+            std::cout << "onMoveGasEntityEvent -> entered to apply newVelocity: "
+                      << " newVelocityX: " << newVelocityX << " newVelocityY: " << newVelocityY
+                      << " newVelocityZ: " << newVelocityZ << std::endl;
+            // }
             velocity.vx = newVelocityX;
             velocity.vy = newVelocityY;
             velocity.vz = newVelocityZ;
+            registry.emplace<Velocity>(event.entity, velocity);
         }
 
         // ossMessage << "onMoveGasEntityEvent -> velocity X: " << velocity.vx <<
@@ -789,7 +861,7 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
 
 // Subscribe to the MoveSolidEntityEvent and handle the movement
 void PhysicsEngine::onMoveSolidEntityEvent(const MoveSolidEntityEvent& event) {
-    // spdlog::get("console")->debug("onMoveSolidEntityEvent -> entered");
+    spdlog::get("console")->debug("onMoveSolidEntityEvent -> entered");
 
     if (registry.valid(event.entity) &&
         registry.all_of<Position, EntityTypeComponent, PhysicsStats>(event.entity)) {
