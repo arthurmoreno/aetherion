@@ -1,5 +1,48 @@
 #include "Gui/Gui.hpp"
 
+// Helper struct for 3D vector operations
+struct Vec3 {
+    float x, y, z;
+    Vec3() : x(0), y(0), z(0) {}
+    Vec3(float x, float y, float z) : x(x), y(y), z(z) {}
+    Vec3 operator+(const Vec3& other) const { return Vec3(x + other.x, y + other.y, z + other.z); }
+    Vec3 operator-(const Vec3& other) const { return Vec3(x - other.x, y - other.y, z - other.z); }
+    Vec3 operator*(float scalar) const { return Vec3(x * scalar, y * scalar, z * scalar); }
+};
+
+// Game camera state structure (easily portable to OpenGL)
+struct GameCamera {
+    Vec3 position;
+    float yaw = 0.0f;     // Horizontal rotation
+    float pitch = 0.0f;   // Vertical rotation
+    float sensitivity = 0.003f;
+    float moveSpeed = 15.0f;
+    bool enabled = false;
+    
+    // Calculate forward vector from yaw/pitch
+    Vec3 getForward() const {
+        float cosYaw = cosf(yaw), sinYaw = sinf(yaw);
+        float cosPitch = cosf(pitch), sinPitch = sinf(pitch);
+        return Vec3(cosYaw * cosPitch, sinPitch, sinYaw * cosPitch);
+    }
+    
+    // Calculate right vector (for strafing)
+    Vec3 getRight() const {
+        return Vec3(cosf(yaw - 1.57f), 0.0f, sinf(yaw - 1.57f)); // 90 degrees offset
+    }
+    
+    // Update camera position/target from game input
+    void updateTarget(float cameraTarget[3]) {
+        Vec3 forward = getForward();
+        cameraTarget[0] = position.x + forward.x;
+        cameraTarget[1] = position.y + forward.y;
+        cameraTarget[2] = position.z + forward.z;
+    }
+};
+
+// Process game camera input (reusable for OpenGL)
+void processGameCameraInput(GameCamera& camera, float cameraPosition[3], float cameraTarget[3], bool& cameraChanged, const ImVec2& viewportPos, const ImVec2& viewportSize);
+
 // Forward declarations for helper methods
 void renderVoxelDataHeader(nb::ndarray<nb::numpy>& voxel_data);
 void renderTransformControls(float translation[3], float rotation[3], float scale[3], 
@@ -68,6 +111,11 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     static bool showVoxelBorders = true;
     static bool showDebugFaceOrder = false;
     
+    // Game camera state (easily portable to OpenGL)
+    static GameCamera gameCamera;
+    static ImVec2 lastMousePos = ImVec2(0, 0);
+    static bool firstMouseMove = true;
+    
     // Layout control variables
     static bool showControlPanel = true;
     static float controlPanelWidth = 350.0f;
@@ -85,6 +133,12 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Camera")) {
+            ImGui::Checkbox("Game Mode (WASD + Mouse)", &gameCamera.enabled);
+            if (gameCamera.enabled) {
+                ImGui::SliderFloat("Mouse Sensitivity", &gameCamera.sensitivity, 0.001f, 0.01f);
+                ImGui::SliderFloat("Move Speed", &gameCamera.moveSpeed, 1.0f, 50.0f);
+                ImGui::Separator();
+            }
             if (ImGui::MenuItem("Reset Camera")) {
                 cameraPosition[0] = 15.0f; cameraPosition[1] = 15.0f; cameraPosition[2] = 15.0f;
                 cameraTarget[0] = 8.0f; cameraTarget[1] = 8.0f; cameraTarget[2] = 8.0f;
@@ -110,6 +164,20 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     
     // Update transformation matrix
     updateTransformationMatrix(objectMatrix, translation, rotation, scale, matrixChanged);
+    
+    // Process game camera input if enabled
+    if (gameCamera.enabled) {
+        // Sync game camera position with regular camera position
+        gameCamera.position = Vec3(cameraPosition[0], cameraPosition[1], cameraPosition[2]);
+        
+        // Get viewport bounds for input processing
+        ImVec2 availableRegion = ImGui::GetContentRegionAvail();
+        ImVec2 viewportPos = ImGui::GetCursorScreenPos();
+        float viewportWidth = showControlPanel ? (availableRegion.x - controlPanelWidth - 10.0f) : availableRegion.x;
+        ImVec2 viewportSize = ImVec2(viewportWidth, availableRegion.y);
+        
+        processGameCameraInput(gameCamera, cameraPosition, cameraTarget, cameraChanged, viewportPos, viewportSize);
+    }
     
     // Dynamic camera view matrix calculation
     if (cameraChanged || matrixChanged) {
@@ -204,14 +272,37 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
                 }
                 
                 if (ImGui::CollapsingHeader("Camera Controls", ImGuiTreeNodeFlags_DefaultOpen)) {
+                    ImGui::Checkbox("Game Mode (WASD + Mouse)", &gameCamera.enabled);
+                    
+                    if (gameCamera.enabled) {
+                        ImGui::Text("Game Controls:");
+                        ImGui::BulletText("Hold Left Mouse + Move: Look around");
+                        ImGui::BulletText("WASD: Move forward/backward/strafe");
+                        ImGui::BulletText("Space: Move up, Shift: Move down");
+                        
+                        ImGui::SliderFloat("Mouse Sensitivity", &gameCamera.sensitivity, 0.001f, 0.01f);
+                        ImGui::SliderFloat("Move Speed", &gameCamera.moveSpeed, 1.0f, 50.0f);
+                        
+                        if (ImGui::Button("Reset Game Camera")) {
+                            gameCamera.position = Vec3(8.0f, 8.0f, -20.0f);
+                            gameCamera.yaw = 0.0f; gameCamera.pitch = 0.0f;
+                            cameraPosition[0] = gameCamera.position.x;
+                            cameraPosition[1] = gameCamera.position.y;
+                            cameraPosition[2] = gameCamera.position.z;
+                            gameCamera.updateTarget(cameraTarget);
+                            cameraChanged = true;
+                        }
+                        ImGui::Separator();
+                    }
+                    
                     if (ImGui::SliderFloat3("Camera Position", cameraPosition, -50.0f, 50.0f)) {
-                        cameraChanged = true;
+                        if (!gameCamera.enabled) cameraChanged = true;
                     }
                     if (ImGui::SliderFloat3("Camera Target", cameraTarget, -20.0f, 20.0f)) {
-                        cameraChanged = true;
+                        if (!gameCamera.enabled) cameraChanged = true;
                     }
                     if (ImGui::SliderFloat3("Camera Up", cameraUp, -1.0f, 1.0f)) {
-                        cameraChanged = true;
+                        if (!gameCamera.enabled) cameraChanged = true;
                     }
                 }
                 
@@ -1345,6 +1436,87 @@ void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, floa
         snprintf(label, sizeof(label), "%d", i);
         ImVec2 textPos = ImVec2(axisPoint.x + 8, axisPoint.y + 8);
         drawList->AddText(textPos, measurementColor, label);
+    }
+}
+
+// Process game camera input (reusable function for OpenGL migration)
+void processGameCameraInput(GameCamera& camera, float cameraPosition[3], float cameraTarget[3], 
+                           bool& cameraChanged, const ImVec2& viewportPos, const ImVec2& viewportSize) {
+    static ImVec2 lastMousePos = ImVec2(0, 0);
+    static bool firstMouseMove = true;
+
+    // Check if mouse is over the 3D viewport area
+    ImVec2 mousePos = ImGui::GetMousePos();
+    bool isViewportHovered = mousePos.x >= viewportPos.x && mousePos.x <= viewportPos.x + viewportSize.x &&
+                            mousePos.y >= viewportPos.y && mousePos.y <= viewportPos.y + viewportSize.y;
+
+    // Mouse look (only when left mouse button held and over viewport)
+    if (isViewportHovered && ImGui::IsMouseDown(0)) {
+        if (!firstMouseMove) {
+            float deltaX = mousePos.x - lastMousePos.x;
+            float deltaY = mousePos.y - lastMousePos.y;
+            
+            camera.yaw -= deltaX * camera.sensitivity;
+            camera.pitch -= deltaY * camera.sensitivity;
+            
+            // Clamp pitch to prevent camera flipping
+            camera.pitch = std::max(-1.55f, std::min(1.55f, camera.pitch)); // ~±89 degrees
+            
+            camera.updateTarget(cameraTarget);
+            cameraChanged = true;
+        }
+        lastMousePos = mousePos;
+        firstMouseMove = false;
+    } else {
+        firstMouseMove = true;
+    }
+    
+    // WASD movement (only when window is focused)
+    if (ImGui::IsWindowFocused()) {
+        ImGuiIO& io = ImGui::GetIO();
+        float deltaTime = io.DeltaTime;
+        float currentMoveSpeed = camera.moveSpeed * deltaTime;
+        
+        Vec3 forward = camera.getForward();
+        Vec3 right = camera.getRight();
+        
+        bool moved = false;
+        
+        // WASD movement
+        if (ImGui::IsKeyDown(ImGuiKey_W)) { // Forward
+            camera.position = camera.position + forward * currentMoveSpeed;
+            moved = true;
+        }
+        if (ImGui::IsKeyDown(ImGuiKey_S)) { // Backward
+            camera.position = camera.position - forward * currentMoveSpeed;
+            moved = true;
+        }
+        if (ImGui::IsKeyDown(ImGuiKey_A)) { // Left
+            camera.position = camera.position - right * currentMoveSpeed;
+            moved = true;
+        }
+        if (ImGui::IsKeyDown(ImGuiKey_D)) { // Right
+            camera.position = camera.position + right * currentMoveSpeed;
+            moved = true;
+        }
+        if (ImGui::IsKeyDown(ImGuiKey_Space)) { // Up
+            camera.position.y += currentMoveSpeed;
+            moved = true;
+        }
+        if (ImGui::IsKeyDown(ImGuiKey_LeftShift)) { // Down
+            camera.position.y -= currentMoveSpeed;
+            moved = true;
+        }
+        
+        if (moved) {
+            // Update camera arrays
+            cameraPosition[0] = camera.position.x;
+            cameraPosition[1] = camera.position.y;
+            cameraPosition[2] = camera.position.z;
+            
+            camera.updateTarget(cameraTarget);
+            cameraChanged = true;
+        }
     }
 }
 
