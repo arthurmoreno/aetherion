@@ -221,6 +221,21 @@ void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo
                 break;
         }
     }
+    
+    ImGui::Separator();
+    ImGui::Text("Display Options");
+    
+    // Grid visibility controls
+    static bool showGrid = true;
+    static bool showAxes = true;
+    static bool showWireframe = true;
+    
+    ImGui::Checkbox("Show Grid", &showGrid);
+    ImGui::Checkbox("Show Axes", &showAxes);  
+    ImGui::Checkbox("Show Wireframe", &showWireframe);
+    
+    // Store these in static variables that can be accessed by render functions
+    // We'll modify the render function to use these flags
 }
 
 // Update the transformation matrix based on current control values
@@ -315,6 +330,9 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
                     std::function<ImVec2(float, float, float)> projectToScreen,
                     float zoom, nb::ndarray<nb::numpy>& voxel_data);
 void renderTransformationInfo(nb::ndarray<nb::numpy>& voxel_data, float objectMatrix[16]);
+void drawCoordinateAxes(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen);
+void drawGrid(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen, float zoom);
+void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen, float zoom);
 
 // Render the main 3D viewport with voxels and ImGuizmo
 void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data, 
@@ -364,37 +382,52 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
     // Render the 3D voxel visualization
     ImDrawList* drawList = ImGui::GetWindowDrawList();
     
-    // Draw the voxel container outline using the same 3D coordinate system as the voxels
-    // Define the 8 corners of a unit cube in 3D space
-    std::vector<std::tuple<float, float, float>> cubeCorners = {
-        {-1.0f, -1.0f, -1.0f}, {1.0f, -1.0f, -1.0f}, {1.0f, 1.0f, -1.0f}, {-1.0f, 1.0f, -1.0f},  // Back face
-        {-1.0f, -1.0f,  1.0f}, {1.0f, -1.0f,  1.0f}, {1.0f, 1.0f,  1.0f}, {-1.0f, 1.0f,  1.0f}   // Front face
-    };
+    // Get visibility flags (we'll use static variables for simplicity)
+    static bool showGrid = true;
+    static bool showAxes = true;
+    static bool showWireframe = true;
     
-    // Project all corners to screen space
-    std::vector<ImVec2> screenCorners;
-    for (const auto& corner : cubeCorners) {
-        screenCorners.push_back(projectToScreen(std::get<0>(corner), std::get<1>(corner), std::get<2>(corner)));
+    // Draw coordinate axes and grid first (behind voxels) - conditionally
+    if (showAxes) {
+        drawCoordinateAxes(drawList, projectToScreen);
+    }
+    if (showGrid) {
+        drawGrid(drawList, projectToScreen, zoom);
     }
     
-    // Draw the wireframe cube using the projected corners
-    // Back face
-    drawList->AddLine(screenCorners[0], screenCorners[1], IM_COL32(255, 255, 255, 255), 2.0f);
-    drawList->AddLine(screenCorners[1], screenCorners[2], IM_COL32(255, 255, 255, 255), 2.0f);
-    drawList->AddLine(screenCorners[2], screenCorners[3], IM_COL32(255, 255, 255, 255), 2.0f);
-    drawList->AddLine(screenCorners[3], screenCorners[0], IM_COL32(255, 255, 255, 255), 2.0f);
-    
-    // Front face
-    drawList->AddLine(screenCorners[4], screenCorners[5], IM_COL32(255, 255, 255, 255), 2.0f);
-    drawList->AddLine(screenCorners[5], screenCorners[6], IM_COL32(255, 255, 255, 255), 2.0f);
-    drawList->AddLine(screenCorners[6], screenCorners[7], IM_COL32(255, 255, 255, 255), 2.0f);
-    drawList->AddLine(screenCorners[7], screenCorners[4], IM_COL32(255, 255, 255, 255), 2.0f);
-    
-    // Connecting edges
-    drawList->AddLine(screenCorners[0], screenCorners[4], IM_COL32(255, 255, 255, 255), 2.0f);
-    drawList->AddLine(screenCorners[1], screenCorners[5], IM_COL32(255, 255, 255, 255), 2.0f);
-    drawList->AddLine(screenCorners[2], screenCorners[6], IM_COL32(255, 255, 255, 255), 2.0f);
-    drawList->AddLine(screenCorners[3], screenCorners[7], IM_COL32(255, 255, 255, 255), 2.0f);
+    // Draw the voxel container outline using the same 3D coordinate system as the voxels
+    if (showWireframe) {
+        // Define the 8 corners of a unit cube in 3D space
+        std::vector<std::tuple<float, float, float>> cubeCorners = {
+            {-1.0f, -1.0f, -1.0f}, {1.0f, -1.0f, -1.0f}, {1.0f, 1.0f, -1.0f}, {-1.0f, 1.0f, -1.0f},  // Back face
+            {-1.0f, -1.0f,  1.0f}, {1.0f, -1.0f,  1.0f}, {1.0f, 1.0f,  1.0f}, {-1.0f, 1.0f,  1.0f}   // Front face
+        };
+        
+        // Project all corners to screen space
+        std::vector<ImVec2> screenCorners;
+        for (const auto& corner : cubeCorners) {
+            screenCorners.push_back(projectToScreen(std::get<0>(corner), std::get<1>(corner), std::get<2>(corner)));
+        }
+        
+        // Draw the wireframe cube using the projected corners
+        // Back face
+        drawList->AddLine(screenCorners[0], screenCorners[1], IM_COL32(255, 255, 255, 255), 2.0f);
+        drawList->AddLine(screenCorners[1], screenCorners[2], IM_COL32(255, 255, 255, 255), 2.0f);
+        drawList->AddLine(screenCorners[2], screenCorners[3], IM_COL32(255, 255, 255, 255), 2.0f);
+        drawList->AddLine(screenCorners[3], screenCorners[0], IM_COL32(255, 255, 255, 255), 2.0f);
+        
+        // Front face
+        drawList->AddLine(screenCorners[4], screenCorners[5], IM_COL32(255, 255, 255, 255), 2.0f);
+        drawList->AddLine(screenCorners[5], screenCorners[6], IM_COL32(255, 255, 255, 255), 2.0f);
+        drawList->AddLine(screenCorners[6], screenCorners[7], IM_COL32(255, 255, 255, 255), 2.0f);
+        drawList->AddLine(screenCorners[7], screenCorners[4], IM_COL32(255, 255, 255, 255), 2.0f);
+        
+        // Connecting edges
+        drawList->AddLine(screenCorners[0], screenCorners[4], IM_COL32(255, 255, 255, 255), 2.0f);
+        drawList->AddLine(screenCorners[1], screenCorners[5], IM_COL32(255, 255, 255, 255), 2.0f);
+        drawList->AddLine(screenCorners[2], screenCorners[6], IM_COL32(255, 255, 255, 255), 2.0f);
+        drawList->AddLine(screenCorners[3], screenCorners[7], IM_COL32(255, 255, 255, 255), 2.0f);
+    }
     
     // Calculate total size for voxel data processing
     size_t totalSize = 1;
@@ -633,6 +666,152 @@ void renderTransformationInfo(nb::ndarray<nb::numpy>& voxel_data, float objectMa
         ImGui::Text("%.2f %.2f %.2f | %.2f", objectMatrix[1], objectMatrix[5], objectMatrix[9], objectMatrix[13]);
         ImGui::Text("%.2f %.2f %.2f | %.2f", objectMatrix[2], objectMatrix[6], objectMatrix[10], objectMatrix[14]);
         ImGui::Text("%.2f %.2f %.2f | %.2f", objectMatrix[3], objectMatrix[7], objectMatrix[11], objectMatrix[15]);
+    }
+}
+
+// Draw coordinate axes (X=Red, Y=Green, Z=Blue)
+void drawCoordinateAxes(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen) {
+    // Origin point
+    ImVec2 origin = projectToScreen(0.0f, 0.0f, 0.0f);
+    
+    // Axis endpoints (extending from origin)
+    float axisLength = 1.5f; // Extend beyond the unit cube
+    ImVec2 xAxisEnd = projectToScreen(axisLength, 0.0f, 0.0f);
+    ImVec2 yAxisEnd = projectToScreen(0.0f, axisLength, 0.0f);
+    ImVec2 zAxisEnd = projectToScreen(0.0f, 0.0f, axisLength);
+    
+    // Draw axes with different colors
+    // X-axis (Red)
+    drawList->AddLine(origin, xAxisEnd, IM_COL32(255, 100, 100, 255), 3.0f);
+    // Y-axis (Green)  
+    drawList->AddLine(origin, yAxisEnd, IM_COL32(100, 255, 100, 255), 3.0f);
+    // Z-axis (Blue)
+    drawList->AddLine(origin, zAxisEnd, IM_COL32(100, 100, 255, 255), 3.0f);
+    
+    // Add axis labels
+    ImVec2 textOffset(5, 5);
+    drawList->AddText(ImVec2(xAxisEnd.x + textOffset.x, xAxisEnd.y + textOffset.y), IM_COL32(255, 100, 100, 255), "X");
+    drawList->AddText(ImVec2(yAxisEnd.x + textOffset.x, yAxisEnd.y + textOffset.y), IM_COL32(100, 255, 100, 255), "Y");
+    drawList->AddText(ImVec2(zAxisEnd.x + textOffset.x, zAxisEnd.y + textOffset.y), IM_COL32(100, 100, 255, 255), "Z");
+    
+    // Draw origin marker
+    drawList->AddCircleFilled(origin, 4.0f, IM_COL32(255, 255, 255, 255));
+    drawList->AddText(ImVec2(origin.x + textOffset.x, origin.y + textOffset.y), IM_COL32(255, 255, 255, 255), "O");
+}
+
+// Draw 3D grid with unit measurements
+void drawGrid(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen, float zoom) {
+    const float gridStep = 0.2f; // Grid spacing (5 units per full range [-1,1])
+    const float gridExtent = 1.0f; // Grid extends from -1 to +1
+    const ImU32 gridColor = IM_COL32(80, 80, 80, 128); // Semi-transparent gray
+    const ImU32 majorGridColor = IM_COL32(120, 120, 120, 180); // Slightly brighter for major lines
+    
+    // Draw grid lines parallel to XY plane (at different Z levels)
+    for (float z = -gridExtent; z <= gridExtent; z += gridStep) {
+        bool isMajorZ = (std::abs(z) < 0.01f || std::abs(std::abs(z) - 0.5f) < 0.01f || std::abs(std::abs(z) - 1.0f) < 0.01f);
+        ImU32 currentColor = isMajorZ ? majorGridColor : gridColor;
+        
+        // Horizontal lines (parallel to X-axis)
+        for (float y = -gridExtent; y <= gridExtent; y += gridStep) {
+            ImVec2 start = projectToScreen(-gridExtent, y, z);
+            ImVec2 end = projectToScreen(gridExtent, y, z);
+            drawList->AddLine(start, end, currentColor, isMajorZ ? 1.5f : 1.0f);
+        }
+        
+        // Vertical lines (parallel to Y-axis)
+        for (float x = -gridExtent; x <= gridExtent; x += gridStep) {
+            ImVec2 start = projectToScreen(x, -gridExtent, z);
+            ImVec2 end = projectToScreen(x, gridExtent, z);
+            drawList->AddLine(start, end, currentColor, isMajorZ ? 1.5f : 1.0f);
+        }
+    }
+    
+    // Draw grid lines parallel to XZ plane (at different Y levels)
+    for (float y = -gridExtent; y <= gridExtent; y += gridStep) {
+        bool isMajorY = (std::abs(y) < 0.01f || std::abs(std::abs(y) - 0.5f) < 0.01f || std::abs(std::abs(y) - 1.0f) < 0.01f);
+        ImU32 currentColor = isMajorY ? majorGridColor : gridColor;
+        
+        // Lines parallel to Z-axis
+        for (float x = -gridExtent; x <= gridExtent; x += gridStep) {
+            ImVec2 start = projectToScreen(x, y, -gridExtent);
+            ImVec2 end = projectToScreen(x, y, gridExtent);
+            drawList->AddLine(start, end, currentColor, isMajorY ? 1.5f : 1.0f);
+        }
+    }
+    
+    // Draw grid lines parallel to YZ plane (at different X levels)
+    for (float x = -gridExtent; x <= gridExtent; x += gridStep) {
+        bool isMajorX = (std::abs(x) < 0.01f || std::abs(std::abs(x) - 0.5f) < 0.01f || std::abs(std::abs(x) - 1.0f) < 0.01f);
+        ImU32 currentColor = isMajorX ? majorGridColor : gridColor;
+        
+        // Lines parallel to Z-axis
+        for (float y = -gridExtent; y <= gridExtent; y += gridStep) {
+            ImVec2 start = projectToScreen(x, y, -gridExtent);
+            ImVec2 end = projectToScreen(x, y, gridExtent);
+            drawList->AddLine(start, end, currentColor, isMajorX ? 1.5f : 1.0f);
+        }
+    }
+    
+    // Add unit measurements along the axes
+    drawUnitMeasurements(drawList, projectToScreen, zoom);
+}
+
+// Draw unit measurements and scale indicators
+void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen, float zoom) {
+    const ImU32 measurementColor = IM_COL32(200, 200, 200, 255);
+    const float tickSize = 3.0f;
+    
+    // Unit measurements along X-axis
+    for (int i = -5; i <= 5; i++) {
+        if (i == 0) continue; // Skip origin
+        float x = i * 0.2f; // Convert to [-1,1] range
+        ImVec2 axisPoint = projectToScreen(x, 0.0f, 0.0f);
+        ImVec2 tickStart = ImVec2(axisPoint.x, axisPoint.y - tickSize);
+        ImVec2 tickEnd = ImVec2(axisPoint.x, axisPoint.y + tickSize);
+        
+        drawList->AddLine(tickStart, tickEnd, measurementColor, 2.0f);
+        
+        // Add measurement label
+        char label[8];
+        snprintf(label, sizeof(label), "%.1f", x);
+        ImVec2 textPos = ImVec2(axisPoint.x - 8, axisPoint.y + 8);
+        drawList->AddText(textPos, measurementColor, label);
+    }
+    
+    // Unit measurements along Y-axis
+    for (int i = -5; i <= 5; i++) {
+        if (i == 0) continue; // Skip origin
+        float y = i * 0.2f; // Convert to [-1,1] range
+        ImVec2 axisPoint = projectToScreen(0.0f, y, 0.0f);
+        ImVec2 tickStart = ImVec2(axisPoint.x - tickSize, axisPoint.y);
+        ImVec2 tickEnd = ImVec2(axisPoint.x + tickSize, axisPoint.y);
+        
+        drawList->AddLine(tickStart, tickEnd, measurementColor, 2.0f);
+        
+        // Add measurement label
+        char label[8];
+        snprintf(label, sizeof(label), "%.1f", y);
+        ImVec2 textPos = ImVec2(axisPoint.x + 8, axisPoint.y - 8);
+        drawList->AddText(textPos, measurementColor, label);
+    }
+    
+    // Unit measurements along Z-axis
+    for (int i = -5; i <= 5; i++) {
+        if (i == 0) continue; // Skip origin
+        float z = i * 0.2f; // Convert to [-1,1] range
+        ImVec2 axisPoint = projectToScreen(0.0f, 0.0f, z);
+        
+        // Create a small cross for Z-axis ticks
+        drawList->AddLine(ImVec2(axisPoint.x - tickSize, axisPoint.y - tickSize),
+                         ImVec2(axisPoint.x + tickSize, axisPoint.y + tickSize), measurementColor, 2.0f);
+        drawList->AddLine(ImVec2(axisPoint.x - tickSize, axisPoint.y + tickSize),
+                         ImVec2(axisPoint.x + tickSize, axisPoint.y - tickSize), measurementColor, 2.0f);
+        
+        // Add measurement label
+        char label[8];
+        snprintf(label, sizeof(label), "%.1f", z);
+        ImVec2 textPos = ImVec2(axisPoint.x + 8, axisPoint.y + 8);
+        drawList->AddText(textPos, measurementColor, label);
     }
 }
 
