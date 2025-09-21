@@ -15,6 +15,7 @@ struct GameCamera {
     Vec3 position;
     float yaw = 0.0f;     // Horizontal rotation
     float pitch = 0.0f;   // Vertical rotation
+    float roll = 0.0f;    // Roll rotation (airplane ailerons)
     float sensitivity = 0.003f;
     float moveSpeed = 15.0f;
     bool enabled = false;
@@ -61,9 +62,19 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
 
 // Main function to render the 3D voxel viewport in a single organized window
 void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data) {
-    // Create single main window
+    // Game camera state (declare early to use in window flags)
+    static GameCamera gameCamera;
+    static ImVec2 lastMousePos = ImVec2(0, 0);
+    static bool firstMouseMove = true;
+    
+    // Create single main window - prevent moving when in game mode
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar;
+    if (gameCamera.enabled) {
+        windowFlags |= ImGuiWindowFlags_NoMove; // Prevent dragging when in game mode
+    }
+    
     ImGui::SetNextWindowSize(ImVec2(1400, 900), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("3D Voxel Viewport", nullptr, ImGuiWindowFlags_MenuBar)) {
+    if (!ImGui::Begin("3D Voxel Viewport", nullptr, windowFlags)) {
         ImGui::End();
         return;
     }
@@ -110,11 +121,6 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     static bool showImGuizmo = false;
     static bool showVoxelBorders = true;
     static bool showDebugFaceOrder = false;
-    
-    // Game camera state (easily portable to OpenGL)
-    static GameCamera gameCamera;
-    static ImVec2 lastMousePos = ImVec2(0, 0);
-    static bool firstMouseMove = true;
     
     // Layout control variables
     static bool showControlPanel = true;
@@ -218,6 +224,28 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
             right[0] * forward[1] - right[1] * forward[0]
         };
         
+        // Apply roll rotation to right and up vectors
+        if (gameCamera.enabled && std::abs(gameCamera.roll) > 0.001f) {
+            float cosRoll = cosf(gameCamera.roll);
+            float sinRoll = sinf(gameCamera.roll);
+            
+            // Rotate right and up vectors around forward axis
+            float newRight[3] = {
+                right[0] * cosRoll - up[0] * sinRoll,
+                right[1] * cosRoll - up[1] * sinRoll,
+                right[2] * cosRoll - up[2] * sinRoll
+            };
+            float newUp[3] = {
+                right[0] * sinRoll + up[0] * cosRoll,
+                right[1] * sinRoll + up[1] * cosRoll,
+                right[2] * sinRoll + up[2] * cosRoll
+            };
+            
+            // Update right and up vectors
+            right[0] = newRight[0]; right[1] = newRight[1]; right[2] = newRight[2];
+            up[0] = newUp[0]; up[1] = newUp[1]; up[2] = newUp[2];
+        }
+        
         // Build view matrix (column-major)
         cameraView[0] = right[0];   cameraView[4] = right[1];   cameraView[8] = right[2];    cameraView[12] = -(right[0]*cameraPosition[0] + right[1]*cameraPosition[1] + right[2]*cameraPosition[2]);
         cameraView[1] = up[0];      cameraView[5] = up[1];      cameraView[9] = up[2];       cameraView[13] = -(up[0]*cameraPosition[0] + up[1]*cameraPosition[1] + up[2]*cameraPosition[2]);
@@ -246,28 +274,41 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
             if (ImGui::BeginTabItem("Transform")) {
                 // Collapsible sections for better organization
                 if (ImGui::CollapsingHeader("Transform Controls", ImGuiTreeNodeFlags_DefaultOpen)) {
-                    if (ImGui::SliderFloat3("Translation", translation, -50.0f, 50.0f)) {
-                        matrixChanged = true;
-                    }
-                    if (ImGui::SliderFloat3("Rotation (deg)", rotation, -180.0f, 180.0f)) {
-                        matrixChanged = true;
-                    }
-                    if (ImGui::SliderFloat3("Scale", scale, 0.1f, 3.0f)) {
-                        matrixChanged = true;
-                    }
-                    if (ImGui::SliderFloat("View Distance", &viewDistance, 1.0f, 20.0f)) {
-                        matrixChanged = true;
-                    }
-                    if (ImGui::SliderFloat("Zoom", &zoom, 0.1f, 300.0f)) {
-                        matrixChanged = true;
-                    }
-                    
-                    if (ImGui::Button("Reset Transform")) {
-                        translation[0] = -0.3f; translation[1] = -0.3f; translation[2] = 5.0f;
-                        rotation[0] = -45.0f; rotation[1] = 45.0f; rotation[2] = -90.0f;
-                        scale[0] = scale[1] = scale[2] = 1.0f;
-                        viewDistance = 25.0f; zoom = 20.0f;
-                        matrixChanged = true;
+                    // Disable keyboard input for sliders when game mode is active
+                    if (gameCamera.enabled) {
+                        ImGui::BeginDisabled();
+                        ImGui::Text("Transform controls disabled in Game Mode");
+                        ImGui::SliderFloat3("Translation", translation, -50.0f, 50.0f);
+                        ImGui::SliderFloat3("Rotation (deg)", rotation, -180.0f, 180.0f);
+                        ImGui::SliderFloat3("Scale", scale, 0.1f, 3.0f);
+                        ImGui::SliderFloat("View Distance", &viewDistance, 1.0f, 20.0f);
+                        ImGui::SliderFloat("Zoom", &zoom, 0.1f, 300.0f);
+                        ImGui::Button("Reset Transform");
+                        ImGui::EndDisabled();
+                    } else {
+                        if (ImGui::SliderFloat3("Translation", translation, -50.0f, 50.0f)) {
+                            matrixChanged = true;
+                        }
+                        if (ImGui::SliderFloat3("Rotation (deg)", rotation, -180.0f, 180.0f)) {
+                            matrixChanged = true;
+                        }
+                        if (ImGui::SliderFloat3("Scale", scale, 0.1f, 3.0f)) {
+                            matrixChanged = true;
+                        }
+                        if (ImGui::SliderFloat("View Distance", &viewDistance, 1.0f, 20.0f)) {
+                            matrixChanged = true;
+                        }
+                        if (ImGui::SliderFloat("Zoom", &zoom, 0.1f, 300.0f)) {
+                            matrixChanged = true;
+                        }
+                        
+                        if (ImGui::Button("Reset Transform")) {
+                            translation[0] = -0.3f; translation[1] = -0.3f; translation[2] = 5.0f;
+                            rotation[0] = -45.0f; rotation[1] = 45.0f; rotation[2] = -90.0f;
+                            scale[0] = scale[1] = scale[2] = 1.0f;
+                            viewDistance = 25.0f; zoom = 20.0f;
+                            matrixChanged = true;
+                        }
                     }
                 }
                 
@@ -279,30 +320,155 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
                         ImGui::BulletText("Hold Left Mouse + Move: Look around");
                         ImGui::BulletText("WASD: Move forward/backward/strafe");
                         ImGui::BulletText("Space: Move up, Shift: Move down");
+                        ImGui::BulletText("Q/E: Roll left/right (ailerons)");
                         
                         ImGui::SliderFloat("Mouse Sensitivity", &gameCamera.sensitivity, 0.001f, 0.01f);
                         ImGui::SliderFloat("Move Speed", &gameCamera.moveSpeed, 1.0f, 50.0f);
                         
                         if (ImGui::Button("Reset Game Camera")) {
                             gameCamera.position = Vec3(8.0f, 8.0f, -20.0f);
-                            gameCamera.yaw = 0.0f; gameCamera.pitch = 0.0f;
+                            gameCamera.yaw = 0.0f; gameCamera.pitch = 0.0f; gameCamera.roll = 0.0f;
                             cameraPosition[0] = gameCamera.position.x;
                             cameraPosition[1] = gameCamera.position.y;
                             cameraPosition[2] = gameCamera.position.z;
                             gameCamera.updateTarget(cameraTarget);
                             cameraChanged = true;
                         }
+                        
+                        // Movement Controls Section
+                        ImGui::Separator();
+                        ImGui::Text("Movement Controls:");
+                        
+                        ImGuiIO& io = ImGui::GetIO();
+                        float deltaTime = io.DeltaTime;
+                        float buttonMoveSpeed = gameCamera.moveSpeed * deltaTime * 10.0f; // Faster for button presses
+                        
+                        Vec3 forward = gameCamera.getForward();
+                        Vec3 right = gameCamera.getRight();
+                        bool buttonMoved = false;
+                        
+                        // Forward/Backward movement
+                        ImGui::Text("Movement:");
+                        if (ImGui::Button("Forward (W)", ImVec2(80, 30))) {
+                            gameCamera.position = gameCamera.position + forward * buttonMoveSpeed;
+                            buttonMoved = true;
+                        }
+                        ImGui::SameLine();
+                        if (ImGui::Button("Backward (S)", ImVec2(80, 30))) {
+                            gameCamera.position = gameCamera.position - forward * buttonMoveSpeed;
+                            buttonMoved = true;
+                        }
+                        
+                        // Left/Right movement
+                        if (ImGui::Button("Left (A)", ImVec2(80, 30))) {
+                            gameCamera.position = gameCamera.position - right * buttonMoveSpeed;
+                            buttonMoved = true;
+                        }
+                        ImGui::SameLine();
+                        if (ImGui::Button("Right (D)", ImVec2(80, 30))) {
+                            gameCamera.position = gameCamera.position + right * buttonMoveSpeed;
+                            buttonMoved = true;
+                        }
+                        
+                        // Up/Down movement
+                        if (ImGui::Button("Up (Space)", ImVec2(80, 30))) {
+                            gameCamera.position.y += buttonMoveSpeed;
+                            buttonMoved = true;
+                        }
+                        ImGui::SameLine();
+                        if (ImGui::Button("Down (Shift)", ImVec2(80, 30))) {
+                            gameCamera.position.y -= buttonMoveSpeed;
+                            buttonMoved = true;
+                        }
+                        
+                        // Look Controls Section
+                        ImGui::Separator();
+                        ImGui::Text("Look Controls:");
+                        
+                        float lookSpeed = gameCamera.sensitivity * 100.0f; // Adjust sensitivity for buttons
+                        bool lookMoved = false;
+                        
+                        // Pitch controls (up/down looking)
+                        if (ImGui::Button("Look Up", ImVec2(80, 30))) {
+                            gameCamera.pitch += lookSpeed;
+                            gameCamera.pitch = std::min(gameCamera.pitch, 1.55f); // Clamp
+                            lookMoved = true;
+                        }
+                        ImGui::SameLine();
+                        if (ImGui::Button("Look Down", ImVec2(80, 30))) {
+                            gameCamera.pitch -= lookSpeed;
+                            gameCamera.pitch = std::max(gameCamera.pitch, -1.55f); // Clamp
+                            lookMoved = true;
+                        }
+                        
+                        // Yaw controls (left/right looking)
+                        if (ImGui::Button("Look Left", ImVec2(80, 30))) {
+                            gameCamera.yaw += lookSpeed;
+                            lookMoved = true;
+                        }
+                        ImGui::SameLine();
+                        if (ImGui::Button("Look Right", ImVec2(80, 30))) {
+                            gameCamera.yaw -= lookSpeed;
+                            lookMoved = true;
+                        }
+                        
+                        // Roll controls (airplane ailerons)
+                        ImGui::Text("Roll Controls (Ailerons):");
+                        if (ImGui::Button("Roll Left (Q)", ImVec2(80, 30))) {
+                            gameCamera.roll += lookSpeed;
+                            lookMoved = true;
+                        }
+                        ImGui::SameLine();
+                        if (ImGui::Button("Roll Right (E)", ImVec2(80, 30))) {
+                            gameCamera.roll -= lookSpeed;
+                            lookMoved = true;
+                        }
+                        
+                        // Update camera if moved via buttons
+                        if (buttonMoved || lookMoved) {
+                            cameraPosition[0] = gameCamera.position.x;
+                            cameraPosition[1] = gameCamera.position.y;
+                            cameraPosition[2] = gameCamera.position.z;
+                            gameCamera.updateTarget(cameraTarget);
+                            cameraChanged = true;
+                        }
+                        
                         ImGui::Separator();
                     }
                     
-                    if (ImGui::SliderFloat3("Camera Position", cameraPosition, -50.0f, 50.0f)) {
-                        if (!gameCamera.enabled) cameraChanged = true;
+                    // Camera position controls - read-only in game mode
+                    if (gameCamera.enabled) {
+                        ImGui::BeginDisabled();
+                        ImGui::SliderFloat3("Camera Position", cameraPosition, -50.0f, 50.0f);
+                        ImGui::EndDisabled();
+                        ImGui::SameLine();
+                        ImGui::TextDisabled("(Game Mode)");
+                    } else {
+                        if (ImGui::SliderFloat3("Camera Position", cameraPosition, -50.0f, 50.0f)) {
+                            cameraChanged = true;
+                        }
                     }
-                    if (ImGui::SliderFloat3("Camera Target", cameraTarget, -20.0f, 20.0f)) {
-                        if (!gameCamera.enabled) cameraChanged = true;
+                    
+                    if (gameCamera.enabled) {
+                        ImGui::BeginDisabled();
+                        ImGui::SliderFloat3("Camera Target", cameraTarget, -20.0f, 20.0f);
+                        ImGui::EndDisabled();
+                        ImGui::SameLine();
+                        ImGui::TextDisabled("(Game Mode)");
+                    } else {
+                        if (ImGui::SliderFloat3("Camera Target", cameraTarget, -20.0f, 20.0f)) {
+                            cameraChanged = true;
+                        }
                     }
-                    if (ImGui::SliderFloat3("Camera Up", cameraUp, -1.0f, 1.0f)) {
-                        if (!gameCamera.enabled) cameraChanged = true;
+                    
+                    if (gameCamera.enabled) {
+                        ImGui::BeginDisabled();
+                        ImGui::SliderFloat3("Camera Up", cameraUp, -1.0f, 1.0f);
+                        ImGui::EndDisabled();
+                    } else {
+                        if (ImGui::SliderFloat3("Camera Up", cameraUp, -1.0f, 1.0f)) {
+                            cameraChanged = true;
+                        }
                     }
                 }
                 
@@ -1444,14 +1610,17 @@ void processGameCameraInput(GameCamera& camera, float cameraPosition[3], float c
                            bool& cameraChanged, const ImVec2& viewportPos, const ImVec2& viewportSize) {
     static ImVec2 lastMousePos = ImVec2(0, 0);
     static bool firstMouseMove = true;
-
+    
     // Check if mouse is over the 3D viewport area
     ImVec2 mousePos = ImGui::GetMousePos();
     bool isViewportHovered = mousePos.x >= viewportPos.x && mousePos.x <= viewportPos.x + viewportSize.x &&
                             mousePos.y >= viewportPos.y && mousePos.y <= viewportPos.y + viewportSize.y;
-
+    
     // Mouse look (only when left mouse button held and over viewport)
     if (isViewportHovered && ImGui::IsMouseDown(0)) {
+        // Capture mouse to prevent window dragging
+        ImGui::SetMouseCursor(ImGuiMouseCursor_None);
+        
         if (!firstMouseMove) {
             float deltaX = mousePos.x - lastMousePos.x;
             float deltaY = mousePos.y - lastMousePos.y;
@@ -1469,10 +1638,11 @@ void processGameCameraInput(GameCamera& camera, float cameraPosition[3], float c
         firstMouseMove = false;
     } else {
         firstMouseMove = true;
+        ImGui::SetMouseCursor(ImGuiMouseCursor_Arrow);
     }
     
-    // WASD movement (only when window is focused)
-    if (ImGui::IsWindowFocused()) {
+    // WASD movement (only when window is focused and not interacting with UI)
+    if (ImGui::IsWindowFocused() && !ImGui::IsAnyItemActive() && !ImGui::IsAnyItemHovered()) {
         ImGuiIO& io = ImGui::GetIO();
         float deltaTime = io.DeltaTime;
         float currentMoveSpeed = camera.moveSpeed * deltaTime;
@@ -1508,6 +1678,16 @@ void processGameCameraInput(GameCamera& camera, float cameraPosition[3], float c
             moved = true;
         }
         
+        // Roll controls (Q/E keys)
+        if (ImGui::IsKeyDown(ImGuiKey_Q)) { // Roll left
+            camera.roll += camera.sensitivity * 50.0f; // Slightly slower than look
+            moved = true;
+        }
+        if (ImGui::IsKeyDown(ImGuiKey_E)) { // Roll right
+            camera.roll -= camera.sensitivity * 50.0f;
+            moved = true;
+        }
+        
         if (moved) {
             // Update camera arrays
             cameraPosition[0] = camera.position.x;
@@ -1519,5 +1699,3 @@ void processGameCameraInput(GameCamera& camera, float cameraPosition[3], float c
         }
     }
 }
-
-
