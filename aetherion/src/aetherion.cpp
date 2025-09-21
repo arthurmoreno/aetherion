@@ -13,6 +13,7 @@
 // #include <nanobind/stl/string.h>
 // #include <nanobind/stl/unique_ptr.h>
 // #include <nanobind/stl/variant.h>
+#include <nanobind/ndarray.h>
 #include <spdlog/spdlog.h>
 
 #include <cstdint>
@@ -106,6 +107,8 @@ NB_MODULE(_aetherion, m) {
         nb::arg("entitiesData"), nb::arg("commands"), nb::arg("statistics"), nb::arg("shared_data"),
         nb::arg("entityInterface_ptr"), nb::arg("hoveredEntityInterface_ptr"),
         nb::arg("selectedEntityInterface_ptr"));
+    m.def("imgui_prepare_editor_windows", &imguiPrepareEditorWindows, nb::arg("commands"),
+          nb::arg("shared_data"), nb::arg("voxel_data"), "Prepare the editor windows for ImGui rendering");
     m.def("imgui_prepare_title_windows", &imguiPrepareTitleWindows, nb::arg("commands"),
           nb::arg("shared_data"), "Prepare the title windows for ImGui rendering");
     m.def("imgui_prepare_world_type_form_windows", &imguiPrepareWorldTypeFormWindows,

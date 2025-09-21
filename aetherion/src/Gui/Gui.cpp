@@ -1,6 +1,7 @@
 #include "Gui.hpp"
 
 #include <nanobind/nanobind.h>
+#include <nanobind/ndarray.h>
 
 #include <algorithm>
 #include <iostream>
@@ -127,6 +128,11 @@ void imguiInit(uintptr_t window_ptr, uintptr_t renderer_ptr) {
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
+    
+    // #ifdef IMGUI_HAS_DOCK
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;      // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+    // #endif
 
     io.WantCaptureMouse = false;
     io.WantCaptureKeyboard = false;
@@ -503,6 +509,7 @@ bool showGeneralMetrics = false;
 bool showPlayerStats = false;
 bool showEntityInterface = false;
 bool showAIStatistics = false;
+bool showTextEditor = false;
 
 void RenderTopBar() {
     // Get the window size
@@ -525,7 +532,14 @@ void RenderTopBar() {
     ImGui::Begin("TopBar", nullptr, window_flags);
 
     // Push right alignment by setting cursor position
-    ImGui::SetCursorPosX(ImGui::GetWindowWidth() - 630);  // Adjust when adding more buttons
+    ImGui::SetCursorPosX(ImGui::GetWindowWidth() - 730);  // Adjust when adding more buttons
+
+    // Text Editor Button
+    if (ImGui::Button("Text Editor")) {
+        showTextEditor = true;
+    }
+
+    ImGui::SameLine();
 
     // Inventory Button
     if (ImGui::Button("Gadgets")) {
@@ -567,6 +581,53 @@ void RenderTopBar() {
         showSettings = true;
     }
 
+    ImGui::End();
+}
+
+void RenderEditorDebuggerTopBar() {
+    // Set initial position only on first use, then allow user to move it
+    ImGui::SetNextWindowPos(ImVec2(10, 60), ImGuiCond_FirstUseEver);
+    
+    // Allow the window to auto-resize to fit content
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_AlwaysAutoResize;
+
+    // Create a collapsible, draggable window
+    static bool show_editor_debugger_topbar = true;
+    if (ImGui::Begin("Editor Debugger Menu", &show_editor_debugger_topbar, window_flags)) {
+        
+        // Gadgets Button
+        if (ImGui::Button("Play")) {
+            showGadgets = true;
+        }
+
+        ImGui::SameLine();
+
+        // AI Statistics toggle button
+        if (ImGui::Button("Stop")) {
+            showAIStatistics = !showAIStatistics;
+        }
+
+        ImGui::SameLine();
+
+        // Entities Stats Button
+        if (ImGui::Button("Step")) {
+            showEntitiesStats = true;
+        }
+
+        ImGui::SameLine();
+
+        // Inventory Button
+        if (ImGui::Button("Exit to Editor")) {
+            showInventory = true;
+        }
+
+        ImGui::SameLine();
+
+        // Settings Button
+        if (ImGui::Button("Settings")) {
+            showSettings = true;
+        }
+    }
     ImGui::End();
 }
 
@@ -993,6 +1054,137 @@ void RenderAIStatisticsWindow(const nb::dict& statistics) {
     RenderAIStatisticPlot(statistics, "population_min", "Population inference interval Min");
 }
 
+// Simple self-contained text editor window using ImGui's built-in text input
+void renderTextEditorWindow(bool* showTextEditor, nb::dict& shared_data) {
+    if (!showTextEditor || !*showTextEditor) {
+        return;
+    }
+    
+    // Static text buffer - persists between calls
+    // Use a large enough buffer for text editing
+    static char textBuffer[65536] = "demo: dict[str, Any] = {\n"
+        "    \"name\": \"box_solid\",\n"
+        "    \"dims\": [16, 16, 32],  # X,Y,Z\n"
+        "    \"palette\": [\n"
+        "        \"#00000000\",  # 0 transparent\n"
+        "        \"#c0c0c0ff\",  # 1 light gray (faces)\n"
+        "        \"#404040ff\",  # 2 dark gray  (optional edges)\n"
+        "    ],\n"
+        "    \"voxels_sparse\": [\n"
+        "        # 8x8x8 cube centered at (8,8,8) -> x,y in [4..11], z in [4..11]\n"
+        "        *[\n"
+        "            {\"x\": x, \"y\": y, \"z\": z, \"color\": 1}\n"
+        "            for x in range(1, 16)\n"
+        "            for y in range(1, 16)\n"
+        "            for z in range(1, 16)\n"
+        "        ]\n"
+        "    ],\n"
+        "}\n"
+        "dims, palette, vox = load_model(demo)\n"
+        "out = render(dims, palette, vox, out_path=\"box_solid.png\", scale=1)\n"
+        "editing_sprite = Sprite(renderer, \"box_solid\", \"box_solid.png\", x=150, y=150, scale_x=64, scale_y=64)\n"
+        "editing_sprite.render()\n";
+    
+    // Static flags for editor state
+    static bool isDirty = false;
+    static bool readOnly = false;
+    
+    // Set window size on first use
+    ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
+    
+    if (ImGui::Begin("Simple Text Editor", showTextEditor, ImGuiWindowFlags_MenuBar)) {
+        
+        // Menu bar
+        if (ImGui::BeginMenuBar()) {
+            if (ImGui::BeginMenu("File")) {
+                if (ImGui::MenuItem("New", "Ctrl+N")) {
+                    textBuffer[0] = '\0';  // Clear the buffer
+                    isDirty = false;
+                }
+                if (ImGui::MenuItem("Save", "Ctrl+S")) {
+                    // TODO: Implement actual file saving
+                    std::cout << "Saving text: " << strlen(textBuffer) << " characters" << std::endl;
+                    
+                    // Safely add text content to shared_data using nanobind string conversion
+                    try {
+                        shared_data["text_editor_content"] = nb::str(textBuffer);
+                    } catch (const std::exception& e) {
+                        std::cerr << "Error storing text editor content: " << e.what() << std::endl;
+                    }
+                    
+                    isDirty = false;
+                }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Close")) {
+                    *showTextEditor = false;
+                }
+                ImGui::EndMenu();
+            }
+            
+            if (ImGui::BeginMenu("Edit")) {
+                if (ImGui::MenuItem("Read-only mode", nullptr, &readOnly)) {
+                    // Toggle read-only mode
+                }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Clear All")) {
+                    textBuffer[0] = '\0';  // Clear the buffer
+                    isDirty = true;
+                }
+                ImGui::EndMenu();
+            }
+            
+            ImGui::EndMenuBar();
+        }
+
+        // Status line
+        size_t textLength = strlen(textBuffer);
+        size_t lineCount = 1;
+        for (size_t i = 0; i < textLength; i++) {
+            if (textBuffer[i] == '\n') {
+                lineCount++;
+            }
+        }
+        
+        ImGui::Text("Lines: %zu | Characters: %zu | %s | %s", 
+            lineCount, textLength,
+            readOnly ? "Read-Only" : "Edit",
+            isDirty ? "Modified" : "Saved");
+
+        ImGui::Separator();
+
+        // Text editing area
+        ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
+        if (readOnly) {
+            flags |= ImGuiInputTextFlags_ReadOnly;
+        }
+        
+        // Use a resizable text input that fills the remaining space
+        ImVec2 textSize = ImVec2(-1, -1); // Fill available space
+        
+        if (ImGui::InputTextMultiline("##TextEditor", textBuffer, sizeof(textBuffer), textSize, flags)) {
+            isDirty = true;
+        }
+    }
+    ImGui::End();
+}
+
+// Simple utility functions for text editor content access
+std::string getTextEditorContent() {
+    // Note: This is a simplified version. To access the actual content,
+    // we would need to make the textBuffer global or implement a proper class
+    return "// To get actual content, the textBuffer would need to be accessible from here";
+}
+
+void setTextEditorContent(const std::string& content) {
+    // Note: This is a simplified version. To actually set content,
+    // the textBuffer would need to be accessible from here.
+    std::cout << "Setting text content: " << content.length() << " characters" << std::endl;
+}
+
+void showTextEditorWindow() {
+    showTextEditor = true;
+}
+
 void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<World> world_ptr,
                          nb::dict physicsChanges, nb::dict inventoryData, nb::list& consoleLogs,
                          nb::list& entitiesData, nb::list& commands, nb::dict statistics,
@@ -1005,6 +1197,7 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
+    RenderEditorDebuggerTopBar();
     RenderTopBar();
 
     /*──────────────── Settings window ─────────────*/
@@ -1147,6 +1340,9 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
         ImGui::End();
     }
 
+    // /*──────────────── Text Editor ──────────────────*/
+    // renderTextEditorWindow(&showTextEditor);
+
     /*──────────────── Console & drag‑drop ─────────*/
     RenderConsoleWindow(consoleLogs, commands);
     HandleDragDropToWorld(commands);
@@ -1155,6 +1351,282 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
         physicsChanges["GOTO_TITLE_SCREEN"] = true;
     }
     // ImGui::ShowDemoWindow();  // Show demo window! :)
+}
+
+
+
+
+void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::ndarray<nb::numpy> voxel_data) {
+    /*──────────────── Frame setup ────────────────*/
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
+    // Access numpy array properties for voxel data
+    // Example usage:
+    // - voxel_data.data() -> pointer to the data
+    // - voxel_data.shape(i) -> size of dimension i
+    // - voxel_data.ndim() -> number of dimensions
+    // - voxel_data.dtype() -> data type
+    
+    // Create a dockspace over the main viewport (if docking is available)
+    // #ifdef IMGUI_HAS_DOCK
+    // ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
+    // #endif
+    ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
+
+    // Set initial window size and position for when not docked
+    ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+    ImVec2 windowSize = ImVec2(500, 400);
+    ImVec2 windowPos =
+        ImVec2((displaySize.x - windowSize.x) * 0.5f, (displaySize.y - windowSize.y) * 0.5f);
+
+    // Set position and size only on first use to allow docking to work
+    ImGui::SetNextWindowPos(windowPos, ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(windowSize, ImGuiCond_FirstUseEver);
+
+    // Remove AlwaysAutoResize to allow proper docking behavior
+    ImGui::Begin("Title Screen", nullptr, ImGuiWindowFlags_None);
+
+    // Add some spacing from the top
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Game title - big text centered with larger font scale
+    ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[0]);  // Use default font
+    ImGui::SetWindowFontScale(2.5f);                  // Scale font to 2.5x larger
+    ImVec2 titleSize = ImGui::CalcTextSize("LIFE SIMULATION GAME");
+    ImGui::SetCursorPosX((windowSize.x - titleSize.x) * 0.5f);
+    ImGui::TextColored(ImVec4(0.6f, 0.8f, 1.0f, 1.0f), "LIFE SIMULATION GAME");
+    ImGui::SetWindowFontScale(1.0f);  // Reset font scale to normal
+    ImGui::PopFont();
+
+    // Add spacing before buttons
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    // Button styling
+    ImVec2 buttonSize = ImVec2(200, 40);
+    float buttonPosX = (windowSize.x - buttonSize.x) * 0.5f;
+
+    // Start Game Button
+    ImGui::SetCursorPosX(buttonPosX);
+    if (ImGui::Button("Start Game", buttonSize)) {
+        // Create command to start the game
+        nb::dict command;
+        command["type"] = nb::str("start_game");
+        commands.append(command);
+    }
+
+    ImGui::Spacing();
+
+    // Settings Button
+    ImGui::SetCursorPosX(buttonPosX);
+    if (ImGui::Button("Settings", buttonSize)) {
+        // Create command to open settings
+        nb::dict command;
+        command["type"] = nb::str("open_settings");
+        commands.append(command);
+    }
+
+    ImGui::Spacing();
+
+    // Credits Button
+    ImGui::SetCursorPosX(buttonPosX);
+    if (ImGui::Button("Credits", buttonSize)) {
+        // Create command to show credits
+        nb::dict command;
+        command["type"] = nb::str("show_credits");
+        commands.append(command);
+    }
+
+    ImGui::Spacing();
+
+    // Quit Button
+    ImGui::SetCursorPosX(buttonPosX);
+    if (ImGui::Button("Quit", buttonSize)) {
+        // Create command to quit the game
+        nb::dict command;
+        command["type"] = nb::str("quit_game");
+        commands.append(command);
+    }
+
+    ImGui::End();
+    
+    // ================================================================================================
+    // 3D VIEWPORT WITH IMGUIZMO - Voxel Box Visualization
+    // ================================================================================================
+    
+    // Create 3D Viewport window
+    ImGui::SetNextWindowSize(ImVec2(600, 600), ImGuiCond_FirstUseEver);
+    if (ImGui::Begin("3D Voxel Viewport")) {
+        
+        // Static camera and transformation matrices
+        static float cameraView[16] = {
+            1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, -5.0f, 1.0f
+        };
+        
+        static float cameraProjection[16];
+        static float objectMatrix[16] = {
+            1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f
+        };
+        
+        // Get the available content region
+        ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+        float aspect = viewportSize.x / viewportSize.y;
+        
+        // Setup perspective projection matrix
+        const float fov = 45.0f * 3.14159f / 180.0f; // 45 degrees in radians
+        const float nearPlane = 0.1f;
+        const float farPlane = 100.0f;
+        
+        // Create perspective projection matrix manually
+        float f = 1.0f / tanf(fov / 2.0f);
+        cameraProjection[0] = f / aspect;
+        cameraProjection[1] = 0.0f;
+        cameraProjection[2] = 0.0f;
+        cameraProjection[3] = 0.0f;
+        
+        cameraProjection[4] = 0.0f;
+        cameraProjection[5] = f;
+        cameraProjection[6] = 0.0f;
+        cameraProjection[7] = 0.0f;
+        
+        cameraProjection[8] = 0.0f;
+        cameraProjection[9] = 0.0f;
+        cameraProjection[10] = -(farPlane + nearPlane) / (farPlane - nearPlane);
+        cameraProjection[11] = -1.0f;
+        
+        cameraProjection[12] = 0.0f;
+        cameraProjection[13] = 0.0f;
+        cameraProjection[14] = -(2.0f * farPlane * nearPlane) / (farPlane - nearPlane);
+        cameraProjection[15] = 0.0f;
+        
+        // Set ImGuizmo viewport
+        ImGuizmo::SetOrthographic(false);
+        ImGuizmo::SetDrawlist();
+        ImVec2 windowPos = ImGui::GetWindowPos();
+        ImVec2 contentPos = ImGui::GetCursorScreenPos();
+        ImGuizmo::SetRect(contentPos.x, contentPos.y, viewportSize.x, viewportSize.y);
+        
+        // Controls for the voxel box
+        static ImGuizmo::OPERATION currentGizmoOperation = ImGuizmo::TRANSLATE;
+        static ImGuizmo::MODE currentGizmoMode = ImGuizmo::WORLD;
+        static bool useSnap = false;
+        static float snap[3] = { 1.0f, 1.0f, 1.0f };
+        
+        // Control panel for the 3D viewport
+        if (ImGui::RadioButton("Translate", currentGizmoOperation == ImGuizmo::TRANSLATE))
+            currentGizmoOperation = ImGuizmo::TRANSLATE;
+        ImGui::SameLine();
+        if (ImGui::RadioButton("Rotate", currentGizmoOperation == ImGuizmo::ROTATE))
+            currentGizmoOperation = ImGuizmo::ROTATE;
+        ImGui::SameLine();
+        if (ImGui::RadioButton("Scale", currentGizmoOperation == ImGuizmo::SCALE))
+            currentGizmoOperation = ImGuizmo::SCALE;
+        
+        if (currentGizmoOperation != ImGuizmo::SCALE) {
+            if (ImGui::RadioButton("Local", currentGizmoMode == ImGuizmo::LOCAL))
+                currentGizmoMode = ImGuizmo::LOCAL;
+            ImGui::SameLine();
+            if (ImGui::RadioButton("World", currentGizmoMode == ImGuizmo::WORLD))
+                currentGizmoMode = ImGuizmo::WORLD;
+        }
+        
+        ImGui::Checkbox("Snap", &useSnap);
+        if (useSnap) {
+            ImGui::SameLine();
+            switch (currentGizmoOperation) {
+                case ImGuizmo::TRANSLATE:
+                    ImGui::InputFloat3("Snap", &snap[0]);
+                    break;
+                case ImGuizmo::ROTATE:
+                    ImGui::InputFloat("Angle Snap", &snap[0]);
+                    break;
+                case ImGuizmo::SCALE:
+                    ImGui::InputFloat("Scale Snap", &snap[0]);
+                    break;
+            }
+        }
+        
+        // Draw a simple wireframe box representing the voxel volume (16x16x32)
+        ImDrawList* drawList = ImGui::GetWindowDrawList();
+        
+        // Calculate the center position of the content area
+        ImVec2 center = ImVec2(contentPos.x + viewportSize.x * 0.5f, contentPos.y + viewportSize.y * 0.5f);
+        
+        // Draw a simple representation of the voxel box
+        float boxSize = 100.0f; // Base size for visualization
+        ImVec2 boxMin = ImVec2(center.x - boxSize * 0.5f, center.y - boxSize * 0.5f);
+        ImVec2 boxMax = ImVec2(center.x + boxSize * 0.5f, center.y + boxSize * 0.5f);
+        
+        // Draw the voxel box outline
+        drawList->AddRect(boxMin, boxMax, IM_COL32(255, 255, 255, 255), 0.0f, 0, 2.0f);
+        
+        // Draw some grid lines to represent voxels
+        int gridLines = 8;
+        for (int i = 1; i < gridLines; i++) {
+            float x = boxMin.x + (boxMax.x - boxMin.x) * i / gridLines;
+            float y = boxMin.y + (boxMax.y - boxMin.y) * i / gridLines;
+            
+            // Vertical lines
+            drawList->AddLine(ImVec2(x, boxMin.y), ImVec2(x, boxMax.y), IM_COL32(128, 128, 128, 128));
+            // Horizontal lines
+            drawList->AddLine(ImVec2(boxMin.x, y), ImVec2(boxMax.x, y), IM_COL32(128, 128, 128, 128));
+        }
+        
+        // Add some sample voxels
+        for (int x = 2; x < 6; x++) {
+            for (int y = 2; y < 6; y++) {
+                float voxelX = boxMin.x + (boxMax.x - boxMin.x) * x / gridLines;
+                float voxelY = boxMin.y + (boxMax.y - boxMin.y) * y / gridLines;
+                float voxelSize = (boxMax.x - boxMin.x) / gridLines * 0.8f;
+                
+                ImU32 voxelColor = IM_COL32(100 + x * 20, 150, 100 + y * 20, 200);
+                drawList->AddRectFilled(
+                    ImVec2(voxelX, voxelY), 
+                    ImVec2(voxelX + voxelSize, voxelY + voxelSize),
+                    voxelColor
+                );
+            }
+        }
+        
+        // Use ImGuizmo to manipulate the object
+        if (ImGuizmo::Manipulate(cameraView, cameraProjection, currentGizmoOperation, currentGizmoMode, 
+                                objectMatrix, NULL, useSnap ? &snap[0] : NULL)) {
+            // Store the transformation in shared_data for external access
+            try {
+                nb::list transformMatrix;
+                for (int i = 0; i < 16; i++) {
+                    transformMatrix.append(objectMatrix[i]);
+                }
+                shared_data["voxel_transform_matrix"] = transformMatrix;
+            } catch (const std::exception& e) {
+                std::cerr << "Error storing transformation matrix: " << e.what() << std::endl;
+            }
+        }
+        
+        // Display transformation info
+        ImGui::Text("Voxel Box Dimensions: 16x16x32");
+        ImGui::Text("Transform Matrix:");
+        ImGui::Text("%.3f %.3f %.3f %.3f", objectMatrix[0], objectMatrix[4], objectMatrix[8], objectMatrix[12]);
+        ImGui::Text("%.3f %.3f %.3f %.3f", objectMatrix[1], objectMatrix[5], objectMatrix[9], objectMatrix[13]);
+        ImGui::Text("%.3f %.3f %.3f %.3f", objectMatrix[2], objectMatrix[6], objectMatrix[10], objectMatrix[14]);
+        ImGui::Text("%.3f %.3f %.3f %.3f", objectMatrix[3], objectMatrix[7], objectMatrix[11], objectMatrix[15]);
+    }
+    ImGui::End();
+    
+    showTextEditor = true;
+    renderTextEditorWindow(&showTextEditor, shared_data);
 }
 
 void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data) {
@@ -1254,4 +1726,6 @@ void imguiRender(uintptr_t renderer_ptr) {
     }
     SDL_Renderer* renderer = reinterpret_cast<SDL_Renderer*>(renderer_ptr);
     ImGui_ImplSDLRenderer2_RenderDrawData(draw_data, renderer);
+    ImGui::UpdatePlatformWindows();
+    ImGui::RenderPlatformWindowsDefault();
 }

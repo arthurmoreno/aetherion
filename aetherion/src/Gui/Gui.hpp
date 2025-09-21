@@ -7,7 +7,9 @@
 #include <imgui/backends/imgui_impl_sdlrenderer2.h>  // Updated backend header
 #include <imgui/imgui.h>
 #include <imgui/implot.h>
+#include <imgui/ImGuizmo.h>
 #include <nanobind/nanobind.h>
+#include <nanobind/ndarray.h>
 
 #include <functional>
 #include <map>
@@ -58,6 +60,8 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
                          std::shared_ptr<EntityInterface> hoveredEntityInterface_ptr,
                          std::shared_ptr<EntityInterface> selectedEntityInterface_ptr);
 
+void imguiPrepareEditorRuntimeDebuggerWindows(nb::list& commands, nb::dict& shared_data);
+void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::ndarray<nb::numpy> voxel_data);
 void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data);
 
 void imguiPrepareWorldTypeFormWindows(nb::list& commands, nb::dict& shared_data);

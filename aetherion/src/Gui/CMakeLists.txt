@@ -22,6 +22,7 @@ set(IMGUI_SOURCES
     ${IMGUI_DIR}/implot.cpp
     ${IMGUI_DIR}/implot_demo.cpp  # Optional: Remove in production
     ${IMGUI_DIR}/implot_items.cpp
+    ${IMGUI_DIR}/ImGuizmo.cpp
 )
 
 set(IMGUI_BACKEND_SOURCES
