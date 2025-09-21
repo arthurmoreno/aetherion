@@ -3,8 +3,7 @@
 // Forward declarations for helper methods
 void renderVoxelDataHeader(nb::ndarray<nb::numpy>& voxel_data);
 void renderTransformControls(float translation[3], float rotation[3], float scale[3], 
-                           float& viewDistance, float& zoom, bool& matrixChanged,
-                           float cameraPosition[3], float cameraTarget[3], float cameraUp[3], bool& cameraChanged);
+                           float& viewDistance, float& zoom, bool& matrixChanged);
 void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo::MODE& currentGizmoMode, 
                           bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo, bool& showVoxelBorders, bool& showDebugFaceOrder);
 void updateTransformationMatrix(float objectMatrix[16], const float translation[3], 
@@ -86,8 +85,7 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     ImGui::BeginChild("ControlsPanel", ImVec2(leftPanelWidth, 0), true);
     
     // Transform controls
-    renderTransformControls(translation, rotation, scale, viewDistance, zoom, matrixChanged,
-                           cameraPosition, cameraTarget, cameraUp, cameraChanged);
+    renderTransformControls(translation, rotation, scale, viewDistance, zoom, matrixChanged);
     
     ImGui::Separator();
     
@@ -104,54 +102,12 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     // Update matrices if needed
     updateTransformationMatrix(objectMatrix, translation, rotation, scale, matrixChanged);
     
-    // Update camera view matrix if camera changed
-    if (cameraChanged) {
-        // Calculate camera view matrix from position, target, and up vectors
-        // This creates a "look-at" matrix
-        float forward[3] = {
-            cameraTarget[0] - cameraPosition[0],
-            cameraTarget[1] - cameraPosition[1],
-            cameraTarget[2] - cameraPosition[2]
-        };
-        
-        // Normalize forward vector
-        float forwardLen = sqrtf(forward[0]*forward[0] + forward[1]*forward[1] + forward[2]*forward[2]);
-        if (forwardLen > 0.0f) {
-            forward[0] /= forwardLen;
-            forward[1] /= forwardLen;
-            forward[2] /= forwardLen;
-        }
-        
-        // Calculate right vector (cross product of forward and up)
-        float right[3] = {
-            forward[1] * cameraUp[2] - forward[2] * cameraUp[1],
-            forward[2] * cameraUp[0] - forward[0] * cameraUp[2],
-            forward[0] * cameraUp[1] - forward[1] * cameraUp[0]
-        };
-        
-        // Normalize right vector
-        float rightLen = sqrtf(right[0]*right[0] + right[1]*right[1] + right[2]*right[2]);
-        if (rightLen > 0.0f) {
-            right[0] /= rightLen;
-            right[1] /= rightLen;
-            right[2] /= rightLen;
-        }
-        
-        // Calculate true up vector (cross product of right and forward)
-        float up[3] = {
-            right[1] * forward[2] - right[2] * forward[1],
-            right[2] * forward[0] - right[0] * forward[2],
-            right[0] * forward[1] - right[1] * forward[0]
-        };
-        
-        // Build view matrix
-        cameraView[0] = right[0];   cameraView[4] = right[1];   cameraView[8] = right[2];    cameraView[12] = -(right[0]*cameraPosition[0] + right[1]*cameraPosition[1] + right[2]*cameraPosition[2]);
-        cameraView[1] = up[0];      cameraView[5] = up[1];      cameraView[9] = up[2];       cameraView[13] = -(up[0]*cameraPosition[0] + up[1]*cameraPosition[1] + up[2]*cameraPosition[2]);
-        cameraView[2] = -forward[0]; cameraView[6] = -forward[1]; cameraView[10] = -forward[2]; cameraView[14] = -(-forward[0]*cameraPosition[0] + -forward[1]*cameraPosition[1] + -forward[2]*cameraPosition[2]);
-        cameraView[3] = 0.0f;       cameraView[7] = 0.0f;       cameraView[11] = 0.0f;       cameraView[15] = 1.0f;
-        
-        cameraChanged = false;
-    }
+    // Simple camera setup - just use view distance for basic positioning
+    // The camera view matrix was causing conflicts, so we'll use simpler approach
+    cameraView[0] = 1.0f; cameraView[1] = 0.0f; cameraView[2] = 0.0f; cameraView[3] = 0.0f;
+    cameraView[4] = 0.0f; cameraView[5] = 1.0f; cameraView[6] = 0.0f; cameraView[7] = 0.0f;
+    cameraView[8] = 0.0f; cameraView[9] = 0.0f; cameraView[10] = 1.0f; cameraView[11] = 0.0f;
+    cameraView[12] = 0.0f; cameraView[13] = 0.0f; cameraView[14] = -viewDistance; cameraView[15] = 1.0f;
     
     float aspect = ImGui::GetContentRegionAvail().x / ImGui::GetContentRegionAvail().y;
     setupProjectionMatrix(cameraProjection, aspect);
@@ -216,8 +172,7 @@ void renderVoxelDataHeader(nb::ndarray<nb::numpy>& voxel_data) {
 
 // Render transformation control sliders
 void renderTransformControls(float translation[3], float rotation[3], float scale[3], 
-                           float& viewDistance, float& zoom, bool& matrixChanged,
-                           float cameraPosition[3], float cameraTarget[3], float cameraUp[3], bool& cameraChanged) {
+                           float& viewDistance, float& zoom, bool& matrixChanged) {
     ImGui::Text("Transform Controls");
     ImGui::Separator();
     
@@ -268,17 +223,8 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
         matrixChanged = true;
     }
     
-    ImGui::SameLine();
-    if (ImGui::Button("Reset Camera")) {
-        cameraPosition[0] = 0.0f; cameraPosition[1] = 0.0f; cameraPosition[2] = -25.0f;
-        cameraTarget[0] = 0.0f; cameraTarget[1] = 0.0f; cameraTarget[2] = 0.0f;
-        cameraUp[0] = 0.0f; cameraUp[1] = 1.0f; cameraUp[2] = 0.0f;
-        cameraChanged = true;
-    }
-    
     if (ImGui::Button("Tibia View")) {
         // Set up classic isometric Tibia-like perspective
-        // The top face appears as a perfect square, showing half of each side
         translation[0] = translation[1] = translation[2] = 0.0f;
         rotation[0] = -45.0f;  // Tilt down to see the top and sides
         rotation[1] = -45.0f;  // Rotate 45 degrees to get isometric view
@@ -287,12 +233,6 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
         viewDistance = 30.0f;  // Pull back for good view of voxel area
         zoom = 3.0f;           // Zoom in to see voxel details
         matrixChanged = true;
-        
-        // Position camera for isometric view
-        cameraPosition[0] = 15.0f; cameraPosition[1] = 15.0f; cameraPosition[2] = 15.0f;
-        cameraTarget[0] = 5.0f; cameraTarget[1] = 5.0f; cameraTarget[2] = 5.0f;
-        cameraUp[0] = 0.0f; cameraUp[1] = 1.0f; cameraUp[2] = 0.0f;
-        cameraChanged = true;
     }
     
     if (ImGui::Button("Random Rotation")) {
@@ -366,39 +306,70 @@ void updateTransformationMatrix(float objectMatrix[16], const float translation[
     float ry = rotation[1] * 3.14159f / 180.0f;
     float rz = rotation[2] * 3.14159f / 180.0f;
     
-    // Create rotation matrices
+    // Create individual rotation matrices (column-major, right-handed)
     float cos_x = cosf(rx), sin_x = sinf(rx);
     float cos_y = cosf(ry), sin_y = sinf(ry);
     float cos_z = cosf(rz), sin_z = sinf(rz);
     
-    // Combined rotation matrix (ZYX order)
-    float rotMatrix[16] = {
-        cos_y * cos_z, -cos_y * sin_z, sin_y, 0,
-        sin_x * sin_y * cos_z + cos_x * sin_z, -sin_x * sin_y * sin_z + cos_x * cos_z, -sin_x * cos_y, 0,
-        -cos_x * sin_y * cos_z + sin_x * sin_z, cos_x * sin_y * sin_z + sin_x * cos_z, cos_x * cos_y, 0,
+    // Rotation around X axis
+    float Rx[16] = {
+        1, 0, 0, 0,
+        0, cos_x, sin_x, 0,
+        0, -sin_x, cos_x, 0,
         0, 0, 0, 1
     };
     
-    // Apply scale and translation to create final transformation matrix
-    objectMatrix[0] = rotMatrix[0] * scale[0];
-    objectMatrix[1] = rotMatrix[1] * scale[0];
-    objectMatrix[2] = rotMatrix[2] * scale[0];
-    objectMatrix[3] = rotMatrix[3];
+    // Rotation around Y axis
+    float Ry[16] = {
+        cos_y, 0, -sin_y, 0,
+        0, 1, 0, 0,
+        sin_y, 0, cos_y, 0,
+        0, 0, 0, 1
+    };
     
-    objectMatrix[4] = rotMatrix[4] * scale[1];
-    objectMatrix[5] = rotMatrix[5] * scale[1];
-    objectMatrix[6] = rotMatrix[6] * scale[1];
-    objectMatrix[7] = rotMatrix[7];
+    // Rotation around Z axis
+    float Rz[16] = {
+        cos_z, sin_z, 0, 0,
+        -sin_z, cos_z, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    };
     
-    objectMatrix[8] = rotMatrix[8] * scale[2];
-    objectMatrix[9] = rotMatrix[9] * scale[2];
-    objectMatrix[10] = rotMatrix[10] * scale[2];
-    objectMatrix[11] = rotMatrix[11];
+    // Scale matrix
+    float S[16] = {
+        scale[0], 0, 0, 0,
+        0, scale[1], 0, 0,
+        0, 0, scale[2], 0,
+        0, 0, 0, 1
+    };
     
-    objectMatrix[12] = translation[0];
-    objectMatrix[13] = translation[1];
-    objectMatrix[14] = translation[2];
-    objectMatrix[15] = 1.0f;
+    // Translation matrix
+    float T[16] = {
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        translation[0], translation[1], translation[2], 1
+    };
+    
+    // Helper function to multiply 4x4 matrices (column-major)
+    auto multiplyMatrix = [](const float* a, const float* b, float* result) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                result[j * 4 + i] = 0;
+                for (int k = 0; k < 4; k++) {
+                    result[j * 4 + i] += a[k * 4 + i] * b[j * 4 + k];
+                }
+            }
+        }
+    };
+    
+    // Compute M = T * Rz * Ry * Rx * S (proper composition order)
+    float temp1[16], temp2[16], temp3[16], temp4[16];
+    
+    multiplyMatrix(Rx, S, temp1);     // Rx * S
+    multiplyMatrix(Ry, temp1, temp2); // Ry * (Rx * S)
+    multiplyMatrix(Rz, temp2, temp3); // Rz * (Ry * (Rx * S))
+    multiplyMatrix(T, temp3, objectMatrix); // T * (Rz * (Ry * (Rx * S)))
 }
 
 // Setup the perspective projection matrix
@@ -440,7 +411,8 @@ struct VoxelPoint {
 void renderVoxelData(nb::ndarray<nb::numpy>& voxel_data, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
                     std::function<std::tuple<float, float, float>(float, float, float)> transformPoint,
-                    float zoom, size_t totalSize, bool showVoxelBorders, bool showDebugFaceOrder);
+                    float zoom, size_t totalSize, bool showVoxelBorders, bool showDebugFaceOrder,
+                    std::function<float(float, float, float)> cameraDepthFn);
 void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data, 
                           std::vector<VoxelPoint>& voxelPoints, int gridSize, size_t totalSize);
 void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
@@ -448,7 +420,8 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
 void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
                     std::function<std::tuple<float, float, float>(float, float, float)> transformPoint,
-                    float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders, bool showDebugFaceOrder);
+                    float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders, bool showDebugFaceOrder,
+                    std::function<float(float, float, float)> cameraDepthFn);
 void renderTransformationInfo(nb::ndarray<nb::numpy>& voxel_data, float objectMatrix[16]);
 void drawCoordinateAxes(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen);
 void drawGrid(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen, float zoom);
@@ -469,14 +442,38 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
     ImGuizmo::SetDrawlist();
     ImGuizmo::SetRect(contentPos.x, contentPos.y, viewportSize.x, viewportSize.y);
     
-    // Helper function to apply 4x4 matrix transformation to a 3D point
+    // Proper MVP (Model-View-Projection) transformation pipeline
+    auto multiplyMatrix4 = [](const float* a, const float* b, float* result) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                result[j * 4 + i] = 0;
+                for (int k = 0; k < 4; k++) {
+                    result[j * 4 + i] += a[k * 4 + i] * b[j * 4 + k];
+                }
+            }
+        }
+    };
+    
+    // Compute MVP = Projection * View * Model and VM = View * Model
+    float MV[16], MVP[16], VM[16];
+    multiplyMatrix4(cameraView, objectMatrix, MV);      // MV = V * M
+    multiplyMatrix4(cameraProjection, MV, MVP);         // MVP = P * (V * M)
+    multiplyMatrix4(cameraView, objectMatrix, VM);      // VM = V * M (for depth calculation)
+    
+    // Camera depth function for proper depth sorting (camera-space z, not NDC)
+    auto cameraDepth = [&](float x, float y, float z) -> float {
+        return VM[2]*x + VM[6]*y + VM[10]*z + VM[14]; // camera-space z
+    };
+    
+    // Transform point using proper MVP pipeline
     auto transformPoint = [&](float x, float y, float z) -> std::tuple<float, float, float> {
-        float tx = objectMatrix[0] * x + objectMatrix[4] * y + objectMatrix[8] * z + objectMatrix[12];
-        float ty = objectMatrix[1] * x + objectMatrix[5] * y + objectMatrix[9] * z + objectMatrix[13];
-        float tz = objectMatrix[2] * x + objectMatrix[6] * y + objectMatrix[10] * z + objectMatrix[14];
-        float tw = objectMatrix[3] * x + objectMatrix[7] * y + objectMatrix[11] * z + objectMatrix[15];
+        // Apply MVP transformation (column vectors)
+        float tx = MVP[0] * x + MVP[4] * y + MVP[8] * z + MVP[12];
+        float ty = MVP[1] * x + MVP[5] * y + MVP[9] * z + MVP[13];
+        float tz = MVP[2] * x + MVP[6] * y + MVP[10] * z + MVP[14];
+        float tw = MVP[3] * x + MVP[7] * y + MVP[11] * z + MVP[15];
         
-        // Perspective divide
+        // Perspective divide to get NDC coordinates
         if (tw != 0.0f) {
             tx /= tw;
             ty /= tw;
@@ -486,16 +483,31 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
         return std::make_tuple(tx, ty, tz);
     };
     
-    // Helper function to project 3D point to 2D screen coordinates
-    auto projectToScreen = [&](float x, float y, float z) -> ImVec2 {
-        // Apply transformation matrix
-        auto [tx, ty, tz] = transformPoint(x, y, z);
+    // Transform point for camera depth calculation (View * Model only)
+    auto getCameraDepth = [&](float x, float y, float z) -> float {
+        // Apply Model transformation first
+        float mx = objectMatrix[0] * x + objectMatrix[4] * y + objectMatrix[8] * z + objectMatrix[12];
+        float my = objectMatrix[1] * x + objectMatrix[5] * y + objectMatrix[9] * z + objectMatrix[13];
+        float mz = objectMatrix[2] * x + objectMatrix[6] * y + objectMatrix[10] * z + objectMatrix[14];
+        float mw = objectMatrix[3] * x + objectMatrix[7] * y + objectMatrix[11] * z + objectMatrix[15];
         
-        // Simple orthographic projection with depth offset and zoom
-        float baseScale = 100.0f * zoom;
-        float scale = baseScale / (viewDistance + tz * 0.5f); // Scale based on distance
-        float screenX = contentPos.x + viewportSize.x * 0.5f + tx * scale;
-        float screenY = contentPos.y + viewportSize.y * 0.5f - ty * scale; // Flip Y for screen coordinates
+        if (mw != 0.0f) {
+            mx /= mw; my /= mw; mz /= mw;
+        }
+        
+        // Apply View transformation to get camera space depth
+        float cz = cameraView[2] * mx + cameraView[6] * my + cameraView[10] * mz + cameraView[14];
+        return cz; // Return camera space Z (depth)
+    };
+    
+    // Project to screen coordinates using proper viewport transformation
+    auto projectToScreen = [&](float x, float y, float z) -> ImVec2 {
+        // Get NDC coordinates
+        auto [ndcX, ndcY, ndcZ] = transformPoint(x, y, z);
+        
+        // Viewport transformation: NDC [-1,1] to screen coordinates
+        float screenX = contentPos.x + (ndcX + 1.0f) * 0.5f * viewportSize.x;
+        float screenY = contentPos.y + (1.0f - ndcY) * 0.5f * viewportSize.y; // Flip Y for screen coordinates
         
         return ImVec2(screenX, screenY);
     };
@@ -564,7 +576,7 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
     
     // Render voxels based on actual data
     if (totalSize > 0 && voxel_data.data() != nullptr) {
-        renderVoxelData(voxel_data, drawList, projectToScreen, transformPoint, zoom, totalSize, showVoxelBorders, showDebugFaceOrder);
+        renderVoxelData(voxel_data, drawList, projectToScreen, transformPoint, zoom, totalSize, showVoxelBorders, showDebugFaceOrder, cameraDepth);
     }
     
     // Use ImGuizmo to manipulate the object (only if enabled)
@@ -596,7 +608,8 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
 void renderVoxelData(nb::ndarray<nb::numpy>& voxel_data, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
                     std::function<std::tuple<float, float, float>(float, float, float)> transformPoint,
-                    float zoom, size_t totalSize, bool showVoxelBorders, bool showDebugFaceOrder) {
+                    float zoom, size_t totalSize, bool showVoxelBorders, bool showDebugFaceOrder,
+                    std::function<float(float, float, float)> cameraDepthFn) {
 
     // Determine grid size based on data dimensions or use reasonable default
     int gridSize = 16;
@@ -618,12 +631,18 @@ void renderVoxelData(nb::ndarray<nb::numpy>& voxel_data, ImDrawList* drawList,
         processIntVoxelData(data, voxel_data, voxelPoints, gridSize, totalSize);
     }
 
-    // Sort voxels by depth (back to front for proper alpha blending)
+    // Update depth values using proper camera-space depth (not NDC z)
+    for (auto& voxel : voxelPoints) {
+        float cx = voxel.x + 0.5f, cy = voxel.y + 0.5f, cz = voxel.z + 0.5f;
+        voxel.depth = cameraDepthFn(cx, cy, cz); // camera-space z
+    }
+
+    // Sort voxels by camera depth (back to front for proper rendering)
     std::sort(voxelPoints.begin(), voxelPoints.end(), 
               [](const VoxelPoint& a, const VoxelPoint& b) { return a.depth < b.depth; });
     
     // Draw sorted voxels
-    drawVoxelPoints(voxelPoints, drawList, projectToScreen, transformPoint, zoom, voxel_data, showVoxelBorders, showDebugFaceOrder);
+    drawVoxelPoints(voxelPoints, drawList, projectToScreen, transformPoint, zoom, voxel_data, showVoxelBorders, showDebugFaceOrder, cameraDepthFn);
 }
 
 // Process float voxel data
@@ -646,11 +665,11 @@ void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data
                         // Only draw non-zero voxels
                         if (std::abs(value) > 0.001f) {
                             // Use actual spatial coordinates: each voxel = 1 unit
-                            // Place voxel at its grid position (no offset needed)
                             float nx = (float)x;
                             float ny = (float)y;
                             float nz = (float)z;
                             
+                            // Use voxel center for depth calculation (will be updated with camera depth later)
                             voxelPoints.push_back({nx, ny, nz, (int)value, nz});
                         }
                     }
@@ -744,7 +763,8 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
 void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
                     std::function<std::tuple<float, float, float>(float, float, float)> transformPoint,
-                    float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders, bool showDebugFaceOrder) {
+                    float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders, bool showDebugFaceOrder,
+                    std::function<float(float, float, float)> cameraDepthFn) {
     
     // Helper function to check if a voxel exists at given coordinates
     auto hasVoxelAt = [&](int x, int y, int z) -> bool {
@@ -835,9 +855,7 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
         
         // Helper function to transform a point and get view depth
         auto getViewDepth = [&](float x, float y, float z) -> float {
-            // Transform point to get view space depth
-            auto [tx, ty, tz] = transformPoint(x, y, z);
-            return tz; // Depth in transformed/view space
+            return cameraDepthFn(x, y, z); // camera-space z
         };
         
         // Define all potential faces with their neighbor positions
