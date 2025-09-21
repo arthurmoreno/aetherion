@@ -62,6 +62,7 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
 
 void imguiPrepareEditorRuntimeDebuggerWindows(nb::list& commands, nb::dict& shared_data);
 void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::ndarray<nb::numpy> voxel_data);
+void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data);
 void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data);
 
 void imguiPrepareWorldTypeFormWindows(nb::list& commands, nb::dict& shared_data);
