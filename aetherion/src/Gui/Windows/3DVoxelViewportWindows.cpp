@@ -397,10 +397,11 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
     
     // Draw the voxel container outline using the same 3D coordinate system as the voxels
     if (showWireframe) {
-        // Define the 8 corners of a unit cube in 3D space
+        // Define the 8 corners of a larger cube (5x unit cube) so voxels appear inside it
+        const float boxScale = 2.5f; // This creates a 5x5x5 unit space
         std::vector<std::tuple<float, float, float>> cubeCorners = {
-            {-1.0f, -1.0f, -1.0f}, {1.0f, -1.0f, -1.0f}, {1.0f, 1.0f, -1.0f}, {-1.0f, 1.0f, -1.0f},  // Back face
-            {-1.0f, -1.0f,  1.0f}, {1.0f, -1.0f,  1.0f}, {1.0f, 1.0f,  1.0f}, {-1.0f, 1.0f,  1.0f}   // Front face
+            {-boxScale, -boxScale, -boxScale}, {boxScale, -boxScale, -boxScale}, {boxScale, boxScale, -boxScale}, {-boxScale, boxScale, -boxScale},  // Back face
+            {-boxScale, -boxScale,  boxScale}, {boxScale, -boxScale,  boxScale}, {boxScale, boxScale,  boxScale}, {-boxScale, boxScale,  boxScale}   // Front face
         };
         
         // Project all corners to screen space
@@ -511,10 +512,10 @@ void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data
                         
                         // Only draw non-zero voxels
                         if (std::abs(value) > 0.001f) {
-                            // Normalize coordinates to [-1, 1] range
-                            float nx = (x / (float)gridSize - 0.5f) * 2.0f;
-                            float ny = (y / (float)gridSize - 0.5f) * 2.0f;
-                            float nz = (z / (float)gridSize - 0.5f) * 2.0f;
+                            // Normalize coordinates to smaller range within the 5x space (centered)
+                            float nx = (x / (float)gridSize - 0.5f) * 1.0f; // Scale to [-0.5, 0.5]
+                            float ny = (y / (float)gridSize - 0.5f) * 1.0f;
+                            float nz = (z / (float)gridSize - 0.5f) * 1.0f;
                             
                             voxelPoints.push_back({nx, ny, nz, (int)value, nz});
                         }
@@ -534,14 +535,12 @@ void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data
                 if (index < totalSize) {
                     float value = data[index];
                     
-                    // Only draw non-zero voxels
-                    if (std::abs(value) > 0.001f) {
-                        // Normalize coordinates to [-1, 1] range, z=0 for 2D
-                        float nx = (x / (float)gridSize - 0.5f) * 2.0f;
-                        float ny = (y / (float)gridSize - 0.5f) * 2.0f;
-                        float nz = 0.0f;
-                        
-                        voxelPoints.push_back({nx, ny, nz, (int)value, nz});
+                        // Only draw non-zero voxels
+                        if (std::abs(value) > 0.001f) {
+                            // Normalize coordinates to smaller range within the 5x space, z=0 for 2D
+                            float nx = (x / (float)gridSize - 0.5f) * 1.0f; // Scale to [-0.5, 0.5]
+                            float ny = (y / (float)gridSize - 0.5f) * 1.0f;
+                            float nz = 0.0f;                        voxelPoints.push_back({nx, ny, nz, (int)value, nz});
                     }
                 }
             }
@@ -567,10 +566,10 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
                         int value = data[index];
                         
                         if (value != 0) {
-                            // Normalize coordinates to [-1, 1] range
-                            float nx = (x / (float)gridSize - 0.5f) * 2.0f;
-                            float ny = (y / (float)gridSize - 0.5f) * 2.0f;
-                            float nz = (z / (float)gridSize - 0.5f) * 2.0f;
+                            // Normalize coordinates to smaller range within the 5x space
+                            float nx = (x / (float)gridSize - 0.5f) * 1.0f; // Scale to [-0.5, 0.5]
+                            float ny = (y / (float)gridSize - 0.5f) * 1.0f;
+                            float nz = (z / (float)gridSize - 0.5f) * 1.0f;
                             
                             voxelPoints.push_back({nx, ny, nz, value, nz});
                         }
@@ -590,13 +589,11 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
                 if (index < totalSize) {
                     int value = data[index];
                     
-                    if (value != 0) {
-                        // Normalize coordinates to [-1, 1] range, z=0 for 2D
-                        float nx = (x / (float)gridSize - 0.5f) * 2.0f;
-                        float ny = (y / (float)gridSize - 0.5f) * 2.0f;
-                        float nz = 0.0f;
-                        
-                        voxelPoints.push_back({nx, ny, nz, value, nz});
+                        if (value != 0) {
+                            // Normalize coordinates to smaller range within the 5x space, z=0 for 2D
+                            float nx = (x / (float)gridSize - 0.5f) * 1.0f; // Scale to [-0.5, 0.5]
+                            float ny = (y / (float)gridSize - 0.5f) * 1.0f;
+                            float nz = 0.0f;                        voxelPoints.push_back({nx, ny, nz, value, nz});
                     }
                 }
             }
@@ -675,7 +672,7 @@ void drawCoordinateAxes(ImDrawList* drawList, std::function<ImVec2(float, float,
     ImVec2 origin = projectToScreen(0.0f, 0.0f, 0.0f);
     
     // Axis endpoints (extending from origin)
-    float axisLength = 1.5f; // Extend beyond the unit cube
+    float axisLength = 3.0f; // Extend beyond the 5x cube
     ImVec2 xAxisEnd = projectToScreen(axisLength, 0.0f, 0.0f);
     ImVec2 yAxisEnd = projectToScreen(0.0f, axisLength, 0.0f);
     ImVec2 zAxisEnd = projectToScreen(0.0f, 0.0f, axisLength);
@@ -701,8 +698,8 @@ void drawCoordinateAxes(ImDrawList* drawList, std::function<ImVec2(float, float,
 
 // Draw 3D grid with unit measurements
 void drawGrid(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen, float zoom) {
-    const float gridStep = 0.2f; // Grid spacing (5 units per full range [-1,1])
-    const float gridExtent = 1.0f; // Grid extends from -1 to +1
+    const float gridStep = 0.5f; // Grid spacing (5 units per full range [-2.5,2.5])
+    const float gridExtent = 2.5f; // Grid extends from -2.5 to +2.5 (5x5x5 space)
     const ImU32 gridColor = IM_COL32(80, 80, 80, 128); // Semi-transparent gray
     const ImU32 majorGridColor = IM_COL32(120, 120, 120, 180); // Slightly brighter for major lines
     
@@ -764,7 +761,7 @@ void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, floa
     // Unit measurements along X-axis
     for (int i = -5; i <= 5; i++) {
         if (i == 0) continue; // Skip origin
-        float x = i * 0.2f; // Convert to [-1,1] range
+        float x = i * 0.5f; // Convert to [-2.5,2.5] range
         ImVec2 axisPoint = projectToScreen(x, 0.0f, 0.0f);
         ImVec2 tickStart = ImVec2(axisPoint.x, axisPoint.y - tickSize);
         ImVec2 tickEnd = ImVec2(axisPoint.x, axisPoint.y + tickSize);
@@ -781,7 +778,7 @@ void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, floa
     // Unit measurements along Y-axis
     for (int i = -5; i <= 5; i++) {
         if (i == 0) continue; // Skip origin
-        float y = i * 0.2f; // Convert to [-1,1] range
+        float y = i * 0.5f; // Convert to [-2.5,2.5] range
         ImVec2 axisPoint = projectToScreen(0.0f, y, 0.0f);
         ImVec2 tickStart = ImVec2(axisPoint.x - tickSize, axisPoint.y);
         ImVec2 tickEnd = ImVec2(axisPoint.x + tickSize, axisPoint.y);
@@ -798,7 +795,7 @@ void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, floa
     // Unit measurements along Z-axis
     for (int i = -5; i <= 5; i++) {
         if (i == 0) continue; // Skip origin
-        float z = i * 0.2f; // Convert to [-1,1] range
+        float z = i * 0.5f; // Convert to [-2.5,2.5] range
         ImVec2 axisPoint = projectToScreen(0.0f, 0.0f, z);
         
         // Create a small cross for Z-axis ticks
