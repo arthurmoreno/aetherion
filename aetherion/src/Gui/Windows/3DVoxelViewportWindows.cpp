@@ -5,7 +5,7 @@ void renderVoxelDataHeader(nb::ndarray<nb::numpy>& voxel_data);
 void renderTransformControls(float translation[3], float rotation[3], float scale[3], 
                            float& viewDistance, float& zoom, bool& matrixChanged);
 void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo::MODE& currentGizmoMode, 
-                          bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo);
+                          bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo, bool& showVoxelBorders);
 void updateTransformationMatrix(float objectMatrix[16], const float translation[3], 
                               const float rotation[3], const float scale[3], bool matrixChanged);
 void setupProjectionMatrix(float cameraProjection[16], float aspect);
@@ -13,7 +13,7 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
                      float cameraView[16], float cameraProjection[16], float objectMatrix[16],
                      ImGuizmo::OPERATION currentGizmoOperation, ImGuizmo::MODE currentGizmoMode,
                      bool useSnap, float snap[3], float zoom, float viewDistance,
-                     bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo);
+                     bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo, bool showVoxelBorders);
 
 // Main function to render the 3D voxel viewport
 void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data) {
@@ -44,8 +44,8 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     static float translation[3] = { 0.0f, 0.0f, 0.0f };
     static float rotation[3] = { 0.0f, 0.0f, 0.0f };
     static float scale[3] = { 1.0f, 1.0f, 1.0f };
-    static float viewDistance = 5.0f;
-    static float zoom = 5.0f;
+    static float viewDistance = 25.0f;  // Increased for better view of actual-sized voxels
+    static float zoom = 2.0f;           // Reduced zoom for better overview
     static bool matrixChanged = false;
     
     static ImGuizmo::OPERATION currentGizmoOperation = ImGuizmo::TRANSLATE;
@@ -57,7 +57,8 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     static bool showGrid = true;
     static bool showAxes = true;
     static bool showWireframe = true;
-    static bool showImGuizmo = false;
+    static bool showImGuizmo = true;
+    static bool showVoxelBorders = false;
     
     // Get the available content region for layout calculations
     ImVec2 availableRegion = ImGui::GetContentRegionAvail();
@@ -81,7 +82,7 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     ImGui::Separator();
     
     // ImGuizmo controls
-    renderImGuizmoControls(currentGizmoOperation, currentGizmoMode, useSnap, snap, showGrid, showAxes, showWireframe, showImGuizmo);
+    renderImGuizmoControls(currentGizmoOperation, currentGizmoMode, useSnap, snap, showGrid, showAxes, showWireframe, showImGuizmo, showVoxelBorders);
     
     ImGui::EndChild();
     
@@ -100,7 +101,7 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     // Render the 3D viewport
     render3DViewport(voxel_data, shared_data, cameraView, cameraProjection, objectMatrix,
                     currentGizmoOperation, currentGizmoMode, useSnap, snap, zoom, viewDistance,
-                    showGrid, showAxes, showWireframe, showImGuizmo);
+                    showGrid, showAxes, showWireframe, showImGuizmo, showVoxelBorders);
     
     ImGui::EndChild();
     
@@ -182,8 +183,8 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
         translation[0] = translation[1] = translation[2] = 0.0f;
         rotation[0] = rotation[1] = rotation[2] = 0.0f;
         scale[0] = scale[1] = scale[2] = 1.0f;
-        viewDistance = 5.0f;
-        zoom = 5.0f;
+        viewDistance = 25.0f;
+        zoom = 2.0f;
         matrixChanged = true;
     }
     
@@ -196,8 +197,8 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
         rotation[1] = -45.0f;  // Rotate 45 degrees to get isometric view
         rotation[2] = 0.0f;    // No roll
         scale[0] = scale[1] = scale[2] = 1.0f;
-        viewDistance = 8.0f;   // Pull back a bit for better view
-        zoom = 5.0f;           // Zoom in to see details
+        viewDistance = 30.0f;  // Pull back for good view of voxel area
+        zoom = 3.0f;           // Zoom in to see voxel details
         matrixChanged = true;
     }
     
@@ -211,7 +212,7 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
 
 // Render ImGuizmo control panel
 void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo::MODE& currentGizmoMode, 
-                          bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo) {
+                          bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo, bool& showVoxelBorders) {
     ImGui::Text("ImGuizmo Controls");
     ImGui::Separator();
     
@@ -254,6 +255,9 @@ void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo
     
     // Add option to show/hide ImGuizmo
     ImGui::Checkbox("Show ImGuizmo", &showImGuizmo);
+    
+    // Add option to show/hide voxel borders
+    ImGui::Checkbox("Show Voxel Borders", &showVoxelBorders);
 }
 
 // Update the transformation matrix based on current control values
@@ -339,14 +343,14 @@ struct VoxelPoint {
 
 void renderVoxelData(nb::ndarray<nb::numpy>& voxel_data, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
-                    float zoom, size_t totalSize);
+                    float zoom, size_t totalSize, bool showVoxelBorders);
 void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data, 
                           std::vector<VoxelPoint>& voxelPoints, int gridSize, size_t totalSize);
 void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
                         std::vector<VoxelPoint>& voxelPoints, int gridSize, size_t totalSize);
 void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
-                    float zoom, nb::ndarray<nb::numpy>& voxel_data);
+                    float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders);
 void renderTransformationInfo(nb::ndarray<nb::numpy>& voxel_data, float objectMatrix[16]);
 void drawCoordinateAxes(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen);
 void drawGrid(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen, float zoom);
@@ -357,7 +361,7 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
                      float cameraView[16], float cameraProjection[16], float objectMatrix[16],
                      ImGuizmo::OPERATION currentGizmoOperation, ImGuizmo::MODE currentGizmoMode,
                      bool useSnap, float snap[3], float zoom, float viewDistance,
-                     bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo) {
+                     bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo, bool showVoxelBorders) {
     
     ImVec2 viewportSize = ImGui::GetContentRegionAvail();
     ImVec2 contentPos = ImGui::GetCursorScreenPos();
@@ -409,13 +413,23 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
         drawGrid(drawList, projectToScreen, zoom);
     }
     
-    // Draw the voxel container outline using the same 3D coordinate system as the voxels
+    // Draw the voxel container outline using actual voxel data dimensions
     if (showWireframe) {
-        // Define the 8 corners of a larger cube (5x unit cube) so voxels appear inside it
-        const float boxScale = 2.5f; // This creates a 5x5x5 unit space
+        // Get actual voxel data dimensions
+        float width = 1.0f, height = 1.0f, depth = 1.0f;
+        if (voxel_data.ndim() >= 2) {
+            width = (float)voxel_data.shape(0);
+            height = (float)voxel_data.shape(1);
+            if (voxel_data.ndim() >= 3) {
+                depth = (float)voxel_data.shape(2);
+            }
+        }
+        
+        // Define the 8 corners of the actual voxel data cube
+        // Each voxel occupies 1 unit, so coordinates go from 0 to dimension
         std::vector<std::tuple<float, float, float>> cubeCorners = {
-            {-boxScale, -boxScale, -boxScale}, {boxScale, -boxScale, -boxScale}, {boxScale, boxScale, -boxScale}, {-boxScale, boxScale, -boxScale},  // Back face
-            {-boxScale, -boxScale,  boxScale}, {boxScale, -boxScale,  boxScale}, {boxScale, boxScale,  boxScale}, {-boxScale, boxScale,  boxScale}   // Front face
+            {0.0f, 0.0f, 0.0f}, {width, 0.0f, 0.0f}, {width, height, 0.0f}, {0.0f, height, 0.0f},      // Back face
+            {0.0f, 0.0f, depth}, {width, 0.0f, depth}, {width, height, depth}, {0.0f, height, depth}   // Front face
         };
         
         // Project all corners to screen space
@@ -452,7 +466,7 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
     
     // Render voxels based on actual data
     if (totalSize > 0 && voxel_data.data() != nullptr) {
-        renderVoxelData(voxel_data, drawList, projectToScreen, zoom, totalSize);
+        renderVoxelData(voxel_data, drawList, projectToScreen, zoom, totalSize, showVoxelBorders);
     }
     
     // Use ImGuizmo to manipulate the object (only if enabled)
@@ -483,7 +497,7 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
 // Render voxel data points
 void renderVoxelData(nb::ndarray<nb::numpy>& voxel_data, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
-                    float zoom, size_t totalSize) {
+                    float zoom, size_t totalSize, bool showVoxelBorders) {
     
     // Determine grid size based on data dimensions or use reasonable default
     int gridSize = 16;
@@ -510,7 +524,7 @@ void renderVoxelData(nb::ndarray<nb::numpy>& voxel_data, ImDrawList* drawList,
               [](const VoxelPoint& a, const VoxelPoint& b) { return a.depth < b.depth; });
     
     // Draw sorted voxels
-    drawVoxelPoints(voxelPoints, drawList, projectToScreen, zoom, voxel_data);
+    drawVoxelPoints(voxelPoints, drawList, projectToScreen, zoom, voxel_data, showVoxelBorders);
 }
 
 // Process float voxel data
@@ -532,10 +546,11 @@ void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data
                         
                         // Only draw non-zero voxels
                         if (std::abs(value) > 0.001f) {
-                            // Normalize coordinates to smaller range within the 5x space (centered)
-                            float nx = (x / (float)gridSize - 0.5f) * 1.0f; // Scale to [-0.5, 0.5]
-                            float ny = (y / (float)gridSize - 0.5f) * 1.0f;
-                            float nz = (z / (float)gridSize - 0.5f) * 1.0f;
+                            // Use actual spatial coordinates: each voxel = 1 unit
+                            // Add 0.5 to center the voxel in its unit space
+                            float nx = (float)x + 0.5f;
+                            float ny = (float)y + 0.5f;
+                            float nz = (float)z + 0.5f;
                             
                             voxelPoints.push_back({nx, ny, nz, (int)value, nz});
                         }
@@ -555,12 +570,14 @@ void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data
                 if (index < totalSize) {
                     float value = data[index];
                     
-                        // Only draw non-zero voxels
-                        if (std::abs(value) > 0.001f) {
-                            // Normalize coordinates to smaller range within the 5x space, z=0 for 2D
-                            float nx = (x / (float)gridSize - 0.5f) * 1.0f; // Scale to [-0.5, 0.5]
-                            float ny = (y / (float)gridSize - 0.5f) * 1.0f;
-                            float nz = 0.0f;                        voxelPoints.push_back({nx, ny, nz, (int)value, nz});
+                    // Only draw non-zero voxels
+                    if (std::abs(value) > 0.001f) {
+                        // Use actual spatial coordinates, z=0.5 for 2D (at ground level)
+                        float nx = (float)x + 0.5f;
+                        float ny = (float)y + 0.5f;
+                        float nz = 0.5f;
+                        
+                        voxelPoints.push_back({nx, ny, nz, (int)value, nz});
                     }
                 }
             }
@@ -586,10 +603,11 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
                         int value = data[index];
                         
                         if (value != 0) {
-                            // Normalize coordinates to smaller range within the 5x space
-                            float nx = (x / (float)gridSize - 0.5f) * 1.0f; // Scale to [-0.5, 0.5]
-                            float ny = (y / (float)gridSize - 0.5f) * 1.0f;
-                            float nz = (z / (float)gridSize - 0.5f) * 1.0f;
+                            // Use actual spatial coordinates: each voxel = 1 unit
+                            // Add 0.5 to center the voxel in its unit space
+                            float nx = (float)x + 0.5f;
+                            float ny = (float)y + 0.5f;
+                            float nz = (float)z + 0.5f;
                             
                             voxelPoints.push_back({nx, ny, nz, value, nz});
                         }
@@ -609,11 +627,13 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
                 if (index < totalSize) {
                     int value = data[index];
 
-                        if (value != 0) {
-                            // Normalize coordinates to smaller range within the 5x space, z=0 for 2D
-                            float nx = (x / (float)gridSize - 0.5f) * 1.0f; // Scale to [-0.5, 0.5]
-                            float ny = (y / (float)gridSize - 0.5f) * 1.0f;
-                            float nz = 0.0f;                        voxelPoints.push_back({nx, ny, nz, value, nz});
+                    if (value != 0) {
+                        // Use actual spatial coordinates, z=0.5 for 2D (at ground level)
+                        float nx = (float)x + 0.5f;
+                        float ny = (float)y + 0.5f;
+                        float nz = 0.5f;
+                        
+                        voxelPoints.push_back({nx, ny, nz, value, nz});
                     }
                 }
             }
@@ -624,7 +644,7 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
 // Draw voxel points on screen
 void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
-                    float zoom, nb::ndarray<nb::numpy>& voxel_data) {
+                    float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders) {
     
     for (const auto& voxel : voxelPoints) {
         ImVec2 screenPos = projectToScreen(voxel.x, voxel.y, voxel.z);
@@ -655,6 +675,18 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
             ImVec2(screenPos.x + voxelSize/2, screenPos.y + voxelSize/2),
             voxelColor
         );
+        
+        // Draw black border if enabled
+        if (showVoxelBorders) {
+            drawList->AddRect(
+                ImVec2(screenPos.x - voxelSize/2, screenPos.y - voxelSize/2), 
+                ImVec2(screenPos.x + voxelSize/2, screenPos.y + voxelSize/2),
+                IM_COL32(0, 0, 0, 255), // Black border
+                0.0f, // No rounding
+                0,    // No flags
+                1.0f  // Border thickness
+            );
+        }
     }
 }
 
@@ -691,8 +723,8 @@ void drawCoordinateAxes(ImDrawList* drawList, std::function<ImVec2(float, float,
     // Origin point
     ImVec2 origin = projectToScreen(0.0f, 0.0f, 0.0f);
     
-    // Axis endpoints (extending from origin)
-    float axisLength = 3.0f; // Extend beyond the 5x cube
+    // Axis endpoints - extend to a reasonable length for visibility
+    float axisLength = 5.0f; // Fixed length for visibility
     ImVec2 xAxisEnd = projectToScreen(axisLength, 0.0f, 0.0f);
     ImVec2 yAxisEnd = projectToScreen(0.0f, axisLength, 0.0f);
     ImVec2 zAxisEnd = projectToScreen(0.0f, 0.0f, axisLength);
@@ -718,52 +750,52 @@ void drawCoordinateAxes(ImDrawList* drawList, std::function<ImVec2(float, float,
 
 // Draw 3D grid with unit measurements
 void drawGrid(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen, float zoom) {
-    const float gridStep = 0.5f; // Grid spacing (5 units per full range [-2.5,2.5])
-    const float gridExtent = 2.5f; // Grid extends from -2.5 to +2.5 (5x5x5 space)
+    const float gridStep = 1.0f; // Grid spacing of 1 unit (matches voxel size)
+    const float gridExtent = 20.0f; // Grid extends from 0 to 20 for good coverage
     const ImU32 gridColor = IM_COL32(80, 80, 80, 128); // Semi-transparent gray
     const ImU32 majorGridColor = IM_COL32(120, 120, 120, 180); // Slightly brighter for major lines
     
     // Draw grid lines parallel to XY plane (at different Z levels)
-    for (float z = -gridExtent; z <= gridExtent; z += gridStep) {
-        bool isMajorZ = (std::abs(z) < 0.01f || std::abs(std::abs(z) - 0.5f) < 0.01f || std::abs(std::abs(z) - 1.0f) < 0.01f);
+    for (float z = 0; z <= gridExtent; z += gridStep) {
+        bool isMajorZ = (fmod(z, 5.0f) < 0.01f); // Major lines every 5 units
         ImU32 currentColor = isMajorZ ? majorGridColor : gridColor;
         
         // Horizontal lines (parallel to X-axis)
-        for (float y = -gridExtent; y <= gridExtent; y += gridStep) {
-            ImVec2 start = projectToScreen(-gridExtent, y, z);
+        for (float y = 0; y <= gridExtent; y += gridStep) {
+            ImVec2 start = projectToScreen(0, y, z);
             ImVec2 end = projectToScreen(gridExtent, y, z);
             drawList->AddLine(start, end, currentColor, isMajorZ ? 1.5f : 1.0f);
         }
         
         // Vertical lines (parallel to Y-axis)
-        for (float x = -gridExtent; x <= gridExtent; x += gridStep) {
-            ImVec2 start = projectToScreen(x, -gridExtent, z);
+        for (float x = 0; x <= gridExtent; x += gridStep) {
+            ImVec2 start = projectToScreen(x, 0, z);
             ImVec2 end = projectToScreen(x, gridExtent, z);
             drawList->AddLine(start, end, currentColor, isMajorZ ? 1.5f : 1.0f);
         }
     }
     
     // Draw grid lines parallel to XZ plane (at different Y levels)
-    for (float y = -gridExtent; y <= gridExtent; y += gridStep) {
-        bool isMajorY = (std::abs(y) < 0.01f || std::abs(std::abs(y) - 0.5f) < 0.01f || std::abs(std::abs(y) - 1.0f) < 0.01f);
+    for (float y = 0; y <= gridExtent; y += gridStep) {
+        bool isMajorY = (fmod(y, 5.0f) < 0.01f); // Major lines every 5 units
         ImU32 currentColor = isMajorY ? majorGridColor : gridColor;
         
         // Lines parallel to Z-axis
-        for (float x = -gridExtent; x <= gridExtent; x += gridStep) {
-            ImVec2 start = projectToScreen(x, y, -gridExtent);
+        for (float x = 0; x <= gridExtent; x += gridStep) {
+            ImVec2 start = projectToScreen(x, y, 0);
             ImVec2 end = projectToScreen(x, y, gridExtent);
             drawList->AddLine(start, end, currentColor, isMajorY ? 1.5f : 1.0f);
         }
     }
     
     // Draw grid lines parallel to YZ plane (at different X levels)
-    for (float x = -gridExtent; x <= gridExtent; x += gridStep) {
-        bool isMajorX = (std::abs(x) < 0.01f || std::abs(std::abs(x) - 0.5f) < 0.01f || std::abs(std::abs(x) - 1.0f) < 0.01f);
+    for (float x = 0; x <= gridExtent; x += gridStep) {
+        bool isMajorX = (fmod(x, 5.0f) < 0.01f); // Major lines every 5 units
         ImU32 currentColor = isMajorX ? majorGridColor : gridColor;
         
         // Lines parallel to Z-axis
-        for (float y = -gridExtent; y <= gridExtent; y += gridStep) {
-            ImVec2 start = projectToScreen(x, y, -gridExtent);
+        for (float y = 0; y <= gridExtent; y += gridStep) {
+            ImVec2 start = projectToScreen(x, y, 0);
             ImVec2 end = projectToScreen(x, y, gridExtent);
             drawList->AddLine(start, end, currentColor, isMajorX ? 1.5f : 1.0f);
         }
@@ -778,10 +810,9 @@ void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, floa
     const ImU32 measurementColor = IM_COL32(200, 200, 200, 255);
     const float tickSize = 3.0f;
     
-    // Unit measurements along X-axis
-    for (int i = -5; i <= 5; i++) {
-        if (i == 0) continue; // Skip origin
-        float x = i * 0.5f; // Convert to [-2.5,2.5] range
+    // Unit measurements along X-axis (every 5 units for readability)
+    for (int i = 0; i <= 20; i += 5) {
+        float x = (float)i;
         ImVec2 axisPoint = projectToScreen(x, 0.0f, 0.0f);
         ImVec2 tickStart = ImVec2(axisPoint.x, axisPoint.y - tickSize);
         ImVec2 tickEnd = ImVec2(axisPoint.x, axisPoint.y + tickSize);
@@ -790,15 +821,14 @@ void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, floa
         
         // Add measurement label
         char label[8];
-        snprintf(label, sizeof(label), "%.1f", x);
+        snprintf(label, sizeof(label), "%d", i);
         ImVec2 textPos = ImVec2(axisPoint.x - 8, axisPoint.y + 8);
         drawList->AddText(textPos, measurementColor, label);
     }
     
-    // Unit measurements along Y-axis
-    for (int i = -5; i <= 5; i++) {
-        if (i == 0) continue; // Skip origin
-        float y = i * 0.5f; // Convert to [-2.5,2.5] range
+    // Unit measurements along Y-axis (every 5 units for readability)
+    for (int i = 0; i <= 20; i += 5) {
+        float y = (float)i;
         ImVec2 axisPoint = projectToScreen(0.0f, y, 0.0f);
         ImVec2 tickStart = ImVec2(axisPoint.x - tickSize, axisPoint.y);
         ImVec2 tickEnd = ImVec2(axisPoint.x + tickSize, axisPoint.y);
@@ -807,15 +837,14 @@ void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, floa
         
         // Add measurement label
         char label[8];
-        snprintf(label, sizeof(label), "%.1f", y);
+        snprintf(label, sizeof(label), "%d", i);
         ImVec2 textPos = ImVec2(axisPoint.x + 8, axisPoint.y - 8);
         drawList->AddText(textPos, measurementColor, label);
     }
     
-    // Unit measurements along Z-axis
-    for (int i = -5; i <= 5; i++) {
-        if (i == 0) continue; // Skip origin
-        float z = i * 0.5f; // Convert to [-2.5,2.5] range
+    // Unit measurements along Z-axis (every 5 units for readability)
+    for (int i = 0; i <= 20; i += 5) {
+        float z = (float)i;
         ImVec2 axisPoint = projectToScreen(0.0f, 0.0f, z);
         
         // Create a small cross for Z-axis ticks
@@ -826,7 +855,7 @@ void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, floa
         
         // Add measurement label
         char label[8];
-        snprintf(label, sizeof(label), "%.1f", z);
+        snprintf(label, sizeof(label), "%d", i);
         ImVec2 textPos = ImVec2(axisPoint.x + 8, axisPoint.y + 8);
         drawList->AddText(textPos, measurementColor, label);
     }
