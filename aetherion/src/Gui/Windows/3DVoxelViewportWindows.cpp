@@ -3,7 +3,8 @@
 // Forward declarations for helper methods
 void renderVoxelDataHeader(nb::ndarray<nb::numpy>& voxel_data);
 void renderTransformControls(float translation[3], float rotation[3], float scale[3], 
-                           float& viewDistance, float& zoom, bool& matrixChanged);
+                           float& viewDistance, float& zoom, bool& matrixChanged,
+                           float cameraPosition[3], float cameraTarget[3], float cameraUp[3], bool& cameraChanged);
 void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo::MODE& currentGizmoMode, 
                           bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo, bool& showVoxelBorders, bool& showDebugFaceOrder);
 void updateTransformationMatrix(float objectMatrix[16], const float translation[3], 
@@ -50,9 +51,9 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     static bool matrixChanged = true;    // Set to true initially to force calculation
     
     // Camera position controls
-    static float cameraPosition[3] = { 0.0f, 0.0f, 25.0f };
-    static float cameraTarget[3] = { 0.0f, 0.0f, 0.0f };
-    static float cameraUp[3] = { 0.0f, 1.0f, 0.0f };
+    static float cameraPosition[3] = { 15.0f, 15.0f, 15.0f };  // Position camera away from origin
+    static float cameraTarget[3] = { 8.0f, 8.0f, 8.0f };       // Look at center of typical voxel data
+    static float cameraUp[3] = { 0.0f, 1.0f, 0.0f };           // Y-axis up
     static bool cameraChanged = true;
     
     static ImGuizmo::OPERATION currentGizmoOperation = ImGuizmo::TRANSLATE;
@@ -85,7 +86,8 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     ImGui::BeginChild("ControlsPanel", ImVec2(leftPanelWidth, 0), true);
     
     // Transform controls
-    renderTransformControls(translation, rotation, scale, viewDistance, zoom, matrixChanged);
+    renderTransformControls(translation, rotation, scale, viewDistance, zoom, matrixChanged,
+                           cameraPosition, cameraTarget, cameraUp, cameraChanged);
     
     ImGui::Separator();
     
@@ -102,12 +104,54 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     // Update matrices if needed
     updateTransformationMatrix(objectMatrix, translation, rotation, scale, matrixChanged);
     
-    // Simple camera setup - just use view distance for basic positioning
-    // The camera view matrix was causing conflicts, so we'll use simpler approach
-    cameraView[0] = 1.0f; cameraView[1] = 0.0f; cameraView[2] = 0.0f; cameraView[3] = 0.0f;
-    cameraView[4] = 0.0f; cameraView[5] = 1.0f; cameraView[6] = 0.0f; cameraView[7] = 0.0f;
-    cameraView[8] = 0.0f; cameraView[9] = 0.0f; cameraView[10] = 1.0f; cameraView[11] = 0.0f;
-    cameraView[12] = 0.0f; cameraView[13] = 0.0f; cameraView[14] = -viewDistance; cameraView[15] = 1.0f;
+    // Dynamic camera view matrix calculation
+    if (cameraChanged || matrixChanged) {
+        // Calculate camera view matrix from position, target, and up vectors
+        // This creates a "look-at" matrix
+        float forward[3] = {
+            cameraTarget[0] - cameraPosition[0],
+            cameraTarget[1] - cameraPosition[1],
+            cameraTarget[2] - cameraPosition[2]
+        };
+        
+        // Normalize forward vector
+        float forwardLen = sqrtf(forward[0]*forward[0] + forward[1]*forward[1] + forward[2]*forward[2]);
+        if (forwardLen > 0.0f) {
+            forward[0] /= forwardLen;
+            forward[1] /= forwardLen;
+            forward[2] /= forwardLen;
+        }
+        
+        // Calculate right vector (cross product of forward and up)
+        float right[3] = {
+            forward[1] * cameraUp[2] - forward[2] * cameraUp[1],
+            forward[2] * cameraUp[0] - forward[0] * cameraUp[2],
+            forward[0] * cameraUp[1] - forward[1] * cameraUp[0]
+        };
+        
+        // Normalize right vector
+        float rightLen = sqrtf(right[0]*right[0] + right[1]*right[1] + right[2]*right[2]);
+        if (rightLen > 0.0f) {
+            right[0] /= rightLen;
+            right[1] /= rightLen;
+            right[2] /= rightLen;
+        }
+        
+        // Calculate true up vector (cross product of right and forward)
+        float up[3] = {
+            right[1] * forward[2] - right[2] * forward[1],
+            right[2] * forward[0] - right[0] * forward[2],
+            right[0] * forward[1] - right[1] * forward[0]
+        };
+        
+        // Build view matrix (column-major)
+        cameraView[0] = right[0];   cameraView[4] = right[1];   cameraView[8] = right[2];    cameraView[12] = -(right[0]*cameraPosition[0] + right[1]*cameraPosition[1] + right[2]*cameraPosition[2]);
+        cameraView[1] = up[0];      cameraView[5] = up[1];      cameraView[9] = up[2];       cameraView[13] = -(up[0]*cameraPosition[0] + up[1]*cameraPosition[1] + up[2]*cameraPosition[2]);
+        cameraView[2] = -forward[0]; cameraView[6] = -forward[1]; cameraView[10] = -forward[2]; cameraView[14] = -(-forward[0]*cameraPosition[0] + -forward[1]*cameraPosition[1] + -forward[2]*cameraPosition[2]);
+        cameraView[3] = 0.0f;       cameraView[7] = 0.0f;       cameraView[11] = 0.0f;       cameraView[15] = 1.0f;
+        
+        cameraChanged = false;
+    }
     
     float aspect = ImGui::GetContentRegionAvail().x / ImGui::GetContentRegionAvail().y;
     setupProjectionMatrix(cameraProjection, aspect);
@@ -172,7 +216,8 @@ void renderVoxelDataHeader(nb::ndarray<nb::numpy>& voxel_data) {
 
 // Render transformation control sliders
 void renderTransformControls(float translation[3], float rotation[3], float scale[3], 
-                           float& viewDistance, float& zoom, bool& matrixChanged) {
+                           float& viewDistance, float& zoom, bool& matrixChanged,
+                           float cameraPosition[3], float cameraTarget[3], float cameraUp[3], bool& cameraChanged) {
     ImGui::Text("Transform Controls");
     ImGui::Separator();
     
@@ -193,34 +238,38 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
     }
     
     ImGui::Separator();
-
-    // Camera Controls it is not working well...
-    // ImGui::Text("Camera Controls");
+    ImGui::Text("Camera Controls");
     
-    // if (ImGui::SliderFloat3("Camera Position", cameraPosition, -50.0f, 50.0f)) {
-    //     cameraChanged = true;
-    // }
-    // if (ImGui::SliderFloat3("Camera Target", cameraTarget, -20.0f, 20.0f)) {
-    //     cameraChanged = true;
-    // }
-    // if (ImGui::SliderFloat3("Camera Up", cameraUp, -1.0f, 1.0f)) {
-    //     cameraChanged = true;
-    // }
+    if (ImGui::SliderFloat3("Camera Position", cameraPosition, -50.0f, 50.0f)) {
+        cameraChanged = true;
+    }
+    if (ImGui::SliderFloat3("Camera Target", cameraTarget, -20.0f, 20.0f)) {
+        cameraChanged = true;
+    }
+    if (ImGui::SliderFloat3("Camera Up", cameraUp, -1.0f, 1.0f)) {
+        cameraChanged = true;
+    }
     
-    // Reset and randomize buttons
+    // Reset and preset buttons
     if (ImGui::Button("Reset Transform")) {
-        // translation[0] = translation[1] = translation[2] = 0.0f;
         translation[0] = -0.3f; // Slight offset to better view voxels
         translation[1] = -0.3f;
         translation[2] = 5.0f;
-        // rotation[0] = rotation[1] = rotation[2] = 0.0f;
         rotation[0] = -45.0f;  // Tilt down to see the top and sides
-        rotation[1] = 45.0f;  // Rotate 45 degrees to get isometric view
-        rotation[2] = -90.0f;    // No roll
+        rotation[1] = 45.0f;   // Rotate 45 degrees to get isometric view
+        rotation[2] = -90.0f;  // Roll
         scale[0] = scale[1] = scale[2] = 1.0f;
         viewDistance = 25.0f;
         zoom = 20.0f;
         matrixChanged = true;
+    }
+    
+    ImGui::SameLine();
+    if (ImGui::Button("Reset Camera")) {
+        cameraPosition[0] = 0.0f; cameraPosition[1] = 0.0f; cameraPosition[2] = -25.0f;
+        cameraTarget[0] = 8.0f; cameraTarget[1] = 8.0f; cameraTarget[2] = 8.0f;  // Center of typical voxel data
+        cameraUp[0] = 0.0f; cameraUp[1] = 1.0f; cameraUp[2] = 0.0f;
+        cameraChanged = true;
     }
     
     if (ImGui::Button("Tibia View")) {
@@ -233,6 +282,21 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
         viewDistance = 30.0f;  // Pull back for good view of voxel area
         zoom = 3.0f;           // Zoom in to see voxel details
         matrixChanged = true;
+        
+        // Position camera for isometric view
+        cameraPosition[0] = 20.0f; cameraPosition[1] = 20.0f; cameraPosition[2] = 20.0f;
+        cameraTarget[0] = 8.0f; cameraTarget[1] = 8.0f; cameraTarget[2] = 8.0f;
+        cameraUp[0] = 0.0f; cameraUp[1] = 1.0f; cameraUp[2] = 0.0f;
+        cameraChanged = true;
+    }
+    
+    ImGui::SameLine();
+    if (ImGui::Button("Top View")) {
+        // Camera looking down from above
+        cameraPosition[0] = 8.0f; cameraPosition[1] = 30.0f; cameraPosition[2] = 8.0f;
+        cameraTarget[0] = 8.0f; cameraTarget[1] = 0.0f; cameraTarget[2] = 8.0f;
+        cameraUp[0] = 0.0f; cameraUp[1] = 0.0f; cameraUp[2] = -1.0f;  // Z points up when looking down
+        cameraChanged = true;
     }
     
     if (ImGui::Button("Random Rotation")) {
@@ -611,10 +675,10 @@ void renderVoxelData(nb::ndarray<nb::numpy>& voxel_data, ImDrawList* drawList,
                     float zoom, size_t totalSize, bool showVoxelBorders, bool showDebugFaceOrder,
                     std::function<float(float, float, float)> cameraDepthFn) {
 
-    // Determine grid size based on data dimensions or use reasonable default
-    int gridSize = 16;
+    // Determine grid size based on data dimensions - support large voxel grids
+    int gridSize = 64; // Default to support 64x64x64 voxel grids
     if (voxel_data.ndim() >= 2) {
-        gridSize = std::min((int)voxel_data.shape(0), 32); // Limit to reasonable size
+        gridSize = std::max((int)voxel_data.shape(0), 64); // Use actual data size, minimum 64
     }
 
     // Collect all voxel positions for depth sorting
@@ -655,9 +719,9 @@ void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data
         size_t height = voxel_data.shape(1);
         size_t depth = voxel_data.shape(2);
         
-        for (size_t x = 0; x < std::min(width, (size_t)gridSize); x++) {
-            for (size_t y = 0; y < std::min(height, (size_t)gridSize); y++) {
-                for (size_t z = 0; z < std::min(depth, (size_t)gridSize); z++) {
+        for (size_t x = 0; x < width; x++) {
+            for (size_t y = 0; y < height; y++) {
+                for (size_t z = 0; z < depth; z++) {
                     size_t index = z * width * height + y * width + x;
                     if (index < totalSize) {
                         float value = data[index];
@@ -682,8 +746,8 @@ void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data
         size_t width = voxel_data.shape(0);
         size_t height = voxel_data.shape(1);
         
-        for (size_t x = 0; x < std::min(width, (size_t)gridSize); x++) {
-            for (size_t y = 0; y < std::min(height, (size_t)gridSize); y++) {
+        for (size_t x = 0; x < width; x++) {
+            for (size_t y = 0; y < height; y++) {
                 size_t index = y * width + x;
                 if (index < totalSize) {
                     float value = data[index];
@@ -713,9 +777,9 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
         size_t height = voxel_data.shape(1);
         size_t depth = voxel_data.shape(2);
         
-        for (size_t x = 0; x < std::min(width, (size_t)gridSize); x++) {
-            for (size_t y = 0; y < std::min(height, (size_t)gridSize); y++) {
-                for (size_t z = 0; z < std::min(depth, (size_t)gridSize); z++) {
+        for (size_t x = 0; x < width; x++) {
+            for (size_t y = 0; y < height; y++) {
+                for (size_t z = 0; z < depth; z++) {
                     size_t index = z * width * height + y * width + x;
                     if (index < totalSize) {
                         int value = data[index];
@@ -739,8 +803,8 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
         size_t width = voxel_data.shape(0);
         size_t height = voxel_data.shape(1);
 
-        for (size_t x = 0; x < std::min(width, (size_t)gridSize); x++) {
-            for (size_t y = 0; y < std::min(height, (size_t)gridSize); y++) {
+        for (size_t x = 0; x < width; x++) {
+            for (size_t y = 0; y < height; y++) {
                 size_t index = y * width + x;
                 if (index < totalSize) {
                     int value = data[index];
