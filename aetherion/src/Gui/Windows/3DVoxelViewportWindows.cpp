@@ -5,7 +5,7 @@ void renderVoxelDataHeader(nb::ndarray<nb::numpy>& voxel_data);
 void renderTransformControls(float translation[3], float rotation[3], float scale[3], 
                            float& viewDistance, float& zoom, bool& matrixChanged);
 void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo::MODE& currentGizmoMode, 
-                          bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo, bool& showVoxelBorders);
+                          bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo, bool& showVoxelBorders, bool& showDebugFaceOrder);
 void updateTransformationMatrix(float objectMatrix[16], const float translation[3], 
                               const float rotation[3], const float scale[3], bool matrixChanged);
 void setupProjectionMatrix(float cameraProjection[16], float aspect);
@@ -13,7 +13,7 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
                      float cameraView[16], float cameraProjection[16], float objectMatrix[16],
                      ImGuizmo::OPERATION currentGizmoOperation, ImGuizmo::MODE currentGizmoMode,
                      bool useSnap, float snap[3], float zoom, float viewDistance,
-                     bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo, bool showVoxelBorders);
+                     bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo, bool showVoxelBorders, bool showDebugFaceOrder);
 
 // Main function to render the 3D voxel viewport
 void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data) {
@@ -45,7 +45,7 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     static float rotation[3] = { 0.0f, 0.0f, 0.0f };
     static float scale[3] = { 1.0f, 1.0f, 1.0f };
     static float viewDistance = 25.0f;  // Increased for better view of actual-sized voxels
-    static float zoom = 2.0f;           // Reduced zoom for better overview
+    static float zoom = 20.0f;           // Reduced zoom for better overview
     static bool matrixChanged = false;
     
     static ImGuizmo::OPERATION currentGizmoOperation = ImGuizmo::TRANSLATE;
@@ -59,6 +59,7 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     static bool showWireframe = true;
     static bool showImGuizmo = true;
     static bool showVoxelBorders = false;
+    static bool showDebugFaceOrder = false;
     
     // Get the available content region for layout calculations
     ImVec2 availableRegion = ImGui::GetContentRegionAvail();
@@ -82,7 +83,7 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     ImGui::Separator();
     
     // ImGuizmo controls
-    renderImGuizmoControls(currentGizmoOperation, currentGizmoMode, useSnap, snap, showGrid, showAxes, showWireframe, showImGuizmo, showVoxelBorders);
+    renderImGuizmoControls(currentGizmoOperation, currentGizmoMode, useSnap, snap, showGrid, showAxes, showWireframe, showImGuizmo, showVoxelBorders, showDebugFaceOrder);
     
     ImGui::EndChild();
     
@@ -101,7 +102,7 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     // Render the 3D viewport
     render3DViewport(voxel_data, shared_data, cameraView, cameraProjection, objectMatrix,
                     currentGizmoOperation, currentGizmoMode, useSnap, snap, zoom, viewDistance,
-                    showGrid, showAxes, showWireframe, showImGuizmo, showVoxelBorders);
+                    showGrid, showAxes, showWireframe, showImGuizmo, showVoxelBorders, showDebugFaceOrder);
     
     ImGui::EndChild();
     
@@ -174,7 +175,7 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
     if (ImGui::SliderFloat("View Distance", &viewDistance, 1.0f, 20.0f)) {
         matrixChanged = true;
     }
-    if (ImGui::SliderFloat("Zoom", &zoom, 0.1f, 10.0f)) {
+    if (ImGui::SliderFloat("Zoom", &zoom, 0.1f, 30.0f)) {
         matrixChanged = true;
     }
     
@@ -184,7 +185,7 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
         rotation[0] = rotation[1] = rotation[2] = 0.0f;
         scale[0] = scale[1] = scale[2] = 1.0f;
         viewDistance = 25.0f;
-        zoom = 2.0f;
+        zoom = 20.0f;
         matrixChanged = true;
     }
     
@@ -212,7 +213,7 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
 
 // Render ImGuizmo control panel
 void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo::MODE& currentGizmoMode, 
-                          bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo, bool& showVoxelBorders) {
+                          bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo, bool& showVoxelBorders, bool& showDebugFaceOrder) {
     ImGui::Text("ImGuizmo Controls");
     ImGui::Separator();
     
@@ -258,6 +259,9 @@ void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo
     
     // Add option to show/hide voxel borders
     ImGui::Checkbox("Show Voxel Borders", &showVoxelBorders);
+    
+    // Add debug option to show face rendering order
+    ImGui::Checkbox("Debug Face Order", &showDebugFaceOrder);
 }
 
 // Update the transformation matrix based on current control values
@@ -343,14 +347,16 @@ struct VoxelPoint {
 
 void renderVoxelData(nb::ndarray<nb::numpy>& voxel_data, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
-                    float zoom, size_t totalSize, bool showVoxelBorders);
+                    std::function<std::tuple<float, float, float>(float, float, float)> transformPoint,
+                    float zoom, size_t totalSize, bool showVoxelBorders, bool showDebugFaceOrder);
 void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data, 
                           std::vector<VoxelPoint>& voxelPoints, int gridSize, size_t totalSize);
 void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
                         std::vector<VoxelPoint>& voxelPoints, int gridSize, size_t totalSize);
 void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
-                    float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders);
+                    std::function<std::tuple<float, float, float>(float, float, float)> transformPoint,
+                    float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders, bool showDebugFaceOrder);
 void renderTransformationInfo(nb::ndarray<nb::numpy>& voxel_data, float objectMatrix[16]);
 void drawCoordinateAxes(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen);
 void drawGrid(ImDrawList* drawList, std::function<ImVec2(float, float, float)> projectToScreen, float zoom);
@@ -361,7 +367,7 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
                      float cameraView[16], float cameraProjection[16], float objectMatrix[16],
                      ImGuizmo::OPERATION currentGizmoOperation, ImGuizmo::MODE currentGizmoMode,
                      bool useSnap, float snap[3], float zoom, float viewDistance,
-                     bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo, bool showVoxelBorders) {
+                     bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo, bool showVoxelBorders, bool showDebugFaceOrder) {
     
     ImVec2 viewportSize = ImGui::GetContentRegionAvail();
     ImVec2 contentPos = ImGui::GetCursorScreenPos();
@@ -466,7 +472,7 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
     
     // Render voxels based on actual data
     if (totalSize > 0 && voxel_data.data() != nullptr) {
-        renderVoxelData(voxel_data, drawList, projectToScreen, zoom, totalSize, showVoxelBorders);
+        renderVoxelData(voxel_data, drawList, projectToScreen, transformPoint, zoom, totalSize, showVoxelBorders, showDebugFaceOrder);
     }
     
     // Use ImGuizmo to manipulate the object (only if enabled)
@@ -497,14 +503,15 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
 // Render voxel data points
 void renderVoxelData(nb::ndarray<nb::numpy>& voxel_data, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
-                    float zoom, size_t totalSize, bool showVoxelBorders) {
-    
+                    std::function<std::tuple<float, float, float>(float, float, float)> transformPoint,
+                    float zoom, size_t totalSize, bool showVoxelBorders, bool showDebugFaceOrder) {
+
     // Determine grid size based on data dimensions or use reasonable default
     int gridSize = 16;
     if (voxel_data.ndim() >= 2) {
         gridSize = std::min((int)voxel_data.shape(0), 32); // Limit to reasonable size
     }
-    
+
     // Collect all voxel positions for depth sorting
     std::vector<VoxelPoint> voxelPoints;
     
@@ -518,13 +525,13 @@ void renderVoxelData(nb::ndarray<nb::numpy>& voxel_data, ImDrawList* drawList,
         const int* data = static_cast<const int*>(voxel_data.data());
         processIntVoxelData(data, voxel_data, voxelPoints, gridSize, totalSize);
     }
-    
+
     // Sort voxels by depth (back to front for proper alpha blending)
     std::sort(voxelPoints.begin(), voxelPoints.end(), 
               [](const VoxelPoint& a, const VoxelPoint& b) { return a.depth < b.depth; });
     
     // Draw sorted voxels
-    drawVoxelPoints(voxelPoints, drawList, projectToScreen, zoom, voxel_data, showVoxelBorders);
+    drawVoxelPoints(voxelPoints, drawList, projectToScreen, transformPoint, zoom, voxel_data, showVoxelBorders, showDebugFaceOrder);
 }
 
 // Process float voxel data
@@ -644,7 +651,8 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
 // Draw voxel points on screen
 void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* drawList,
                     std::function<ImVec2(float, float, float)> projectToScreen,
-                    float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders) {
+                    std::function<std::tuple<float, float, float>(float, float, float)> transformPoint,
+                    float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders, bool showDebugFaceOrder) {
     
     for (const auto& voxel : voxelPoints) {
         // Each voxel occupies a 1x1x1 cube from (x,y,z) to (x+1,y+1,z+1)
@@ -688,43 +696,102 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
             voxelColor = IM_COL32(r, g, b, 200);
         }
         
-        // Draw faces in back-to-front order for proper transparency
-        // Only draw visible faces to reduce overlapping artifacts
+        // Define faces with their center points for depth sorting
+        struct Face {
+            std::vector<int> indices;
+            float centerX, centerY, centerZ;
+            float viewDepth; // Depth from camera perspective
+            std::string name;
+        };
         
-        // Back face (0,1,2,3) - farthest from camera
-        drawList->AddQuadFilled(screenCorners[0], screenCorners[1], screenCorners[2], screenCorners[3], voxelColor);
-        if (showVoxelBorders) {
-            drawList->AddQuad(screenCorners[0], screenCorners[1], screenCorners[2], screenCorners[3], borderColor, 1.0f);
+        // Helper function to transform a point and get view depth
+        auto getViewDepth = [&](float x, float y, float z) -> float {
+            // Transform point to get view space depth
+            auto [tx, ty, tz] = transformPoint(x, y, z);
+            return tz; // Depth in transformed/view space
+        };
+        
+        std::vector<Face> faces = {
+            // Calculate face centers in world space, then get view depth
+            {{0, 1, 2, 3}, voxel.x + 0.5f, voxel.y + 0.5f, voxel.z + epsilon, 0.0f, "Back"},
+            {{4, 5, 6, 7}, voxel.x + 0.5f, voxel.y + 0.5f, voxel.z + 1.0f - epsilon, 0.0f, "Front"},
+            {{0, 1, 5, 4}, voxel.x + 0.5f, voxel.y + epsilon, voxel.z + 0.5f, 0.0f, "Bottom"},
+            {{3, 2, 6, 7}, voxel.x + 0.5f, voxel.y + 1.0f - epsilon, voxel.z + 0.5f, 0.0f, "Top"},
+            {{0, 3, 7, 4}, voxel.x + epsilon, voxel.y + 0.5f, voxel.z + 0.5f, 0.0f, "Left"},
+            {{1, 2, 6, 5}, voxel.x + 1.0f - epsilon, voxel.y + 0.5f, voxel.z + 0.5f, 0.0f, "Right"}
+        };
+        
+        // Calculate view depth for each face center
+        for (auto& face : faces) {
+            face.viewDepth = getViewDepth(face.centerX, face.centerY, face.centerZ);
         }
         
-        // Bottom face (0,1,5,4)
-        drawList->AddQuadFilled(screenCorners[0], screenCorners[1], screenCorners[5], screenCorners[4], voxelColor);
-        if (showVoxelBorders) {
-            drawList->AddQuad(screenCorners[0], screenCorners[1], screenCorners[5], screenCorners[4], borderColor, 1.0f);
-        }
+        // Sort faces by view depth (back to front from camera perspective)
+        std::sort(faces.begin(), faces.end(), 
+                  [](const Face& a, const Face& b) { return a.viewDepth < b.viewDepth; });
         
-        // Left face (0,3,7,4)
-        drawList->AddQuadFilled(screenCorners[0], screenCorners[3], screenCorners[7], screenCorners[4], voxelColor);
-        if (showVoxelBorders) {
-            drawList->AddQuad(screenCorners[0], screenCorners[3], screenCorners[7], screenCorners[4], borderColor, 1.0f);
-        }
-        
-        // Right face (1,2,6,5)
-        drawList->AddQuadFilled(screenCorners[1], screenCorners[2], screenCorners[6], screenCorners[5], voxelColor);
-        if (showVoxelBorders) {
-            drawList->AddQuad(screenCorners[1], screenCorners[2], screenCorners[6], screenCorners[5], borderColor, 1.0f);
-        }
-        
-        // Top face (3,2,6,7)
-        drawList->AddQuadFilled(screenCorners[3], screenCorners[2], screenCorners[6], screenCorners[7], voxelColor);
-        if (showVoxelBorders) {
-            drawList->AddQuad(screenCorners[3], screenCorners[2], screenCorners[6], screenCorners[7], borderColor, 1.0f);
-        }
-        
-        // Front face (4,5,6,7) - closest to camera, drawn last
-        drawList->AddQuadFilled(screenCorners[4], screenCorners[5], screenCorners[6], screenCorners[7], voxelColor);
-        if (showVoxelBorders) {
-            drawList->AddQuad(screenCorners[4], screenCorners[5], screenCorners[6], screenCorners[7], borderColor, 1.0f);
+        // Draw faces in depth-sorted order
+        for (size_t faceIndex = 0; faceIndex < faces.size(); faceIndex++) {
+            const auto& face = faces[faceIndex];
+            const auto& indices = face.indices;
+            
+            // Draw filled face
+            drawList->AddQuadFilled(
+                screenCorners[indices[0]], 
+                screenCorners[indices[1]], 
+                screenCorners[indices[2]], 
+                screenCorners[indices[3]], 
+                voxelColor
+            );
+            
+            // Draw border if enabled
+            if (showVoxelBorders) {
+                drawList->AddQuad(
+                    screenCorners[indices[0]], 
+                    screenCorners[indices[1]], 
+                    screenCorners[indices[2]], 
+                    screenCorners[indices[3]], 
+                    borderColor, 
+                    1.0f
+                );
+            }
+            
+            // Debug: Show face rendering order and depth values
+            if (showDebugFaceOrder) {
+                // Calculate face center in screen space for label positioning
+                ImVec2 faceCenter = ImVec2(
+                    (screenCorners[indices[0]].x + screenCorners[indices[1]].x + screenCorners[indices[2]].x + screenCorners[indices[3]].x) * 0.25f,
+                    (screenCorners[indices[0]].y + screenCorners[indices[1]].y + screenCorners[indices[2]].y + screenCorners[indices[3]].y) * 0.25f
+                );
+                
+                // Create debug label with face name, render order, and depth
+                char debugLabel[64];
+                snprintf(debugLabel, sizeof(debugLabel), "%s\n#%zu\nD:%.2f", 
+                        face.name.c_str(), faceIndex, face.viewDepth);
+                
+                // Draw debug info with background for readability
+                ImVec2 textSize = ImGui::CalcTextSize(debugLabel);
+                ImVec2 bgMin = ImVec2(faceCenter.x - textSize.x * 0.5f - 2, faceCenter.y - textSize.y * 0.5f - 2);
+                ImVec2 bgMax = ImVec2(faceCenter.x + textSize.x * 0.5f + 2, faceCenter.y + textSize.y * 0.5f + 2);
+                
+                // Semi-transparent background
+                drawList->AddRectFilled(bgMin, bgMax, IM_COL32(0, 0, 0, 180));
+                drawList->AddRect(bgMin, bgMax, IM_COL32(255, 255, 255, 255), 0.0f, 0, 1.0f);
+                
+                // Debug text
+                ImVec2 textPos = ImVec2(faceCenter.x - textSize.x * 0.5f, faceCenter.y - textSize.y * 0.5f);
+                drawList->AddText(textPos, IM_COL32(255, 255, 255, 255), debugLabel);
+                
+                // Draw arrow pointing from face center to camera direction
+                ImVec2 arrowEnd = ImVec2(faceCenter.x, faceCenter.y - 20);
+                drawList->AddLine(faceCenter, arrowEnd, IM_COL32(255, 255, 0, 255), 2.0f);
+                drawList->AddTriangleFilled(
+                    ImVec2(arrowEnd.x, arrowEnd.y - 5),
+                    ImVec2(arrowEnd.x - 3, arrowEnd.y + 2),
+                    ImVec2(arrowEnd.x + 3, arrowEnd.y + 2),
+                    IM_COL32(255, 255, 0, 255)
+                );
+            }
         }
     }
 }
