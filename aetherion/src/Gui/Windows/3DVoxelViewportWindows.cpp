@@ -1157,29 +1157,82 @@ void drawCoordinateAxes(ImDrawList* drawList, std::function<ImVec2(float, float,
     // Origin point
     ImVec2 origin = projectToScreen(0.0f, 0.0f, 0.0f);
     
-    // Axis endpoints - extend to a reasonable length for visibility
-    float axisLength = 5.0f; // Fixed length for visibility
+    // Axis endpoints - extend to 48 units for better visibility in large voxel spaces
+    float axisLength = 48.0f; // Extended length for 64x64x64 voxel space coverage
     ImVec2 xAxisEnd = projectToScreen(axisLength, 0.0f, 0.0f);
     ImVec2 yAxisEnd = projectToScreen(0.0f, axisLength, 0.0f);
     ImVec2 zAxisEnd = projectToScreen(0.0f, 0.0f, axisLength);
     
-    // Draw axes with different colors
-    // X-axis (Red)
-    drawList->AddLine(origin, xAxisEnd, IM_COL32(255, 100, 100, 255), 3.0f);
-    // Y-axis (Green)  
-    drawList->AddLine(origin, yAxisEnd, IM_COL32(100, 255, 100, 255), 3.0f);
-    // Z-axis (Blue)
-    drawList->AddLine(origin, zAxisEnd, IM_COL32(100, 100, 255, 255), 3.0f);
+    // Draw main axes with thicker lines and brighter colors for better visibility
+    // X-axis (Red) - thicker and brighter
+    drawList->AddLine(origin, xAxisEnd, IM_COL32(255, 50, 50, 255), 4.0f);
+    // Y-axis (Green) - thicker and brighter
+    drawList->AddLine(origin, yAxisEnd, IM_COL32(50, 255, 50, 255), 4.0f);
+    // Z-axis (Blue) - thicker and brighter
+    drawList->AddLine(origin, zAxisEnd, IM_COL32(50, 50, 255, 255), 4.0f);
     
-    // Add axis labels
-    ImVec2 textOffset(5, 5);
-    drawList->AddText(ImVec2(xAxisEnd.x + textOffset.x, xAxisEnd.y + textOffset.y), IM_COL32(255, 100, 100, 255), "X");
-    drawList->AddText(ImVec2(yAxisEnd.x + textOffset.x, yAxisEnd.y + textOffset.y), IM_COL32(100, 255, 100, 255), "Y");
-    drawList->AddText(ImVec2(zAxisEnd.x + textOffset.x, zAxisEnd.y + textOffset.y), IM_COL32(100, 100, 255, 255), "Z");
+    // Add tick marks every 8 units for better scale reference
+    const float tickInterval = 8.0f;
+    const float tickSize = 2.0f;
     
-    // Draw origin marker
-    drawList->AddCircleFilled(origin, 4.0f, IM_COL32(255, 255, 255, 255));
-    drawList->AddText(ImVec2(origin.x + textOffset.x, origin.y + textOffset.y), IM_COL32(255, 255, 255, 255), "O");
+    // X-axis tick marks
+    for (float i = tickInterval; i <= axisLength; i += tickInterval) {
+        ImVec2 tickPos = projectToScreen(i, 0.0f, 0.0f);
+        ImVec2 tickStart = projectToScreen(i, -tickSize, 0.0f);
+        ImVec2 tickEnd = projectToScreen(i, tickSize, 0.0f);
+        drawList->AddLine(tickStart, tickEnd, IM_COL32(255, 100, 100, 255), 2.0f);
+        
+        // Add scale labels every 16 units to avoid clutter
+        if (fmod(i, 16.0f) < 0.1f) {
+            char label[8];
+            snprintf(label, sizeof(label), "%.0f", i);
+            ImVec2 textPos = ImVec2(tickPos.x - 8, tickPos.y + 12);
+            drawList->AddText(textPos, IM_COL32(255, 100, 100, 255), label);
+        }
+    }
+    
+    // Y-axis tick marks
+    for (float i = tickInterval; i <= axisLength; i += tickInterval) {
+        ImVec2 tickPos = projectToScreen(0.0f, i, 0.0f);
+        ImVec2 tickStart = projectToScreen(-tickSize, i, 0.0f);
+        ImVec2 tickEnd = projectToScreen(tickSize, i, 0.0f);
+        drawList->AddLine(tickStart, tickEnd, IM_COL32(100, 255, 100, 255), 2.0f);
+        
+        // Add scale labels every 16 units
+        if (fmod(i, 16.0f) < 0.1f) {
+            char label[8];
+            snprintf(label, sizeof(label), "%.0f", i);
+            ImVec2 textPos = ImVec2(tickPos.x + 12, tickPos.y - 8);
+            drawList->AddText(textPos, IM_COL32(100, 255, 100, 255), label);
+        }
+    }
+    
+    // Z-axis tick marks
+    for (float i = tickInterval; i <= axisLength; i += tickInterval) {
+        ImVec2 tickPos = projectToScreen(0.0f, 0.0f, i);
+        ImVec2 tickStart = projectToScreen(-tickSize, 0.0f, i);
+        ImVec2 tickEnd = projectToScreen(tickSize, 0.0f, i);
+        drawList->AddLine(tickStart, tickEnd, IM_COL32(100, 100, 255, 255), 2.0f);
+        
+        // Add scale labels every 16 units
+        if (fmod(i, 16.0f) < 0.1f) {
+            char label[8];
+            snprintf(label, sizeof(label), "%.0f", i);
+            ImVec2 textPos = ImVec2(tickPos.x + 12, tickPos.y + 12);
+            drawList->AddText(textPos, IM_COL32(100, 100, 255, 255), label);
+        }
+    }
+    
+    // Enhanced axis labels with larger, more visible text
+    ImVec2 textOffset(8, 8);
+    drawList->AddText(ImVec2(xAxisEnd.x + textOffset.x, xAxisEnd.y + textOffset.y), IM_COL32(255, 50, 50, 255), "X (48)");
+    drawList->AddText(ImVec2(yAxisEnd.x + textOffset.x, yAxisEnd.y + textOffset.y), IM_COL32(50, 255, 50, 255), "Y (48)");
+    drawList->AddText(ImVec2(zAxisEnd.x + textOffset.x, zAxisEnd.y + textOffset.y), IM_COL32(50, 50, 255, 255), "Z (48)");
+    
+    // Enhanced origin marker - larger and more visible
+    drawList->AddCircleFilled(origin, 6.0f, IM_COL32(255, 255, 255, 255));
+    drawList->AddCircle(origin, 6.0f, IM_COL32(0, 0, 0, 255), 0, 2.0f);
+    drawList->AddText(ImVec2(origin.x + textOffset.x, origin.y + textOffset.y), IM_COL32(255, 255, 255, 255), "O (0,0,0)");
 }
 
 // Draw 3D grid with unit measurements
