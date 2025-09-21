@@ -16,11 +16,11 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
                      bool useSnap, float snap[3], float zoom, float viewDistance,
                      bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo, bool showVoxelBorders, bool showDebugFaceOrder);
 
-// Main function to render the 3D voxel viewport
+// Main function to render the 3D voxel viewport in a single organized window
 void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data) {
-    // Create 3D Viewport window
-    ImGui::SetNextWindowSize(ImVec2(1200, 800), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("3D Voxel Viewport")) {
+    // Create single main window
+    ImGui::SetNextWindowSize(ImVec2(1400, 900), ImGuiCond_FirstUseEver);
+    if (!ImGui::Begin("3D Voxel Viewport", nullptr, ImGuiWindowFlags_MenuBar)) {
         ImGui::End();
         return;
     }
@@ -43,17 +43,16 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     
     // Static control variables
     static float translation[3] = { -0.3f, -0.3f, 5.0f };
-    // Rotation: Set to isometric view by default.
     static float rotation[3] = { -45.0f, 45.0f, -90.0f };
     static float scale[3] = { 1.0f, 1.0f, 1.0f };
-    static float viewDistance = 25.0f;  // Increased for better view of actual-sized voxels
-    static float zoom = 20.0f;           // Reduced zoom for better overview
-    static bool matrixChanged = true;    // Set to true initially to force calculation
+    static float viewDistance = 25.0f;
+    static float zoom = 20.0f;
+    static bool matrixChanged = true;
     
     // Camera position controls
-    static float cameraPosition[3] = { 15.0f, 15.0f, 15.0f };  // Position camera away from origin
-    static float cameraTarget[3] = { 8.0f, 8.0f, 8.0f };       // Look at center of typical voxel data
-    static float cameraUp[3] = { 0.0f, 1.0f, 0.0f };           // Y-axis up
+    static float cameraPosition[3] = { 15.0f, 15.0f, 15.0f };
+    static float cameraTarget[3] = { 8.0f, 8.0f, 8.0f };
+    static float cameraUp[3] = { 0.0f, 1.0f, 0.0f };
     static bool cameraChanged = true;
     
     static ImGuizmo::OPERATION currentGizmoOperation = ImGuizmo::TRANSLATE;
@@ -69,45 +68,52 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     static bool showVoxelBorders = true;
     static bool showDebugFaceOrder = false;
     
-    // Get the available content region for layout calculations
-    ImVec2 availableRegion = ImGui::GetContentRegionAvail();
-    float headerHeight = 80.0f; // Fixed height for header
-    float leftPanelWidth = 300.0f; // Fixed width for control panel
+    // Layout control variables
+    static bool showControlPanel = true;
+    static float controlPanelWidth = 350.0f;
     
-    // 1. Header Section - Basic Info
-    ImGui::BeginChild("HeaderRegion", ImVec2(0, headerHeight), true);
-    renderVoxelDataHeader(voxel_data);
-    ImGui::EndChild();
+    // Menu bar for layout options
+    if (ImGui::BeginMenuBar()) {
+        if (ImGui::BeginMenu("View")) {
+            ImGui::Checkbox("Show Control Panel", &showControlPanel);
+            ImGui::SliderFloat("Control Panel Width", &controlPanelWidth, 250.0f, 500.0f);
+            ImGui::Separator();
+            if (ImGui::MenuItem("Reset Layout")) {
+                controlPanelWidth = 350.0f;
+                showControlPanel = true;
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Camera")) {
+            if (ImGui::MenuItem("Reset Camera")) {
+                cameraPosition[0] = 15.0f; cameraPosition[1] = 15.0f; cameraPosition[2] = 15.0f;
+                cameraTarget[0] = 8.0f; cameraTarget[1] = 8.0f; cameraTarget[2] = 8.0f;
+                cameraUp[0] = 0.0f; cameraUp[1] = 1.0f; cameraUp[2] = 0.0f;
+                cameraChanged = true;
+            }
+            if (ImGui::MenuItem("Tibia View")) {
+                cameraPosition[0] = 20.0f; cameraPosition[1] = 20.0f; cameraPosition[2] = 20.0f;
+                cameraTarget[0] = 8.0f; cameraTarget[1] = 8.0f; cameraTarget[2] = 8.0f;
+                cameraUp[0] = 0.0f; cameraUp[1] = 1.0f; cameraUp[2] = 0.0f;
+                cameraChanged = true;
+            }
+            if (ImGui::MenuItem("Top View")) {
+                cameraPosition[0] = 8.0f; cameraPosition[1] = 30.0f; cameraPosition[2] = 8.0f;
+                cameraTarget[0] = 8.0f; cameraTarget[1] = 0.0f; cameraTarget[2] = 8.0f;
+                cameraUp[0] = 0.0f; cameraUp[1] = 0.0f; cameraUp[2] = -1.0f;
+                cameraChanged = true;
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMenuBar();
+    }
     
-    // 2. Main Content Section - Split layout
-    ImGui::BeginChild("MainContent", ImVec2(0, 0), false);
-    
-    // Left panel - Controls
-    ImGui::BeginChild("ControlsPanel", ImVec2(leftPanelWidth, 0), true);
-    
-    // Transform controls
-    renderTransformControls(translation, rotation, scale, viewDistance, zoom, matrixChanged,
-                           cameraPosition, cameraTarget, cameraUp, cameraChanged);
-    
-    ImGui::Separator();
-    
-    // ImGuizmo controls
-    renderImGuizmoControls(currentGizmoOperation, currentGizmoMode, useSnap, snap, showGrid, showAxes, showWireframe, showImGuizmo, showVoxelBorders, showDebugFaceOrder);
-    
-    ImGui::EndChild();
-    
-    ImGui::SameLine();
-    
-    // Right panel - 3D Viewport
-    ImGui::BeginChild("ViewportPanel", ImVec2(0, 0), true);
-    
-    // Update matrices if needed
+    // Update transformation matrix
     updateTransformationMatrix(objectMatrix, translation, rotation, scale, matrixChanged);
     
     // Dynamic camera view matrix calculation
     if (cameraChanged || matrixChanged) {
         // Calculate camera view matrix from position, target, and up vectors
-        // This creates a "look-at" matrix
         float forward[3] = {
             cameraTarget[0] - cameraPosition[0],
             cameraTarget[1] - cameraPosition[1],
@@ -153,7 +159,115 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
         cameraChanged = false;
     }
     
-    float aspect = ImGui::GetContentRegionAvail().x / ImGui::GetContentRegionAvail().y;
+    // Main layout: Control panel (left) + 3D Viewport (right)
+    ImVec2 availableRegion = ImGui::GetContentRegionAvail();
+    
+    if (showControlPanel) {
+        // Left panel - Tabbed control interface
+        ImGui::BeginChild("ControlPanel", ImVec2(controlPanelWidth, availableRegion.y), true);
+        
+        if (ImGui::BeginTabBar("ControlTabs", ImGuiTabBarFlags_None)) {
+            
+            // Tab 1: Voxel Info
+            if (ImGui::BeginTabItem("Info")) {
+                renderVoxelDataHeader(voxel_data);
+                ImGui::EndTabItem();
+            }
+            
+            // Tab 2: Transform & Camera
+            if (ImGui::BeginTabItem("Transform")) {
+                // Collapsible sections for better organization
+                if (ImGui::CollapsingHeader("Transform Controls", ImGuiTreeNodeFlags_DefaultOpen)) {
+                    if (ImGui::SliderFloat3("Translation", translation, -50.0f, 50.0f)) {
+                        matrixChanged = true;
+                    }
+                    if (ImGui::SliderFloat3("Rotation (deg)", rotation, -180.0f, 180.0f)) {
+                        matrixChanged = true;
+                    }
+                    if (ImGui::SliderFloat3("Scale", scale, 0.1f, 3.0f)) {
+                        matrixChanged = true;
+                    }
+                    if (ImGui::SliderFloat("View Distance", &viewDistance, 1.0f, 20.0f)) {
+                        matrixChanged = true;
+                    }
+                    if (ImGui::SliderFloat("Zoom", &zoom, 0.1f, 300.0f)) {
+                        matrixChanged = true;
+                    }
+                    
+                    if (ImGui::Button("Reset Transform")) {
+                        translation[0] = -0.3f; translation[1] = -0.3f; translation[2] = 5.0f;
+                        rotation[0] = -45.0f; rotation[1] = 45.0f; rotation[2] = -90.0f;
+                        scale[0] = scale[1] = scale[2] = 1.0f;
+                        viewDistance = 25.0f; zoom = 20.0f;
+                        matrixChanged = true;
+                    }
+                }
+                
+                if (ImGui::CollapsingHeader("Camera Controls", ImGuiTreeNodeFlags_DefaultOpen)) {
+                    if (ImGui::SliderFloat3("Camera Position", cameraPosition, -50.0f, 50.0f)) {
+                        cameraChanged = true;
+                    }
+                    if (ImGui::SliderFloat3("Camera Target", cameraTarget, -20.0f, 20.0f)) {
+                        cameraChanged = true;
+                    }
+                    if (ImGui::SliderFloat3("Camera Up", cameraUp, -1.0f, 1.0f)) {
+                        cameraChanged = true;
+                    }
+                }
+                
+                ImGui::EndTabItem();
+            }
+            
+            // Tab 3: Display Options
+            if (ImGui::BeginTabItem("Display")) {
+                if (ImGui::CollapsingHeader("ImGuizmo Controls", ImGuiTreeNodeFlags_DefaultOpen)) {
+                    if (ImGui::RadioButton("Translate", currentGizmoOperation == ImGuizmo::TRANSLATE))
+                        currentGizmoOperation = ImGuizmo::TRANSLATE;
+                    if (ImGui::RadioButton("Rotate", currentGizmoOperation == ImGuizmo::ROTATE))
+                        currentGizmoOperation = ImGuizmo::ROTATE;
+                    if (ImGui::RadioButton("Scale", currentGizmoOperation == ImGuizmo::SCALE))
+                        currentGizmoOperation = ImGuizmo::SCALE;
+                    
+                    if (currentGizmoOperation != ImGuizmo::SCALE) {
+                        if (ImGui::RadioButton("Local", currentGizmoMode == ImGuizmo::LOCAL))
+                            currentGizmoMode = ImGuizmo::LOCAL;
+                        if (ImGui::RadioButton("World", currentGizmoMode == ImGuizmo::WORLD))
+                            currentGizmoMode = ImGuizmo::WORLD;
+                    }
+                    
+                    ImGui::Checkbox("Use Snap", &useSnap);
+                    if (useSnap) {
+                        ImGui::InputFloat3("Snap Values", snap);
+                    }
+                }
+                
+                if (ImGui::CollapsingHeader("Visibility Options", ImGuiTreeNodeFlags_DefaultOpen)) {
+                    ImGui::Checkbox("Show Grid", &showGrid);
+                    ImGui::Checkbox("Show Axes", &showAxes);
+                    ImGui::Checkbox("Show Wireframe", &showWireframe);
+                    ImGui::Checkbox("Show ImGuizmo", &showImGuizmo);
+                    ImGui::Checkbox("Show Voxel Borders", &showVoxelBorders);
+                    ImGui::Checkbox("Debug Face Order", &showDebugFaceOrder);
+                }
+                
+                ImGui::EndTabItem();
+            }
+            
+            ImGui::EndTabBar();
+        }
+        
+        ImGui::EndChild();
+        
+        ImGui::SameLine();
+    }
+    
+    // Right panel - 3D Viewport
+    float viewportWidth = showControlPanel ? (availableRegion.x - controlPanelWidth - 10.0f) : availableRegion.x;
+    ImGui::BeginChild("Viewport3D", ImVec2(viewportWidth, availableRegion.y), true);
+    
+    // Calculate aspect ratio and setup projection
+    ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+    float aspect = viewportSize.x / viewportSize.y;
     setupProjectionMatrix(cameraProjection, aspect);
     
     // Render the 3D viewport
@@ -162,8 +276,6 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
                     showGrid, showAxes, showWireframe, showImGuizmo, showVoxelBorders, showDebugFaceOrder);
     
     ImGui::EndChild();
-    
-    ImGui::EndChild(); // MainContent
     
     ImGui::End();
 }
@@ -1015,7 +1127,7 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
 // Display transformation matrix and voxel information
 void renderTransformationInfo(nb::ndarray<nb::numpy>& voxel_data, float objectMatrix[16]) {
     ImGui::Separator();
-    
+
     // Display voxel grid dimensions
     if (voxel_data.ndim() >= 2) {
         ImGui::Text("Voxel Grid: %zux%zu", voxel_data.shape(0), voxel_data.shape(1));
@@ -1030,7 +1142,7 @@ void renderTransformationInfo(nb::ndarray<nb::numpy>& voxel_data, float objectMa
         }
         ImGui::Text("Voxel Data Length: %zu", totalSize);
     }
-    
+
     // Display transformation matrix in a more compact way
     if (ImGui::CollapsingHeader("Transform Matrix", ImGuiTreeNodeFlags_DefaultOpen)) {
         ImGui::Text("%.2f %.2f %.2f | %.2f", objectMatrix[0], objectMatrix[4], objectMatrix[8], objectMatrix[12]);
