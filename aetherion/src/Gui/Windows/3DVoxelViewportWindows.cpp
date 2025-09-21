@@ -3,7 +3,8 @@
 // Forward declarations for helper methods
 void renderVoxelDataHeader(nb::ndarray<nb::numpy>& voxel_data);
 void renderTransformControls(float translation[3], float rotation[3], float scale[3], 
-                           float& viewDistance, float& zoom, bool& matrixChanged);
+                           float& viewDistance, float& zoom, bool& matrixChanged,
+                           float cameraPosition[3], float cameraTarget[3], float cameraUp[3], bool& cameraChanged);
 void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo::MODE& currentGizmoMode, 
                           bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo, bool& showVoxelBorders, bool& showDebugFaceOrder);
 void updateTransformationMatrix(float objectMatrix[16], const float translation[3], 
@@ -23,7 +24,7 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
         ImGui::End();
         return;
     }
-    
+
     // Static camera and transformation matrices
     static float cameraView[16] = {
         1.0f, 0.0f, 0.0f, 0.0f,
@@ -41,12 +42,19 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     };
     
     // Static control variables
-    static float translation[3] = { 0.0f, 0.0f, 0.0f };
-    static float rotation[3] = { 0.0f, 0.0f, 0.0f };
+    static float translation[3] = { -0.3f, -0.3f, 5.0f };
+    // Rotation: Set to isometric view by default.
+    static float rotation[3] = { -45.0f, 45.0f, -90.0f };
     static float scale[3] = { 1.0f, 1.0f, 1.0f };
     static float viewDistance = 25.0f;  // Increased for better view of actual-sized voxels
     static float zoom = 20.0f;           // Reduced zoom for better overview
-    static bool matrixChanged = false;
+    static bool matrixChanged = true;    // Set to true initially to force calculation
+    
+    // Camera position controls
+    static float cameraPosition[3] = { 0.0f, 0.0f, 25.0f };
+    static float cameraTarget[3] = { 0.0f, 0.0f, 0.0f };
+    static float cameraUp[3] = { 0.0f, 1.0f, 0.0f };
+    static bool cameraChanged = true;
     
     static ImGuizmo::OPERATION currentGizmoOperation = ImGuizmo::TRANSLATE;
     static ImGuizmo::MODE currentGizmoMode = ImGuizmo::WORLD;
@@ -54,11 +62,11 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     static float snap[3] = { 1.0f, 1.0f, 1.0f };
     
     // Static visibility flags
-    static bool showGrid = true;
+    static bool showGrid = false;
     static bool showAxes = true;
     static bool showWireframe = true;
-    static bool showImGuizmo = true;
-    static bool showVoxelBorders = false;
+    static bool showImGuizmo = false;
+    static bool showVoxelBorders = true;
     static bool showDebugFaceOrder = false;
     
     // Get the available content region for layout calculations
@@ -78,7 +86,8 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     ImGui::BeginChild("ControlsPanel", ImVec2(leftPanelWidth, 0), true);
     
     // Transform controls
-    renderTransformControls(translation, rotation, scale, viewDistance, zoom, matrixChanged);
+    renderTransformControls(translation, rotation, scale, viewDistance, zoom, matrixChanged,
+                           cameraPosition, cameraTarget, cameraUp, cameraChanged);
     
     ImGui::Separator();
     
@@ -94,7 +103,55 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     
     // Update matrices if needed
     updateTransformationMatrix(objectMatrix, translation, rotation, scale, matrixChanged);
-    cameraView[14] = -viewDistance; // Update camera view based on view distance
+    
+    // Update camera view matrix if camera changed
+    if (cameraChanged) {
+        // Calculate camera view matrix from position, target, and up vectors
+        // This creates a "look-at" matrix
+        float forward[3] = {
+            cameraTarget[0] - cameraPosition[0],
+            cameraTarget[1] - cameraPosition[1],
+            cameraTarget[2] - cameraPosition[2]
+        };
+        
+        // Normalize forward vector
+        float forwardLen = sqrtf(forward[0]*forward[0] + forward[1]*forward[1] + forward[2]*forward[2]);
+        if (forwardLen > 0.0f) {
+            forward[0] /= forwardLen;
+            forward[1] /= forwardLen;
+            forward[2] /= forwardLen;
+        }
+        
+        // Calculate right vector (cross product of forward and up)
+        float right[3] = {
+            forward[1] * cameraUp[2] - forward[2] * cameraUp[1],
+            forward[2] * cameraUp[0] - forward[0] * cameraUp[2],
+            forward[0] * cameraUp[1] - forward[1] * cameraUp[0]
+        };
+        
+        // Normalize right vector
+        float rightLen = sqrtf(right[0]*right[0] + right[1]*right[1] + right[2]*right[2]);
+        if (rightLen > 0.0f) {
+            right[0] /= rightLen;
+            right[1] /= rightLen;
+            right[2] /= rightLen;
+        }
+        
+        // Calculate true up vector (cross product of right and forward)
+        float up[3] = {
+            right[1] * forward[2] - right[2] * forward[1],
+            right[2] * forward[0] - right[0] * forward[2],
+            right[0] * forward[1] - right[1] * forward[0]
+        };
+        
+        // Build view matrix
+        cameraView[0] = right[0];   cameraView[4] = right[1];   cameraView[8] = right[2];    cameraView[12] = -(right[0]*cameraPosition[0] + right[1]*cameraPosition[1] + right[2]*cameraPosition[2]);
+        cameraView[1] = up[0];      cameraView[5] = up[1];      cameraView[9] = up[2];       cameraView[13] = -(up[0]*cameraPosition[0] + up[1]*cameraPosition[1] + up[2]*cameraPosition[2]);
+        cameraView[2] = -forward[0]; cameraView[6] = -forward[1]; cameraView[10] = -forward[2]; cameraView[14] = -(-forward[0]*cameraPosition[0] + -forward[1]*cameraPosition[1] + -forward[2]*cameraPosition[2]);
+        cameraView[3] = 0.0f;       cameraView[7] = 0.0f;       cameraView[11] = 0.0f;       cameraView[15] = 1.0f;
+        
+        cameraChanged = false;
+    }
     
     float aspect = ImGui::GetContentRegionAvail().x / ImGui::GetContentRegionAvail().y;
     setupProjectionMatrix(cameraProjection, aspect);
@@ -159,11 +216,12 @@ void renderVoxelDataHeader(nb::ndarray<nb::numpy>& voxel_data) {
 
 // Render transformation control sliders
 void renderTransformControls(float translation[3], float rotation[3], float scale[3], 
-                           float& viewDistance, float& zoom, bool& matrixChanged) {
+                           float& viewDistance, float& zoom, bool& matrixChanged,
+                           float cameraPosition[3], float cameraTarget[3], float cameraUp[3], bool& cameraChanged) {
     ImGui::Text("Transform Controls");
     ImGui::Separator();
     
-    if (ImGui::SliderFloat3("Translation", translation, -5.0f, 5.0f)) {
+    if (ImGui::SliderFloat3("Translation", translation, -50.0f, 50.0f)) {
         matrixChanged = true;
     }
     if (ImGui::SliderFloat3("Rotation (deg)", rotation, -180.0f, 180.0f)) {
@@ -175,14 +233,35 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
     if (ImGui::SliderFloat("View Distance", &viewDistance, 1.0f, 20.0f)) {
         matrixChanged = true;
     }
-    if (ImGui::SliderFloat("Zoom", &zoom, 0.1f, 30.0f)) {
+    if (ImGui::SliderFloat("Zoom", &zoom, 0.1f, 300.0f)) {
         matrixChanged = true;
     }
     
+    ImGui::Separator();
+
+    // Camera Controls it is not working well...
+    // ImGui::Text("Camera Controls");
+    
+    // if (ImGui::SliderFloat3("Camera Position", cameraPosition, -50.0f, 50.0f)) {
+    //     cameraChanged = true;
+    // }
+    // if (ImGui::SliderFloat3("Camera Target", cameraTarget, -20.0f, 20.0f)) {
+    //     cameraChanged = true;
+    // }
+    // if (ImGui::SliderFloat3("Camera Up", cameraUp, -1.0f, 1.0f)) {
+    //     cameraChanged = true;
+    // }
+    
     // Reset and randomize buttons
     if (ImGui::Button("Reset Transform")) {
-        translation[0] = translation[1] = translation[2] = 0.0f;
-        rotation[0] = rotation[1] = rotation[2] = 0.0f;
+        // translation[0] = translation[1] = translation[2] = 0.0f;
+        translation[0] = -0.3f; // Slight offset to better view voxels
+        translation[1] = -0.3f;
+        translation[2] = 5.0f;
+        // rotation[0] = rotation[1] = rotation[2] = 0.0f;
+        rotation[0] = -45.0f;  // Tilt down to see the top and sides
+        rotation[1] = 45.0f;  // Rotate 45 degrees to get isometric view
+        rotation[2] = -90.0f;    // No roll
         scale[0] = scale[1] = scale[2] = 1.0f;
         viewDistance = 25.0f;
         zoom = 20.0f;
@@ -190,6 +269,13 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
     }
     
     ImGui::SameLine();
+    if (ImGui::Button("Reset Camera")) {
+        cameraPosition[0] = 0.0f; cameraPosition[1] = 0.0f; cameraPosition[2] = -25.0f;
+        cameraTarget[0] = 0.0f; cameraTarget[1] = 0.0f; cameraTarget[2] = 0.0f;
+        cameraUp[0] = 0.0f; cameraUp[1] = 1.0f; cameraUp[2] = 0.0f;
+        cameraChanged = true;
+    }
+    
     if (ImGui::Button("Tibia View")) {
         // Set up classic isometric Tibia-like perspective
         // The top face appears as a perfect square, showing half of each side
@@ -201,6 +287,12 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
         viewDistance = 30.0f;  // Pull back for good view of voxel area
         zoom = 3.0f;           // Zoom in to see voxel details
         matrixChanged = true;
+        
+        // Position camera for isometric view
+        cameraPosition[0] = 15.0f; cameraPosition[1] = 15.0f; cameraPosition[2] = 15.0f;
+        cameraTarget[0] = 5.0f; cameraTarget[1] = 5.0f; cameraTarget[2] = 5.0f;
+        cameraUp[0] = 0.0f; cameraUp[1] = 1.0f; cameraUp[2] = 0.0f;
+        cameraChanged = true;
     }
     
     if (ImGui::Button("Random Rotation")) {
@@ -654,22 +746,58 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
                     std::function<std::tuple<float, float, float>(float, float, float)> transformPoint,
                     float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders, bool showDebugFaceOrder) {
     
+    // Helper function to check if a voxel exists at given coordinates
+    auto hasVoxelAt = [&](int x, int y, int z) -> bool {
+        // Check bounds
+        if (x < 0 || y < 0 || z < 0) return false;
+        if (voxel_data.ndim() < 3) {
+            if (voxel_data.ndim() == 2) {
+                if (x >= (int)voxel_data.shape(0) || y >= (int)voxel_data.shape(1) || z > 0) return false;
+            } else {
+                return false;
+            }
+        } else {
+            if (x >= (int)voxel_data.shape(0) || y >= (int)voxel_data.shape(1) || z >= (int)voxel_data.shape(2)) return false;
+        }
+        
+        // Check if voxel has non-zero value
+        if (voxel_data.dtype() == nb::dtype<float>()) {
+            const float* data = static_cast<const float*>(voxel_data.data());
+            size_t index;
+            if (voxel_data.ndim() == 3) {
+                index = z * voxel_data.shape(0) * voxel_data.shape(1) + y * voxel_data.shape(0) + x;
+            } else {
+                index = y * voxel_data.shape(0) + x;
+            }
+            return std::abs(data[index]) > 0.001f;
+        } else if (voxel_data.dtype() == nb::dtype<int>()) {
+            const int* data = static_cast<const int*>(voxel_data.data());
+            size_t index;
+            if (voxel_data.ndim() == 3) {
+                index = z * voxel_data.shape(0) * voxel_data.shape(1) + y * voxel_data.shape(0) + x;
+            } else {
+                index = y * voxel_data.shape(0) + x;
+            }
+            return data[index] != 0;
+        }
+        return false;
+    };
+    
     for (const auto& voxel : voxelPoints) {
         // Each voxel occupies a 1x1x1 cube from (x,y,z) to (x+1,y+1,z+1)
-        // Add small epsilon to avoid z-fighting between adjacent faces
-        const float epsilon = 0.001f;
+        // No epsilon needed since we're only drawing external faces
         
         std::vector<std::tuple<float, float, float>> cubeCorners = {
             // Back face (z)
-            {voxel.x + epsilon, voxel.y + epsilon, voxel.z + epsilon},           // 0: bottom-left-back
-            {voxel.x + 1.0f - epsilon, voxel.y + epsilon, voxel.z + epsilon},    // 1: bottom-right-back
-            {voxel.x + 1.0f - epsilon, voxel.y + 1.0f - epsilon, voxel.z + epsilon}, // 2: top-right-back
-            {voxel.x + epsilon, voxel.y + 1.0f - epsilon, voxel.z + epsilon},    // 3: top-left-back
+            {voxel.x, voxel.y, voxel.z},               // 0: bottom-left-back
+            {voxel.x + 1.0f, voxel.y, voxel.z},        // 1: bottom-right-back
+            {voxel.x + 1.0f, voxel.y + 1.0f, voxel.z}, // 2: top-right-back
+            {voxel.x, voxel.y + 1.0f, voxel.z},        // 3: top-left-back
             // Front face (z + 1)
-            {voxel.x + epsilon, voxel.y + epsilon, voxel.z + 1.0f - epsilon},    // 4: bottom-left-front
-            {voxel.x + 1.0f - epsilon, voxel.y + epsilon, voxel.z + 1.0f - epsilon}, // 5: bottom-right-front
-            {voxel.x + 1.0f - epsilon, voxel.y + 1.0f - epsilon, voxel.z + 1.0f - epsilon}, // 6: top-right-front
-            {voxel.x + epsilon, voxel.y + 1.0f - epsilon, voxel.z + 1.0f - epsilon}  // 7: top-left-front
+            {voxel.x, voxel.y, voxel.z + 1.0f},        // 4: bottom-left-front
+            {voxel.x + 1.0f, voxel.y, voxel.z + 1.0f}, // 5: bottom-right-front
+            {voxel.x + 1.0f, voxel.y + 1.0f, voxel.z + 1.0f}, // 6: top-right-front
+            {voxel.x, voxel.y + 1.0f, voxel.z + 1.0f}  // 7: top-left-front
         };
         
         // Project all corners to screen space
@@ -678,7 +806,7 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
             screenCorners.push_back(projectToScreen(std::get<0>(corner), std::get<1>(corner), std::get<2>(corner)));
         }
         
-        // Color based on value
+        // Color based on value - make fully opaque to avoid blending seams
         ImU32 voxelColor;
         ImU32 borderColor = IM_COL32(0, 0, 0, 255); // Black border
         
@@ -686,22 +814,23 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
             // Color based on value intensity
             uint8_t intensity = (uint8_t)(std::min(std::abs((float)voxel.value) * 255.0f, 255.0f));
             voxelColor = voxel.value > 0 ? 
-                IM_COL32(intensity, intensity/2, 0, 200) :  // Orange for positive
-                IM_COL32(0, intensity/2, intensity, 200);   // Blue for negative
+                IM_COL32(intensity, intensity/2, 0, 255) :  // Orange for positive - fully opaque
+                IM_COL32(0, intensity/2, intensity, 255);   // Blue for negative - fully opaque
         } else {
             // Color based on value
             uint8_t r = (uint8_t)((voxel.value * 67) % 256);
             uint8_t g = (uint8_t)((voxel.value * 131) % 256);
             uint8_t b = (uint8_t)((voxel.value * 197) % 256);
-            voxelColor = IM_COL32(r, g, b, 200);
+            voxelColor = IM_COL32(r, g, b, 255); // Fully opaque
         }
         
-        // Define faces with their center points for depth sorting
+        // Define faces with neighbor checks - only draw external faces
         struct Face {
             std::vector<int> indices;
             float centerX, centerY, centerZ;
             float viewDepth; // Depth from camera perspective
             std::string name;
+            int neighborX, neighborY, neighborZ; // Neighbor position to check
         };
         
         // Helper function to transform a point and get view depth
@@ -711,19 +840,24 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
             return tz; // Depth in transformed/view space
         };
         
-        std::vector<Face> faces = {
-            // Calculate face centers in world space, then get view depth
-            {{0, 1, 2, 3}, voxel.x + 0.5f, voxel.y + 0.5f, voxel.z + epsilon, 0.0f, "Back"},
-            {{4, 5, 6, 7}, voxel.x + 0.5f, voxel.y + 0.5f, voxel.z + 1.0f - epsilon, 0.0f, "Front"},
-            {{0, 1, 5, 4}, voxel.x + 0.5f, voxel.y + epsilon, voxel.z + 0.5f, 0.0f, "Bottom"},
-            {{3, 2, 6, 7}, voxel.x + 0.5f, voxel.y + 1.0f - epsilon, voxel.z + 0.5f, 0.0f, "Top"},
-            {{0, 3, 7, 4}, voxel.x + epsilon, voxel.y + 0.5f, voxel.z + 0.5f, 0.0f, "Left"},
-            {{1, 2, 6, 5}, voxel.x + 1.0f - epsilon, voxel.y + 0.5f, voxel.z + 0.5f, 0.0f, "Right"}
+        // Define all potential faces with their neighbor positions
+        std::vector<Face> potentialFaces = {
+            // Only include face if neighbor in that direction is empty
+            {{0, 1, 2, 3}, voxel.x + 0.5f, voxel.y + 0.5f, voxel.z, 0.0f, "Back", (int)voxel.x, (int)voxel.y, (int)voxel.z - 1},
+            {{4, 5, 6, 7}, voxel.x + 0.5f, voxel.y + 0.5f, voxel.z + 1.0f, 0.0f, "Front", (int)voxel.x, (int)voxel.y, (int)voxel.z + 1},
+            {{0, 1, 5, 4}, voxel.x + 0.5f, voxel.y, voxel.z + 0.5f, 0.0f, "Bottom", (int)voxel.x, (int)voxel.y - 1, (int)voxel.z},
+            {{3, 2, 6, 7}, voxel.x + 0.5f, voxel.y + 1.0f, voxel.z + 0.5f, 0.0f, "Top", (int)voxel.x, (int)voxel.y + 1, (int)voxel.z},
+            {{0, 3, 7, 4}, voxel.x, voxel.y + 0.5f, voxel.z + 0.5f, 0.0f, "Left", (int)voxel.x - 1, (int)voxel.y, (int)voxel.z},
+            {{1, 2, 6, 5}, voxel.x + 1.0f, voxel.y + 0.5f, voxel.z + 0.5f, 0.0f, "Right", (int)voxel.x + 1, (int)voxel.y, (int)voxel.z}
         };
         
-        // Calculate view depth for each face center
-        for (auto& face : faces) {
-            face.viewDepth = getViewDepth(face.centerX, face.centerY, face.centerZ);
+        // Filter faces - only keep external faces (no solid neighbor)
+        std::vector<Face> faces;
+        for (auto& face : potentialFaces) {
+            if (!hasVoxelAt(face.neighborX, face.neighborY, face.neighborZ)) {
+                face.viewDepth = getViewDepth(face.centerX, face.centerY, face.centerZ);
+                faces.push_back(face);
+            }
         }
         
         // Sort faces by view depth (back to front from camera perspective)
