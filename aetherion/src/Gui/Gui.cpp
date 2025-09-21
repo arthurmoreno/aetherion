@@ -1461,7 +1461,7 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::nd
     // ================================================================================================
     
     // Create 3D Viewport window
-    ImGui::SetNextWindowSize(ImVec2(600, 600), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(800, 1200), ImGuiCond_FirstUseEver);
     if (ImGui::Begin("3D Voxel Viewport")) {
         
         // Static camera and transformation matrices
@@ -1483,6 +1483,61 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::nd
         // Get the available content region
         ImVec2 viewportSize = ImGui::GetContentRegionAvail();
         float aspect = viewportSize.x / viewportSize.y;
+        
+        // Display voxel data information
+        ImGui::Text("Voxel Data Info:");
+        ImGui::Text("Dimensions: %zu", voxel_data.ndim());
+        // ImGui::Text("Data type: %s", voxel_data.dtype().name().c_str());
+        
+        // Display shape information
+        std::string shapeStr = "Shape: [";
+        for (size_t i = 0; i < voxel_data.ndim(); i++) {
+            shapeStr += std::to_string(voxel_data.shape(i));
+            if (i < voxel_data.ndim() - 1) shapeStr += ", ";
+        }
+        shapeStr += "]";
+        ImGui::Text("%s", shapeStr.c_str());
+        
+        // Display total size
+        size_t totalSize = 1;
+        for (size_t i = 0; i < voxel_data.ndim(); i++) {
+            totalSize *= voxel_data.shape(i);
+        }
+        ImGui::Text("Total elements: %zu", totalSize);
+        
+        // Display some data values if the array is not empty
+        if (totalSize > 0 && voxel_data.data() != nullptr) {
+            // Try to interpret as different data types and show first few values
+            if (voxel_data.dtype() == nb::dtype<float>()) {
+                const float* data = static_cast<const float*>(voxel_data.data());
+                ImGui::Text("First 5 values (float): %.3f, %.3f, %.3f, %.3f, %.3f", 
+                    totalSize > 0 ? data[0] : 0.0f,
+                    totalSize > 1 ? data[1] : 0.0f,
+                    totalSize > 2 ? data[2] : 0.0f,
+                    totalSize > 3 ? data[3] : 0.0f,
+                    totalSize > 4 ? data[4] : 0.0f);
+            } else if (voxel_data.dtype() == nb::dtype<int>()) {
+                const int* data = static_cast<const int*>(voxel_data.data());
+                ImGui::Text("First 5 values (int): %d, %d, %d, %d, %d", 
+                    totalSize > 0 ? data[0] : 0,
+                    totalSize > 1 ? data[1] : 0,
+                    totalSize > 2 ? data[2] : 0,
+                    totalSize > 3 ? data[3] : 0,
+                    totalSize > 4 ? data[4] : 0);
+            } else if (voxel_data.dtype() == nb::dtype<uint8_t>()) {
+                const uint8_t* data = static_cast<const uint8_t*>(voxel_data.data());
+                ImGui::Text("First 5 values (uint8): %u, %u, %u, %u, %u", 
+                    totalSize > 0 ? data[0] : 0,
+                    totalSize > 1 ? data[1] : 0,
+                    totalSize > 2 ? data[2] : 0,
+                    totalSize > 3 ? data[3] : 0,
+                    totalSize > 4 ? data[4] : 0);
+            } else {
+                ImGui::Text("Data type not directly supported for preview");
+            }
+        }
+        
+        ImGui::Separator();
         
         // Setup perspective projection matrix
         const float fov = 45.0f * 3.14159f / 180.0f; // 45 degrees in radians
@@ -1524,7 +1579,101 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::nd
         static bool useSnap = false;
         static float snap[3] = { 1.0f, 1.0f, 1.0f };
         
-        // Control panel for the 3D viewport
+        // Manual transformation controls
+        static float translation[3] = { 0.0f, 0.0f, 0.0f };
+        static float rotation[3] = { 0.0f, 0.0f, 0.0f };    // Euler angles in degrees
+        static float scale[3] = { 1.0f, 1.0f, 1.0f };
+        static float viewDistance = 5.0f;
+        static float zoom = 1.0f;
+        
+        // Manual input controls
+        ImGui::Text("Manual Transform Controls:");
+        ImGui::Separator();
+        
+        bool matrixChanged = false;
+        if (ImGui::SliderFloat3("Translation", translation, -5.0f, 5.0f)) {
+            matrixChanged = true;
+        }
+        if (ImGui::SliderFloat3("Rotation (deg)", rotation, -180.0f, 180.0f)) {
+            matrixChanged = true;
+        }
+        if (ImGui::SliderFloat3("Scale", scale, 0.1f, 3.0f)) {
+            matrixChanged = true;
+        }
+        if (ImGui::SliderFloat("View Distance", &viewDistance, 1.0f, 20.0f)) {
+            matrixChanged = true;
+        }
+        if (ImGui::SliderFloat("Zoom", &zoom, 0.1f, 5.0f)) {
+            matrixChanged = true;
+        }
+        
+        // Reset button
+        if (ImGui::Button("Reset Transform")) {
+            translation[0] = translation[1] = translation[2] = 0.0f;
+            rotation[0] = rotation[1] = rotation[2] = 0.0f;
+            scale[0] = scale[1] = scale[2] = 1.0f;
+            viewDistance = 5.0f;
+            zoom = 1.0f;
+            matrixChanged = true;
+        }
+        
+        ImGui::SameLine();
+        if (ImGui::Button("Random Rotation")) {
+            rotation[0] = (rand() % 360) - 180.0f;
+            rotation[1] = (rand() % 360) - 180.0f;
+            rotation[2] = (rand() % 360) - 180.0f;
+            matrixChanged = true;
+        }
+        
+        // Build transformation matrix manually if changed
+        if (matrixChanged) {
+            // Convert degrees to radians
+            float rx = rotation[0] * 3.14159f / 180.0f;
+            float ry = rotation[1] * 3.14159f / 180.0f;
+            float rz = rotation[2] * 3.14159f / 180.0f;
+            
+            // Create rotation matrices
+            float cos_x = cosf(rx), sin_x = sinf(rx);
+            float cos_y = cosf(ry), sin_y = sinf(ry);
+            float cos_z = cosf(rz), sin_z = sinf(rz);
+            
+            // Combined rotation matrix (ZYX order)
+            float rotMatrix[16] = {
+                cos_y * cos_z, -cos_y * sin_z, sin_y, 0,
+                sin_x * sin_y * cos_z + cos_x * sin_z, -sin_x * sin_y * sin_z + cos_x * cos_z, -sin_x * cos_y, 0,
+                -cos_x * sin_y * cos_z + sin_x * sin_z, cos_x * sin_y * sin_z + sin_x * cos_z, cos_x * cos_y, 0,
+                0, 0, 0, 1
+            };
+            
+            // Apply scale and translation to create final transformation matrix
+            objectMatrix[0] = rotMatrix[0] * scale[0];
+            objectMatrix[1] = rotMatrix[1] * scale[0];
+            objectMatrix[2] = rotMatrix[2] * scale[0];
+            objectMatrix[3] = rotMatrix[3];
+            
+            objectMatrix[4] = rotMatrix[4] * scale[1];
+            objectMatrix[5] = rotMatrix[5] * scale[1];
+            objectMatrix[6] = rotMatrix[6] * scale[1];
+            objectMatrix[7] = rotMatrix[7];
+            
+            objectMatrix[8] = rotMatrix[8] * scale[2];
+            objectMatrix[9] = rotMatrix[9] * scale[2];
+            objectMatrix[10] = rotMatrix[10] * scale[2];
+            objectMatrix[11] = rotMatrix[11];
+            
+            objectMatrix[12] = translation[0];
+            objectMatrix[13] = translation[1];
+            objectMatrix[14] = translation[2];
+            objectMatrix[15] = 1.0f;
+        }
+        
+        // Update camera view based on view distance
+        cameraView[14] = -viewDistance;
+        
+        ImGui::Separator();
+        
+        // Control panel for the 3D viewport (ImGuizmo)
+        ImGui::Text("ImGuizmo Controls:");
         if (ImGui::RadioButton("Translate", currentGizmoOperation == ImGuizmo::TRANSLATE))
             currentGizmoOperation = ImGuizmo::TRANSLATE;
         ImGui::SameLine();
@@ -1558,45 +1707,243 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::nd
             }
         }
         
-        // Draw a simple wireframe box representing the voxel volume (16x16x32)
+        // Draw a data-driven representation based on actual voxel data
         ImDrawList* drawList = ImGui::GetWindowDrawList();
         
         // Calculate the center position of the content area
         ImVec2 center = ImVec2(contentPos.x + viewportSize.x * 0.5f, contentPos.y + viewportSize.y * 0.5f);
         
-        // Draw a simple representation of the voxel box
-        float boxSize = 100.0f; // Base size for visualization
+        // Dynamic visualization based on actual voxel data
+        float boxSize = 200.0f; // Base size for visualization
         ImVec2 boxMin = ImVec2(center.x - boxSize * 0.5f, center.y - boxSize * 0.5f);
         ImVec2 boxMax = ImVec2(center.x + boxSize * 0.5f, center.y + boxSize * 0.5f);
         
-        // Draw the voxel box outline
+        // Draw the voxel container outline
         drawList->AddRect(boxMin, boxMax, IM_COL32(255, 255, 255, 255), 0.0f, 0, 2.0f);
         
-        // Draw some grid lines to represent voxels
-        int gridLines = 8;
-        for (int i = 1; i < gridLines; i++) {
-            float x = boxMin.x + (boxMax.x - boxMin.x) * i / gridLines;
-            float y = boxMin.y + (boxMax.y - boxMin.y) * i / gridLines;
+        // Helper function to apply 4x4 matrix transformation to a 3D point
+        auto transformPoint = [&](float x, float y, float z) -> std::tuple<float, float, float> {
+            float tx = objectMatrix[0] * x + objectMatrix[4] * y + objectMatrix[8] * z + objectMatrix[12];
+            float ty = objectMatrix[1] * x + objectMatrix[5] * y + objectMatrix[9] * z + objectMatrix[13];
+            float tz = objectMatrix[2] * x + objectMatrix[6] * y + objectMatrix[10] * z + objectMatrix[14];
+            float tw = objectMatrix[3] * x + objectMatrix[7] * y + objectMatrix[11] * z + objectMatrix[15];
             
-            // Vertical lines
-            drawList->AddLine(ImVec2(x, boxMin.y), ImVec2(x, boxMax.y), IM_COL32(128, 128, 128, 128));
-            // Horizontal lines
-            drawList->AddLine(ImVec2(boxMin.x, y), ImVec2(boxMax.x, y), IM_COL32(128, 128, 128, 128));
-        }
+            // Perspective divide
+            if (tw != 0.0f) {
+                tx /= tw;
+                ty /= tw;
+                tz /= tw;
+            }
+            
+            return std::make_tuple(tx, ty, tz);
+        };
         
-        // Add some sample voxels
-        for (int x = 2; x < 6; x++) {
-            for (int y = 2; y < 6; y++) {
-                float voxelX = boxMin.x + (boxMax.x - boxMin.x) * x / gridLines;
-                float voxelY = boxMin.y + (boxMax.y - boxMin.y) * y / gridLines;
-                float voxelSize = (boxMax.x - boxMin.x) / gridLines * 0.8f;
+        // Helper function to project 3D point to 2D screen coordinates
+        auto projectToScreen = [&](float x, float y, float z) -> ImVec2 {
+            // Apply transformation matrix
+            auto [tx, ty, tz] = transformPoint(x, y, z);
+            
+            // Simple orthographic projection with depth offset and zoom
+            float baseScale = 100.0f * zoom;
+            float scale = baseScale / (viewDistance + tz * 0.5f); // Scale based on distance
+            float screenX = center.x + tx * scale;
+            float screenY = center.y - ty * scale; // Flip Y for screen coordinates
+            
+            return ImVec2(screenX, screenY);
+        };
+        
+        // Render voxels based on actual data
+        if (totalSize > 0 && voxel_data.data() != nullptr) {
+            // Determine grid size based on data dimensions or use reasonable default
+            int gridSize = 16;
+            if (voxel_data.ndim() >= 2) {
+                gridSize = std::min((int)voxel_data.shape(0), 32); // Limit to reasonable size
+            }
+            
+            // Collect all voxel positions for depth sorting
+            struct VoxelPoint {
+                float x, y, z;
+                int value;
+                float depth;
+            };
+            std::vector<VoxelPoint> voxelPoints;
+            
+            // Render voxels based on data content
+            if (voxel_data.dtype() == nb::dtype<float>()) {
+                const float* data = static_cast<const float*>(voxel_data.data());
                 
-                ImU32 voxelColor = IM_COL32(100 + x * 20, 150, 100 + y * 20, 200);
+                // For 3D data visualization
+                if (voxel_data.ndim() >= 3) {
+                    size_t width = voxel_data.shape(0);
+                    size_t height = voxel_data.shape(1);
+                    size_t depth = voxel_data.shape(2);
+                    
+                    for (size_t x = 0; x < std::min(width, (size_t)gridSize); x++) {
+                        for (size_t y = 0; y < std::min(height, (size_t)gridSize); y++) {
+                            for (size_t z = 0; z < std::min(depth, (size_t)gridSize); z++) {
+                                size_t index = z * width * height + y * width + x;
+                                if (index < totalSize) {
+                                    float value = data[index];
+                                    
+                                    // Only draw non-zero voxels
+                                    if (std::abs(value) > 0.001f) {
+                                        // Normalize coordinates to [-1, 1] range
+                                        float nx = (x / (float)gridSize - 0.5f) * 2.0f;
+                                        float ny = (y / (float)gridSize - 0.5f) * 2.0f;
+                                        float nz = (z / (float)gridSize - 0.5f) * 2.0f;
+                                        
+                                        auto [tx, ty, tz] = transformPoint(nx, ny, nz);
+                                        voxelPoints.push_back({nx, ny, nz, (int)value, tz});
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                // For 2D data visualization
+                else if (voxel_data.ndim() >= 2) {
+                    size_t width = voxel_data.shape(0);
+                    size_t height = voxel_data.shape(1);
+                    
+                    for (size_t x = 0; x < std::min(width, (size_t)gridSize); x++) {
+                        for (size_t y = 0; y < std::min(height, (size_t)gridSize); y++) {
+                            size_t index = y * width + x;
+                            if (index < totalSize) {
+                                float value = data[index];
+                                
+                                // Only draw non-zero voxels
+                                if (std::abs(value) > 0.001f) {
+                                    // Normalize coordinates to [-1, 1] range, z=0 for 2D
+                                    float nx = (x / (float)gridSize - 0.5f) * 2.0f;
+                                    float ny = (y / (float)gridSize - 0.5f) * 2.0f;
+                                    float nz = 0.0f;
+                                    
+                                    auto [tx, ty, tz] = transformPoint(nx, ny, nz);
+                                    voxelPoints.push_back({nx, ny, nz, (int)value, tz});
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // Handle integer data
+            else if (voxel_data.dtype() == nb::dtype<int>()) {
+                const int* data = static_cast<const int*>(voxel_data.data());
+                
+                // For 3D data
+                if (voxel_data.ndim() >= 3) {
+                    size_t width = voxel_data.shape(0);
+                    size_t height = voxel_data.shape(1);
+                    size_t depth = voxel_data.shape(2);
+                    
+                    for (size_t x = 0; x < std::min(width, (size_t)gridSize); x++) {
+                        for (size_t y = 0; y < std::min(height, (size_t)gridSize); y++) {
+                            for (size_t z = 0; z < std::min(depth, (size_t)gridSize); z++) {
+                                size_t index = z * width * height + y * width + x;
+                                if (index < totalSize) {
+                                    int value = data[index];
+                                    
+                                    if (value != 0) {
+                                        // Normalize coordinates to [-1, 1] range
+                                        float nx = (x / (float)gridSize - 0.5f) * 2.0f;
+                                        float ny = (y / (float)gridSize - 0.5f) * 2.0f;
+                                        float nz = (z / (float)gridSize - 0.5f) * 2.0f;
+                                        
+                                        auto [tx, ty, tz] = transformPoint(nx, ny, nz);
+                                        voxelPoints.push_back({nx, ny, nz, value, tz});
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                // For 2D data
+                else if (voxel_data.ndim() >= 2) {
+                    size_t width = voxel_data.shape(0);
+                    size_t height = voxel_data.shape(1);
+                    
+                    for (size_t x = 0; x < std::min(width, (size_t)gridSize); x++) {
+                        for (size_t y = 0; y < std::min(height, (size_t)gridSize); y++) {
+                            size_t index = y * width + x;
+                            if (index < totalSize) {
+                                int value = data[index];
+                                
+                                if (value != 0) {
+                                    // Normalize coordinates to [-1, 1] range, z=0 for 2D
+                                    float nx = (x / (float)gridSize - 0.5f) * 2.0f;
+                                    float ny = (y / (float)gridSize - 0.5f) * 2.0f;
+                                    float nz = 0.0f;
+                                    
+                                    auto [tx, ty, tz] = transformPoint(nx, ny, nz);
+                                    voxelPoints.push_back({nx, ny, nz, value, tz});
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Sort voxels by depth (back to front for proper alpha blending)
+            std::sort(voxelPoints.begin(), voxelPoints.end(), 
+                      [](const VoxelPoint& a, const VoxelPoint& b) { return a.depth < b.depth; });
+            
+            // Draw sorted voxels
+            for (const auto& voxel : voxelPoints) {
+                ImVec2 screenPos = projectToScreen(voxel.x, voxel.y, voxel.z);
+                
+                // Calculate voxel size based on distance and zoom
+                float baseVoxelSize = 8.0f * zoom;
+                float voxelSize = baseVoxelSize / (1.0f + std::abs(voxel.depth) * 0.2f);
+                voxelSize = std::max(voxelSize, 1.0f); // Minimum size
+                
+                // Color based on value
+                ImU32 voxelColor;
+                if (voxel_data.dtype() == nb::dtype<float>()) {
+                    // Color based on value intensity
+                    uint8_t intensity = (uint8_t)(std::min(std::abs((float)voxel.value) * 255.0f, 255.0f));
+                    voxelColor = voxel.value > 0 ? 
+                        IM_COL32(intensity, intensity/2, 0, 200) :  // Orange for positive
+                        IM_COL32(0, intensity/2, intensity, 200);   // Blue for negative
+                } else {
+                    // Color based on value
+                    uint8_t r = (uint8_t)((voxel.value * 67) % 256);
+                    uint8_t g = (uint8_t)((voxel.value * 131) % 256);
+                    uint8_t b = (uint8_t)((voxel.value * 197) % 256);
+                    voxelColor = IM_COL32(r, g, b, 200);
+                }
+                
                 drawList->AddRectFilled(
-                    ImVec2(voxelX, voxelY), 
-                    ImVec2(voxelX + voxelSize, voxelY + voxelSize),
+                    ImVec2(screenPos.x - voxelSize/2, screenPos.y - voxelSize/2), 
+                    ImVec2(screenPos.x + voxelSize/2, screenPos.y + voxelSize/2),
                     voxelColor
                 );
+            }
+        }
+        // Fallback: draw sample pattern if no data or unsupported type
+        else {
+            int gridLines = 8;
+            for (int i = 1; i < gridLines; i++) {
+                float x = boxMin.x + (boxMax.x - boxMin.x) * i / gridLines;
+                float y = boxMin.y + (boxMax.y - boxMin.y) * i / gridLines;
+                
+                drawList->AddLine(ImVec2(x, boxMin.y), ImVec2(x, boxMax.y), IM_COL32(128, 128, 128, 128));
+                drawList->AddLine(ImVec2(boxMin.x, y), ImVec2(boxMax.x, y), IM_COL32(128, 128, 128, 128));
+            }
+            
+            // Sample pattern
+            for (int x = 2; x < 6; x++) {
+                for (int y = 2; y < 6; y++) {
+                    float voxelX = boxMin.x + (boxMax.x - boxMin.x) * x / gridLines;
+                    float voxelY = boxMin.y + (boxMax.y - boxMin.y) * y / gridLines;
+                    float voxelSize = (boxMax.x - boxMin.x) / gridLines * 0.8f;
+                    
+                    ImU32 voxelColor = IM_COL32(100 + x * 20, 150, 100 + y * 20, 200);
+                    drawList->AddRectFilled(
+                        ImVec2(voxelX, voxelY), 
+                        ImVec2(voxelX + voxelSize, voxelY + voxelSize),
+                        voxelColor
+                    );
+                }
             }
         }
         
@@ -1615,8 +1962,16 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::nd
             }
         }
         
-        // Display transformation info
-        ImGui::Text("Voxel Box Dimensions: 16x16x32");
+        // Display transformation info and voxel data summary
+        if (voxel_data.ndim() >= 2) {
+            ImGui::Text("Voxel Grid Dimensions: %zux%zu", voxel_data.shape(0), voxel_data.shape(1));
+            if (voxel_data.ndim() >= 3) {
+                ImGui::Text("Depth: %zu", voxel_data.shape(2));
+            }
+        } else {
+            ImGui::Text("Voxel Data Length: %zu", totalSize);
+        }
+        
         ImGui::Text("Transform Matrix:");
         ImGui::Text("%.3f %.3f %.3f %.3f", objectMatrix[0], objectMatrix[4], objectMatrix[8], objectMatrix[12]);
         ImGui::Text("%.3f %.3f %.3f %.3f", objectMatrix[1], objectMatrix[5], objectMatrix[9], objectMatrix[13]);
