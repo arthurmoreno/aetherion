@@ -5,14 +5,15 @@ void renderVoxelDataHeader(nb::ndarray<nb::numpy>& voxel_data);
 void renderTransformControls(float translation[3], float rotation[3], float scale[3], 
                            float& viewDistance, float& zoom, bool& matrixChanged);
 void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo::MODE& currentGizmoMode, 
-                          bool& useSnap, float snap[3]);
+                          bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo);
 void updateTransformationMatrix(float objectMatrix[16], const float translation[3], 
                               const float rotation[3], const float scale[3], bool matrixChanged);
 void setupProjectionMatrix(float cameraProjection[16], float aspect);
 void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data, 
                      float cameraView[16], float cameraProjection[16], float objectMatrix[16],
                      ImGuizmo::OPERATION currentGizmoOperation, ImGuizmo::MODE currentGizmoMode,
-                     bool useSnap, float snap[3], float zoom, float viewDistance);
+                     bool useSnap, float snap[3], float zoom, float viewDistance,
+                     bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo);
 
 // Main function to render the 3D voxel viewport
 void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data) {
@@ -44,13 +45,19 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     static float rotation[3] = { 0.0f, 0.0f, 0.0f };
     static float scale[3] = { 1.0f, 1.0f, 1.0f };
     static float viewDistance = 5.0f;
-    static float zoom = 1.0f;
+    static float zoom = 5.0f;
     static bool matrixChanged = false;
     
     static ImGuizmo::OPERATION currentGizmoOperation = ImGuizmo::TRANSLATE;
     static ImGuizmo::MODE currentGizmoMode = ImGuizmo::WORLD;
     static bool useSnap = false;
     static float snap[3] = { 1.0f, 1.0f, 1.0f };
+    
+    // Static visibility flags
+    static bool showGrid = true;
+    static bool showAxes = true;
+    static bool showWireframe = true;
+    static bool showImGuizmo = false;
     
     // Get the available content region for layout calculations
     ImVec2 availableRegion = ImGui::GetContentRegionAvail();
@@ -74,7 +81,7 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     ImGui::Separator();
     
     // ImGuizmo controls
-    renderImGuizmoControls(currentGizmoOperation, currentGizmoMode, useSnap, snap);
+    renderImGuizmoControls(currentGizmoOperation, currentGizmoMode, useSnap, snap, showGrid, showAxes, showWireframe, showImGuizmo);
     
     ImGui::EndChild();
     
@@ -92,7 +99,8 @@ void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_
     
     // Render the 3D viewport
     render3DViewport(voxel_data, shared_data, cameraView, cameraProjection, objectMatrix,
-                    currentGizmoOperation, currentGizmoMode, useSnap, snap, zoom, viewDistance);
+                    currentGizmoOperation, currentGizmoMode, useSnap, snap, zoom, viewDistance,
+                    showGrid, showAxes, showWireframe, showImGuizmo);
     
     ImGui::EndChild();
     
@@ -165,7 +173,7 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
     if (ImGui::SliderFloat("View Distance", &viewDistance, 1.0f, 20.0f)) {
         matrixChanged = true;
     }
-    if (ImGui::SliderFloat("Zoom", &zoom, 0.1f, 5.0f)) {
+    if (ImGui::SliderFloat("Zoom", &zoom, 0.1f, 10.0f)) {
         matrixChanged = true;
     }
     
@@ -175,7 +183,21 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
         rotation[0] = rotation[1] = rotation[2] = 0.0f;
         scale[0] = scale[1] = scale[2] = 1.0f;
         viewDistance = 5.0f;
-        zoom = 1.0f;
+        zoom = 5.0f;
+        matrixChanged = true;
+    }
+    
+    ImGui::SameLine();
+    if (ImGui::Button("Tibia View")) {
+        // Set up classic isometric Tibia-like perspective
+        // The top face appears as a perfect square, showing half of each side
+        translation[0] = translation[1] = translation[2] = 0.0f;
+        rotation[0] = -45.0f;  // Tilt down to see the top and sides
+        rotation[1] = -45.0f;  // Rotate 45 degrees to get isometric view
+        rotation[2] = 0.0f;    // No roll
+        scale[0] = scale[1] = scale[2] = 1.0f;
+        viewDistance = 8.0f;   // Pull back a bit for better view
+        zoom = 5.0f;           // Zoom in to see details
         matrixChanged = true;
     }
     
@@ -189,7 +211,7 @@ void renderTransformControls(float translation[3], float rotation[3], float scal
 
 // Render ImGuizmo control panel
 void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo::MODE& currentGizmoMode, 
-                          bool& useSnap, float snap[3]) {
+                          bool& useSnap, float snap[3], bool& showGrid, bool& showAxes, bool& showWireframe, bool& showImGuizmo) {
     ImGui::Text("ImGuizmo Controls");
     ImGui::Separator();
     
@@ -225,17 +247,13 @@ void renderImGuizmoControls(ImGuizmo::OPERATION& currentGizmoOperation, ImGuizmo
     ImGui::Separator();
     ImGui::Text("Display Options");
     
-    // Grid visibility controls
-    static bool showGrid = true;
-    static bool showAxes = true;
-    static bool showWireframe = true;
-    
+    // Grid visibility controls - now using references to the actual static variables
     ImGui::Checkbox("Show Grid", &showGrid);
     ImGui::Checkbox("Show Axes", &showAxes);  
     ImGui::Checkbox("Show Wireframe", &showWireframe);
     
-    // Store these in static variables that can be accessed by render functions
-    // We'll modify the render function to use these flags
+    // Add option to show/hide ImGuizmo
+    ImGui::Checkbox("Show ImGuizmo", &showImGuizmo);
 }
 
 // Update the transformation matrix based on current control values
@@ -338,7 +356,8 @@ void drawUnitMeasurements(ImDrawList* drawList, std::function<ImVec2(float, floa
 void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data, 
                      float cameraView[16], float cameraProjection[16], float objectMatrix[16],
                      ImGuizmo::OPERATION currentGizmoOperation, ImGuizmo::MODE currentGizmoMode,
-                     bool useSnap, float snap[3], float zoom, float viewDistance) {
+                     bool useSnap, float snap[3], float zoom, float viewDistance,
+                     bool showGrid, bool showAxes, bool showWireframe, bool showImGuizmo) {
     
     ImVec2 viewportSize = ImGui::GetContentRegionAvail();
     ImVec2 contentPos = ImGui::GetCursorScreenPos();
@@ -381,11 +400,6 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
     
     // Render the 3D voxel visualization
     ImDrawList* drawList = ImGui::GetWindowDrawList();
-    
-    // Get visibility flags (we'll use static variables for simplicity)
-    static bool showGrid = true;
-    static bool showAxes = true;
-    static bool showWireframe = true;
     
     // Draw coordinate axes and grid first (behind voxels) - conditionally
     if (showAxes) {
@@ -441,18 +455,24 @@ void render3DViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data,
         renderVoxelData(voxel_data, drawList, projectToScreen, zoom, totalSize);
     }
     
-    // Use ImGuizmo to manipulate the object
-    if (ImGuizmo::Manipulate(cameraView, cameraProjection, currentGizmoOperation, currentGizmoMode, 
-                            objectMatrix, NULL, useSnap ? &snap[0] : NULL)) {
-        // Store the transformation in shared_data for external access
-        try {
-            nb::list transformMatrix;
-            for (int i = 0; i < 16; i++) {
-                transformMatrix.append(objectMatrix[i]);
+    // Use ImGuizmo to manipulate the object (only if enabled)
+    if (showImGuizmo) {
+        // Only draw the ImGuizmo manipulator when actively transforming, not the axes
+        ImGuizmo::Enable(true);
+        ImGuizmo::AllowAxisFlip(false);
+        
+        if (ImGuizmo::Manipulate(cameraView, cameraProjection, currentGizmoOperation, currentGizmoMode, 
+                                objectMatrix, NULL, useSnap ? &snap[0] : NULL)) {
+            // Store the transformation in shared_data for external access
+            try {
+                nb::list transformMatrix;
+                for (int i = 0; i < 16; i++) {
+                    transformMatrix.append(objectMatrix[i]);
+                }
+                shared_data["voxel_transform_matrix"] = transformMatrix;
+            } catch (const std::exception& e) {
+                std::cerr << "Error storing transformation matrix: " << e.what() << std::endl;
             }
-            shared_data["voxel_transform_matrix"] = transformMatrix;
-        } catch (const std::exception& e) {
-            std::cerr << "Error storing transformation matrix: " << e.what() << std::endl;
         }
     }
     
@@ -582,13 +602,13 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
     else if (voxel_data.ndim() >= 2) {
         size_t width = voxel_data.shape(0);
         size_t height = voxel_data.shape(1);
-        
+
         for (size_t x = 0; x < std::min(width, (size_t)gridSize); x++) {
             for (size_t y = 0; y < std::min(height, (size_t)gridSize); y++) {
                 size_t index = y * width + x;
                 if (index < totalSize) {
                     int value = data[index];
-                    
+
                         if (value != 0) {
                             // Normalize coordinates to smaller range within the 5x space, z=0 for 2D
                             float nx = (x / (float)gridSize - 0.5f) * 1.0f; // Scale to [-0.5, 0.5]
