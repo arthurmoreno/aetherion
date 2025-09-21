@@ -547,10 +547,10 @@ void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data
                         // Only draw non-zero voxels
                         if (std::abs(value) > 0.001f) {
                             // Use actual spatial coordinates: each voxel = 1 unit
-                            // Add 0.5 to center the voxel in its unit space
-                            float nx = (float)x + 0.5f;
-                            float ny = (float)y + 0.5f;
-                            float nz = (float)z + 0.5f;
+                            // Place voxel at its grid position (no offset needed)
+                            float nx = (float)x;
+                            float ny = (float)y;
+                            float nz = (float)z;
                             
                             voxelPoints.push_back({nx, ny, nz, (int)value, nz});
                         }
@@ -572,10 +572,10 @@ void processFloatVoxelData(const float* data, nb::ndarray<nb::numpy>& voxel_data
                     
                     // Only draw non-zero voxels
                     if (std::abs(value) > 0.001f) {
-                        // Use actual spatial coordinates, z=0.5 for 2D (at ground level)
-                        float nx = (float)x + 0.5f;
-                        float ny = (float)y + 0.5f;
-                        float nz = 0.5f;
+                        // Use actual spatial coordinates, z=0 for 2D (at ground level)
+                        float nx = (float)x;
+                        float ny = (float)y;
+                        float nz = 0.0f;
                         
                         voxelPoints.push_back({nx, ny, nz, (int)value, nz});
                     }
@@ -604,10 +604,10 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
                         
                         if (value != 0) {
                             // Use actual spatial coordinates: each voxel = 1 unit
-                            // Add 0.5 to center the voxel in its unit space
-                            float nx = (float)x + 0.5f;
-                            float ny = (float)y + 0.5f;
-                            float nz = (float)z + 0.5f;
+                            // Place voxel at its grid position (no offset needed)
+                            float nx = (float)x;
+                            float ny = (float)y;
+                            float nz = (float)z;
                             
                             voxelPoints.push_back({nx, ny, nz, value, nz});
                         }
@@ -628,10 +628,10 @@ void processIntVoxelData(const int* data, nb::ndarray<nb::numpy>& voxel_data,
                     int value = data[index];
 
                     if (value != 0) {
-                        // Use actual spatial coordinates, z=0.5 for 2D (at ground level)
-                        float nx = (float)x + 0.5f;
-                        float ny = (float)y + 0.5f;
-                        float nz = 0.5f;
+                        // Use actual spatial coordinates, z=0 for 2D (at ground level)
+                        float nx = (float)x;
+                        float ny = (float)y;
+                        float nz = 0.0f;
                         
                         voxelPoints.push_back({nx, ny, nz, value, nz});
                     }
@@ -647,15 +647,33 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
                     float zoom, nb::ndarray<nb::numpy>& voxel_data, bool showVoxelBorders) {
     
     for (const auto& voxel : voxelPoints) {
-        ImVec2 screenPos = projectToScreen(voxel.x, voxel.y, voxel.z);
+        // Each voxel occupies a 1x1x1 cube from (x,y,z) to (x+1,y+1,z+1)
+        // Add small epsilon to avoid z-fighting between adjacent faces
+        const float epsilon = 0.001f;
         
-        // Calculate voxel size based on distance and zoom
-        float baseVoxelSize = 8.0f * zoom;
-        float voxelSize = baseVoxelSize / (1.0f + std::abs(voxel.depth) * 0.2f);
-        voxelSize = std::max(voxelSize, 1.0f); // Minimum size
+        std::vector<std::tuple<float, float, float>> cubeCorners = {
+            // Back face (z)
+            {voxel.x + epsilon, voxel.y + epsilon, voxel.z + epsilon},           // 0: bottom-left-back
+            {voxel.x + 1.0f - epsilon, voxel.y + epsilon, voxel.z + epsilon},    // 1: bottom-right-back
+            {voxel.x + 1.0f - epsilon, voxel.y + 1.0f - epsilon, voxel.z + epsilon}, // 2: top-right-back
+            {voxel.x + epsilon, voxel.y + 1.0f - epsilon, voxel.z + epsilon},    // 3: top-left-back
+            // Front face (z + 1)
+            {voxel.x + epsilon, voxel.y + epsilon, voxel.z + 1.0f - epsilon},    // 4: bottom-left-front
+            {voxel.x + 1.0f - epsilon, voxel.y + epsilon, voxel.z + 1.0f - epsilon}, // 5: bottom-right-front
+            {voxel.x + 1.0f - epsilon, voxel.y + 1.0f - epsilon, voxel.z + 1.0f - epsilon}, // 6: top-right-front
+            {voxel.x + epsilon, voxel.y + 1.0f - epsilon, voxel.z + 1.0f - epsilon}  // 7: top-left-front
+        };
+        
+        // Project all corners to screen space
+        std::vector<ImVec2> screenCorners;
+        for (const auto& corner : cubeCorners) {
+            screenCorners.push_back(projectToScreen(std::get<0>(corner), std::get<1>(corner), std::get<2>(corner)));
+        }
         
         // Color based on value
         ImU32 voxelColor;
+        ImU32 borderColor = IM_COL32(0, 0, 0, 255); // Black border
+        
         if (voxel_data.dtype() == nb::dtype<float>()) {
             // Color based on value intensity
             uint8_t intensity = (uint8_t)(std::min(std::abs((float)voxel.value) * 255.0f, 255.0f));
@@ -670,22 +688,43 @@ void drawVoxelPoints(const std::vector<VoxelPoint>& voxelPoints, ImDrawList* dra
             voxelColor = IM_COL32(r, g, b, 200);
         }
         
-        drawList->AddRectFilled(
-            ImVec2(screenPos.x - voxelSize/2, screenPos.y - voxelSize/2), 
-            ImVec2(screenPos.x + voxelSize/2, screenPos.y + voxelSize/2),
-            voxelColor
-        );
+        // Draw faces in back-to-front order for proper transparency
+        // Only draw visible faces to reduce overlapping artifacts
         
-        // Draw black border if enabled
+        // Back face (0,1,2,3) - farthest from camera
+        drawList->AddQuadFilled(screenCorners[0], screenCorners[1], screenCorners[2], screenCorners[3], voxelColor);
         if (showVoxelBorders) {
-            drawList->AddRect(
-                ImVec2(screenPos.x - voxelSize/2, screenPos.y - voxelSize/2), 
-                ImVec2(screenPos.x + voxelSize/2, screenPos.y + voxelSize/2),
-                IM_COL32(0, 0, 0, 255), // Black border
-                0.0f, // No rounding
-                0,    // No flags
-                1.0f  // Border thickness
-            );
+            drawList->AddQuad(screenCorners[0], screenCorners[1], screenCorners[2], screenCorners[3], borderColor, 1.0f);
+        }
+        
+        // Bottom face (0,1,5,4)
+        drawList->AddQuadFilled(screenCorners[0], screenCorners[1], screenCorners[5], screenCorners[4], voxelColor);
+        if (showVoxelBorders) {
+            drawList->AddQuad(screenCorners[0], screenCorners[1], screenCorners[5], screenCorners[4], borderColor, 1.0f);
+        }
+        
+        // Left face (0,3,7,4)
+        drawList->AddQuadFilled(screenCorners[0], screenCorners[3], screenCorners[7], screenCorners[4], voxelColor);
+        if (showVoxelBorders) {
+            drawList->AddQuad(screenCorners[0], screenCorners[3], screenCorners[7], screenCorners[4], borderColor, 1.0f);
+        }
+        
+        // Right face (1,2,6,5)
+        drawList->AddQuadFilled(screenCorners[1], screenCorners[2], screenCorners[6], screenCorners[5], voxelColor);
+        if (showVoxelBorders) {
+            drawList->AddQuad(screenCorners[1], screenCorners[2], screenCorners[6], screenCorners[5], borderColor, 1.0f);
+        }
+        
+        // Top face (3,2,6,7)
+        drawList->AddQuadFilled(screenCorners[3], screenCorners[2], screenCorners[6], screenCorners[7], voxelColor);
+        if (showVoxelBorders) {
+            drawList->AddQuad(screenCorners[3], screenCorners[2], screenCorners[6], screenCorners[7], borderColor, 1.0f);
+        }
+        
+        // Front face (4,5,6,7) - closest to camera, drawn last
+        drawList->AddQuadFilled(screenCorners[4], screenCorners[5], screenCorners[6], screenCorners[7], voxelColor);
+        if (showVoxelBorders) {
+            drawList->AddQuad(screenCorners[4], screenCorners[5], screenCorners[6], screenCorners[7], borderColor, 1.0f);
         }
     }
 }
