@@ -1,0 +1,4 @@
+{
+  "python.defaultInterpreterPath": "/home/arthur/anaconda3/envs/aetherion-312/bin/python",
+  "python.analysis.diagnosticMode": "workspace"
+}

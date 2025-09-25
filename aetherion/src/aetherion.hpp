@@ -22,6 +22,7 @@
 #include "ItemConfiguration.hpp"
 #include "ItemConfigurationManager.hpp"
 #include "Logger.hpp"
+#include "LowLevelRenderer/SceneGraph.hpp"
 #include "LowLevelRenderer/RenderQueue.hpp"
 #include "LowLevelRenderer/TextureManager.hpp"
 #include "PyRegistry.hpp"

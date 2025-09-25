@@ -228,6 +228,59 @@ NB_MODULE(_aetherion, m) {
     //     .def_rw("x", &RenderTask::x)
     //     .def_rw("y", &RenderTask::y);
 
+    // Exposing entt::entity as an unsigned integer to Python
+    nb::class_<entt::entity>(m, "Entity")
+        .def(nb::init<>())
+        .def("__repr__",
+             [](const entt::entity& e) {
+                 return "<Entity " + std::to_string(static_cast<uint32_t>(e)) + ">";
+             })
+        .def(
+            "get_id", [](const entt::entity& e) { return static_cast<uint32_t>(e); },
+            "Get the raw ID of the entity");
+
+    // Bind SceneGraph class
+    nb::class_<SceneGraph>(m, "SceneGraph")
+        
+        .def(nb::init<entt::registry*>(), nb::arg("registry") = nullptr,
+             "Create a SceneGraph. If registry is None, creates its own internal registry")
+        
+        // Node lifecycle
+        .def("create_node", &SceneGraph::create_node,
+             "Create a new entity with hierarchy component, starts as root")
+        .def("ensure_node", &SceneGraph::ensure_node, nb::arg("entity"),
+             "Ensure an entity participates in the graph")
+        .def("destroy_subtree", &SceneGraph::destroy_subtree, nb::arg("entity"),
+             "Destroy an entire subtree rooted at entity")
+        .def("destroy_node_only", &SceneGraph::destroy_node_only, nb::arg("entity"),
+             "Destroy only the entity, children are adopted by parent")
+        
+        // Hierarchy management
+        .def("attach_child", &SceneGraph::attach_child,
+             "Attach child under parent. If parent is None, child becomes root")
+        .def("detach", &SceneGraph::detach, nb::arg("child"),
+             "Detach child from parent, becomes root")
+        .def("reparent", &SceneGraph::reparent,
+             "Move child under new_parent")
+        
+        // Query methods
+        .def("contains", &SceneGraph::contains, nb::arg("entity"),
+             "Check if entity is part of the scene graph")
+        .def("parent", &SceneGraph::parent, nb::arg("entity"),
+             "Get parent of entity")
+        .def("first_child", &SceneGraph::first_child, nb::arg("entity"),
+             "Get first child of entity")
+        .def("next_sibling", &SceneGraph::next_sibling, nb::arg("entity"),
+             "Get next sibling of entity")
+        .def("prev_sibling", &SceneGraph::prev_sibling, nb::arg("entity"),
+             "Get previous sibling of entity")
+        .def("is_root", &SceneGraph::is_root, nb::arg("entity"),
+             "Check if entity is a root node")
+        .def("roots", &SceneGraph::roots,
+             "Get list of all root entities")
+        .def("depth", &SceneGraph::depth, nb::arg("entity"),
+             "Get depth of entity (root = 0, -1 if not in graph)");
+
     // Expose TextureQuadrant enum for partial rendering
     nb::enum_<RenderQueue::TextureQuadrant>(m, "TextureQuadrant")
         .value("TOP_LEFT", RenderQueue::TextureQuadrant::TOP_LEFT)
@@ -492,17 +545,6 @@ NB_MODULE(_aetherion, m) {
             w.executeSQL(s);
         });
 
-    // Exposing entt::entity as an unsigned integer to Python
-
-    nb::class_<entt::entity>(m, "Entity")
-        .def(nb::init<>())
-        .def("__repr__",
-             [](const entt::entity& e) {
-                 return "<Entity " + std::to_string(static_cast<uint32_t>(e)) + ">";
-             })
-        .def(
-            "get_id", [](const entt::entity& e) { return static_cast<uint32_t>(e); },
-            "Get the raw ID of the entity");
 
     nb::class_<WorldView>(m, "WorldView")
         .def(nb::init<>())  // Expose the constructor

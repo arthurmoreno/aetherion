@@ -1,10 +1,65 @@
 from abc import ABC, abstractmethod
+from typing import Self
 
-from aetherion import GameWindow
+from pydantic import BaseModel, ConfigDict, Field
+from aetherion import GameWindow, SceneGraph
+
+
+class NodeSpec(BaseModel):
+    """Specification for scene graph nodes with validation and serialization support."""
+    
+    name: str
+    cls: str  # import path to class, e.g. "game.scenes.scene_a.nodes.player.PlayerController"
+    kwargs: dict[str, object] = Field(default_factory=dict)
+    children: list[Self] = Field(default_factory=list)
+    uuid: int | None = None  # stable id (reference for internal entt) for hot-reload mapping
+
+    model_config = ConfigDict(
+        arbitrary_types_allowed=True,
+        validate_assignment=True,
+        str_strip_whitespace=True,
+    )
+
+
+
+class Node(ABC):
+    """Base class for all scene graph nodes."""
+    
+    def __init__(self, name: str, **kwargs):
+        self.name = name
+        self.children: list[Node] = []
+        self.parent: Node | None = None
+
+    @abstractmethod
+    def on_load(self):
+        """Called when the node is loaded."""
+        pass
+
+    @abstractmethod
+    def on_enter(self):
+        """Called when the node becomes active."""
+        pass
+
+    @abstractmethod
+    def update(self, dt: float, shared_state: dict):
+        """Update the node logic."""
+        pass
+
+    @abstractmethod
+    def render(self, renderer, shared_state, player_connection=None):
+        """Draw the current frame."""
+        pass
+
+    @abstractmethod
+    def on_unload(self):
+        """Free resources (called once)."""
+        pass
 
 
 class BaseScene(ABC):
     """Defines the lifecycle of a game scene."""
+
+    scene_graph: SceneGraph
 
     @abstractmethod
     def __init__(self, game_window: GameWindow, renderer, views, event_bus, pubsub_broker, **kwargs):
@@ -16,6 +71,10 @@ class BaseScene(ABC):
         :param event_bus: event bus for communication
         :param kwargs: any extra parameters
         """
+        self.scene_graph = SceneGraph()
+
+    def load_scene_graph(self, path: str | None = None):
+        """Load a scene graph from a file."""
         pass
 
     @abstractmethod
@@ -85,7 +144,6 @@ class SceneManager:
         if not isinstance(scene, BaseScene):
             raise TypeError(f"{scene} must inherit from BaseScene")
 
-        scene.on_load()
         self.scenes[name] = scene
 
         return scene
@@ -99,6 +157,9 @@ class SceneManager:
             self.current.on_exit()
         self.current = self.scenes.get(name)
         if self.current:
+            # TODO: Reload all Scene Python files here.
+            self.current.load_scene_graph()
+            self.current.on_load()
             self.current.on_enter()
 
     def update(self, dt, shared_state, player_connection=None):
