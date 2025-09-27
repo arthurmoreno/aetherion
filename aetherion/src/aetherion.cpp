@@ -50,6 +50,7 @@ NB_MODULE(_aetherion, m) {
     nb::bind_map<std::map<std::string, std::map<std::string, double>>>(m, "MapStrMapStrDouble");
     nb::bind_vector<std::vector<std::string>>(m, "VecStr");
     nb::bind_vector<std::vector<int>>(m, "VecInt");
+    nb::bind_vector<std::vector<entt::entity>>(m, "VecEntity");
 
     // Expose EntityEnum as constants
     m.attr("EntityEnum_TERRAIN") = static_cast<int>(EntityEnum::TERRAIN);
@@ -108,7 +109,8 @@ NB_MODULE(_aetherion, m) {
         nb::arg("entityInterface_ptr"), nb::arg("hoveredEntityInterface_ptr"),
         nb::arg("selectedEntityInterface_ptr"));
     m.def("imgui_prepare_editor_windows", &imguiPrepareEditorWindows, nb::arg("commands"),
-          nb::arg("shared_data"), nb::arg("voxel_data"), "Prepare the editor windows for ImGui rendering");
+          nb::arg("shared_data"), nb::arg("voxel_data"),
+          "Prepare the editor windows for ImGui rendering");
     m.def("imgui_prepare_title_windows", &imguiPrepareTitleWindows, nb::arg("commands"),
           nb::arg("shared_data"), "Prepare the title windows for ImGui rendering");
     m.def("imgui_prepare_world_type_form_windows", &imguiPrepareWorldTypeFormWindows,
@@ -237,14 +239,17 @@ NB_MODULE(_aetherion, m) {
              })
         .def(
             "get_id", [](const entt::entity& e) { return static_cast<uint32_t>(e); },
-            "Get the raw ID of the entity");
+            "Get the raw ID of the entity")
+        .def(
+            "set_id", [](entt::entity& e, int new_id) { e = static_cast<entt::entity>(new_id); },
+            "Set the raw ID of the entity");
 
     // Bind SceneGraph class
     nb::class_<SceneGraph>(m, "SceneGraph")
-        
+
         .def(nb::init<entt::registry*>(), nb::arg("registry") = nullptr,
              "Create a SceneGraph. If registry is None, creates its own internal registry")
-        
+
         // Node lifecycle
         .def("create_node", &SceneGraph::create_node,
              "Create a new entity with hierarchy component, starts as root")
@@ -254,32 +259,47 @@ NB_MODULE(_aetherion, m) {
              "Destroy an entire subtree rooted at entity")
         .def("destroy_node_only", &SceneGraph::destroy_node_only, nb::arg("entity"),
              "Destroy only the entity, children are adopted by parent")
-        
+
         // Hierarchy management
         .def("attach_child", &SceneGraph::attach_child,
-             "Attach child under parent. If parent is None, child becomes root")
+             "Attach child under parent. If before is provided, insert before that sibling, "
+             "otherwise append at end")
+        .def("attach_node_python_instance", &SceneGraph::attach_node_python_instance,
+             "Attach a Python instance to a node")
         .def("detach", &SceneGraph::detach, nb::arg("child"),
              "Detach child from parent, becomes root")
-        .def("reparent", &SceneGraph::reparent,
-             "Move child under new_parent")
-        
+        .def("reparent", &SceneGraph::reparent, "Move child under new_parent")
+
         // Query methods
         .def("contains", &SceneGraph::contains, nb::arg("entity"),
              "Check if entity is part of the scene graph")
-        .def("parent", &SceneGraph::parent, nb::arg("entity"),
-             "Get parent of entity")
+        .def("parent", &SceneGraph::parent, nb::arg("entity"), "Get parent of entity")
         .def("first_child", &SceneGraph::first_child, nb::arg("entity"),
              "Get first child of entity")
         .def("next_sibling", &SceneGraph::next_sibling, nb::arg("entity"),
              "Get next sibling of entity")
         .def("prev_sibling", &SceneGraph::prev_sibling, nb::arg("entity"),
              "Get previous sibling of entity")
-        .def("is_root", &SceneGraph::is_root, nb::arg("entity"),
-             "Check if entity is a root node")
-        .def("roots", &SceneGraph::roots,
-             "Get list of all root entities")
+        .def("is_root", &SceneGraph::is_root, nb::arg("entity"), "Check if entity is a root node")
+        .def("roots", &SceneGraph::roots, "Get list of all root entities")
         .def("depth", &SceneGraph::depth, nb::arg("entity"),
-             "Get depth of entity (root = 0, -1 if not in graph)");
+             "Get depth of entity (root = 0, -1 if not in graph)")
+        .def("render", &SceneGraph::render,
+            nb::arg("entity"), 
+            nb::arg("shared_state"), 
+            nb::arg("player_connection"),
+            "Render the entity and its descendants")
+
+        .def("render", [](SceneGraph& self, entt::entity entity, nb::handle shared_state, nb::handle player_connection) {
+            // Convert handles to objects for the C++ method
+            nb::object shared_obj = nb::borrow<nb::object>(shared_state);
+            nb::object player_obj = nb::borrow<nb::object>(player_connection);
+            self.render(entity, shared_obj, player_obj);
+        }, nb::arg("entity"), nb::arg("shared_state"), nb::arg("player_connection"),
+        "Render the entity and its descendants")
+        
+        .def("draw_graph_as_tree", &SceneGraph::drawGraphAsTree, nb::arg("root"),
+             "Debug function to print the graph structure starting from root");
 
     // Expose TextureQuadrant enum for partial rendering
     nb::enum_<RenderQueue::TextureQuadrant>(m, "TextureQuadrant")
@@ -544,7 +564,6 @@ NB_MODULE(_aetherion, m) {
             std::string s = nb::cast<std::string>(sql);
             w.executeSQL(s);
         });
-
 
     nb::class_<WorldView>(m, "WorldView")
         .def(nb::init<>())  // Expose the constructor

@@ -1,27 +1,17 @@
 #ifndef SCENEGRAPH_HPP
 #define SCENEGRAPH_HPP
 
-#include <entt/entt.hpp>
-
 #include <algorithm>
 #include <cassert>
 #include <cstdint>
+#include <entt/entt.hpp>
 #include <functional>
 #include <memory>
 #include <stdexcept>
 #include <utility>
 #include <vector>
 
-
-// -----------------------------------------------------------------------------
-// Hierarchy component: attached to every scene-graph node (entity)
-// -----------------------------------------------------------------------------
-struct Hierarchy {
-    entt::entity parent{entt::null};
-    entt::entity first_child{entt::null};
-    entt::entity next_sibling{entt::null};
-    entt::entity prev_sibling{entt::null};
-};
+#include "SceneComponents.hpp"
 
 // -----------------------------------------------------------------------------
 // SceneGraph:
@@ -30,7 +20,7 @@ struct Hierarchy {
 //  - Maintains a vector of root entities for fast root iteration.
 // -----------------------------------------------------------------------------
 class SceneGraph {
-public:
+   public:
     explicit SceneGraph(entt::registry* registry = nullptr) noexcept
         : owned_registry_{registry ? nullptr : std::make_unique<entt::registry>()},
           registry_{registry ? registry : owned_registry_.get()} {}
@@ -73,7 +63,7 @@ public:
 
             // Push children
             auto& h = registry_->get<Hierarchy>(cur);
-            for (entt::entity c = h.first_child; c != entt::null; ) {
+            for (entt::entity c = h.first_child; c != entt::null;) {
                 auto& hc = registry_->get<Hierarchy>(c);
                 entt::entity next = hc.next_sibling;
                 stack.push_back(c);
@@ -96,12 +86,12 @@ public:
         // Save placement info
         auto& h = registry_->get<Hierarchy>(e);
         entt::entity p = h.parent;
-        entt::entity before = h.next_sibling; // reinsert children before where 'e' was
+        entt::entity before = h.next_sibling;  // reinsert children before where 'e' was
 
         // Move all children under p at 'before'
         while (h.first_child != entt::null) {
             entt::entity child = h.first_child;
-            detach(child);               // Detach from e
+            detach(child);  // Detach from e
             attach_child(p, child, before);
         }
 
@@ -116,6 +106,10 @@ public:
     // Attach 'child' under 'parent'. If 'before' is entt::null, appends at end.
     // If 'parent' is entt::null, 'child' becomes a root.
     void attach_child(entt::entity parent, entt::entity child, entt::entity before = entt::null) {
+        if (before != entt::null && static_cast<int>(before) == -1) {
+            before = entt::null;
+        }
+
         assert(registry_->valid(child));
         ensure_node(child);
         auto& hc = registry_->get<Hierarchy>(child);
@@ -188,6 +182,19 @@ public:
 
         // If child was a root, remove it from roots_
         erase_root_if_present_(child);
+    }
+
+    void attach_node_python_instance(entt::entity node, nb::object instance) {
+        if (!registry_->valid(node) || !registry_->all_of<Hierarchy>(node)) {
+            throw std::runtime_error("Entity is not a valid node in the scene graph.");
+        }
+        if (registry_->all_of<NodePython>(node)) {
+            // Update existing instance
+            registry_->get<NodePython>(node).instance = instance;
+        } else {
+            // Add new NodePython component
+            registry_->emplace<NodePython>(node, NodePython{instance});
+        }
     }
 
     // Remove 'child' from its parent (or from roots). Does not destroy it.
@@ -304,11 +311,60 @@ public:
     int depth(entt::entity e) const noexcept {
         if (!contains(e)) return -1;
         int d = 0;
-        for (entt::entity p = parent(e); p != entt::null; p = parent(p)) { ++d; }
+        for (entt::entity p = parent(e); p != entt::null; p = parent(p)) {
+            ++d;
+        }
         return d;
     }
 
-private:
+    // --- Rendering ------------------------------------------
+
+    void render(entt::entity e, nb::object shared_state, nb::object player_connection) {
+        if (!contains(e)) return;
+        // Render the entity and its descendants
+        for_each_descendant_preorder(e, [this, shared_state, player_connection](entt::entity child) {
+            // Call the render function for each child
+            std::cout << "Rendering entity: " << static_cast<int>(child) << std::endl;
+
+            if (registry_->all_of<NodePython>(child)) {
+                // Update existing instance
+                NodePython& node_python = registry_->get<NodePython>(child);
+
+                nb::gil_scoped_acquire acquire;
+
+                try {
+                    node_python.instance.attr("render")(shared_state, player_connection);
+                } catch (const nb::cast_error& e) {
+                    std::cerr << "Error in Python script run: " << e.what() << std::endl;
+                }
+
+            } else {
+                // Add new NodePython component
+                std::cout << "No Python instance attached." << std::endl;
+            }
+        });
+    }
+
+    // --- Debugging ------------------------------------------------------------
+
+    void drawGraphAsTree(entt::entity root) const {
+        if (!contains(root)) {
+            std::cout << "(empty graph)" << std::endl;
+            return;
+        }
+        // Simple text-based tree drawing
+        std::function<void(entt::entity, std::string)> draw_subtree;
+        draw_subtree = [&](entt::entity node, std::string prefix) {
+            std::cout << prefix << static_cast<int>(node) << std::endl;
+            auto& h = registry_->get<Hierarchy>(node);
+            for (entt::entity c = h.first_child; c != entt::null; c = next_sibling(c)) {
+                draw_subtree(c, prefix + "  ");
+            }
+        };
+        draw_subtree(root, "");
+    }
+
+   private:
     std::unique_ptr<entt::registry> owned_registry_{nullptr};
     entt::registry* registry_{nullptr};
     std::vector<entt::entity> roots_{};
@@ -335,4 +391,4 @@ private:
     }
 };
 
-#endif // SCENEGRAPH_HPP
+#endif  // SCENEGRAPH_HPP

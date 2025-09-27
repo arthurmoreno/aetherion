@@ -128,9 +128,9 @@ void imguiInit(uintptr_t window_ptr, uintptr_t renderer_ptr) {
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
-    
+
     // #ifdef IMGUI_HAS_DOCK
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;      // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;  // Enable Docking
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     // #endif
 
@@ -587,14 +587,13 @@ void RenderTopBar() {
 void RenderEditorDebuggerTopBar() {
     // Set initial position only on first use, then allow user to move it
     ImGui::SetNextWindowPos(ImVec2(10, 60), ImGuiCond_FirstUseEver);
-    
+
     // Allow the window to auto-resize to fit content
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_AlwaysAutoResize;
 
     // Create a collapsible, draggable window
     static bool show_editor_debugger_topbar = true;
     if (ImGui::Begin("Editor Debugger Menu", &show_editor_debugger_topbar, window_flags)) {
-        
         // Gadgets Button
         if (ImGui::Button("Play")) {
             showGadgets = true;
@@ -1059,10 +1058,11 @@ void renderTextEditorWindow(bool* showTextEditor, nb::dict& shared_data) {
     if (!showTextEditor || !*showTextEditor) {
         return;
     }
-    
+
     // Static text buffer - persists between calls
     // Use a large enough buffer for text editing
-    static char textBuffer[65536] = "demo: dict[str, Any] = {\n"
+    static char textBuffer[65536] =
+        "demo: dict[str, Any] = {\n"
         "    \"name\": \"box_solid\",\n"
         "    \"dims\": [16, 16, 32],  # X,Y,Z\n"
         "    \"palette\": [\n"
@@ -1082,18 +1082,18 @@ void renderTextEditorWindow(bool* showTextEditor, nb::dict& shared_data) {
         "}\n"
         "dims, palette, vox = load_model(demo)\n"
         "out = render(dims, palette, vox, out_path=\"box_solid.png\", scale=1)\n"
-        "editing_sprite = Sprite(renderer, \"box_solid\", \"box_solid.png\", x=150, y=150, scale_x=64, scale_y=64)\n"
+        "editing_sprite = Sprite(renderer, \"box_solid\", \"box_solid.png\", x=150, y=150, "
+        "scale_x=64, scale_y=64)\n"
         "editing_sprite.render()\n";
-    
+
     // Static flags for editor state
     static bool isDirty = false;
     static bool readOnly = false;
-    
+
     // Set window size on first use
     ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
-    
+
     if (ImGui::Begin("Simple Text Editor", showTextEditor, ImGuiWindowFlags_MenuBar)) {
-        
         // Menu bar
         if (ImGui::BeginMenuBar()) {
             if (ImGui::BeginMenu("File")) {
@@ -1103,15 +1103,16 @@ void renderTextEditorWindow(bool* showTextEditor, nb::dict& shared_data) {
                 }
                 if (ImGui::MenuItem("Save", "Ctrl+S")) {
                     // TODO: Implement actual file saving
-                    std::cout << "Saving text: " << strlen(textBuffer) << " characters" << std::endl;
-                    
+                    std::cout << "Saving text: " << strlen(textBuffer) << " characters"
+                              << std::endl;
+
                     // Safely add text content to shared_data using nanobind string conversion
                     try {
                         shared_data["text_editor_content"] = nb::str(textBuffer);
                     } catch (const std::exception& e) {
                         std::cerr << "Error storing text editor content: " << e.what() << std::endl;
                     }
-                    
+
                     isDirty = false;
                 }
                 ImGui::Separator();
@@ -1120,7 +1121,7 @@ void renderTextEditorWindow(bool* showTextEditor, nb::dict& shared_data) {
                 }
                 ImGui::EndMenu();
             }
-            
+
             if (ImGui::BeginMenu("Edit")) {
                 if (ImGui::MenuItem("Read-only mode", nullptr, &readOnly)) {
                     // Toggle read-only mode
@@ -1132,7 +1133,7 @@ void renderTextEditorWindow(bool* showTextEditor, nb::dict& shared_data) {
                 }
                 ImGui::EndMenu();
             }
-            
+
             ImGui::EndMenuBar();
         }
 
@@ -1144,11 +1145,9 @@ void renderTextEditorWindow(bool* showTextEditor, nb::dict& shared_data) {
                 lineCount++;
             }
         }
-        
-        ImGui::Text("Lines: %zu | Characters: %zu | %s | %s", 
-            lineCount, textLength,
-            readOnly ? "Read-Only" : "Edit",
-            isDirty ? "Modified" : "Saved");
+
+        ImGui::Text("Lines: %zu | Characters: %zu | %s | %s", lineCount, textLength,
+                    readOnly ? "Read-Only" : "Edit", isDirty ? "Modified" : "Saved");
 
         ImGui::Separator();
 
@@ -1157,11 +1156,12 @@ void renderTextEditorWindow(bool* showTextEditor, nb::dict& shared_data) {
         if (readOnly) {
             flags |= ImGuiInputTextFlags_ReadOnly;
         }
-        
+
         // Use a resizable text input that fills the remaining space
-        ImVec2 textSize = ImVec2(-1, -1); // Fill available space
-        
-        if (ImGui::InputTextMultiline("##TextEditor", textBuffer, sizeof(textBuffer), textSize, flags)) {
+        ImVec2 textSize = ImVec2(-1, -1);  // Fill available space
+
+        if (ImGui::InputTextMultiline("##TextEditor", textBuffer, sizeof(textBuffer), textSize,
+                                      flags)) {
             isDirty = true;
         }
     }
@@ -1181,9 +1181,7 @@ void setTextEditorContent(const std::string& content) {
     std::cout << "Setting text content: " << content.length() << " characters" << std::endl;
 }
 
-void showTextEditorWindow() {
-    showTextEditor = true;
-}
+void showTextEditorWindow() { showTextEditor = true; }
 
 void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<World> world_ptr,
                          nb::dict physicsChanges, nb::dict inventoryData, nb::list& consoleLogs,
@@ -1353,9 +1351,8 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
     // ImGui::ShowDemoWindow();  // Show demo window! :)
 }
 
-
-
-void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::ndarray<nb::numpy> voxel_data) {
+void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data,
+                               nb::ndarray<nb::numpy> voxel_data) {
     /*──────────────── Frame setup ────────────────*/
     ImGui_ImplSDLRenderer2_NewFrame();
     ImGui_ImplSDL2_NewFrame();
@@ -1367,12 +1364,13 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::nd
     // - voxel_data.shape(i) -> size of dimension i
     // - voxel_data.ndim() -> number of dimensions
     // - voxel_data.dtype() -> data type
-    
+
     // Create a dockspace over the main viewport (if docking is available)
     // #ifdef IMGUI_HAS_DOCK
-    // ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
-    // #endif
-    ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
+    // ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(),
+    // ImGuiDockNodeFlags_PassthruCentralNode); #endif
+    ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(),
+                                 ImGuiDockNodeFlags_PassthruCentralNode);
 
     // Set initial window size and position for when not docked
     ImVec2 displaySize = ImGui::GetIO().DisplaySize;
@@ -1454,14 +1452,14 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::nd
     }
 
     ImGui::End();
-    
+
     // ================================================================================================
     // 3D VIEWPORT WITH IMGUIZMO - Voxel Box Visualization
     // ================================================================================================
-    
+
     // Render the 3D voxel viewport in a separate function
     render3DVoxelViewport(voxel_data, shared_data);
-    
+
     showTextEditor = true;
     renderTextEditorWindow(&showTextEditor, shared_data);
 }

@@ -1,6 +1,7 @@
 #ifndef __DebuggingTools__
 #define __DebuggingTools__
 
+// clang-format off
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <imgui/backends/imgui_impl_sdl2.h>
@@ -8,6 +9,7 @@
 #include <imgui/imgui.h>
 #include <imgui/implot.h>
 #include <imgui/ImGuizmo.h>
+// clang-format on
 #include <nanobind/nanobind.h>
 #include <nanobind/ndarray.h>
 
@@ -61,7 +63,8 @@ void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<Wor
                          std::shared_ptr<EntityInterface> selectedEntityInterface_ptr);
 
 void imguiPrepareEditorRuntimeDebuggerWindows(nb::list& commands, nb::dict& shared_data);
-void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data, nb::ndarray<nb::numpy> voxel_data);
+void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data,
+                               nb::ndarray<nb::numpy> voxel_data);
 void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data);
 void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data);
 

@@ -14,7 +14,7 @@
 #include <spdlog/spdlog.h>
 
 #include <cstdint>
-
+// clang-format off
 #include "CameraUtils.hpp"
 #include "EntityInterface.hpp"
 #include "Gui/Gui.hpp"
@@ -31,3 +31,4 @@
 #include "neat/genome.hpp"
 #include "terrain/TerrainGridRepository.hpp"
 #include "terrain/TerrainStorage.hpp"
+// clang-format on

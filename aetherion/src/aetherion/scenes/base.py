@@ -2,12 +2,13 @@ from abc import ABC, abstractmethod
 from typing import Self
 
 from pydantic import BaseModel, ConfigDict, Field
+
 from aetherion import GameWindow, SceneGraph
 
 
 class NodeSpec(BaseModel):
     """Specification for scene graph nodes with validation and serialization support."""
-    
+
     name: str
     cls: str  # import path to class, e.g. "game.scenes.scene_a.nodes.player.PlayerController"
     kwargs: dict[str, object] = Field(default_factory=dict)
@@ -21,10 +22,9 @@ class NodeSpec(BaseModel):
     )
 
 
-
 class Node(ABC):
     """Base class for all scene graph nodes."""
-    
+
     def __init__(self, name: str, **kwargs):
         self.name = name
         self.children: list[Node] = []
