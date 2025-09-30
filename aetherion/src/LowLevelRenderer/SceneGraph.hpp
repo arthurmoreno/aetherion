@@ -318,31 +318,20 @@ class SceneGraph {
     }
 
     // --- Rendering ------------------------------------------
-
-    void render(entt::entity e, nb::object shared_state, nb::object player_connection) {
-        if (!contains(e)) return;
-        // Render the entity and its descendants
-        for_each_descendant_preorder(e, [this, shared_state, player_connection](entt::entity child) {
-            // Call the render function for each child
-            std::cout << "Rendering entity: " << static_cast<int>(child) << std::endl;
-
-            if (registry_->all_of<NodePython>(child)) {
-                // Update existing instance
-                NodePython& node_python = registry_->get<NodePython>(child);
-
-                nb::gil_scoped_acquire acquire;
-
-                try {
-                    node_python.instance.attr("render")(shared_state, player_connection);
-                } catch (const nb::cast_error& e) {
-                    std::cerr << "Error in Python script run: " << e.what() << std::endl;
-                }
-
-            } else {
-                // Add new NodePython component
-                std::cout << "No Python instance attached." << std::endl;
-            }
+    
+    // Returns a list of node IDs in the correct order for rendering (preorder traversal)
+    std::vector<entt::entity> get_render_order(entt::entity root) const {
+        std::vector<entt::entity> render_list;
+        
+        if (!contains(root)) {
+            return render_list;
+        }
+        
+        for_each_descendant_preorder(root, [&render_list](entt::entity entity) {
+            render_list.push_back(entity);
         });
+        
+        return render_list;
     }
 
     // --- Debugging ------------------------------------------------------------

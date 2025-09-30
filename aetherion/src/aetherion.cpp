@@ -285,18 +285,10 @@ NB_MODULE(_aetherion, m) {
         .def("depth", &SceneGraph::depth, nb::arg("entity"),
              "Get depth of entity (root = 0, -1 if not in graph)")
         .def("render", &SceneGraph::render,
-            nb::arg("entity"), 
-            nb::arg("shared_state"), 
-            nb::arg("player_connection"),
-            "Render the entity and its descendants")
-
-        .def("render", [](SceneGraph& self, entt::entity entity, nb::handle shared_state, nb::handle player_connection) {
-            // Convert handles to objects for the C++ method
-            nb::object shared_obj = nb::borrow<nb::object>(shared_state);
-            nb::object player_obj = nb::borrow<nb::object>(player_connection);
-            self.render(entity, shared_obj, player_obj);
-        }, nb::arg("entity"), nb::arg("shared_state"), nb::arg("player_connection"),
-        "Render the entity and its descendants")
+             nb::arg("entity"), 
+             nb::arg("shared_state_dict"), 
+             nb::arg("player_connection") = nb::none(),
+             "Render the entity and its descendants")
         
         .def("draw_graph_as_tree", &SceneGraph::drawGraphAsTree, nb::arg("root"),
              "Debug function to print the graph structure starting from root");
