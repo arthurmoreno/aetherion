@@ -238,6 +238,13 @@ NB_MODULE(_aetherion, m) {
                  return "<Entity " + std::to_string(static_cast<uint32_t>(e)) + ">";
              })
         .def(
+            "__hash__",
+            [](const entt::entity& e) { return std::hash<uint32_t>{}(static_cast<uint32_t>(e)); },
+            "Hash function for using Entity as dictionary key")
+        .def(
+            "__eq__", [](const entt::entity& a, const entt::entity& b) { return a == b; },
+            "Equality comparison for Entity objects")
+        .def(
             "get_id", [](const entt::entity& e) { return static_cast<uint32_t>(e); },
             "Get the raw ID of the entity")
         .def(
@@ -284,12 +291,9 @@ NB_MODULE(_aetherion, m) {
         .def("roots", &SceneGraph::roots, "Get list of all root entities")
         .def("depth", &SceneGraph::depth, nb::arg("entity"),
              "Get depth of entity (root = 0, -1 if not in graph)")
-        .def("render", &SceneGraph::render,
-             nb::arg("entity"), 
-             nb::arg("shared_state_dict"), 
-             nb::arg("player_connection") = nb::none(),
-             "Render the entity and its descendants")
-        
+        .def("get_all_entities_render_order", &SceneGraph::get_all_entities_render_order,
+             "Get the list of entities ordered to be rendered")
+
         .def("draw_graph_as_tree", &SceneGraph::drawGraphAsTree, nb::arg("root"),
              "Debug function to print the graph structure starting from root");
 

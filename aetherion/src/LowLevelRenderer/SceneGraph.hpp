@@ -318,19 +318,34 @@ class SceneGraph {
     }
 
     // --- Rendering ------------------------------------------
-    
+
     // Returns a list of node IDs in the correct order for rendering (preorder traversal)
     std::vector<entt::entity> get_render_order(entt::entity root) const {
         std::vector<entt::entity> render_list;
-        
+
         if (!contains(root)) {
             return render_list;
         }
-        
-        for_each_descendant_preorder(root, [&render_list](entt::entity entity) {
-            render_list.push_back(entity);
-        });
-        
+
+        for_each_descendant_preorder(
+            root, [&render_list](entt::entity entity) { render_list.push_back(entity); });
+
+        return render_list;
+    }
+
+    // Returns a list of ALL entities in the scene graph ordered for rendering
+    // Iterates through all root nodes and their descendants in preorder traversal
+    std::vector<entt::entity> get_all_entities_render_order() const {
+        std::vector<entt::entity> render_list;
+
+        // Iterate through all root nodes
+        for (entt::entity root : roots_) {
+            if (contains(root)) {
+                for_each_descendant_preorder(
+                    root, [&render_list](entt::entity entity) { render_list.push_back(entity); });
+            }
+        }
+
         return render_list;
     }
 
