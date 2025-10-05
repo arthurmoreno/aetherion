@@ -58,7 +58,7 @@ void LifeEngine::removeEntityFromGrid(entt::entity entity) {
         }
 
         if (type.mainType == static_cast<int>(EntityEnum::TERRAIN)) {
-            voxelGrid->deleteTerrain(pos.x, pos.y, pos.z);
+            voxelGrid->deleteTerrain(dispatcher, pos.x, pos.y, pos.z);
         } else if (type.mainType == static_cast<int>(EntityEnum::BEAST) ||
                    type.mainType == static_cast<int>(EntityEnum::PLANT)) {
             voxelGrid->deleteEntity(pos.x, pos.y, pos.z);  // Use thread-safe deleteEntity

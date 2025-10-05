@@ -24,8 +24,8 @@ World::World(int width, int height, int depth)
       pyRegistry(registry, dispatcher),
       // Update to use just SQLite file path parameter
       dbHandler(std::make_unique<GameDBHandler>("./data/game.sqlite")),
-      physicsEngine(new PhysicsEngine(registry, voxelGrid)),
-      lifeEngine(new LifeEngine(registry, voxelGrid)),
+      physicsEngine(new PhysicsEngine(registry, dispatcher, voxelGrid)),
+      lifeEngine(new LifeEngine(registry, dispatcher, voxelGrid)),
       ecosystemEngine(new EcosystemEngine()),
       metabolismSystem(new MetabolismSystem(registry, voxelGrid)),
       combatSystem(new CombatSystem(registry, voxelGrid)),

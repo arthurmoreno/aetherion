@@ -12,17 +12,9 @@
 #include "ItemConfigurationManager.hpp"
 #include "VoxelGrid.hpp"
 #include "components/ItemsComponents.hpp"
+#include "components/LifecycleComponents.hpp"
 
 namespace nb = nanobind;
-
-struct KillEntityEvent {
-    entt::entity entity;
-    bool softKill{};
-
-    KillEntityEvent(entt::entity entity) : entity(entity) { softKill = false; }
-
-    KillEntityEvent(entt::entity entity, bool softKill) : entity(entity), softKill(softKill) {}
-};
 
 class LifeEngine {
    public:
@@ -30,7 +22,8 @@ class LifeEngine {
     std::unordered_set<entt::entity> entitiesScheduledForDeletion;
 
     LifeEngine() = default;
-    LifeEngine(entt::registry& reg, VoxelGrid* voxelGrid) : registry(reg), voxelGrid(voxelGrid) {}
+    LifeEngine(entt::registry& reg, entt::dispatcher& disp, VoxelGrid* voxelGrid)
+        : registry(reg), dispatcher(disp), voxelGrid(voxelGrid) {}
 
     // Handle entity movement event
     void onKillEntity(const KillEntityEvent& event);
@@ -42,6 +35,7 @@ class LifeEngine {
 
    private:
     entt::registry& registry;
+    entt::dispatcher& dispatcher;
     VoxelGrid* voxelGrid;
 
     void dropItems(entt::entity entity);

@@ -338,10 +338,11 @@ int getDirection(float velocity) {
     }
 }
 
-void createMovingComponent(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
-                           Position& position, Velocity& velocity, int movingToX, int movingToY,
-                           int movingToZ, float completionTime, bool willStopX, bool willStopY,
-                           bool willStopZ) {
+void createMovingComponent(entt::registry& registry, entt::dispatcher& dispatcher,
+                           VoxelGrid& voxelGrid, entt::entity entity, Position& position,
+                           Velocity& velocity, int movingToX, int movingToY, int movingToZ,
+                           float completionTime, bool willStopX, bool willStopY, bool willStopZ,
+                           bool isTerrain) {
     MovingComponent movingComponent;
 
     movingComponent.isMoving = true;
@@ -383,20 +384,36 @@ void createMovingComponent(entt::registry& registry, VoxelGrid& voxelGrid, entt:
     movingComponent.direction = direction;
     registry.emplace<MovingComponent>(entity, movingComponent);
 
-    EntityTypeComponent* etc = registry.try_get<EntityTypeComponent>(entity);
+    EntityTypeComponent* etc = nullptr;
+    if (isTerrain) {
+        EntityTypeComponent etc_ = voxelGrid.terrainGridRepository->getTerrainEntityType(
+            position.x, position.y, position.z);
+        etc = &etc_;
+        std::cout << "[createMovingComponent] isTerrain " << static_cast<int>(entity)
+                  << " mainType: " << etc->mainType << "\n";
+    } else {
+        etc = registry.try_get<EntityTypeComponent>(entity);
+    }
+
     if (etc && etc->mainType == static_cast<int>(EntityEnum::TERRAIN)) {
-        // std::cout << "Setting movingTo positions for terrain moving."
-        //     << "moving to: " << movingComponent.movingToX << ", "
-        //     << movingComponent.movingToY << ", "
-        //     << movingComponent.movingToZ
-        //     << "\n";
+        std::cout << "Setting movingTo positions for terrain moving."
+                  << "moving to: " << movingComponent.movingToX << ", " << movingComponent.movingToY
+                  << ", " << movingComponent.movingToZ << "\n";
+
+        if (static_cast<int>(entity) == -1 || static_cast<int>(entity) == -2) {
+            throw std::runtime_error("Invalid terrain entity ID in createMovingComponent");
+        }
 
         // From #167 this change might need refactoring it properly.
+        voxelGrid.terrainGridRepository->moveTerrain(movingComponent);
 
-        voxelGrid.terrainGridRepository->deleteTerrain(position.x, position.y, position.z);
-        voxelGrid.terrainGridRepository->setTerrainMainType(
-            movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ,
-            etc->mainType);
+        // voxelGrid.terrainGridRepository->setTerrainId(
+        //     movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ,
+        //     static_cast<int>(entity));
+        // voxelGrid.terrainGridRepository->deleteTerrain(dispatcher, position.x, position.y,
+        // position.z); voxelGrid.terrainGridRepository->setTerrainMainType(
+        //     movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ,
+        //     etc->mainType);
     } else {
         Position movingToPosition;
         movingToPosition.x = movingComponent.movingToX;
@@ -410,18 +427,84 @@ void createMovingComponent(entt::registry& registry, VoxelGrid& voxelGrid, entt:
     position.z = movingComponent.movingToZ;
 }
 
-void handleMovement(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
-                    entt::entity entityBeingDebugged, bool isTerrain) {
-    auto&& [position, velocity, physicsStats] =
-        registry.get<Position, Velocity, PhysicsStats>(entity);
+void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid,
+                    entt::entity entity, entt::entity entityBeingDebugged, bool isTerrain) {
+    // Position position;
+    // Velocity velocity;
+    // PhysicsStats physicsStats;
+
+    // auto&& [position, velocity, physicsStats] =
+    //     registry.get<Position, Velocity, PhysicsStats>(entity);
+    // auto comps = registry.get<Position, Velocity, PhysicsStats>(entity);
+
+    // Position     &position     = std::get<Position&>(comps);
+    // Velocity     &velocity     = std::get<Velocity&>(comps);
+    // PhysicsStats &physicsStats = std::get<PhysicsStats&>(comps);
 
     bool haveMovement = registry.all_of<MovingComponent>(entity);
 
+    // Position     position{};
+    // Velocity     velocity{};
+    // PhysicsStats physicsStats{};
+
+    // if (isTerrain) {
+    //     // Fill from terrain repo (values)
+    //     position = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+    //     std::cout << "[handleMovement] Handling movement for terrain entity: "
+    //             << static_cast<int>(entity) << " at position: (" << position.x << ", "
+    //             << position.y << ", " << position.z << ")\n";
+
+    //     velocity = voxelGrid.terrainGridRepository
+    //                 ->getVelocity(position.x, position.y, position.z);
+    //     physicsStats = voxelGrid.terrainGridRepository
+    //                     ->getPhysicsStats(position.x, position.y, position.z);
+
+    // } else {
+    //     auto [posRef, velRef, statsRef] =
+    //         registry.get<Position, Velocity, PhysicsStats>(entity); // throws/asserts if missing
+    //     position     = posRef;
+    //     velocity     = velRef;
+    //     physicsStats = statsRef;
+    // }
+
+    // Local storage used only for the terrain path
+    Position terrainPos{};
+    Velocity terrainVel{};
+    PhysicsStats terrainPS{};
+
+    // Bind references ONCE. For ECS, they bind directly to the registry components.
+    // For terrain, they bind to the local storage above.
+    Position& position = isTerrain ? terrainPos : registry.get<Position>(entity);
+    Velocity& velocity = isTerrain ? terrainVel : registry.get<Velocity>(entity);
+    PhysicsStats& physicsStats = isTerrain ? terrainPS : registry.get<PhysicsStats>(entity);
+
+    // If terrain: load values into the local storage (the refs are already bound to it).
     if (isTerrain) {
-        std::cout << "[handleMovement] Handling movement for terrain entity: "
-                  << static_cast<int>(entity) << " at position: (" << position.x << ", "
-                  << position.y << ", " << position.z << ")\n";
+        terrainPos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+        // std::cout << "[handleMovement] Handling movement for terrain entity: "
+        //         << static_cast<int>(entity) << " at position: (" << terrainPos.x << ", "
+        //         << terrainPos.y << ", " << terrainPos.z << ")\n";
+        terrainVel =
+            voxelGrid.terrainGridRepository->getVelocity(terrainPos.x, terrainPos.y, terrainPos.z);
+        terrainPS = voxelGrid.terrainGridRepository->getPhysicsStats(terrainPos.x, terrainPos.y,
+                                                                     terrainPos.z);
     }
+
+    // Position     position{};
+    // Velocity     velocity{};
+    // PhysicsStats physicsStats{};
+    // if (isTerrain) {
+    //     position = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+    //     std::cout << "[handleMovement] Handling movement for terrain entity: "
+    //               << static_cast<int>(entity) << " at position: (" << position.x << ", "
+    //               << position.y << ", " << position.z << ")\n";
+    //     velocity = voxelGrid.terrainGridRepository->getVelocity(position.x, position.y,
+    //     position.z); physicsStats = voxelGrid.terrainGridRepository->getPhysicsStats(position.x,
+    //     position.y, position.z);
+    // } else {
+    //     auto [p, v, ps] = registry.try_get<Position, Velocity, PhysicsStats>(entity);
+    //     position = p; velocity = v; physicsStats = ps;
+    // }
 
     // ### Applying other forces
     float newVelocityX, newVelocityY, newVelocityZ;
@@ -432,10 +515,25 @@ void handleMovement(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity
     std::pair<float, bool> resultZ;
 
     MatterState matterState = MatterState::SOLID;
-    StructuralIntegrityComponent* sic = registry.try_get<StructuralIntegrityComponent>(entity);
-    if (sic) {
-        matterState = sic->matterState;
+    if (!isTerrain) {
+        StructuralIntegrityComponent* sic;
+        sic = registry.try_get<StructuralIntegrityComponent>(entity);
+        if (sic) {
+            matterState = sic->matterState;
+        }
+    } else {
+        StructuralIntegrityComponent bellowTerrainSic =
+            voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(position.x, position.y,
+                                                                           position.z - 1);
+        matterState = bellowTerrainSic.matterState;
     }
+
+    // if (isTerrain) {
+    //     std::cout << "[handleMovement] Handling movement for terrain entity: before the SOLID "
+    //                  "LIQUID check"
+    //               << static_cast<int>(entity) << " at position: (" << position.x << ", "
+    //               << position.y << ", " << position.z << ")\n";
+    // }
 
     if (matterState == MatterState::SOLID || matterState == MatterState::LIQUID) {
         if (entity == entityBeingDebugged) {
@@ -450,6 +548,13 @@ void handleMovement(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity
     } else {
         newVelocityZ = velocity.vz;
     }
+
+    // if (isTerrain) {
+    //     std::cout << "[handleMovement] Handling movement for terrain entity: after the SOLID "
+    //                  "LIQUID check"
+    //               << static_cast<int>(entity) << " at position: (" << position.x << ", "
+    //               << position.y << ", " << position.z << ")\n";
+    // }
 
     int bellowEntityId = voxelGrid.getEntity(position.x, position.y, position.z - 1);
     bool bellowTerrainExists =
@@ -535,14 +640,29 @@ void handleMovement(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity
     //         << std::endl;
     // }
 
+    // if (isTerrain) {
+    //     std::cout << "[handleMovement] Just before - if (!collision && completionTime <
+    //     calculateTimeToMove(physicsStats.minSpeed)) {\n";
+    // }
+
     if (!collision && completionTime < calculateTimeToMove(physicsStats.minSpeed)) {
+        // if (isTerrain) {
+        //     std::cout << "[handleMovement] Inside - if (!collision && completionTime <
+        //     calculateTimeToMove(physicsStats.minSpeed)) {\n";
+        // }
+
         if (!haveMovement) {
-            createMovingComponent(registry, voxelGrid, entity, position, velocity, movingToX,
-                                  movingToY, movingToZ, completionTime, willStopX, willStopY,
-                                  willStopZ);
+            createMovingComponent(registry, dispatcher, voxelGrid, entity, position, velocity,
+                                  movingToX, movingToY, movingToZ, completionTime, willStopX,
+                                  willStopY, willStopZ, isTerrain);
         }
 
     } else {
+        // if (isTerrain) {
+        //     std::cout << "[handleMovement] Inside - else (!collision && completionTime <
+        //     calculateTimeToMove(physicsStats.minSpeed)) {\n";
+        // }
+
         bool lateralCollision = false;
         if (getDirection(newVelocityX) != 0) {
             lateralCollision = true;
@@ -574,12 +694,16 @@ void handleMovement(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity
                 collisionZ = true;
             }
 
+            // if (isTerrain) {
+            //     std::cout << "[handleMovement] Inside - else but on the middle of it\n";
+            // }
+
             if (!collisionZ && !haveMovement) {
                 velocity.vz = newVelocityZ;
 
-                createMovingComponent(registry, voxelGrid, entity, position, velocity, movingToX,
-                                      movingToY, movingToZ, completionTime, willStopX, willStopY,
-                                      willStopZ);
+                createMovingComponent(registry, dispatcher, voxelGrid, entity, position, velocity,
+                                      movingToX, movingToY, movingToZ, completionTime, willStopX,
+                                      willStopY, willStopZ, isTerrain);
             } else {
                 velocity.vz = 0;
             }
@@ -592,10 +716,18 @@ void handleMovement(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity
         // newVelocityZ = resultZ.first;
         // velocity.vz = newVelocityZ;
 
+        // if (isTerrain) {
+        //     std::cout << "[handleMovement] Just before removing Velocity!\n";
+        // }
+
         if (velocity.vx == 0 && velocity.vy == 0 && velocity.vz == 0) {
             registry.remove<Velocity>(entity);
         }
     }
+
+    // if (isTerrain) {
+    //     std::cout << "[handleMovement] Handling movement end!\n";
+    // }
 }
 
 void handleMovingTo(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity) {
@@ -657,13 +789,13 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
         int entityId = static_cast<int>(entity);
         int entityVoxelGridId = voxelGrid.getEntity(pos.x, pos.y, pos.z);
         if (entityId == entityVoxelGridId) {
-            handleMovement(registry, voxelGrid, entity, entityBeingDebugged, false);
+            handleMovement(registry, dispatcher, voxelGrid, entity, entityBeingDebugged, false);
         }
         int terrainVoxelGridId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
         if (terrainVoxelGridId != static_cast<int>(TerrainIdTypeEnum::NONE) &&
             terrainVoxelGridId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
             // This entity is actually terrain, remove its velocity
-            handleMovement(registry, voxelGrid, entity, entityBeingDebugged, true);
+            handleMovement(registry, dispatcher, voxelGrid, entity, entityBeingDebugged, true);
         }
     }
 
@@ -778,7 +910,6 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
             static_cast<int>(event.entity) != static_cast<int>(TerrainIdTypeEnum::NONE) &&
             static_cast<int>(event.entity) != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE);
         bool haveMovement = registry.all_of<MovingComponent>(event.entity);
-        bool hasVelocity = registry.all_of<Velocity>(event.entity);
         bool hasEnTTPosition = registry.all_of<Position>(event.entity);
         if (!hasEntity) {
             std::cout << "onMoveGasEntityEvent: event.entity is null or invalid (Either none or on "
@@ -794,15 +925,11 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
             // throw std::runtime_error("onMoveGasEntityEvent: Entity does not have Position
             // component");
         }
-        if (!hasVelocity) {
-            // std::cout << "onMoveGasEntityEvent: Adding Velocity component to entity " <<
-            // static_cast<int>(event.entity) << std::endl;
-            Velocity velocity = {0.0f, 0.0f, 0.0f};  // Replace as needed
-            registry.emplace<Velocity>(event.entity, velocity);
-            // std::cout << "onMoveGasEntityEvent: Added Velocity component to entity " <<
-            // static_cast<int>(event.entity) << std::endl;
-        }
-        auto& velocity = registry.get<Velocity>(event.entity);
+        // if (!hasVelocity) {
+        //     Velocity velocity = {0.0f, 0.0f, 0.0f};
+        //     voxelGrid->terrainGridRepository->setVelocity(pos.x, pos.y, pos.z, velocity);
+        // }
+        Velocity velocity = voxelGrid->terrainGridRepository->getVelocity(pos.x, pos.y, pos.z);
 
         // std::cout << "onMoveGasEntityEvent: Retrieved Velocity component for entity " <<
         // velocity.vx << ", "
@@ -845,7 +972,8 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
             velocity.vx = newVelocityX;
             velocity.vy = newVelocityY;
             velocity.vz = newVelocityZ;
-            registry.emplace<Velocity>(event.entity, velocity);
+            voxelGrid->terrainGridRepository->setVelocity(pos.x, pos.y, pos.z, velocity);
+            // registry.emplace<Velocity>(event.entity, velocity);
         }
 
         // ossMessage << "onMoveGasEntityEvent -> velocity X: " << velocity.vx <<

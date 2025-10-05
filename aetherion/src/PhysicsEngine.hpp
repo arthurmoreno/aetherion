@@ -32,8 +32,8 @@ class PhysicsEngine {
     entt::entity entityBeingDebugged;
 
     PhysicsEngine() = default;
-    PhysicsEngine(entt::registry& reg, VoxelGrid* voxelGrid)
-        : registry(reg), voxelGrid(voxelGrid) {}
+    PhysicsEngine(entt::registry& reg, entt::dispatcher& disp, VoxelGrid* voxelGrid)
+        : registry(reg), dispatcher(disp), voxelGrid(voxelGrid) {}
 
     // Method to process physics-related events
     void processPhysics(entt::registry& registry, VoxelGrid& voxelGrid,
@@ -60,6 +60,7 @@ class PhysicsEngine {
 
    private:
     entt::registry& registry;
+    entt::dispatcher& dispatcher;
     VoxelGrid* voxelGrid = nullptr;
 
     // Mutex for thread safety

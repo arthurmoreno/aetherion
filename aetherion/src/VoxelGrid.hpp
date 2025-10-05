@@ -240,7 +240,7 @@ class VoxelGrid {
     EntityTypeComponent getTerrainEntityTypeComponent(int x, int y, int z) const;
     void setTerrain(int x, int y, int z, int terrainID);
     int getTerrain(int x, int y, int z) const;
-    void deleteTerrain(int x, int y, int z);
+    void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z);
 
     void setEntity(int x, int y, int z, int entityID);
     int getEntity(int x, int y, int z) const;

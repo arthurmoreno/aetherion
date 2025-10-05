@@ -7,6 +7,7 @@
 #include <unordered_map>
 
 #include "components/EntityTypeComponent.hpp"
+#include "components/LifecycleComponents.hpp"
 #include "components/MovingComponent.hpp"
 #include "components/PhysicsComponents.hpp"
 #include "components/TerrainComponents.hpp"
@@ -140,7 +141,7 @@ class TerrainGridRepository {
     void setTerrainFromEntt(entt::entity entity);
     bool checkIfTerrainExists(int x, int y, int z) const;
     bool checkIfTerrainHasEntity(int x, int y, int z) const;
-    void deleteTerrain(int x, int y, int z);
+    void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z);
 
     // ================ High-Level Iterator Methods ================
     // Efficient full-grid iteration with access to both static and transient data
@@ -156,6 +157,9 @@ class TerrainGridRepository {
     // Generic iterator that provides TerrainInfo for each active voxel
     template <typename Callback>
     void iterateActiveVoxels(Callback callback) const;
+
+    Position getPositionOfEntt(entt::entity terrain_entity) const;
+    void moveTerrain(MovingComponent& movingComponent);
 
    private:
     struct Key {
@@ -179,6 +183,7 @@ class TerrainGridRepository {
     entt::registry& registry_;
     TerrainStorage& storage_;
     std::unordered_map<Key, entt::entity, KeyHash> byCoord_;
+    std::unordered_map<entt::entity, Key> byEntity_;
 
     entt::entity getEntityAt(int x, int y, int z) const;
     entt::entity ensureActive(int x, int y, int z);

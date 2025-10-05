@@ -24,6 +24,79 @@ entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
     return it->second;
 }
 
+Position TerrainGridRepository::getPositionOfEntt(entt::entity terrain_entity) const {
+    auto it = byEntity_.find(terrain_entity);
+    if (it == byEntity_.end()) {
+        // Entity not found in mapping, return invalid position
+        return Position{-1, -1, -1, DirectionEnum::UP};
+    }
+
+    const Key& key = it->second;
+    return getPosition(key.x, key.y, key.z);
+}
+
+void TerrainGridRepository::moveTerrain(MovingComponent& movingComponent) {
+    // Get the current position of the entity
+    std::optional<int> currentPositionEntityId = getTerrainIdIfExists(
+        movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
+    std::optional<int> movingToPositionEntityId = getTerrainIdIfExists(
+        movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ);
+    if (currentPositionEntityId && !movingToPositionEntityId) {
+        int terrainID = currentPositionEntityId.value();
+        std::cout << "Moving terrain entity ID " << terrainID << " from ("
+                  << movingComponent.movingFromX << ", " << movingComponent.movingFromY << ", "
+                  << movingComponent.movingFromZ << ") to (" << movingComponent.movingToX << ", "
+                  << movingComponent.movingToY << ", " << movingComponent.movingToZ << ")\n";
+
+        // Copy Position component
+        setDirection(movingComponent.movingToX, movingComponent.movingToY,
+                     movingComponent.movingToZ, movingComponent.direction);
+
+        // Copy structural EntityTypeComponent component
+        EntityTypeComponent currentEntityType = getTerrainEntityType(
+            movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
+        setTerrainEntityType(
+            movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ,
+            EntityTypeComponent{currentEntityType.mainType, currentEntityType.subType0,
+                                currentEntityType.subType1});
+
+        // Copy structural StructuralIntegrityComponent component
+        StructuralIntegrityComponent currentSIC = getTerrainStructuralIntegrity(
+            movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
+        setCanStackEntities(movingComponent.movingToX, movingComponent.movingToY,
+                            movingComponent.movingToZ, currentSIC.canStackEntities);
+        setMaxLoadCapacity(movingComponent.movingToX, movingComponent.movingToY,
+                           movingComponent.movingToZ, currentSIC.maxLoadCapacity);
+        setGradient(movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ,
+                    currentSIC.gradientVector);
+        setMatterState(movingComponent.movingToX, movingComponent.movingToY,
+                       movingComponent.movingToZ, currentSIC.matterState);
+
+        // Copy structural MatterContainer component
+        MatterContainer currentMC = getTerrainMatterContainer(
+            movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
+        setTerrainMatterContainer(movingComponent.movingToX, movingComponent.movingToY,
+                                  movingComponent.movingToZ, currentMC);
+
+        // Copy structural PhysicsStats component
+        PhysicsStats currentPS = getPhysicsStats(
+            movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
+        setPhysicsStats(movingComponent.movingToX, movingComponent.movingToY,
+                        movingComponent.movingToZ,
+                        PhysicsStats{currentPS.mass, currentPS.maxSpeed, currentPS.minSpeed, 0.0f,
+                                     0.0f, 0.0f, 0.0f});
+
+        // 4. Set terrain ID at new position and clear old position
+        setTerrainId(movingComponent.movingToX, movingComponent.movingToY,
+                     movingComponent.movingToZ, terrainID);
+        setTerrainId(movingComponent.movingFromX, movingComponent.movingFromY,
+                     movingComponent.movingFromZ, -2);  // Clear old position
+    } else {
+        std::cout << "Cannot move terrain: either no terrain at current position or destination "
+                     "occupied.\n";
+    }
+}
+
 std::optional<int> TerrainGridRepository::getTerrainIdIfExists(int x, int y, int z) const {
     std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
     // std::cout << "[getTerrainIdIfExists] Checkpoint! Before: storage_.getTerrainIdIfExists (" <<
@@ -129,6 +202,7 @@ entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {
     registry_.emplace<Velocity>(e, Velocity{0.f, 0.f, 0.f});
     registry_.emplace<MovingComponent>(e, MovingComponent{0});
     byCoord_.emplace(key, e);
+    byEntity_.emplace(e, key);
     markActive(x, y, z, e);
     return e;
 }
@@ -450,6 +524,10 @@ void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
         if (it != byCoord_.end()) {
             byCoord_.erase(it);
         }
+        auto entityIt = byEntity_.find(entity);
+        if (entityIt != byEntity_.end()) {
+            byEntity_.erase(entityIt);
+        }
         registry_.destroy(entity);
         // Set terrain ID to -1 to indicate no active entity, but that terrain exists
         storage_.setTerrainId(x, y, z, -1);
@@ -465,7 +543,7 @@ bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
 }
 
 // Delete terrain at a specific voxel
-void TerrainGridRepository::deleteTerrain(int x, int y, int z) {
+void TerrainGridRepository::deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z) {
     std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
     int terrainId = storage_.deleteTerrain(x, y, z);
     if (terrainId != -2 && terrainId != -1 &&
@@ -473,7 +551,7 @@ void TerrainGridRepository::deleteTerrain(int x, int y, int z) {
         // TODO: Handle dropping components and remove from EnTT
         std::cout << "Deleting terrain entity: " << terrainId << std::endl;
         entt::entity entity = static_cast<entt::entity>(terrainId);
-        registry_.destroy(entity);
+        dispatcher.enqueue<KillEntityEvent>(entity);
     }
 }
 
