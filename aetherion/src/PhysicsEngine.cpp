@@ -389,13 +389,13 @@ void createMovingComponent(entt::registry& registry, entt::dispatcher& dispatche
         EntityTypeComponent etc_ = voxelGrid.terrainGridRepository->getTerrainEntityType(
             position.x, position.y, position.z);
         etc = &etc_;
-        std::cout << "[createMovingComponent] isTerrain " << static_cast<int>(entity)
-                  << " mainType: " << etc->mainType << "\n";
+        // std::cout << "[createMovingComponent] isTerrain " << static_cast<int>(entity)
+        //           << " mainType: " << etc->mainType << "\n";
     } else {
         etc = registry.try_get<EntityTypeComponent>(entity);
     }
 
-    if (etc && etc->mainType == static_cast<int>(EntityEnum::TERRAIN)) {
+    if ((etc && etc->mainType == static_cast<int>(EntityEnum::TERRAIN)) || isTerrain) {
         std::cout << "Setting movingTo positions for terrain moving."
                   << "moving to: " << movingComponent.movingToX << ", " << movingComponent.movingToY
                   << ", " << movingComponent.movingToZ << "\n";
@@ -414,12 +414,22 @@ void createMovingComponent(entt::registry& registry, entt::dispatcher& dispatche
         // position.z); voxelGrid.terrainGridRepository->setTerrainMainType(
         //     movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ,
         //     etc->mainType);
-    } else {
+    } else if (etc) {
+        // std::cout << "Creating MovingComponent for entity: " << static_cast<int>(entity)
+        //           << " moving to: " << movingComponent.movingToX << ", " << movingComponent.movingToY
+        //           << ", " << movingComponent.movingToZ << "\n";
+        // std::cout << "EntityTypeComponent: mainType=" << (etc ? etc->mainType : -1)
+        //           << " subType0=" << (etc ? etc->subType0 : -1)
+        //           << " subType1=" << (etc ? etc->subType1 : -1) << "\n";
         Position movingToPosition;
         movingToPosition.x = movingComponent.movingToX;
         movingToPosition.y = movingComponent.movingToY;
         movingToPosition.z = movingComponent.movingToZ;
         voxelGrid.moveEntity(entity, movingToPosition);
+    } else {
+        std::cout << "Warning: EntityTypeComponent missing for entity: " << static_cast<int>(entity)
+                  << "\n";
+        throw std::runtime_error("Missing EntityTypeComponent in createMovingComponent");
     }
 
     position.x = movingComponent.movingToX;
@@ -721,7 +731,15 @@ void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, Voxe
         // }
 
         if (velocity.vx == 0 && velocity.vy == 0 && velocity.vz == 0) {
-            registry.remove<Velocity>(entity);
+            if (isTerrain) {
+                std::cout << "[handleMovement] Deleting Velocity from Terrain!\n";
+                voxelGrid.terrainGridRepository->setVelocity(position.x, position.y, position.z,
+                                                              {0.0f, 0.0f, 0.0f});
+            } else {
+                // std::cout << "Removing Velocity from entity: " << static_cast<int>(entity)
+                //           << "\n";
+                registry.remove<Velocity>(entity);
+            }
         }
     }
 

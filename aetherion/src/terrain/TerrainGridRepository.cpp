@@ -160,8 +160,8 @@ void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entit
             return;
         }
         if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z)) {
-            std::cout << "TerrainGridRepository: onConstructVelocity at (" << pos->x << ", "
-                      << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
+            // std::cout << "TerrainGridRepository: onConstructVelocity at (" << pos->x << ", "
+            //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
             Key key{pos->x, pos->y, pos->z};
             byCoord_[key] = e;
             markActive(pos->x, pos->y, pos->z, e);
@@ -177,8 +177,8 @@ void TerrainGridRepository::onConstructMoving(entt::registry& reg, entt::entity 
             return;
         }
         if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z)) {
-            std::cout << "TerrainGridRepository: onConstructMoving at (" << pos->x << ", " << pos->y
-                      << ", " << pos->z << ") entity=" << int(e) << "\n";
+            // std::cout << "TerrainGridRepository: onConstructMoving at (" << pos->x << ", " << pos->y
+            //           << ", " << pos->z << ") entity=" << int(e) << "\n";
             Key key{pos->x, pos->y, pos->z};
             byCoord_[key] = e;
             markActive(pos->x, pos->y, pos->z, e);
