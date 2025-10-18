@@ -1069,23 +1069,23 @@ void condenseVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatc
  */
 
 void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
-                 int x, int y, int z, Position& pos, EntityTypeComponent& type,
+                 Position& pos, EntityTypeComponent& type,
                  MatterContainer& matterContainer) {
-    int terrainId = voxelGrid.getTerrain(x, y, z);
-    // std::cout << "[moveVaporUp] terrainId at position (" << x << ", " << y << ", " << z << ") is
+    int terrainId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
+    // std::cout << "[moveVaporUp] terrainId at position (" << pos.x << ", " << pos.y << ", " << pos.z << ") is
     // " << terrainId << std::endl;
     if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
         // This should not happen; means vapor entity is missing in voxel grid
         std::ostringstream ossMessage;
-        ossMessage << "[moveVaporUp] Error: Vapor entity missing in voxel grid at (" << x << ", "
-                   << y << ", " << z << ")\n";
+        ossMessage << "[moveVaporUp] Error: Vapor entity missing in voxel grid at (" << pos.x << ", "
+                   << pos.y << ", " << pos.z << ")\n";
         spdlog::get("console")->error(ossMessage.str());
         return;
     } else if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
         // This should not happen; means vapor entity is missing in voxel grid
         std::ostringstream ossMessage;
-        ossMessage << "[moveVaporUp] Error: Vapor entity in ON_GRID_STORAGE at (" << x << ", " << y
-                   << ", " << z << ")\n";
+        ossMessage << "[moveVaporUp] Error: Vapor entity in ON_GRID_STORAGE at (" << pos.x << ", " << pos.y
+                   << ", " << pos.z << ")\n";
         spdlog::get("console")->error(ossMessage.str());
         return;
     } else {
@@ -1117,13 +1117,13 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
         }
         entt::entity entity = static_cast<entt::entity>(terrainId);
         MoveGasEntityEvent moveGasEntityEvent{
-            entity, Position{x, y, z, DirectionEnum::DOWN}, 0.0f, 0.0f, rhoEnv, rhoVapor};
+            entity, Position{pos.x, pos.y, pos.z, DirectionEnum::DOWN}, 0.0f, 0.0f, rhoEnv, rhoVapor};
         moveGasEntityEvent.setForceApplyNewVelocity();
 
         dispatcher.enqueue<MoveGasEntityEvent>(moveGasEntityEvent);
         // std::cout << "[moveVaporUp (terrainAboveId == static_cast<int>(TerrainIdTypeEnum::NONE)
         // && pos.z < maxAltitude)] End of block." << std::endl;
-    } else if (pos.z < maxAltitude) {
+    } else if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) && pos.z < maxAltitude) {
         // std::cout << "[moveVaporUp (pos.z < maxAltitude)] terrainAboveId at position (" << pos.x
         // << ", " << pos.y << ", " << pos.z + 1 << ") is " << terrainAboveId << std::endl;
         auto terrainAbove = static_cast<entt::entity>(terrainAboveId);
@@ -1174,19 +1174,23 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             // }
             // }
         }
+    } else if (pos.z < maxAltitude) {
+        std::cout << "[moveVaporUp] REACHED THE CONTROL POINT\n";
     }
 }
 
 void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
-                       entt::entity entity, Position& pos, EntityTypeComponent& type,
+                       Position& pos, EntityTypeComponent& type,
                        MatterContainer& matterContainer) {
+    int terrainId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
+
     float rhoEnv = 1.225f;    // Density of air
     float rhoVapor = 0.597f;  // Density of water vapor
 
     // Vapor has reached max altitude; move sideways
 
     std::ostringstream ossMessage;
-    ossMessage << "Vapor moving sideways at max altitude from (" << pos.x << ", " << pos.y << ", "
+    ossMessage << "[moveVaporSideways] Vapor moving sideways at max altitude from (" << pos.x << ", " << pos.y << ", "
                << pos.z << ")";
     spdlog::get("console")->debug(ossMessage.str());
     ossMessage.str("");
@@ -1211,22 +1215,32 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
     int newX = pos.x + dx;
     int newY = pos.y + dy;
 
-    bool haveMovement = registry.all_of<MovingComponent>(entity);
+    bool haveMovement = voxelGrid.terrainGridRepository->hasMovingComponent(pos.x, pos.y, pos.z);
 
     int terrainSideId = voxelGrid.getTerrain(newX, newY, pos.z);
-    if (!haveMovement && terrainSideId == -1) {
-        ossMessage << "Vapor moving to (" << forceX << ", " << forceY << ", " << pos.z << ")\n";
+    if (!haveMovement && terrainSideId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        ossMessage << "[moveVaporSideways] Vapor moving to (" << forceX << ", " << forceY << ", " << pos.z << ")\n";
         spdlog::get("console")->debug(ossMessage.str());
         ossMessage.str("");
         ossMessage.clear();
         // Update position in the registry and voxel grid
-        dispatcher.enqueue<MoveGasEntityEvent>(entity, pos, forceX, forceY, 0.0f, 0.0f);
+
+        if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
+            entt::entity newTerrainEntity = registry.create();
+            terrainId = static_cast<int>(newTerrainEntity);
+        }
+        entt::entity entity = static_cast<entt::entity>(terrainId);
+        MoveGasEntityEvent moveGasEntityEvent{
+            entity, Position{pos.x, pos.y, pos.z, DirectionEnum::DOWN}, 0.0f, 0.0f, rhoEnv, rhoVapor};
+        moveGasEntityEvent.setForceApplyNewVelocity();
+
+        dispatcher.enqueue<MoveGasEntityEvent>(moveGasEntityEvent);
     } else {
         auto terrainSide = static_cast<entt::entity>(terrainSideId);
         // checkAndConvertSoftEmptyIntoVapor(registry, terrainSide);
         if (registry.all_of<EntityTypeComponent, MatterContainer>(
                 static_cast<entt::entity>(terrainSideId))) {
-            ossMessage << "Vapor cannot move sideways; obstruction at (" << newX << ", " << newY
+            ossMessage << "[moveVaporSideways] Vapor cannot move sideways; obstruction at (" << newX << ", " << newY
                        << ", " << pos.z << ")\n";
             spdlog::get("console")->debug(ossMessage.str());
             ossMessage.str("");
@@ -1236,13 +1250,13 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
             auto&& [typeSide, matterContainerSide] =
                 registry.get<EntityTypeComponent, MatterContainer>(
                     static_cast<entt::entity>(terrainSideId));
-            bool haveMovement = registry.all_of<MovingComponent>(entity);
+            bool haveMovement = voxelGrid.terrainGridRepository->hasMovingComponent(pos.x, pos.y, pos.z);
 
             if (!haveMovement &&
                 (typeSide.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
                  typeSide.subType0 == static_cast<int>(TerrainEnum::WATER)) &&
                 matterContainerSide.WaterVapor >= 0 && matterContainerSide.WaterMatter == 0) {
-                ossMessage << "Vapor merging with vapor at (" << newX << ", " << newY << ", "
+                ossMessage << "[moveVaporSideways] Vapor merging with vapor at (" << newX << ", " << newY << ", "
                            << pos.z << ")\n";
                 spdlog::get("console")->debug(ossMessage.str());
                 ossMessage.str("");
@@ -1252,9 +1266,12 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
                 matterContainerSide.WaterVapor += matterContainer.WaterVapor;
                 matterContainer.WaterVapor = 0;
 
-                deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
+                if (terrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) && terrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
+                    entt::entity entity = static_cast<entt::entity>(terrainId);
+                    deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
+                }
             } else {
-                ossMessage << "Vapor Obstructed; cannot move sideways (" << newX << ", " << newY
+                ossMessage << "[moveVaporSideways] Vapor Obstructed; cannot move sideways (" << newX << ", " << newY
                            << ", " << pos.z << ")\n";
                 spdlog::get("console")->debug(ossMessage.str());
                 ossMessage.str("");
@@ -1334,13 +1351,11 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
 
     if (pos.z < maxAltitude && isTerrainAboveVaporOrEmpty) {
         // Move vapor up
-        moveVaporUp(registry, voxelGrid, dispatcher, pos.x, pos.y, pos.z, pos, type,
-                    matterContainer);
+        moveVaporUp(registry, voxelGrid, dispatcher, pos, type, matterContainer);
     } else {
         // Vapor has reached max altitude; move sideways
         // TODO: Uncomment when ready.
-        // moveVaporSideways(registry, voxelGrid, dispatcher, pos.x, pos.y, pos.z, pos, type,
-        // matterContainer);
+        // moveVaporSideways(registry, voxelGrid, dispatcher, pos, type, matterContainer);
     }
 }
 

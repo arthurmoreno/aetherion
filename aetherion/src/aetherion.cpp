@@ -211,7 +211,6 @@ NB_MODULE(_aetherion, m) {
 
     nb::class_<TerrainGridRepository>(m, "TerrainGridRepository")
         .def(nb::init<entt::registry&, TerrainStorage&>())
-        .def("is_active", &TerrainGridRepository::isActive)
         .def("read_terrain_info", &TerrainGridRepository::readTerrainInfo)
         .def("get_terrain_entity_type", &TerrainGridRepository::getTerrainEntityType)
         .def("set_terrain_entity_type", &TerrainGridRepository::setTerrainEntityType)

@@ -56,8 +56,6 @@ class TerrainGridRepository {
    public:
     TerrainGridRepository(entt::registry& registry, TerrainStorage& storage);
 
-    // Query whether a voxel is currently active (ECS-managed); kept for inspection
-    bool isActive(int x, int y, int z) const;
 
     // Arbitration helper: inactive ⇒ VDB only; active ⇒ VDB static + ECS transient
     TerrainInfo readTerrainInfo(int x, int y, int z) const;
@@ -143,6 +141,9 @@ class TerrainGridRepository {
     bool checkIfTerrainHasEntity(int x, int y, int z) const;
     void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z);
 
+    // Check if a terrain voxel has a MovingComponent
+    bool hasMovingComponent(int x, int y, int z) const;
+
     // ================ High-Level Iterator Methods ================
     // Efficient full-grid iteration with access to both static and transient data
     template <typename Callback>
@@ -161,7 +162,33 @@ class TerrainGridRepository {
     Position getPositionOfEntt(entt::entity terrain_entity) const;
     void moveTerrain(MovingComponent& movingComponent);
 
+    // Locking methods for external synchronization during terrain movement
+    void lockTerrainGrid();
+    void unlockTerrainGrid();
+
    private:
+    // Check if terrain grid is currently locked
+    bool isTerrainGridLocked() const;
+    
+    // Utility methods for conditional locking
+    template<typename Func>
+    auto withSharedLock(Func&& func) const -> decltype(func()) {
+        if (!isTerrainGridLocked()) {
+            std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
+            return func();
+        }
+        return func();
+    }
+    
+    template<typename Func>
+    auto withUniqueLock(Func&& func) -> decltype(func()) {
+        if (!isTerrainGridLocked()) {
+            std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
+            return func();
+        }
+        return func();
+    }
+    
     struct Key {
         int x, y, z;
         bool operator==(const Key& o) const { return x == o.x && y == o.y && z == o.z; }
@@ -179,6 +206,8 @@ class TerrainGridRepository {
 
     // Mutex specifically for terrainGrid thread safety
     mutable std::shared_mutex terrainGridMutex;
+    // Track if terrain grid is currently locked
+    mutable bool terrainGridLocked_ = false;
 
     entt::registry& registry_;
     TerrainStorage& storage_;
