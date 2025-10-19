@@ -505,13 +505,26 @@ inline EntityPhysicsData loadEntityPhysicsData(entt::registry& registry, VoxelGr
                                                Position& terrainPos, Velocity& terrainVel,
                                                PhysicsStats& terrainPS) {
     if (isTerrain) {
+        if (!registry.valid(entity)) {
+            throw std::runtime_error("Invalid terrain entity");
+        }
+        
         terrainPos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+
+        if (!voxelGrid.checkIfTerrainExists(terrainPos.x, terrainPos.y, terrainPos.z)) {
+            throw std::runtime_error("Terrain does not exist at the given position");
+        }
+        
         terrainVel = voxelGrid.terrainGridRepository->getVelocity(terrainPos.x, terrainPos.y,
                                                                    terrainPos.z);
         terrainPS = voxelGrid.terrainGridRepository->getPhysicsStats(terrainPos.x, terrainPos.y,
                                                                      terrainPos.z);
         return {terrainPos, terrainVel, terrainPS};
     } else {
+        if (!registry.valid(entity)) {
+            throw std::runtime_error("Entity no longer valid in loadEntityPhysicsData");
+        }
+
         return {registry.get<Position>(entity), registry.get<Velocity>(entity),
                 registry.get<PhysicsStats>(entity)};
     }
@@ -705,12 +718,30 @@ inline void cleanupZeroVelocity(entt::registry& registry, VoxelGrid& voxelGrid,
 void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid,
                     entt::entity entity, entt::entity entityBeingDebugged, bool isTerrain) {
 
+    // SAFETY CHECK 1: Validate entity is still valid
+    if (!registry.valid(entity)) {
+        std::ostringstream error;
+        error << "[handleMovement] Invalid entity " << static_cast<int>(entity);
+        throw std::runtime_error(error.str());
+    }
+    
+    // SAFETY CHECK 2: For terrain entities, verify they have Position component
+    // This ensures vapor entities are fully initialized before physics processes them
+    if (isTerrain && !registry.all_of<Position>(entity)) {
+        std::ostringstream error;
+        error << "[handleMovement] Terrain entity " << static_cast<int>(entity)
+              << " missing Position component (not fully initialized yet)";
+        throw std::runtime_error(error.str());
+    }
+
     bool haveMovement = registry.all_of<MovingComponent>(entity);
 
     // Load entity physics data from ECS or terrain storage
     Position terrainPos{};
     Velocity terrainVel{};
     PhysicsStats terrainPS{};
+    
+    // SAFETY CHECK 3: Load entity data (exceptions will propagate if issues occur)
     EntityPhysicsData data = loadEntityPhysicsData(registry, voxelGrid, entity, isTerrain,
                                                     terrainPos, terrainVel, terrainPS);
     Position& position = data.position;

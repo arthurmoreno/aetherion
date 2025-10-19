@@ -65,6 +65,8 @@ class TerrainGridRepository {
 
     void setTerrainId(int x, int y, int z, int terrainID);
 
+    bool isTerrainIdOnEnttRegistry(int terrainID) const;
+
     // ---------------- Static getters/setters (VDB-backed) ----------------
 
     std::optional<int> getTerrainIdIfExists(int x, int y, int z) const;

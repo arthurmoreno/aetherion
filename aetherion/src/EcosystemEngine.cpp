@@ -927,7 +927,7 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, int x, int
     int terrainAboveId = voxelGrid.getTerrain(x, y, z + 1);
 
     if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        if (terrainAboveId == static_cast<int>(TerrainIdTypeEnum::ON_ENTT)) {
+        if (voxelGrid.terrainGridRepository->isTerrainIdOnEnttRegistry(terrainAboveId)) {
             auto terrainAbove = static_cast<entt::entity>(terrainAboveId);
         }
         EntityTypeComponent typeAbove =
@@ -951,15 +951,15 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, int x, int
             // TODO: Uncomment
             // setVaporSI(x, y, z + 1, voxelGrid);
 
-            // std::ostringstream ossMessage;
-            // ossMessage << "Adding vapor to existing vapor at (" << x << ", " << y << ", "
-            //             << z + 1 << ")";
-            // spdlog::get("console")->info(ossMessage.str());
+            std::ostringstream ossMessage;
+            ossMessage << "Adding vapor to existing vapor at (" << x << ", " << y << ", "
+                        << z + 1 << ")";
+            spdlog::get("console")->info(ossMessage.str());
         } else {
-            // std::ostringstream ossMessage;
-            // ossMessage << "Cannot add vapor above; obstruction at (" << x << ", " << y << ", "
-            //             << z + 1 << ")\n";
-            // spdlog::get("console")->info(ossMessage.str());
+            std::ostringstream ossMessage;
+            ossMessage << "Cannot add vapor above; obstruction at (" << x << ", " << y << ", "
+                        << z + 1 << ")\n";
+            spdlog::get("console")->info(ossMessage.str());
             // Cannot place vapor; perhaps handle obstruction
         }
         // }
@@ -1071,6 +1071,8 @@ void condenseVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatc
 void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                  Position& pos, EntityTypeComponent& type,
                  MatterContainer& matterContainer) {
+    voxelGrid.terrainGridRepository->lockTerrainGrid();
+
     int terrainId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
     // std::cout << "[moveVaporUp] terrainId at position (" << pos.x << ", " << pos.y << ", " << pos.z << ") is
     // " << terrainId << std::endl;
@@ -1114,6 +1116,7 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
         if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
             entt::entity newTerrainEntity = registry.create();
             terrainId = static_cast<int>(newTerrainEntity);
+            voxelGrid.terrainGridRepository->setTerrainId(pos.x, pos.y, pos.z, terrainId);
         }
         entt::entity entity = static_cast<entt::entity>(terrainId);
         MoveGasEntityEvent moveGasEntityEvent{
@@ -1177,6 +1180,8 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
     } else if (pos.z < maxAltitude) {
         std::cout << "[moveVaporUp] REACHED THE CONTROL POINT\n";
     }
+
+    voxelGrid.terrainGridRepository->unlockTerrainGrid();
 }
 
 void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
@@ -1746,6 +1751,11 @@ void EcosystemEngine::processEvaporateWaterEvents(
                                  matterContainer.WaterMatter > 0);
 
             if (canEvaporate) {
+                // Lock terrain grid to prevent race conditions during water reduction
+                // Note: createOrAddVapor will also lock, but this ensures atomicity
+                // of the entire evaporation operation (water reduction + vapor creation)
+                voxelGrid.terrainGridRepository->lockTerrainGrid();
+
                 // Calculate evaporation amount
                 // int waterEvaporated = static_cast<int>(event.sunIntensity *
                 // matterContainer.WaterMatter); waterEvaporated = std::max(1, waterEvaporated);
@@ -1762,6 +1772,9 @@ void EcosystemEngine::processEvaporateWaterEvents(
 
                 // Create or add vapor on z+1
                 createOrAddVapor(registry, voxelGrid, pos.x, pos.y, pos.z, waterEvaporated);
+
+                // Unlock before calling createOrAddVapor (which has its own locking)
+                voxelGrid.terrainGridRepository->unlockTerrainGrid();
             }
 
             countCreatedEvaporatedWater++;

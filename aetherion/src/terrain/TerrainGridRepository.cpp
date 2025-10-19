@@ -14,6 +14,11 @@ bool TerrainGridRepository::isTerrainGridLocked() const {
     return terrainGridLocked_;
 }
 
+bool TerrainGridRepository::isTerrainIdOnEnttRegistry(int terrainID) const {
+    return terrainID != static_cast<int>(TerrainIdTypeEnum::NONE) && 
+           terrainID != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE);
+}
+
 TerrainGridRepository::TerrainGridRepository(entt::registry& registry, TerrainStorage& storage)
     : registry_(registry), storage_(storage) {
     // Auto-mark active when Velocity or MovingComponent are emplaced
