@@ -88,7 +88,7 @@ NB_MODULE(_aetherion, m) {
           nb::arg("gl_context_ptr"));
 
     m.def(
-        "imgui_prepare_windows",
+        "render_in_game_gui_frame",
         // lambda wrapper that takes a nullable shared_ptr<World>
         [](int worldTicks, float availableFps,
            std::shared_ptr<World> world_ptr,  // now can be nullptr
@@ -97,10 +97,10 @@ NB_MODULE(_aetherion, m) {
            std::shared_ptr<EntityInterface> entityInterface_ptr,
            std::shared_ptr<EntityInterface> hoveredEntityInterface_ptr,
            std::shared_ptr<EntityInterface> selectedEntityInterface_ptr) {
-            imguiPrepareWindows(worldTicks, availableFps, world_ptr, physicsChanges, inventoryData,
-                                consoleLogs, entitiesData, commands, statistics, shared_data,
-                                entityInterface_ptr, hoveredEntityInterface_ptr,
-                                selectedEntityInterface_ptr);
+            renderInGameGuiFrame(worldTicks, availableFps, world_ptr, physicsChanges, inventoryData,
+                                 consoleLogs, entitiesData, commands, statistics, shared_data,
+                                 entityInterface_ptr, hoveredEntityInterface_ptr,
+                                 selectedEntityInterface_ptr);
         },
         nb::arg("worldTicks"), nb::arg("availableFps"),
         nb::arg("world_ptr") = nullptr,  // <-- makes None legal

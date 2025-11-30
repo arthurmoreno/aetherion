@@ -236,7 +236,7 @@ from .lifesimcore import (
     imgui_init as imgui_init,
 )
 from .lifesimcore import (
-    imgui_prepare_windows as imgui_prepare_windows,
+    render_in_game_gui_frame as render_in_game_gui_frame,
 )
 from .lifesimcore import (
     imgui_process_event as imgui_process_event,

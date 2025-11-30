@@ -11,6 +11,7 @@
 #include "GuiStateManager.hpp"
 #include "LowLevelRenderer/TextureManager.hpp"
 #include "PhysicsManager.hpp"
+#include "AllGuiPrograms.hpp"  // Include all GUI programs
 
 namespace nb = nanobind;
 
@@ -145,6 +146,38 @@ void imguiInit(uintptr_t window_ptr, uintptr_t renderer_ptr) {
     // ImGui::StyleColorsDark();
     GuiStateManager::Instance();
     ApplyCustomStyle();
+    
+    // Initialize GUI programs (GUI OS)
+    initializeGuiPrograms();
+}
+
+/**
+ * @brief Initialize and register all GUI programs
+ * 
+ * Called during ImGui initialization to register all available GUI programs
+ * with the GuiProgramManager. Programs can then be activated/deactivated
+ * dynamically during runtime.
+ */
+void initializeGuiPrograms() {
+    auto* manager = GuiProgramManager::Instance();
+    
+    // Register Settings programs
+    manager->registerProgram(std::make_shared<SettingsProgram>());
+    manager->registerProgram(std::make_shared<PhysicsSettingsProgram>());
+    manager->registerProgram(std::make_shared<CameraSettingsProgram>());
+    
+    // Register Debug programs
+    manager->registerProgram(std::make_shared<GeneralMetricsProgram>());
+    manager->registerProgram(std::make_shared<EntitiesStatsProgram>());
+    manager->registerProgram(std::make_shared<GadgetsProgram>());
+    manager->registerProgram(std::make_shared<EntityInterfaceProgram>());
+    manager->registerProgram(std::make_shared<AIStatisticsProgram>());
+    manager->registerProgram(std::make_shared<ConsoleProgram>());
+    
+    // Register Game programs
+    manager->registerProgram(std::make_shared<InventoryProgram>());
+    manager->registerProgram(std::make_shared<EquipmentProgram>());
+    manager->registerProgram(std::make_shared<PlayerStatsProgram>());
 }
 
 // Function to process SDL_Event using ImGui's SDL2 backend
@@ -532,7 +565,14 @@ void RenderTopBar() {
     ImGui::Begin("TopBar", nullptr, window_flags);
 
     // Push right alignment by setting cursor position
-    ImGui::SetCursorPosX(ImGui::GetWindowWidth() - 730);  // Adjust when adding more buttons
+    ImGui::SetCursorPosX(ImGui::GetWindowWidth() - 820);  // Adjusted for Console button
+
+    // Console Button
+    if (ImGui::Button("Console")) {
+        GuiProgramManager::Instance()->toggleProgram("console");
+    }
+
+    ImGui::SameLine();
 
     // Text Editor Button
     if (ImGui::Button("Text Editor")) {
@@ -541,50 +581,50 @@ void RenderTopBar() {
 
     ImGui::SameLine();
 
-    // Inventory Button
+    // Gadgets Button
     if (ImGui::Button("Gadgets")) {
-        showGadgets = true;
+        GuiProgramManager::Instance()->toggleProgram("gadgets");
     }
 
     ImGui::SameLine();
 
-    // Add AI Statistics toggle button
+    // AI Statistics Button
     if (ImGui::Button("AI Statistics")) {
-        showAIStatistics = !showAIStatistics;
+        GuiProgramManager::Instance()->toggleProgram("ai_statistics");
     }
 
     ImGui::SameLine();
 
-    // Inventory Button
+    // Entities Stats Button
     if (ImGui::Button("Entities Stats")) {
-        showEntitiesStats = true;
+        GuiProgramManager::Instance()->toggleProgram("entities_stats");
     }
 
     ImGui::SameLine();
 
     // Inventory Button
     if (ImGui::Button("Inventory")) {
-        showInventory = true;
+        GuiProgramManager::Instance()->toggleProgram("inventory");
     }
 
     ImGui::SameLine();
 
-    // Inventory Button
+    // Equipment Button
     if (ImGui::Button("Equipment")) {
-        showEquipment = true;
+        GuiProgramManager::Instance()->toggleProgram("equipment");
     }
 
     ImGui::SameLine();
 
     // Settings Button
     if (ImGui::Button("Settings")) {
-        showSettings = true;
+        GuiProgramManager::Instance()->toggleProgram("settings");
     }
 
     ImGui::End();
 }
 
-void RenderEditorDebuggerTopBar() {
+void RenderEditorDebuggerTopBar(nb::list& commands) {
     // Set initial position only on first use, then allow user to move it
     ImGui::SetNextWindowPos(ImVec2(10, 60), ImGuiCond_FirstUseEver);
 
@@ -594,40 +634,106 @@ void RenderEditorDebuggerTopBar() {
     // Create a collapsible, draggable window
     static bool show_editor_debugger_topbar = true;
     if (ImGui::Begin("Editor Debugger Menu", &show_editor_debugger_topbar, window_flags)) {
-        // Gadgets Button
+        // Play Button
         if (ImGui::Button("Play")) {
-            showGadgets = true;
+            nb::dict command;
+            command["type"] = nb::str("editor_play");
+            commands.append(command);
         }
 
         ImGui::SameLine();
 
-        // AI Statistics toggle button
+        // Stop Button
         if (ImGui::Button("Stop")) {
-            showAIStatistics = !showAIStatistics;
+            nb::dict command;
+            command["type"] = nb::str("editor_stop");
+            commands.append(command);
         }
 
         ImGui::SameLine();
 
-        // Entities Stats Button
+        // Step Button
         if (ImGui::Button("Step")) {
-            showEntitiesStats = true;
+            nb::dict command;
+            command["type"] = nb::str("editor_step");
+            commands.append(command);
         }
 
         ImGui::SameLine();
 
-        // Inventory Button
+        // Exit to Editor Button
         if (ImGui::Button("Exit to Editor")) {
-            showInventory = true;
+            nb::dict command;
+            command["type"] = nb::str("exit_to_editor");
+            commands.append(command);
         }
 
         ImGui::SameLine();
 
         // Settings Button
         if (ImGui::Button("Settings")) {
-            showSettings = true;
+            GuiProgramManager::Instance()->toggleProgram("settings");
         }
     }
     ImGui::End();
+}
+
+// System-level command buffer renderer - displays pending commands in the command queue
+// Similar to bash's command history rendering or kernel's command buffer display
+static void __render_command_buffer_status(const nb::list& command_queue) {
+    // Guard: only render if there are pending commands in the queue
+    if (command_queue.size() == 0) {
+        return;
+    }
+
+    // Set text color for system messages (light blue for visibility)
+    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.8f, 1.0f, 1.0f));
+    
+    // Display command queue header with count
+    ImGui::Text("[System] Processing %zu commands:", command_queue.size());
+    
+    // Limit display to prevent terminal spam (similar to dmesg ring buffer behavior)
+    constexpr size_t MAX_COMMANDS_DISPLAY = 5;
+    const size_t display_count = std::min(command_queue.size(), MAX_COMMANDS_DISPLAY);
+    
+    // Iterate through command queue and render each command's metadata
+    for (size_t i = 0; i < display_count; ++i) {
+        try {
+            // Type-check: ensure we have a dict structure
+            if (!nb::isinstance<nb::dict>(command_queue[i])) {
+                continue;
+            }
+            
+            nb::dict cmd = nb::cast<nb::dict>(command_queue[i]);
+            
+            // Extract command type (required field)
+            if (!cmd.contains("type")) {
+                continue;
+            }
+            
+            std::string cmd_type = nb::cast<std::string>(cmd["type"]);
+            std::string cmd_repr = "  - Command: " + cmd_type;
+            
+            // Append parameter indicator if present
+            if (cmd.contains("params")) {
+                cmd_repr += " (with params)";
+            }
+            
+            ImGui::Text("%s", cmd_repr.c_str());
+            
+        } catch (const std::exception& e) {
+            // Fallback for unparseable commands
+            ImGui::Text("  - [Unable to parse command]");
+        }
+    }
+    
+    // Display overflow indicator if command queue exceeds display limit
+    if (command_queue.size() > display_count) {
+        ImGui::Text("  ... and %zu more commands", command_queue.size() - display_count);
+    }
+    
+    // Restore previous text color
+    ImGui::PopStyleColor();
 }
 
 // Function to render the console window
@@ -649,12 +755,26 @@ void RenderConsoleWindow(nb::list& consoleLogs, nb::list& commands) {
 
     // Iterate over the consoleLogs Python list and display each log entry
     for (const auto& item : consoleLogs) {
-        // Convert the Python object to a C++ string
-        std::string logEntry = nb::cast<std::string>(item);
+        try {
+            // Convert the Python object to a C++ string
+            std::string logEntry = nb::cast<std::string>(item);
 
-        // Display the log entry
-        ImGui::TextUnformatted(logEntry.c_str());
+            // Display the log entry
+            ImGui::TextUnformatted(logEntry.c_str());
+        } catch (const nb::cast_error& e) {
+            // If cast fails, display an error message instead of crashing
+            std::string errorMsg = "[Console Error] Failed to display log entry: ";
+            errorMsg += e.what();
+            ImGui::TextColored(ImVec4(1.0f, 0.2f, 0.2f, 1.0f), "%s", errorMsg.c_str());
+        } catch (const std::exception& e) {
+            std::string errorMsg = "[Console Error] Unexpected error: ";
+            errorMsg += e.what();
+            ImGui::TextColored(ImVec4(1.0f, 0.2f, 0.2f, 1.0f), "%s", errorMsg.c_str());
+        }
     }
+
+    // Render command buffer status (system-level command queue display)
+    __render_command_buffer_status(commands);
 
     // Auto-scroll to the bottom if the user hasn't scrolled up manually
     if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY()) {
@@ -686,73 +806,97 @@ void RenderConsoleWindow(nb::list& consoleLogs, nb::list& commands) {
 
         // If the command is not empty, append it to the commands list
         if (!commandStr.empty()) {
-            // Parse the command string to extract command type and parameters
-            // For simplicity, let's assume the command format is:
-            // type param1=value1 param2=value2 ...
-            std::istringstream iss(commandStr);
-            std::string type;
-            iss >> type;
+            try {
+                // Parse the command string to extract command type and parameters
+                // For simplicity, let's assume the command format is:
+                // type param1=value1 param2=value2 ...
+                std::istringstream iss(commandStr);
+                std::string type;
+                iss >> type;
 
-            nb::dict params;
-            std::string paramPair;
-            while (iss >> paramPair) {
-                size_t eqPos = paramPair.find('=');
-                if (eqPos != std::string::npos) {
-                    std::string keyStr = paramPair.substr(0, eqPos);
-                    nb::str key = nb::str(keyStr.c_str());
+                nb::dict params;
+                std::string paramPair;
+                bool hasParams = false;
 
-                    std::string valueStr = paramPair.substr(eqPos + 1);
-                    nb::object value = nb::str(valueStr.c_str());
-                    // nb::str value = nb::str(valueStr);  // Convert std::string to nb::str
-                    // nb::object valueObject = value;
+                while (iss >> paramPair) {
+                    size_t eqPos = paramPair.find('=');
+                    if (eqPos != std::string::npos) {
+                        hasParams = true;
+                        std::string keyStr = paramPair.substr(0, eqPos);
+                        nb::str key = nb::str(keyStr.c_str());
 
-                    // Try to convert the value to int, float, or bool if possible
-                    // nb::object value = nb::cast<nb::object>(valueStr);
+                        std::string valueStr = paramPair.substr(eqPos + 1);
+                        nb::object value = nb::str(valueStr.c_str());
 
-                    // Try integer conversion
-                    try {
-                        int intValue = std::stoi(valueStr);
-                        value = nb::int_(intValue);
-                    } catch (...) {
-                        // Not an integer
-                    }
-
-                    // Try float conversion
-                    if (nb::isinstance<nb::str>(value)) {
+                        // Try to convert the value to int, float, or bool if possible
+                        // Try integer conversion
                         try {
-                            float floatValue = std::stof(valueStr);
-                            value = nb::float_(floatValue);
+                            int intValue = std::stoi(valueStr);
+                            value = nb::int_(intValue);
                         } catch (...) {
-                            // Not a float
+                            // Not an integer, continue
                         }
-                    }
 
-                    // Try boolean conversion
-                    if (nb::isinstance<nb::str>(value)) {
-                        if (valueStr == "true" || valueStr == "True") {
-                            value = nb::bool_(true);
-                        } else if (valueStr == "false" || valueStr == "False") {
-                            value = nb::bool_(false);
+                        // Try float conversion
+                        if (nb::isinstance<nb::str>(value)) {
+                            try {
+                                float floatValue = std::stof(valueStr);
+                                value = nb::float_(floatValue);
+                            } catch (...) {
+                                // Not a float, continue
+                            }
                         }
-                    }
 
-                    params[key] = value;
+                        // Try boolean conversion
+                        if (nb::isinstance<nb::str>(value)) {
+                            if (valueStr == "true" || valueStr == "True") {
+                                value = nb::bool_(true);
+                            } else if (valueStr == "false" || valueStr == "False") {
+                                value = nb::bool_(false);
+                            }
+                        }
+
+                        params[key] = value;
+                    }
                 }
+
+                // Create the command dict
+                nb::dict command;
+                command["type"] = nb::str(type.c_str());
+                
+                // Only add params if they exist
+                if (hasParams) {
+                    command["params"] = params;
+                }
+
+                // Append the command dict to the commands list
+                commands.append(command);
+
+                // Optionally, also append the command to the consoleLogs for display
+                consoleLogs.append("> " + commandStr);
+
+                // Clear the input buffer for the next command
+                inputBuf[0] = '\0';
+
+            } catch (const nb::cast_error& e) {
+                // Log the error to console instead of crashing
+                std::string errorMsg = "[Console Error] Failed to process command: ";
+                errorMsg += e.what();
+                consoleLogs.append(errorMsg);
+                std::cerr << errorMsg << std::endl;
+                
+                // Clear the input buffer
+                inputBuf[0] = '\0';
+            } catch (const std::exception& e) {
+                // Log any other exceptions
+                std::string errorMsg = "[Console Error] Unexpected error processing command: ";
+                errorMsg += e.what();
+                consoleLogs.append(errorMsg);
+                std::cerr << errorMsg << std::endl;
+                
+                // Clear the input buffer
+                inputBuf[0] = '\0';
             }
-
-            // Create the command dict
-            nb::dict command;
-            command["type"] = nb::str(type.c_str());
-            command["params"] = params;
-
-            // Append the command dict to the commands list
-            commands.append(command);
-
-            // Optionally, also append the command to the consoleLogs for display
-            consoleLogs.append("> " + commandStr);
-
-            // Clear the input buffer for the next command
-            inputBuf[0] = '\0';
         }
     }
 
@@ -928,7 +1072,7 @@ void RenderEntityInterfaceWindow(std::shared_ptr<EntityInterface> entityInterfac
     if (entityInterface->hasComponent(ComponentFlag::MATTER_CONTAINER)) {
         MatterContainer matterContainer = entityInterface->getComponent<MatterContainer>();
         ImGui::Text("WaterMatter Container Current: %d", matterContainer.WaterMatter);
-        ImGui::Text("WaterVapor Container Max: %d", matterContainer.WaterVapor);
+        ImGui::Text("WaterVapor Container Current: %d", matterContainer.WaterVapor);
     } else {
         ImGui::Text("Water Matter Container: N/A");
     }
@@ -1183,171 +1327,78 @@ void setTextEditorContent(const std::string& content) {
 
 void showTextEditorWindow() { showTextEditor = true; }
 
-void imguiPrepareWindows(int worldTicks, float availableFps, std::shared_ptr<World> world_ptr,
-                         nb::dict physicsChanges, nb::dict inventoryData, nb::list& consoleLogs,
-                         nb::list& entitiesData, nb::list& commands, nb::dict statistics,
-                         nb::dict& shared_data,
-                         std::shared_ptr<EntityInterface> entityInterface_ptr,
-                         std::shared_ptr<EntityInterface> hoveredEntityInterface_ptr,
-                         std::shared_ptr<EntityInterface> selectedEntityInterface_ptr) {
+void renderInGameGuiFrame(int worldTicks, float availableFps, std::shared_ptr<World> world_ptr,
+                          nb::dict physicsChanges, nb::dict inventoryData, nb::list& consoleLogs,
+                          nb::list& entitiesData, nb::list& commands, nb::dict statistics,
+                          nb::dict& shared_data,
+                          std::shared_ptr<EntityInterface> entityInterface_ptr,
+                          std::shared_ptr<EntityInterface> hoveredEntityInterface_ptr,
+                          std::shared_ptr<EntityInterface> selectedEntityInterface_ptr) {
     /*──────────────── Frame setup ────────────────*/
     ImGui_ImplSDLRenderer2_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
-
-    RenderEditorDebuggerTopBar();
+    
+    /*──────────────── Build GUI Context ────────────────*/
+    GuiContext context{
+        .worldTicks = worldTicks,
+        .availableFps = availableFps,
+        .worldPtr = world_ptr,
+        .physicsChanges = physicsChanges,
+        .inventoryData = inventoryData,
+        .consoleLogs = consoleLogs,
+        .entitiesData = entitiesData,
+        .commands = commands,
+        .statistics = statistics,
+        .sharedData = shared_data,
+        .entityInterfacePtr = entityInterface_ptr,
+        .hoveredEntityInterfacePtr = hoveredEntityInterface_ptr,
+        .selectedEntityInterfacePtr = selectedEntityInterface_ptr
+    };
+    
+    /*──────────────── Render always-on components ────────────────*/
+    RenderEditorDebuggerTopBar(commands);
     RenderTopBar();
-
-    /*──────────────── Settings window ─────────────*/
-    bool gotoTitleScreen = false;
-    if (showSettings) {
-        if (ImGui::Begin("Settings", &showSettings, ImGuiWindowFlags_AlwaysAutoResize)) {
-            // Settings buttons to open sub-windows
-            if (ImGui::Button("Camera Settings")) {
-                showCameraSettings = true;
+    
+    /*──────────────── Process activate_program commands ────────────────*/
+    // Handle program activation commands before rendering
+    std::vector<std::string> programsToActivate;
+    for (size_t i = 0; i < commands.size(); ++i) {
+        try {
+            if (nb::isinstance<nb::dict>(commands[i])) {
+                nb::dict cmd = nb::cast<nb::dict>(commands[i]);
+                if (cmd.contains("type") && nb::cast<std::string>(cmd["type"]) == "activate_program") {
+                    if (cmd.contains("program_id")) {
+                        std::string programId = nb::cast<std::string>(cmd["program_id"]);
+                        programsToActivate.push_back(programId);
+                    }
+                }
             }
-            if (ImGui::Button("Physics Settings")) {
-                showPhysicsSettings = true;
-            }
-            if (ImGui::Button("General Metrics")) {
-                showGeneralMetrics = true;
-            }
-            if (ImGui::Button("Player Stats")) {
-                showPlayerStats = false;
-            }
-
-            // Add spacing before the new button to avoid layout issues
-            ImGui::Spacing();
-
-            if (ImGui::Button("Entity Interface")) {
-                showEntityInterface = true;
-            }
-
-            if (ImGui::Button("Title Screen")) {
-                gotoTitleScreen = true;
-            }
+        } catch (...) {
+            // Skip malformed commands
         }
-        ImGui::End();
     }
-
-    /*──────────────── Physics settings ────────────*/
-    if (showPhysicsSettings) {
-        if (ImGui::Begin("Physics Settings", &showPhysicsSettings,
-                         ImGuiWindowFlags_AlwaysAutoResize)) {
-            RenderPhysicsSettingsWindow(physicsChanges);
-        }
-        ImGui::End();
+    
+    // Activate requested programs
+    for (const auto& programId : programsToActivate) {
+        GuiProgramManager::Instance()->activateProgram(programId);
     }
-
-    /*──────────────── General metrics ─────────────*/
-    if (showGeneralMetrics) {
-        if (ImGui::Begin("General Metrics", &showGeneralMetrics,
-                         ImGuiWindowFlags_AlwaysAutoResize)) {
-            RenderGeneralMetricsWindow(worldTicks, availableFps);
-        }
-        ImGui::End();
-    }
-
-    /*──────────────── Player stats ────────────────*/
-    if (showPlayerStats) {
-        // Render Player Stats Window (can remain as a separate window or be nested)
-        if (ImGui::Begin("Player Stats", &showPlayerStats, ImGuiWindowFlags_AlwaysAutoResize)) {
-            RenderPlayerStatsWindow(world_ptr);
-        }
-        ImGui::End();
-    }
-
-    /*──────────────── Camera settings ─────────────*/
-    if (showCameraSettings) {
-        // Render Player Stats Window (can remain as a separate window or be nested)
-        if (ImGui::Begin("Camera Settings", &showCameraSettings,
-                         ImGuiWindowFlags_AlwaysAutoResize)) {
-            int CAMERA_SCREEN_WIDTH_ADJUST_OFFSET =
-                nb::cast<int>(physicsChanges["CAMERA_SCREEN_WIDTH_ADJUST_OFFSET"]);
-            int CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET =
-                nb::cast<int>(physicsChanges["CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET"]);
-
-            RenderCameraSettingsWindow(CAMERA_SCREEN_WIDTH_ADJUST_OFFSET,
-                                       CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET);
-
-            physicsChanges["CAMERA_SCREEN_WIDTH_ADJUST_OFFSET"] = CAMERA_SCREEN_WIDTH_ADJUST_OFFSET;
-            physicsChanges["CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET"] =
-                CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET;
-        }
-        ImGui::End();
-    }
-
-    /*──────────────── Inventory / equipment / hotbar ──────────────────────────*/
-    std::vector<InventoryItem> items = LoadInventory(inventoryData);
-
-    // Render windows based on user interactions
-    if (showInventory) {
-        if (ImGui::Begin("Inventory", &showInventory)) {
-            GuiStateManager::Instance()->inventoryWindow.setItems(items);
-            GuiStateManager::Instance()->inventoryWindow.setCommands(commands);
-            GuiStateManager::Instance()->inventoryWindow.Render();
-        }
-        ImGui::End();
-    } else {
+    
+    /*──────────────── Render all active GUI programs (GUI OS) ────────────────*/
+    GuiProgramManager::Instance()->renderAllPrograms(context);
+    
+    /*──────────────── Render hotbar (always visible when inventory closed) ────────────────*/
+    // The hotbar is always shown unless inventory is active
+    if (!GuiProgramManager::Instance()->isProgramActive("inventory")) {
+        std::vector<InventoryItem> items = LoadInventory(inventoryData);
         GuiStateManager::Instance()->hotbarWindow.setItems(items);
         GuiStateManager::Instance()->hotbarWindow.setCommands(commands);
         GuiStateManager::Instance()->hotbarWindow.Render();
     }
-
-    if (showEquipment) {
-        if (ImGui::Begin("Equipment", &showEquipment)) {
-            GuiStateManager::Instance()->equipmentWindow.setItems(items);
-            GuiStateManager::Instance()->equipmentWindow.setCommands(commands);
-            GuiStateManager::Instance()->equipmentWindow.Render();
-        }
-        ImGui::End();
-    }
-
-    /*──────────────── Entities stats ──────────────*/
-    if (showEntitiesStats) {
-        if (ImGui::Begin("Entities Stats", &showEntitiesStats,
-                         ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
-            RenderEntitiesWindow(commands, entitiesData);
-        }
-        ImGui::End();
-    }
-
-    /*──────────────── Gadgets ─────────────────────*/
-    if (showGadgets) {
-        if (ImGui::Begin("Gadgets", &showGadgets)) {
-            ShowGadgetsWindow(commands, shared_data, hoveredEntityInterface_ptr,
-                              selectedEntityInterface_ptr);
-        }
-        ImGui::End();
-    }
-
-    /*──────────────── Entity interface ────────────*/
-    if (showEntityInterface) {
-        if (ImGui::Begin("Entity Interface", &showEntityInterface,
-                         ImGuiWindowFlags_AlwaysAutoResize)) {
-            RenderEntityInterfaceWindow(entityInterface_ptr);
-        }
-        ImGui::End();
-    }
-
-    /*──────────────── AI statistics plot ──────────*/
-    if (showAIStatistics) {
-        if (ImGui::Begin("AI Statistics", &showAIStatistics, ImGuiWindowFlags_NoScrollbar)) {
-            RenderAIStatisticsWindow(statistics);
-        }
-        ImGui::End();
-    }
-
-    // /*──────────────── Text Editor ──────────────────*/
-    // renderTextEditorWindow(&showTextEditor);
-
-    /*──────────────── Console & drag‑drop ─────────*/
-    RenderConsoleWindow(consoleLogs, commands);
+    
+    /*──────────────── Drag‑drop handling (always processed) ────────────────*/
     HandleDragDropToWorld(commands);
-
-    if (gotoTitleScreen) {
-        physicsChanges["GOTO_TITLE_SCREEN"] = true;
-    }
+    
     // ImGui::ShowDemoWindow();  // Show demo window! :)
 }
 

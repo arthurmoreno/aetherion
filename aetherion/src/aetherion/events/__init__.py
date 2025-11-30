@@ -28,6 +28,10 @@ class GameEventType(StrEnum):
     WORLD_DISCONNECT_REQUESTED = "world_disconnect_requested"
     WORLD_DISCONNECTED = "world_disconnected"
 
+    WORLD_STOP_REQUESTED = "world_stop_requested"
+    WORLD_PLAY_REQUESTED = "world_play_requested"
+    WORLD_STEP_REQUESTED = "world_step_requested"
+
     # Scene Management Events
     SCENE_CHANGE_REQUESTED = "scene_change_requested"
     SCENE_CHANGED = "scene_changed"
