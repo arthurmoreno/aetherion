@@ -1,4 +1,5 @@
 #include "Gui/Gui.hpp"
+#include "components/core/Command.hpp"
 
 void imguiPrepareWorldTypeFormWindows(nb::list& commands, nb::dict& shared_data) {
     /*──────────────── Frame setup ────────────────*/
@@ -91,10 +92,24 @@ void imguiPrepareWorldTypeFormWindows(nb::list& commands, nb::dict& shared_data)
 
     ImGui::SetCursorPosX(buttonStartX);
     if (ImGui::Button("Create", buttonSize)) {
-        // Create command to create the world with form data
-        nb::dict command;
-        command["type"] = nb::str("select_world_type");
-        command["data"] = shared_data;
+        // Create command to select world type with form data
+        Command command("select_world_type");
+        // Copy all shared_data into command params
+        for (auto item : shared_data) {
+            std::string key = nb::cast<std::string>(item.first);
+            nb::object value = nb::cast<nb::object>(item.second);
+            
+            // Try to cast to supported types
+            if (nb::isinstance<nb::int_>(value)) {
+                command.setParam(key, nb::cast<int>(value));
+            } else if (nb::isinstance<nb::float_>(value)) {
+                command.setParam(key, nb::cast<double>(value));
+            } else if (nb::isinstance<nb::bool_>(value)) {
+                command.setParam(key, nb::cast<bool>(value));
+            } else if (nb::isinstance<nb::str>(value)) {
+                command.setParam(key, nb::cast<std::string>(value));
+            }
+        }
         commands.append(command);
     }
 
@@ -102,8 +117,7 @@ void imguiPrepareWorldTypeFormWindows(nb::list& commands, nb::dict& shared_data)
     ImGui::SetCursorPosX(buttonStartX + buttonSize.x + 20);
     if (ImGui::Button("Cancel", buttonSize)) {
         // Create command to cancel world creation
-        nb::dict command;
-        command["type"] = nb::str("cancel_world_creation");
+        Command command("cancel_world_creation");
         commands.append(command);
     }
 

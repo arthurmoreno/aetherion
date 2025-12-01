@@ -2,16 +2,23 @@
 
 /**
  * @file AllGuiPrograms.hpp
- * @brief Convenience header that includes all GUI programs
+ * @brief Convenience header that includes all GUI programs and program managers
  * 
  * This header provides a single point of inclusion for all GUI programs,
- * making it easy to register them in the program manager.
+ * terminal programs, and their respective managers, making it easy to 
+ * register them in the program managers.
  */
 
 // Core infrastructure
+#include "GuiCore/BasicProgram.hpp"
 #include "GuiCore/GuiProgram.hpp"
-#include "GuiCore/GuiContext.hpp"
+#include "GuiCore/TerminalProgram.hpp"
+#include "../components/core/GuiContext.hpp"
+
+// Program managers
+#include "GuiCore/ProgramManager.hpp"
 #include "GuiCore/GuiProgramManager.hpp"
+#include "GuiCore/TerminalProgramManager.hpp"
 
 // Settings programs
 #include "GuiPrograms/Settings/SettingsProgram.hpp"

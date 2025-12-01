@@ -496,7 +496,9 @@ void convertSoftEmptyIntoWater(entt::registry& registry, VoxelGrid& voxelGrid, i
     }
 }
 
-void convertSoftEmptyIntoVapor(entt::registry& registry, entt::entity& terrain) {
+void convertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxelGrid, int terrainId, int x,
+                               int y, int z) {
+    std::cout << "[convertSoftEmptyIntoVapor] Just marking a checkpoint on logs." << std::endl;
     // setEmptyWaterComponents(registry, terrain, MatterState::GAS);
 }
 
@@ -553,11 +555,12 @@ void checkAndConvertSoftEmptyIntoWater(entt::registry& registry, VoxelGrid& voxe
     }
 }
 
-// void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, entt::entity& terrain) {
-//     if (getTypeAndCheckSoftEmpty(registry, terrain)) {
-//         convertSoftEmptyIntoVapor(registry, terrain);
-//     }
-// }
+void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxelGrid,
+                                       int terrainId, int x, int y, int z) {
+    if (getTypeAndCheckSoftEmpty(registry, voxelGrid, terrainId, x, y, z)) {
+        convertSoftEmptyIntoVapor(registry, voxelGrid, terrainId, x, y, z);
+    }
+}
 
 void deleteEntityOrConvertInEmpty(entt::registry& registry, entt::dispatcher& dispatcher,
                                   entt::entity& terrain) {
@@ -927,14 +930,18 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, int x, int
     int terrainAboveId = voxelGrid.getTerrain(x, y, z + 1);
 
     if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        if (voxelGrid.terrainGridRepository->isTerrainIdOnEnttRegistry(terrainAboveId)) {
-            auto terrainAbove = static_cast<entt::entity>(terrainAboveId);
-        }
+        entt::entity terrainAbove = entt::null;
+        // if (voxelGrid.terrainGridRepository->isTerrainIdOnEnttRegistry(terrainAboveId)) {
+        //     terrainAbove = static_cast<entt::entity>(terrainAboveId);
+        // } else {
+        //     throw std::runtime_error("[createOrAddVapor] Error: terrainAboveId is not on EnTT registry.");
+        // }
         EntityTypeComponent typeAbove =
             voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z + 1);
         MatterContainer matterContainerAbove =
             voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z + 1);
         // checkAndConvertSoftEmptyIntoVapor(registry, terrainAbove);
+        checkAndConvertSoftEmptyIntoVapor(registry, voxelGrid, terrainAboveId, x, y, z + 1);
         // if (registry.all_of<EntityTypeComponent, MatterContainer>(terrainAbove)) {
         // There is an entity above
         // auto&& [typeAbove, matterContainerAbove] =
@@ -948,16 +955,16 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, int x, int
             voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z + 1,
                                                                        matterContainerAbove);
 
-            // TODO: Uncomment
+            // TODO: Uncomment -- This might just be removed entirely after testing. Because SI is now a consistent part of storage.
             // setVaporSI(x, y, z + 1, voxelGrid);
 
             std::ostringstream ossMessage;
-            ossMessage << "Adding vapor to existing vapor at (" << x << ", " << y << ", "
+            ossMessage << "[createOrAddVapor] Adding vapor to existing vapor at (" << x << ", " << y << ", "
                         << z + 1 << ")";
             spdlog::get("console")->info(ossMessage.str());
         } else {
             std::ostringstream ossMessage;
-            ossMessage << "Cannot add vapor above; obstruction at (" << x << ", " << y << ", "
+            ossMessage << "[createOrAddVapor] Cannot add vapor above; obstruction at (" << x << ", " << y << ", "
                         << z + 1 << ")\n";
             spdlog::get("console")->info(ossMessage.str());
             // Cannot place vapor; perhaps handle obstruction
@@ -967,8 +974,14 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, int x, int
         // No entity above; create vapor entity
 
         std::ostringstream ossMessage;
-        ossMessage << "Creating new vapor entity at (" << x << ", " << y << ", " << z + 1 << ")\n";
+        ossMessage << "[createOrAddVapor] Creating new vapor entity at (" << x << ", " << y << ", " << z + 1 << ")";
         spdlog::get("console")->info(ossMessage.str());
+
+        if (voxelGrid.terrainGridRepository->checkIfTerrainHasEntity(x, y, z + 1)) {
+            throw std::runtime_error("[createOrAddVapor] Error: Checkpoint bingo.");
+        }
+
+        // ============= NEW CODE =============
 
         auto newVaporEntity = registry.create();
         Position newPosition = {x, y, z + 1, DirectionEnum::DOWN};
@@ -1002,8 +1015,14 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, int x, int
             x, y, z + 1, newStructuralIntegrityComponent);
         voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z + 1, newPhysicsStats);
         int newTerrainId = static_cast<int>(newVaporEntity);
-        std::cout << "New vapor entity ID: " << newTerrainId << std::endl;
+        std::cout << "[createOrAddVapor] Before setTerrainId with terrainId: " << newTerrainId << std::endl;
         voxelGrid.terrainGridRepository->setTerrainId(x, y, z + 1, newTerrainId);
+
+
+
+
+        // ============= OLD CODE USING DIRECT EnTT EMPLACEMENT =============
+
         // voxelGrid.terrainGridRepository->setTerrainId(x, y, z + 1, -1);
 
         // registry.emplace<Position>(newVaporEntity, newPosition);
@@ -1077,22 +1096,25 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
     // std::cout << "[moveVaporUp] terrainId at position (" << pos.x << ", " << pos.y << ", " << pos.z << ") is
     // " << terrainId << std::endl;
     if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        voxelGrid.terrainGridRepository->unlockTerrainGrid();
         // This should not happen; means vapor entity is missing in voxel grid
         std::ostringstream ossMessage;
         ossMessage << "[moveVaporUp] Error: Vapor entity missing in voxel grid at (" << pos.x << ", "
                    << pos.y << ", " << pos.z << ")\n";
         spdlog::get("console")->error(ossMessage.str());
-        return;
+        return;  // Don't throw, just return
     } else if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
+        voxelGrid.terrainGridRepository->unlockTerrainGrid();
         // This should not happen; means vapor entity is missing in voxel grid
         std::ostringstream ossMessage;
         ossMessage << "[moveVaporUp] Error: Vapor entity in ON_GRID_STORAGE at (" << pos.x << ", " << pos.y
                    << ", " << pos.z << ")\n";
         spdlog::get("console")->error(ossMessage.str());
-        return;
+        return;  // Don't throw, just return
     } else {
         // std::cout << "[moveVaporUp] terrainId is valid: " << terrainId << std::endl;
     }
+    // THIS IS CRITICAL: converting terrainId to entity. Previous checks must have passed.
     entt::entity entity = static_cast<entt::entity>(terrainId);
 
     int maxAltitude = voxelGrid.depth - 1;
@@ -1116,6 +1138,7 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
         if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
             entt::entity newTerrainEntity = registry.create();
             terrainId = static_cast<int>(newTerrainEntity);
+            std::cout << "[moveVaporUp] Before setTerrainId with terrainId: " << terrainId << std::endl;
             voxelGrid.terrainGridRepository->setTerrainId(pos.x, pos.y, pos.z, terrainId);
         }
         entt::entity entity = static_cast<entt::entity>(terrainId);
@@ -1123,7 +1146,11 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             entity, Position{pos.x, pos.y, pos.z, DirectionEnum::DOWN}, 0.0f, 0.0f, rhoEnv, rhoVapor};
         moveGasEntityEvent.setForceApplyNewVelocity();
 
+        // CRITICAL FIX: Release lock BEFORE dispatching event to avoid deadlock
+        voxelGrid.terrainGridRepository->unlockTerrainGrid();
+        
         dispatcher.enqueue<MoveGasEntityEvent>(moveGasEntityEvent);
+        return;  // Early return after dispatching
         // std::cout << "[moveVaporUp (terrainAboveId == static_cast<int>(TerrainIdTypeEnum::NONE)
         // && pos.z < maxAltitude)] End of block." << std::endl;
     } else if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) && pos.z < maxAltitude) {
@@ -1166,7 +1193,12 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             voxelGrid.terrainGridRepository->setTerrainMatterContainer(pos.x, pos.y, pos.z,
                                                                        matterContainer);
 
+            // CRITICAL FIX: Release lock BEFORE calling deleteEntityOrConvertInEmpty
+            // (which may dispatch events)
+            voxelGrid.terrainGridRepository->unlockTerrainGrid();
+            
             deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
+            return;  // Early return after merging
             // } else {
             // if (entity == entityBeingDebugged) {
             //     std::ostringstream ossMessage;
@@ -1318,10 +1350,22 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
     if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
         auto terrainAbove = static_cast<entt::entity>(terrainAboveId);
         // checkAndConvertSoftEmptyIntoVapor(registry, terrainAbove);
-        if (terrainAboveId == static_cast<int>(TerrainIdTypeEnum::ON_ENTT)) {
-            std::cout << "[moveVapor] Error: Terrain above is ON_ENTT at (" << pos.x << ", "
-                      << pos.y << ", " << pos.z + 1 << ") --- NOT IMPLEMENTED\n";
-            throw std::runtime_error("Not implemented");
+        if (voxelGrid.terrainGridRepository->isTerrainIdOnEnttRegistry(terrainAboveId)) {
+            // std::cout << "[moveVapor] Error: Terrain above is ON_ENTT at (" << pos.x << ", "
+            //           << pos.y << ", " << pos.z + 1 << ") --- NOT IMPLEMENTED\n";
+            // throw std::runtime_error("Not implemented");
+
+            EntityTypeComponent typeAbove =
+                voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y, pos.z + 1);
+            MatterContainer matterContainerAbove =
+                voxelGrid.terrainGridRepository->getTerrainMatterContainer(pos.x, pos.y, pos.z + 1);
+
+            bool haveMovement = voxelGrid.terrainGridRepository->hasMovingComponent(pos.x, pos.y, pos.z + 1);
+
+            bool isWater = (typeAbove.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+                            typeAbove.subType0 == static_cast<int>(TerrainEnum::WATER));
+            bool isTerrainAboveVapor =
+                isWater && (matterContainer.WaterVapor >= 0 && matterContainer.WaterMatter == 0);
         } else {
             EntityTypeComponent typeAbove =
                 voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y, pos.z + 1);

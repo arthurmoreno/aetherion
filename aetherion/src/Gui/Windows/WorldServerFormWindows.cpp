@@ -1,4 +1,5 @@
 #include "Gui/Gui.hpp"
+#include "components/core/Command.hpp"
 
 void imguiPrepareServerWorldFormWindows(nb::list& commands, nb::dict& shared_data) {
     /*──────────────── Frame setup ────────────────*/
@@ -84,9 +85,13 @@ void imguiPrepareServerWorldFormWindows(nb::list& commands, nb::dict& shared_dat
     ImGui::SetCursorPosX(buttonStartX);
     if (ImGui::Button("Create", buttonSize)) {
         // Create command to create the world with form data
-        nb::dict command;
-        command["type"] = nb::str("create_world");
-        command["data"] = shared_data;
+        Command command("create_world");
+        // Copy all shared_data into command params
+        for (auto item : shared_data.items()) {
+            nb::tuple t = nb::cast<nb::tuple>(item);
+            std::string key = nb::cast<std::string>(t[0]);
+            command.setParam(key, t[1]);
+        }
         commands.append(command);
     }
 
@@ -94,8 +99,7 @@ void imguiPrepareServerWorldFormWindows(nb::list& commands, nb::dict& shared_dat
     ImGui::SetCursorPosX(buttonStartX + buttonSize.x + 20);
     if (ImGui::Button("Cancel", buttonSize)) {
         // Create command to cancel world creation
-        nb::dict command;
-        command["type"] = nb::str("cancel_world_creation");
+        Command command("cancel_world_creation");
         commands.append(command);
     }
 

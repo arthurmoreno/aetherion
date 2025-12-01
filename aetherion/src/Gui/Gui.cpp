@@ -12,6 +12,7 @@
 #include "LowLevelRenderer/TextureManager.hpp"
 #include "PhysicsManager.hpp"
 #include "AllGuiPrograms.hpp"  // Include all GUI programs
+#include "components/core/Command.hpp"  // Command class for type-safe command handling
 
 namespace nb = nanobind;
 
@@ -502,11 +503,12 @@ void HandleDragDropToWorld(nb::list& commands) {
                 ImVec2 mousePosScreen = ImGui::GetIO().MousePos;
 
                 // Generate a command to drop the item into the game world
-                nb::dict command;
-                command["type"] = "drop_to_world";
-                command["item_index"] = GuiStateManager::Instance()->draggedItemIndex;
-                command["src_window"] = GuiStateManager::Instance()->src_window_id;
-                command["world_position"] = nb::make_tuple(mousePosScreen.x, mousePosScreen.y);
+                DropToWorldCommand command(
+                    GuiStateManager::Instance()->draggedItemIndex,
+                    GuiStateManager::Instance()->src_window_id,
+                    mousePosScreen.x,
+                    mousePosScreen.y
+                );
                 commands.append(command);
 
                 std::cout << "Dropped item " << GuiStateManager::Instance()->draggedItemIndex
@@ -636,8 +638,7 @@ void RenderEditorDebuggerTopBar(nb::list& commands) {
     if (ImGui::Begin("Editor Debugger Menu", &show_editor_debugger_topbar, window_flags)) {
         // Play Button
         if (ImGui::Button("Play")) {
-            nb::dict command;
-            command["type"] = nb::str("editor_play");
+            EditorCommand command(EditorCommand::Action::Play);
             commands.append(command);
         }
 
@@ -645,8 +646,7 @@ void RenderEditorDebuggerTopBar(nb::list& commands) {
 
         // Stop Button
         if (ImGui::Button("Stop")) {
-            nb::dict command;
-            command["type"] = nb::str("editor_stop");
+            EditorCommand command(EditorCommand::Action::Stop);
             commands.append(command);
         }
 
@@ -654,8 +654,7 @@ void RenderEditorDebuggerTopBar(nb::list& commands) {
 
         // Step Button
         if (ImGui::Button("Step")) {
-            nb::dict command;
-            command["type"] = nb::str("editor_step");
+            EditorCommand command(EditorCommand::Action::Step);
             commands.append(command);
         }
 
@@ -663,8 +662,7 @@ void RenderEditorDebuggerTopBar(nb::list& commands) {
 
         // Exit to Editor Button
         if (ImGui::Button("Exit to Editor")) {
-            nb::dict command;
-            command["type"] = nb::str("exit_to_editor");
+            EditorCommand command(EditorCommand::Action::ExitToEditor);
             commands.append(command);
         }
 
@@ -814,7 +812,8 @@ void RenderConsoleWindow(nb::list& consoleLogs, nb::list& commands) {
                 std::string type;
                 iss >> type;
 
-                nb::dict params;
+                // Create Command object with parsed type
+                Command command(type);
                 std::string paramPair;
                 bool hasParams = false;
 
@@ -823,50 +822,37 @@ void RenderConsoleWindow(nb::list& consoleLogs, nb::list& commands) {
                     if (eqPos != std::string::npos) {
                         hasParams = true;
                         std::string keyStr = paramPair.substr(0, eqPos);
-                        nb::str key = nb::str(keyStr.c_str());
-
                         std::string valueStr = paramPair.substr(eqPos + 1);
-                        nb::object value = nb::str(valueStr.c_str());
 
                         // Try to convert the value to int, float, or bool if possible
                         // Try integer conversion
                         try {
                             int intValue = std::stoi(valueStr);
-                            value = nb::int_(intValue);
+                            command.setParam(keyStr, intValue);
+                            continue;
                         } catch (...) {
                             // Not an integer, continue
                         }
 
                         // Try float conversion
-                        if (nb::isinstance<nb::str>(value)) {
-                            try {
-                                float floatValue = std::stof(valueStr);
-                                value = nb::float_(floatValue);
-                            } catch (...) {
-                                // Not a float, continue
-                            }
+                        try {
+                            float floatValue = std::stof(valueStr);
+                            command.setParam(keyStr, floatValue);
+                            continue;
+                        } catch (...) {
+                            // Not a float, continue
                         }
 
                         // Try boolean conversion
-                        if (nb::isinstance<nb::str>(value)) {
-                            if (valueStr == "true" || valueStr == "True") {
-                                value = nb::bool_(true);
-                            } else if (valueStr == "false" || valueStr == "False") {
-                                value = nb::bool_(false);
-                            }
+                        if (valueStr == "true" || valueStr == "True") {
+                            command.setParam(keyStr, true);
+                        } else if (valueStr == "false" || valueStr == "False") {
+                            command.setParam(keyStr, false);
+                        } else {
+                            // Store as string
+                            command.setParam(keyStr, valueStr);
                         }
-
-                        params[key] = value;
                     }
-                }
-
-                // Create the command dict
-                nb::dict command;
-                command["type"] = nb::str(type.c_str());
-                
-                // Only add params if they exist
-                if (hasParams) {
-                    command["params"] = params;
                 }
 
                 // Append the command dict to the commands list
@@ -944,14 +930,9 @@ void RenderEntitiesWindow(nb::list& commands, nb::list& entitiesData) {
 
     // Button to query entities data
     if (ImGui::Button("Query Entities Data")) {
-        // Create the params dict
-        nb::dict params;
-        params["entity_type_id"] = entity_type_id;
-
-        // Create the command dict
-        nb::dict command;
-        command["type"] = nb::str("query_entities_data");
-        command["params"] = params;
+        // Create Command object with type and params
+        Command command("query_entities_data");
+        command.setParam("entity_type_id", entity_type_id);
 
         // Append the command dict to the commands list
         commands.append(command);
@@ -1464,8 +1445,7 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data,
     ImGui::SetCursorPosX(buttonPosX);
     if (ImGui::Button("Start Game", buttonSize)) {
         // Create command to start the game
-        nb::dict command;
-        command["type"] = nb::str("start_game");
+        Command command("start_game");
         commands.append(command);
     }
 
@@ -1475,8 +1455,7 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data,
     ImGui::SetCursorPosX(buttonPosX);
     if (ImGui::Button("Settings", buttonSize)) {
         // Create command to open settings
-        nb::dict command;
-        command["type"] = nb::str("open_settings");
+        Command command("open_settings");
         commands.append(command);
     }
 
@@ -1486,8 +1465,7 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data,
     ImGui::SetCursorPosX(buttonPosX);
     if (ImGui::Button("Credits", buttonSize)) {
         // Create command to show credits
-        nb::dict command;
-        command["type"] = nb::str("show_credits");
+        Command command("show_credits");
         commands.append(command);
     }
 
@@ -1497,8 +1475,7 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data,
     ImGui::SetCursorPosX(buttonPosX);
     if (ImGui::Button("Quit", buttonSize)) {
         // Create command to quit the game
-        nb::dict command;
-        command["type"] = nb::str("quit_game");
+        Command command("quit_game");
         commands.append(command);
     }
 
@@ -1562,8 +1539,7 @@ void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data) {
     ImGui::SetCursorPosX(buttonPosX);
     if (ImGui::Button("Start Game", buttonSize)) {
         // Create command to start the game
-        nb::dict command;
-        command["type"] = nb::str("start_game");
+        Command command("start_game");
         commands.append(command);
     }
 
@@ -1573,8 +1549,7 @@ void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data) {
     ImGui::SetCursorPosX(buttonPosX);
     if (ImGui::Button("Settings", buttonSize)) {
         // Create command to open settings
-        nb::dict command;
-        command["type"] = nb::str("open_settings");
+        Command command("open_settings");
         commands.append(command);
     }
 
@@ -1584,8 +1559,7 @@ void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data) {
     ImGui::SetCursorPosX(buttonPosX);
     if (ImGui::Button("Credits", buttonSize)) {
         // Create command to show credits
-        nb::dict command;
-        command["type"] = nb::str("show_credits");
+        Command command("show_credits");
         commands.append(command);
     }
 
@@ -1595,8 +1569,7 @@ void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data) {
     ImGui::SetCursorPosX(buttonPosX);
     if (ImGui::Button("Quit", buttonSize)) {
         // Create command to quit the game
-        nb::dict command;
-        command["type"] = nb::str("quit_game");
+        Command command("quit_game");
         commands.append(command);
     }
 

@@ -2,12 +2,19 @@
 
 #include "../../GuiCore/GuiProgram.hpp"
 #include "Gui/GuiStateManager.hpp"
+#include "../../TerminalPrograms/TerminalCommand.hpp"
+#include "../../TerminalPrograms/ClearCommand.hpp"
+#include "../../TerminalPrograms/HelpCommand.hpp"
+#include "../../TerminalPrograms/HistoryCommand.hpp"
+#include "../../TerminalPrograms/QueueCommand.hpp"
 #include <imgui.h>
 #include <nanobind/nanobind.h>
 #include <sstream>
 #include <iostream>
 #include <vector>
 #include <deque>
+#include <memory>
+#include <map>
 
 namespace nb = nanobind;
 
@@ -26,6 +33,7 @@ public:
     ConsoleProgram() {
         history_.clear();
         historyPos_ = -1;
+        initializeCommands();
         clearTerminal();
     }
     ~ConsoleProgram() override = default;
@@ -114,11 +122,17 @@ public:
         // Buttons for terminal actions
         ImGui::SameLine();
         if (ImGui::Button("Clear")) {
-            clearTerminal();
+            auto it = commands_.find("clear");
+            if (it != commands_.end()) {
+                it->second->execute(context, terminalBuffer_, scrollToBottom_);
+            }
         }
         ImGui::SameLine();
         if (ImGui::Button("Help")) {
-            showHelp();
+            auto it = commands_.find("help");
+            if (it != commands_.end()) {
+                it->second->execute(context, terminalBuffer_, scrollToBottom_);
+            }
         }
 
         ImGui::End();
@@ -128,16 +142,6 @@ public:
     }
 
 private:
-    // Terminal line structure
-    struct TerminalLine {
-        std::string text;
-        bool isCommand = false;
-        bool isError = false;
-        
-        TerminalLine(const std::string& t, bool cmd = false, bool err = false)
-            : text(t), isCommand(cmd), isError(err) {}
-    };
-
     char inputBuf_[256] = "";  // Static buffer for command input
     std::vector<std::string> history_;  // Command history
     int historyPos_ = -1;  // Current position in history
@@ -145,30 +149,41 @@ private:
     bool scrollToBottom_ = false;  // Flag to trigger auto-scroll
     bool reclaimFocus_ = false;  // Flag to reclaim input focus
     static constexpr size_t MAX_TERMINAL_LINES = 1000;  // Maximum lines in terminal buffer
+    
+    // Terminal command handlers
+    std::map<std::string, std::shared_ptr<TerminalCommand>> commands_;
+    std::vector<std::shared_ptr<TerminalCommand>> commandList_;  // For ordered display
 
     /**
-     * @brief Clear the terminal buffer
+     * @brief Initialize built-in terminal commands
+     */
+    void initializeCommands() {
+        // Create command instances
+        auto clearCmd = std::make_shared<ClearCommand>();
+        auto helpCmd = std::make_shared<HelpCommand>();
+        auto historyCmd = std::make_shared<HistoryCommand>();
+        auto queueCmd = std::make_shared<QueueCommand>();
+        
+        // Set up command references
+        historyCmd->setHistory(&history_);
+        
+        // Register commands
+        commands_["clear"] = clearCmd;
+        commands_["help"] = helpCmd;
+        commands_["history"] = historyCmd;
+        commands_["queue"] = queueCmd;
+        
+        // Build command list for help display
+        commandList_ = {clearCmd, helpCmd, historyCmd, queueCmd};
+        helpCmd->setCommands(commandList_);
+    }
+
+    /**
+     * @brief Clear the terminal buffer (used during initialization)
      */
     void clearTerminal() {
         terminalBuffer_.clear();
         addOutput("Terminal cleared. Type 'help' for available commands.", false, false);
-        scrollToBottom_ = true;
-    }
-
-    /**
-     * @brief Show help information
-     */
-    void showHelp() {
-        addOutput("=== Terminal Help ===", false, false);
-        addOutput("Available commands:", false, false);
-        addOutput("  clear              - Clear the terminal", false, false);
-        addOutput("  help               - Show this help message", false, false);
-        addOutput("  history            - Show command history", false, false);
-        addOutput("  queue              - Show command queue status", false, false);
-        addOutput("  <command> [params] - Execute custom command", false, false);
-        addOutput("", false, false);
-        addOutput("Command format: <type> param1=value1 param2=value2 ...", false, false);
-        addOutput("Navigation: Use Up/Down arrows to navigate history", false, false);
         scrollToBottom_ = true;
     }
 
@@ -256,28 +271,10 @@ private:
         history_.push_back(commandStr);
         historyPos_ = -1;
 
-        // Handle built-in commands
-        if (commandStr == "clear") {
-            clearTerminal();
-            scrollToBottom_ = true;
-            return;
-        }
-
-        if (commandStr == "help") {
-            showHelp();
-            scrollToBottom_ = true;
-            return;
-        }
-
-        if (commandStr == "history") {
-            showHistory();
-            scrollToBottom_ = true;
-            return;
-        }
-
-        if (commandStr == "queue") {
-            showCommandQueue(context.commands);
-            scrollToBottom_ = true;
+        // Handle built-in commands using command handlers
+        auto it = commands_.find(commandStr);
+        if (it != commands_.end()) {
+            it->second->execute(context, terminalBuffer_, scrollToBottom_);
             return;
         }
 
@@ -356,69 +353,5 @@ private:
         }
 
         scrollToBottom_ = true;
-    }
-
-    /**
-     * @brief Show command history
-     */
-    void showHistory() {
-        if (history_.empty()) {
-            addOutput("No commands in history.", false, false);
-            return;
-        }
-
-        addOutput("=== Command History ===", false, false);
-        for (size_t i = 0; i < history_.size(); ++i) {
-            std::string line = std::to_string(i + 1) + "  " + history_[i];
-            addOutput(line, false, false);
-        }
-    }
-
-    /**
-     * @brief Show command queue status
-     */
-    void showCommandQueue(const nb::list& command_queue) {
-        if (command_queue.size() == 0) {
-            addOutput("Command queue is empty.", false, false);
-            return;
-        }
-
-        addOutput("=== Command Queue ===", false, false);
-        addOutput("Pending commands: " + std::to_string(command_queue.size()), false, false);
-        
-        // Limit display to prevent spam
-        constexpr size_t MAX_COMMANDS_DISPLAY = 10;
-        const size_t display_count = std::min(command_queue.size(), MAX_COMMANDS_DISPLAY);
-        
-        for (size_t i = 0; i < display_count; ++i) {
-            try {
-                if (!nb::isinstance<nb::dict>(command_queue[i])) {
-                    continue;
-                }
-                
-                nb::dict cmd = nb::cast<nb::dict>(command_queue[i]);
-                
-                if (!cmd.contains("type")) {
-                    continue;
-                }
-                
-                std::string cmd_type = nb::cast<std::string>(cmd["type"]);
-                std::string cmd_repr = "  " + std::to_string(i + 1) + ". " + cmd_type;
-                
-                if (cmd.contains("params")) {
-                    cmd_repr += " (with params)";
-                }
-                
-                addOutput(cmd_repr, false, false);
-                
-            } catch (const std::exception& e) {
-                addOutput("  [Unable to parse command]", false, false);
-            }
-        }
-        
-        if (command_queue.size() > display_count) {
-            std::string more = "  ... and " + std::to_string(command_queue.size() - display_count) + " more commands";
-            addOutput(more, false, false);
-        }
     }
 };

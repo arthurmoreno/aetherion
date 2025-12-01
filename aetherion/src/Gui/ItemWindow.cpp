@@ -7,6 +7,8 @@
 
 #include "GuiStateManager.hpp"
 #include "LowLevelRenderer/TextureManager.hpp"
+#include "components/core/Command.hpp"
+
 void RenderItemSlot(std::vector<InventoryItem>& items, int index, int& selected_index,
                     const ImVec2& buttonSize, const std::string& button_prefix,
                     const std::string& payload_type, const std::string& window_id,
@@ -120,12 +122,11 @@ void RenderItemSlot(std::vector<InventoryItem>& items, int index, int& selected_
                 // Ensure the source and target indices are valid and different
                 if (!(src_window_id == window_id && src_index == index)) {
                     // Record the move command
-                    nb::dict command;
-                    command["type"] = "move_item";
-                    command["src_window"] = src_window_id;
-                    command["src_index"] = src_index;
-                    command["dst_window"] = window_id;
-                    command["dst_index"] = index;
+                    Command command("move_item");
+                    command.setParam("src_window", src_window_id);
+                    command.setParam("src_index", src_index);
+                    command.setParam("dst_window", window_id);
+                    command.setParam("dst_index", index);
                     commands.append(command);
 
                     // **Do not move the items directly here**

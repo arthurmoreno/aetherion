@@ -1,4 +1,5 @@
 #include "Gui/Gui.hpp"
+#include "components/core/Command.hpp"
 
 void imguiPrepareWorldListWindows(nb::list& commands, nb::dict& shared_data) {
     /*──────────────── Frame setup ────────────────*/
@@ -131,8 +132,7 @@ void imguiPrepareWorldListWindows(nb::list& commands, nb::dict& shared_data) {
     // New World button
     ImGui::SetCursorPosX(buttonStartX);
     if (ImGui::Button("New World", buttonSize)) {
-        nb::dict command;
-        command["type"] = "new_world_requested";
+        Command command("new_world_requested");
         commands.append(command);
     }
 
@@ -146,9 +146,8 @@ void imguiPrepareWorldListWindows(nb::list& commands, nb::dict& shared_data) {
     }
 
     if (ImGui::Button("Delete", buttonSize)) {
-        nb::dict command;
-        command["type"] = "delete_world_requested";
-        command["world_key"] = selectedWorldKey.c_str();
+        Command command("delete_world_requested");
+        command.setParam("world_key", selectedWorldKey);
         commands.append(command);
 
         // Reset selection after delete request
@@ -181,10 +180,9 @@ void imguiPrepareWorldListWindows(nb::list& commands, nb::dict& shared_data) {
     }
 
     if (ImGui::Button("Connect", buttonSize)) {
-        nb::dict command;
+        Command command("connect_world_requested");
         logger->info("Clicking connect button for world '{}'", selectedWorldKey);
-        command["type"] = "connect_world_requested";
-        command["world_key"] = selectedWorldKey.c_str();
+        command.setParam("world_key", selectedWorldKey);
         commands.append(command);
     }
 

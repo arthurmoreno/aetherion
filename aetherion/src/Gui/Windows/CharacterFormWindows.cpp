@@ -1,4 +1,5 @@
 #include "Gui/Gui.hpp"
+#include "components/core/Command.hpp"
 
 void imguiPrepareCharacterFormWindows(nb::list& commands, nb::dict& shared_data) {
     /*──────────────── Frame setup ────────────────*/
@@ -119,9 +120,13 @@ void imguiPrepareCharacterFormWindows(nb::list& commands, nb::dict& shared_data)
     ImGui::SetCursorPosX(buttonStartX);
     if (ImGui::Button("Create", buttonSize)) {
         // Create command to create the character with form data
-        nb::dict command;
-        command["type"] = "create_character";
-        command["data"] = shared_data;
+        Command command("create_character");
+        // Copy all shared_data into command params
+        for (auto item : shared_data.items()) {
+            nb::tuple t = nb::cast<nb::tuple>(item);
+            std::string key = nb::cast<std::string>(t[0]);
+            command.setParam(key, t[1]);
+        }
         commands.append(command);
     }
 
@@ -129,8 +134,7 @@ void imguiPrepareCharacterFormWindows(nb::list& commands, nb::dict& shared_data)
     ImGui::SetCursorPosX(buttonStartX + buttonSize.x + 20);
     if (ImGui::Button("Cancel", buttonSize)) {
         // Create command to cancel character creation
-        nb::dict command;
-        command["type"] = "cancel_character_creation";
+        Command command("cancel_character_creation");
         commands.append(command);
     }
 

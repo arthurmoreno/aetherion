@@ -646,6 +646,9 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                 if (terrainId == -1) {
                     virtualTerrainId = terrainVirtualIdCounter--;
                 } else {
+                    // std::cout << "[perception:createPerceptionResponseC] visible terrain (" << x << ", " << y << ", " << z
+                    //         << ") terr_id=" << terrainId << " virt_id=" << virtualTerrainId <<
+                    //         "\n";
                     virtualTerrainId = terrainId;
                 }
 
@@ -662,9 +665,6 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                 entity_interface.setComponent<MatterContainer>(matterContainer);
 
                 voxelGridView.setTerrainVoxel(x, y, z, virtualTerrainId);
-                // std::cout << "perception: visible terrain (" << x << ", " << y << ", " << z
-                //           << ") terr_id=" << terrainId << " virt_id=" << virtualTerrainId <<
-                //           "\n";
                 // logger->info("perception: visible terrain ({}, {}, {}) terr_id={} virt_id={}", x,
                 //               y, z, terrainId, virtualTerrainId);
                 // response.world_view.entities.emplace(entity_interface.entityId,

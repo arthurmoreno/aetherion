@@ -494,39 +494,33 @@ void createMovingComponent(entt::registry& registry, entt::dispatcher& dispatche
 // ================ handleMovement functions helpers ================
 
 // Helper: Load entity data (Position, Velocity, PhysicsStats) from either ECS or terrain storage
-struct EntityPhysicsData {
-    Position& position;
-    Velocity& velocity;
-    PhysicsStats& physicsStats;
-};
-
-inline EntityPhysicsData loadEntityPhysicsData(entt::registry& registry, VoxelGrid& voxelGrid,
-                                               entt::entity entity, bool isTerrain,
-                                               Position& terrainPos, Velocity& terrainVel,
-                                               PhysicsStats& terrainPS) {
+inline std::tuple<Position&, Velocity&, PhysicsStats&> loadEntityPhysicsData(
+    entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity, bool isTerrain,
+    Position& terrainPos, Velocity& terrainVel, PhysicsStats& terrainPS) {
     if (isTerrain) {
+        std::cout << "[loadEntityPhysicsData] Loading terrain physics data for entity ID=" << int(entity) << "\n";
         if (!registry.valid(entity)) {
             throw std::runtime_error("Invalid terrain entity");
         }
-        
+
         terrainPos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
 
         if (!voxelGrid.checkIfTerrainExists(terrainPos.x, terrainPos.y, terrainPos.z)) {
             throw std::runtime_error("Terrain does not exist at the given position");
         }
-        
+
         terrainVel = voxelGrid.terrainGridRepository->getVelocity(terrainPos.x, terrainPos.y,
                                                                    terrainPos.z);
         terrainPS = voxelGrid.terrainGridRepository->getPhysicsStats(terrainPos.x, terrainPos.y,
                                                                      terrainPos.z);
-        return {terrainPos, terrainVel, terrainPS};
+        return std::tie(terrainPos, terrainVel, terrainPS);
     } else {
         if (!registry.valid(entity)) {
             throw std::runtime_error("Entity no longer valid in loadEntityPhysicsData");
         }
 
-        return {registry.get<Position>(entity), registry.get<Velocity>(entity),
-                registry.get<PhysicsStats>(entity)};
+        return std::tie(registry.get<Position>(entity), registry.get<Velocity>(entity),
+                        registry.get<PhysicsStats>(entity));
     }
 }
 
@@ -718,6 +712,10 @@ inline void cleanupZeroVelocity(entt::registry& registry, VoxelGrid& voxelGrid,
 void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid,
                     entt::entity entity, entt::entity entityBeingDebugged, bool isTerrain) {
 
+    if (isTerrain) {
+        std::cout << "[handleMovement] Handling terrain entity ID=" << int(entity) << "\n";
+    }
+
     // SAFETY CHECK 1: Validate entity is still valid
     if (!registry.valid(entity)) {
         std::ostringstream error;
@@ -742,11 +740,11 @@ void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, Voxe
     PhysicsStats terrainPS{};
     
     // SAFETY CHECK 3: Load entity data (exceptions will propagate if issues occur)
-    EntityPhysicsData data = loadEntityPhysicsData(registry, voxelGrid, entity, isTerrain,
-                                                    terrainPos, terrainVel, terrainPS);
-    Position& position = data.position;
-    Velocity& velocity = data.velocity;
-    PhysicsStats& physicsStats = data.physicsStats;
+    auto tuple = loadEntityPhysicsData(registry, voxelGrid, entity, isTerrain, terrainPos,
+                                       terrainVel, terrainPS);
+    Position& position = std::get<0>(tuple);
+    Velocity& velocity = std::get<1>(tuple);
+    PhysicsStats& physicsStats = std::get<2>(tuple);
 
     // Get matter state and apply physics forces
     MatterState matterState = getMatterState(registry, voxelGrid, entity, position, isTerrain);

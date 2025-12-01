@@ -16,6 +16,7 @@
 #include <cstdint>
 // clang-format off
 #include "CameraUtils.hpp"
+#include "components/core/Command.hpp"
 #include "EntityInterface.hpp"
 #include "Gui/Gui.hpp"
 #include "Gui/GuiStateManager.hpp"

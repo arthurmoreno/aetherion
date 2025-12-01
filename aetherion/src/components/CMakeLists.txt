@@ -2,11 +2,11 @@
 
 # Define components sources and headers
 
-file(GLOB COMPONENTS_HEADERS
+file(GLOB_RECURSE COMPONENTS_HEADERS
     "${CMAKE_SOURCE_DIR}/src/components/*.hpp"
 )
 
-file(GLOB COMPONENTS_SOURCES "${CMAKE_SOURCE_DIR}/src/components/*.cpp")
+file(GLOB_RECURSE COMPONENTS_SOURCES "${CMAKE_SOURCE_DIR}/src/components/*.cpp")
 
 # Create library for components
 add_library(components STATIC ${COMPONENTS_SOURCES} ${COMPONENTS_HEADERS})

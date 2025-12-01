@@ -1,4 +1,5 @@
 #include "Gui/Gui.hpp"
+#include "components/core/Command.hpp"
 
 void imguiPrepareCharacterListWindows(nb::list& commands, nb::dict& shared_data) {
     /*──────────────── Frame setup ────────────────*/
@@ -136,8 +137,7 @@ void imguiPrepareCharacterListWindows(nb::list& commands, nb::dict& shared_data)
     // New Character button
     ImGui::SetCursorPosX(buttonStartX);
     if (ImGui::Button("New Character", buttonSize)) {
-        nb::dict command;
-        command["type"] = "new_character_requested";
+        Command command("new_character_requested");
         commands.append(command);
     }
 
@@ -151,9 +151,8 @@ void imguiPrepareCharacterListWindows(nb::list& commands, nb::dict& shared_data)
     }
 
     if (ImGui::Button("Delete", buttonSize)) {
-        nb::dict command;
-        command["type"] = "delete_character_requested";
-        command["world_key"] = selectedCharacterKey.c_str();
+        Command command("delete_character_requested");
+        command.setParam("world_key", selectedCharacterKey);
         commands.append(command);
 
         // Reset selection after delete request
@@ -183,9 +182,8 @@ void imguiPrepareCharacterListWindows(nb::list& commands, nb::dict& shared_data)
     }
 
     if (ImGui::Button("Play", buttonSize)) {
-        nb::dict command;
-        command["type"] = "play_character_requested";
-        command["character_key"] = selectedCharacterKey.c_str();
+        Command command("play_character_requested");
+        command.setParam("character_key", selectedCharacterKey);
         commands.append(command);
     }
 
