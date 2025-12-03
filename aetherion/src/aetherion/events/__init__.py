@@ -32,6 +32,10 @@ class GameEventType(StrEnum):
     WORLD_PLAY_REQUESTED = "world_play_requested"
     WORLD_STEP_REQUESTED = "world_step_requested"
 
+    # World Recorder Events
+    WORLD_RECORDER_START_REQUESTED = "world_recorder_start_requested"
+    WORLD_RECORDER_STOP_AND_SAVE_REQUESTED = "world_recorder_stop_and_save_requested"
+
     # Scene Management Events
     SCENE_CHANGE_REQUESTED = "scene_change_requested"
     SCENE_CHANGED = "scene_changed"
