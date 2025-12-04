@@ -37,6 +37,8 @@ class SharedState(BaseModel):
 
     statistics: dict[str, Any] = {}
 
+    snapshots: list[str] = []
+
     all_world_metadata: dict[str, WorldInterfaceMetadata] = {}
     connected_world: str | None = None
     all_beast_connection_metadata: dict[str, BeastConnectionMetadata] = {}

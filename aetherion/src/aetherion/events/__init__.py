@@ -36,6 +36,10 @@ class GameEventType(StrEnum):
     WORLD_RECORDER_START_REQUESTED = "world_recorder_start_requested"
     WORLD_RECORDER_STOP_AND_SAVE_REQUESTED = "world_recorder_stop_and_save_requested"
 
+    # World Snapshot Events
+    WORLD_SNAPSHOT_TAKE_REQUESTED = "world_snapshot_take_requested"
+    WORLD_SNAPSHOT_DELETE_REQUESTED = "world_snapshot_delete_requested"
+
     # Scene Management Events
     SCENE_CHANGE_REQUESTED = "scene_change_requested"
     SCENE_CHANGED = "scene_changed"
