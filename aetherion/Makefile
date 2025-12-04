@@ -29,6 +29,11 @@ build-test:
 device-info:
 	nvidia-smi
 
+.PHONY: build
+build:
+	@echo "Building aetherion package with python -m build..."
+	conda run --no-capture-output -n aetherion-312 python -m build
+
 .PHONY: clang-format
 clang-format:
 	@echo "Formatting C++ files with clang-format..."

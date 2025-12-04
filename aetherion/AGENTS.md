@@ -52,7 +52,7 @@ private:
 
 *   **Build & Install**:
     ```bash
-    python -m build
+    make build
     ```
 
 *   **Dependencies**:
