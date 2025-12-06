@@ -307,8 +307,13 @@ NB_MODULE(_aetherion, m) {
         .def("is_active", &TerrainStorage::isActive)
         .def("prune", &TerrainStorage::prune);
 
+    // IMPORTANT: TerrainGridRepository stores references to registry and storage.
+    // We must use keep_alive to ensure these objects are not garbage collected
+    // while the repository is still alive, preventing use-after-free bugs.
     nb::class_<TerrainGridRepository>(m, "TerrainGridRepository")
-        .def(nb::init<entt::registry&, TerrainStorage&>())
+        .def(nb::init<entt::registry&, TerrainStorage&>(),
+             nb::keep_alive<1, 2>(),  // Keep registry (arg 2) alive while self (arg 1) is alive
+             nb::keep_alive<1, 3>())  // Keep storage (arg 3) alive while self (arg 1) is alive
         .def("read_terrain_info", &TerrainGridRepository::readTerrainInfo)
         .def("get_terrain_entity_type", &TerrainGridRepository::getTerrainEntityType)
         .def("set_terrain_entity_type", &TerrainGridRepository::setTerrainEntityType)
@@ -1240,7 +1245,10 @@ NB_MODULE(_aetherion, m) {
 
     // Bind VoxelGrid class
     nb::class_<VoxelGrid>(m, "VoxelGrid")
-        .def(nb::init<entt::registry&>())
+        // VoxelGrid stores entt::registry& as a reference, so we need keep_alive
+        // to prevent Python from GC'ing the registry while VoxelGrid is alive
+        .def(nb::init<entt::registry&>(),
+             nb::keep_alive<1, 2>())  // Keep registry alive while VoxelGrid is alive
         .def("initialize_grids", &VoxelGrid::initializeGrids)
         .def("set_voxel", &VoxelGrid::setVoxel, nb::arg("x"), nb::arg("y"), nb::arg("z"),
              nb::arg("data"), "Set voxel data at (x, y, z)")
