@@ -174,6 +174,7 @@ void initializeGuiPrograms() {
     manager->registerProgram(std::make_shared<EntityInterfaceProgram>());
     manager->registerProgram(std::make_shared<AIStatisticsProgram>());
     manager->registerProgram(std::make_shared<ConsoleProgram>());
+    manager->registerProgram(std::make_shared<EditorDebuggerProgram>());
     
     // Register Game programs
     manager->registerProgram(std::make_shared<InventoryProgram>());
@@ -623,56 +624,6 @@ void RenderTopBar() {
         GuiProgramManager::Instance()->toggleProgram("settings");
     }
 
-    ImGui::End();
-}
-
-void RenderEditorDebuggerTopBar(nb::list& commands) {
-    // Set initial position only on first use, then allow user to move it
-    ImGui::SetNextWindowPos(ImVec2(10, 60), ImGuiCond_FirstUseEver);
-
-    // Allow the window to auto-resize to fit content
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_AlwaysAutoResize;
-
-    // Create a collapsible, draggable window
-    static bool show_editor_debugger_topbar = true;
-    if (ImGui::Begin("Editor Debugger Menu", &show_editor_debugger_topbar, window_flags)) {
-        // Play Button
-        if (ImGui::Button("Play")) {
-            EditorCommand command(EditorCommand::Action::Play);
-            commands.append(command);
-        }
-
-        ImGui::SameLine();
-
-        // Stop Button
-        if (ImGui::Button("Stop")) {
-            EditorCommand command(EditorCommand::Action::Stop);
-            commands.append(command);
-        }
-
-        ImGui::SameLine();
-
-        // Step Button
-        if (ImGui::Button("Step")) {
-            EditorCommand command(EditorCommand::Action::Step);
-            commands.append(command);
-        }
-
-        ImGui::SameLine();
-
-        // Exit to Editor Button
-        if (ImGui::Button("Exit to Editor")) {
-            EditorCommand command(EditorCommand::Action::ExitToEditor);
-            commands.append(command);
-        }
-
-        ImGui::SameLine();
-
-        // Settings Button
-        if (ImGui::Button("Settings")) {
-            GuiProgramManager::Instance()->toggleProgram("settings");
-        }
-    }
     ImGui::End();
 }
 
@@ -1338,7 +1289,12 @@ void renderInGameGuiFrame(int worldTicks, float availableFps, std::shared_ptr<Wo
     };
     
     /*──────────────── Render always-on components ────────────────*/
-    RenderEditorDebuggerTopBar(commands);
+    // Ensure editor debugger is active (can be closed by user but should start active)
+    static bool editorDebuggerInitialized = false;
+    if (!editorDebuggerInitialized) {
+        GuiProgramManager::Instance()->activateProgram("editor_debugger");
+        editorDebuggerInitialized = true;
+    }
     RenderTopBar();
     
     /*──────────────── Process activate_program commands ────────────────*/

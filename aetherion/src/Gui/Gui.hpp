@@ -100,6 +100,16 @@ void imguiPrepareEditorWindows(nb::list& commands, nb::dict& shared_data,
 void render3DVoxelViewport(nb::ndarray<nb::numpy>& voxel_data, nb::dict& shared_data);
 void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data);
 
+/**
+ * @brief Renders the Editor Debugger Top Bar window
+ * 
+ * Displays a collapsible, draggable toolbar with editor controls for Play, Stop, Step,
+ * Exit to Editor, and Settings. This toolbar is used during editor runtime debugging mode.
+ * 
+ * @param commands Output list where editor commands are appended (e.g., Play, Stop, Step)
+ */
+void RenderEditorDebuggerTopBar(nb::list& commands);
+
 void imguiPrepareWorldTypeFormWindows(nb::list& commands, nb::dict& shared_data);
 
 void imguiPrepareServerWorldFormWindows(nb::list& commands, nb::dict& shared_data);

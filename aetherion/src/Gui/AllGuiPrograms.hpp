@@ -32,6 +32,7 @@
 #include "GuiPrograms/Debug/EntityInterfaceProgram.hpp"
 #include "GuiPrograms/Debug/AIStatisticsProgram.hpp"
 #include "GuiPrograms/Debug/ConsoleProgram.hpp"
+#include "GuiPrograms/Debug/EditorDebuggerProgram.hpp"
 
 // Game programs
 #include "GuiPrograms/Game/InventoryProgram.hpp"
