@@ -10,17 +10,18 @@ from websockets import State
 from websockets.asyncio.server import ServerConnection
 
 from aetherion import EntityEnum, EntityInterface
-from aetherion.src.aetherion.entities.beasts import BeastEntity
+from aetherion.entities.beasts import BeastEntity
 
 if TYPE_CHECKING:
     # Only imported for typing to avoid circular import at runtime
-    from world.interface import WorldInterface
+    from aetherion.world.interface import WorldInterface
 from logger import logger
 from networking.exceptions import AuthenticationError
 from networking.jwt import JWTAuthenticator
-from settings import FPS
 
-from aetherion.entities.beasts import BeastEntity, BeastEnum
+from aetherion.entities.beasts import BeastEnum
+
+FPS = 30  # Default frames per second for the server
 
 
 def make_ai_metadata_serializable(
@@ -43,9 +44,12 @@ def make_ai_metadata_serializable(
 
 
 class WebSocketGameServer:
-    def __init__(self, world_interface: WorldInterface, host: str = "localhost", port: int = 8765) -> None:
+    def __init__(
+        self, world_interface: WorldInterface, host: str = "localhost", port: int = 8765, fps: int = FPS
+    ) -> None:
         self.host: str = host
         self.port: int = port
+        self.fps: int = fps
         self.world_interface: WorldInterface = world_interface
         self.clients: set[ServerConnection] = set()
         self.clients_entities_map: dict[ServerConnection, list[int]] = {}
@@ -225,7 +229,9 @@ class WebSocketGameServer:
             max(0.001, 1.0 / max(1.0, req_fps))
             if req_fps
             else (
-                max(0.001, (req_dt_ms or 0.0) / 1000.0) if req_dt_ms is not None else max(0.001, 1.0 / max(1, int(FPS)))
+                max(0.001, (req_dt_ms or 0.0) / 1000.0)
+                if req_dt_ms is not None
+                else max(0.001, 1.0 / max(1, int(self.fps)))
             )
         )
         self._client_stream_cfg[websocket] = {"dt": float(poll_dt)}
@@ -399,8 +405,9 @@ class AuthenticatedWebSocketServer(WebSocketGameServer):
         host: str = "localhost",
         port: int = 8765,
         jwt_secret: str = "dev-secret-key",
+        fps: int = FPS,
     ) -> None:
-        super().__init__(world_interface, host, port)
+        super().__init__(world_interface, host, port, fps=fps)
         self.authenticator: JWTAuthenticator = JWTAuthenticator(jwt_secret)
 
         # Store authenticated user sessions

@@ -199,7 +199,7 @@ class WorldInterface:
                     logger.debug(log_message)
 
     def start_server(self):
-        self.server = AuthenticatedWebSocketServer(world_interface=self, host="0.0.0.0", port=8765)
+        self.server = AuthenticatedWebSocketServer(world_interface=self, host="0.0.0.0", port=8765, fps=self.fps)
 
         # Start the WebSocket server as a background task
         self.server_task = asyncio.create_task(self.server.start())
