@@ -12,6 +12,9 @@ from aetherion.scenes import *  # noqa: F403
 from aetherion.events import *  # noqa: F403
 from aetherion.events.action_event import *  # noqa: F403
 from aetherion.constants import *  # noqa: F403
+from aetherion.world import *  # noqa: F403
+from aetherion.world.interface import *  # noqa: F403
+from aetherion.networking import *  # noqa: F403
 from aetherion.game_state.connections import *  # noqa: F403
 from aetherion.game_state.state import *  # noqa: F403
 from aetherion.game_state.world_interface import *  # noqa: F403

@@ -11,11 +11,12 @@ the public SDK API without needing direct access to internal ECS registry.
 """
 
 import gc
+
 import pytest
 
 # Import aetherion module - if it fails, tests will be skipped
 try:
-    from aetherion import World, TerrainStorage
+    from aetherion import TerrainStorage, World
 
     AETHERION_AVAILABLE = True
     SKIP_REASON = ""
