@@ -60,6 +60,13 @@ class GameEventType(StrEnum):
     PLAYER_CONNECTED = "player_connected"
     PLAYER_DISCONNECTED = "player_disconnected"
 
+    # Audio Events
+    AUDIO_SOUND_EFFECT_PLAY = "AUDIO_SOUND_EFFECT_PLAY"
+    AUDIO_MUSIC_PLAY = "AUDIO_MUSIC_PLAY"
+    AUDIO_MUSIC_STOP = "AUDIO_MUSIC_STOP"
+    AUDIO_MUSIC_PAUSE = "AUDIO_MUSIC_PAUSE"
+    AUDIO_MUSIC_RESUME = "AUDIO_MUSIC_RESUME"
+
 
 E = TypeVar("E", bound=StrEnum)
 
