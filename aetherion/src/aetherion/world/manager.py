@@ -3,12 +3,12 @@ from threading import Lock
 from typing import Any, Callable, Optional
 
 from logger import logger
-from aetherion.world.recorder import WorldRecorderManager
 
 from aetherion import EventBus, GameEvent, GameEventType, SharedState, World, WorldInterfaceMetadata
 from aetherion.networking.ai_manager import AIProcessManager
 from aetherion.world.constants import WorldInstanceTypes
 from aetherion.world.interface import WorldInterface
+from aetherion.world.recorder import WorldRecorderManager
 
 
 class WorldManager:
@@ -42,8 +42,10 @@ class WorldManager:
         self,
         event_bus: EventBus[GameEventType],
         ai_manager_factory: Callable[[Any, WorldInstanceTypes], AIProcessManager] | None = None,
-        event_handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None] | None = None,
-        default_event_handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None] | None = None,
+        event_handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None]
+        | None = None,
+        default_event_handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None]
+        | None = None,
     ):
         self.ai_manager: AIProcessManager | None = None
         self.ai_manager_factory = ai_manager_factory
@@ -69,7 +71,9 @@ class WorldManager:
 
         # Merge user-provided handlers with defaults
         # User handlers override defaults if provided
-        self.handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None] = default_event_handlers.copy()
+        self.handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None] = (
+            default_event_handlers.copy()
+        )
         if event_handlers:
             self.handlers.update(event_handlers)
 

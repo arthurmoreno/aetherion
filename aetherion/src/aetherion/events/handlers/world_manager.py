@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Callable
 from threading import Thread
+from typing import Any, Callable
 
 from logger import logger
 
@@ -12,7 +12,6 @@ from aetherion import (
 )
 from aetherion.world.constants import WorldInstanceTypes
 from aetherion.world.manager import WorldManager
-
 
 
 # CONSUMER: Event handlers
@@ -78,9 +77,9 @@ def on_world_connect_requested(world_manager: WorldManager, event: GameEvent[Gam
     """Handle world connection requests"""
     world_name: str = event.data.get("world_name")
     world_key: str = event.data.get("world_key", world_name.lower().replace(" ", "_"))
-    
+
     if world_key not in world_manager.worlds_metadata:
-         raise ValueError(f"World '{world_key}' is not registered.")
+        raise ValueError(f"World '{world_key}' is not registered.")
 
     world_instance_type: WorldInstanceTypes = world_manager.worlds_metadata[world_key].type
 
@@ -280,7 +279,9 @@ def on_snapshot_delete_requested(world_manager: WorldManager, event: GameEvent[G
         logger.error(f"Failed to delete snapshot: {e}")
 
 
-worldmanager_event_handlers: dict[GameEventType, Callable[[WorldManager, GameEvent[GameEventType]], None] | None] | None = {
+worldmanager_event_handlers: (
+    dict[GameEventType, Callable[[WorldManager, GameEvent[GameEventType]], None] | None] | None
+) = {
     GameEventType.WORLD_CREATE_REQUESTED: on_world_create_requested,
     GameEventType.WORLD_CONNECT_REQUESTED: on_world_connect_requested,
     GameEventType.WORLD_RECORDER_START_REQUESTED: on_recorder_start_requested,

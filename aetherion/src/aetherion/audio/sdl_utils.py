@@ -1,13 +1,13 @@
-from aetherion.logger import logger
-
 import sdl2
 import sdl2.sdlmixer as mixer
+
 from aetherion.audio.exceptions import AudioInitError
+from aetherion.logger import logger
 
 
 def init_sdl() -> None:
     """Initialize SDL2 with video and audio subsystems.
-    
+
     Raises:
         AudioInitError: If SDL2 initialization fails.
     """
@@ -23,9 +23,9 @@ def init_sdl() -> None:
 
 def init_mixer() -> None:
     """Initialize SDL2_mixer with MP3 and OGG support.
-    
+
     Opens audio device with 44.1kHz, stereo, 4096 byte buffer.
-    
+
     Raises:
         AudioInitError: If SDL2_mixer initialization or audio device opening fails.
     """
@@ -40,7 +40,7 @@ def init_mixer() -> None:
         mixer.Mix_Quit()  # pyright: ignore
         sdl2.SDL_Quit()  # pyright: ignore
         raise AudioInitError(f"Mix_Init failed: {error_msg}")
-    
+
     logger.info("SDL2_mixer initialized with MP3 and OGG support")
 
     # Open audio device
@@ -53,5 +53,5 @@ def init_mixer() -> None:
         mixer.Mix_Quit()  # pyright: ignore
         sdl2.SDL_Quit()  # pyright: ignore
         raise AudioInitError(f"Mix_OpenAudio failed: {error_msg}")
-    
+
     logger.info("Audio device opened: 44.1kHz, stereo, 4096 buffer")
