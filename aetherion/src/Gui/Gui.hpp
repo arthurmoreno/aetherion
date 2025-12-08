@@ -49,7 +49,7 @@ bool wants_capture_keyboard();
 bool wants_capture_mouse();
 
 // Function to process SDL_Event using ImGui's SDL2 backend
-void imguiInit(uintptr_t window_ptr, uintptr_t renderer_ptr);
+void imguiInit(uintptr_t window_ptr, uintptr_t renderer_ptr, const char* fontPath);
 
 /**
  * @brief Initialize and register all GUI programs

@@ -277,13 +277,14 @@ class RenderTextTask : public RenderTaskBase {
 
 class RenderQueue {
    public:
-    RenderQueue() {
+    RenderQueue(const std::string& fontPath = "assets/Toriko.ttf") {
         // Initialize with default priority order
         priority_order = {{"background", 0}, {"entities", 1}, {"effects", 2}, {"foreground", 3}};
 
         // Load font
-        if (!FontManager::Instance()->loadFont("my_font", "resources/Toriko.ttf", 24)) {
+        if (!FontManager::Instance()->loadFont("default_font", fontPath, 24)) {
             // Handle font loading error
+            throw std::runtime_error("Failed to load font from path: " + fontPath);
         }
     }
 

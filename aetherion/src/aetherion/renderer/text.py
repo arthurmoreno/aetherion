@@ -10,7 +10,7 @@ class Text:
         self,
         text: str,
         renderer,
-        font_path: bytes = b"resources/Toriko.ttf",
+        font_path: bytes = b"assets/Toriko.ttf",
         font_size: int = 32,
         color: tuple[int, int, int] = (255, 255, 255),
     ):
@@ -20,7 +20,7 @@ class Text:
         Args:
             text (str): The text to render.
             renderer: The renderer object responsible for drawing.
-            font_path (bytes, optional): Path to the TTF font file. Defaults to b"resources/Toriko.ttf".
+            font_path (bytes, optional): Path to the TTF font file. Defaults to b"assets/Toriko.ttf".
             font_size (int, optional): Size of the font. Defaults to 32.
             color (tuple, optional): The color of the text in RGB format. Defaults to white.
         """

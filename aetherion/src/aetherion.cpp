@@ -183,7 +183,7 @@ NB_MODULE(_aetherion, m) {
                     "Convert editor action to string");
 
     m.def("imgui_init", &imguiInit, "Load an image and create a texture", nb::arg("window_ptr"),
-          nb::arg("gl_context_ptr"));
+          nb::arg("gl_context_ptr"), nb::arg("font_path"));
 
     m.def(
         "render_in_game_gui_frame",
@@ -408,7 +408,7 @@ NB_MODULE(_aetherion, m) {
         .export_values();
 
     nb::class_<RenderQueue>(m, "RenderQueue")
-        .def(nb::init<>())
+        .def(nb::init<const std::string&>(), nb::arg("font_path"))
         .def("add_task_by_id", &RenderQueue::add_task_by_id)
         .def("add_task_by_texture", &RenderQueue::add_task_by_texture)
 

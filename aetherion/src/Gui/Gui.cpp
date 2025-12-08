@@ -23,7 +23,7 @@ ImVec4 NormalizeColor(int r, int g, int b, float a = 1.0f) {
 }
 
 // Function to apply a custom style
-void ApplyCustomStyle() {
+void ApplyCustomStyle(const char* fontPath) {
     // Start with the Dark style as the base
     ImGui::StyleColorsDark();
 
@@ -89,7 +89,6 @@ void ApplyCustomStyle() {
     style.GrabRounding = 5.0f;       // Rounding for slider and scrollbar grab
     style.TabRounding = 5.0f;        // Rounding for tabs
 
-    const char* fontPath = "resources/Toriko.ttf";
     float fontSize = 18.0f;
 
     // Load Custom Font
@@ -117,7 +116,7 @@ bool wants_capture_mouse() {
 }
 
 // Initialize ImGui with SDL_Renderer
-void imguiInit(uintptr_t window_ptr, uintptr_t renderer_ptr) {
+void imguiInit(uintptr_t window_ptr, uintptr_t renderer_ptr, const char* fontPath) {
     SDL_Window* window = reinterpret_cast<SDL_Window*>(window_ptr);
     SDL_Renderer* renderer = reinterpret_cast<SDL_Renderer*>(renderer_ptr);
 
@@ -146,7 +145,7 @@ void imguiInit(uintptr_t window_ptr, uintptr_t renderer_ptr) {
     // Optionally, set ImGui style
     // ImGui::StyleColorsDark();
     GuiStateManager::Instance();
-    ApplyCustomStyle();
+    ApplyCustomStyle(fontPath);
     
     // Initialize GUI programs (GUI OS)
     initializeGuiPrograms();
