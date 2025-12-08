@@ -1,10 +1,11 @@
-from threading import Lock, Thread
+from functools import partial
+from threading import Lock
 from typing import Any, Callable, Optional
 
 from logger import logger
 from aetherion.world.recorder import WorldRecorderManager
 
-from aetherion import EventBus, GameEventType, SharedState, World, WorldInterfaceMetadata
+from aetherion import EventBus, GameEvent, GameEventType, SharedState, World, WorldInterfaceMetadata
 from aetherion.networking.ai_manager import AIProcessManager
 from aetherion.world.constants import WorldInstanceTypes
 from aetherion.world.interface import WorldInterface
@@ -39,9 +40,10 @@ class WorldManager:
 
     def __init__(
         self,
-        event_bus: EventBus,
+        event_bus: EventBus[GameEventType],
         ai_manager_factory: Callable[[Any, WorldInstanceTypes], AIProcessManager] | None = None,
-        event_handlers: dict[GameEventType, Callable[[Any], None] | None] | None = None,
+        event_handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None] | None = None,
+        default_event_handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None] | None = None,
     ):
         self.ai_manager: AIProcessManager | None = None
         self.ai_manager_factory = ai_manager_factory
@@ -53,7 +55,7 @@ class WorldManager:
         self.current_metadata: WorldInterfaceMetadata | None = None
         self.current_key: str | None = None
         self.world_saves: dict[str, str] = {}  # world_name -> save_path mapping
-        self.event_bus: EventBus = event_bus
+        self.event_bus: EventBus[GameEventType] = event_bus
 
         self.world_thread_lock: Lock = Lock()
 
@@ -62,84 +64,19 @@ class WorldManager:
         # Snapshot storage: world_key -> list of snapshot names
         self.world_snapshots: dict[str, list[str]] = {}
 
-        # Default handlers for critical events
-        default_handlers: dict[GameEventType, Callable[[Any], None] | None] = {
-            GameEventType.WORLD_CREATE_REQUESTED: self._handle_create_request,
-            GameEventType.WORLD_CONNECT_REQUESTED: self._handle_connect_world,
-            GameEventType.WORLD_RECORDER_START_REQUESTED: self._handle_recorder_start,
-            GameEventType.WORLD_RECORDER_STOP_AND_SAVE_REQUESTED: self._handle_recorder_stop_and_save,
-            GameEventType.WORLD_SNAPSHOT_TAKE_REQUESTED: self._handle_snapshot_take,
-            GameEventType.WORLD_SNAPSHOT_DELETE_REQUESTED: self._handle_snapshot_delete,
-        }
+        if default_event_handlers is None and event_handlers is None:
+            raise ValueError("At least one of default_event_handlers or event_handlers must be provided.")
 
         # Merge user-provided handlers with defaults
         # User handlers override defaults if provided
-        self.handlers = default_handlers.copy()
+        self.handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None] = default_event_handlers.copy()
         if event_handlers:
             self.handlers.update(event_handlers)
 
         # Subscribe to events
         for event_type, handler in self.handlers.items():
             if handler:  # Allow disabling a handler by passing None
-                self.event_bus.subscribe(event_type, handler)
-
-    # TODO: Remove from this file, make events easilly customizable. CONSUMER: Event handlers
-    def _handle_create_request(self, event):
-        """Handle world creation requests"""
-        world_name: str = event.data.get("world_name", "default_world")
-        world_config = event.data.get("world_config", {})
-        world_description: str = event.data.get("world_description", "")
-        # world_instance_type = world_config["type"]
-
-        world_key = world_name.lower().replace(" ", "_")
-
-        try:
-            if world_config["type"] == WorldInstanceTypes.SYNCHRONOUS:
-                self.worlds_metadata[world_key] = WorldInterfaceMetadata(
-                    key=world_key, name=world_name, description=world_description, status="creating"
-                )
-                self.world_thread = Thread(
-                    target=self.load_world,
-                    args=(),
-                    kwargs={
-                        "world_name": world_name,
-                        "world_config": world_config,
-                    },
-                )
-                self.world_thread.start()
-            elif world_config["type"] == WorldInstanceTypes.SERVER:
-                world_host: str = event.data.get("world_host", "168.119.102.52")
-                world_port: str = event.data.get("world_port", "5202")
-                self.worlds_metadata[world_key] = WorldInterfaceMetadata(
-                    key=world_key,
-                    name=world_name,
-                    description=world_description,
-                    type=WorldInstanceTypes.SERVER,
-                    status="ready",
-                    host=world_host,
-                    port=world_port,
-                )
-            else:
-                raise ValueError(f"Unsupported world instance type: {world_config['type']}")
-
-            # CLIENT: Notify success
-            self.event_bus.emit(
-                event_type=GameEventType.WORLD_CREATED,
-                data={
-                    "world_name": world_name,
-                    "world_key": world_key,
-                    "success": True,
-                },
-                source="world_manager",
-            )
-
-        except Exception as e:
-            # CLIENT: Notify failure
-            self.event_bus.emit(
-                event_type=GameEventType.WORLD_CREATED,
-                data={"world_name": world_name, "world_key": world_key, "success": False, "error": str(e)},
-                source="world_manager",
-            )
+                self.event_bus.subscribe(event_type, partial(handler, self))
 
     def load_world(self, world_name: str = "default", world_config: dict[str, Any] = {}) -> None:
         with self.world_thread_lock:
@@ -177,206 +114,6 @@ class WorldManager:
 
             self.ai_manager.connect(connection_type=connection_type, world_instance=world_instance)
             self.ai_manager.request_ai_metadata()
-
-    # TODO: Remove from this file, make events easilly customizable. CONSUMER: Event handlers
-    def _handle_connect_world(self, event):
-        """Handle world connection requests"""
-        world_name = event.data.get("world_name")
-        world_key = event.data.get("world_key", world_name.lower().replace(" ", "_"))
-        world_instance_type = self.worlds_metadata[world_key].type
-
-        self.current_metadata = self.worlds_metadata.get(world_key)
-        self.current = self.worlds.get(world_key)
-        self.current_key = world_key
-
-        if self.current_metadata is not None and self.current is None:
-            # virtual connection created. For world server type.
-            self.event_bus.emit(
-                event_type=GameEventType.WORLD_CONNECTED,
-                data={"world_name": world_name, "success": True},
-                source="world_manager",
-            )
-            return
-
-        if self.current is None:
-            raise ValueError(f"World '{world_key}' is not registered.")
-
-        self.start_ai_manager(self.current, connection_type=world_instance_type)
-
-        # Set initial status to running when connected
-        if self.current_metadata and self.current_metadata.status in ["ready", "created"]:
-            self.current_metadata.status = "running"
-
-        self.event_bus.emit(
-            event_type=GameEventType.WORLD_CONNECTED,
-            data={"world_name": world_name, "success": True},
-            source="world_manager",
-        )
-
-    # TODO: Remove from this file, make events easilly customizable.RECORDER: Event handlers
-    def _handle_recorder_start(self, event):
-        """Handle world recorder start requests.
-
-        Expected event data:
-            - recording_name: Optional[str] - Name for the recording
-            - recording_config: Optional[dict] - Configuration for the recorder
-        """
-        try:
-            recording_name = event.data.get("recording_name")
-            recording_config = event.data.get("recording_config")
-
-            # Start the recording
-            actual_name = self.recorder_manager_.start_recording(name=recording_name, config=recording_config)
-
-            logger.info(f"Started recording: {actual_name}")
-
-            # Emit success event
-            self.event_bus.emit(
-                event_type=GameEventType.WORLD_CREATED,  # TODO: Create WORLD_RECORDER_STARTED event
-                data={
-                    "recording_name": actual_name,
-                    "success": True,
-                },
-                source="world_manager",
-            )
-
-        except Exception as e:
-            logger.error(f"Failed to start recording: {e}")
-
-            # Emit failure event
-            self.event_bus.emit(
-                event_type=GameEventType.WORLD_CREATED,  # TODO: Create WORLD_RECORDER_STARTED event
-                data={
-                    "success": False,
-                    "error": str(e),
-                },
-                source="world_manager",
-            )
-
-    def _handle_recorder_stop_and_save(self, event):
-        """Handle world recorder stop and save requests.
-
-        Expected event data:
-            - save_name: Optional[str] - Name to use when saving
-            - save_path: Optional[str] - Custom filepath for saving
-        """
-        try:
-            save_name = event.data.get("save_name")
-            save_path = event.data.get("save_path")
-
-            # Stop the recording
-            stopped_name = self.recorder_manager_.stop_recording()
-
-            if stopped_name is None:
-                logger.warning("No active recording to stop")
-                self.event_bus.emit(
-                    event_type=GameEventType.WORLD_SAVED,  # TODO: Create WORLD_RECORDER_SAVED event
-                    data={
-                        "success": False,
-                        "error": "No active recording",
-                    },
-                    source="world_manager",
-                )
-                return
-
-            # Save the recording
-            saved_path = self.recorder_manager_.save_recording(name=save_name, filepath=save_path)
-
-            logger.info(f"Stopped and saved recording to: {saved_path}")
-
-            # Emit success event
-            self.event_bus.emit(
-                event_type=GameEventType.WORLD_SAVED,  # TODO: Create WORLD_RECORDER_SAVED event
-                data={
-                    "recording_name": stopped_name,
-                    "save_path": saved_path,
-                    "success": True,
-                },
-                source="world_manager",
-            )
-
-        except Exception as e:
-            logger.error(f"Failed to stop and save recording: {e}")
-
-            # Emit failure event
-            self.event_bus.emit(
-                event_type=GameEventType.WORLD_SAVED,  # TODO: Create WORLD_RECORDER_SAVED event
-                data={
-                    "success": False,
-                    "error": str(e),
-                },
-                source="world_manager",
-            )
-
-    # TODO: Remove from this file, make events easilly customizable.SNAPSHOT: Event handlers
-    def _handle_snapshot_take(self, event):
-        """Handle world snapshot take requests.
-
-        Expected event data:
-            - name: str - Name for the snapshot (with timestamp)
-            - world_key: Optional[str] - World to snapshot (defaults to current)
-        """
-        try:
-            snapshot_name: str = event.data.get("name")
-            world_key: str = event.data.get("world_key", self.current_key)
-
-            if not snapshot_name:
-                raise ValueError("Snapshot name is required")
-
-            if not world_key:
-                raise ValueError("No world available to snapshot")
-
-            # Initialize snapshot list for this world if needed
-            if world_key not in self.world_snapshots:
-                self.world_snapshots[world_key] = []
-
-            # Get the world instance
-            world_interface = self.worlds.get(world_key)
-            if not world_interface:
-                raise ValueError(f"World '{world_key}' not found")
-
-            # TODO: Implement actual snapshot capture
-            # For now, just store the snapshot name
-            self.world_snapshots[world_key].append(snapshot_name)
-
-            logger.info(f"Snapshot taken: {snapshot_name} for world '{world_key}'")
-
-        except Exception as e:
-            logger.error(f"Failed to take snapshot: {e}")
-
-    def _handle_snapshot_delete(self, event):
-        """Handle world snapshot deletion requests.
-
-        Expected event data:
-            - name: str - Name of the snapshot to delete
-            - index: int - Index of the snapshot in the list
-            - world_key: Optional[str] - World key (defaults to current)
-        """
-        try:
-            snapshot_name = event.data.get("name")
-            snapshot_index = event.data.get("index")
-            world_key = event.data.get("world_key", self.current_key)
-
-            if not snapshot_name:
-                raise ValueError("Snapshot name is required")
-
-            if not world_key:
-                raise ValueError("No world key provided")
-
-            # Verify snapshot exists
-            if world_key not in self.world_snapshots:
-                raise ValueError(f"No snapshots found for world '{world_key}'")
-
-            if snapshot_name not in self.world_snapshots[world_key]:
-                raise ValueError(f"Snapshot '{snapshot_name}' not found")
-
-            # Remove the snapshot
-            self.world_snapshots[world_key].remove(snapshot_name)
-
-            logger.info(f"Deleted snapshot: {snapshot_name} from world '{world_key}'")
-
-        except Exception as e:
-            logger.error(f"Failed to delete snapshot: {e}")
 
     def update_shared_state_snapshots(self, shared_state: SharedState) -> None:
         """
