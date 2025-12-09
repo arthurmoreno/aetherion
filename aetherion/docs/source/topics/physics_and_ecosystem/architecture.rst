@@ -479,6 +479,51 @@ Water Cycle Simulation
 
 The ``EcosystemEngine`` implements a complete water cycle with multiple phases that interact to create realistic environmental dynamics. The cycle operates on terrain voxels stored in ``TerrainStorage`` and uses matter quantities (``terrainMatter``, ``waterMatter``, ``vaporMatter``) to track state changes.
 
+Overview State Diagram
+~~~~~~~~~~~~~~~~~~~~~~
+
+A high-level view of the water cycle states and phase transitions:
+
+.. graphviz::
+
+   digraph water_cycle_overview {
+       rankdir=TB;
+       node [shape=box, style="rounded,filled", fontsize=12];
+       edge [fontsize=10, penwidth=1.5];
+       
+       // Main states
+       Liquid [label="Liquid Water\n\nwaterMatter > 0\nFlows, Pools, Falls", 
+               fillcolor="#4682B4", fontcolor=white, style="rounded,filled"];
+       
+       Vapor [label="Water Vapor\n\nvaporMatter > 0\nDiffuses, Rises", 
+              fillcolor="#87CEEB", fontcolor=black, style="rounded,filled"];
+       
+       // Phase transitions
+       Liquid -> Vapor [label="  Evaporation  \n\nheat ≥ 120.0\nEndothermic", 
+                        color="#FF6347", penwidth=2, fontcolor="#FF6347"];
+       
+       Vapor -> Liquid [label="  Condensation  \n\nvapor > saturation\nExothermic", 
+                        color="#32CD32", penwidth=2, fontcolor="#32CD32"];
+       
+       // Internal state transitions
+       Liquid -> Liquid [label="Flow\n(pressure)", color="#1E90FF", style=dashed];
+       Liquid -> Liquid [label="Rain\n(gravity)", color="#FF8C00", dir=back];
+       
+       Vapor -> Vapor [label="Diffusion\n(gradient)", color="#4169E1", style=dotted];
+       Vapor -> Vapor [label="Rise\n(buoyancy)", color="#4169E1", dir=back, style=dotted];
+       
+       // Conservation note
+       note [label="Conservation Laws:\n• Matter: Σ(water + vapor) = const\n• Energy: evap (−heat) ⇔ cond (+heat)", 
+             shape=note, fillcolor="#FFFACD", fontsize=10];
+   }
+
+**Key Properties**:
+
+- **Phase Transitions**: Evaporation (endothermic) ⇔ Condensation (exothermic)
+- **Internal Dynamics**: Flow, diffusion, rise, precipitation
+- **Conservation**: Matter and energy preserved across all transitions
+- **Parallelization**: 32³ voxel grid boxes, thread-local OpenVDB accessors
+
 Phase 1: Liquid Water Movement
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
