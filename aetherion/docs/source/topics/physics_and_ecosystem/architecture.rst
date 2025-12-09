@@ -673,6 +673,98 @@ Phase 5: Precipitation (Rain)
 
 **Weather Patterns**: Combination of evaporation (ocean/lakes), vapor transport (wind), condensation (altitude/cooling), and precipitation (rain) creates emergent weather systems.
 
+Water Cycle State Diagram
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The complete water cycle state machine with all transitions, conditions, and attributes:
+
+.. graphviz::
+
+   digraph water_cycle_states {
+       rankdir=LR;
+       node [shape=box, style="rounded,filled"];
+       edge [fontsize=8];
+       
+       // States with attributes
+       Terrain [label="Solid Terrain\n\nAttributes:\n• terrainMatter > 0\n• mainType = TERRAIN\n• subType = solid\n• heat (float)\n• position (x,y,z)\n\nInvariants:\n• Cannot move\n• Blocks flow\n• Condensation nuclei", 
+                fillcolor="#8B7355", fontcolor=white, style="rounded,filled"];
+       
+       WaterStatic [label="Liquid Water (Static)\n\nAttributes:\n• waterMatter > 0\n• heat (float)\n• pressure (calculated)\n• velocity ≈ 0\n\nConditions:\n• Has support below OR\n  at equilibrium\n• y ≤ RAIN_THRESHOLD",
+                    fillcolor="#4682B4", fontcolor=white, style="rounded,filled"];
+       
+       WaterFlowing [label="Liquid Water (Flowing)\n\nAttributes:\n• waterMatter > 0\n• pressure gradient\n• flow_direction (x,y,z)\n• flow_rate (float)\n\nBehavior:\n• Downward priority\n• Lateral equilibrium\n• Rate-limited",
+                     fillcolor="#1E90FF", fontcolor=white, style="rounded,filled"];
+       
+       WaterFalling [label="Liquid Water (Falling)\n\nAttributes:\n• waterMatter > 0\n• velocity (increasing)\n• acceleration = gravity\n• terminal_velocity (max)\n\nPhysics:\n• velocity += gravity\n• Collision detection\n• Kinetic energy",
+                     fillcolor="#00BFFF", fontcolor=white, style="rounded,filled"];
+       
+       VaporDispersed [label="Water Vapor (Dispersed)\n\nAttributes:\n• vaporMatter > 0\n• concentration (float)\n• heat (float)\n• altitude (y)\n\nConditions:\n• vaporMatter < saturation\n• No nucleation\n\nBehavior:\n• Diffusion\n• Cannot enter solids",
+                      fillcolor="#E0FFFF", fontcolor=black, style="rounded,filled"];
+       
+       VaporRising [label="Water Vapor (Rising)\n\nAttributes:\n• vaporMatter > 0\n• vertical_bias (upward)\n• buoyancy (float)\n• altitude (increasing)\n\nBehavior:\n• Accumulates at height\n• Forms cloud layers",
+                    fillcolor="#B0E0E6", fontcolor=black, style="rounded,filled"];
+       
+       VaporSaturated [label="Water Vapor (Saturated)\n\nAttributes:\n• vaporMatter > saturation\n• excess = vapor - capacity\n• saturation = f(altitude, heat)\n\nConditions:\n• Ready to condense\n• Nuclei present",
+                      fillcolor="#87CEEB", fontcolor=black, style="rounded,filled"];
+       
+       // State transitions
+       
+       // Water flow
+       WaterStatic -> WaterFlowing [label="Pressure Gradient\n\nTrigger:\n• Neighbor pressure diff\n• No solid obstacle\n\nRate: ∝ pressure_diff", color="#1E90FF", fontcolor="#1E90FF"];
+       WaterFlowing -> WaterStatic [label="Equilibrium Reached\n\nCondition:\n• Pressure balanced\n• Flow complete", color="#4682B4", fontcolor="#4682B4"];
+       
+       // Evaporation
+       WaterStatic -> VaporDispersed [label="EVAPORATION\n\nConditions (ALL):\n• heat ≥ 120.0\n• waterMatter ≥ 120,000\n• Exposed to air\n\nProcess:\n• waterMatter -= rate (8.0)\n• vaporMatter += rate\n• heat -= rate × HEAT_EVAP\n\nEffect: Endothermic (cooling)", 
+                                        color="#FF6347", fontsize=9, penwidth=2];
+       
+       WaterFlowing -> VaporDispersed [label="EVAPORATION", color="#FF6347", style=dashed];
+       
+       // Vapor diffusion
+       VaporDispersed -> VaporDispersed [label="DIFFUSION\n\nProcess:\n• Spread to neighbors\n• Follow gradient\n• Rate: DIFFUSION_RATE\n\nConservation:\n• Total vapor constant", 
+                                          color="#87CEEB", style=dotted];
+       
+       // Vapor rise
+       VaporDispersed -> VaporRising [label="Buoyancy\n\nTrigger:\n• Heat buoyancy\n• Space above\n\nEffect:\n• Altitude increase\n• Cloud formation", color="#4169E1"];
+       
+       // Saturation
+       VaporRising -> VaporSaturated [label="Altitude/Cooling\n\nCondition:\n• vapor > saturation OR\n• heat < threshold\n\nSaturation ∝ 1/altitude", color="#4682B4"];
+       
+       VaporDispersed -> VaporSaturated [label="Cooling", color="#4682B4", style=dashed];
+       
+       // Condensation
+       VaporSaturated -> WaterStatic [label="CONDENSATION\n\nConditions:\n• vapor > capacity\n• Nuclei present\n\nProcess:\n• vaporMatter -= excess\n• waterMatter += excess\n• heat += excess × HEAT_COND\n\nEffect: Exothermic (warming)", 
+                                       color="#32CD32", fontsize=9, penwidth=2];
+       
+       // Rain formation
+       WaterStatic -> WaterFalling [label="Rain Formation\n\nConditions (ALL):\n• waterMatter > 0\n• y > RAIN_THRESHOLD\n• No support below\n• Sufficient accumulation\n\nQueued: waterFallingQueue_", color="#FF8C00"];
+       
+       // Rain descent
+       WaterFalling -> WaterFalling [label="Falling\n\nPhysics:\n• vel += gravity\n• vel ≤ TERMINAL_VEL\n• y -= 1 per tick\n\nCollision: Checked", 
+                                      color="#FFA500", style=dotted];
+       
+       // Rain impact
+       WaterFalling -> WaterStatic [label="IMPACT/SPLASH\n\nTrigger:\n• Hit terrain/water\n• velocity > 0\n\nEffects:\n• Transfer waterMatter\n• KE → heat\n• Lateral splash if high velocity\n\nConservation:\n• Matter preserved\n• Energy → thermal", 
+                                     color="#8B4513", fontsize=9, penwidth=2];
+       
+       WaterFalling -> WaterFlowing [label="Impact → Flow", color="#8B4513", style=dashed];
+       
+       // Terrain interactions
+       Terrain -> WaterStatic [label="Container/Support", color="#696969", style=dotted];
+       Terrain -> VaporSaturated [label="Nucleation Site", color="#696969", style=dotted];
+       
+       // Conservation note
+       {rank=same; WaterStatic; VaporDispersed;}
+       {rank=same; WaterFlowing; VaporRising;}
+       {rank=same; WaterFalling; VaporSaturated;}
+   }
+
+**State Machine Properties**:
+
+- **Matter Conservation**: ``Σ(waterMatter) + Σ(vaporMatter) = CONSTANT`` across all transitions
+- **Energy Conservation**: Evaporation (endothermic) ⇔ Condensation (exothermic) + Kinetic energy transfers
+- **Parallelization**: Grid box partitioning (32³ voxels) with thread-local OpenVDB accessors
+- **Queue-Based**: Evaporation and rain use queues (``evaporationQueue_``, ``waterFallingQueue_``) to prevent race conditions
+
 Cycle Feedback Loops
 ~~~~~~~~~~~~~~~~~~~~~
 
