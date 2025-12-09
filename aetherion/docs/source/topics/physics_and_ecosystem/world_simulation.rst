@@ -15,10 +15,171 @@ The game world is a three-dimensional voxel-based environment where every cubic 
 
 **Spatial Structure**:
 
-- **Voxel Resolution**: 1 voxel = 1 cubic meter
 - **Grid Storage**: Sparse OpenVDB grids store only non-default values
 - **Activation Model**: Terrain transitions from "cold storage" (VDB-only) to "hot" (ECS entity) when exhibiting dynamic behavior
 - **Thread Safety**: Thread-local accessor caches enable O(1) concurrent voxel access
+
+Units and Measurement
+======================
+
+The simulation uses a consistent system of units based on the International System (SI) with game-specific adaptations. All physical equations in this document use these units unless otherwise specified.
+
+Base Units
+----------
+
+**Spatial Units**
+
+- **Length**: meter (m)
+- **Voxel Resolution**: 1 voxel = 1 cubic meter (1 m³)
+- **Coordinate System**: Right-handed Cartesian (x=East, y=South, z=Up)
+- **Volume**: cubic decimeters (dm³) for matter quantities
+  
+  - 1 voxel = 1 m³ = 1000 dm³
+  - Water/terrain matter stored in dm³ units for finer granularity
+
+**Temporal Units**
+
+- **Real-time**: seconds (s)
+- **Game Time Scale**: :file:`lifesim/time_manager.py`
+  
+  - 1 game minute = 10 real seconds (6× speed)
+  - 1 game hour = 10 real minutes (debug mode)
+  - 1 game day = 4 real hours
+  - 1 game year = 4 real months
+
+- **Physics Timestep**: Variable :math:`\Delta t` (typically 16.67 ms for 60 FPS)
+
+**Mass Units**
+
+- **Mass**: kilograms (kg)
+- **Entity Mass**: Stored in ``PhysicsStats.mass`` (:file:`include/components.hpp:30-35`)
+- **Density Reference**: Water = 1000 kg/m³ (1 kg/dm³)
+- **Matter Quantities**: Dimensionless units (approximately dm³ equivalent)
+
+**Thermal Units**
+
+- **Temperature**: Kelvin (K) or context-dependent scale
+- **Heat**: Stored as dimensionless thermal energy in ``PhysicsStats.heat`` (:file:`include/components.hpp:34`)
+- **Heat Thresholds**: 
+  
+  - Evaporation: :math:`Q \geq 120.0` (arbitrary units)
+  - Condensation: Function of altitude and temperature
+  
+- **Heat Transfer Coefficients**: 
+  
+  - :math:`c_{evap} = 0.000002` (heat per matter unit evaporated)
+  - :math:`c_{cond} = 0.000002` (heat per matter unit condensed)
+
+**Note**: The simulation uses a simplified thermal model where heat is a scalar quantity without explicit temperature calculations. Heat thresholds trigger phase transitions rather than modeling precise thermodynamic states.
+
+Derived Units
+-------------
+
+**Kinematic Quantities**
+
+- **Velocity**: meters per second (m/s)
+  
+  - Stored in ``Velocity`` component as :math:`(v_x, v_y, v_z)` (:file:`include/components.hpp:16-20`)
+  - Speed magnitude: :math:`|\mathbf{v}| = \sqrt{v_x^2 + v_y^2 + v_z^2}` (m/s)
+
+- **Acceleration**: meters per second squared (m/s²)
+  
+  - Gravity: :math:`g = 5.0 \, \text{m/s}^2` (default)
+  - Friction: :math:`a_f = \mu g = 5.0 \, \text{m/s}^2` (with :math:`\mu = 1.0`)
+
+**Dynamic Quantities**
+
+- **Force**: Newtons (N = kg⋅m/s²)
+  
+  - Applied through ``translateAcceleration(force, ...)`` (:file:`src/physics_manager.cpp`)
+  - Maximum force: ``PhysicsStats.maxForce`` (N)
+
+- **Momentum**: kilogram-meters per second (kg⋅m/s)
+  
+  - :math:`\mathbf{p} = m \mathbf{v}`
+  - Conserved in collision systems
+
+- **Energy**: Joules (J = kg⋅m²/s²)
+  
+  - Kinetic energy: :math:`E_k = \frac{1}{2} m v^2`
+  - Potential energy: :math:`E_p = m g h`
+  - Energy cost per force: 0.000002 J (metabolism) (:file:`src/physics_manager.cpp:36`)
+
+**Flow and Matter**
+
+- **Matter Flow Rate**: cubic decimeters per second (dm³/s)
+  
+  - Evaporation rate: :math:`\dot{m} = k_{evap} \cdot I_{sun}` where :math:`k_{evap} = 8.0 \, \text{dm}^3/\text{s}`
+  - Water flow: Pressure-gradient driven (cellular automata)
+
+- **Pressure**: Pascals (Pa = N/m² = kg/(m⋅s²))
+  
+  - :math:`P = \rho g h + m_{water}` (simplified hydrostatic model)
+  - Used for flow direction determination
+
+Special Conversions
+-------------------
+
+**Voxel Space ↔ World Space**
+
+.. code-block:: cpp
+
+   // Voxel coordinates (discrete)
+   int vx = 10, vy = 20, vz = 5;
+   
+   // World coordinates (continuous, in meters)
+   float wx = vx * 1.0f;  // 10.0 m
+   float wy = vy * 1.0f;  // 20.0 m
+   float wz = vz * 1.0f;  // 5.0 m
+
+**Matter Quantity Interpretation**
+
+.. code-block:: cpp
+
+   // Water in voxel (cubic decimeters)
+   int waterMatter = 500;  // 500 dm³ = 0.5 m³ (half-full voxel)
+   
+   // Mass of water (assuming density = 1 kg/dm³)
+   float mass_kg = waterMatter * 1.0f;  // 500 kg
+
+**Time Dilation**
+
+.. code-block:: cpp
+
+   // Real-time physics timestep
+   float dt_real = 0.01667f;  // 16.67 ms (60 FPS)
+   
+   // Game-time advancement
+   float game_minutes = dt_real * 6.0f;  // 6× speedup
+
+Unit Consistency in Equations
+------------------------------
+
+All equations in this document maintain dimensional consistency. For example:
+
+**Velocity Update**:
+
+.. math::
+
+   \mathbf{v}(t + \Delta t) = \mathbf{v}(t) + \mathbf{a}(t) \cdot \Delta t
+
+**Dimensional Analysis**:
+
+.. math::
+
+   [\text{m/s}] = [\text{m/s}] + [\text{m/s}^2] \cdot [\text{s}] \checkmark
+
+**Force to Acceleration**:
+
+.. math::
+
+   a = \frac{F}{m}
+
+.. math::
+
+   [\text{m/s}^2] = \frac{[\text{N}]}{[\text{kg}]} = \frac{[\text{kg⋅m/s}^2]}{[\text{kg}]} \checkmark
+
+Readers can verify that all physical equations in subsequent sections are dimensionally correct using these base and derived units.
 
 Kinematics & Dynamics
 ======================
