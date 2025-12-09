@@ -9,6 +9,7 @@ This section explains the core simulation engines of Aetherion, covering archite
    :maxdepth: 2
    :caption: Contents
 
+   world_simulation
    architecture
    physics_engine
    ecosystem_engine
