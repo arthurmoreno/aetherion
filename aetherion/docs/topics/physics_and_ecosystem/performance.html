@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>AI Brain Framework Documentation - Aetherion 0.0.1 documentation</title>
+        <title>Performance &amp; Bottlenecks - Aetherion 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -178,7 +178,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -232,7 +232,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../../_sources/topics/ai_brains_framework/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../../_sources/topics/physics_and_ecosystem/performance.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -246,40 +246,54 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="ai-brain-framework-documentation">
-<h1>AI Brain Framework Documentation<a class="headerlink" href="#ai-brain-framework-documentation" title="Link to this heading">¶</a></h1>
-<p>Welcome to the AI Brain Framework Documentation Documentation!</p>
-<p>Here you will find the API reference, guidelines for contributing, and a breakdown of the project’s code structure to help you understand and contribute to the codebase.</p>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="design.html#vision">Vision</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#scope">Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#classes-and-data-flow">Classes and data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#output-and-postprocessing-of-the-ai">Output and postprocessing of the AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#brain">Brain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#group-of-individuals-and-genetic-algorithms">Group of individuals and Genetic Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#populations">Populations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#process-high-level-classes">Process High-Level Classes</a></li>
+          <section id="performance-bottlenecks">
+<h1>Performance &amp; Bottlenecks<a class="headerlink" href="#performance-bottlenecks" title="Link to this heading">¶</a></h1>
+<p>Understanding the performance characteristics of the Physics and Ecosystem engines is crucial for optimization.</p>
+<section id="hotspots">
+<h2>Hotspots<a class="headerlink" href="#hotspots" title="Link to this heading">¶</a></h2>
+<section id="voxel-traversal">
+<h3>Voxel Traversal<a class="headerlink" href="#voxel-traversal" title="Link to this heading">¶</a></h3>
+<p>Iterating over voxels is the most computationally expensive operation.</p>
+<ul class="simple">
+<li><p><strong>Location</strong>: <code class="docutils literal notranslate"><span class="pre">GridBoxProcessor::processBox</span></code></p></li>
+<li><p><strong>Impact</strong>: Even with OpenVDB’s efficient accessors, the sheer volume of voxels in a large world creates significant overhead.</p></li>
+<li><p><strong>Mitigation</strong>: Use active voxel iterators where possible instead of dense iteration over the bounding box.</p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="genome.html">C++ NEAT Genome Class (Real-Time Optimized)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#class-architecture-api-design">1. Class Architecture &amp; API Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#serialization-with-struct-pack-flatbuffers">2. Serialization with Struct Pack &amp; FlatBuffers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#mutation-crossover-implementation">3. Mutation &amp; Crossover Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#distance-calculation-speciation-support">4. Distance Calculation &amp; Speciation Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#summary">Summary</a></li>
+</section>
+<section id="entity-iteration">
+<h3>Entity Iteration<a class="headerlink" href="#entity-iteration" title="Link to this heading">¶</a></h3>
+<p>Linear scans of entities can become a bottleneck as the population grows.</p>
+<ul class="simple">
+<li><p><strong>Location</strong>: <code class="docutils literal notranslate"><span class="pre">PhysicsEngine::processPhysics</span></code></p></li>
+<li><p><strong>Impact</strong>: Iterating over all entities with <code class="docutils literal notranslate"><span class="pre">MovingComponent</span></code> scales linearly with entity count.</p></li>
+<li><p><strong>Mitigation</strong>: Use spatial partitioning or chunks to limit processing to active areas.</p></li>
 </ul>
-</li>
+</section>
+</section>
+<section id="lock-contention">
+<h2>Lock Contention<a class="headerlink" href="#lock-contention" title="Link to this heading">¶</a></h2>
+<section id="terrainstorage-lock">
+<h3>TerrainStorage Lock<a class="headerlink" href="#terrainstorage-lock" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">TerrainStorage</span></code> lock is a central contention point.</p>
+<ul class="simple">
+<li><p><strong>Issue</strong>: If both engines and multiple worker threads try to lock the terrain grid simultaneously, performance degrades significantly due to thread blocking.</p></li>
+<li><p><strong>Observation</strong>: High contention is observed during periods of intense water simulation (e.g., heavy rain) when many write operations are queued.</p></li>
 </ul>
-</div>
+</section>
+</section>
+<section id="memory-bandwidth">
+<h2>Memory Bandwidth<a class="headerlink" href="#memory-bandwidth" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Issue</strong>: The <code class="docutils literal notranslate"><span class="pre">EcosystemEngine</span></code> creates many small <code class="docutils literal notranslate"><span class="pre">WaterFlow</span></code> objects and pushes them to concurrent queues.</p></li>
+<li><p><strong>Impact</strong>: High water activity can saturate memory bandwidth with allocation and queue operations, leading to cache thrashing.</p></li>
+</ul>
+</section>
 </section>
 
         </article>
@@ -307,8 +321,36 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Performance &amp; Bottlenecks</a><ul>
+<li><a class="reference internal" href="#hotspots">Hotspots</a><ul>
+<li><a class="reference internal" href="#voxel-traversal">Voxel Traversal</a></li>
+<li><a class="reference internal" href="#entity-iteration">Entity Iteration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lock-contention">Lock Contention</a><ul>
+<li><a class="reference internal" href="#terrainstorage-lock">TerrainStorage Lock</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#memory-bandwidth">Memory Bandwidth</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

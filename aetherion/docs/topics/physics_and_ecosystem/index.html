@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>AI Brain Framework Documentation - Aetherion 0.0.1 documentation</title>
+        <title>Physics and Ecosystem - Aetherion 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -232,7 +232,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../../_sources/topics/ai_brains_framework/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../../_sources/topics/physics_and_ecosystem/index.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -252,30 +252,40 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="ai-brain-framework-documentation">
-<h1>AI Brain Framework Documentation<a class="headerlink" href="#ai-brain-framework-documentation" title="Link to this heading">¶</a></h1>
-<p>Welcome to the AI Brain Framework Documentation Documentation!</p>
-<p>Here you will find the API reference, guidelines for contributing, and a breakdown of the project’s code structure to help you understand and contribute to the codebase.</p>
+          <section id="physics-and-ecosystem">
+<h1>Physics and Ecosystem<a class="headerlink" href="#physics-and-ecosystem" title="Link to this heading">¶</a></h1>
+<p>Welcome to the Physics and Ecosystem documentation!</p>
+<p>This section explains the core simulation engines of Aetherion, covering architecture, algorithms, concurrency, and performance.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="design.html#vision">Vision</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#scope">Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#classes-and-data-flow">Classes and data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#output-and-postprocessing-of-the-ai">Output and postprocessing of the AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#brain">Brain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#group-of-individuals-and-genetic-algorithms">Group of individuals and Genetic Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#populations">Populations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#process-high-level-classes">Process High-Level Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">System Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#high-level-overview">High-Level Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#data-flow">Data Flow</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="genome.html">C++ NEAT Genome Class (Real-Time Optimized)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#class-architecture-api-design">1. Class Architecture &amp; API Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#serialization-with-struct-pack-flatbuffers">2. Serialization with Struct Pack &amp; FlatBuffers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#mutation-crossover-implementation">3. Mutation &amp; Crossover Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#distance-calculation-speciation-support">4. Distance Calculation &amp; Speciation Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#summary">Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics_engine.html">Physics Engine</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="physics_engine.html#core-concepts">Core Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_engine.html#collision-detection">Collision Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physics_engine.html#state-management">State Management</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem_engine.html">Ecosystem Engine</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem_engine.html#water-simulation">Water Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem_engine.html#plant-life-cycle">Plant Life Cycle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concurrency.html">Concurrency &amp; Threading</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concurrency.html#threading-model">Threading Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concurrency.html#locking-strategies">Locking Strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concurrency.html#deadlock-risks">Deadlock Risks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance &amp; Bottlenecks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#hotspots">Hotspots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#lock-contention">Lock Contention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#memory-bandwidth">Memory Bandwidth</a></li>
 </ul>
 </li>
 </ul>

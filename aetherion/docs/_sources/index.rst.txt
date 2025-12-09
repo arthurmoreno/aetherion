@@ -5,14 +5,21 @@
 Aetherion: The Cosmic Engine
 ============================
 
+.. image:: _static/aetherion-logo-128.png
+   :align: center
+   :alt: Aetherion Logo
+   :width: 200 px
+
 Welcome to the official documentation for **Aetherion**, a game engine designed to bridge the gap between classic and modern sandbox simulations. Inspired by titles like *Tibia*, *Terraria*, *Minecraft*, *Dwarf Fortress*, and *Valheim*, Aetherion offers a unique blend of 2D physics and deep world simulation.
 
-.. image:: _static/aetherion_logo.png
+.. image:: _static/aetherion-logo.png
    :align: center
    :alt: Aetherion Logo
 
 Overview
 --------
+
+<Put an example of the Aetherion engine in action here, such as a screenshot or a video link.>
 
 Aetherion is built upon the principles of:
 
@@ -21,53 +28,23 @@ Aetherion is built upon the principles of:
 - **Entity-Component-System Architecture**: Leveraging the power of EnTT for efficient and flexible game object management.
 - **Modular Rendering**: While defaulting to a 2D top-down perspective, Aetherion supports alternative rendering strategies, including 3D views.:contentReference[oaicite:16]{index=16}
 
-Lore: The Emergent Pantheon
----------------------------
-
-:contentReference[oaicite:18]{index=18}:contentReference[oaicite:20]{index=20}
-
-:contentReference[oaicite:22]{index=22}:contentReference[oaicite:24]{index=24}
-
-:contentReference[oaicite:26]{index=26}:contentReference[oaicite:28]{index=28}
-
-:contentReference[oaicite:30]{index=30}:contentReference[oaicite:32]{index=32}
-
-:contentReference[oaicite:34]{index=34}:contentReference[oaicite:36]{index=36}
-
-:contentReference[oaicite:38]{index=38}:contentReference[oaicite:40]{index=40}
-
-The Epochs
-----------
-
-- **Epoch 1: Physics & Chemistry** – :contentReference[oaicite:42]{index=42}
-- **Epoch 2: Biology & DNA** – :contentReference[oaicite:45]{index=45}
-- **Epoch 3: Brains** – :contentReference[oaicite:48]{index=48}
-- **Epoch 4: Technology** – :contentReference[oaicite:51]{index=51}
-- **Epoch 5: Merger of Technology & Human Intelligence** – :contentReference[oaicite:54]{index=54}
-- **Epoch 6: The Universe Wakes Up** – :contentReference[oaicite:57]{index=57}:contentReference[oaicite:59]{index=59}
-
-Aetherion: The Cosmic Engine
-----------------------------
-
-:contentReference[oaicite:61]{index=61}:contentReference[oaicite:63]{index=63}
-
-:contentReference[oaicite:65]{index=65}:contentReference[oaicite:67]{index=67}
-
-:contentReference[oaicite:69]{index=69}:contentReference[oaicite:71]{index=71}
-
-:contentReference[oaicite:73]{index=73}:contentReference[oaicite:75]{index=75}
-
-:contentReference[oaicite:77]{index=77}:contentReference[oaicite:79]{index=79}
-
 Contents
 --------
 
 .. toctree::
    :maxdepth: 2
+   :caption: Home
+
+   index
+
+.. toctree::
+   :maxdepth: 2
    :caption: Documentation
 
-   installation
-   getting_started
+   
+   topics/getting_started/index
+   topics/installation/index
+   topics/physicals_and_ecosystem/index
    physics_simulation
    world_simulation
    ecs_architecture

@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>AI Brain Framework Documentation - Aetherion 0.0.1 documentation</title>
+        <title>Concurrency &amp; Threading - Aetherion 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -178,7 +178,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -232,7 +232,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../../_sources/topics/ai_brains_framework/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../../_sources/topics/physics_and_ecosystem/concurrency.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -246,40 +246,64 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="ai-brain-framework-documentation">
-<h1>AI Brain Framework Documentation<a class="headerlink" href="#ai-brain-framework-documentation" title="Link to this heading">¶</a></h1>
-<p>Welcome to the AI Brain Framework Documentation Documentation!</p>
-<p>Here you will find the API reference, guidelines for contributing, and a breakdown of the project’s code structure to help you understand and contribute to the codebase.</p>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="design.html#vision">Vision</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#scope">Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#classes-and-data-flow">Classes and data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#output-and-postprocessing-of-the-ai">Output and postprocessing of the AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#brain">Brain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#group-of-individuals-and-genetic-algorithms">Group of individuals and Genetic Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#populations">Populations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#process-high-level-classes">Process High-Level Classes</a></li>
+          <section id="concurrency-threading">
+<h1>Concurrency &amp; Threading<a class="headerlink" href="#concurrency-threading" title="Link to this heading">¶</a></h1>
+<p>The Aetherion engine uses a hybrid concurrency model, combining coarse-grained locking for physics with fine-grained task parallelism for the ecosystem.</p>
+<section id="threading-model">
+<h2>Threading Model<a class="headerlink" href="#threading-model" title="Link to this heading">¶</a></h2>
+<section id="physics">
+<h3>Physics<a class="headerlink" href="#physics" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Execution</strong>: Primarily runs on the main thread or a dedicated physics thread.</p></li>
+<li><p><strong>Locking</strong>: Uses <code class="docutils literal notranslate"><span class="pre">physicsMutex</span></code> to lock the entire engine during critical processing steps.</p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="genome.html">C++ NEAT Genome Class (Real-Time Optimized)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#class-architecture-api-design">1. Class Architecture &amp; API Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#serialization-with-struct-pack-flatbuffers">2. Serialization with Struct Pack &amp; FlatBuffers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#mutation-crossover-implementation">3. Mutation &amp; Crossover Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#distance-calculation-speciation-support">4. Distance Calculation &amp; Speciation Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#summary">Summary</a></li>
+</section>
+<section id="ecosystem">
+<h3>Ecosystem<a class="headerlink" href="#ecosystem" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Execution</strong>: Uses a <strong>Worker Thread Pool</strong> managed by <code class="docutils literal notranslate"><span class="pre">WaterSimulationManager</span></code>.</p></li>
+<li><p><strong>Task-Based</strong>: The world is split into tasks (<code class="docutils literal notranslate"><span class="pre">GridBoxTask</span></code>) processed concurrently by worker threads.</p></li>
 </ul>
-</li>
+</section>
+</section>
+<section id="locking-strategies">
+<h2>Locking Strategies<a class="headerlink" href="#locking-strategies" title="Link to this heading">¶</a></h2>
+<section id="terrainstorage-lock">
+<h3>TerrainStorage Lock<a class="headerlink" href="#terrainstorage-lock" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">TerrainStorage</span></code> (part of <code class="docutils literal notranslate"><span class="pre">VoxelGrid</span></code>) is a shared resource protected by a read-write lock.</p>
+<ul class="simple">
+<li><p><strong>Readers</strong>: Worker threads acquire read locks to analyze grid state.</p></li>
+<li><p><strong>Writers</strong>: The main thread or specific update tasks acquire write locks to apply changes (e.g., moving water).</p></li>
+<li><p><strong>Manual Control</strong>: The code explicitly calls <code class="docutils literal notranslate"><span class="pre">lockTerrainGrid()</span></code> and <code class="docutils literal notranslate"><span class="pre">unlockTerrainGrid()</span></code> in <code class="docutils literal notranslate"><span class="pre">EcosystemEngine.cpp</span></code>.</p></li>
 </ul>
+</section>
+<section id="concurrent-queues">
+<h3>Concurrent Queues<a class="headerlink" href="#concurrent-queues" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">tbb::concurrent_queue</span></code> is used extensively for event handling between threads:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pendingEvaporateWater</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pendingCreateWater</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pendingWaterFall</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="deadlock-risks">
+<h2>Deadlock Risks<a class="headerlink" href="#deadlock-risks" title="Link to this heading">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There is a high risk of deadlocks due to the interaction between manual locks and mutexes.</p>
 </div>
+<ul class="simple">
+<li><p><strong>Scenario</strong>: If <code class="docutils literal notranslate"><span class="pre">physicsMutex</span></code> is held while trying to acquire <code class="docutils literal notranslate"><span class="pre">TerrainStorage</span></code> locks, and a worker thread holding a <code class="docutils literal notranslate"><span class="pre">TerrainStorage</span></code> lock tries to acquire <code class="docutils literal notranslate"><span class="pre">physicsMutex</span></code> (e.g., via an event), a deadlock will occur.</p></li>
+<li><p><strong>Mitigation</strong>: Ensure a strict lock ordering hierarchy. Always acquire <code class="docutils literal notranslate"><span class="pre">physicsMutex</span></code> <em>before</em> <code class="docutils literal notranslate"><span class="pre">TerrainStorage</span></code> locks if both are needed, or decouple the systems using event queues.</p></li>
+</ul>
+</section>
 </section>
 
         </article>
@@ -307,8 +331,37 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Concurrency &amp; Threading</a><ul>
+<li><a class="reference internal" href="#threading-model">Threading Model</a><ul>
+<li><a class="reference internal" href="#physics">Physics</a></li>
+<li><a class="reference internal" href="#ecosystem">Ecosystem</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#locking-strategies">Locking Strategies</a><ul>
+<li><a class="reference internal" href="#terrainstorage-lock">TerrainStorage Lock</a></li>
+<li><a class="reference internal" href="#concurrent-queues">Concurrent Queues</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deadlock-risks">Deadlock Risks</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>AI Brain Framework Documentation - Aetherion 0.0.1 documentation</title>
+        <title>System Architecture - Aetherion 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -178,7 +178,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -232,7 +232,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../../_sources/topics/ai_brains_framework/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../../_sources/topics/physics_and_ecosystem/architecture.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -246,40 +246,62 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="ai-brain-framework-documentation">
-<h1>AI Brain Framework Documentation<a class="headerlink" href="#ai-brain-framework-documentation" title="Link to this heading">¶</a></h1>
-<p>Welcome to the AI Brain Framework Documentation Documentation!</p>
-<p>Here you will find the API reference, guidelines for contributing, and a breakdown of the project’s code structure to help you understand and contribute to the codebase.</p>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="design.html#vision">Vision</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#scope">Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#classes-and-data-flow">Classes and data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#output-and-postprocessing-of-the-ai">Output and postprocessing of the AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#brain">Brain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#group-of-individuals-and-genetic-algorithms">Group of individuals and Genetic Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#populations">Populations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#process-high-level-classes">Process High-Level Classes</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="genome.html">C++ NEAT Genome Class (Real-Time Optimized)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#class-architecture-api-design">1. Class Architecture &amp; API Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#serialization-with-struct-pack-flatbuffers">2. Serialization with Struct Pack &amp; FlatBuffers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#mutation-crossover-implementation">3. Mutation &amp; Crossover Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#distance-calculation-speciation-support">4. Distance Calculation &amp; Speciation Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#summary">Summary</a></li>
-</ul>
-</li>
-</ul>
+          <section id="system-architecture">
+<h1>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading">¶</a></h1>
+<p>The Physics and Ecosystem engines are the core simulation components of the Aetherion engine. They operate as distinct but interacting systems within the game loop, sharing state through the <code class="docutils literal notranslate"><span class="pre">VoxelGrid</span></code> and the Entity Component System (ECS) provided by <code class="docutils literal notranslate"><span class="pre">EnTT</span></code>.</p>
+<section id="high-level-overview">
+<h2>High-Level Overview<a class="headerlink" href="#high-level-overview" title="Link to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+----------------+      +----------------+
+|  PhysicsEngine | &lt;--&gt; | EcosystemEngine|
++----------------+      +----------------+
+       |                        |
+       v                        v
++----------------+      +----------------+
+|  entt::registry| &lt;--&gt; |    VoxelGrid   |
++----------------+      +----------------+
+                                ^
+                                |
+                        +----------------+
+                        | PhysicsManager |
+                        +----------------+
+</pre></div>
 </div>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading">¶</a></h2>
+<section id="physicsengine">
+<h3>PhysicsEngine<a class="headerlink" href="#physicsengine" title="Link to this heading">¶</a></h3>
+<p>Responsible for entity movement, collision detection, gravity, friction, and handling forces applied to entities. It processes entities with <code class="docutils literal notranslate"><span class="pre">MovingComponent</span></code> and <code class="docutils literal notranslate"><span class="pre">PhysicsComponent</span></code>.</p>
+</section>
+<section id="ecosystemengine">
+<h3>EcosystemEngine<a class="headerlink" href="#ecosystemengine" title="Link to this heading">¶</a></h3>
+<p>Manages environmental simulation, primarily water dynamics (flow, evaporation, condensation) and plant life cycles. It utilizes a parallel processing architecture to handle cellular automata-like updates across the voxel grid.</p>
+</section>
+<section id="voxelgrid">
+<h3>VoxelGrid<a class="headerlink" href="#voxelgrid" title="Link to this heading">¶</a></h3>
+<p>The central spatial data structure backed by OpenVDB. It acts as the shared state between engines. The <code class="docutils literal notranslate"><span class="pre">TerrainStorage</span></code> member manages terrain-specific data and provides thread-safe access methods.</p>
+</section>
+<section id="physicsmanager">
+<h3>PhysicsManager<a class="headerlink" href="#physicsmanager" title="Link to this heading">¶</a></h3>
+<p>A singleton configuration class that holds global constants like gravity, friction, and evaporation coefficients.</p>
+</section>
+</section>
+<section id="data-flow">
+<h2>Data Flow<a class="headerlink" href="#data-flow" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>State Sharing</strong>: Both engines read and write to the <code class="docutils literal notranslate"><span class="pre">VoxelGrid</span></code> and <code class="docutils literal notranslate"><span class="pre">entt::registry</span></code>.</p></li>
+<li><p><strong>Synchronization</strong>:
+- The <code class="docutils literal notranslate"><span class="pre">PhysicsEngine</span></code> typically runs on the main thread or a dedicated physics thread.
+- The <code class="docutils literal notranslate"><span class="pre">EcosystemEngine</span></code> uses a worker thread pool for parallel processing of grid chunks.
+- Synchronization is achieved through mutexes (<code class="docutils literal notranslate"><span class="pre">physicsMutex</span></code>) and explicit locking of the <code class="docutils literal notranslate"><span class="pre">TerrainStorage</span></code>.</p></li>
+</ol>
+</section>
 </section>
 
         </article>
@@ -307,8 +329,35 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">System Architecture</a><ul>
+<li><a class="reference internal" href="#high-level-overview">High-Level Overview</a></li>
+<li><a class="reference internal" href="#components">Components</a><ul>
+<li><a class="reference internal" href="#physicsengine">PhysicsEngine</a></li>
+<li><a class="reference internal" href="#ecosystemengine">EcosystemEngine</a></li>
+<li><a class="reference internal" href="#voxelgrid">VoxelGrid</a></li>
+<li><a class="reference internal" href="#physicsmanager">PhysicsManager</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#data-flow">Data Flow</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

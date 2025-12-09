@@ -9,7 +9,6 @@ In this section, you'll learn how to install the project, get it up and running,
    :maxdepth: 2
    :caption: Contents
 
-   installation
    engine_overview
    quick_start
    faq

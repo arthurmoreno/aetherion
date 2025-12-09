@@ -1,0 +1,51 @@
+System Architecture
+===================
+
+The Physics and Ecosystem engines are the core simulation components of the Aetherion engine. They operate as distinct but interacting systems within the game loop, sharing state through the ``VoxelGrid`` and the Entity Component System (ECS) provided by ``EnTT``.
+
+High-Level Overview
+-------------------
+
+.. code-block:: text
+
+    +----------------+      +----------------+
+    |  PhysicsEngine | <--> | EcosystemEngine|
+    +----------------+      +----------------+
+           |                        |
+           v                        v
+    +----------------+      +----------------+
+    |  entt::registry| <--> |    VoxelGrid   |
+    +----------------+      +----------------+
+                                    ^
+                                    |
+                            +----------------+
+                            | PhysicsManager |
+                            +----------------+
+
+Components
+----------
+
+PhysicsEngine
+~~~~~~~~~~~~~
+Responsible for entity movement, collision detection, gravity, friction, and handling forces applied to entities. It processes entities with ``MovingComponent`` and ``PhysicsComponent``.
+
+EcosystemEngine
+~~~~~~~~~~~~~~~
+Manages environmental simulation, primarily water dynamics (flow, evaporation, condensation) and plant life cycles. It utilizes a parallel processing architecture to handle cellular automata-like updates across the voxel grid.
+
+VoxelGrid
+~~~~~~~~~
+The central spatial data structure backed by OpenVDB. It acts as the shared state between engines. The ``TerrainStorage`` member manages terrain-specific data and provides thread-safe access methods.
+
+PhysicsManager
+~~~~~~~~~~~~~~
+A singleton configuration class that holds global constants like gravity, friction, and evaporation coefficients.
+
+Data Flow
+---------
+
+1. **State Sharing**: Both engines read and write to the ``VoxelGrid`` and ``entt::registry``.
+2. **Synchronization**: 
+   - The ``PhysicsEngine`` typically runs on the main thread or a dedicated physics thread.
+   - The ``EcosystemEngine`` uses a worker thread pool for parallel processing of grid chunks.
+   - Synchronization is achieved through mutexes (``physicsMutex``) and explicit locking of the ``TerrainStorage``.

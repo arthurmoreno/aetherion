@@ -23,6 +23,7 @@ extensions = [
     "sphinx.ext.napoleon",  # Optional: if you're using Google or NumPy style docstrings
     "sphinx.ext.autosummary",  # Optional: for generating summary tables
     "sphinx.ext.viewcode",  # Optional: add links to highlighted source code
+    "sphinx.ext.graphviz",  # For rendering graphviz diagrams
     # ... any other extensions you need
     "sphinx.ext.coverage",
 ]

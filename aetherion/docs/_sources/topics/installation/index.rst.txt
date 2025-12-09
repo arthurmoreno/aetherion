@@ -165,4 +165,10 @@ To install the game engine python package, use the following command:
    pip install --index-url https://arthurmoreno.github.io/aetherion-docs/wheel-html-index/ aetherion
 
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents
 
+   installation
+   quick_start
+   faq

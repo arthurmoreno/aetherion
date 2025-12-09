@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>AI Brain Framework Documentation - Aetherion 0.0.1 documentation</title>
+        <title>Physics Engine - Aetherion 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -178,7 +178,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -232,7 +232,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../../_sources/topics/ai_brains_framework/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../../_sources/topics/physics_and_ecosystem/physics_engine.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -246,40 +246,59 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="ai-brain-framework-documentation">
-<h1>AI Brain Framework Documentation<a class="headerlink" href="#ai-brain-framework-documentation" title="Link to this heading">¶</a></h1>
-<p>Welcome to the AI Brain Framework Documentation Documentation!</p>
-<p>Here you will find the API reference, guidelines for contributing, and a breakdown of the project’s code structure to help you understand and contribute to the codebase.</p>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="design.html#vision">Vision</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#scope">Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#classes-and-data-flow">Classes and data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#output-and-postprocessing-of-the-ai">Output and postprocessing of the AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#brain">Brain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#group-of-individuals-and-genetic-algorithms">Group of individuals and Genetic Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#populations">Populations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design.html#process-high-level-classes">Process High-Level Classes</a></li>
+          <section id="physics-engine">
+<h1>Physics Engine<a class="headerlink" href="#physics-engine" title="Link to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">PhysicsEngine</span></code> handles the movement and physical interactions of entities within the world. It translates continuous physical forces into discrete voxel movements.</p>
+<section id="core-concepts">
+<h2>Core Concepts<a class="headerlink" href="#core-concepts" title="Link to this heading">¶</a></h2>
+<section id="movement-logic">
+<h3>Movement Logic<a class="headerlink" href="#movement-logic" title="Link to this heading">¶</a></h3>
+<p>The core logic resides in <code class="docutils literal notranslate"><span class="pre">PhysicsEngine::processPhysics</span></code>. It calculates new velocities based on:</p>
+<ul class="simple">
+<li><p><strong>Acceleration</strong>: Forces applied to the entity.</p></li>
+<li><p><strong>Gravity</strong>: Constant downward force defined in <code class="docutils literal notranslate"><span class="pre">PhysicsManager</span></code>.</p></li>
+<li><p><strong>Friction</strong>: Deceleration applied when moving against surfaces or through media.</p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="genome.html">C++ NEAT Genome Class (Real-Time Optimized)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#class-architecture-api-design">1. Class Architecture &amp; API Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#serialization-with-struct-pack-flatbuffers">2. Serialization with Struct Pack &amp; FlatBuffers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#mutation-crossover-implementation">3. Mutation &amp; Crossover Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#distance-calculation-speciation-support">4. Distance Calculation &amp; Speciation Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genome.html#summary">Summary</a></li>
+</section>
+<section id="grid-translation">
+<h3>Grid Translation<a class="headerlink" href="#grid-translation" title="Link to this heading">¶</a></h3>
+<p>The engine converts continuous physics values (velocity/acceleration) into discrete grid movements.</p>
+<ul class="simple">
+<li><p><strong>Translation</strong>: <code class="docutils literal notranslate"><span class="pre">translatePhysicsToGridMovement</span></code> maps float velocities to integer grid steps.</p></li>
+<li><p><strong>Clamping</strong>: Speeds are clamped to <code class="docutils literal notranslate"><span class="pre">MAX_SPEED</span></code> to prevent tunneling or instability.</p></li>
 </ul>
-</li>
+</section>
+</section>
+<section id="collision-detection">
+<h2>Collision Detection<a class="headerlink" href="#collision-detection" title="Link to this heading">¶</a></h2>
+<section id="standard-collision">
+<h3>Standard Collision<a class="headerlink" href="#standard-collision" title="Link to this heading">¶</a></h3>
+<p>The engine checks if the target voxel contains a solid entity or terrain using <code class="docutils literal notranslate"><span class="pre">VoxelGrid</span></code> accessors.</p>
+</section>
+<section id="special-collision-slopes">
+<h3>Special Collision (Slopes)<a class="headerlink" href="#special-collision-slopes" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">hasSpecialCollision</span></code> method handles interactions with non-block terrain, such as slopes or ramps.</p>
+<ul class="simple">
+<li><p><strong>Ramps</strong>: If an entity moves into a ramp, the engine checks if it can “step up” or slide down based on the ramp’s orientation.</p></li>
+<li><p><strong>Adjustment</strong>: The target coordinate is adjusted (z + 1 or z - 1) to simulate smooth movement over the slope.</p></li>
 </ul>
-</div>
+</section>
+</section>
+<section id="state-management">
+<h2>State Management<a class="headerlink" href="#state-management" title="Link to this heading">¶</a></h2>
+<p>Entities transition between states during movement:</p>
+<ol class="arabic simple">
+<li><p><strong>Start</strong>: <code class="docutils literal notranslate"><span class="pre">MovingComponent</span></code> is added to the entity.</p></li>
+<li><p><strong>Update</strong>: Position is updated in <code class="docutils literal notranslate"><span class="pre">VoxelGrid</span></code> and <code class="docutils literal notranslate"><span class="pre">entt::registry</span></code>.</p></li>
+<li><p><strong>End</strong>: Upon reaching the destination, <code class="docutils literal notranslate"><span class="pre">MovingComponent</span></code> is removed or updated for the next step.</p></li>
+</ol>
+</section>
 </section>
 
         </article>
@@ -307,8 +326,37 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Physics Engine</a><ul>
+<li><a class="reference internal" href="#core-concepts">Core Concepts</a><ul>
+<li><a class="reference internal" href="#movement-logic">Movement Logic</a></li>
+<li><a class="reference internal" href="#grid-translation">Grid Translation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#collision-detection">Collision Detection</a><ul>
+<li><a class="reference internal" href="#standard-collision">Standard Collision</a></li>
+<li><a class="reference internal" href="#special-collision-slopes">Special Collision (Slopes)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#state-management">State Management</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

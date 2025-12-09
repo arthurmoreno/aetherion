@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="prev" title="Frequently Asked Questions" href="../getting_started/faq.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>User Guide - Aetherion 0.0.1 documentation</title>
+        <title>Installation - Aetherion 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -178,7 +178,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -189,6 +189,9 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/aetherion-logo-128.png" alt="Logo"/>
+  </div>
   
   <span class="sidebar-brand-text">Aetherion 0.0.1 documentation</span>
   
@@ -198,7 +201,19 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  
+  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting Started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/engine_overview.html">Aetherion Engine Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/quick_start.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/faq.html">Frequently Asked Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Installation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 
@@ -217,7 +232,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../../_sources/topics/user_guide/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../../_sources/topics/installation/index.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -231,18 +246,147 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="user-guide">
-<h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading">¶</a></h1>
-<p>Welcome to the User Guide!</p>
-<p>This section explains how to use the project effectively, covering everything from basic usage to advanced configuration and common troubleshooting tips.</p>
+          <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<p>Welcome to the Getting Started guide!</p>
+<p>This guide explains how to install the Aetherion game engine on Ubuntu 24.04 LTS by manually building required system dependencies, OpenVDB, FlatBuffers, and setting up the Python environment.</p>
+<section id="ubuntu-24-04-lts">
+<h2>Ubuntu 24.04 LTS<a class="headerlink" href="#ubuntu-24-04-lts" title="Link to this heading">¶</a></h2>
+<p>The examples below target Ubuntu 24.04 LTS. Other distributions may require
+adjustments to package names or paths. All commands are intended to be run from
+the terminal.</p>
+<p>Ensure you have Python 3.12 available:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>After installing the <code class="docutils literal notranslate"><span class="pre">lifesimcore</span></code> package you can verify it with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import lifesimcore, sys; print(&#39;lifesimcore&#39;, lifesimcore.__version__, &#39;on&#39;, sys.version)&quot;</span>
+</pre></div>
+</div>
+<section id="installing-pre-compiled-openvdb-v11-0">
+<h3>1. Installing pre compiled OpenVDB v11.0<a class="headerlink" href="#installing-pre-compiled-openvdb-v11-0" title="Link to this heading">¶</a></h3>
+<p>Download and install pre compiled OpenVDB v11.0:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sSL<span class="w"> </span>https://arthurmoreno.github.io/aetherion-docs/wheel-html-index/system-libs/openvdb-11-0-1-1_amd64.deb<span class="w"> </span>-o<span class="w"> </span>/tmp/openvdb.deb<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>/tmp/openvdb.deb<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-f<span class="w"> </span>-y<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>/tmp/openvdb.deb
+</pre></div>
+</div>
+</section>
+<section id="compiling-and-installing-openvdb-v11-0">
+<h3>2. Compiling and Installing OpenVDB v11.0<a class="headerlink" href="#compiling-and-installing-openvdb-v11-0" title="Link to this heading">¶</a></h3>
+<p>Install system dependencies for OpenVDB v11.0:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>ca-certificates<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>build-essential<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>ninja-build<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>git<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>pkg-config<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>zlib1g-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libboost-iostreams-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libtbb-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libblosc-dev
+</pre></div>
+</div>
+<p>Clone &amp; build and install OpenVDB v11.0:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/AcademySoftwareFoundation/openvdb.git<span class="w"> </span>/tmp/openvdb<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/tmp/openvdb<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>fetch<span class="w"> </span>origin<span class="w"> </span>--tags<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>v11.0.0<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdir<span class="w"> </span>/tmp/openvdb/build<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/tmp/openvdb/build<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span>cmake<span class="w"> </span>..<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>-j4<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>Clone &amp; build and install OpenVDB v11.0:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sSL<span class="w"> </span>https://arthurmoreno.github.io/aetherion-docs/wheel-html-index/system-libs/openvdb-11-0-1-1_amd64.deb<span class="w"> </span>-o<span class="w"> </span>/tmp/openvdb.deb<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>/tmp/openvdb.deb<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-f<span class="w"> </span>-y<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>/tmp/openvdb.deb
+</pre></div>
+</div>
+</section>
+<section id="installing-aetherion-game-engine-system-dependencies">
+<h3>Installing Aetherion Game Engine system dependencies<a class="headerlink" href="#installing-aetherion-game-engine-system-dependencies" title="Link to this heading">¶</a></h3>
+<p>Install system build tools + dev‐libs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>wget<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>bzip2<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>ca-certificates<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>git<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>build-essential<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>ninja-build<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>pkg-config<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libeigen3-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libtbb-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libsdl2-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libsdl2-image-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libsdl2-ttf-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libmsgpack-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libmsgpack-cxx-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>liblmdb-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libspdlog-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libboost-iostreams-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libboost-all-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>zlib1g-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>libblosc-dev
+</pre></div>
+</div>
+<p>Build and installing flatbuffers:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">FLATBUFFERS_VERSION</span><span class="o">=</span><span class="m">24</span>.3.25<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;v</span><span class="si">${</span><span class="nv">FLATBUFFERS_VERSION</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>https://github.com/google/flatbuffers.git<span class="w"> </span>/tmp/flatbuffers<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/flatbuffers/build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="nb">cd</span><span class="w"> </span>/tmp/flatbuffers/build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DFLATBUFFERS_BUILD_TESTS<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DFLATBUFFERS_BUILD_CPP17<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DFLATBUFFERS_ENABLE_PCH<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-DCMAKE_INSTALL_LIBDIR<span class="o">=</span>lib<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+make<span class="w"> </span>-j<span class="s2">&quot;</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+sudo<span class="w"> </span>make<span class="w"> </span>install<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/flatbuffers
+</pre></div>
+</div>
+<p>Installing miniconda on Ubuntu. (<a class="reference external" href="https://www.anaconda.com/docs/getting-started/miniconda/install#linux-terminal-installer">Also see the official miniconda install tutorial</a>)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONDA_DIR</span><span class="o">=</span>/opt/conda<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+wget<span class="w"> </span>--quiet<span class="w"> </span>https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh<span class="w"> </span>-O<span class="w"> </span>/tmp/miniconda.sh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+bash<span class="w"> </span>/tmp/miniconda.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CONDA_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+rm<span class="w"> </span>/tmp/miniconda.sh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="s2">&quot;</span><span class="si">${</span><span class="nv">CONDA_DIR</span><span class="si">}</span><span class="s2">/bin/conda&quot;</span><span class="w"> </span>config<span class="w"> </span>--set<span class="w"> </span>always_yes<span class="w"> </span>yes<span class="w"> </span>--set<span class="w"> </span>changeps1<span class="w"> </span>no<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="s2">&quot;</span><span class="si">${</span><span class="nv">CONDA_DIR</span><span class="si">}</span><span class="s2">/bin/conda&quot;</span><span class="w"> </span>config<span class="w"> </span>--set<span class="w"> </span>channel_priority<span class="w"> </span>strict<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="s2">&quot;</span><span class="si">${</span><span class="nv">CONDA_DIR</span><span class="si">}</span><span class="s2">/bin/conda&quot;</span><span class="w"> </span>update<span class="w"> </span>-q<span class="w"> </span>conda
+</pre></div>
+</div>
+</section>
+<section id="creating-a-conda-environment">
+<h3>Creating a conda environment<a class="headerlink" href="#creating-a-conda-environment" title="Link to this heading">¶</a></h3>
+<p>To create a conda environment for the project, use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>aetherion-312<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>aetherion-312
+</pre></div>
+</div>
+</section>
+<section id="installing-the-game-engine-python-package">
+<h3>Installing the game engine python package<a class="headerlink" href="#installing-the-game-engine-python-package" title="Link to this heading">¶</a></h3>
+<p>The –index-url option instructs pip to use our custom Aetherion wheel index on GitHub Pages so that you get pre-built binary packages optimized for your platform, avoiding long build times and compilation errors.
+To install the game engine python package, use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">arthurmoreno</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">aetherion</span><span class="o">-</span><span class="n">docs</span><span class="o">/</span><span class="n">wheel</span><span class="o">-</span><span class="n">html</span><span class="o">-</span><span class="n">index</span><span class="o">/</span> <span class="n">aetherion</span>
+</pre></div>
+</div>
 <div class="toctree-wrapper compound">
 </div>
+</section>
+</section>
 </section>
 
         </article>
@@ -251,7 +395,17 @@
         
         <div class="related-pages">
           
-          
+          <a class="prev-page" href="../getting_started/faq.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Frequently Asked Questions</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -270,8 +424,34 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#ubuntu-24-04-lts">Ubuntu 24.04 LTS</a><ul>
+<li><a class="reference internal" href="#installing-pre-compiled-openvdb-v11-0">1. Installing pre compiled OpenVDB v11.0</a></li>
+<li><a class="reference internal" href="#compiling-and-installing-openvdb-v11-0">2. Compiling and Installing OpenVDB v11.0</a></li>
+<li><a class="reference internal" href="#installing-aetherion-game-engine-system-dependencies">Installing Aetherion Game Engine system dependencies</a></li>
+<li><a class="reference internal" href="#creating-a-conda-environment">Creating a conda environment</a></li>
+<li><a class="reference internal" href="#installing-the-game-engine-python-package">Installing the game engine python package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

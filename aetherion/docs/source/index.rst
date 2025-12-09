@@ -33,24 +33,24 @@ Contents
 
 .. toctree::
    :maxdepth: 2
-   :caption: Home
+   :caption: Getting Started
 
-   index
+   topics/getting_started/index
+   topics/installation/index
 
 .. toctree::
    :maxdepth: 2
-   :caption: Documentation
+   :caption: Advanced Topics
 
-   
-   topics/getting_started/index
-   topics/installation/index
-   physics_simulation
-   world_simulation
-   ecs_architecture
-   rendering_options
-   api_reference
-   contributing
-   faq
+   topics/ai_brains_framework/index
+   topics/physics_and_ecosystem/index
+   topics/user_guide/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Reference
+
+   full_reference
 
 Indices and Tables
 ------------------

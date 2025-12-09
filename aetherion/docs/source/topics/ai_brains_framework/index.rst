@@ -1,9 +1,9 @@
 AI Brain Framework Documentation
-=========================
+=================================
 
-Welcome to the AI Brain Framework Documentation Documentation!
+Welcome to the AI Brain Framework Documentation!
 
-Here you will find the API reference, guidelines for contributing, and a breakdown of the project's code structure to help you understand and contribute to the codebase.
+Here you will find information about the design and genome structure of the AI brain system.
 
 .. toctree::
    :maxdepth: 2
@@ -11,6 +11,3 @@ Here you will find the API reference, guidelines for contributing, and a breakdo
 
    design.md
    genome.md
-   api_reference
-   contributing
-   code_structure
