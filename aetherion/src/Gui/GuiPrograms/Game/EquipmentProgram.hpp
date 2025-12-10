@@ -1,10 +1,12 @@
 #pragma once
 
-#include "../../GuiCore/GuiProgram.hpp"
-#include "Gui/GuiStateManager.hpp"
 #include <imgui.h>
 #include <nanobind/nanobind.h>
+
 #include <vector>
+
+#include "../../GuiCore/GuiProgram.hpp"
+#include "Gui/GuiStateManager.hpp"
 
 namespace nb = nanobind;
 
@@ -14,15 +16,15 @@ std::vector<InventoryItem> LoadInventory(nb::dict inventoryData);
 
 /**
  * @brief Player equipment management program
- * 
+ *
  * Displays equipped items (armor, weapons, accessories) with
  * equip/unequip functionality.
  */
 class EquipmentProgram : public GuiProgram {
-public:
+   public:
     void render(GuiContext& context) override {
         if (!isActive_) return;
-        
+
         if (ImGui::Begin("Equipment", &isActive_)) {
             std::vector<InventoryItem> items = LoadInventory(context.inventoryData);
             GuiStateManager::Instance()->equipmentWindow.setItems(items);
@@ -31,7 +33,7 @@ public:
         }
         ImGui::End();
     }
-    
+
     std::string getId() const override { return "equipment"; }
     std::string getDisplayName() const override { return "Equipment"; }
 };

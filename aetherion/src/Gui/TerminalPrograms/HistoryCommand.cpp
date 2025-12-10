@@ -1,8 +1,7 @@
 #include "HistoryCommand.hpp"
 
-void HistoryCommand::execute(GuiContext& context,
-                            std::deque<TerminalLine>& terminalBuffer,
-                            bool& scrollToBottom) {
+void HistoryCommand::execute(GuiContext& context, std::deque<TerminalLine>& terminalBuffer,
+                             bool& scrollToBottom) {
     if (!history_ || history_->empty()) {
         addOutput(terminalBuffer, "No commands in history.", false, false);
         return;

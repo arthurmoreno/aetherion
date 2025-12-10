@@ -86,7 +86,7 @@ NB_MODULE(_aetherion, m) {
 
     // Bind CommandValue variant (nanobind will handle automatic conversion)
     nb::bind_vector<std::vector<Command>>(m, "VecCommand");
-    
+
     // Expose the Command class
     nb::class_<Command>(m, "Command")
         .def(nb::init<std::string>(), nb::arg("type"), "Create a command with a type")
@@ -95,90 +95,107 @@ NB_MODULE(_aetherion, m) {
         .def("set_type", &Command::setType, nb::arg("type"), "Set the command type")
         .def("has_param", &Command::hasParam, nb::arg("key"), "Check if parameter exists")
         .def("clear_params", &Command::clearParams, "Clear all parameters")
-        .def("validate", &Command::validate, nb::arg("required_params"), 
+        .def("validate", &Command::validate, nb::arg("required_params"),
              "Validate that all required parameters exist")
         .def("to_string", &Command::toString, "Get string representation for debugging")
         .def_prop_rw("type", &Command::getType, &Command::setType, "Command type property")
         .def("__repr__", &Command::toString)
         // Dict-like access for Python compatibility (delegates to nb::dict params_)
-        .def("__getitem__", [](const Command& cmd, const char* key) -> nb::object {
-            // Special case: accessing "type" returns the command type
-            if (std::strcmp(key, "type") == 0) {
-                return nb::cast(cmd.getType());
-            }
-            // Delegate to params_ dict
-            return cmd[key];
-        }, nb::arg("key"), "Get parameter value (dict-like access)")
-        .def("__setitem__", [](Command& cmd, const char* key, nb::object value) {
-            // Special case: setting "type" sets the command type
-            if (std::strcmp(key, "type") == 0) {
-                cmd.setType(nb::cast<std::string>(value));
-                return;
-            }
-            // Delegate to params_ dict
-            cmd[key] = value;
-        }, nb::arg("key"), nb::arg("value"), "Set parameter value (dict-like access)")
-        .def("__contains__", [](const Command& cmd, const char* key) {
-            if (std::strcmp(key, "type") == 0) return true;
-            return cmd.hasParam(key);
-        }, nb::arg("key"), "Check if key exists (dict-like 'in' operator)")
-        .def("get", [](const Command& cmd, const char* key, nb::object default_value) -> nb::object {
-            if (std::strcmp(key, "type") == 0) {
-                return nb::cast(cmd.getType());
-            }
-            const auto& params = cmd.getParams();
-            if (params.contains(key)) {
-                return params[key];
-            }
-            return default_value;
-        }, nb::arg("key"), nb::arg("default") = nb::none(), 
-        "Get parameter value with default (dict-like get())")
-        .def("keys", [](const Command& cmd) {
-            nb::list keys;
-            keys.append("type");  // Always include type
-            const auto& params = cmd.getParams();
-            for (auto item : params.items()) {
-                // item is a tuple (key, value)
-                nb::tuple t = nb::cast<nb::tuple>(item);
-                keys.append(t[0]);
-            }
-            return keys;
-        }, "Get all keys (dict-like keys())")
-        .def("items", [](const Command& cmd) {
-            nb::list items;
-            items.append(nb::make_tuple("type", cmd.getType()));
-            const auto& params = cmd.getParams();
-            for (auto item : params.items()) {
-                items.append(item);
-            }
-            return items;
-        }, "Get all items as (key, value) tuples (dict-like items())");
-    
+        .def(
+            "__getitem__",
+            [](const Command& cmd, const char* key) -> nb::object {
+                // Special case: accessing "type" returns the command type
+                if (std::strcmp(key, "type") == 0) {
+                    return nb::cast(cmd.getType());
+                }
+                // Delegate to params_ dict
+                return cmd[key];
+            },
+            nb::arg("key"), "Get parameter value (dict-like access)")
+        .def(
+            "__setitem__",
+            [](Command& cmd, const char* key, nb::object value) {
+                // Special case: setting "type" sets the command type
+                if (std::strcmp(key, "type") == 0) {
+                    cmd.setType(nb::cast<std::string>(value));
+                    return;
+                }
+                // Delegate to params_ dict
+                cmd[key] = value;
+            },
+            nb::arg("key"), nb::arg("value"), "Set parameter value (dict-like access)")
+        .def(
+            "__contains__",
+            [](const Command& cmd, const char* key) {
+                if (std::strcmp(key, "type") == 0) return true;
+                return cmd.hasParam(key);
+            },
+            nb::arg("key"), "Check if key exists (dict-like 'in' operator)")
+        .def(
+            "get",
+            [](const Command& cmd, const char* key, nb::object default_value) -> nb::object {
+                if (std::strcmp(key, "type") == 0) {
+                    return nb::cast(cmd.getType());
+                }
+                const auto& params = cmd.getParams();
+                if (params.contains(key)) {
+                    return params[key];
+                }
+                return default_value;
+            },
+            nb::arg("key"), nb::arg("default") = nb::none(),
+            "Get parameter value with default (dict-like get())")
+        .def(
+            "keys",
+            [](const Command& cmd) {
+                nb::list keys;
+                keys.append("type");  // Always include type
+                const auto& params = cmd.getParams();
+                for (auto item : params.items()) {
+                    // item is a tuple (key, value)
+                    nb::tuple t = nb::cast<nb::tuple>(item);
+                    keys.append(t[0]);
+                }
+                return keys;
+            },
+            "Get all keys (dict-like keys())")
+        .def(
+            "items",
+            [](const Command& cmd) {
+                nb::list items;
+                items.append(nb::make_tuple("type", cmd.getType()));
+                const auto& params = cmd.getParams();
+                for (auto item : params.items()) {
+                    items.append(item);
+                }
+                return items;
+            },
+            "Get all items as (key, value) tuples (dict-like items())");
+
     // Expose specialized command classes
     nb::class_<ActivateProgramCommand, Command>(m, "ActivateProgramCommand")
-        .def(nb::init<std::string>(), nb::arg("program_id"), 
+        .def(nb::init<std::string>(), nb::arg("program_id"),
              "Create a command to activate a GUI program")
-        .def("get_program_id", &ActivateProgramCommand::getProgramId, 
+        .def("get_program_id", &ActivateProgramCommand::getProgramId,
              "Get the program ID to activate");
-    
+
     nb::class_<DropToWorldCommand, Command>(m, "DropToWorldCommand")
-        .def(nb::init<int, std::string, float, float>(), 
-             nb::arg("item_index"), nb::arg("src_window"), nb::arg("x"), nb::arg("y"),
+        .def(nb::init<int, std::string, float, float>(), nb::arg("item_index"),
+             nb::arg("src_window"), nb::arg("x"), nb::arg("y"),
              "Create a command to drop an item to the world")
         .def("get_item_index", &DropToWorldCommand::getItemIndex, "Get the item index")
         .def("get_src_window", &DropToWorldCommand::getSrcWindow, "Get the source window")
         .def("get_world_x", &DropToWorldCommand::getWorldX, "Get the world X coordinate")
         .def("get_world_y", &DropToWorldCommand::getWorldY, "Get the world Y coordinate");
-    
+
     nb::enum_<EditorCommand::Action>(m, "EditorAction")
         .value("Play", EditorCommand::Action::Play)
         .value("Stop", EditorCommand::Action::Stop)
         .value("Step", EditorCommand::Action::Step)
         .value("ExitToEditor", EditorCommand::Action::ExitToEditor);
-    
+
     nb::class_<EditorCommand, Command>(m, "EditorCommand")
-        .def(nb::init<EditorCommand::Action>(), nb::arg("action"),
-             "Create an editor command")
+        .def(nb::init<EditorCommand::Action>(), nb::arg("action"), "Create an editor command")
         .def_static("action_to_string", &EditorCommand::actionToString, nb::arg("action"),
                     "Convert editor action to string");
 

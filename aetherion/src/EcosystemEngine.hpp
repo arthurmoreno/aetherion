@@ -70,8 +70,13 @@ struct WaterSpreadEvent {
     WaterSpreadEvent(Position source, Position target, int amount, DirectionEnum direction,
                      EntityTypeComponent sourceType, EntityTypeComponent targetType,
                      MatterContainer sourceMatter, MatterContainer targetMatter)
-        : source(source), target(target), amount(amount), direction(direction),
-          sourceType(sourceType), targetType(targetType), sourceMatter(sourceMatter),
+        : source(source),
+          target(target),
+          amount(amount),
+          direction(direction),
+          sourceType(sourceType),
+          targetType(targetType),
+          sourceMatter(sourceMatter),
           targetMatter(targetMatter) {}
 };
 
@@ -79,16 +84,23 @@ struct WaterGravityFlowEvent {
     Position source;
     Position target;
     int amount;
+    int targetTerrainId;  // For soft-empty conversion check
     EntityTypeComponent sourceType;
     EntityTypeComponent targetType;
     MatterContainer sourceMatter;
     MatterContainer targetMatter;
 
-    WaterGravityFlowEvent(Position source, Position target, int amount,
+    WaterGravityFlowEvent(Position source, Position target, int amount, int targetTerrainId,
                           EntityTypeComponent sourceType, EntityTypeComponent targetType,
                           MatterContainer sourceMatter, MatterContainer targetMatter)
-        : source(source), target(target), amount(amount), sourceType(sourceType),
-          targetType(targetType), sourceMatter(sourceMatter), targetMatter(targetMatter) {}
+        : source(source),
+          target(target),
+          amount(amount),
+          targetTerrainId(targetTerrainId),
+          sourceType(sourceType),
+          targetType(targetType),
+          sourceMatter(sourceMatter),
+          targetMatter(targetMatter) {}
 };
 
 struct TerrainPhaseConversionEvent {
@@ -101,7 +113,10 @@ struct TerrainPhaseConversionEvent {
     TerrainPhaseConversionEvent(Position position, int terrainId, EntityTypeComponent newType,
                                 MatterContainer newMatter,
                                 StructuralIntegrityComponent newStructuralIntegrity)
-        : position(position), terrainId(terrainId), newType(newType), newMatter(newMatter),
+        : position(position),
+          terrainId(terrainId),
+          newType(newType),
+          newMatter(newMatter),
           newStructuralIntegrity(newStructuralIntegrity) {}
 };
 
@@ -122,6 +137,15 @@ struct VaporMergeUpEvent {
 
     VaporMergeUpEvent(Position source, Position target, int amount, entt::entity sourceEntity)
         : source(source), target(target), amount(amount), sourceEntity(sourceEntity) {}
+};
+
+struct AddVaporToTileAboveEvent {
+    Position sourcePos;  // Position of the evaporating water (x, y, z)
+    int amount;          // Amount of vapor to add
+    int terrainAboveId;  // Terrain ID at z+1
+
+    AddVaporToTileAboveEvent(Position sourcePos, int amount, int terrainAboveId)
+        : sourcePos(sourcePos), amount(amount), terrainAboveId(terrainAboveId) {}
 };
 
 // Forward declarations and supporting types for GridBoxProcessor
@@ -259,8 +283,8 @@ class GridBoxProcessor {
 
    public:
     // Initialize accessors and registry when processor is created
-    void initializeAccessors(
-        entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher);
+    void initializeAccessors(entt::registry& registry, VoxelGrid& voxelGrid,
+                             entt::dispatcher& dispatcher);
 
     std::vector<WaterFlow> processBox(const GridBox& box, float sunIntensity);
 
@@ -297,8 +321,8 @@ class WaterSimulationManager {
     ~WaterSimulationManager();
 
     // Initialize processors with terrain storage access
-    void initializeProcessors(
-        entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher);
+    void initializeProcessors(entt::registry& registry, VoxelGrid& voxelGrid,
+                              entt::dispatcher& dispatcher);
 
     // Main parallel water simulation processing
     void processWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid, float sunIntensity);
@@ -345,9 +369,8 @@ struct ToBeCreatedWaterTile {
 };
 
 void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& voxelGrid,
-                      entt::dispatcher& dispatcher, float sunIntensity,
-                      std::random_device& rd, std::mt19937& gen,
-                      std::uniform_int_distribution<>& disWaterSpreading);
+                      entt::dispatcher& dispatcher, float sunIntensity, std::random_device& rd,
+                      std::mt19937& gen, std::uniform_int_distribution<>& disWaterSpreading);
 
 class EcosystemEngine {
    public:

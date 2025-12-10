@@ -7,11 +7,11 @@
 #include <iostream>
 #include <map>  // for casting statistics dict to std::map
 
+#include "AllGuiPrograms.hpp"  // Include all GUI programs
 #include "EntityInterface.hpp"
 #include "GuiStateManager.hpp"
 #include "LowLevelRenderer/TextureManager.hpp"
 #include "PhysicsManager.hpp"
-#include "AllGuiPrograms.hpp"  // Include all GUI programs
 #include "components/core/Command.hpp"  // Command class for type-safe command handling
 
 namespace nb = nanobind;
@@ -146,26 +146,26 @@ void imguiInit(uintptr_t window_ptr, uintptr_t renderer_ptr, const char* fontPat
     // ImGui::StyleColorsDark();
     GuiStateManager::Instance();
     ApplyCustomStyle(fontPath);
-    
+
     // Initialize GUI programs (GUI OS)
     initializeGuiPrograms();
 }
 
 /**
  * @brief Initialize and register all GUI programs
- * 
+ *
  * Called during ImGui initialization to register all available GUI programs
  * with the GuiProgramManager. Programs can then be activated/deactivated
  * dynamically during runtime.
  */
 void initializeGuiPrograms() {
     auto* manager = GuiProgramManager::Instance();
-    
+
     // Register Settings programs
     manager->registerProgram(std::make_shared<SettingsProgram>());
     manager->registerProgram(std::make_shared<PhysicsSettingsProgram>());
     manager->registerProgram(std::make_shared<CameraSettingsProgram>());
-    
+
     // Register Debug programs
     manager->registerProgram(std::make_shared<GeneralMetricsProgram>());
     manager->registerProgram(std::make_shared<EntitiesStatsProgram>());
@@ -174,7 +174,7 @@ void initializeGuiPrograms() {
     manager->registerProgram(std::make_shared<AIStatisticsProgram>());
     manager->registerProgram(std::make_shared<ConsoleProgram>());
     manager->registerProgram(std::make_shared<EditorDebuggerProgram>());
-    
+
     // Register Game programs
     manager->registerProgram(std::make_shared<InventoryProgram>());
     manager->registerProgram(std::make_shared<EquipmentProgram>());
@@ -503,12 +503,9 @@ void HandleDragDropToWorld(nb::list& commands) {
                 ImVec2 mousePosScreen = ImGui::GetIO().MousePos;
 
                 // Generate a command to drop the item into the game world
-                DropToWorldCommand command(
-                    GuiStateManager::Instance()->draggedItemIndex,
-                    GuiStateManager::Instance()->src_window_id,
-                    mousePosScreen.x,
-                    mousePosScreen.y
-                );
+                DropToWorldCommand command(GuiStateManager::Instance()->draggedItemIndex,
+                                           GuiStateManager::Instance()->src_window_id,
+                                           mousePosScreen.x, mousePosScreen.y);
                 commands.append(command);
 
                 std::cout << "Dropped item " << GuiStateManager::Instance()->draggedItemIndex
@@ -636,14 +633,14 @@ static void __render_command_buffer_status(const nb::list& command_queue) {
 
     // Set text color for system messages (light blue for visibility)
     ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.8f, 1.0f, 1.0f));
-    
+
     // Display command queue header with count
     ImGui::Text("[System] Processing %zu commands:", command_queue.size());
-    
+
     // Limit display to prevent terminal spam (similar to dmesg ring buffer behavior)
     constexpr size_t MAX_COMMANDS_DISPLAY = 5;
     const size_t display_count = std::min(command_queue.size(), MAX_COMMANDS_DISPLAY);
-    
+
     // Iterate through command queue and render each command's metadata
     for (size_t i = 0; i < display_count; ++i) {
         try {
@@ -651,35 +648,35 @@ static void __render_command_buffer_status(const nb::list& command_queue) {
             if (!nb::isinstance<nb::dict>(command_queue[i])) {
                 continue;
             }
-            
+
             nb::dict cmd = nb::cast<nb::dict>(command_queue[i]);
-            
+
             // Extract command type (required field)
             if (!cmd.contains("type")) {
                 continue;
             }
-            
+
             std::string cmd_type = nb::cast<std::string>(cmd["type"]);
             std::string cmd_repr = "  - Command: " + cmd_type;
-            
+
             // Append parameter indicator if present
             if (cmd.contains("params")) {
                 cmd_repr += " (with params)";
             }
-            
+
             ImGui::Text("%s", cmd_repr.c_str());
-            
+
         } catch (const std::exception& e) {
             // Fallback for unparseable commands
             ImGui::Text("  - [Unable to parse command]");
         }
     }
-    
+
     // Display overflow indicator if command queue exceeds display limit
     if (command_queue.size() > display_count) {
         ImGui::Text("  ... and %zu more commands", command_queue.size() - display_count);
     }
-    
+
     // Restore previous text color
     ImGui::PopStyleColor();
 }
@@ -820,7 +817,7 @@ void RenderConsoleWindow(nb::list& consoleLogs, nb::list& commands) {
                 errorMsg += e.what();
                 consoleLogs.append(errorMsg);
                 std::cerr << errorMsg << std::endl;
-                
+
                 // Clear the input buffer
                 inputBuf[0] = '\0';
             } catch (const std::exception& e) {
@@ -829,7 +826,7 @@ void RenderConsoleWindow(nb::list& consoleLogs, nb::list& commands) {
                 errorMsg += e.what();
                 consoleLogs.append(errorMsg);
                 std::cerr << errorMsg << std::endl;
-                
+
                 // Clear the input buffer
                 inputBuf[0] = '\0';
             }
@@ -1269,24 +1266,22 @@ void renderInGameGuiFrame(int worldTicks, float availableFps, std::shared_ptr<Wo
     ImGui_ImplSDLRenderer2_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
-    
+
     /*──────────────── Build GUI Context ────────────────*/
-    GuiContext context{
-        .worldTicks = worldTicks,
-        .availableFps = availableFps,
-        .worldPtr = world_ptr,
-        .physicsChanges = physicsChanges,
-        .inventoryData = inventoryData,
-        .consoleLogs = consoleLogs,
-        .entitiesData = entitiesData,
-        .commands = commands,
-        .statistics = statistics,
-        .sharedData = shared_data,
-        .entityInterfacePtr = entityInterface_ptr,
-        .hoveredEntityInterfacePtr = hoveredEntityInterface_ptr,
-        .selectedEntityInterfacePtr = selectedEntityInterface_ptr
-    };
-    
+    GuiContext context{.worldTicks = worldTicks,
+                       .availableFps = availableFps,
+                       .worldPtr = world_ptr,
+                       .physicsChanges = physicsChanges,
+                       .inventoryData = inventoryData,
+                       .consoleLogs = consoleLogs,
+                       .entitiesData = entitiesData,
+                       .commands = commands,
+                       .statistics = statistics,
+                       .sharedData = shared_data,
+                       .entityInterfacePtr = entityInterface_ptr,
+                       .hoveredEntityInterfacePtr = hoveredEntityInterface_ptr,
+                       .selectedEntityInterfacePtr = selectedEntityInterface_ptr};
+
     /*──────────────── Render always-on components ────────────────*/
     // Ensure editor debugger is active (can be closed by user but should start active)
     static bool editorDebuggerInitialized = false;
@@ -1295,7 +1290,7 @@ void renderInGameGuiFrame(int worldTicks, float availableFps, std::shared_ptr<Wo
         editorDebuggerInitialized = true;
     }
     RenderTopBar();
-    
+
     /*──────────────── Process activate_program commands ────────────────*/
     // Handle program activation commands before rendering
     std::vector<std::string> programsToActivate;
@@ -1303,7 +1298,8 @@ void renderInGameGuiFrame(int worldTicks, float availableFps, std::shared_ptr<Wo
         try {
             if (nb::isinstance<nb::dict>(commands[i])) {
                 nb::dict cmd = nb::cast<nb::dict>(commands[i]);
-                if (cmd.contains("type") && nb::cast<std::string>(cmd["type"]) == "activate_program") {
+                if (cmd.contains("type") &&
+                    nb::cast<std::string>(cmd["type"]) == "activate_program") {
                     if (cmd.contains("program_id")) {
                         std::string programId = nb::cast<std::string>(cmd["program_id"]);
                         programsToActivate.push_back(programId);
@@ -1314,15 +1310,15 @@ void renderInGameGuiFrame(int worldTicks, float availableFps, std::shared_ptr<Wo
             // Skip malformed commands
         }
     }
-    
+
     // Activate requested programs
     for (const auto& programId : programsToActivate) {
         GuiProgramManager::Instance()->activateProgram(programId);
     }
-    
+
     /*──────────────── Render all active GUI programs (GUI OS) ────────────────*/
     GuiProgramManager::Instance()->renderAllPrograms(context);
-    
+
     /*──────────────── Render hotbar (always visible when inventory closed) ────────────────*/
     // The hotbar is always shown unless inventory is active
     if (!GuiProgramManager::Instance()->isProgramActive("inventory")) {
@@ -1331,10 +1327,10 @@ void renderInGameGuiFrame(int worldTicks, float availableFps, std::shared_ptr<Wo
         GuiStateManager::Instance()->hotbarWindow.setCommands(commands);
         GuiStateManager::Instance()->hotbarWindow.Render();
     }
-    
+
     /*──────────────── Drag‑drop handling (always processed) ────────────────*/
     HandleDragDropToWorld(commands);
-    
+
     // ImGui::ShowDemoWindow();  // Show demo window! :)
 }
 

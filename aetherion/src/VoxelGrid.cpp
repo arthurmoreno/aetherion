@@ -670,8 +670,7 @@ void VoxelGrid::moveEntity(entt::entity entity, Position movingToPosition) {
             std::cout << "Error: entity id mismatch when creating MovingComponent."
                       << "Entity id: " << entityId << "VoxelGrid entity id: " << entityVoxelGridId
                       << std::endl;
-            throw std::runtime_error(
-                "Error: entity id mismatch when moving entity in VoxelGrid.");
+            throw std::runtime_error("Error: entity id mismatch when moving entity in VoxelGrid.");
         }
     } else {
         // Missing Position component; guard get and log

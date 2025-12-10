@@ -646,7 +646,8 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
                 if (terrainId == -1) {
                     virtualTerrainId = terrainVirtualIdCounter--;
                 } else {
-                    // std::cout << "[perception:createPerceptionResponseC] visible terrain (" << x << ", " << y << ", " << z
+                    // std::cout << "[perception:createPerceptionResponseC] visible terrain (" << x
+                    // << ", " << y << ", " << z
                     //         << ") terr_id=" << terrainId << " virt_id=" << virtualTerrainId <<
                     //         "\n";
                     virtualTerrainId = terrainId;

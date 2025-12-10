@@ -1,26 +1,28 @@
 #pragma once
 
+#include <imgui.h>
+#include <nanobind/nanobind.h>
+
+#include <deque>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <sstream>
+#include <vector>
+
 #include "../../GuiCore/GuiProgram.hpp"
-#include "Gui/GuiStateManager.hpp"
-#include "../../TerminalPrograms/TerminalCommand.hpp"
 #include "../../TerminalPrograms/ClearCommand.hpp"
 #include "../../TerminalPrograms/HelpCommand.hpp"
 #include "../../TerminalPrograms/HistoryCommand.hpp"
 #include "../../TerminalPrograms/QueueCommand.hpp"
-#include <imgui.h>
-#include <nanobind/nanobind.h>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include <deque>
-#include <memory>
-#include <map>
+#include "../../TerminalPrograms/TerminalCommand.hpp"
+#include "Gui/GuiStateManager.hpp"
 
 namespace nb = nanobind;
 
 /**
  * @brief Console Program - Shell-like terminal interface for debugging and system control
- * 
+ *
  * Provides a bash/sh-like terminal interface with command history, output display,
  * and command execution. Features include:
  * - Command history navigation (up/down arrows)
@@ -29,7 +31,7 @@ namespace nb = nanobind;
  * - Command echoing with prompts
  */
 class ConsoleProgram : public GuiProgram {
-public:
+   public:
     ConsoleProgram() {
         history_.clear();
         historyPos_ = -1;
@@ -44,9 +46,8 @@ public:
     void render(GuiContext& context) override {
         // Normalize colors for semi-transparent background
         auto NormalizeColor = [](int r, int g, int b, float a = 1.0f) -> ImVec4 {
-            return ImVec4(static_cast<float>(r) / 255.0f, 
-                         static_cast<float>(g) / 255.0f, 
-                         static_cast<float>(b) / 255.0f, a);
+            return ImVec4(static_cast<float>(r) / 255.0f, static_cast<float>(g) / 255.0f,
+                          static_cast<float>(b) / 255.0f, a);
         };
 
         // Terminal-like dark background
@@ -61,8 +62,8 @@ public:
                      ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
         // Create a child region for the terminal output with scroll functionality
-        ImGui::BeginChild("TerminalScrollRegion", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), 
-                         false, ImGuiWindowFlags_HorizontalScrollbar);
+        ImGui::BeginChild("TerminalScrollRegion", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()),
+                          false, ImGuiWindowFlags_HorizontalScrollbar);
 
         // Render terminal buffer (command history and output)
         for (const auto& line : terminalBuffer_) {
@@ -102,16 +103,16 @@ public:
         ImGui::Text("$ ");
         ImGui::PopStyleColor();
         ImGui::SameLine();
-        
+
         // Set focus to input when console is first opened
         if (reclaimFocus_) {
             ImGui::SetKeyboardFocusHere();
             reclaimFocus_ = false;
         }
 
-        ImGuiInputTextFlags inputFlags = ImGuiInputTextFlags_EnterReturnsTrue | 
-                                          ImGuiInputTextFlags_CallbackHistory |
-                                          ImGuiInputTextFlags_CallbackCompletion;
+        ImGuiInputTextFlags inputFlags = ImGuiInputTextFlags_EnterReturnsTrue |
+                                         ImGuiInputTextFlags_CallbackHistory |
+                                         ImGuiInputTextFlags_CallbackCompletion;
 
         if (ImGui::InputText("##Input", inputBuf_, sizeof(inputBuf_), inputFlags,
                              &TextEditCallbackStub, (void*)this)) {
@@ -141,15 +142,15 @@ public:
         style.Colors[ImGuiCol_WindowBg] = originalBg;
     }
 
-private:
-    char inputBuf_[256] = "";  // Static buffer for command input
-    std::vector<std::string> history_;  // Command history
-    int historyPos_ = -1;  // Current position in history
-    std::deque<TerminalLine> terminalBuffer_;  // Terminal output buffer
-    bool scrollToBottom_ = false;  // Flag to trigger auto-scroll
-    bool reclaimFocus_ = false;  // Flag to reclaim input focus
+   private:
+    char inputBuf_[256] = "";                           // Static buffer for command input
+    std::vector<std::string> history_;                  // Command history
+    int historyPos_ = -1;                               // Current position in history
+    std::deque<TerminalLine> terminalBuffer_;           // Terminal output buffer
+    bool scrollToBottom_ = false;                       // Flag to trigger auto-scroll
+    bool reclaimFocus_ = false;                         // Flag to reclaim input focus
     static constexpr size_t MAX_TERMINAL_LINES = 1000;  // Maximum lines in terminal buffer
-    
+
     // Terminal command handlers
     std::map<std::string, std::shared_ptr<TerminalCommand>> commands_;
     std::vector<std::shared_ptr<TerminalCommand>> commandList_;  // For ordered display
@@ -163,16 +164,16 @@ private:
         auto helpCmd = std::make_shared<HelpCommand>();
         auto historyCmd = std::make_shared<HistoryCommand>();
         auto queueCmd = std::make_shared<QueueCommand>();
-        
+
         // Set up command references
         historyCmd->setHistory(&history_);
-        
+
         // Register commands
         commands_["clear"] = clearCmd;
         commands_["help"] = helpCmd;
         commands_["history"] = historyCmd;
         commands_["queue"] = queueCmd;
-        
+
         // Build command list for help display
         commandList_ = {clearCmd, helpCmd, historyCmd, queueCmd};
         helpCmd->setCommands(commandList_);
@@ -192,7 +193,7 @@ private:
      */
     void addOutput(const std::string& text, bool isCommand, bool isError) {
         terminalBuffer_.emplace_back(text, isCommand, isError);
-        
+
         // Limit buffer size
         while (terminalBuffer_.size() > MAX_TERMINAL_LINES) {
             terminalBuffer_.pop_front();
@@ -217,7 +218,7 @@ private:
                     } else if (historyPos_ > 0) {
                         historyPos_--;
                     }
-                    
+
                     if (historyPos_ >= 0 && historyPos_ < static_cast<int>(history_.size())) {
                         data->DeleteChars(0, data->BufTextLen);
                         data->InsertChars(0, history_[historyPos_].c_str());
@@ -235,7 +236,7 @@ private:
                     }
                 }
                 break;
-            
+
             case ImGuiInputTextFlags_CallbackCompletion:
                 // Tab completion (future enhancement)
                 break;
@@ -302,13 +303,15 @@ private:
                     try {
                         int intValue = std::stoi(valueStr);
                         value = nb::int_(intValue);
-                    } catch (...) {}
+                    } catch (...) {
+                    }
 
                     if (nb::isinstance<nb::str>(value)) {
                         try {
                             double floatValue = std::stod(valueStr);
                             value = nb::float_(floatValue);
-                        } catch (...) {}
+                        } catch (...) {
+                        }
                     }
 
                     if (nb::isinstance<nb::str>(value)) {
@@ -326,13 +329,13 @@ private:
             // Create the command dict
             nb::dict command;
             command["type"] = nb::str(type.c_str());
-            
+
             if (hasParams) {
                 command["params"] = params;
             }
 
             context.commands.append(command);
-            
+
             // Display confirmation
             std::string output = "Command queued: " + type;
             if (hasParams) {

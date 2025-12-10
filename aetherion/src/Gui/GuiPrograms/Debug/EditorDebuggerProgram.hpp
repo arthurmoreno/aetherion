@@ -1,31 +1,33 @@
 #pragma once
 
-#include "../../GuiCore/GuiProgram.hpp"
-#include "../../GuiCore/GuiProgramManager.hpp"
-#include "../../../components/core/Command.hpp"
 #include <imgui.h>
 #include <nanobind/nanobind.h>
 #include <nanobind/stl/string.h>
 #include <nanobind/stl/vector.h>
-#include <vector>
-#include <string>
+
 #include <ctime>
+#include <string>
+#include <vector>
+
+#include "../../../components/core/Command.hpp"
+#include "../../GuiCore/GuiProgram.hpp"
+#include "../../GuiCore/GuiProgramManager.hpp"
 
 namespace nb = nanobind;
 
 /**
  * @brief Editor Debugger Program - Control panel for simulation debugging
- * 
+ *
  * Provides controls for:
  * - Simulation control (Play, Stop, Step, Exit to Editor)
  * - Settings access
  * - Snapshot management for world state capture and analysis
- * 
+ *
  * Snapshot data is stored in context.sharedData["snapshots"] as a list of snapshot names.
  * Commands are issued to take snapshots, analyze them, or delete them.
  */
 class EditorDebuggerProgram : public GuiProgram {
-public:
+   public:
     EditorDebuggerProgram() = default;
     ~EditorDebuggerProgram() override = default;
 
@@ -47,8 +49,7 @@ public:
         ImGui::End();
     }
 
-private:
-
+   private:
     /**
      * @brief Render simulation control buttons
      */
@@ -105,7 +106,7 @@ private:
                 time_t now = time(nullptr);
                 strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", localtime(&now));
                 std::string snapshotName = std::string("Snapshot ") + timestamp;
-                
+
                 // Issue command to take snapshot
                 Command cmd("take_snapshot");
                 cmd.setParam("name", snapshotName);
@@ -135,13 +136,13 @@ private:
 
             // Display list of snapshots in a scrollable region
             ImGui::BeginChild("SnapshotList", ImVec2(0, 200), true);
-            
+
             if (snapshots.empty()) {
                 ImGui::TextDisabled("No snapshots taken yet");
             } else {
                 for (size_t i = 0; i < snapshots.size(); ++i) {
                     ImGui::PushID(static_cast<int>(i));
-                    
+
                     // Snapshot item - just display it
                     ImGui::Selectable(snapshots[i].c_str());
 
@@ -159,11 +160,11 @@ private:
                         }
                         ImGui::EndPopup();
                     }
-                    
+
                     ImGui::PopID();
                 }
             }
-            
+
             ImGui::EndChild();
         }
     }

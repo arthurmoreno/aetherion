@@ -1,24 +1,26 @@
 #pragma once
 
-#include "BasicProgram.hpp"
-#include "../../components/core/GuiContext.hpp"
 #include <imgui.h>
 #include <nanobind/nanobind.h>
+
+#include <deque>
+#include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
-#include <deque>
-#include <sstream>
-#include <iostream>
+
+#include "../../components/core/GuiContext.hpp"
+#include "BasicProgram.hpp"
 
 namespace nb = nanobind;
 
 /**
  * @brief Base class for terminal-based programs in the GUI OS
- * 
+ *
  * Extends BasicProgram with terminal functionality including command history,
  * output buffer management, and built-in command handling. Terminal programs
  * provide a shell-like interface for debugging and system control.
- * 
+ *
  * Design Philosophy:
  * - Terminal programs share common shell-like interface elements
  * - Built-in commands (clear, help, history, queue) are standardized
@@ -26,29 +28,28 @@ namespace nb = nanobind;
  * - Terminal rendering and input handling is unified
  */
 class TerminalProgram : public BasicProgram {
-public:
+   public:
     TerminalProgram() {
         history_.clear();
         historyPos_ = -1;
         clearTerminal();
     }
-    
+
     virtual ~TerminalProgram() = default;
 
     /**
      * @brief Render the terminal program's GUI
-     * 
+     *
      * Called once per frame if the program is active. Handles terminal
      * rendering, input, and command execution.
-     * 
+     *
      * @param context Shared context containing all GUI data
      */
     virtual void render(GuiContext& context) {
         // Normalize colors for semi-transparent background
         auto NormalizeColor = [](int r, int g, int b, float a = 1.0f) -> ImVec4 {
-            return ImVec4(static_cast<float>(r) / 255.0f, 
-                         static_cast<float>(g) / 255.0f, 
-                         static_cast<float>(b) / 255.0f, a);
+            return ImVec4(static_cast<float>(r) / 255.0f, static_cast<float>(g) / 255.0f,
+                          static_cast<float>(b) / 255.0f, a);
         };
 
         // Terminal-like dark background
@@ -64,8 +65,8 @@ public:
                      ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
         // Create a child region for the terminal output with scroll functionality
-        ImGui::BeginChild("TerminalScrollRegion", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), 
-                         false, ImGuiWindowFlags_HorizontalScrollbar);
+        ImGui::BeginChild("TerminalScrollRegion", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()),
+                          false, ImGuiWindowFlags_HorizontalScrollbar);
 
         // Render terminal buffer (command history and output)
         for (const auto& line : terminalBuffer_) {
@@ -105,16 +106,16 @@ public:
         ImGui::Text("$ ");
         ImGui::PopStyleColor();
         ImGui::SameLine();
-        
+
         // Set focus to input when terminal is first opened
         if (reclaimFocus_) {
             ImGui::SetKeyboardFocusHere();
             reclaimFocus_ = false;
         }
 
-        ImGuiInputTextFlags inputFlags = ImGuiInputTextFlags_EnterReturnsTrue | 
-                                          ImGuiInputTextFlags_CallbackHistory |
-                                          ImGuiInputTextFlags_CallbackCompletion;
+        ImGuiInputTextFlags inputFlags = ImGuiInputTextFlags_EnterReturnsTrue |
+                                         ImGuiInputTextFlags_CallbackHistory |
+                                         ImGuiInputTextFlags_CallbackCompletion;
 
         if (ImGui::InputText("##Input", inputBuf_, sizeof(inputBuf_), inputFlags,
                              &TextEditCallbackStub, (void*)this)) {
@@ -138,7 +139,7 @@ public:
         style.Colors[ImGuiCol_WindowBg] = originalBg;
     }
 
-protected:
+   protected:
     /**
      * @brief Terminal line structure
      */
@@ -146,18 +147,18 @@ protected:
         std::string text;
         bool isCommand = false;
         bool isError = false;
-        
+
         TerminalLine(const std::string& t, bool cmd = false, bool err = false)
             : text(t), isCommand(cmd), isError(err) {}
     };
 
     // Terminal state
-    char inputBuf_[256] = "";  ///< Static buffer for command input
-    std::vector<std::string> history_;  ///< Command history
-    int historyPos_ = -1;  ///< Current position in history
-    std::deque<TerminalLine> terminalBuffer_;  ///< Terminal output buffer
-    bool scrollToBottom_ = false;  ///< Flag to trigger auto-scroll
-    bool reclaimFocus_ = false;  ///< Flag to reclaim input focus
+    char inputBuf_[256] = "";                           ///< Static buffer for command input
+    std::vector<std::string> history_;                  ///< Command history
+    int historyPos_ = -1;                               ///< Current position in history
+    std::deque<TerminalLine> terminalBuffer_;           ///< Terminal output buffer
+    bool scrollToBottom_ = false;                       ///< Flag to trigger auto-scroll
+    bool reclaimFocus_ = false;                         ///< Flag to reclaim input focus
     static constexpr size_t MAX_TERMINAL_LINES = 1000;  ///< Maximum lines in terminal buffer
 
     /**
@@ -171,7 +172,7 @@ protected:
 
     /**
      * @brief Show help information
-     * 
+     *
      * Override this method to add custom commands to the help display.
      */
     virtual void showHelp() {
@@ -215,39 +216,40 @@ protected:
 
         addOutput("=== Command Queue ===", false, false);
         addOutput("Pending commands: " + std::to_string(command_queue.size()), false, false);
-        
+
         // Limit display to prevent spam
         constexpr size_t MAX_COMMANDS_DISPLAY = 10;
         const size_t display_count = std::min(command_queue.size(), MAX_COMMANDS_DISPLAY);
-        
+
         for (size_t i = 0; i < display_count; ++i) {
             try {
                 if (!nb::isinstance<nb::dict>(command_queue[i])) {
                     continue;
                 }
-                
+
                 nb::dict cmd = nb::cast<nb::dict>(command_queue[i]);
-                
+
                 if (!cmd.contains("type")) {
                     continue;
                 }
-                
+
                 std::string cmd_type = nb::cast<std::string>(cmd["type"]);
                 std::string cmd_repr = "  " + std::to_string(i + 1) + ". " + cmd_type;
-                
+
                 if (cmd.contains("params")) {
                     cmd_repr += " (with params)";
                 }
-                
+
                 addOutput(cmd_repr, false, false);
-                
+
             } catch (const std::exception& e) {
                 addOutput("  [Unable to parse command]", false, false);
             }
         }
-        
+
         if (command_queue.size() > display_count) {
-            std::string more = "  ... and " + std::to_string(command_queue.size() - display_count) + " more commands";
+            std::string more = "  ... and " + std::to_string(command_queue.size() - display_count) +
+                               " more commands";
             addOutput(more, false, false);
         }
     }
@@ -257,7 +259,7 @@ protected:
      */
     void addOutput(const std::string& text, bool isCommand, bool isError) {
         terminalBuffer_.emplace_back(text, isCommand, isError);
-        
+
         // Limit buffer size
         while (terminalBuffer_.size() > MAX_TERMINAL_LINES) {
             terminalBuffer_.pop_front();
@@ -266,10 +268,10 @@ protected:
 
     /**
      * @brief Handle custom commands
-     * 
+     *
      * Override this method to implement custom command handling.
      * Return true if the command was handled, false to use default handling.
-     * 
+     *
      * @param commandStr The command string to handle
      * @param context Shared GUI context
      * @return true if command was handled, false otherwise
@@ -278,7 +280,7 @@ protected:
         return false;  // Default: command not handled
     }
 
-private:
+   private:
     /**
      * @brief ImGui callback for input text (handles history navigation)
      */
@@ -297,7 +299,7 @@ private:
                     } else if (historyPos_ > 0) {
                         historyPos_--;
                     }
-                    
+
                     if (historyPos_ >= 0 && historyPos_ < static_cast<int>(history_.size())) {
                         data->DeleteChars(0, data->BufTextLen);
                         data->InsertChars(0, history_[historyPos_].c_str());
@@ -315,7 +317,7 @@ private:
                     }
                 }
                 break;
-            
+
             case ImGuiInputTextFlags_CallbackCompletion:
                 // Tab completion (future enhancement)
                 break;
@@ -406,13 +408,15 @@ private:
                     try {
                         int intValue = std::stoi(valueStr);
                         value = nb::int_(intValue);
-                    } catch (...) {}
+                    } catch (...) {
+                    }
 
                     if (nb::isinstance<nb::str>(value)) {
                         try {
                             double floatValue = std::stod(valueStr);
                             value = nb::float_(floatValue);
-                        } catch (...) {}
+                        } catch (...) {
+                        }
                     }
 
                     if (nb::isinstance<nb::str>(value)) {
@@ -430,13 +434,13 @@ private:
             // Create the command dict
             nb::dict command;
             command["type"] = nb::str(type.c_str());
-            
+
             if (hasParams) {
                 command["params"] = params;
             }
 
             context.commands.append(command);
-            
+
             // Display confirmation
             std::string output = "Command queued: " + type;
             if (hasParams) {

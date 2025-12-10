@@ -1,8 +1,9 @@
 #ifndef PHYSICSENGINE_HPP
 #define PHYSICSENGINE_HPP
 
-#include <entt/entt.hpp>
 #include <tbb/concurrent_queue.h>
+
+#include <entt/entt.hpp>
 
 #include "GameClock.hpp"
 #include "ItemsEvents.hpp"
@@ -28,6 +29,7 @@ struct WaterGravityFlowEvent;
 struct TerrainPhaseConversionEvent;
 struct VaporCreationEvent;
 struct VaporMergeUpEvent;
+struct AddVaporToTileAboveEvent;
 
 struct SetPhysicsEntityToDebug {
     entt::entity entity;
@@ -71,12 +73,22 @@ class PhysicsEngine {
     void onTerrainPhaseConversionEvent(const TerrainPhaseConversionEvent& event);
     void onVaporCreationEvent(const VaporCreationEvent& event);
     void onVaporMergeUpEvent(const VaporMergeUpEvent& event);
+    void onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent& event);
 
     // Register the event handler
     void registerEventHandlers(entt::dispatcher& dispatcher);
     void registerVoxelGrid(VoxelGrid* voxelGrid) { this->voxelGrid = voxelGrid; }
 
     bool isProcessingComplete() const;
+
+    // Public terrain conversion helpers (called by EcosystemEngine during detection phase)
+    static void checkAndConvertSoftEmptyIntoWater(entt::registry& registry, VoxelGrid& voxelGrid,
+                                                  int terrainId, int x, int y, int z);
+    static void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxelGrid,
+                                                  int terrainId, int x, int y, int z);
+    static void deleteEntityOrConvertInEmpty(entt::registry& registry, entt::dispatcher& dispatcher,
+                                             entt::entity& terrain);
+    static void setVaporSI(int x, int y, int z, VoxelGrid& voxelGrid);
 
    private:
     entt::registry& registry;

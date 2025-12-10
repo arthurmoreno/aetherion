@@ -98,7 +98,7 @@ void imguiPrepareWorldTypeFormWindows(nb::list& commands, nb::dict& shared_data)
         for (auto item : shared_data) {
             std::string key = nb::cast<std::string>(item.first);
             nb::object value = nb::cast<nb::object>(item.second);
-            
+
             // Try to cast to supported types
             if (nb::isinstance<nb::int_>(value)) {
                 command.setParam(key, nb::cast<int>(value));

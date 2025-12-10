@@ -1,6 +1,7 @@
 // EcosystemEngine.cpp
 
 #include "EcosystemEngine.hpp"
+#include "PhysicsEngine.hpp"
 
 #include <algorithm>  // For std::min
 #include <chrono>
@@ -357,9 +358,28 @@ void WaterSimulationManager::processWaterSimulation(entt::registry& registry, Vo
     }
 }
 
+// Read-only helper functions for terrain detection (used by EcosystemEngine)
 bool isTerrainSoftEmpty(EntityTypeComponent& terrainType) {
     return (terrainType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
             terrainType.subType0 == static_cast<int>(TerrainEnum::EMPTY));
+}
+
+bool getTypeAndCheckSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid, int terrainId, int x,
+                              int y, int z) {
+    if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        return false;  // Means terrain voxel is empty.
+    } else if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
+        EntityTypeComponent terrainEntityType =
+            voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
+        const bool isTerrainNeighborSoftEmpty{isTerrainSoftEmpty(terrainEntityType)};
+        return isTerrainNeighborSoftEmpty;
+    } else {
+        // TODO: This is not being handled. It should be handled when active EnTT terrains start to
+        // be used.
+        std::cout << "[getTypeAndCheckSoftEmpty]: terrainId is neither -1 nor -2. Not handled yet."
+                  << std::endl;
+        return false;
+    }
 }
 
 bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid, const int x,
@@ -392,178 +412,6 @@ bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& voxelGr
 
     // Review this after fixing the current bug.
     return false;
-}
-
-// void setVaporSI(entt::registry& registry, entt::entity& terrain) {
-void setVaporSI(int x, int y, int z, VoxelGrid& voxelGrid) {
-    StructuralIntegrityComponent terrainSI =
-        voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(x, y, z);
-    terrainSI.canStackEntities = false;
-    terrainSI.maxLoadCapacity = -1;
-    terrainSI.matterState = MatterState::GAS;
-    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z, terrainSI);
-}
-
-void setEmptyWaterComponentsStorage(entt::registry& registry, VoxelGrid& voxelGrid, int terrainId,
-                                    int x, int y, int z, MatterState matterState) {
-    // Part 1: Set EntityTypeComponent
-    EntityTypeComponent* terrainType = new EntityTypeComponent();
-    terrainType->mainType = static_cast<int>(EntityEnum::TERRAIN);
-    terrainType->subType0 = static_cast<int>(TerrainEnum::WATER);
-    terrainType->subType1 = 0;
-    voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z, *terrainType);
-
-    // Part 2: Set StructuralIntegrityComponent
-    StructuralIntegrityComponent* terrainSI = new StructuralIntegrityComponent();
-    terrainSI->canStackEntities = false;
-    terrainSI->maxLoadCapacity = -1;
-    terrainSI->matterState = matterState;
-    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z, *terrainSI);
-
-    // Part 3: Set MatterContainer
-    MatterContainer* terrainMC = new MatterContainer();
-    terrainMC->TerrainMatter = 0;
-    terrainMC->WaterMatter = 0;
-    terrainMC->WaterVapor = 0;
-    terrainMC->BioMassMatter = 0;
-    voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z, *terrainMC);
-}
-
-void setEmptyWaterComponentsEnTT(entt::registry& registry, entt::entity& terrain,
-                                 MatterState matterState) {
-    EntityTypeComponent* terrainType = registry.try_get<EntityTypeComponent>(terrain);
-    bool shouldEmplaceTerrainType{terrainType == nullptr};
-    if (terrainType == nullptr) {
-        terrainType = new EntityTypeComponent();
-    }
-    terrainType->mainType = static_cast<int>(EntityEnum::TERRAIN);
-    terrainType->subType0 = static_cast<int>(TerrainEnum::WATER);
-    terrainType->subType1 = 0;
-    if (shouldEmplaceTerrainType) {
-        registry.emplace<EntityTypeComponent>(terrain, *terrainType);
-    }
-
-    StructuralIntegrityComponent* terrainSI =
-        registry.try_get<StructuralIntegrityComponent>(terrain);
-    bool shouldEmplaceTerrainSI{terrainSI == nullptr};
-    if (terrainSI == nullptr) {
-        terrainSI = new StructuralIntegrityComponent();
-    }
-    terrainSI->canStackEntities = false;
-    terrainSI->maxLoadCapacity = -1;
-    terrainSI->matterState = matterState;
-    if (shouldEmplaceTerrainSI) {
-        registry.emplace<StructuralIntegrityComponent>(terrain, *terrainSI);
-    }
-
-    MatterContainer* terrainMC = registry.try_get<MatterContainer>(terrain);
-    bool shouldEmplaceTerrainMC{terrainMC == nullptr};
-    if (terrainMC == nullptr) {
-        terrainMC = new MatterContainer();
-    }
-    terrainMC->TerrainMatter = 0;
-    terrainMC->WaterMatter = 0;
-    terrainMC->WaterVapor = 0;
-    terrainMC->BioMassMatter = 0;
-    if (shouldEmplaceTerrainMC) {
-        registry.emplace<MatterContainer>(terrain, *terrainMC);
-    }
-}
-
-void convertSoftEmptyIntoWater(entt::registry& registry, VoxelGrid& voxelGrid, int terrainId, int x,
-                               int y, int z) {
-    if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        // Create new terrain entity for the empty voxel
-    } else if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-        setEmptyWaterComponentsStorage(registry, voxelGrid, terrainId, x, y, z,
-                                       MatterState::LIQUID);
-        // Create new terrain entity for the completely empty voxel
-    } else {
-        // Convert existing soft empty terrain entity to water
-        auto terrain = static_cast<entt::entity>(terrainId);
-        setEmptyWaterComponentsEnTT(registry, terrain, MatterState::LIQUID);
-    }
-}
-
-void convertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxelGrid, int terrainId, int x,
-                               int y, int z) {
-    std::cout << "[convertSoftEmptyIntoVapor] Just marking a checkpoint on logs." << std::endl;
-    // setEmptyWaterComponents(registry, terrain, MatterState::GAS);
-}
-
-void convertIntoSoftEmpty(entt::registry& registry, entt::entity& terrain) {
-    EntityTypeComponent* terrainType = registry.try_get<EntityTypeComponent>(terrain);
-    bool shouldEmplaceTerrainType{terrainType == nullptr};
-    if (terrainType == nullptr) {
-        terrainType = new EntityTypeComponent();
-    }
-    terrainType->mainType = static_cast<int>(EntityEnum::TERRAIN);
-    terrainType->subType0 = static_cast<int>(TerrainEnum::EMPTY);
-    terrainType->subType1 = 0;
-    if (shouldEmplaceTerrainType) {
-        registry.emplace<EntityTypeComponent>(terrain, *terrainType);
-    }
-
-    StructuralIntegrityComponent* terrainSI =
-        registry.try_get<StructuralIntegrityComponent>(terrain);
-    bool shouldEmplaceTerrainSI{terrainSI == nullptr};
-    if (terrainSI == nullptr) {
-        terrainSI = new StructuralIntegrityComponent();
-    }
-    terrainSI->canStackEntities = false;
-    terrainSI->maxLoadCapacity = -1;
-    terrainSI->matterState = MatterState::GAS;
-    if (shouldEmplaceTerrainSI) {
-        registry.emplace<StructuralIntegrityComponent>(terrain, *terrainSI);
-    }
-}
-
-bool getTypeAndCheckSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid, int terrainId, int x,
-                              int y, int z) {
-    if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        return false;  // Means terrain voxel is empty.
-    } else if (terrainId == -1) {
-        return false;  // Means terrain voxel is completely empty (no entity).
-        EntityTypeComponent terrainEntityType =
-            voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
-        const bool isTerrainNeighborSoftEmpty{isTerrainSoftEmpty(terrainEntityType)};
-        return isTerrainNeighborSoftEmpty;
-    } else {
-        // TODO: This is not being handled. It should be handled when active EnTT terrains start to
-        // be used.
-        std::cout << "[getTypeAndCheckSoftEmpty]: terrainId is neither -1 nor -2. Not handled yet."
-                  << std::endl;
-        return false;
-    }
-}
-
-void checkAndConvertSoftEmptyIntoWater(entt::registry& registry, VoxelGrid& voxelGrid,
-                                       int terrainId, int x, int y, int z) {
-    if (getTypeAndCheckSoftEmpty(registry, voxelGrid, terrainId, x, y, z)) {
-        convertSoftEmptyIntoWater(registry, voxelGrid, terrainId, x, y, z);
-    }
-}
-
-void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxelGrid,
-                                       int terrainId, int x, int y, int z) {
-    if (getTypeAndCheckSoftEmpty(registry, voxelGrid, terrainId, x, y, z)) {
-        convertSoftEmptyIntoVapor(registry, voxelGrid, terrainId, x, y, z);
-    }
-}
-
-void deleteEntityOrConvertInEmpty(entt::registry& registry, entt::dispatcher& dispatcher,
-                                  entt::entity& terrain) {
-    TileEffectsList* terrainEffectsList = registry.try_get<TileEffectsList>(terrain);
-    if (terrainEffectsList == nullptr ||
-        (terrainEffectsList && terrainEffectsList->tileEffectsIDs.empty())) {
-        dispatcher.enqueue<KillEntityEvent>(terrain);
-    } else {
-        // Convert into empty terrain because there are effects being processed
-        std::cout << "terrainEffectsList && terrainEffectsList->tileEffectsIDs.empty(): is "
-                     "False... converting into soft empty"
-                  << std::endl;
-        convertIntoSoftEmpty(registry, terrain);
-    }
 }
 
 /**********************
@@ -781,9 +629,7 @@ bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGr
     }
 
     if (terrainBellowId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        // auto terrainBellow = static_cast<entt::entity>(terrainBellowId);
-        checkAndConvertSoftEmptyIntoWater(registry, voxelGrid, terrainBellowId, pos.x, pos.y,
-                                          pos.z - 1);
+        // Read terrain data for detection (no state changes here)
         EntityTypeComponent typeBellow =
             voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y, pos.z - 1);
         MatterContainer matterContainerBellow =
@@ -802,11 +648,11 @@ bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGr
               (isWater && isBellowGrass && matterContainerBellow.WaterMatter < 4 &&
                matterContainerBellow.WaterVapor == 0 && matterContainer.WaterMatter > 0)));
         if (canSpredWaterDown) {
-            // Dispatch event instead of direct state change
+            // Dispatch event - PhysicsEngine will handle soft-empty conversion atomically
             int transferAmount = 1;
             Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
             Position targetPos{pos.x, pos.y, pos.z - 1, DirectionEnum::DOWN};
-            WaterGravityFlowEvent event(sourcePos, targetPos, transferAmount,
+            WaterGravityFlowEvent event(sourcePos, targetPos, transferAmount, terrainBellowId,
                                        type, typeBellow, matterContainer, matterContainerBellow);
             dispatcher.enqueue<WaterGravityFlowEvent>(event);
             actionPerformed = true;
@@ -912,44 +758,10 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::disp
     int terrainAboveId = voxelGrid.getTerrain(x, y, z + 1);
 
     if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        entt::entity terrainAbove = entt::null;
-        // if (voxelGrid.terrainGridRepository->isTerrainIdOnEnttRegistry(terrainAboveId)) {
-        //     terrainAbove = static_cast<entt::entity>(terrainAboveId);
-        // } else {
-        //     throw std::runtime_error("[createOrAddVapor] Error: terrainAboveId is not on EnTT registry.");
-        // }
-        EntityTypeComponent typeAbove =
-            voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z + 1);
-        MatterContainer matterContainerAbove =
-            voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z + 1);
-        // checkAndConvertSoftEmptyIntoVapor(registry, terrainAbove);
-        checkAndConvertSoftEmptyIntoVapor(registry, voxelGrid, terrainAboveId, x, y, z + 1);
-        // if (registry.all_of<EntityTypeComponent, MatterContainer>(terrainAbove)) {
-        // There is an entity above
-        // auto&& [typeAbove, matterContainerAbove] =
-        //     registry.get<EntityTypeComponent, MatterContainer>(terrainAbove);
-
-        // Check if it's vapor based on MatterContainer
-        if (typeAbove.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-            typeAbove.subType0 == static_cast<int>(TerrainEnum::WATER) &&
-            matterContainerAbove.WaterVapor >= 0 && matterContainerAbove.WaterMatter == 0) {
-            // Dispatch event instead of direct state change
-            Position targetPos{x, y, z + 1, DirectionEnum::DOWN};
-            VaporCreationEvent event(targetPos, amount, true);
-            dispatcher.enqueue<VaporCreationEvent>(event);
-
-            std::ostringstream ossMessage;
-            ossMessage << "[createOrAddVapor] Dispatching VaporCreationEvent to add vapor at (" << x << ", " << y << ", "
-                        << z + 1 << ")";
-            spdlog::get("console")->info(ossMessage.str());
-        } else {
-            std::ostringstream ossMessage;
-            ossMessage << "[createOrAddVapor] Cannot add vapor above; obstruction at (" << x << ", " << y << ", "
-                        << z + 1 << ")\n";
-            spdlog::get("console")->info(ossMessage.str());
-            // Cannot place vapor; perhaps handle obstruction
-        }
-        // }
+        // Dispatch event to atomically add vapor to tile above
+        Position sourcePos{x, y, z};
+        AddVaporToTileAboveEvent event(sourcePos, amount, terrainAboveId);
+        dispatcher.enqueue<AddVaporToTileAboveEvent>(event);
     } else {
         // No entity above; create vapor entity
 
@@ -1001,7 +813,7 @@ void condenseVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatc
                 matterContainer.WaterVapor -= condensationAmount;
 
                 if (matterContainer.WaterVapor <= 0) {
-                    deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
+                    PhysicsEngine::deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
                 }
             }
         }
@@ -1235,7 +1047,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
 
                 if (terrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) && terrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
                     entt::entity entity = static_cast<entt::entity>(terrainId);
-                    deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
+                    PhysicsEngine::deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
                 }
             } else {
                 ossMessage << "[moveVaporSideways] Vapor Obstructed; cannot move sideways (" << newX << ", " << newY
@@ -1390,7 +1202,7 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
         if (isVapor) {
             // TODO: This needs to be removed for performance reasons.
             // It is only here to guarantee the bugfix to set vapor into GAS.
-            setVaporSI(pos.x, pos.y, pos.z, voxelGrid);
+            PhysicsEngine::setVaporSI(pos.x, pos.y, pos.z, voxelGrid);
             moveVapor(registry, voxelGrid, dispatcher, pos.x, pos.y, pos.z, pos, type,
                       matterContainer);
             actionPerformed = true;

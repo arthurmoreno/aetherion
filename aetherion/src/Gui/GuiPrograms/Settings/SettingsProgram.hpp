@@ -1,22 +1,23 @@
 #pragma once
 
-#include "../../GuiCore/GuiProgram.hpp"
 #include <imgui.h>
 #include <nanobind/nanobind.h>
+
+#include "../../GuiCore/GuiProgram.hpp"
 
 namespace nb = nanobind;
 
 /**
  * @brief Main settings program that opens other settings sub-programs
- * 
+ *
  * Acts as a "launcher" for other settings-related programs. When buttons
  * are clicked, it activates the corresponding sub-program.
  */
 class SettingsProgram : public GuiProgram {
-public:
+   public:
     void render(GuiContext& context) override {
         if (!isActive_) return;
-        
+
         if (ImGui::Begin("Settings", &isActive_, ImGuiWindowFlags_AlwaysAutoResize)) {
             // Settings buttons to activate sub-programs
             if (ImGui::Button("Camera Settings")) {
@@ -26,44 +27,44 @@ public:
                 cmd["program_id"] = "camera_settings";
                 context.commands.append(cmd);
             }
-            
+
             if (ImGui::Button("Physics Settings")) {
                 nb::dict cmd;
                 cmd["type"] = "activate_program";
                 cmd["program_id"] = "physics_settings";
                 context.commands.append(cmd);
             }
-            
+
             if (ImGui::Button("General Metrics")) {
                 nb::dict cmd;
                 cmd["type"] = "activate_program";
                 cmd["program_id"] = "general_metrics";
                 context.commands.append(cmd);
             }
-            
+
             if (ImGui::Button("Player Stats")) {
                 nb::dict cmd;
                 cmd["type"] = "activate_program";
                 cmd["program_id"] = "player_stats";
                 context.commands.append(cmd);
             }
-            
+
             ImGui::Spacing();
-            
+
             if (ImGui::Button("Entity Interface")) {
                 nb::dict cmd;
                 cmd["type"] = "activate_program";
                 cmd["program_id"] = "entity_interface";
                 context.commands.append(cmd);
             }
-            
+
             if (ImGui::Button("Title Screen")) {
                 context.physicsChanges["GOTO_TITLE_SCREEN"] = true;
             }
         }
         ImGui::End();
     }
-    
+
     std::string getId() const override { return "settings"; }
     std::string getDisplayName() const override { return "Settings"; }
 };

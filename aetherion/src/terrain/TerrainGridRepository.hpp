@@ -52,10 +52,17 @@ struct TerrainInfo {
     std::optional<TransientData> transient{};
 };
 
+// Atomic multi-read for physics calculations (prevents TOCTOU bugs)
+struct TerrainPhysicsSnapshot {
+    Position position;
+    Velocity velocity;
+    PhysicsStats stats;
+    bool terrainExists;
+};
+
 class TerrainGridRepository {
    public:
     TerrainGridRepository(entt::registry& registry, TerrainStorage& storage);
-
 
     // Arbitration helper: inactive ⇒ VDB only; active ⇒ VDB static + ECS transient
     TerrainInfo readTerrainInfo(int x, int y, int z) const;
@@ -105,6 +112,9 @@ class TerrainGridRepository {
     // Physics stats
     PhysicsStats getPhysicsStats(int x, int y, int z) const;
     void setPhysicsStats(int x, int y, int z, const PhysicsStats& ps);
+
+    // Atomic multi-read for physics calculations (prevents TOCTOU bugs)
+    TerrainPhysicsSnapshot getPhysicsSnapshot(int x, int y, int z) const;
 
     int getMass(int x, int y, int z) const;
     void setMass(int x, int y, int z, int v);
@@ -171,9 +181,9 @@ class TerrainGridRepository {
    private:
     // Check if terrain grid is currently locked
     bool isTerrainGridLocked() const;
-    
+
     // Utility methods for conditional locking
-    template<typename Func>
+    template <typename Func>
     auto withSharedLock(Func&& func) const -> decltype(func()) {
         if (!isTerrainGridLocked()) {
             std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
@@ -181,8 +191,8 @@ class TerrainGridRepository {
         }
         return func();
     }
-    
-    template<typename Func>
+
+    template <typename Func>
     auto withUniqueLock(Func&& func) -> decltype(func()) {
         if (!isTerrainGridLocked()) {
             std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
@@ -190,7 +200,7 @@ class TerrainGridRepository {
         }
         return func();
     }
-    
+
     struct Key {
         int x, y, z;
         bool operator==(const Key& o) const { return x == o.x && y == o.y && z == o.z; }

@@ -10,10 +10,10 @@ namespace nb = nanobind;
 
 /**
  * @brief Base Command class with flexible dict-based parameters
- * 
+ *
  * This class uses nanobind::dict for maximum flexibility and seamless Python interop.
  * Parameters can be of any type that nanobind supports.
- * 
+ *
  * Usage Example (C++):
  * @code
  *   Command cmd("drop_to_world");
@@ -21,7 +21,7 @@ namespace nb = nanobind;
  *   cmd["world_x"] = 100.0f;
  *   int index = nb::cast<int>(cmd["item_index"]);
  * @endcode
- * 
+ *
  * Usage Example (Python):
  * @code
  *   cmd = Command("drop_to_world")
@@ -31,13 +31,13 @@ namespace nb = nanobind;
  * @endcode
  */
 class Command {
-public:
+   public:
     /**
      * @brief Construct a new Command object
      * @param type The command type/name (required)
      */
     explicit Command(std::string type) : type_(std::move(type)), params_() {}
-    
+
     /**
      * @brief Default constructor for deserialization
      */
@@ -51,7 +51,7 @@ public:
      * @brief Get the command type
      */
     [[nodiscard]] const std::string& getType() const noexcept { return type_; }
-    
+
     /**
      * @brief Set the command type
      */
@@ -66,16 +66,12 @@ public:
      * @param key Parameter key
      * @return Reference to the parameter value
      */
-    nb::object operator[](const char* key) {
-        return params_[key];
-    }
+    nb::object operator[](const char* key) { return params_[key]; }
 
     /**
      * @brief Access parameter by key (const version)
      */
-    nb::object operator[](const char* key) const {
-        return params_[key];
-    }
+    nb::object operator[](const char* key) const { return params_[key]; }
 
     /**
      * @brief Check if a parameter exists
@@ -88,7 +84,7 @@ public:
      * @brief Get all parameters as dict
      */
     [[nodiscard]] nb::dict& getParams() noexcept { return params_; }
-    
+
     /**
      * @brief Get all parameters as dict (const)
      */
@@ -106,7 +102,7 @@ public:
     /**
      * @brief Set a parameter value (convenience method)
      */
-    template<typename T>
+    template <typename T>
     void setParam(std::string_view key, T&& value) {
         params_[key.data()] = nb::cast(std::forward<T>(value));
     }
@@ -117,10 +113,11 @@ public:
      * @return The parameter value
      * @throws std::runtime_error or nb::cast_error if parameter doesn't exist or type mismatch
      */
-    template<typename T>
+    template <typename T>
     [[nodiscard]] T getParam(std::string_view key) const {
         if (!params_.contains(key.data())) {
-            throw std::runtime_error("Parameter '" + std::string(key) + "' not found in command '" + type_ + "'");
+            throw std::runtime_error("Parameter '" + std::string(key) + "' not found in command '" +
+                                     type_ + "'");
         }
         return nb::cast<T>(params_[key.data()]);
     }
@@ -131,7 +128,7 @@ public:
      * @param defaultValue Value to return if parameter doesn't exist
      * @return The parameter value or default
      */
-    template<typename T>
+    template <typename T>
     [[nodiscard]] T getParamOr(std::string_view key, T defaultValue) const {
         if (!params_.contains(key.data())) {
             return defaultValue;
@@ -155,9 +152,8 @@ public:
     void validate(const std::vector<std::string>& requiredParams) const {
         for (const auto& param : requiredParams) {
             if (!hasParam(param)) {
-                throw std::runtime_error(
-                    "Missing required parameter '" + param + "' in command '" + type_ + "'"
-                );
+                throw std::runtime_error("Missing required parameter '" + param + "' in command '" +
+                                         type_ + "'");
             }
         }
     }
@@ -178,11 +174,10 @@ public:
         return result;
     }
 
-private:
-    std::string type_;              ///< Command type identifier
-    nb::dict params_;               ///< Command parameters as nanobind dict
+   private:
+    std::string type_;  ///< Command type identifier
+    nb::dict params_;   ///< Command parameters as nanobind dict
 };
-
 
 // ============================================================================
 // Specialized Command Types (convenience classes)
@@ -192,22 +187,19 @@ private:
  * @brief Command for activating GUI programs
  */
 class ActivateProgramCommand : public Command {
-public:
-    explicit ActivateProgramCommand(std::string programId) 
-        : Command("activate_program") {
+   public:
+    explicit ActivateProgramCommand(std::string programId) : Command("activate_program") {
         setParam("program_id", std::move(programId));
     }
 
-    [[nodiscard]] std::string getProgramId() const {
-        return getParam<std::string>("program_id");
-    }
+    [[nodiscard]] std::string getProgramId() const { return getParam<std::string>("program_id"); }
 };
 
 /**
  * @brief Command for dropping items to world
  */
 class DropToWorldCommand : public Command {
-public:
+   public:
     DropToWorldCommand(int itemIndex, std::string srcWindow, float x, float y)
         : Command("drop_to_world") {
         setParam("item_index", itemIndex);
@@ -226,17 +218,21 @@ public:
  * @brief Command for editor actions
  */
 class EditorCommand : public Command {
-public:
+   public:
     enum class Action { Play, Stop, Step, ExitToEditor };
 
     explicit EditorCommand(Action action) : Command(std::string(actionToString(action))) {}
 
     [[nodiscard]] static constexpr std::string_view actionToString(Action action) noexcept {
         switch (action) {
-            case Action::Play: return "editor_play";
-            case Action::Stop: return "editor_stop";
-            case Action::Step: return "editor_step";
-            case Action::ExitToEditor: return "exit_to_editor";
+            case Action::Play:
+                return "editor_play";
+            case Action::Stop:
+                return "editor_stop";
+            case Action::Step:
+                return "editor_step";
+            case Action::ExitToEditor:
+                return "exit_to_editor";
         }
         return "unknown_editor_action";
     }

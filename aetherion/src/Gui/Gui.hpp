@@ -53,7 +53,7 @@ void imguiInit(uintptr_t window_ptr, uintptr_t renderer_ptr, const char* fontPat
 
 /**
  * @brief Initialize and register all GUI programs
- * 
+ *
  * Called during ImGui initialization to register all available GUI programs
  * with the GuiProgramManager.
  */
@@ -63,12 +63,12 @@ void imguiProcessEvent(nb::bytes event_bytes);
 
 /**
  * @brief Renders the complete ImGui frame for in-game (gameplay) mode.
- * 
+ *
  * This function orchestrates the rendering of all GUI windows and panels during active gameplay.
  * It handles frame initialization, renders various game windows (settings, inventory, stats, etc.),
  * processes user input through the console, and manages drag-drop operations between UI elements
  * and the game world.
- * 
+ *
  * @param worldTicks Current game world tick count (simulation time step)
  * @param availableFps Current frames per second for performance monitoring
  * @param world_ptr Shared pointer to the game world (can be nullptr when world is not loaded)
@@ -76,13 +76,14 @@ void imguiProcessEvent(nb::bytes event_bytes);
  * @param inventoryData Dictionary containing current player inventory state
  * @param consoleLogs List of console log messages to display
  * @param entitiesData List of entity data for the entities stats window
- * @param commands Output list where GUI-generated commands are appended (e.g., item transfers, settings changes)
+ * @param commands Output list where GUI-generated commands are appended (e.g., item transfers,
+ * settings changes)
  * @param statistics Dictionary containing AI statistics for visualization
  * @param shared_data Shared state dictionary for inter-module communication
  * @param entityInterface_ptr Interface to a generic entity for inspection
  * @param hoveredEntityInterface_ptr Interface to the currently hovered entity (if any)
  * @param selectedEntityInterface_ptr Interface to the currently selected entity (if any)
- * 
+ *
  * @note This function is called once per frame during gameplay mode.
  * @note The function renders windows conditionally based on user interactions (toggle flags).
  */
@@ -102,10 +103,10 @@ void imguiPrepareTitleWindows(nb::list& commands, nb::dict& shared_data);
 
 /**
  * @brief Renders the Editor Debugger Top Bar window
- * 
+ *
  * Displays a collapsible, draggable toolbar with editor controls for Play, Stop, Step,
  * Exit to Editor, and Settings. This toolbar is used during editor runtime debugging mode.
- * 
+ *
  * @param commands Output list where editor commands are appended (e.g., Play, Stop, Step)
  */
 void RenderEditorDebuggerTopBar(nb::list& commands);
