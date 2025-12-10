@@ -1453,6 +1453,62 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent& event) {
     }
 }
 
+// New event handlers for water physics (all state changes)
+void PhysicsEngine::onWaterSpreadEvent(const WaterSpreadEvent& event) {
+    // Lock terrain grid for atomic state change
+    voxelGrid->terrainGridRepository->lockTerrainGrid();
+
+    // Transfer water from source to target
+    MatterContainer sourceMatter = event.sourceMatter;
+    MatterContainer targetMatter = event.targetMatter;
+
+    targetMatter.WaterMatter += event.amount;
+    sourceMatter.WaterMatter -= event.amount;
+
+    // Update both voxels atomically
+    voxelGrid->terrainGridRepository->setTerrainMatterContainer(
+        event.target.x, event.target.y, event.target.z, targetMatter);
+    voxelGrid->terrainGridRepository->setTerrainMatterContainer(
+        event.source.x, event.source.y, event.source.z, sourceMatter);
+
+    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+}
+
+void PhysicsEngine::onWaterGravityFlowEvent(const WaterGravityFlowEvent& event) {
+    // Lock terrain grid for atomic state change
+    voxelGrid->terrainGridRepository->lockTerrainGrid();
+
+    // Transfer water downward
+    MatterContainer sourceMatter = event.sourceMatter;
+    MatterContainer targetMatter = event.targetMatter;
+
+    targetMatter.WaterMatter += event.amount;
+    sourceMatter.WaterMatter -= event.amount;
+
+    // Update both voxels atomically
+    voxelGrid->terrainGridRepository->setTerrainMatterContainer(
+        event.target.x, event.target.y, event.target.z, targetMatter);
+    voxelGrid->terrainGridRepository->setTerrainMatterContainer(
+        event.source.x, event.source.y, event.source.z, sourceMatter);
+
+    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+}
+
+void PhysicsEngine::onTerrainPhaseConversionEvent(const TerrainPhaseConversionEvent& event) {
+    // Lock terrain grid for atomic state change
+    voxelGrid->terrainGridRepository->lockTerrainGrid();
+
+    // Apply terrain phase conversion (e.g., soft-empty -> water/vapor)
+    voxelGrid->terrainGridRepository->setTerrainEntityType(
+        event.position.x, event.position.y, event.position.z, event.newType);
+    voxelGrid->terrainGridRepository->setTerrainMatterContainer(
+        event.position.x, event.position.y, event.position.z, event.newMatter);
+    voxelGrid->terrainGridRepository->setTerrainStructuralIntegrity(
+        event.position.x, event.position.y, event.position.z, event.newStructuralIntegrity);
+
+    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+}
+
 // Register event handlers
 void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     dispatcher.sink<MoveGasEntityEvent>().connect<&PhysicsEngine::onMoveGasEntityEvent>(*this);
@@ -1466,4 +1522,9 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     dispatcher.sink<EvaporateWaterEntityEvent>().connect<&PhysicsEngine::onEvaporateWaterEntityEvent>(*this);
     dispatcher.sink<CondenseWaterEntityEvent>().connect<&PhysicsEngine::onCondenseWaterEntityEvent>(*this);
     dispatcher.sink<WaterFallEntityEvent>().connect<&PhysicsEngine::onWaterFallEntityEvent>(*this);
+
+    // Register water flow event handlers (new architecture)
+    dispatcher.sink<WaterSpreadEvent>().connect<&PhysicsEngine::onWaterSpreadEvent>(*this);
+    dispatcher.sink<WaterGravityFlowEvent>().connect<&PhysicsEngine::onWaterGravityFlowEvent>(*this);
+    dispatcher.sink<TerrainPhaseConversionEvent>().connect<&PhysicsEngine::onTerrainPhaseConversionEvent>(*this);
 }

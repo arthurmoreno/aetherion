@@ -57,6 +57,54 @@ struct WaterFallEntityEvent {
         : entity(entity), position(position), fallingAmount(fallingAmount) {}
 };
 
+struct WaterSpreadEvent {
+    Position source;
+    Position target;
+    int amount;
+    DirectionEnum direction;
+    EntityTypeComponent sourceType;
+    EntityTypeComponent targetType;
+    MatterContainer sourceMatter;
+    MatterContainer targetMatter;
+
+    WaterSpreadEvent(Position source, Position target, int amount, DirectionEnum direction,
+                     EntityTypeComponent sourceType, EntityTypeComponent targetType,
+                     MatterContainer sourceMatter, MatterContainer targetMatter)
+        : source(source), target(target), amount(amount), direction(direction),
+          sourceType(sourceType), targetType(targetType), sourceMatter(sourceMatter),
+          targetMatter(targetMatter) {}
+};
+
+struct WaterGravityFlowEvent {
+    Position source;
+    Position target;
+    int amount;
+    EntityTypeComponent sourceType;
+    EntityTypeComponent targetType;
+    MatterContainer sourceMatter;
+    MatterContainer targetMatter;
+
+    WaterGravityFlowEvent(Position source, Position target, int amount,
+                          EntityTypeComponent sourceType, EntityTypeComponent targetType,
+                          MatterContainer sourceMatter, MatterContainer targetMatter)
+        : source(source), target(target), amount(amount), sourceType(sourceType),
+          targetType(targetType), sourceMatter(sourceMatter), targetMatter(targetMatter) {}
+};
+
+struct TerrainPhaseConversionEvent {
+    Position position;
+    int terrainId;
+    EntityTypeComponent newType;
+    MatterContainer newMatter;
+    StructuralIntegrityComponent newStructuralIntegrity;
+
+    TerrainPhaseConversionEvent(Position position, int terrainId, EntityTypeComponent newType,
+                                MatterContainer newMatter,
+                                StructuralIntegrityComponent newStructuralIntegrity)
+        : position(position), terrainId(terrainId), newType(newType), newMatter(newMatter),
+          newStructuralIntegrity(newStructuralIntegrity) {}
+};
+
 // Forward declarations and supporting types for GridBoxProcessor
 struct GridBox {
     int minX, minY, minZ;

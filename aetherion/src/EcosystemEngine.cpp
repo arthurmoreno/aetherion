@@ -633,7 +633,6 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ, entt::
 
     if (terrainNeighborId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
         auto terrainNeighbor = static_cast<entt::entity>(terrainNeighborId);
-        // checkAndConvertSoftEmptyIntoWater(registry, terrainNeighbor);
         EntityTypeComponent typeNeighbor =
             voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
         MatterContainer matterContainerNeighbor =
@@ -660,14 +659,13 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ, entt::
         if (!actionPerformed && canSpredWaterToNotFull && matterContainer.WaterMatter > 0 &&
             matterContainerNeighbor.WaterVapor == 0 && matterContainerNeighbor.WaterMatter < 4 &&
             matterContainer.WaterMatter > matterContainerNeighbor.WaterMatter) {
-            // Transfer water to neighbor's MatterContainer
+            // Dispatch event instead of direct state change
             int transferAmount = 1;
-            matterContainerNeighbor.WaterMatter += transferAmount;
-            matterContainer.WaterMatter -= transferAmount;
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z,
-                                                                       matterContainerNeighbor);
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(terrainX, terrainY, terrainZ,
-                                                                       matterContainer);
+            Position sourcePos{terrainX, terrainY, terrainZ, direction};
+            Position targetPos{x, y, z, direction};
+            WaterSpreadEvent event(sourcePos, targetPos, transferAmount, direction,
+                                   type, typeNeighbor, matterContainer, matterContainerNeighbor);
+            dispatcher.enqueue<WaterSpreadEvent>(event);
             actionPerformed = true;
         }
 
@@ -677,14 +675,13 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ, entt::
         if (!actionPerformed && canSpredWaterToWater && matterContainer.WaterMatter > 0 &&
             matterContainerNeighbor.WaterVapor == 0 && matterContainerNeighbor.WaterMatter < 14 &&
             matterContainer.WaterMatter > matterContainerNeighbor.WaterMatter) {
-            // Transfer water to neighbor's MatterContainer
+            // Dispatch event instead of direct state change
             int transferAmount = 1;
-            matterContainerNeighbor.WaterMatter += transferAmount;
-            matterContainer.WaterMatter -= transferAmount;
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z,
-                                                                       matterContainerNeighbor);
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(terrainX, terrainY, terrainZ,
-                                                                       matterContainer);
+            Position sourcePos{terrainX, terrainY, terrainZ, direction};
+            Position targetPos{x, y, z, direction};
+            WaterSpreadEvent event(sourcePos, targetPos, transferAmount, direction,
+                                   type, typeNeighbor, matterContainer, matterContainerNeighbor);
+            dispatcher.enqueue<WaterSpreadEvent>(event);
             actionPerformed = true;
         }
 
@@ -703,15 +700,14 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ, entt::
 
         if (!actionPerformed && canSpredGrassToGrass && matterContainer.WaterMatter > 0 &&
             matterContainerNeighbor.WaterVapor == 0 && matterContainerNeighbor.WaterMatter < 4) {
-            // Transfer water to neighbor's MatterContainer
+            // Dispatch event instead of direct state change
             int transferAmount = 1;
-            matterContainerNeighbor.WaterMatter += transferAmount;
-            matterContainer.WaterMatter -= transferAmount;
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z,
-                                                                       matterContainerNeighbor);
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(terrainX, terrainY, terrainZ,
-                                                                       matterContainer);
-            std::cout << "[spreadWater] Spreading water to grass terrain at (" << x << ", " << y
+            Position sourcePos{terrainX, terrainY, terrainZ, direction};
+            Position targetPos{x, y, z, direction};
+            WaterSpreadEvent event(sourcePos, targetPos, transferAmount, direction,
+                                   type, typeNeighbor, matterContainer, matterContainerNeighbor);
+            dispatcher.enqueue<WaterSpreadEvent>(event);
+            std::cout << "[spreadWater] Dispatching WaterSpreadEvent to grass terrain at (" << x << ", " << y
                       << ", " << z << ")\n";
             actionPerformed = true;
         }
