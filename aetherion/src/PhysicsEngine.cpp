@@ -1509,6 +1509,38 @@ void PhysicsEngine::onTerrainPhaseConversionEvent(const TerrainPhaseConversionEv
     voxelGrid->terrainGridRepository->unlockTerrainGrid();
 }
 
+void PhysicsEngine::onVaporCreationEvent(const VaporCreationEvent& event) {
+    // Reuse existing helper function which already has proper locking
+    createOrAddVaporPhysics(registry, *voxelGrid, event.position.x, event.position.y, 
+                           event.position.z, event.amount);
+}
+
+void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent& event) {
+    // Lock terrain grid for atomic state change
+    voxelGrid->terrainGridRepository->lockTerrainGrid();
+
+    // Get target vapor and merge
+    MatterContainer targetMatter = voxelGrid->terrainGridRepository->getTerrainMatterContainer(
+        event.target.x, event.target.y, event.target.z);
+    targetMatter.WaterVapor += event.amount;
+    voxelGrid->terrainGridRepository->setTerrainMatterContainer(
+        event.target.x, event.target.y, event.target.z, targetMatter);
+
+    // Clear source vapor
+    MatterContainer sourceMatter = voxelGrid->terrainGridRepository->getTerrainMatterContainer(
+        event.source.x, event.source.y, event.source.z);
+    sourceMatter.WaterVapor = 0;
+    voxelGrid->terrainGridRepository->setTerrainMatterContainer(
+        event.source.x, event.source.y, event.source.z, sourceMatter);
+
+    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+
+    // Delete or convert source entity after unlocking
+    if (registry.valid(event.sourceEntity)) {
+        dispatcher.enqueue<KillEntityEvent>(event.sourceEntity);
+    }
+}
+
 // Register event handlers
 void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     dispatcher.sink<MoveGasEntityEvent>().connect<&PhysicsEngine::onMoveGasEntityEvent>(*this);
@@ -1527,4 +1559,8 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     dispatcher.sink<WaterSpreadEvent>().connect<&PhysicsEngine::onWaterSpreadEvent>(*this);
     dispatcher.sink<WaterGravityFlowEvent>().connect<&PhysicsEngine::onWaterGravityFlowEvent>(*this);
     dispatcher.sink<TerrainPhaseConversionEvent>().connect<&PhysicsEngine::onTerrainPhaseConversionEvent>(*this);
+    
+    // Register vapor event handlers
+    dispatcher.sink<VaporCreationEvent>().connect<&PhysicsEngine::onVaporCreationEvent>(*this);
+    dispatcher.sink<VaporMergeUpEvent>().connect<&PhysicsEngine::onVaporMergeUpEvent>(*this);
 }

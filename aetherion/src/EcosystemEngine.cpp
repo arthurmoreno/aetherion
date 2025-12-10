@@ -802,14 +802,13 @@ bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGr
               (isWater && isBellowGrass && matterContainerBellow.WaterMatter < 4 &&
                matterContainerBellow.WaterVapor == 0 && matterContainer.WaterMatter > 0)));
         if (canSpredWaterDown) {
-            // Transfer water to neighbor's MatterContainer
+            // Dispatch event instead of direct state change
             int transferAmount = 1;
-            matterContainerBellow.WaterMatter += transferAmount;
-            matterContainer.WaterMatter -= transferAmount;
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(pos.x, pos.y, pos.z - 1,
-                                                                       matterContainerBellow);
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(pos.x, pos.y, pos.z,
-                                                                       matterContainer);
+            Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
+            Position targetPos{pos.x, pos.y, pos.z - 1, DirectionEnum::DOWN};
+            WaterGravityFlowEvent event(sourcePos, targetPos, transferAmount,
+                                       type, typeBellow, matterContainer, matterContainerBellow);
+            dispatcher.enqueue<WaterGravityFlowEvent>(event);
             actionPerformed = true;
         }
         // }
@@ -908,8 +907,8 @@ bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGr
 
 // Evaporation
 
-void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, int x, int y, int z,
-                      int amount) {
+void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
+                      int x, int y, int z, int amount) {
     int terrainAboveId = voxelGrid.getTerrain(x, y, z + 1);
 
     if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
@@ -934,15 +933,13 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, int x, int
         if (typeAbove.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
             typeAbove.subType0 == static_cast<int>(TerrainEnum::WATER) &&
             matterContainerAbove.WaterVapor >= 0 && matterContainerAbove.WaterMatter == 0) {
-            matterContainerAbove.WaterVapor += amount;
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z + 1,
-                                                                       matterContainerAbove);
-
-            // TODO: Uncomment -- This might just be removed entirely after testing. Because SI is now a consistent part of storage.
-            // setVaporSI(x, y, z + 1, voxelGrid);
+            // Dispatch event instead of direct state change
+            Position targetPos{x, y, z + 1, DirectionEnum::DOWN};
+            VaporCreationEvent event(targetPos, amount, true);
+            dispatcher.enqueue<VaporCreationEvent>(event);
 
             std::ostringstream ossMessage;
-            ossMessage << "[createOrAddVapor] Adding vapor to existing vapor at (" << x << ", " << y << ", "
+            ossMessage << "[createOrAddVapor] Dispatching VaporCreationEvent to add vapor at (" << x << ", " << y << ", "
                         << z + 1 << ")";
             spdlog::get("console")->info(ossMessage.str());
         } else {
@@ -964,58 +961,10 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, int x, int
             throw std::runtime_error("[createOrAddVapor] Error: Checkpoint bingo.");
         }
 
-        // ============= NEW CODE =============
-
-        auto newVaporEntity = registry.create();
-        Position newPosition = {x, y, z + 1, DirectionEnum::DOWN};
-
-        EntityTypeComponent newType = {};
-        newType.mainType = 0;  // Terrain type
-        newType.subType0 = 1;  // Water terrain (vapor)
-        newType.subType1 = 0;
-
-        MatterContainer newMatterContainer = {};
-        newMatterContainer.WaterVapor = amount;
-        newMatterContainer.WaterMatter = 0;  // Ensure WaterMatter is zero
-
-        PhysicsStats newPhysicsStats = {};
-        newPhysicsStats.mass = 0.1;
-        newPhysicsStats.maxSpeed = 10;
-        newPhysicsStats.minSpeed = 0.0;
-
-        StructuralIntegrityComponent newStructuralIntegrityComponent = {};
-        newStructuralIntegrityComponent.canStackEntities =
-            false;  // Start with full structural integrity
-        newStructuralIntegrityComponent.canStackEntities = -1;
-        newStructuralIntegrityComponent.matterState = MatterState::GAS;
-
-        // Uncomment
-
-        voxelGrid.terrainGridRepository->setPosition(x, y, z + 1, newPosition);
-        voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z + 1, newType);
-        voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z + 1, newMatterContainer);
-        voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(
-            x, y, z + 1, newStructuralIntegrityComponent);
-        voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z + 1, newPhysicsStats);
-        int newTerrainId = static_cast<int>(newVaporEntity);
-        std::cout << "[createOrAddVapor] Before setTerrainId with terrainId: " << newTerrainId << std::endl;
-        voxelGrid.terrainGridRepository->setTerrainId(x, y, z + 1, newTerrainId);
-
-
-
-
-        // ============= OLD CODE USING DIRECT EnTT EMPLACEMENT =============
-
-        // voxelGrid.terrainGridRepository->setTerrainId(x, y, z + 1, -1);
-
-        // registry.emplace<Position>(newVaporEntity, newPosition);
-        // registry.emplace<EntityTypeComponent>(newVaporEntity, newType);
-        // registry.emplace<MatterContainer>(newVaporEntity, newMatterContainer);
-        // registry.emplace<StructuralIntegrityComponent>(newVaporEntity,
-        //                                                newStructuralIntegrityComponent);
-        // registry.emplace<PhysicsStats>(newVaporEntity, newPhysicsStats);
-
-        // voxelGrid.setTerrain(x, y, z + 1, static_cast<int>(newVaporEntity));
+        // Dispatch event instead of direct state changes
+        Position targetPos{x, y, z + 1, DirectionEnum::DOWN};
+        VaporCreationEvent event(targetPos, amount, false);
+        dispatcher.enqueue<VaporCreationEvent>(event);
     }
 }
 
@@ -1169,19 +1118,17 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             std::cout << "[moveVaporUp] Merging vapor at (" << pos.x << ", " << pos.y << ", "
                       << pos.z << ") with vapor above at (" << pos.x << ", " << pos.y << ", "
                       << pos.z + 1 << ")\n";
-            matterContainerAbove.WaterVapor += matterContainer.WaterVapor;
-            matterContainer.WaterVapor = 0;
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(pos.x, pos.y, pos.z + 1,
-                                                                       matterContainerAbove);
-            voxelGrid.terrainGridRepository->setTerrainMatterContainer(pos.x, pos.y, pos.z,
-                                                                       matterContainer);
+            
+            // Dispatch event instead of direct state change
+            Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
+            Position targetPos{pos.x, pos.y, pos.z + 1, DirectionEnum::DOWN};
+            VaporMergeUpEvent event(sourcePos, targetPos, matterContainer.WaterVapor, entity);
 
-            // CRITICAL FIX: Release lock BEFORE calling deleteEntityOrConvertInEmpty
-            // (which may dispatch events)
+            // CRITICAL FIX: Release lock BEFORE dispatching event
             voxelGrid.terrainGridRepository->unlockTerrainGrid();
             
-            deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
-            return;  // Early return after merging
+            dispatcher.enqueue<VaporMergeUpEvent>(event);
+            return;  // Early return after dispatching
             // } else {
             // if (entity == entityBeingDebugged) {
             //     std::ostringstream ossMessage;
@@ -1621,7 +1568,7 @@ void EcosystemEngine::loopTiles(entt::registry& registry, VoxelGrid& voxelGrid,
             x = disX(gen);
             y = disY(gen);
             z = voxelGrid.depth - 1;
-            createOrAddVapor(registry, voxelGrid, x, y, z, vaporUnits);
+            createOrAddVapor(registry, voxelGrid, dispatcher, x, y, z, vaporUnits);
             waterToCreate -= vaporUnits;
         }
     }

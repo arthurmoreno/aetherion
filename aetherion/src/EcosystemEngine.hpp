@@ -105,6 +105,25 @@ struct TerrainPhaseConversionEvent {
           newStructuralIntegrity(newStructuralIntegrity) {}
 };
 
+struct VaporCreationEvent {
+    Position position;
+    int amount;
+    bool targetExists;
+
+    VaporCreationEvent(Position position, int amount, bool targetExists)
+        : position(position), amount(amount), targetExists(targetExists) {}
+};
+
+struct VaporMergeUpEvent {
+    Position source;
+    Position target;
+    int amount;
+    entt::entity sourceEntity;
+
+    VaporMergeUpEvent(Position source, Position target, int amount, entt::entity sourceEntity)
+        : source(source), target(target), amount(amount), sourceEntity(sourceEntity) {}
+};
+
 // Forward declarations and supporting types for GridBoxProcessor
 struct GridBox {
     int minX, minY, minZ;

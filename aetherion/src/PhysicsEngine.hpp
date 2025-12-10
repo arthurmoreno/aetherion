@@ -26,6 +26,8 @@ struct WaterFallEntityEvent;
 struct WaterSpreadEvent;
 struct WaterGravityFlowEvent;
 struct TerrainPhaseConversionEvent;
+struct VaporCreationEvent;
+struct VaporMergeUpEvent;
 
 struct SetPhysicsEntityToDebug {
     entt::entity entity;
@@ -67,6 +69,8 @@ class PhysicsEngine {
     void onWaterSpreadEvent(const WaterSpreadEvent& event);
     void onWaterGravityFlowEvent(const WaterGravityFlowEvent& event);
     void onTerrainPhaseConversionEvent(const TerrainPhaseConversionEvent& event);
+    void onVaporCreationEvent(const VaporCreationEvent& event);
+    void onVaporMergeUpEvent(const VaporMergeUpEvent& event);
 
     // Register the event handler
     void registerEventHandlers(entt::dispatcher& dispatcher);
