@@ -3,7 +3,9 @@
 #include <algorithm>
 #include <iostream>
 #include <random>
+#include <sstream>
 
+#include "EcosystemEngine.hpp"
 #include "settings.hpp"
 
 bool PhysicsEngine::checkIfCanJump(const MoveSolidEntityEvent& event) {
@@ -494,6 +496,7 @@ void createMovingComponent(entt::registry& registry, entt::dispatcher& dispatche
 // ================ handleMovement functions helpers ================
 
 // Helper: Load entity data (Position, Velocity, PhysicsStats) from either ECS or terrain storage
+// ATOMIC: For terrain, uses getPhysicsSnapshot() to read all data under a single lock
 inline std::tuple<Position&, Velocity&, PhysicsStats&> loadEntityPhysicsData(
     entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity, bool isTerrain,
     Position& terrainPos, Velocity& terrainVel, PhysicsStats& terrainPS) {
@@ -734,70 +737,85 @@ void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, Voxe
 
     bool haveMovement = registry.all_of<MovingComponent>(entity);
 
-    // Load entity physics data from ECS or terrain storage
-    Position terrainPos{};
-    Velocity terrainVel{};
-    PhysicsStats terrainPS{};
-    
-    // SAFETY CHECK 3: Load entity data (exceptions will propagate if issues occur)
-    auto tuple = loadEntityPhysicsData(registry, voxelGrid, entity, isTerrain, terrainPos,
-                                       terrainVel, terrainPS);
-    Position& position = std::get<0>(tuple);
-    Velocity& velocity = std::get<1>(tuple);
-    PhysicsStats& physicsStats = std::get<2>(tuple);
-
-    // Get matter state and apply physics forces
-    MatterState matterState = getMatterState(registry, voxelGrid, entity, position, isTerrain);
-
-    auto [newVelocityZ, willStopZ] = applyGravityForces(registry, voxelGrid, position, velocity.vz,
-                                                         matterState, entityBeingDebugged, entity);
-
-    // Check stability below entity and apply friction
-    bool bellowIsStable = checkBelowStability(registry, voxelGrid, position);
-
-    auto [newVelocityX, newVelocityY, willStopX, willStopY] =
-        applyFrictionForces(velocity.vx, velocity.vy, matterState, bellowIsStable, newVelocityZ);
-
-    // Update velocities
-    velocity.vx = newVelocityX;
-    velocity.vy = newVelocityY;
-    velocity.vz = newVelocityZ;
-
-    // Calculate movement destination with special collision handling
-    auto [movingToX, movingToY, movingToZ, completionTime] = calculateMovementDestination(
-        registry, voxelGrid, position, velocity, physicsStats, newVelocityX, newVelocityY,
-        newVelocityZ);
-
-    // Lock terrain grid if handling terrain to prevent race conditions
+    // ⚠️ CRITICAL FIX: Acquire terrain grid lock BEFORE reading any terrain data
+    // to prevent TOCTOU race conditions where terrain moves between position lookup
+    // and velocity/physics reads (see loadEntityPhysicsData lines 507-515)
+    // IMPORTANT: Use try-finally pattern to ensure lock is ALWAYS released
     if (isTerrain) {
         voxelGrid.terrainGridRepository->lockTerrainGrid();
     }
-    
-    // Check collision and handle movement
-    bool collision = hasCollision(registry, voxelGrid, entity, position.x, position.y, position.z, movingToX, movingToY, movingToZ, isTerrain);
 
-    if (!collision && completionTime < calculateTimeToMove(physicsStats.minSpeed)) {
-        if (!haveMovement) {
-            createMovingComponent(registry, dispatcher, voxelGrid, entity, position, velocity,
-                                  movingToX, movingToY, movingToZ, completionTime, willStopX,
-                                  willStopY, willStopZ, isTerrain);
+    // Exception-safe lock release using try-catch
+    try {
+        // Load entity physics data from ECS or terrain storage
+        Position terrainPos{};
+        Velocity terrainVel{};
+        PhysicsStats terrainPS{};
+        
+        // SAFETY CHECK 3: Load entity data (exceptions will propagate if issues occur)
+        // NOTE: For terrain entities, this now executes with terrainGridMutex held
+        auto tuple = loadEntityPhysicsData(registry, voxelGrid, entity, isTerrain, terrainPos,
+                                           terrainVel, terrainPS);
+        Position& position = std::get<0>(tuple);
+        Velocity& velocity = std::get<1>(tuple);
+        PhysicsStats& physicsStats = std::get<2>(tuple);
+
+        // Get matter state and apply physics forces
+        MatterState matterState = getMatterState(registry, voxelGrid, entity, position, isTerrain);
+
+        auto [newVelocityZ, willStopZ] = applyGravityForces(registry, voxelGrid, position, velocity.vz,
+                                                             matterState, entityBeingDebugged, entity);
+
+        // Check stability below entity and apply friction
+        bool bellowIsStable = checkBelowStability(registry, voxelGrid, position);
+
+        auto [newVelocityX, newVelocityY, willStopX, willStopY] =
+            applyFrictionForces(velocity.vx, velocity.vy, matterState, bellowIsStable, newVelocityZ);
+
+        // Update velocities
+        velocity.vx = newVelocityX;
+        velocity.vy = newVelocityY;
+        velocity.vz = newVelocityZ;
+
+        // Calculate movement destination with special collision handling
+        auto [movingToX, movingToY, movingToZ, completionTime] = calculateMovementDestination(
+            registry, voxelGrid, position, velocity, physicsStats, newVelocityX, newVelocityY,
+            newVelocityZ);
+
+        // NOTE: Terrain grid lock already acquired above (line ~741) for terrain entities
+        
+        // Check collision and handle movement
+        bool collision = hasCollision(registry, voxelGrid, entity, position.x, position.y, position.z, movingToX, movingToY, movingToZ, isTerrain);
+
+        if (!collision && completionTime < calculateTimeToMove(physicsStats.minSpeed)) {
+            if (!haveMovement) {
+                createMovingComponent(registry, dispatcher, voxelGrid, entity, position, velocity,
+                                      movingToX, movingToY, movingToZ, completionTime, willStopX,
+                                      willStopY, willStopZ, isTerrain);
+            }
+        } else {
+            // Handle lateral collision and try Z-axis movement
+            bool handled = handleLateralCollision(registry, dispatcher, voxelGrid, entity, position,
+                                                   velocity, newVelocityX, newVelocityY, newVelocityZ,
+                                                   completionTime, willStopX, willStopY, willStopZ,
+                                                   haveMovement, isTerrain);
+
+            if (!handled) {
+                velocity.vz = 0;
+            }
+
+            // Clean up zero velocity
+            cleanupZeroVelocity(registry, voxelGrid, entity, position, velocity, isTerrain);
         }
-    } else {
-        // Handle lateral collision and try Z-axis movement
-        bool handled = handleLateralCollision(registry, dispatcher, voxelGrid, entity, position,
-                                               velocity, newVelocityX, newVelocityY, newVelocityZ,
-                                               completionTime, willStopX, willStopY, willStopZ,
-                                               haveMovement, isTerrain);
-
-        if (!handled) {
-            velocity.vz = 0;
+    } catch (...) {
+        // CRITICAL: Release lock before re-throwing exception
+        if (isTerrain) {
+            voxelGrid.terrainGridRepository->unlockTerrainGrid();
         }
-
-        // Clean up zero velocity
-        cleanupZeroVelocity(registry, voxelGrid, entity, position, velocity, isTerrain);
+        throw;  // Re-throw the exception
     }
     
-    // Unlock terrain grid if we locked it
+    // Unlock terrain grid if we locked it (normal exit path)
     if (isTerrain) {
         voxelGrid.terrainGridRepository->unlockTerrainGrid();
     }
@@ -1216,6 +1234,225 @@ void PhysicsEngine::onSetPhysicsEntityToDebug(const SetPhysicsEntityToDebug& eve
     entityBeingDebugged = event.entity;
 }
 
+// Helper function for creating or adding vapor (moved from EcosystemEngine)
+void createOrAddVaporPhysics(entt::registry& registry, VoxelGrid& voxelGrid, int x, int y, int z,
+                              int amount) {
+    int terrainAboveId = voxelGrid.getTerrain(x, y, z + 1);
+
+    if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        EntityTypeComponent typeAbove =
+            voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z + 1);
+        MatterContainer matterContainerAbove =
+            voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z + 1);
+
+        // Check if it's vapor based on MatterContainer
+        if (typeAbove.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+            typeAbove.subType0 == static_cast<int>(TerrainEnum::WATER) &&
+            matterContainerAbove.WaterVapor >= 0 && matterContainerAbove.WaterMatter == 0) {
+            matterContainerAbove.WaterVapor += amount;
+            voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z + 1,
+                                                                       matterContainerAbove);
+        }
+    } else {
+        // No entity above; create vapor entity
+        auto newVaporEntity = registry.create();
+        Position newPosition = {x, y, z + 1, DirectionEnum::DOWN};
+
+        EntityTypeComponent newType = {};
+        newType.mainType = 0;  // Terrain type
+        newType.subType0 = 1;  // Water terrain (vapor)
+        newType.subType1 = 0;
+
+        MatterContainer newMatterContainer = {};
+        newMatterContainer.WaterVapor = amount;
+        newMatterContainer.WaterMatter = 0;
+
+        PhysicsStats newPhysicsStats = {};
+        newPhysicsStats.mass = 0.1;
+        newPhysicsStats.maxSpeed = 10;
+        newPhysicsStats.minSpeed = 0.0;
+
+        StructuralIntegrityComponent newStructuralIntegrityComponent = {};
+        newStructuralIntegrityComponent.canStackEntities = false;
+        newStructuralIntegrityComponent.maxLoadCapacity = -1;
+        newStructuralIntegrityComponent.matterState = MatterState::GAS;
+
+        voxelGrid.terrainGridRepository->setPosition(x, y, z + 1, newPosition);
+        voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z + 1, newType);
+        voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z + 1, newMatterContainer);
+        voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(
+            x, y, z + 1, newStructuralIntegrityComponent);
+        voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z + 1, newPhysicsStats);
+        int newTerrainId = static_cast<int>(newVaporEntity);
+        voxelGrid.terrainGridRepository->setTerrainId(x, y, z + 1, newTerrainId);
+    }
+}
+
+// Water evaporation event handler - moved from EcosystemEngine
+void PhysicsEngine::onEvaporateWaterEntityEvent(const EvaporateWaterEntityEvent& event) {
+    int terrainId = voxelGrid->getTerrain(event.position.x, event.position.y, event.position.z);
+    if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        return;  // No terrain to evaporate from
+    }
+
+    Position pos = voxelGrid->terrainGridRepository->getPosition(
+        event.position.x, event.position.y, event.position.z);
+    EntityTypeComponent type = voxelGrid->terrainGridRepository->getTerrainEntityType(
+        event.position.x, event.position.y, event.position.z);
+    MatterContainer matterContainer =
+        voxelGrid->terrainGridRepository->getTerrainMatterContainer(
+            event.position.x, event.position.y, event.position.z);
+
+    // Validate physics constraints
+    bool canEvaporate = (event.sunIntensity > 0.0f &&
+                         type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+                         (type.subType0 == static_cast<int>(TerrainEnum::WATER) ||
+                          type.subType0 == static_cast<int>(TerrainEnum::GRASS)) &&
+                         matterContainer.WaterMatter > 0);
+
+    if (canEvaporate) {
+        // Lock terrain grid for atomic state change
+        voxelGrid->terrainGridRepository->lockTerrainGrid();
+
+        int waterEvaporated = 1;
+        matterContainer.WaterMatter -= waterEvaporated;
+        voxelGrid->terrainGridRepository->setTerrainMatterContainer(pos.x, pos.y, pos.z,
+                                                                    matterContainer);
+
+        // Create or add vapor on z+1
+        createOrAddVaporPhysics(registry, *voxelGrid, pos.x, pos.y, pos.z, waterEvaporated);
+
+        voxelGrid->terrainGridRepository->unlockTerrainGrid();
+    }
+}
+
+// Water condensation event handler - moved from EcosystemEngine
+void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& event) {
+    if (!registry.valid(event.entity) ||
+        !registry.all_of<Position, EntityTypeComponent, MatterContainer>(event.entity)) {
+        return;
+    }
+
+    auto&& [pos, type, matterContainer] =
+        registry.get<Position, EntityTypeComponent, MatterContainer>(event.entity);
+
+    int terrainBelowId = voxelGrid->getTerrain(pos.x, pos.y, pos.z - 1);
+    if (terrainBelowId == -1) {
+        // Lock for atomic state change
+        voxelGrid->terrainGridRepository->lockTerrainGrid();
+
+        // Create a new water tile below
+        entt::entity newWaterEntity = registry.create();
+        Position newPosition = {pos.x, pos.y, pos.z - 1, DirectionEnum::DOWN};
+
+        EntityTypeComponent newType = {};
+        newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
+        newType.subType0 = static_cast<int>(TerrainEnum::WATER);
+        newType.subType1 = 0;
+
+        MatterContainer newMatterContainer = {};
+        newMatterContainer.WaterMatter = event.condensationAmount;
+        newMatterContainer.WaterVapor = 0;
+
+        PhysicsStats newPhysicsStats = {};
+        newPhysicsStats.mass = 20;
+        newPhysicsStats.maxSpeed = 10;
+        newPhysicsStats.minSpeed = 0.0;
+
+        Velocity newVelocity = {};
+
+        StructuralIntegrityComponent newStructuralIntegrityComponent = {};
+        newStructuralIntegrityComponent.canStackEntities = false;
+        newStructuralIntegrityComponent.maxLoadCapacity = -1;
+        newStructuralIntegrityComponent.matterState = MatterState::LIQUID;
+
+        registry.emplace<Position>(newWaterEntity, newPosition);
+        registry.emplace<Velocity>(newWaterEntity, newVelocity);
+        registry.emplace<EntityTypeComponent>(newWaterEntity, newType);
+        registry.emplace<MatterContainer>(newWaterEntity, newMatterContainer);
+        registry.emplace<StructuralIntegrityComponent>(newWaterEntity,
+                                                       newStructuralIntegrityComponent);
+        registry.emplace<PhysicsStats>(newWaterEntity, newPhysicsStats);
+
+        voxelGrid->setTerrain(pos.x, pos.y, pos.z - 1, static_cast<int>(newWaterEntity));
+
+        matterContainer.WaterVapor -= event.condensationAmount;
+
+        if (matterContainer.WaterVapor <= 0) {
+            voxelGrid->setTerrain(pos.x, pos.y, pos.z, -1);
+            registry.destroy(event.entity);
+        }
+
+        voxelGrid->terrainGridRepository->unlockTerrainGrid();
+    }
+}
+
+// Water fall event handler - moved from EcosystemEngine
+void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent& event) {
+    if (!registry.valid(event.entity) ||
+        !registry.all_of<Position, EntityTypeComponent, MatterContainer>(event.entity)) {
+        return;
+    }
+
+    auto&& [pos, type, matterContainer] =
+        registry.get<Position, EntityTypeComponent, MatterContainer>(event.entity);
+
+    int terrainToCreateWaterId =
+        voxelGrid->getTerrain(event.position.x, event.position.y, event.position.z);
+    if (terrainToCreateWaterId == -1) {
+        // Lock for atomic state change
+        voxelGrid->terrainGridRepository->lockTerrainGrid();
+
+        // Create a new water tile
+        entt::entity newWaterEntity = registry.create();
+        Position newPosition = {event.position.x, event.position.y, event.position.z,
+                                DirectionEnum::DOWN};
+
+        EntityTypeComponent newType = {};
+        newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
+        newType.subType0 = static_cast<int>(TerrainEnum::WATER);
+        newType.subType1 = 0;
+
+        MatterContainer newMatterContainer = {};
+        newMatterContainer.WaterMatter = event.fallingAmount;
+        newMatterContainer.WaterVapor = 0;
+
+        PhysicsStats newPhysicsStats = {};
+        newPhysicsStats.mass = 20;
+        newPhysicsStats.maxSpeed = 10;
+        newPhysicsStats.minSpeed = 0.0;
+
+        Velocity newVelocity = {};
+
+        StructuralIntegrityComponent newStructuralIntegrityComponent = {};
+        newStructuralIntegrityComponent.canStackEntities = false;
+        newStructuralIntegrityComponent.maxLoadCapacity = -1;
+        newStructuralIntegrityComponent.matterState = MatterState::LIQUID;
+
+        registry.emplace<Position>(newWaterEntity, newPosition);
+        registry.emplace<Velocity>(newWaterEntity, newVelocity);
+        registry.emplace<EntityTypeComponent>(newWaterEntity, newType);
+        registry.emplace<MatterContainer>(newWaterEntity, newMatterContainer);
+        registry.emplace<StructuralIntegrityComponent>(newWaterEntity,
+                                                       newStructuralIntegrityComponent);
+        registry.emplace<PhysicsStats>(newWaterEntity, newPhysicsStats);
+
+        voxelGrid->setTerrain(event.position.x, event.position.y, event.position.z,
+                             static_cast<int>(newWaterEntity));
+
+        matterContainer.WaterMatter -= event.fallingAmount;
+
+        if (matterContainer.WaterVapor <= 0 && matterContainer.WaterMatter <= 0 &&
+            type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+            type.subType0 == static_cast<int>(TerrainEnum::WATER)) {
+            voxelGrid->setTerrain(pos.x, pos.y, pos.z, -1);
+            registry.destroy(event.entity);
+        }
+
+        voxelGrid->terrainGridRepository->unlockTerrainGrid();
+    }
+}
+
 // Register event handlers
 void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     dispatcher.sink<MoveGasEntityEvent>().connect<&PhysicsEngine::onMoveGasEntityEvent>(*this);
@@ -1224,4 +1461,9 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     dispatcher.sink<UseItemEvent>().connect<&PhysicsEngine::onUseItemEvent>(*this);
     dispatcher.sink<SetPhysicsEntityToDebug>().connect<&PhysicsEngine::onSetPhysicsEntityToDebug>(
         *this);
+    
+    // Register water phase change event handlers
+    dispatcher.sink<EvaporateWaterEntityEvent>().connect<&PhysicsEngine::onEvaporateWaterEntityEvent>(*this);
+    dispatcher.sink<CondenseWaterEntityEvent>().connect<&PhysicsEngine::onCondenseWaterEntityEvent>(*this);
+    dispatcher.sink<WaterFallEntityEvent>().connect<&PhysicsEngine::onWaterFallEntityEvent>(*this);
 }

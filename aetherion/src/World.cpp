@@ -47,8 +47,7 @@ World::World(int width, int height, int depth)
     lifeEngine->registerEventHandlers(dispatcher);
     ecosystemEngine->registerEventHandlers(dispatcher);
     ecosystemEngine->waterSimManager_->initializeProcessors(
-        registry, *voxelGrid, dispatcher, ecosystemEngine->pendingEvaporateWater,
-        ecosystemEngine->pendingCondenseWater, ecosystemEngine->pendingWaterFall);
+        registry, *voxelGrid, dispatcher);
 
     if (!Py_IsInitialized()) {
         std::cout << "Python was not initialized! Starting python interpreter." << std::endl;
@@ -783,11 +782,7 @@ void World::update() {
     }
 
     bool hasEntitiesToDelete = !lifeEngine->entitiesToDelete.empty();
-    bool hasWaterToEvaporate = !ecosystemEngine->pendingEvaporateWater.empty();
-    bool hasWaterToCondense = !ecosystemEngine->pendingCondenseWater.empty();
-    bool hasWaterToFall = !ecosystemEngine->pendingWaterFall.empty();
-    bool hasAnyCleanup =
-        hasEntitiesToDelete || hasWaterToEvaporate || hasWaterToCondense || hasWaterToFall;
+    bool hasAnyCleanup = hasEntitiesToDelete;
 
     // Check if any async tasks are still running
     bool anyAsyncTasksRunning =
@@ -873,21 +868,6 @@ void World::update() {
 
             std::cout << "=== END ENTITY DELETION DEBUG ===\n" << std::endl;
             lifeEngine->entitiesToDelete.clear();
-        }
-
-        if (hasWaterToEvaporate) {
-            ecosystemEngine->processEvaporateWaterEvents(registry, *voxelGrid,
-                                                         ecosystemEngine->pendingEvaporateWater);
-        }
-
-        if (hasWaterToCondense) {
-            ecosystemEngine->processCondenseWaterEvents(registry, *voxelGrid,
-                                                        ecosystemEngine->pendingCondenseWater);
-        }
-
-        if (hasWaterToFall) {
-            ecosystemEngine->processWaterFallEvents(registry, *voxelGrid,
-                                                    ecosystemEngine->pendingWaterFall);
         }
     }
 

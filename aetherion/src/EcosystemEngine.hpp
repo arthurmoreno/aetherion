@@ -189,17 +189,11 @@ class GridBoxProcessor {
     entt::registry* registry_;
     VoxelGrid* voxelGrid_;
     entt::dispatcher* dispatcher_;
-    tbb::concurrent_queue<EvaporateWaterEntityEvent>* pendingEvaporateWater;
-    tbb::concurrent_queue<CondenseWaterEntityEvent>* pendingCreateWater;
-    tbb::concurrent_queue<WaterFallEntityEvent>* pendingWaterFall;
 
    public:
     // Initialize accessors and registry when processor is created
     void initializeAccessors(
-        entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
-        tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater,
-        tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCreateWater,
-        tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall);
+        entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher);
 
     std::vector<WaterFlow> processBox(const GridBox& box, float sunIntensity);
 
@@ -237,10 +231,7 @@ class WaterSimulationManager {
 
     // Initialize processors with terrain storage access
     void initializeProcessors(
-        entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
-        tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater,
-        tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCreateWater,
-        tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall);
+        entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher);
 
     // Main parallel water simulation processing
     void processWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid, float sunIntensity);
@@ -288,18 +279,11 @@ struct ToBeCreatedWaterTile {
 
 void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& voxelGrid,
                       entt::dispatcher& dispatcher, float sunIntensity,
-                      tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater,
-                      tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCondenseWater,
-                      tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall,
                       std::random_device& rd, std::mt19937& gen,
                       std::uniform_int_distribution<>& disWaterSpreading);
 
 class EcosystemEngine {
    public:
-    tbb::concurrent_queue<EvaporateWaterEntityEvent> pendingEvaporateWater;
-    tbb::concurrent_queue<CondenseWaterEntityEvent> pendingCondenseWater;
-    tbb::concurrent_queue<WaterFallEntityEvent> pendingWaterFall;
-
     // Water simulation manager for parallel processing
     std::unique_ptr<WaterSimulationManager> waterSimManager_;
 
@@ -323,14 +307,9 @@ class EcosystemEngine {
     // Parallel water simulation using WaterSimulationManager
     void processParallelWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid);
 
-    void processEvaporateWaterEvents(
-        entt::registry& registry, VoxelGrid& voxelGrid,
-        tbb::concurrent_queue<EvaporateWaterEntityEvent>& pendingEvaporateWater);
-    void processCondenseWaterEvents(
-        entt::registry& registry, VoxelGrid& voxelGrid,
-        tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCondenseWater);
-    void processWaterFallEvents(entt::registry& registry, VoxelGrid& voxelGrid,
-                                tbb::concurrent_queue<WaterFallEntityEvent>& pendingWaterFall);
+    // Event processing methods - DEPRECATED: These have been moved to PhysicsEngine
+    // Water events are now handled directly by the physics system for better state management
+    // The ecosystem engine only detects conditions and dispatches events
 
     // Register the event handler
     void onSetEcoEntityToDebug(const SetEcoEntityToDebug& event);

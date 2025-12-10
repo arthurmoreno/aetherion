@@ -2,8 +2,8 @@
 #define PHYSICSENGINE_HPP
 
 #include <entt/entt.hpp>
+#include <tbb/concurrent_queue.h>
 
-#include "EcosystemEngine.hpp"
 #include "GameClock.hpp"
 #include "ItemsEvents.hpp"
 #include "MoveEntityEvent.hpp"
@@ -18,6 +18,11 @@
 #include "components/PhysicsComponents.hpp"
 #include "components/PlantsComponents.hpp"
 #include "components/TerrainComponents.hpp"
+
+// Forward declarations for water events
+struct EvaporateWaterEntityEvent;
+struct CondenseWaterEntityEvent;
+struct WaterFallEntityEvent;
 
 struct SetPhysicsEntityToDebug {
     entt::entity entity;
@@ -51,6 +56,11 @@ class PhysicsEngine {
     void onTakeItemEvent(const TakeItemEvent& event);
     void onUseItemEvent(const UseItemEvent& event);
     void onSetPhysicsEntityToDebug(const SetPhysicsEntityToDebug& event);
+
+    // Handle water phase change events (moved from EcosystemEngine)
+    void onEvaporateWaterEntityEvent(const EvaporateWaterEntityEvent& event);
+    void onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& event);
+    void onWaterFallEntityEvent(const WaterFallEntityEvent& event);
 
     // Register the event handler
     void registerEventHandlers(entt::dispatcher& dispatcher);
