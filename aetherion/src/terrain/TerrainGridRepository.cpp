@@ -23,6 +23,8 @@ TerrainGridRepository::TerrainGridRepository(entt::registry& registry, TerrainSt
     registry_.on_construct<Velocity>().connect<&TerrainGridRepository::onConstructVelocity>(*this);
     registry_.on_construct<MovingComponent>().connect<&TerrainGridRepository::onConstructMoving>(
         *this);
+    // Clean up when Velocity is destroyed
+    registry_.on_destroy<Velocity>().connect<&TerrainGridRepository::onDestroyVelocity>(*this);
 }
 
 entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
@@ -50,10 +52,10 @@ void TerrainGridRepository::moveTerrain(MovingComponent& movingComponent) {
         movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ);
     if (currentPositionEntityId && !movingToPositionEntityId) {
         int terrainID = currentPositionEntityId.value();
-        std::cout << "Moving terrain entity ID " << terrainID << " from ("
-                  << movingComponent.movingFromX << ", " << movingComponent.movingFromY << ", "
-                  << movingComponent.movingFromZ << ") to (" << movingComponent.movingToX << ", "
-                  << movingComponent.movingToY << ", " << movingComponent.movingToZ << ")\n";
+        // std::cout << "Moving terrain entity ID " << terrainID << " from ("
+        //           << movingComponent.movingFromX << ", " << movingComponent.movingFromY << ", "
+        //           << movingComponent.movingFromZ << ") to (" << movingComponent.movingToX << ", "
+        //           << movingComponent.movingToY << ", " << movingComponent.movingToZ << ")\n";
 
         // CRITICAL: Reserve destination FIRST to prevent race conditions
         // This must happen before copying any data to prevent other entities from trying to move
@@ -157,8 +159,8 @@ void TerrainGridRepository::clearActive(int x, int y, int z) {
 
 void TerrainGridRepository::setTerrainId(int x, int y, int z, int terrainID) {
     withUniqueLock([&]() {
-        std::cout << "[setTerrainId] Setting terrain ID at (" << x << ", " << y << ", " << z
-                  << ") to " << terrainID << std::endl;
+        // std::cout << "[setTerrainId] Setting terrain ID at (" << x << ", " << y << ", " << z
+        //           << ") to " << terrainID << std::endl;
         storage_.terrainGrid->tree().setValue(C(x, y, z), terrainID);
     });
 }
@@ -197,6 +199,36 @@ void TerrainGridRepository::onConstructMoving(entt::registry& reg, entt::entity 
             markActive(pos->x, pos->y, pos->z, e);
         }
     }
+}
+
+void TerrainGridRepository::onDestroyVelocity(entt::registry& reg, entt::entity e) {
+    // Clean up entity tracking and restore to static terrain storage
+    if (!reg.valid(e)) return;
+    
+    auto pos = reg.try_get<Position>(e);
+    if (!pos) return;
+    
+    auto entityType = reg.try_get<EntityTypeComponent>(e);
+    if (entityType && entityType->mainType != static_cast<int>(EntityEnum::TERRAIN)) {
+        return;
+    }
+    
+    // std::cout << "TerrainGridRepository: onDestroyVelocity at (" << pos->x << ", "
+    //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
+    
+    withSharedLock([&]() {
+        Key key{pos->x, pos->y, pos->z};
+        
+        // Remove from tracking maps
+        byCoord_.erase(key);
+        byEntity_.erase(e);
+        
+        // Set terrain ID back to ON_GRID_STORAGE (-1) to mark it as static
+        setTerrainId(pos->x, pos->y, pos->z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+        
+        // Clear active marker in the grid
+        clearActive(pos->x, pos->y, pos->z);
+    });
 }
 
 entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {

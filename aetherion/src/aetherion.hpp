@@ -27,6 +27,7 @@
 #include "LowLevelRenderer/RenderQueue.hpp"
 #include "LowLevelRenderer/TextureManager.hpp"
 #include "PyRegistry.hpp"
+#include "voxelgrid/VoxelGridView.hpp"
 #include "VoxelGrid.hpp"
 #include "World.hpp"
 #include "neat/genome.hpp"

@@ -234,6 +234,7 @@ class TerrainGridRepository {
     // EnTT hooks to auto-activate on transient component emplacement
     void onConstructVelocity(entt::registry& reg, entt::entity e);
     void onConstructMoving(entt::registry& reg, entt::entity e);
+    void onDestroyVelocity(entt::registry& reg, entt::entity e);
 };
 
 // ================ Template Method Implementations ================
