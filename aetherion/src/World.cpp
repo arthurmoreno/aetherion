@@ -16,8 +16,8 @@
 #include <vector>
 
 #include "PerceptionResponse_generated.h"
-#include "VoxelGrid.hpp"
 #include "flatbuffers/flatbuffers.h"
+#include "voxelgrid/VoxelGrid.hpp"
 
 World::World(int width, int height, int depth)
     : voxelGrid(new VoxelGrid(registry)),

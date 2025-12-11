@@ -3,7 +3,7 @@
 #include <imgui.h>
 #include <nanobind/nanobind.h>
 
-#include "../../../PhysicsManager.hpp"
+#include "../../../physics/PhysicsManager.hpp"
 #include "../../GuiCore/GuiProgram.hpp"
 
 namespace nb = nanobind;

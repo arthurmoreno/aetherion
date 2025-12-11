@@ -2,17 +2,12 @@
 #define VOXELGRID_VIEW_HPP
 
 #include <flatbuffers/flatbuffers.h>
-
 #include <nanobind/nanobind.h>
 #include <openvdb/openvdb.h>
 
-
 #include "VoxelGridView_generated.h"
 
-
-
 namespace nb = nanobind;
-
 
 class VoxelGridViewFlatB {
    public:
@@ -169,7 +164,5 @@ class VoxelGridView {
         return vgv;
     }
 };
-
-
 
 #endif  // READONLY_QUERIES_HPP

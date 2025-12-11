@@ -19,13 +19,12 @@
 #include <vector>
 
 #include "VoxelGridView_generated.h"
-#include "voxelgrid/GridData.hpp"
-#include "voxelgrid/VoxelGridView.hpp"
 #include "terrain/TerrainGridRepository.hpp"
 #include "terrain/TerrainStorage.hpp"
+#include "voxelgrid/GridData.hpp"
+#include "voxelgrid/VoxelGridView.hpp"
 
 namespace nb = nanobind;
-
 
 class VoxelGrid {
    public:

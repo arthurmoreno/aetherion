@@ -10,9 +10,9 @@
 
 #include "EntityInterface.hpp"
 #include "ItemConfigurationManager.hpp"
-#include "VoxelGrid.hpp"
 #include "components/ItemsComponents.hpp"
 #include "components/LifecycleComponents.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 namespace nb = nanobind;
 

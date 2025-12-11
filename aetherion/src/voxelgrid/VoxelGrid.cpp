@@ -1,4 +1,4 @@
-#include "VoxelGrid.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 #include <memory>
 

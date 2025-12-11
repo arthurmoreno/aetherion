@@ -5,7 +5,7 @@
 
 #include <entt/entt.hpp>
 
-#include "VoxelGrid.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 namespace nb = nanobind;
 

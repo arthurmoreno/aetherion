@@ -11,8 +11,8 @@
 #include "EntityInterface.hpp"
 #include "GuiStateManager.hpp"
 #include "LowLevelRenderer/TextureManager.hpp"
-#include "PhysicsManager.hpp"
 #include "components/core/Command.hpp"  // Command class for type-safe command handling
+#include "physics/PhysicsManager.hpp"
 
 namespace nb = nanobind;
 

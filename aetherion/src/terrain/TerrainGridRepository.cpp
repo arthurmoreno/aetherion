@@ -204,28 +204,28 @@ void TerrainGridRepository::onConstructMoving(entt::registry& reg, entt::entity 
 void TerrainGridRepository::onDestroyVelocity(entt::registry& reg, entt::entity e) {
     // Clean up entity tracking and restore to static terrain storage
     if (!reg.valid(e)) return;
-    
+
     auto pos = reg.try_get<Position>(e);
     if (!pos) return;
-    
+
     auto entityType = reg.try_get<EntityTypeComponent>(e);
     if (entityType && entityType->mainType != static_cast<int>(EntityEnum::TERRAIN)) {
         return;
     }
-    
+
     // std::cout << "TerrainGridRepository: onDestroyVelocity at (" << pos->x << ", "
     //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
-    
+
     withSharedLock([&]() {
         Key key{pos->x, pos->y, pos->z};
-        
+
         // Remove from tracking maps
         byCoord_.erase(key);
         byEntity_.erase(e);
-        
+
         // Set terrain ID back to ON_GRID_STORAGE (-1) to mark it as static
         setTerrainId(pos->x, pos->y, pos->z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
-        
+
         // Clear active marker in the grid
         clearActive(pos->x, pos->y, pos->z);
     });

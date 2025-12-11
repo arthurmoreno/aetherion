@@ -9,19 +9,18 @@
 
 #include "ReadonlyQueries.hpp"
 
-#include <tuple>
-
 #include <entt/entt.hpp>
+#include <tuple>
 
 // #include "MoveEntityEvent.hpp"
 // #include "PhysicsEngine.hpp"
-// #include "VoxelGrid.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/PhysicsComponents.hpp"
 #include "components/TerrainComponents.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 // Helper function to determine direction
-int getDirection(float velocity) {
+int getDirectionFromVelocity(float velocity) {
     if (velocity > 0.0f) {
         return 1;
     } else if (velocity < 0.0f) {
@@ -31,6 +30,11 @@ int getDirection(float velocity) {
     }
 }
 
+// Helper: Check if terrain is soft empty
+bool isTerrainSoftEmpty(EntityTypeComponent& terrainType) {
+    return (terrainType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+            terrainType.subType0 == static_cast<int>(TerrainEnum::EMPTY));
+}
 
 // Helper: Get DirectionEnum from velocities
 DirectionEnum getDirectionFromVelocities(float velocityX, float velocityY, float velocityZ) {
@@ -58,140 +62,41 @@ bool checkIfCanJump(const MoveSolidEntityEvent& event) {
     return true;
 }
 
+bool checkIfCanFall(entt::registry& registry, VoxelGrid& voxelGrid, int i, int j, int k) {
+    // return false;
 
-// inline bool hasCollision(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
-//                          int movingFromX, int movingFromY, int movingFromZ,
-//                          int movingToX, int movingToY, int movingToZ, bool isTerrain) {
-//     bool collision = false;
-//     // Check if the movement is within bounds for x, y, z
-//     if ((0 <= movingToX && movingToX < voxelGrid.width) &&
-//         (0 <= movingToY && movingToY < voxelGrid.height) &&
-//         (0 <= movingToZ && movingToZ < voxelGrid.depth)) {
-//         int movingToEntityId = voxelGrid.getEntity(movingToX, movingToY, movingToZ);
-//         bool terrainExists = voxelGrid.checkIfTerrainExists(movingToX, movingToY, movingToZ);
+    int movingToEntityId = voxelGrid.getEntity(i, j, k - 1);
+    bool canFallOnterrain = false;
+    if (voxelGrid.checkIfTerrainExists(i, j, k - 1)) {
+        EntityTypeComponent etc =
+            voxelGrid.terrainGridRepository->getTerrainEntityType(i, j, k - 1);
+        // Any terrain that is different than water
+        if (etc.subType0 == 1) {
+            canFallOnterrain = true;
+        }
+    } else {
+        canFallOnterrain = true;
+    }
 
-//         bool entityCollision = false;
-//         if (movingToEntityId != -1) {
-//             entityCollision = true;
-//         }
+    return (k > 0 and movingToEntityId == -1 and canFallOnterrain);
+}
 
-//         bool terrainCollision = false;
-//         if (terrainExists) {
-//             EntityTypeComponent etc = getEntityTypeComponent(
-//                 registry, voxelGrid, entity, movingFromX, movingFromY, movingFromZ, isTerrain);
-//             EntityTypeComponent terrainEtc = voxelGrid.terrainGridRepository->getTerrainEntityType(
-//                 movingToX, movingToY, movingToZ);
-//             // Any terrain that is different than water
-//             if (etc.mainType == static_cast<int>(EntityEnum::TERRAIN)) {
-//                 terrainCollision = true;
-//             } else if (terrainEtc.subType0 != static_cast<int>(TerrainEnum::EMPTY) &&
-//                        terrainEtc.subType0 != static_cast<int>(TerrainEnum::WATER)) {
-//                 terrainCollision = true;
-//             }
-//         }
-
-//         // Check if there is an entity or terrain blocking the destination
-//         if (entityCollision || terrainCollision) {
-//             collision = true;
-//         }
-//     } else {
-//         // Out of bounds collision with the world boundary
-//         collision = true;
-//     }
-
-//     return collision;
-// }
-
-
-// std::tuple<bool, int, int, int> hasSpecialCollision(entt::registry& registry, VoxelGrid& voxelGrid,
-//                                                     Position position, int movingToX, int movingToY,
-//                                                     int movingToZ) {
-//     bool collision = false;
-//     int newMovingToX, newMovingToY, newMovingToZ;
-//     // Check if the movement is within bounds for x, y, z
-//     if ((0 <= movingToX && movingToX < voxelGrid.width) &&
-//         (0 <= movingToY && movingToY < voxelGrid.height) &&
-//         (0 <= movingToZ && movingToZ < voxelGrid.depth)) {
-//         // int movingToEntityId = voxelGrid.getEntity(movingToX, movingToY, movingToZ);
-//         bool movingToSameZTerrainExists =
-//             voxelGrid.checkIfTerrainExists(movingToX, movingToY, movingToZ);
-//         bool movingToBellowTerrainExists =
-//             voxelGrid.checkIfTerrainExists(movingToX, movingToY, movingToZ - 1);
-
-//         // Check if there is an entity or terrain blocking the destination
-//         if (movingToSameZTerrainExists) {
-//             EntityTypeComponent etc = voxelGrid.terrainGridRepository->getTerrainEntityType(
-//                 movingToX, movingToY, movingToZ);
-//             // subType1 == 1 means ramp_east
-//             if (etc.subType1 == 1) {
-//                 collision = true;
-//                 newMovingToX = movingToX - 1;
-//                 newMovingToY = movingToY;
-//                 newMovingToZ = movingToZ + 1;
-//             } else if (etc.subType1 == 2) {
-//                 collision = true;
-//                 newMovingToX = movingToX + 1;
-//                 newMovingToY = movingToY;
-//                 newMovingToZ = movingToZ + 1;
-//             } else if (etc.subType1 == 7) {
-//                 collision = true;
-//                 newMovingToX = movingToX;
-//                 newMovingToY = movingToY - 1;
-//                 newMovingToZ = movingToZ + 1;
-//             } else if (etc.subType1 == 8) {
-//                 collision = true;
-//                 newMovingToX = movingToX;
-//                 newMovingToY = movingToY + 1;
-//                 newMovingToZ = movingToZ + 1;
-//             }
-//         } else if (movingToBellowTerrainExists) {
-//             EntityTypeComponent etc = voxelGrid.terrainGridRepository->getTerrainEntityType(
-//                 movingToX, movingToY, movingToZ - 1);
-//             // subType1 == 1 means ramp_east
-//             if (etc.subType1 == 1) {
-//                 collision = true;
-//                 newMovingToX = movingToX + 1;
-//                 newMovingToY = movingToY;
-//                 newMovingToZ = movingToZ - 1;
-//             } else if (etc.subType1 == 2) {
-//                 collision = true;
-//                 newMovingToX = movingToX - 1;
-//                 newMovingToY = movingToY;
-//                 newMovingToZ = movingToZ - 1;
-//             } else if (etc.subType1 == 7) {
-//                 collision = true;
-//                 newMovingToX = movingToX;
-//                 newMovingToY = movingToY + 1;
-//                 newMovingToZ = movingToZ - 1;
-//             } else if (etc.subType1 == 8) {
-//                 collision = true;
-//                 newMovingToX = movingToX;
-//                 newMovingToY = movingToY - 1;
-//                 newMovingToZ = movingToZ - 1;
-//             }
-//         }
-//     }
-
-//     return std::make_tuple(collision, newMovingToX, newMovingToY, newMovingToZ);
-// }
-
-
-
-// bool checkIfCanFall(entt::registry& registry, VoxelGrid& voxelGrid, int i, int j, int k) {
-//     // return false;
-
-//     int movingToEntityId = voxelGrid.getEntity(i, j, k - 1);
-//     bool canFallOnterrain = false;
-//     if (voxelGrid.checkIfTerrainExists(i, j, k - 1)) {
-//         EntityTypeComponent etc =
-//             voxelGrid.terrainGridRepository->getTerrainEntityType(i, j, k - 1);
-//         // Any terrain that is different than water
-//         if (etc.subType0 == 1) {
-//             canFallOnterrain = true;
-//         }
-//     } else {
-//         canFallOnterrain = true;
-//     }
-
-//     return (k > 0 and movingToEntityId == -1 and canFallOnterrain);
-// }
+// Helper: Get type and check if soft empty
+bool getTypeAndCheckSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid, int terrainId, int x,
+                              int y, int z) {
+    if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        return false;  // Means terrain voxel is empty.
+    } else if (terrainId == -1) {
+        return false;  // Means terrain voxel is completely empty (no entity).
+        EntityTypeComponent terrainEntityType =
+            voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
+        const bool isTerrainNeighborSoftEmpty{isTerrainSoftEmpty(terrainEntityType)};
+        return isTerrainNeighborSoftEmpty;
+    } else {
+        // TODO: This is not being handled. It should be handled when active EnTT terrains start to
+        // be used.
+        std::cout << "[getTypeAndCheckSoftEmpty]: terrainId is neither -1 nor -2. Not handled yet."
+                  << std::endl;
+        return false;
+    }
+}

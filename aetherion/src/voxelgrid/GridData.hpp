@@ -3,7 +3,6 @@
 
 #include <msgpack.hpp>
 
-
 enum class GridType { TERRAIN, ENTITY };
 
 struct VoxelGridCoordinates {

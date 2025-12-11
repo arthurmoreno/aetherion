@@ -8,8 +8,8 @@
 #include <unordered_map>
 #include <vector>
 
-#include "VoxelGrid.hpp"
 #include "components/PhysicsComponents.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 // Forward declarations
 class VoxelGrid;

@@ -4,11 +4,11 @@
 #include <entt/entt.hpp>
 
 #include "LifeEvents.hpp"
-#include "VoxelGrid.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/HealthComponents.hpp"
 #include "components/ItemsComponents.hpp"
 #include "components/PhysicsComponents.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 class HealthSystem {
    public:

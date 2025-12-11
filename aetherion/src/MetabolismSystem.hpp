@@ -4,7 +4,6 @@
 #include <entt/entt.hpp>
 
 #include "LifeEvents.hpp"
-#include "VoxelGrid.hpp"
 #include "components/DnaComponents.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/HealthComponents.hpp"
@@ -12,6 +11,7 @@
 #include "components/MetabolismComponents.hpp"
 #include "components/PerceptionComponent.hpp"
 #include "components/PhysicsComponents.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 class MetabolismSystem {
    public:

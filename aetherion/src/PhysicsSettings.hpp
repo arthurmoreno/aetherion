@@ -1,7 +1,7 @@
 #ifndef PHYSICS_SETTINGS_HPP
 #define PHYSICS_SETTINGS_HPP
 
-#include "PhysicsManager.hpp"
+#include "physics/PhysicsManager.hpp"
 
 class PhysicsSettings {
    public:

@@ -6,31 +6,11 @@
 
 #include "aetherion.hpp"
 
-// #include <nanobind/nanobind.h>
-// #include <nanobind/operators.h>
-// #include <nanobind/stl/bind_map.h>
-// #include <nanobind/stl/bind_vector.h>
-// #include <nanobind/stl/string.h>
-// #include <nanobind/stl/unique_ptr.h>
-// #include <nanobind/stl/variant.h>
 #include <nanobind/ndarray.h>
 #include <spdlog/spdlog.h>
 
 #include <cstdint>
 
-// #include "CameraUtils.hpp"
-// #include "EntityInterface.hpp"
-// #include "Gui/Gui.hpp"
-// #include "Gui/GuiStateManager.hpp"
-// #include "ItemConfiguration.hpp"
-// #include "ItemConfigurationManager.hpp"
-// #include "Logger.hpp"
-// #include "LowLevelRenderer/RenderQueue.hpp"
-// #include "LowLevelRenderer/TextureManager.hpp"
-// #include "PyRegistry.hpp"
-// #include "VoxelGrid.hpp"
-// #include "World.hpp"
-// #include "neat/genome.hpp"
 #include "PhysicsSettings.hpp"
 
 // Create a shortcut for nanobind

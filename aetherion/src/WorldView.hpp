@@ -9,11 +9,11 @@
 
 #include "EntityInterface.hpp"
 #include "FlatbufferUtils.hpp"
-#include "VoxelGrid.hpp"
 #include "WorldView_generated.h"
 #include "components/PerceptionComponent.hpp"
 #include "components/PhysicsComponents.hpp"
 #include "flatbuffers/flatbuffers.h"
+#include "voxelgrid/VoxelGrid.hpp"
 
 namespace nb = nanobind;
 

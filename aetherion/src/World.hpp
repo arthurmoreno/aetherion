@@ -26,8 +26,8 @@
 #include "PhysicsEngine.hpp"
 #include "PyRegistry.hpp"
 #include "QueryCommand.hpp"
-#include "VoxelGrid.hpp"
 #include "WorldView.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 namespace nb = nanobind;
 
