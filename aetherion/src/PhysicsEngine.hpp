@@ -8,9 +8,7 @@
 #include "GameClock.hpp"
 #include "ItemsEvents.hpp"
 #include "MoveEntityEvent.hpp"
-#include "PhysicsManager.hpp"
 #include "SunIntensity.hpp"
-#include "VoxelGrid.hpp"
 #include "components/ConsoleLogsComponent.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/ItemsComponents.hpp"
@@ -19,6 +17,8 @@
 #include "components/PhysicsComponents.hpp"
 #include "components/PlantsComponents.hpp"
 #include "components/TerrainComponents.hpp"
+#include "physics/PhysicsManager.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 // Forward declarations for water events
 struct EvaporateWaterEntityEvent;
@@ -30,6 +30,7 @@ struct TerrainPhaseConversionEvent;
 struct VaporCreationEvent;
 struct VaporMergeUpEvent;
 struct AddVaporToTileAboveEvent;
+struct CreateVaporEntityEvent;
 
 struct SetPhysicsEntityToDebug {
     entt::entity entity;
@@ -74,6 +75,7 @@ class PhysicsEngine {
     void onVaporCreationEvent(const VaporCreationEvent& event);
     void onVaporMergeUpEvent(const VaporMergeUpEvent& event);
     void onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent& event);
+    void onCreateVaporEntityEvent(const CreateVaporEntityEvent& event);
 
     // Register the event handler
     void registerEventHandlers(entt::dispatcher& dispatcher);

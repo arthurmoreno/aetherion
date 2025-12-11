@@ -75,6 +75,27 @@ bool getTypeAndCheckSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid, in
 
 bool isTerrainSoftEmpty(EntityTypeComponent& terrainType);
 
+// Helper: Check if position below entity is stable
+inline bool checkBelowStability(entt::registry& registry, VoxelGrid& voxelGrid,
+                                const Position& position) {
+    int bellowEntityId = voxelGrid.getEntity(position.x, position.y, position.z - 1);
+    bool bellowTerrainExists =
+        voxelGrid.checkIfTerrainExists(position.x, position.y, position.z - 1);
+
+    if (bellowEntityId != -1) {
+        entt::entity bellowEntity = static_cast<entt::entity>(bellowEntityId);
+        StructuralIntegrityComponent* bellowEntitySic =
+            registry.try_get<StructuralIntegrityComponent>(bellowEntity);
+        return bellowEntitySic && bellowEntitySic->canStackEntities;
+    } else if (bellowTerrainExists) {
+        StructuralIntegrityComponent bellowTerrainSic =
+            voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(position.x, position.y,
+                                                                           position.z - 1);
+        return bellowTerrainSic.canStackEntities;
+    }
+    return false;
+}
+
 // // Check if entity has collision at the target position
 // bool hasCollision(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
 //                  int movingFromX, int movingFromY, int movingFromZ,

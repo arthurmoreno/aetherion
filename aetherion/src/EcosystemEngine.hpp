@@ -19,9 +19,7 @@
 #include "LifeEvents.hpp"
 #include "Logger.hpp"
 #include "MoveEntityEvent.hpp"
-#include "PhysicsManager.hpp"
 #include "SunIntensity.hpp"
-#include "VoxelGrid.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/HealthComponents.hpp"
 #include "components/ItemsComponents.hpp"
@@ -29,7 +27,9 @@
 #include "components/PhysicsComponents.hpp"
 #include "components/PlantsComponents.hpp"
 #include "components/TerrainComponents.hpp"
+#include "physics/PhysicsManager.hpp"
 #include "terrain/TerrainStorage.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 struct EvaporateWaterEntityEvent {
     entt::entity entity;
@@ -41,11 +41,14 @@ struct EvaporateWaterEntityEvent {
 };
 
 struct CondenseWaterEntityEvent {
-    entt::entity entity;
+    Position vaporPos;  // Position of the vapor (x, y, z)
     int condensationAmount;
+    int terrainBelowId;  // Terrain ID at z-1 for handler decision
 
-    CondenseWaterEntityEvent(entt::entity entity, int condensationAmount)
-        : entity(entity), condensationAmount(condensationAmount) {}
+    CondenseWaterEntityEvent(Position vaporPos, int condensationAmount, int terrainBelowId)
+        : vaporPos(vaporPos),
+          condensationAmount(condensationAmount),
+          terrainBelowId(terrainBelowId) {}
 };
 
 struct WaterFallEntityEvent {
@@ -127,6 +130,15 @@ struct VaporCreationEvent {
 
     VaporCreationEvent(Position position, int amount, bool targetExists)
         : position(position), amount(amount), targetExists(targetExists) {}
+};
+
+struct CreateVaporEntityEvent {
+    Position position;
+    float rhoEnv;
+    float rhoVapor;
+
+    CreateVaporEntityEvent(Position position, float rhoEnv, float rhoVapor)
+        : position(position), rhoEnv(rhoEnv), rhoVapor(rhoVapor) {}
 };
 
 struct VaporMergeUpEvent {

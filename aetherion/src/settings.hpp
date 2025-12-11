@@ -20,8 +20,8 @@ const int BLOCKS_IN_SCREEN_DEPTH = 3;
 
 const int SPRITE_SIZE = 32;
 
-const bool GRAVITY_FRICTION = true;
-const float GRAVITY = 9.81f;
+// const bool GRAVITY_FRICTION = true;
+// const float GRAVITY = 9.81f;
 
 #define PHYSICS_COMP_AS_3DARRAY true
 
