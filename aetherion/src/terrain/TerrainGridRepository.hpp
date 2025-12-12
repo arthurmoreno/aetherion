@@ -12,6 +12,7 @@
 #include "components/PhysicsComponents.hpp"
 #include "components/TerrainComponents.hpp"
 #include "terrain/TerrainStorage.hpp"
+#include "terrain/VoxelCoord.hpp"
 
 // TerrainGridRepository provides an ECS overlay for transient behavior while
 // delegating all static storage to TerrainStorage (OpenVDB-backed).
@@ -178,6 +179,12 @@ class TerrainGridRepository {
     void lockTerrainGrid();
     void unlockTerrainGrid();
 
+    entt::entity ensureActive(int x, int y, int z);
+
+    // Tracking map helpers
+    void addToTrackingMaps(const VoxelCoord& key, entt::entity e);
+    void removeFromTrackingMaps(const VoxelCoord& key, entt::entity e);
+
    private:
     // Check if terrain grid is currently locked
     bool isTerrainGridLocked() const;
@@ -201,33 +208,21 @@ class TerrainGridRepository {
         return func();
     }
 
-    struct Key {
-        int x, y, z;
-        bool operator==(const Key& o) const { return x == o.x && y == o.y && z == o.z; }
-    };
-
-    struct KeyHash {
-        std::size_t operator()(const Key& k) const noexcept {
-            // Simple integer hash combine
-            std::size_t h = static_cast<std::size_t>(k.x);
-            h ^= static_cast<std::size_t>(k.y) + 0x9e3779b97f4a7c15ULL + (h << 6) + (h >> 2);
-            h ^= static_cast<std::size_t>(k.z) + 0x9e3779b97f4a7c15ULL + (h << 6) + (h >> 2);
-            return h;
-        }
-    };
-
     // Mutex specifically for terrainGrid thread safety
     mutable std::shared_mutex terrainGridMutex;
     // Track if terrain grid is currently locked
     mutable bool terrainGridLocked_ = false;
 
+    // Mutex specifically for tracking maps (byCoord_ and byEntity_) thread safety
+    // Separate from terrainGridMutex for better performance (less lock contention)
+    mutable std::shared_mutex trackingMapsMutex_;
+
     entt::registry& registry_;
     TerrainStorage& storage_;
-    std::unordered_map<Key, entt::entity, KeyHash> byCoord_;
-    std::unordered_map<entt::entity, Key> byEntity_;
+    std::unordered_map<VoxelCoord, entt::entity, VoxelCoordHash> byCoord_;
+    std::unordered_map<entt::entity, VoxelCoord> byEntity_;
 
     entt::entity getEntityAt(int x, int y, int z) const;
-    entt::entity ensureActive(int x, int y, int z);
     void markActive(int x, int y, int z, entt::entity e);
     void clearActive(int x, int y, int z);
 

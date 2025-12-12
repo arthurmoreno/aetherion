@@ -830,8 +830,8 @@ static void dispatchVaporMoveUpEvent(entt::dispatcher& dispatcher, entt::entity 
     MoveGasEntityEvent moveGasEntityEvent{
         entity, Position{pos.x, pos.y, pos.z, DirectionEnum::DOWN}, 0.0f, 0.0f, rhoEnv, rhoVapor};
     moveGasEntityEvent.setForceApplyNewVelocity();
-    std::cout << "[moveVaporUp] Dispatching MoveGasEntityEvent for vapor entity at (" << pos.x
-              << ", " << pos.y << ", " << pos.z << ")\n";
+    // std::cout << "[moveVaporUp] Dispatching MoveGasEntityEvent for vapor entity at (" << pos.x
+    //           << ", " << pos.y << ", " << pos.z << ")\n";
     dispatcher.enqueue<MoveGasEntityEvent>(moveGasEntityEvent);
 }
 
@@ -845,7 +845,6 @@ static void dispatchVaporMergeEvent(entt::dispatcher& dispatcher, const Position
 
 void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                  Position& pos, EntityTypeComponent& type, MatterContainer& matterContainer) {
-
     voxelGrid.terrainGridRepository->lockTerrainGrid();
 
     // Atomic operation: Get terrain ID at current position
@@ -883,8 +882,8 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             // Dispatch entity creation event - PhysicsEngine will handle atomically
             CreateVaporEntityEvent createEvent(sourcePos, rhoEnv, rhoVapor);
             dispatcher.enqueue<CreateVaporEntityEvent>(createEvent);
-            std::cout << "[moveVaporUp] Creating vapor entity from ON_GRID_STORAGE at ("
-                      << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
+            std::cout << "[moveVaporUp] Creating vapor entity from ON_GRID_STORAGE at (" << pos.x
+                      << ", " << pos.y << ", " << pos.z << ")\n";
             return;
         }
 
@@ -896,7 +895,6 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
     // Case 2: Another entity above - check if we can merge
     // TODO - CURSOR - I am working here
     if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-
         std::cout << "[moveVaporUp] Just entered in new condition\n";
         // Atomic operations: Get terrain data above
         EntityTypeComponent typeAbove =
@@ -1067,8 +1065,8 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
         auto terrainAbove = static_cast<entt::entity>(terrainAboveId);
         // checkAndConvertSoftEmptyIntoVapor(registry, terrainAbove);
         if (voxelGrid.terrainGridRepository->isTerrainIdOnEnttRegistry(terrainAboveId)) {
-            std::cout << "[moveVapor] Error: Terrain above is ON_ENTT at (" << pos.x << ", "
-                      << pos.y << ", " << pos.z + 1 << ") --- NOT IMPLEMENTED\n";
+            // std::cout << "[moveVapor] Error: Terrain above is ON_ENTT at (" << pos.x << ", "
+            //           << pos.y << ", " << pos.z + 1 << ") --- NOT IMPLEMENTED\n";
             // throw std::runtime_error("Not implemented");
 
             EntityTypeComponent typeAbove =
@@ -1081,8 +1079,8 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
 
             bool isWater = (typeAbove.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
                             typeAbove.subType0 == static_cast<int>(TerrainEnum::WATER));
-            isTerrainAboveVapor =
-                isWater && (matterContainerAbove.WaterVapor >= 0 && matterContainerAbove.WaterMatter == 0);
+            isTerrainAboveVapor = isWater && (matterContainerAbove.WaterVapor >= 0 &&
+                                              matterContainerAbove.WaterMatter == 0);
         } else if (terrainAboveId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
             EntityTypeComponent typeAbove =
                 voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y, pos.z + 1);
@@ -1094,11 +1092,11 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
 
             bool isWater = (typeAbove.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
                             typeAbove.subType0 == static_cast<int>(TerrainEnum::WATER));
-            isTerrainAboveVapor =
-                isWater && (matterContainerAbove.WaterVapor >= 0 && matterContainerAbove.WaterMatter == 0);
+            isTerrainAboveVapor = isWater && (matterContainerAbove.WaterVapor >= 0 &&
+                                              matterContainerAbove.WaterMatter == 0);
         } else {
-            std::cout << "[moveVapor] Error: Terrain above is NONE at (" << pos.x << ", "
-                      << pos.y << ", " << pos.z + 1 << ") --- NOT IMPLEMENTED\n";
+            std::cout << "[moveVapor] Error: Terrain above is NONE at (" << pos.x << ", " << pos.y
+                      << ", " << pos.z + 1 << ") --- NOT IMPLEMENTED\n";
             throw std::runtime_error("Not implemented");
         }
 
@@ -1122,13 +1120,13 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
 
     if (pos.z < maxAltitude && isTerrainAboveVaporOrEmpty) {
         // Move vapor up
-        std::cout << "[moveVapor] Dispatching moveVaporUp for vapor entity at (" << pos.x
-                    << ", " << pos.y << ", " << pos.z << ")\n";
+        // std::cout << "[moveVapor] Dispatching moveVaporUp for vapor entity at (" << pos.x
+        //             << ", " << pos.y << ", " << pos.z << ")\n";
         moveVaporUp(registry, voxelGrid, dispatcher, pos, type, matterContainer);
     } else {
         if (pos.z < maxAltitude) {
-
-            std::cout << "[moveVapor] Vapor at max altitude or blocked - moving sideways\n";
+            std::cout
+                << "[moveVapor] Vapor bellow max altitude and blocked - Should move sideways!\n";
             std::cout << "  Position: (" << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
             std::cout << "  maxAltitude: " << maxAltitude << "\n";
             std::cout << "  isTerrainAboveVaporOrEmpty: " << isTerrainAboveVaporOrEmpty << "\n";
@@ -1272,9 +1270,11 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
                 entt::entity entity = static_cast<entt::entity>(terrainId);
                 PhysicsEngine::deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
             } else {
-                std::cout << "[processTileWater] Empty water entity at (" << x << ", " << y
-                          << ", " << z << ") in ON_GRID_STORAGE or NONE; no action taken.\n";
-                throw std::runtime_error("[processTileWater] Error: Water (or empty type) entity with no water detected ON_GRID_STORAGE or NONE.");
+                std::cout << "[processTileWater] Empty water entity at (" << x << ", " << y << ", "
+                          << z << ") in ON_GRID_STORAGE or NONE; no action taken.\n";
+                throw std::runtime_error(
+                    "[processTileWater] Error: Water (or empty type) entity with no water detected "
+                    "ON_GRID_STORAGE or NONE.");
             }
             // deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
         }

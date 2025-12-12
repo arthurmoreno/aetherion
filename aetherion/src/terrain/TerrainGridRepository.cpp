@@ -28,19 +28,21 @@ TerrainGridRepository::TerrainGridRepository(entt::registry& registry, TerrainSt
 }
 
 entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
-    auto it = byCoord_.find(Key{x, y, z});
+    std::shared_lock<std::shared_mutex> lock(trackingMapsMutex_);
+    auto it = byCoord_.find(VoxelCoord{x, y, z});
     if (it == byCoord_.end()) return entt::null;
     return it->second;
 }
 
 Position TerrainGridRepository::getPositionOfEntt(entt::entity terrain_entity) const {
+    std::shared_lock<std::shared_mutex> lock(trackingMapsMutex_);
     auto it = byEntity_.find(terrain_entity);
     if (it == byEntity_.end()) {
         // Entity not found in mapping, return invalid position
         return Position{-1, -1, -1, DirectionEnum::UP};
     }
 
-    const Key& key = it->second;
+    const VoxelCoord& key = it->second;
     return getPosition(key.x, key.y, key.z);
 }
 
@@ -165,6 +167,21 @@ void TerrainGridRepository::setTerrainId(int x, int y, int z, int terrainID) {
     });
 }
 
+void TerrainGridRepository::addToTrackingMaps(const VoxelCoord& key, entt::entity e) {
+    std::unique_lock<std::shared_mutex> lock(trackingMapsMutex_, std::defer_lock);
+    if (!isTerrainGridLocked()) {
+        lock.lock();
+    }
+    byCoord_[key] = e;
+    byEntity_[e] = key;
+}
+
+void TerrainGridRepository::removeFromTrackingMaps(const VoxelCoord& key, entt::entity e) {
+    std::unique_lock<std::shared_mutex> lock(trackingMapsMutex_);
+    byCoord_.erase(key);
+    byEntity_.erase(e);
+}
+
 void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entity e) {
     // If entity has a Position, mark active in the TerrainStorage grid
     if (!reg.valid(e)) return;
@@ -176,8 +193,8 @@ void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entit
         if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z)) {
             // std::cout << "TerrainGridRepository: onConstructVelocity at (" << pos->x << ", "
             //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
-            Key key{pos->x, pos->y, pos->z};
-            byCoord_[key] = e;
+            VoxelCoord key{pos->x, pos->y, pos->z};
+            addToTrackingMaps(key, e);
             markActive(pos->x, pos->y, pos->z, e);
         }
     }
@@ -194,8 +211,8 @@ void TerrainGridRepository::onConstructMoving(entt::registry& reg, entt::entity 
             // std::cout << "TerrainGridRepository: onConstructMoving at (" << pos->x << ", " <<
             // pos->y
             //           << ", " << pos->z << ") entity=" << int(e) << "\n";
-            Key key{pos->x, pos->y, pos->z};
-            byCoord_[key] = e;
+            VoxelCoord key{pos->x, pos->y, pos->z};
+            addToTrackingMaps(key, e);
             markActive(pos->x, pos->y, pos->z, e);
         }
     }
@@ -216,36 +233,56 @@ void TerrainGridRepository::onDestroyVelocity(entt::registry& reg, entt::entity 
     // std::cout << "TerrainGridRepository: onDestroyVelocity at (" << pos->x << ", "
     //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
 
-    withSharedLock([&]() {
-        Key key{pos->x, pos->y, pos->z};
+    VoxelCoord key{pos->x, pos->y, pos->z};
 
-        // Remove from tracking maps
-        byCoord_.erase(key);
-        byEntity_.erase(e);
+    // Remove from tracking maps
+    removeFromTrackingMaps(key, e);
 
-        // Set terrain ID back to ON_GRID_STORAGE (-1) to mark it as static
-        setTerrainId(pos->x, pos->y, pos->z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+    // Set terrain ID back to ON_GRID_STORAGE (-1) to mark it as static
+    setTerrainId(pos->x, pos->y, pos->z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
 
-        // Clear active marker in the grid
-        clearActive(pos->x, pos->y, pos->z);
-    });
+    // Clear active marker in the grid
+    clearActive(pos->x, pos->y, pos->z);
 }
 
 entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {
-    Key key{x, y, z};
-    auto it = byCoord_.find(key);
-    if (it != byCoord_.end()) return it->second;
+    // CRITICAL: Lock terrain grid for entire operation to prevent race conditions
+    // where multiple threads try to activate the same voxel simultaneously
+    // Only acquire lock if not already held by caller
+    // std::unique_lock<std::shared_mutex> lock(terrainGridMutex, std::defer_lock);
+    // if (!isTerrainGridLocked()) {
+    //     lock.lock();
+    // }
 
-    DirectionEnum direction =
-        withSharedLock([&]() { return storage_.getTerrainDirection(x, y, z); });
+    // Check if already active (now protected by lock)
+    entt::entity existing = getEntityAt(x, y, z);
+    if (existing != entt::null && registry_.valid(existing)) {
+        return existing;
+    } else if (existing != entt::null) {
+        // Clean up stale mapping
+        VoxelCoord key{x, y, z};
+        removeFromTrackingMaps(key, existing);
+        registry_.destroy(existing);
+    }
+
+    DirectionEnum direction = storage_.getTerrainDirection(x, y, z);
 
     entt::entity e = registry_.create();
     registry_.emplace<Position>(e, Position{x, y, z, direction});
     registry_.emplace<Velocity>(e, Velocity{0.f, 0.f, 0.f});
     registry_.emplace<MovingComponent>(e, MovingComponent{0});
-    byCoord_.emplace(key, e);
-    byEntity_.emplace(e, key);
-    markActive(x, y, z, e);
+
+    VoxelCoord key{x, y, z};
+
+    // CRITICAL: Set terrain ID in grid BEFORE adding to tracking maps
+    // This ensures the terrain ID matches when other threads query the voxel
+    if (storage_.terrainGrid) {
+        storage_.terrainGrid->tree().setValue(C(x, y, z), static_cast<int>(e));
+    }
+
+    // Now add to tracking maps after terrain ID is set
+    addToTrackingMaps(key, e);
+
     return e;
 }
 
@@ -613,13 +650,16 @@ void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
     if (!hasTransientComponents) {
         // Clear the activation state and remove entity from mapping
         clearActive(x, y, z);
-        auto it = byCoord_.find(Key{x, y, z});
-        if (it != byCoord_.end()) {
-            byCoord_.erase(it);
-        }
-        auto entityIt = byEntity_.find(entity);
-        if (entityIt != byEntity_.end()) {
-            byEntity_.erase(entityIt);
+        {
+            std::unique_lock<std::shared_mutex> lock(trackingMapsMutex_);
+            auto it = byCoord_.find(VoxelCoord{x, y, z});
+            if (it != byCoord_.end()) {
+                byCoord_.erase(it);
+            }
+            auto entityIt = byEntity_.find(entity);
+            if (entityIt != byEntity_.end()) {
+                byEntity_.erase(entityIt);
+            }
         }
         registry_.destroy(entity);
         // Set terrain ID to -1 to indicate no active entity, but that terrain exists

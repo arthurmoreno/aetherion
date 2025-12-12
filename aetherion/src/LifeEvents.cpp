@@ -69,8 +69,22 @@ void LifeEngine::removeEntityFromGrid(entt::entity entity) {
                   << std::endl;
 
     } else if (!isSpecialId && registry.valid(entity)) {
-        std::cout << "Entity " << entityId << " is valid, proceeding with grid removal [FAKE]."
+        std::cout << "Entity " << entityId << " is valid, proceeding with grid removal."
                   << std::endl;
+
+        // delete from terrain repository mapping.
+        Position pos = voxelGrid->terrainGridRepository->getPositionOfEntt(entity);
+        if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+            std::cout << "Could not find position of entity " << entityId
+                      << " in TerrainGridRepository, skipping grid removal." << std::endl;
+            return;
+
+        } else {
+            std::cout << "Found position of entity " << entityId << " in TerrainGridRepository at ("
+                      << pos.x << ", " << pos.y << ", " << pos.z
+                      << "). Proceeding with grid removal." << std::endl;
+            voxelGrid->deleteTerrain(dispatcher, pos.x, pos.y, pos.z);
+        }
 
     } else {
         std::cout << "Entity " << entityId << " is invalid, skipping grid removal." << std::endl;
