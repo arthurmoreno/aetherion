@@ -290,7 +290,7 @@ std::pair<float, bool> calculateVelocityAfterGravityStep(entt::registry& registr
     float gravity = PhysicsManager::Instance()->getGravity();
     float newVelocityZ;
 
-    if (velocityZ > 0.0f or checkIfCanFall(registry, voxelGrid, i, j, k)) {
+    if (velocityZ > 0.0f || checkIfCanFall(registry, voxelGrid, i, j, k)) {
         newVelocityZ = velocityZ - gravity * dt;
     } else {
         newVelocityZ = velocityZ;
