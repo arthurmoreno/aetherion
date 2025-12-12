@@ -100,3 +100,79 @@ bool getTypeAndCheckSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid, in
         return false;
     }
 }
+
+bool hasCollision(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
+                  int movingFromX, int movingFromY, int movingFromZ, int movingToX, int movingToY,
+                  int movingToZ, bool isTerrain) {
+    bool collision = false;
+    // Check if the movement is within bounds for x, y, z
+    if ((0 <= movingToX && movingToX < voxelGrid.width) &&
+        (0 <= movingToY && movingToY < voxelGrid.height) &&
+        (0 <= movingToZ && movingToZ < voxelGrid.depth)) {
+        int movingToEntityId = voxelGrid.getEntity(movingToX, movingToY, movingToZ);
+        bool terrainExists = voxelGrid.checkIfTerrainExists(movingToX, movingToY, movingToZ);
+
+        bool entityCollision = false;
+        if (movingToEntityId != -1) {
+            entityCollision = true;
+        }
+
+        bool terrainCollision = false;
+        if (terrainExists) {
+            EntityTypeComponent etc = getEntityTypeComponent(
+                registry, voxelGrid, entity, movingFromX, movingFromY, movingFromZ, isTerrain);
+            EntityTypeComponent terrainEtc = voxelGrid.terrainGridRepository->getTerrainEntityType(
+                movingToX, movingToY, movingToZ);
+            // Any terrain that is different than water
+            if (etc.mainType == static_cast<int>(EntityEnum::TERRAIN)) {
+                terrainCollision = true;
+            } else if (terrainEtc.subType0 != static_cast<int>(TerrainEnum::EMPTY) &&
+                       terrainEtc.subType0 != static_cast<int>(TerrainEnum::WATER)) {
+                terrainCollision = true;
+            }
+        }
+
+        // Check if there is an entity or terrain blocking the destination
+        if (entityCollision || terrainCollision) {
+            collision = true;
+        }
+    } else {
+        // Out of bounds collision with the world boundary
+        collision = true;
+    }
+
+    return collision;
+}
+
+// Helper: Calculate movement destination with special collision handling
+std::tuple<int, int, int, float> calculateMovementDestination(
+    entt::registry& registry, VoxelGrid& voxelGrid, const Position& position, Velocity& velocity,
+    const PhysicsStats& physicsStats, float newVelocityX, float newVelocityY, float newVelocityZ) {
+    float completionTime = calculateTimeToMove(newVelocityX, newVelocityY, newVelocityZ);
+    int movingToX = position.x + getDirectionFromVelocity(newVelocityX);
+    int movingToY = position.y + getDirectionFromVelocity(newVelocityY);
+    int movingToZ = position.z + getDirectionFromVelocity(newVelocityZ);
+
+    bool specialCollision;
+    int newMovingToX, newMovingToY, newMovingToZ;
+    std::tie(specialCollision, newMovingToX, newMovingToY, newMovingToZ) =
+        hasSpecialCollision(registry, voxelGrid, position, movingToX, movingToY, movingToZ);
+
+    if (specialCollision) {
+        movingToX = newMovingToX;
+        movingToY = newMovingToY;
+        movingToZ = newMovingToZ;
+
+        float newDirectionX = newMovingToX - position.x;
+        float newDirectionY = newMovingToY - position.y;
+        float newDirectionZ = newMovingToZ - position.z;
+
+        velocity.vx = newDirectionX * (physicsStats.minSpeed / 2);
+        velocity.vy = newDirectionY * (physicsStats.minSpeed / 2);
+        velocity.vz = newDirectionZ * (physicsStats.minSpeed / 2);
+
+        completionTime = calculateTimeToMove(velocity.vx, velocity.vy, velocity.vz);
+    }
+
+    return {movingToX, movingToY, movingToZ, completionTime};
+}

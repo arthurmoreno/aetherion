@@ -497,6 +497,7 @@ TerrainPhysicsSnapshot TerrainGridRepository::getPhysicsSnapshot(int x, int y, i
     // snapshot.stats.forceZ = 0.0f;
 
     // return snapshot;
+    return TerrainPhysicsSnapshot{};  // TODO: Implement proper snapshot retrieval
 }
 
 void TerrainGridRepository::setPhysicsStats(int x, int y, int z, const PhysicsStats& ps) {

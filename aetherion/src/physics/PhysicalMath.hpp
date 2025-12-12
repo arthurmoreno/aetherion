@@ -4,6 +4,7 @@
 #include <cmath>
 #include <limits>
 
+#include "components/PhysicsComponents.hpp"
 #include "physics/PhysicsConstants.hpp"
 #include "physics/PhysicsManager.hpp"
 
@@ -68,5 +69,29 @@ inline float calculateVelocityFromTime(int timeToMove) {
 }
 
 std::pair<float, bool> calculateVelocityAfterFrictionStep(float velocity, int dt);
+
+// Helper: Apply friction to horizontal velocities
+inline std::tuple<float, float, bool, bool> applyKineticFrictionDamping(float velocityX,
+                                                                        float velocityY,
+                                                                        MatterState matterState,
+                                                                        bool bellowIsStable,
+                                                                        float newVelocityZ) {
+    if (matterState == MatterState::SOLID && bellowIsStable && newVelocityZ <= 0) {
+        auto resultX = calculateVelocityAfterFrictionStep(velocityX, 1);
+        float newVelocityX = resultX.first;
+
+        auto resultY = calculateVelocityAfterFrictionStep(velocityY, 1);
+        float newVelocityY = resultY.first;
+
+        resultX = calculateVelocityAfterFrictionStep(velocityX, 2);
+        bool willStopX = resultX.second;
+
+        resultY = calculateVelocityAfterFrictionStep(velocityY, 2);
+        bool willStopY = resultY.second;
+
+        return {newVelocityX, newVelocityY, willStopX, willStopY};
+    }
+    return {velocityX, velocityY, false, false};
+}
 
 #endif  // PHYSICAL_MATH_HPP

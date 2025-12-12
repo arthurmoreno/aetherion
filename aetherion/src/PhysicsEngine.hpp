@@ -84,13 +84,14 @@ class PhysicsEngine {
     bool isProcessingComplete() const;
 
     // Public terrain conversion helpers (called by EcosystemEngine during detection phase)
-    static void checkAndConvertSoftEmptyIntoWater(entt::registry& registry, VoxelGrid& voxelGrid,
-                                                  int terrainId, int x, int y, int z);
-    static void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxelGrid,
-                                                  int terrainId, int x, int y, int z);
-    static void deleteEntityOrConvertInEmpty(entt::registry& registry, entt::dispatcher& dispatcher,
-                                             entt::entity& terrain);
-    static void setVaporSI(int x, int y, int z, VoxelGrid& voxelGrid);
+    // static void checkAndConvertSoftEmptyIntoWater(entt::registry& registry, VoxelGrid& voxelGrid,
+    //                                               int terrainId, int x, int y, int z);
+    // static void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxelGrid,
+    //                                               int terrainId, int x, int y, int z);
+    // static void deleteEntityOrConvertInEmpty(entt::registry& registry, entt::dispatcher&
+    // dispatcher,
+    //                                          entt::entity& terrain);
+    // static void setVaporSI(int x, int y, int z, VoxelGrid& voxelGrid);
 
    private:
     entt::registry& registry;

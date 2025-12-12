@@ -9,7 +9,7 @@
 #include <ranges>
 #include <thread>
 
-#include "PhysicsEngine.hpp"
+#include "physics/PhysicsMutators.hpp"
 #include "physics/ReadonlyQueries.hpp"
 
 /**********************
@@ -363,15 +363,17 @@ void WaterSimulationManager::processWaterSimulation(entt::registry& registry, Vo
 // Read-only helper functions for terrain detection (used by EcosystemEngine)
 // Note: isTerrainSoftEmpty and getTypeAndCheckSoftEmpty are now defined in ReadonlyQueries.cpp
 
-bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid, const int x,
-                                    const int y, const int z) {
+bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid,
+                                    entt::dispatcher& dispatcher, const int x, const int y,
+                                    const int z) {
     int terrainId = voxelGrid.getTerrain(x, y, z);
     if (terrainId < static_cast<int>(TerrainIdTypeEnum::NONE)) {
         // Invalid terrain ID
         std::ostringstream ossMessage;
         ossMessage << "[isTerrainVoxelEmptyOrSoftEmpty] Error: Invalid terrain ID " << terrainId
-                   << " at (" << x << ", " << y << ", " << z << ")\n";
+                   << " at (" << x << ", " << y << ", " << z << ")";
         spdlog::get("console")->error(ossMessage.str());
+        voxelGrid.deleteTerrain(dispatcher, x, y, z);
         return true;
     } else if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
         // This should not happen; means vapor entity is missing in voxel grid
@@ -458,7 +460,7 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ, entt::
     int terrainNeighborId = voxelGrid.getTerrain(x, y, z);
     bool actionPerformed = false;
     const bool isAboveNeighborEmpty{
-        isTerrainVoxelEmptyOrSoftEmpty(registry, voxelGrid, x, y, z + 1)};
+        isTerrainVoxelEmptyOrSoftEmpty(registry, voxelGrid, dispatcher, x, y, z + 1)};
 
     if (terrainNeighborId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
         auto terrainNeighbor = static_cast<entt::entity>(terrainNeighborId);
@@ -895,7 +897,7 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
     // Case 2: Another entity above - check if we can merge
     // TODO - CURSOR - I am working here
     if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        std::cout << "[moveVaporUp] Just entered in new condition\n";
+        // std::cout << "[moveVaporUp] Just entered in new condition\n";
         // Atomic operations: Get terrain data above
         EntityTypeComponent typeAbove =
             voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y, pos.z + 1);
@@ -1019,7 +1021,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
                 if (terrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
                     terrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
                     entt::entity entity = static_cast<entt::entity>(terrainId);
-                    PhysicsEngine::deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
+                    deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
                 }
             } else {
                 ossMessage << "[moveVaporSideways] Vapor Obstructed; cannot move sideways (" << newX
@@ -1037,7 +1039,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
 void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher, int x,
                int y, int z, Position& pos, EntityTypeComponent& type,
                MatterContainer& matterContainer) {
-    PhysicsEngine::setVaporSI(pos.x, pos.y, pos.z, voxelGrid);
+    setVaporSI(pos.x, pos.y, pos.z, voxelGrid);
     int maxAltitude = voxelGrid.depth - 1;  // Example maximum altitude for vapor to rise
 
     // Condensation Logic for Vapor
@@ -1268,7 +1270,7 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
             if (terrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
                 terrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
                 entt::entity entity = static_cast<entt::entity>(terrainId);
-                PhysicsEngine::deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
+                deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
             } else {
                 std::cout << "[processTileWater] Empty water entity at (" << x << ", " << y << ", "
                           << z << ") in ON_GRID_STORAGE or NONE; no action taken.\n";

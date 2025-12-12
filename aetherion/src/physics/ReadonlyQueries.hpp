@@ -8,6 +8,8 @@
 #include "components/EntityTypeComponent.hpp"
 #include "components/PhysicsComponents.hpp"
 #include "components/TerrainComponents.hpp"
+#include "physics/Collision.hpp"
+#include "physics/PhysicalMath.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
 
 // Forward declarations
@@ -96,23 +98,12 @@ inline bool checkBelowStability(entt::registry& registry, VoxelGrid& voxelGrid,
     return false;
 }
 
-// // Check if entity has collision at the target position
-// bool hasCollision(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
-//                  int movingFromX, int movingFromY, int movingFromZ,
-//                  int movingToX, int movingToY, int movingToZ, bool isTerrain);
+std::tuple<int, int, int, float> calculateMovementDestination(
+    entt::registry& registry, VoxelGrid& voxelGrid, const Position& position, Velocity& velocity,
+    const PhysicsStats& physicsStats, float newVelocityX, float newVelocityY, float newVelocityZ);
 
-// // Check for special collisions (e.g., ramps)
-// std::tuple<bool, int, int, int> hasSpecialCollision(entt::registry& registry, VoxelGrid&
-// voxelGrid,
-//                                                     Position position, int movingToX, int
-//                                                     movingToY, int movingToZ);
-
-// // Check if entity can fall from current position
-// bool checkIfCanFall(entt::registry& registry, VoxelGrid& voxelGrid, int i, int j, int k);
-
-// Helper function to get EntityTypeComponent (defined in PhysicsEngine.cpp)
-// EntityTypeComponent getEntityTypeComponent(entt::registry& registry, VoxelGrid& voxelGrid,
-//                                            entt::entity entity, int x, int y, int z,
-//                                            bool isTerrain);
+bool hasCollision(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
+                  int movingFromX, int movingFromY, int movingFromZ, int movingToX, int movingToY,
+                  int movingToZ, bool isTerrain);
 
 #endif  // READONLY_QUERIES_HPP
