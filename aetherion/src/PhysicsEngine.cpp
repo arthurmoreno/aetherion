@@ -823,9 +823,12 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
             int entityId = static_cast<int>(entity);
             if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-                std::cout << "[processPhysics] Could not find position of entity " << entityId
-                          << " in TerrainGridRepository - just delete it." << std::endl;
-                registry.destroy(entity);
+                if (entityId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
+                    entityId != static_cast<int>(TerrainIdTypeEnum::NONE) ) {
+                        std::cout << "[processPhysics] Could not find position of entity " << entityId
+                                << " in TerrainGridRepository - just delete it." << std::endl;
+                        registry.destroy(entity);
+                }
                 continue;
             } else {
                 try {
@@ -906,9 +909,9 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
         // SAFETY CHECK: Validate entity before processing
         // Note: handleMovingTo also validates, but checking here prevents unnecessary calls
         if (!registry.valid(entity)) {
-            std::cout << "[processPhysics] WARNING: Invalid entity in movingComponentView - "
-                         "skipping; Entity ID="
-                      << static_cast<int>(entity) << std::endl;
+            // std::cout << "[processPhysics] WARNING: Invalid entity in movingComponentView - "
+            //              "skipping; Entity ID="
+            //           << static_cast<int>(entity) << std::endl;
             registry.destroy(entity);
             continue;
         }

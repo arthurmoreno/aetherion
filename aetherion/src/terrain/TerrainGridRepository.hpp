@@ -230,6 +230,7 @@ class TerrainGridRepository {
     void onConstructVelocity(entt::registry& reg, entt::entity e);
     void onConstructMoving(entt::registry& reg, entt::entity e);
     void onDestroyVelocity(entt::registry& reg, entt::entity e);
+    void onDestroyMoving(entt::registry& reg, entt::entity e);
 };
 
 // ================ Template Method Implementations ================

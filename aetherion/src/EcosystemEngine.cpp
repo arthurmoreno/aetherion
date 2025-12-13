@@ -9,6 +9,7 @@
 #include <ranges>
 #include <thread>
 
+#include "ecosystem/ReadonlyQueries.hpp"
 #include "physics/PhysicsMutators.hpp"
 #include "physics/ReadonlyQueries.hpp"
 
@@ -404,27 +405,6 @@ bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& voxelGr
  * ********************
  */
 
-std::tuple<bool, bool> isNeighborWaterOrEmpty(entt::registry& registry, VoxelGrid& voxelGrid,
-                                              const int x, const int y, const int z) {
-    int terrainNeighborId = voxelGrid.getTerrain(x, y, z);
-    bool isNeighborEmpty = (terrainNeighborId == static_cast<int>(TerrainIdTypeEnum::NONE));
-    bool isTerrainNeighborSoftEmpty{false};
-    bool isNeighborWater = false;
-    // TODO: Uncomment and handle this properly when active EnTT terrains start to be used.
-    if (terrainNeighborId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        // auto terrainNeighbor = static_cast<entt::entity>(terrainNeighborId);
-        isTerrainNeighborSoftEmpty =
-            getTypeAndCheckSoftEmpty(registry, voxelGrid, terrainNeighborId, x, y, z);
-        EntityTypeComponent typeNeighbor =
-            voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
-        MatterContainer matterContainerNeighbor =
-            voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
-        isNeighborWater = (typeNeighbor.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-                           typeNeighbor.subType0 == static_cast<int>(TerrainEnum::WATER));
-    }
-    isNeighborEmpty = isNeighborEmpty || isTerrainNeighborSoftEmpty;
-    return std::make_tuple(isNeighborEmpty, isNeighborWater);
-}
 
 void makePlantSuckWater(entt::registry& registry, entt::entity& terrainEntity,
                         entt::entity& plantEntity, bool& actionPerformed) {
@@ -908,16 +888,19 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
 
         // Check if we can merge with vapor above
         if (!haveMovement && canMergeWithVaporAbove(typeAbove, matterContainerAbove)) {
-            std::cout << "[moveVaporUp] Merging vapor at (" << pos.x << ", " << pos.y << ", "
-                      << pos.z << ") with vapor above\n";
+            // std::cout << "[moveVaporUp] Merging vapor at (" << pos.x << ", " << pos.y << ", "
+            //           << pos.z << ") with vapor above\n";
 
             Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
             voxelGrid.terrainGridRepository->unlockTerrainGrid();
             dispatchVaporMergeEvent(dispatcher, sourcePos, matterContainer.WaterVapor, entity);
             return;
+        } else if (haveMovement) {
+            std::cout << "[moveVaporUp] Vapor obstructed at (" << pos.x << ", " << pos.y << ", "
+                      << pos.z << "); cannot move up; It have movement already.\n";
         } else {
             std::cout << "[moveVaporUp] Vapor obstructed at (" << pos.x << ", " << pos.y << ", "
-                      << pos.z << "); cannot move up; Or it have movement already.\n";
+                      << pos.z << "); cannot move up; No suitable vapor above to merge.\n";
         }
     }
 

@@ -23,8 +23,9 @@ TerrainGridRepository::TerrainGridRepository(entt::registry& registry, TerrainSt
     registry_.on_construct<Velocity>().connect<&TerrainGridRepository::onConstructVelocity>(*this);
     registry_.on_construct<MovingComponent>().connect<&TerrainGridRepository::onConstructMoving>(
         *this);
-    // Clean up when Velocity is destroyed
+    // Clean up when Velocity or MovingComponent is destroyed
     registry_.on_destroy<Velocity>().connect<&TerrainGridRepository::onDestroyVelocity>(*this);
+    registry_.on_destroy<MovingComponent>().connect<&TerrainGridRepository::onDestroyMoving>(*this);
 }
 
 entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
@@ -232,6 +233,46 @@ void TerrainGridRepository::onDestroyVelocity(entt::registry& reg, entt::entity 
 
     // std::cout << "TerrainGridRepository: onDestroyVelocity at (" << pos->x << ", "
     //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
+
+    VoxelCoord key{pos->x, pos->y, pos->z};
+
+    // Remove from tracking maps
+    removeFromTrackingMaps(key, e);
+
+    // Set terrain ID back to ON_GRID_STORAGE (-1) to mark it as static
+    setTerrainId(pos->x, pos->y, pos->z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+
+    // Clear active marker in the grid
+    clearActive(pos->x, pos->y, pos->z);
+}
+
+void TerrainGridRepository::onDestroyMoving(entt::registry& reg, entt::entity e) {
+    // Clean up MovingComponent-specific state when destroyed
+    // Note: This hook fires when MovingComponent is removed, either due to:
+    // 1. Movement completion (handleMovingTo removes the component)
+    // 2. Entity destruction (all components are destroyed)
+    if (!reg.valid(e)) return;
+
+    auto pos = reg.try_get<Position>(e);
+    if (!pos) return;
+
+    auto entityType = reg.try_get<EntityTypeComponent>(e);
+    if (entityType && entityType->mainType != static_cast<int>(EntityEnum::TERRAIN)) {
+        return;
+    }
+
+    // std::cout << "TerrainGridRepository: onDestroyMoving at (" << pos->x << ", "
+    //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
+
+    // Only clean up if this is an entity destruction (not just component removal)
+    // Check if entity still has other transient components
+    bool hasVelocity = reg.all_of<Velocity>(e);
+    
+    // If entity still has Velocity, it's still active - don't deactivate
+    // The onDestroyVelocity hook will handle cleanup when Velocity is also removed
+    if (hasVelocity) {
+        return;
+    }
 
     VoxelCoord key{pos->x, pos->y, pos->z};
 
@@ -692,6 +733,9 @@ void TerrainGridRepository::deleteTerrain(entt::dispatcher& dispatcher, int x, i
         std::cout << "Deleting terrain entity: " << terrainId << std::endl;
         entt::entity entity = static_cast<entt::entity>(terrainId);
         dispatcher.enqueue<KillEntityEvent>(entity);
+    } else {
+        std::cout << "No active terrain entity to delete at (" << x << ", " << y << ", " << z
+                  << ")\n";
     }
 }
 

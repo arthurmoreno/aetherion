@@ -166,6 +166,7 @@ add_subdirectory(src/Gui)
 add_subdirectory(src/neat)
 add_subdirectory(src/physics)
 add_subdirectory(src/terrain)
+add_subdirectory(src/ecosystem)
 add_subdirectory(src/voxelgrid)
 
 # ------------------------------------------------------------------------------
@@ -182,6 +183,7 @@ target_link_libraries(_aetherion PRIVATE
     Gui
     neat
     physics
+    ecosystem
     voxelgrid
     terrain
     ${SDL2_LIBRARIES}
