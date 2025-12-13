@@ -14,12 +14,14 @@
 #include "physics/ReadonlyQueries.hpp"
 #include "terrain/TerrainGridLock.hpp"
 
-/**********************
- *
- * GridBoxProcessor Implementation *
- *
- * ********************
- */
+//==============================================================================
+// SECTION 1: PARALLEL WATER SIMULATION INFRASTRUCTURE
+//==============================================================================
+//   1.1 GridBoxProcessor - Per-thread voxel processing
+//   1.2 WaterSimulationManager - Thread pool orchestration
+//==============================================================================
+
+// 1.1 GridBoxProcessor Implementation
 
 void GridBoxProcessor::initializeAccessors(entt::registry& registry, VoxelGrid& voxelGrid,
                                            entt::dispatcher& dispatcher) {
@@ -105,12 +107,7 @@ void GridBoxProcessor::processVoxelEvaporation(int x, int y, int z, std::vector<
     }
 }
 
-/**********************
- *
- * WaterSimulationManager Implementation *
- *
- * ********************
- */
+// 1.2 WaterSimulationManager Implementation
 
 WaterSimulationManager::WaterSimulationManager(int numThreads)
     : numThreads_(numThreads), stopWorkers_(false), activeWorkers_(0), completedTasks_(0) {
@@ -362,6 +359,12 @@ void WaterSimulationManager::processWaterSimulation(entt::registry& registry, Vo
     }
 }
 
+//==============================================================================
+// SECTION 2: TERRAIN QUERIES (Read-Only Helpers)
+//==============================================================================
+//   2.1 isTerrainVoxelEmptyOrSoftEmpty
+//==============================================================================
+
 // Read-only helper functions for terrain detection (used by EcosystemEngine)
 // Note: isTerrainSoftEmpty and getTypeAndCheckSoftEmpty are now defined in ReadonlyQueries.cpp
 
@@ -399,13 +402,17 @@ bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& voxelGr
     return false;
 }
 
-/**********************
- *
- * Liquid Water moving logic *
- *
- * ********************
- */
+//==============================================================================
+// SECTION 3: WATER CYCLE - LIQUID PHASE
+//==============================================================================
+//   3.1 Plant Interactions
+//       - makePlantSuckWater
+//   3.2 Horizontal Flow
+//       - spreadWater (dispatches WaterSpreadEvent)
+//       - moveWater (handles gravity + spreading logic)
+//==============================================================================
 
+// 3.1 Plant Interactions
 
 void makePlantSuckWater(entt::registry& registry, entt::entity& terrainEntity,
                         entt::entity& plantEntity, bool& actionPerformed) {
@@ -427,6 +434,8 @@ void makePlantSuckWater(entt::registry& registry, entt::entity& terrainEntity,
         actionPerformed = true;
     }
 }
+
+// 3.2 Horizontal Flow
 
 void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ, entt::registry& registry,
                  VoxelGrid& voxelGrid, entt::dispatcher& dispatcher, entt::entity entity,
@@ -708,14 +717,16 @@ bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGr
     return actionPerformed;
 }
 
-/**********************
- *
- * Phase Changes *
- *
- * ********************
- */
+//==============================================================================
+// SECTION 4: WATER CYCLE - PHASE TRANSITIONS
+//==============================================================================
+//   4.1 Evaporation
+//       - createOrAddVapor
+//   4.2 Condensation
+//       - condenseVapor
+//==============================================================================
 
-// Evaporation
+// 4.1 Evaporation
 
 void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                       int x, int y, int z, int amount) {
@@ -745,7 +756,7 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::disp
     }
 }
 
-// Condensation
+// 4.2 Condensation
 
 void condenseVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                    entt::entity entity, Position& pos, EntityTypeComponent& type,
@@ -765,14 +776,23 @@ void condenseVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatc
     dispatcher.enqueue<CondenseWaterEntityEvent>(condenseEvent);
 }
 
-/**********************
- *
- * Vapor moving logic *
- *
- * ********************
- */
+//==============================================================================
+// SECTION 5: WATER CYCLE - VAPOR PHASE
+//==============================================================================
+//   5.1 Static Helpers
+//       - validateVaporTerrainId
+//       - hasMovementComponent
+//       - canMergeWithVaporAbove
+//       - dispatchVaporMoveUpEvent
+//       - dispatchVaporMergeEvent
+//   5.2 Vapor Movement
+//       - moveVaporUp (vertical buoyancy)
+//       - moveVaporSideways (horizontal diffusion)
+//       - moveVapor (orchestrator)
+//==============================================================================
 
-// Helper: Validate terrain ID at position
+// 5.1 Static Helpers
+
 static bool validateVaporTerrainId(int terrainId, const Position& pos) {
     if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
         std::ostringstream ossMessage;
@@ -825,6 +845,8 @@ static void dispatchVaporMergeEvent(entt::dispatcher& dispatcher, const Position
     VaporMergeUpEvent event(sourcePos, targetPos, vaporAmount, entity);
     dispatcher.enqueue<VaporMergeUpEvent>(event);
 }
+
+// 5.2 Vapor Movement
 
 void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                  Position& pos, EntityTypeComponent& type, MatterContainer& matterContainer) {
@@ -1118,6 +1140,12 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
     }
 }
 
+//==============================================================================
+// SECTION 6: WATER PROCESSING - MAIN LOOP
+//==============================================================================
+//   6.1 processTileWater - Per-voxel water simulation entry point
+//==============================================================================
+
 void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& voxelGrid,
                       entt::dispatcher& dispatcher, float sunIntensity, std::random_device& rd,
                       std::mt19937& gen, std::uniform_int_distribution<>& disWaterSpreading) {
@@ -1261,78 +1289,11 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
     }
 }
 
-/*****************************
- *
- * High level public methods *
- *
- * ***************************
- */
-
-void EcosystemEngine::loopTiles(entt::registry& registry, VoxelGrid& voxelGrid,
-                                entt::dispatcher& dispatcher, float sunIntensity) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-
-    std::uniform_int_distribution<> disWaterSpreading(1, 4);
-
-    int count = 0;
-    int waterUnits = 0;
-
-    auto matter_container_view = registry.view<MatterContainer>();
-
-    // Copy entities into a vector
-    std::vector<entt::entity> entities(matter_container_view.begin(), matter_container_view.end());
-
-    // Shuffle the vector
-    std::shuffle(entities.begin(), entities.end(),
-                 std::default_random_engine{std::random_device{}()});
-
-    for (auto entity : entities) {
-        // processTileWater(entity, registry, voxelGrid, dispatcher, sunIntensity,
-        //                  pendingEvaporateWater, pendingCondenseWater, pendingWaterFall, rd, gen,
-        //                  disWaterSpreading, entityBeingDebugged);
-
-        auto& matterContainer = matter_container_view.get<MatterContainer>(entity);
-        waterUnits += matterContainer.WaterMatter;
-        waterUnits += matterContainer.WaterVapor;
-
-        count++;
-        // Pause execution after every 2000 entities processed
-        if (count >= 2'000) {
-            count = 0;  // Reset the counter
-            std::this_thread::sleep_for(
-                std::chrono::milliseconds(10));  // Sleep for 10 milliseconds
-        }
-    }
-
-    // std::cout << "Total water units: " << waterUnits << std::endl;
-    const int waterMinimumUnits = PhysicsManager::Instance()->getWaterMinimumUnits();
-    int x, y, z;
-    if (waterUnits < waterMinimumUnits) {
-        int waterToCreate = waterMinimumUnits - waterUnits;
-
-        int vaporUnits = 0;
-        while (waterToCreate > 0) {
-            // Create x value from voxelGrid.width and y value from voxelGrid.height (randomly from
-            // 0 to voxelGrid.width and height)
-
-            vaporUnits = 0;
-            if (waterToCreate > 10) {
-                vaporUnits = 10;
-            } else {
-                vaporUnits = waterToCreate;
-            }
-
-            std::uniform_int_distribution<> disX(0, voxelGrid.width - 1);
-            std::uniform_int_distribution<> disY(0, voxelGrid.height - 1);
-            x = disX(gen);
-            y = disY(gen);
-            z = voxelGrid.depth - 1;
-            createOrAddVapor(registry, voxelGrid, dispatcher, x, y, z, vaporUnits);
-            waterToCreate -= vaporUnits;
-        }
-    }
-}
+//==============================================================================
+// SECTION 7: PLANT SIMULATION
+//==============================================================================
+//   7.1 processPlants - Photosynthesis, growth, fruiting
+//==============================================================================
 
 void processPlants(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                    GameClock& clock) {
@@ -1416,6 +1377,85 @@ void processPlants(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatc
     }
 }
 
+//==============================================================================
+// SECTION 8: PUBLIC API - ECOSYSTEM ENGINE
+//==============================================================================
+//   8.1 loopTiles - Water conservation/replenishment
+//   8.2 processEcosystem - Synchronous plant processing
+//   8.3 processEcosystemAsync - Async water simulation
+//   8.4 Event handlers
+//==============================================================================
+
+// 8.1 loopTiles - Water conservation/replenishment
+
+void EcosystemEngine::loopTiles(entt::registry& registry, VoxelGrid& voxelGrid,
+                                entt::dispatcher& dispatcher, float sunIntensity) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    std::uniform_int_distribution<> disWaterSpreading(1, 4);
+
+    int count = 0;
+    int waterUnits = 0;
+
+    auto matter_container_view = registry.view<MatterContainer>();
+
+    // Copy entities into a vector
+    std::vector<entt::entity> entities(matter_container_view.begin(), matter_container_view.end());
+
+    // Shuffle the vector
+    std::shuffle(entities.begin(), entities.end(),
+                 std::default_random_engine{std::random_device{}()});
+
+    for (auto entity : entities) {
+        // processTileWater(entity, registry, voxelGrid, dispatcher, sunIntensity,
+        //                  pendingEvaporateWater, pendingCondenseWater, pendingWaterFall, rd, gen,
+        //                  disWaterSpreading, entityBeingDebugged);
+
+        auto& matterContainer = matter_container_view.get<MatterContainer>(entity);
+        waterUnits += matterContainer.WaterMatter;
+        waterUnits += matterContainer.WaterVapor;
+
+        count++;
+        // Pause execution after every 2000 entities processed
+        if (count >= 2'000) {
+            count = 0;  // Reset the counter
+            std::this_thread::sleep_for(
+                std::chrono::milliseconds(10));  // Sleep for 10 milliseconds
+        }
+    }
+
+    // std::cout << "Total water units: " << waterUnits << std::endl;
+    const int waterMinimumUnits = PhysicsManager::Instance()->getWaterMinimumUnits();
+    int x, y, z;
+    if (waterUnits < waterMinimumUnits) {
+        int waterToCreate = waterMinimumUnits - waterUnits;
+
+        int vaporUnits = 0;
+        while (waterToCreate > 0) {
+            // Create x value from voxelGrid.width and y value from voxelGrid.height (randomly from
+            // 0 to voxelGrid.width and height)
+
+            vaporUnits = 0;
+            if (waterToCreate > 10) {
+                vaporUnits = 10;
+            } else {
+                vaporUnits = waterToCreate;
+            }
+
+            std::uniform_int_distribution<> disX(0, voxelGrid.width - 1);
+            std::uniform_int_distribution<> disY(0, voxelGrid.height - 1);
+            x = disX(gen);
+            y = disY(gen);
+            z = voxelGrid.depth - 1;
+            createOrAddVapor(registry, voxelGrid, dispatcher, x, y, z, vaporUnits);
+            waterToCreate -= vaporUnits;
+        }
+    }
+}
+
+// 8.2 processEcosystem - Synchronous plant processing
+
 void EcosystemEngine::processEcosystem(entt::registry& registry, VoxelGrid& voxelGrid,
                                        entt::dispatcher& dispatcher, GameClock& clock) {
     // std::cout << "Processing ecosystem\n";
@@ -1423,6 +1463,8 @@ void EcosystemEngine::processEcosystem(entt::registry& registry, VoxelGrid& voxe
     float sunIntensity = SunIntensity::getIntensity(clock);
     processPlants(registry, voxelGrid, dispatcher, clock);
 }
+
+// 8.3 processEcosystemAsync - Async water simulation
 
 void EcosystemEngine::processEcosystemAsync(entt::registry& registry, VoxelGrid& voxelGrid,
                                             entt::dispatcher& dispatcher, GameClock& clock) {
@@ -1444,6 +1486,8 @@ void EcosystemEngine::processEcosystemAsync(entt::registry& registry, VoxelGrid&
 }
 
 bool EcosystemEngine::isProcessingComplete() const { return processingComplete; }
+
+// 8.4 Event handlers
 
 // NOTE: Water event processing methods have been moved to PhysicsEngine
 // for better separation of concerns. The ecosystem engine now only detects
