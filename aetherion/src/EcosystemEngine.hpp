@@ -151,6 +151,16 @@ struct VaporMergeUpEvent {
         : source(source), target(target), amount(amount), sourceEntity(sourceEntity) {}
 };
 
+struct VaporMergeSidewaysEvent {
+    Position source;
+    Position target;
+    int amount;
+    int sourceTerrainId;
+
+    VaporMergeSidewaysEvent(Position source, Position target, int amount, int sourceTerrainId)
+        : source(source), target(target), amount(amount), sourceTerrainId(sourceTerrainId) {}
+};
+
 struct AddVaporToTileAboveEvent {
     Position sourcePos;  // Position of the evaporating water (x, y, z)
     int amount;          // Amount of vapor to add

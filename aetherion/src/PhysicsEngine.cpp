@@ -373,6 +373,41 @@ void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent& event) {
     voxelGrid->terrainGridRepository->unlockTerrainGrid();
 }
 
+void PhysicsEngine::onVaporMergeSidewaysEvent(const VaporMergeSidewaysEvent& event) {
+    // Lock terrain grid for atomic state change (prevents race conditions with other systems)
+    voxelGrid->terrainGridRepository->lockTerrainGrid();
+
+    // Get target vapor and merge
+    MatterContainer targetMatter = voxelGrid->terrainGridRepository->getTerrainMatterContainer(
+        event.target.x, event.target.y, event.target.z);
+    targetMatter.WaterVapor += event.amount;
+    voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.target.x, event.target.y,
+                                                                event.target.z, targetMatter);
+
+    // Clear source vapor
+    MatterContainer sourceMatter = voxelGrid->terrainGridRepository->getTerrainMatterContainer(
+        event.source.x, event.source.y, event.source.z);
+    sourceMatter.WaterVapor = 0;
+    voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.source.x, event.source.y,
+                                                                event.source.z, sourceMatter);
+
+    // Delete or convert source entity if it's a valid entity (not ON_GRID_STORAGE or NONE)
+    if (event.sourceTerrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
+        event.sourceTerrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        entt::entity sourceEntity = static_cast<entt::entity>(event.sourceTerrainId);
+        if (registry.valid(sourceEntity)) {
+            std::ostringstream ossMessage;
+            ossMessage << "[VaporMergeSidewaysEvent] Deleting source vapor entity ID="
+                      << event.sourceTerrainId << " at (" << event.source.x << ", "
+                      << event.source.y << ", " << event.source.z << ")";
+            spdlog::get("console")->debug(ossMessage.str());
+            dispatcher.enqueue<KillEntityEvent>(sourceEntity);
+        }
+    }
+
+    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+}
+
 void PhysicsEngine::onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent& event) {
     // Lock terrain grid for atomic operation
     voxelGrid->terrainGridRepository->lockTerrainGrid();
@@ -440,6 +475,8 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     // Register vapor event handlers
     dispatcher.sink<VaporCreationEvent>().connect<&PhysicsEngine::onVaporCreationEvent>(*this);
     dispatcher.sink<VaporMergeUpEvent>().connect<&PhysicsEngine::onVaporMergeUpEvent>(*this);
+    dispatcher.sink<VaporMergeSidewaysEvent>()
+        .connect<&PhysicsEngine::onVaporMergeSidewaysEvent>(*this);
     dispatcher.sink<AddVaporToTileAboveEvent>().connect<&PhysicsEngine::onAddVaporToTileAboveEvent>(
         *this);
     dispatcher.sink<CreateVaporEntityEvent>().connect<&PhysicsEngine::onCreateVaporEntityEvent>(

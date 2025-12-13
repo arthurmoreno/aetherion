@@ -29,6 +29,7 @@ struct WaterGravityFlowEvent;
 struct TerrainPhaseConversionEvent;
 struct VaporCreationEvent;
 struct VaporMergeUpEvent;
+struct VaporMergeSidewaysEvent;
 struct AddVaporToTileAboveEvent;
 struct CreateVaporEntityEvent;
 
@@ -74,6 +75,7 @@ class PhysicsEngine {
     void onTerrainPhaseConversionEvent(const TerrainPhaseConversionEvent& event);
     void onVaporCreationEvent(const VaporCreationEvent& event);
     void onVaporMergeUpEvent(const VaporMergeUpEvent& event);
+    void onVaporMergeSidewaysEvent(const VaporMergeSidewaysEvent& event);
     void onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent& event);
     void onCreateVaporEntityEvent(const CreateVaporEntityEvent& event);
 

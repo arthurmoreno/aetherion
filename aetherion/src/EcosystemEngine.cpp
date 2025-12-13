@@ -989,20 +989,12 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
                 ossMessage.str("");
                 ossMessage.clear();
 
-                // Merge vapor
-                matterContainerSide.WaterVapor += matterContainer.WaterVapor;
-                matterContainer.WaterVapor = 0;
-
-                voxelGrid.terrainGridRepository->setTerrainMatterContainer(newX, newY, pos.z,
-                                                                           matterContainerSide);
-                voxelGrid.terrainGridRepository->setTerrainMatterContainer(pos.x, pos.y, pos.z,
-                                                                           matterContainer);
-
-                if (terrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
-                    terrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-                    entt::entity entity = static_cast<entt::entity>(terrainId);
-                    deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
-                }
+                // Dispatch event - PhysicsEngine handles atomic merge and cleanup
+                Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
+                Position targetPos{newX, newY, pos.z, pos.direction};
+                VaporMergeSidewaysEvent event(sourcePos, targetPos, matterContainer.WaterVapor,
+                                              terrainId);
+                dispatcher.enqueue<VaporMergeSidewaysEvent>(event);
             } else {
                 ossMessage << "[moveVaporSideways] Vapor Obstructed; cannot move sideways (" << newX
                            << ", " << newY << ", " << pos.z << ")\n";
@@ -1019,7 +1011,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
 void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher, int x,
                int y, int z, Position& pos, EntityTypeComponent& type,
                MatterContainer& matterContainer) {
-    setVaporSI(pos.x, pos.y, pos.z, voxelGrid);
+    // setVaporSI(pos.x, pos.y, pos.z, voxelGrid);
     int maxAltitude = voxelGrid.depth - 1;  // Example maximum altitude for vapor to rise
 
     // Condensation Logic for Vapor
