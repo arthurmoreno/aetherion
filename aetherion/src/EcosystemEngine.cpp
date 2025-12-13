@@ -12,6 +12,7 @@
 #include "ecosystem/ReadonlyQueries.hpp"
 #include "physics/PhysicsMutators.hpp"
 #include "physics/ReadonlyQueries.hpp"
+#include "terrain/TerrainGridLock.hpp"
 
 /**********************
  *
@@ -827,14 +828,14 @@ static void dispatchVaporMergeEvent(entt::dispatcher& dispatcher, const Position
 
 void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                  Position& pos, EntityTypeComponent& type, MatterContainer& matterContainer) {
-    voxelGrid.terrainGridRepository->lockTerrainGrid();
+    // RAII-based lock guard: automatically unlocks on any exit (return/exception)
+    TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
     // Atomic operation: Get terrain ID at current position
     int terrainId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
 
     // Validate terrain ID
     if (!validateVaporTerrainId(terrainId, pos)) {
-        voxelGrid.terrainGridRepository->unlockTerrainGrid();
         return;
     }
 
@@ -847,7 +848,6 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
 
     // Check altitude boundary
     if (pos.z >= maxAltitude) {
-        voxelGrid.terrainGridRepository->unlockTerrainGrid();
         return;
     }
 
@@ -859,7 +859,6 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
         // Handle ON_GRID_STORAGE case - needs entity creation via event
         if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
             Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
-            voxelGrid.terrainGridRepository->unlockTerrainGrid();
 
             // Dispatch entity creation event - PhysicsEngine will handle atomically
             CreateVaporEntityEvent createEvent(sourcePos, rhoEnv, rhoVapor);
@@ -869,7 +868,6 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             return;
         }
 
-        voxelGrid.terrainGridRepository->unlockTerrainGrid();
         dispatchVaporMoveUpEvent(dispatcher, entity, pos, rhoEnv, rhoVapor);
         return;
     }
@@ -892,7 +890,6 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             //           << pos.z << ") with vapor above\n";
 
             Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
-            voxelGrid.terrainGridRepository->unlockTerrainGrid();
             dispatchVaporMergeEvent(dispatcher, sourcePos, matterContainer.WaterVapor, entity);
             return;
         } else if (haveMovement) {
@@ -903,8 +900,8 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
                       << pos.z << "); cannot move up; No suitable vapor above to merge.\n";
         }
     }
-
-    voxelGrid.terrainGridRepository->unlockTerrainGrid();
+    
+    // Lock automatically released by TerrainGridLock destructor
 }
 
 void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
