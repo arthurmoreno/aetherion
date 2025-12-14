@@ -32,6 +32,7 @@ class SharedState(BaseModel):
     water_camera_stats: bool = False
     terrain_gradient_camera_stats: bool = False
 
+    desired_fps: float = 30.0
     fps: float = 0.0
     console_logs: list[str] = []
 

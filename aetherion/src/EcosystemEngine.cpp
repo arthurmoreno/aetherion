@@ -359,48 +359,6 @@ void WaterSimulationManager::processWaterSimulation(entt::registry& registry, Vo
     }
 }
 
-//==============================================================================
-// SECTION 2: TERRAIN QUERIES (Read-Only Helpers)
-//==============================================================================
-//   2.1 isTerrainVoxelEmptyOrSoftEmpty
-//==============================================================================
-
-// Read-only helper functions for terrain detection (used by EcosystemEngine)
-// Note: isTerrainSoftEmpty and getTypeAndCheckSoftEmpty are now defined in ReadonlyQueries.cpp
-
-bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid,
-                                    entt::dispatcher& dispatcher, const int x, const int y,
-                                    const int z) {
-    int terrainId = voxelGrid.getTerrain(x, y, z);
-    if (terrainId < static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        // Invalid terrain ID
-        std::ostringstream ossMessage;
-        ossMessage << "[isTerrainVoxelEmptyOrSoftEmpty] Error: Invalid terrain ID " << terrainId
-                   << " at (" << x << ", " << y << ", " << z << ")";
-        spdlog::get("console")->error(ossMessage.str());
-        voxelGrid.deleteTerrain(dispatcher, x, y, z);
-        return true;
-    } else if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-        // This should not happen; means vapor entity is missing in voxel grid
-        // std::ostringstream ossMessage;
-        // ossMessage << "[isTerrainVoxelEmptyOrSoftEmpty] Error: Vapor entity in ON_GRID_STORAGE at
-        // ("
-        //             << x << ", " << y << ", " << z << ")\n";
-        // spdlog::get("console")->error(ossMessage.str());
-        return false;
-    } else if (terrainId > 0) {
-        // Voxel is completely empty
-        auto terrain = static_cast<entt::entity>(terrainId);
-        EntityTypeComponent* type = registry.try_get<EntityTypeComponent>(terrain);
-        const bool isVoxelEmpty{terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)};
-        const bool isSoftEmpty{(type && isTerrainSoftEmpty(*type))};
-        const bool isEmpty{isVoxelEmpty || isSoftEmpty};
-        return isEmpty;
-    }
-
-    // Review this after fixing the current bug.
-    return false;
-}
 
 //==============================================================================
 // SECTION 3: WATER CYCLE - LIQUID PHASE

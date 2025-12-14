@@ -15,6 +15,9 @@ logger = get_logger(__name__)
 class GameEventType(StrEnum):
     """Enumeration of all game level events."""
 
+    # Game Engine Events
+    CHANGE_DESIRED_FPS = "change_desired_fps"
+
     # World Management Events
     WORLD_CREATE_REQUESTED = "world_create_requested"
     WORLD_CREATED = "world_created"

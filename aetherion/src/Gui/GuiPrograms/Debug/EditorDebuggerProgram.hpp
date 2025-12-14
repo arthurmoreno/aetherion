@@ -91,6 +91,48 @@ class EditorDebuggerProgram : public GuiProgram {
             if (ImGui::Button("Settings")) {
                 GuiProgramManager::Instance()->toggleProgram("settings");
             }
+
+            // FPS Input (slider + text)
+            ImGui::Separator();
+            // Ensure FPS value is stored in sharedData so UI stays in sync with the simulation
+            int fps = 60;
+            if (context.sharedData.contains("desired_fps")) {
+                try {
+                    fps = nb::cast<int>(context.sharedData["desired_fps"]);
+                } catch (...) {
+                    context.sharedData["desired_fps"] = 60;
+                    fps = 60;
+                }
+            } else {
+                context.sharedData["desired_fps"] = fps;
+            }
+
+            ImGui::AlignTextToFramePadding();
+            ImGui::Text("Simulation FPS:");
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(120);
+            // InputInt for direct editing
+            if (ImGui::InputInt("##editor_fps_input", &fps, 1, 10)) {
+                if (fps < 1) fps = 1;
+                if (fps > 1000) fps = 1000;
+                context.sharedData["desired_fps"] = fps;
+                Command cmd("set_fps");
+                cmd.setParam("fps", fps);
+                context.commands.append(cmd);
+            }
+
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(220);
+            // Slider keeps the value and input in sync
+            if (ImGui::SliderInt("##editor_fps_slider", &fps, 1, 1000)) {
+                context.sharedData["desired_fps"] = fps;
+                Command cmd("set_fps");
+                cmd.setParam("fps", fps);
+                context.commands.append(cmd);
+            }
+
+            ImGui::SameLine();
+            ImGui::TextDisabled("(1-1000)");
         }
     }
 

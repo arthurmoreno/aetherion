@@ -4,6 +4,7 @@
 #include <nanobind/nanobind.h>
 
 #include "../../GuiCore/GuiProgram.hpp"
+#include "../../GuiCore/GuiProgramManager.hpp"
 
 namespace nb = nanobind;
 
@@ -21,25 +22,15 @@ class SettingsProgram : public GuiProgram {
         if (ImGui::Begin("Settings", &isActive_, ImGuiWindowFlags_AlwaysAutoResize)) {
             // Settings buttons to activate sub-programs
             if (ImGui::Button("Camera Settings")) {
-                // Activate camera settings program
-                nb::dict cmd;
-                cmd["type"] = "activate_program";
-                cmd["program_id"] = "camera_settings";
-                context.commands.append(cmd);
+                GuiProgramManager::Instance()->toggleProgram("camera_settings");
             }
 
             if (ImGui::Button("Physics Settings")) {
-                nb::dict cmd;
-                cmd["type"] = "activate_program";
-                cmd["program_id"] = "physics_settings";
-                context.commands.append(cmd);
+                GuiProgramManager::Instance()->toggleProgram("physics_settings");
             }
 
             if (ImGui::Button("General Metrics")) {
-                nb::dict cmd;
-                cmd["type"] = "activate_program";
-                cmd["program_id"] = "general_metrics";
-                context.commands.append(cmd);
+                GuiProgramManager::Instance()->toggleProgram("general_metrics");
             }
 
             if (ImGui::Button("Player Stats")) {
