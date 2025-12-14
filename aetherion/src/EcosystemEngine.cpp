@@ -685,8 +685,24 @@ bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGr
 
 // 4.1 Evaporation
 
-void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
-                      int x, int y, int z, int amount) {
+/**
+ * @brief Dispatches an event to create or add vapor to the tile above a given coordinate.
+ * @details This function does not directly modify the world state. Instead, it enqueues events
+ * to be processed atomically by the PhysicsEngine. It checks if terrain exists at `z+1`.
+ * - If terrain exists, it enqueues an `AddVaporToTileAboveEvent` to add vapor to the existing tile.
+ * - If the space is empty, it enqueues a `VaporCreationEvent` to create a new vapor entity.
+ * This decouples the request for vapor from the state change, ensuring thread safety.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param dispatcher The entt::dispatcher to enqueue events.
+ * @param x The source x-coordinate.
+ * @param y The source y-coordinate.
+ * @param z The source z-coordinate (vapor will be handled at z+1).
+ * @param amount The amount of vapor to create or add.
+ */
+void dispatchVaporCreationOrAddition(entt::registry& registry, VoxelGrid& voxelGrid,
+                                     entt::dispatcher& dispatcher, int x, int y, int z,
+                                     int amount) {
     int terrainAboveId = voxelGrid.getTerrain(x, y, z + 1);
 
     if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
@@ -698,12 +714,13 @@ void createOrAddVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::disp
         // No entity above; create vapor entity
 
         std::ostringstream ossMessage;
-        ossMessage << "[createOrAddVapor] Creating new vapor entity at (" << x << ", " << y << ", "
-                   << z + 1 << ")";
+        ossMessage << "[dispatchVaporCreationOrAddition] Creating new vapor entity at (" << x
+                   << ", " << y << ", " << z + 1 << ")";
         spdlog::get("console")->info(ossMessage.str());
 
         if (voxelGrid.terrainGridRepository->checkIfTerrainHasEntity(x, y, z + 1)) {
-            throw std::runtime_error("[createOrAddVapor] Error: Checkpoint bingo.");
+            throw std::runtime_error(
+                "[dispatchVaporCreationOrAddition] Error: Checkpoint bingo.");
         }
 
         // Dispatch event instead of direct state changes
@@ -1405,7 +1422,7 @@ void EcosystemEngine::loopTiles(entt::registry& registry, VoxelGrid& voxelGrid,
             x = disX(gen);
             y = disY(gen);
             z = voxelGrid.depth - 1;
-            createOrAddVapor(registry, voxelGrid, dispatcher, x, y, z, vaporUnits);
+            dispatchVaporCreationOrAddition(registry, voxelGrid, dispatcher, x, y, z, vaporUnits);
             waterToCreate -= vaporUnits;
         }
     }

@@ -11,6 +11,7 @@
 #include "physics/PhysicalMath.hpp"
 #include "physics/ReadonlyQueries.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
+#include "PhysicsEvents.hpp"
 
 
 
@@ -48,8 +49,9 @@ inline bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& 
         ossMessage << "[isTerrainVoxelEmptyOrSoftEmpty] Error: Invalid terrain ID " << terrainId
                    << " at (" << x << ", " << y << ", " << z << ")";
         spdlog::get("console")->error(ossMessage.str());
-        voxelGrid.deleteTerrain(dispatcher, x, y, z);
-        return true;
+        dispatcher.trigger<InvalidTerrainFoundEvent>(InvalidTerrainFoundEvent{x, y, z});
+        // Trigger deletion at physics engine layer. Block will not be empty immediately.
+        return false;
     } else if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
         // This should not happen; means vapor entity is missing in voxel grid
         // std::ostringstream ossMessage;

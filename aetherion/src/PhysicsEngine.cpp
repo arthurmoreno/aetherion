@@ -491,6 +491,12 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
         *this);
     dispatcher.sink<DeleteOrConvertTerrainEvent>()
         .connect<&PhysicsEngine::onDeleteOrConvertTerrainEvent>(*this);
+    dispatcher.sink<InvalidTerrainFoundEvent>()
+        .connect<&PhysicsEngine::onInvalidTerrainFound>(*this);
+}
+
+void PhysicsEngine::onInvalidTerrainFound(const InvalidTerrainFoundEvent& event) {
+    voxelGrid->deleteTerrain(dispatcher, event.x, event.y, event.z);
 }
 
 // ================ END OF REFACTORING ================

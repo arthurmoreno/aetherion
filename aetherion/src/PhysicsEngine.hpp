@@ -9,6 +9,7 @@
 #include "ItemsEvents.hpp"
 #include "MoveEntityEvent.hpp"
 #include "SunIntensity.hpp"
+#include "PhysicsEvents.hpp"
 #include "EcosystemEngine.hpp"
 #include "components/ConsoleLogsComponent.hpp"
 #include "components/EntityTypeComponent.hpp"
@@ -66,6 +67,7 @@ class PhysicsEngine {
     void onTakeItemEvent(const TakeItemEvent& event);
     void onUseItemEvent(const UseItemEvent& event);
     void onSetPhysicsEntityToDebug(const SetPhysicsEntityToDebug& event);
+    void onInvalidTerrainFound(const InvalidTerrainFoundEvent& event);
 
     // Handle water phase change events (moved from EcosystemEngine)
     void onEvaporateWaterEntityEvent(const EvaporateWaterEntityEvent& event);
