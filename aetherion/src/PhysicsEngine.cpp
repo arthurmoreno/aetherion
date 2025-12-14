@@ -14,6 +14,8 @@
 #include "physics/PhysicsValidators.hpp"
 #include "physics/ReadonlyQueries.hpp"
 #include "settings.hpp"
+#include "terrain/TerrainGridLock.hpp" // For TerrainGridLock
+#include <memory>                      // For std::unique_ptr
 
 // =========================================================================
 // ================ PHYSICS ENGINE ORGANIZATION ================
@@ -615,59 +617,28 @@ void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, Voxe
 
     // SAFETY CHECK 1: Validate entity is still valid
     if (!registry.valid(entity)) {
-        // Entity is invalid but still in Velocity component storage
-        // This happens during the timing window between registry.destroy() and hook execution
-        // The onDestroyVelocity hook will clean up tracking maps - just skip for now
-        std::cout
-            << "[handleMovement] WARNING: Invalid entity in velocityView - skipping; entity ID="
-            << static_cast<int>(entity) << " (cleanup will be handled by hooks)" << std::endl;
-
-        Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
-        int entityId = static_cast<int>(entity);
-        if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-            std::cout << "[handleMovement] Could not find position of entity " << entityId
-                      << " in TerrainGridRepository - just delete it." << std::endl;
-            registry.destroy(entity);
-
-        } else {
-            try {
-                entity = reviveColdTerrainEntities(registry, voxelGrid, dispatcher, pos, entity);
-            } catch (const aetherion::InvalidEntityException& e) {
-                // Entity cannot be revived (e.g., zero vapor matter converted to empty)
-                std::cout << "[handleMovement] Revival failed: " << e.what()
-                          << " - entity ID=" << entityId << " - early return" << std::endl;
-                return;
-            }
+        try {
+            entity = handleInvalidEntityForMovement(registry, voxelGrid, dispatcher, entity);
+        } catch (const aetherion::InvalidEntityException& e) {
+            // Exception indicates we should stop processing this entity.
+            // The mutator function already logged the details.
+            return;
         }
     }
 
     // SAFETY CHECK 2: For terrain entities, verify they have Position component
     // This ensures vapor entities are fully initialized before physics processes them
-    if (isTerrain && !registry.all_of<Position>(entity)) {
-        std::ostringstream error;
-        error << "[handleMovement] Terrain entity " << static_cast<int>(entity)
-              << " missing Position component (not fully initialized yet)";
-
-        // delete from terrain repository mapping.
-        Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
-        int entityId = static_cast<int>(entity);
-        if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-            std::cout << "[handleMovement] Could not find position of entity " << entityId
-                      << " in TerrainGridRepository, skipping entity." << std::endl;
-            throw std::runtime_error(error.str());
-        }
-        registry.emplace<Position>(entity, pos);
-        // throw std::runtime_error(error.str());
-    }
+    ensurePositionComponentForTerrain(registry, voxelGrid, entity, isTerrain);
 
     bool haveMovement = registry.all_of<MovingComponent>(entity);
 
     // ⚠️ CRITICAL FIX: Acquire terrain grid lock BEFORE reading any terrain data
     // to prevent TOCTOU race conditions where terrain moves between position lookup
     // and velocity/physics reads (see loadEntityPhysicsData lines 507-515)
-    // IMPORTANT: Use try-finally pattern to ensure lock is ALWAYS released
+    // IMPORTANT: Use RAII pattern to ensure lock is ALWAYS released
+    std::unique_ptr<TerrainGridLock> terrainLockGuard;
     if (isTerrain) {
-        voxelGrid.terrainGridRepository->lockTerrainGrid();
+        terrainLockGuard = std::make_unique<TerrainGridLock>(voxelGrid.terrainGridRepository.get());
     }
 
     // Exception-safe lock release using try-catch with specific exception handlers
@@ -699,9 +670,7 @@ void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, Voxe
 
         if (matterState != MatterState::GAS) {
             // Update velocities
-            velocity.vx = newVelocityX;
-            velocity.vy = newVelocityY;
-            velocity.vz = newVelocityZ;
+            updateEntityVelocity(velocity, newVelocityX, newVelocityY, newVelocityZ);
         }
 
         // Calculate movement destination with special collision handling
@@ -737,10 +706,8 @@ void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, Voxe
         }
     } catch (const aetherion::InvalidEntityException& e) {
         // Handle entity-specific errors with custom cleanup
-        // CRITICAL: Release lock before re-throwing exception
         if (isTerrain) {
             cleanupInvalidTerrainEntity(registry, voxelGrid, entity, e);
-            voxelGrid.terrainGridRepository->unlockTerrainGrid();
             return;
         }
         std::cout << "[handleMovement] InvalidEntityException: " << e.what()
@@ -749,36 +716,17 @@ void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, Voxe
     } catch (const aetherion::TerrainLockException& e) {
         // Handle terrain locking errors
         std::cout << "[handleMovement] TerrainLockException: " << e.what() << std::endl;
-        // CRITICAL: Release lock before re-throwing exception
-        if (isTerrain) {
-            voxelGrid.terrainGridRepository->unlockTerrainGrid();
-        }
         throw;  // Re-throw after logging
     } catch (const aetherion::PhysicsException& e) {
         // Handle any other physics-related exceptions
         std::cout << "[handleMovement] PhysicsException: " << e.what()
                   << " - entity ID=" << static_cast<int>(entity) << std::endl;
-        // CRITICAL: Release lock before re-throwing exception
-        if (isTerrain) {
-            voxelGrid.terrainGridRepository->unlockTerrainGrid();
-        }
         throw;  // Re-throw after logging
     } catch (...) {
         // Handle any other unexpected exceptions
         std::cout << "[handleMovement] Unexpected exception occurred"
                   << " - entity ID=" << static_cast<int>(entity) << std::endl;
-        // CRITICAL: Release lock before re-throwing exception
-        if (isTerrain) {
-            voxelGrid.terrainGridRepository->unlockTerrainGrid();
-            // TODO: Consider the necessecity of additional cleanup here.
-            return;
-        }
         throw;  // Re-throw the exception
-    }
-
-    // Unlock terrain grid if we locked it (normal exit path)
-    if (isTerrain) {
-        voxelGrid.terrainGridRepository->unlockTerrainGrid();
     }
 }
 

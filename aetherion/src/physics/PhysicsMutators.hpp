@@ -9,6 +9,10 @@
 #include "physics/ReadonlyQueries.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
 
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
+
 // Helper: Clean up zero velocity
 inline void cleanupZeroVelocity(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
                                 const Position& position, const Velocity& velocity,
@@ -27,6 +31,36 @@ inline void cleanupZeroVelocity(entt::registry& registry, VoxelGrid& voxelGrid, 
         } else {
             registry.remove<Velocity>(entity);
         }
+    }
+}
+
+// Helper: Update entity velocity
+inline void updateEntityVelocity(Velocity& velocity, float newVx, float newVy, float newVz) {
+    velocity.vx = newVx;
+    velocity.vy = newVy;
+    velocity.vz = newVz;
+}
+
+// Helper: Ensure terrain entities have a Position component
+inline void ensurePositionComponentForTerrain(entt::registry& registry, VoxelGrid& voxelGrid,
+                                              entt::entity entity, bool isTerrain) {
+    // For terrain entities, verify they have Position component
+    // This ensures vapor entities are fully initialized before physics processes them
+    if (isTerrain && !registry.all_of<Position>(entity)) {
+        std::ostringstream error;
+        error << "[handleMovement] Terrain entity " << static_cast<int>(entity)
+              << " missing Position component (not fully initialized yet)";
+
+        // delete from terrain repository mapping.
+        Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+        int entityId = static_cast<int>(entity);
+        if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+            std::cout << "[handleMovement] Could not find position of entity " << entityId
+                      << " in TerrainGridRepository, skipping entity." << std::endl;
+            throw std::runtime_error(error.str());
+        }
+        registry.emplace<Position>(entity, pos);
+        // throw std::runtime_error(error.str());
     }
 }
 
@@ -255,6 +289,39 @@ inline entt::entity reviveColdTerrainEntities(entt::registry& registry, VoxelGri
         }
     }
 }
+
+// Helper: Handle invalid entities during movement processing
+inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, VoxelGrid& voxelGrid,
+                                                   entt::dispatcher& dispatcher,
+                                                   entt::entity entity) {
+    // Entity is invalid but still in Velocity component storage
+    // This happens during the timing window between registry.destroy() and hook execution
+    // The onDestroyVelocity hook will clean up tracking maps - just skip for now
+    std::cout << "[handleMovement] WARNING: Invalid entity in velocityView - skipping; entity ID="
+              << static_cast<int>(entity) << " (cleanup will be handled by hooks)" << std::endl;
+
+    Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+    int entityId = static_cast<int>(entity);
+    if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+        std::cout << "[handleMovement] Could not find position of entity " << entityId
+                  << " in TerrainGridRepository - just delete it." << std::endl;
+        registry.destroy(entity);
+        // Throw exception to signal to caller that processing for this entity should stop.
+        throw aetherion::InvalidEntityException(
+            "Entity destroyed as it could not be found in TerrainGridRepository");
+
+    } else {
+        try {
+            return reviveColdTerrainEntities(registry, voxelGrid, dispatcher, pos, entity);
+        } catch (const aetherion::InvalidEntityException& e) {
+            // Entity cannot be revived (e.g., zero vapor matter converted to empty)
+            std::cout << "[handleMovement] Revival failed: " << e.what()
+                      << " - entity ID=" << entityId << std::endl;
+            throw;  // Re-throw to be caught by handleMovement
+        }
+    }
+}
+
 
 // Helper: Create a new vapor terrain entity with all required components
 inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid, int x,
