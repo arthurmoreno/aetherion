@@ -31,14 +31,11 @@ class LifeEngine {
     // Register the event handler
     void registerEventHandlers(entt::dispatcher& dispatcher);
 
-    void removeEntityFromGrid(entt::entity entity);
-
    private:
     entt::registry& registry;
     entt::dispatcher& dispatcher;
     VoxelGrid* voxelGrid;
 
-    void dropItems(entt::entity entity);
 };
 
 #endif  // LIFE_EVENTS_HPP

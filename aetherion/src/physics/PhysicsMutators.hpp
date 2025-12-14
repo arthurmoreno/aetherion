@@ -426,20 +426,143 @@ static void convertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxel
     // setEmptyWaterComponents(registry, terrain, MatterState::GAS);
 }
 
-/**
- * @brief A wrapper that performs a read-only check before converting a tile to vapor.
- * @param registry The entt::registry.
- * @param voxelGrid The VoxelGrid.
- * @param terrainId The ID of the terrain entity/tile.
- * @param x The x-coordinate of the tile.
- * @param y The y-coordinate of the tile.
- * @param z The z-coordinate of the tile.
- */
+// Helper: A wrapper that performs a read-only check before converting a tile to vapor.
 inline void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxelGrid,
                                               int terrainId, int x, int y, int z) {
     if (getTypeAndCheckSoftEmpty(registry, voxelGrid, terrainId, x, y, z)) {
         convertSoftEmptyIntoVapor(registry, voxelGrid, terrainId, x, y, z);
     }
+}
+
+/**
+ * @brief Handles dropping items from a dying entity's inventory into the world.
+ * @details (Placeholder) This function is intended to read an entity's DropRates component,
+ * create new item entities, and place them in the inventory of the tile below the dying entity.
+ * The logic is currently commented out in the original LifeEngine.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param entity The entity dropping items.
+ */
+inline void dropEntityItems(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity) {
+    // NOTE: The logic for this function is based on the commented-out `dropItems`
+    // function in `LifeEvents.cpp` and serves as a placeholder for the intended functionality.
+    std::cout << "Checking for item drops from entity " << static_cast<int>(entity)
+              << " (placeholder)." << std::endl;
+
+    // if (registry.valid(entity) && registry.all_of<Position, DropRates>(entity)) {
+    //     auto&& [pos, dropRates] = registry.get<Position, DropRates>(entity);
+
+    //     auto terrainBellowId = voxelGrid->getTerrain(pos.x, pos.y, pos.z - 1);
+
+    //     // TODO: TerrainRepository is not supporting Inventory yet. (Only Pure ECS entities)
+    //     if (terrainBellowId != -1 && terrainBellowId != -2) {
+    //         entt::entity terrainBellow = static_cast<entt::entity>(terrainBellowId);
+
+    //         Inventory* inventory = registry.try_get<Inventory>(terrainBellow);
+    //         bool shouldEmplaceInventory{inventory == nullptr};
+    //         if (inventory == nullptr) {
+    //             inventory = new Inventory();
+    //         }
+
+    //         if (!dropRates.itemDropRates.empty()) {
+    //             for (const auto& [combinedItemId, valuesTuple] : dropRates.itemDropRates) {
+    //                 auto [itemMainType, itemSubType0] = splitStringToInts(combinedItemId);
+
+    //                 if (itemMainType == static_cast<int>(ItemEnum::FOOD)) {
+    //                     std::shared_ptr<ItemConfiguration> itemConfiguration =
+    //                         getItemConfigurationOnManager(combinedItemId);
+    //                     auto newFoodItem = itemConfiguration->createFoodItem(registry);
+
+    //                     auto entityId = entt::to_integral(newFoodItem);
+    //                     inventory->itemIDs.push_back(entityId);
+    //                 }
+    //             }
+
+    //             if (shouldEmplaceInventory) {
+    //                 registry.emplace<Inventory>(terrainBellow, *inventory);
+    //             }
+    //         }
+    //     }
+    // }
+}
+
+/**
+ * @brief Removes an entity from its position in the VoxelGrid.
+ * @details It checks the entity's type to call the appropriate grid deletion method
+ * (e.g., `deleteTerrain` or `deleteEntity`). It includes safety checks to ensure the
+ * correct entity is being removed from the grid.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param dispatcher The entt::dispatcher, used for terrain deletion events.
+ * @param entity The entity to remove from the grid.
+ */
+inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
+                                 entt::dispatcher& dispatcher, entt::entity entity) {
+    int entityId = static_cast<int>(entity);
+    bool isSpecialId = entityId == -1 || entityId == -2;
+    if (!isSpecialId && registry.valid(entity) &&
+        registry.all_of<Position, EntityTypeComponent>(entity)) {
+        std::cout << "Removing entity from grid: " << entityId << std::endl;
+        auto&& [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
+
+        int currentGridEntity = voxelGrid.getEntity(pos.x, pos.y, pos.z);
+        if (currentGridEntity != entityId) {
+            std::cout << "WARNING: Grid position (" << pos.x << "," << pos.y << "," << pos.z
+                      << ") contains entity " << currentGridEntity
+                      << " but trying to remove entity " << entityId << std::endl;
+            return;
+        }
+
+        if (type.mainType == static_cast<int>(EntityEnum::TERRAIN)) {
+            voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z);
+        } else if (type.mainType == static_cast<int>(EntityEnum::BEAST) ||
+                   type.mainType == static_cast<int>(EntityEnum::PLANT)) {
+            voxelGrid.deleteEntity(pos.x, pos.y, pos.z);
+        }
+    } else if (isSpecialId) {
+        std::cout << "Entity " << entityId << " is a special ID, skipping grid removal."
+                  << std::endl;
+    } else if (!isSpecialId && registry.valid(entity)) {
+        Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+        if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+            std::cout << "Could not find position of entity " << entityId
+                      << " in TerrainGridRepository, skipping grid removal." << std::endl;
+        } else {
+            voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z);
+        }
+    } else {
+        std::cout << "Entity " << entityId << " is invalid, skipping grid removal." << std::endl;
+    }
+}
+
+/**
+ * @brief Performs a "soft kill" on an entity, removing its life components and grid representation.
+ * @details A soft kill removes essential life components like Health and Metabolism, effectively
+ * making the entity "dead" without immediately destroying the entity handle. It also removes the
+ * entity from the main VoxelGrid representation.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param dispatcher The entt::dispatcher, used for terrain deletion events.
+ * @param entity The entity to be soft-killed.
+ */
+inline void softKillEntity(entt::registry& registry, VoxelGrid& voxelGrid,
+                           entt::dispatcher& dispatcher, entt::entity entity) {
+    int entityId = static_cast<int>(entity);
+    std::cout << "Performing soft kill on entity: " << entityId << std::endl;
+
+    // Safely remove MetabolismComponent if it exists
+    if (registry.all_of<MetabolismComponent>(entity)) {
+        registry.remove<MetabolismComponent>(entity);
+        std::cout << "Removed MetabolismComponent from entity " << entityId << std::endl;
+    }
+
+    // Safely remove HealthComponent if it exists
+    if (registry.all_of<HealthComponent>(entity)) {
+        registry.remove<HealthComponent>(entity);
+        std::cout << "Removed HealthComponent from entity " << entityId << std::endl;
+    }
+
+    removeEntityFromGrid(registry, voxelGrid, dispatcher, entity);
 }
 
 /**

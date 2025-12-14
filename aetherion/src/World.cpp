@@ -18,6 +18,7 @@
 #include "PerceptionResponse_generated.h"
 #include "flatbuffers/flatbuffers.h"
 #include "voxelgrid/VoxelGrid.hpp"
+#include "physics/PhysicsMutators.hpp"
 
 World::World(int width, int height, int depth)
     : voxelGrid(new VoxelGrid(registry)),
@@ -840,7 +841,7 @@ void World::update() {
                     const bool shouldRemoveFromGrid = !softKill;
                     if (shouldRemoveFromGrid) {
                         std::cout << "Removing from grid..." << std::endl;
-                        lifeEngine->removeEntityFromGrid(entity);
+                        removeEntityFromGrid(registry, *voxelGrid, dispatcher, entity);
                     }
 
                     if (entityId != -1 && entityId != -2 && registry.valid(entity)) {
