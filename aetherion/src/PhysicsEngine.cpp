@@ -338,6 +338,12 @@ void PhysicsEngine::onCreateVaporEntityEvent(const CreateVaporEntityEvent& event
     voxelGrid->terrainGridRepository->unlockTerrainGrid();
 }
 
+void PhysicsEngine::onDeleteOrConvertTerrainEvent(const DeleteOrConvertTerrainEvent& event) {
+    // Delegate to existing helper which handles effects and soft-empty conversion
+    entt::entity terrain = event.terrain;
+    deleteEntityOrConvertInEmpty(registry, dispatcher, const_cast<entt::entity&>(terrain));
+}
+
 void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent& event) {
     // Lock terrain grid for atomic state change
     voxelGrid->terrainGridRepository->lockTerrainGrid();
@@ -481,6 +487,8 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
         *this);
     dispatcher.sink<CreateVaporEntityEvent>().connect<&PhysicsEngine::onCreateVaporEntityEvent>(
         *this);
+    dispatcher.sink<DeleteOrConvertTerrainEvent>()
+        .connect<&PhysicsEngine::onDeleteOrConvertTerrainEvent>(*this);
 }
 
 // ================ END OF REFACTORING ================

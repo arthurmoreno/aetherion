@@ -9,6 +9,7 @@
 #include "ItemsEvents.hpp"
 #include "MoveEntityEvent.hpp"
 #include "SunIntensity.hpp"
+#include "EcosystemEngine.hpp"
 #include "components/ConsoleLogsComponent.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/ItemsComponents.hpp"
@@ -78,6 +79,7 @@ class PhysicsEngine {
     void onVaporMergeSidewaysEvent(const VaporMergeSidewaysEvent& event);
     void onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent& event);
     void onCreateVaporEntityEvent(const CreateVaporEntityEvent& event);
+    void onDeleteOrConvertTerrainEvent(const DeleteOrConvertTerrainEvent& event);
 
     // Register the event handler
     void registerEventHandlers(entt::dispatcher& dispatcher);

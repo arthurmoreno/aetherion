@@ -10,7 +10,6 @@
 #include <thread>
 
 #include "ecosystem/ReadonlyQueries.hpp"
-#include "physics/PhysicsMutators.hpp"
 #include "physics/ReadonlyQueries.hpp"
 #include "terrain/TerrainGridLock.hpp"
 
@@ -1228,7 +1227,7 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
             if (terrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
                 terrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
                 entt::entity entity = static_cast<entt::entity>(terrainId);
-                deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
+                dispatcher.enqueue<DeleteOrConvertTerrainEvent>(entity);
             } else {
                 std::cout << "[processTileWater] Empty water entity at (" << x << ", " << y << ", "
                           << z << ") in ON_GRID_STORAGE or NONE; no action taken.\n";

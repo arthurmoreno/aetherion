@@ -170,6 +170,12 @@ struct AddVaporToTileAboveEvent {
         : sourcePos(sourcePos), amount(amount), terrainAboveId(terrainAboveId) {}
 };
 
+struct DeleteOrConvertTerrainEvent {
+    entt::entity terrain;
+
+    DeleteOrConvertTerrainEvent(entt::entity terrain) : terrain(terrain) {}
+};
+
 // Forward declarations and supporting types for GridBoxProcessor
 struct GridBox {
     int minX, minY, minZ;
