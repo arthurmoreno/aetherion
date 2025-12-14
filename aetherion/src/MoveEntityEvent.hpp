@@ -3,25 +3,6 @@
 
 #include <entt/entt.hpp>
 
-struct MoveGasEntityEvent {
-    entt::entity entity;
-    bool forceApplyNewVelocity;
-    Position position;
-    float forceX, forceY, rhoEnv, rhoGas;
-
-    MoveGasEntityEvent(entt::entity entity, Position position, float forceX, float forceY,
-                       float rhoEnv, float rhoGas)
-        : entity(entity),
-          position(position),
-          forceX(forceX),
-          forceY(forceY),
-          rhoEnv(rhoEnv),
-          rhoGas(rhoGas) {
-        forceApplyNewVelocity = false;
-    }
-
-    void setForceApplyNewVelocity() { forceApplyNewVelocity = true; }
-};
 
 struct MoveSolidEntityEvent {
     entt::entity entity;

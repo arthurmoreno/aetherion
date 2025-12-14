@@ -5,7 +5,7 @@
 #include "physics/ReadonlyQueries.hpp"
 
 // Helper: Initialize MovingComponent with movement parameters
-MovingComponent initializeMovingComponent(const Position& position, const Velocity& velocity,
+inline MovingComponent initializeMovingComponent(const Position& position, const Velocity& velocity,
                                           int movingToX, int movingToY, int movingToZ,
                                           float completionTime, bool willStopX, bool willStopY,
                                           bool willStopZ) {

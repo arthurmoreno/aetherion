@@ -11,7 +11,7 @@
 #include "physics/PhysicalMath.hpp"
 #include "physics/ReadonlyQueries.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
-#include "PhysicsEvents.hpp"
+#include "physics/PhysicsEvents.hpp"
 
 
 

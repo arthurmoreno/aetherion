@@ -2,16 +2,24 @@
 #define PHYSICS_MUTATORS_H
 
 #include <entt/entt.hpp>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 #include "components/EntityTypeComponent.hpp"
 #include "components/PhysicsComponents.hpp"
 #include "physics/PhysicsExceptions.hpp"
 #include "physics/ReadonlyQueries.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
-
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
+#include "physics/PhysicsEvents.hpp"
+#include "physics/PhysicalMath.hpp"
+#include "physics/PhysicsUtils.hpp"
+#include "physics/PhysicsValidators.hpp"
+#include "ecosystem/EcosystemEvents.hpp"
+#include "components/MetabolismComponents.hpp"
+#include "components/MovingComponent.hpp"
+#include "terrain/TerrainGridLock.hpp"
+#include <spdlog/spdlog.h>
 
 // Forward declarations for functions used across categories
 static void convertIntoSoftEmpty(entt::registry& registry, entt::entity& terrain);
@@ -24,7 +32,7 @@ inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid
                                              int y, int z, int vaporAmount);
 
 // =========================================================================
-// ================ 1. Direct Component Mutators ================
+// ================ 1. Direct Component Mutators = ================
 // =========================================================================
 
 /**
@@ -154,7 +162,7 @@ static void setEmptyWaterComponentsEnTT(entt::registry& registry, entt::entity& 
 }
 
 // =========================================================================
-// ================ 2. Entity Lifecycle Mutators ================
+// ================ 2. Entity Lifecycle Mutators = ================
 // =========================================================================
 
 /**
@@ -248,9 +256,31 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
                 << std::endl;
             registry.destroy(entity);
             voxelGrid.terrainGridRepository->setTerrainId(
-                pos.x, pos.y, pos.z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+                pos.x, pos.y, pos.z,
+                static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
         }
     }
+}
+
+/**
+ * @brief Destroys an entity in the registry.
+ * @param registry The entt::registry.
+ * @param entity The entity to destroy.
+ */
+inline void _destroyEntity(entt::registry& registry, entt::entity entity) {
+    registry.destroy(entity);
+}
+
+/**
+ * @brief Ensures that a terrain entity is active in the ECS.
+ * @param voxelGrid The VoxelGrid.
+ * @param x The x-coordinate.
+ * @param y The y-coordinate.
+ * @param z The z-coordinate.
+ * @return The active entity.
+ */
+inline entt::entity _ensureEntityActive(VoxelGrid& voxelGrid, int x, int y, int z) {
+    return voxelGrid.terrainGridRepository->ensureActive(x, y, z);
 }
 
 /**
@@ -278,7 +308,7 @@ inline void deleteEntityOrConvertInEmpty(entt::registry& registry, entt::dispatc
 
 
 // =========================================================================
-// ================ 3. VoxelGrid State Mutators ================
+// ================ 3. VoxelGrid State Mutators = ================
 // =========================================================================
 
 /**
@@ -334,7 +364,7 @@ inline void setVaporSI(int x, int y, int z, VoxelGrid& voxelGrid) {
 }
 
 // =========================================================================
-// ================ 4. Compound & Orchestration Mutators ================
+// ================ 4. Compound & Orchestration Mutators = ================
 // =========================================================================
 
 /**
@@ -469,7 +499,7 @@ inline void dropEntityItems(entt::registry& registry, VoxelGrid& voxelGrid, entt
     //                 auto [itemMainType, itemSubType0] = splitStringToInts(combinedItemId);
 
     //                 if (itemMainType == static_cast<int>(ItemEnum::FOOD)) {
-    //                     std::shared_ptr<ItemConfiguration> itemConfiguration =
+    //                     std::shared_ptr<ItemConfiguration> itemConfiguration = 
     //                         getItemConfigurationOnManager(combinedItemId);
     //                     auto newFoodItem = itemConfiguration->createFoodItem(registry);
 
@@ -526,12 +556,14 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
         Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
         if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
             std::cout << "Could not find position of entity " << entityId
-                      << " in TerrainGridRepository, skipping grid removal." << std::endl;
+                      << " in TerrainGridRepository, skipping grid removal."
+                      << std::endl;
         } else {
             voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z);
         }
     } else {
-        std::cout << "Entity " << entityId << " is invalid, skipping grid removal." << std::endl;
+        std::cout << "Entity " << entityId << " is invalid, skipping grid removal."
+                  << std::endl;
     }
 }
 
@@ -546,7 +578,8 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
  * @param entity The entity to be soft-killed.
  */
 inline void softKillEntity(entt::registry& registry, VoxelGrid& voxelGrid,
-                           entt::dispatcher& dispatcher, entt::entity entity) {
+                           entt::dispatcher& dispatcher,
+                           entt::entity entity) {
     int entityId = static_cast<int>(entity);
     std::cout << "Performing soft kill on entity: " << entityId << std::endl;
 
@@ -684,8 +717,7 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, Vox
             return reviveColdTerrainEntities(registry, voxelGrid, dispatcher, pos, entity);
         } catch (const aetherion::InvalidEntityException& e) {
             // Entity cannot be revived (e.g., zero vapor matter converted to empty)
-            std::cout << "[handleMovement] Revival failed: " << e.what()
-                      << " - entity ID=" << entityId << std::endl;
+            std::cout << "[handleMovement] Revival failed: " << e.what() << " - entity ID=" << entityId << std::endl;
             throw;  // Re-throw to be caught by handleMovement
         }
     }
@@ -711,7 +743,7 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, Vox
 inline void createWaterTerrainFromFall(entt::registry& registry, VoxelGrid& voxelGrid, int x, int y,
                                        int z, double fallingAmount, entt::entity sourceEntity) {
     // Lock for atomic state change
-    voxelGrid.terrainGridRepository->lockTerrainGrid();
+    TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
     // Create a new water tile
     entt::entity newWaterEntity = registry.create();
@@ -761,8 +793,6 @@ inline void createWaterTerrainFromFall(entt::registry& registry, VoxelGrid& voxe
             registry.destroy(sourceEntity);
         }
     }
-
-    voxelGrid.terrainGridRepository->unlockTerrainGrid();
 }
 
 /**
@@ -863,3 +893,176 @@ inline void createWaterTerrainBelowVapor(entt::registry& registry, VoxelGrid& vo
 }
 
 #endif  // PHYSICS_MUTATORS_HPP
+
+// =========================================================================
+// ================ 5. Event-based Mutators = ================
+// =========================================================================
+
+inline void _handleInvalidTerrainFound(entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, const InvalidTerrainFoundEvent& event) {
+    voxelGrid.deleteTerrain(dispatcher, event.x, event.y, event.z);
+}
+
+inline void _handleWaterSpreadEvent(VoxelGrid& voxelGrid, const WaterSpreadEvent& event) {
+    TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
+    // Transfer water from source to target
+    MatterContainer sourceMatter = event.sourceMatter;
+    MatterContainer targetMatter = event.targetMatter;
+
+    targetMatter.WaterMatter += event.amount;
+    sourceMatter.WaterMatter -= event.amount;
+
+    // Update both voxels atomically
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(event.target.x, event.target.y,
+                                                                event.target.z, targetMatter);
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(event.source.x, event.source.y,
+                                                                event.source.z, sourceMatter);
+}
+
+inline void _handleWaterGravityFlowEvent(VoxelGrid& voxelGrid, const WaterGravityFlowEvent& event) {
+    TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
+    // TODO: Validate if the exchange is still possible. If not, skip.`
+
+    // Transfer water downward
+    MatterContainer sourceMatter = event.sourceMatter;
+    MatterContainer targetMatter = event.targetMatter;
+
+    targetMatter.WaterMatter += event.amount;
+    sourceMatter.WaterMatter -= event.amount;
+
+    // Update both voxels atomically
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(event.target.x, event.target.y,
+                                                                event.target.z, targetMatter);
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(event.source.x, event.source.y,
+                                                                event.source.z, sourceMatter);
+}
+
+inline void _handleTerrainPhaseConversionEvent(VoxelGrid& voxelGrid, const TerrainPhaseConversionEvent& event) {
+    TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
+    // Apply terrain phase conversion (e.g., soft-empty -> water/vapor)
+    voxelGrid.terrainGridRepository->setTerrainEntityType(event.position.x, event.position.y,
+                                                           event.position.z, event.newType);
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(event.position.x, event.position.y,
+                                                                event.position.z, event.newMatter);
+    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(
+        event.position.x, event.position.y, event.position.z, event.newStructuralIntegrity);
+}
+
+inline void _handleCreateVaporEntityEvent(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, const CreateVaporEntityEvent& event) {
+    // Atomic operation: Create entity and update terrain grid
+    TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
+    // Create new entity for the vapor
+    entt::entity newEntity = registry.create();
+    int terrainId = static_cast<int>(newEntity);
+
+    // Set terrain ID atomically
+    voxelGrid.terrainGridRepository->setTerrainId(event.position.x, event.position.y,
+                                                   event.position.z, terrainId);
+
+    // Dispatch the move event with the newly created entity while holding lock
+    // This prevents race condition where entity could be accessed before movement is queued
+    MoveGasEntityEvent moveEvent{
+        newEntity,
+        Position{event.position.x, event.position.y, event.position.z, DirectionEnum::DOWN},
+        0.0f,
+        0.0f,
+        event.rhoEnv,
+        event.rhoVapor};
+    moveEvent.setForceApplyNewVelocity();
+    dispatcher.enqueue<MoveGasEntityEvent>(moveEvent);
+}
+
+
+inline void _handleVaporMergeSidewaysEvent(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, const VaporMergeSidewaysEvent& event) {
+    // Lock terrain grid for atomic state change (prevents race conditions with other systems)
+    TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
+    // Get target vapor and merge
+    MatterContainer targetMatter = voxelGrid.terrainGridRepository->getTerrainMatterContainer(
+        event.target.x, event.target.y, event.target.z);
+    targetMatter.WaterVapor += event.amount;
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(event.target.x, event.target.y,
+                                                                event.target.z, targetMatter);
+
+    // Clear source vapor
+    MatterContainer sourceMatter = voxelGrid.terrainGridRepository->getTerrainMatterContainer(
+        event.source.x, event.source.y, event.source.z);
+    sourceMatter.WaterVapor = 0;
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(event.source.x, event.source.y,
+                                                                event.source.z, sourceMatter);
+
+    // Delete or convert source entity if it's a valid entity (not ON_GRID_STORAGE or NONE)
+    if (event.sourceTerrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
+        event.sourceTerrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        entt::entity sourceEntity = static_cast<entt::entity>(event.sourceTerrainId);
+        if (registry.valid(sourceEntity)) {
+            std::ostringstream ossMessage;
+            ossMessage << "[VaporMergeSidewaysEvent] Deleting source vapor entity ID="
+                      << event.sourceTerrainId << " at (" << event.source.x << ", "
+                      << event.source.y << ", " << event.source.z << ")";
+            spdlog::get("console")->debug(ossMessage.str());
+            dispatcher.enqueue<KillEntityEvent>(sourceEntity);
+        }
+    }
+}
+
+
+// Helper: Update position to destination
+inline void updatePositionToDestination(Position& position,
+                                        const MovingComponent& movingComponent) {
+    position.x = movingComponent.movingToX;
+    position.y = movingComponent.movingToY;
+    position.z = movingComponent.movingToZ;
+}
+
+
+// Helper: Apply terrain movement in VoxelGrid
+inline void applyTerrainMovement(VoxelGrid& voxelGrid, entt::entity entity,
+                                 const MovingComponent& movingComponent) {
+    // std::cout << "Setting movingTo positions for terrain moving."
+    //           << "moving to: " << movingComponent.movingToX << ", " << movingComponent.movingToY
+    //           << ", " << movingComponent.movingToZ << "\n";
+
+    validateTerrainEntityId(entity);
+    voxelGrid.terrainGridRepository->moveTerrain(const_cast<MovingComponent&>(movingComponent));
+}
+
+// Helper: Apply regular entity movement in VoxelGrid
+inline void applyEntityMovement(VoxelGrid& voxelGrid, entt::entity entity,
+                                const MovingComponent& movingComponent) {
+    Position movingToPosition;
+    movingToPosition.x = movingComponent.movingToX;
+    movingToPosition.y = movingComponent.movingToY;
+    movingToPosition.z = movingComponent.movingToZ;
+    voxelGrid.moveEntity(entity, movingToPosition);
+}
+
+// Main function: Create and apply movement component
+inline void createMovingComponent(entt::registry& registry, entt::dispatcher& dispatcher,
+                           VoxelGrid& voxelGrid, entt::entity entity, Position& position,
+                           Velocity& velocity, int movingToX, int movingToY, int movingToZ,
+                           float completionTime, bool willStopX, bool willStopY, bool willStopZ,
+                           bool isTerrain) {
+    MovingComponent movingComponent =
+        initializeMovingComponent(position, velocity, movingToX, movingToY, movingToZ,
+                                  completionTime, willStopX, willStopY, willStopZ);
+
+    registry.emplace<MovingComponent>(entity, movingComponent);
+
+    EntityTypeComponent entityType =
+        getEntityType(registry, voxelGrid, entity, position, isTerrain);
+
+    bool isTerrainType =
+        (entityType.mainType == static_cast<int>(EntityEnum::TERRAIN)) || isTerrain;
+
+    if (isTerrainType) {
+        applyTerrainMovement(voxelGrid, entity, movingComponent);
+    } else {
+        applyEntityMovement(voxelGrid, entity, movingComponent);
+    }
+
+    updatePositionToDestination(position, movingComponent);
+}

@@ -175,4 +175,26 @@ inline void printTerrainDiagnostics(entt::registry& registry, VoxelGrid& voxelGr
     std::cout << "==================================================================\n\n";
 }
 
+
+inline std::pair<float, bool> calculateVelocityAfterGravityStep(entt::registry& registry,
+                                                         VoxelGrid& voxelGrid, int i, int j, int k,
+                                                         float velocityZ, int dt) {
+    float gravity = PhysicsManager::Instance()->getGravity();
+    float newVelocityZ;
+
+    if (velocityZ > 0.0f || checkIfCanFall(registry, voxelGrid, i, j, k)) {
+        newVelocityZ = velocityZ - gravity * dt;
+    } else {
+        newVelocityZ = velocityZ;
+    }
+
+    bool willStop = false;
+    if (velocityZ * newVelocityZ < 0.0f) {
+        newVelocityZ = 0.0f;
+        willStop = true;
+    }
+
+    return std::make_pair(newVelocityZ, willStop);
+}
+
 #endif  // PHYSICS_READONLY_QUERIES_HPP

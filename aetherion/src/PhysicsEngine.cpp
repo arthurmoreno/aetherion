@@ -15,6 +15,7 @@
 #include "physics/ReadonlyQueries.hpp"
 #include "settings.hpp"
 #include "terrain/TerrainGridLock.hpp" // For TerrainGridLock
+#include "ecosystem/EcosystemEvents.hpp"
 #include <memory>                      // For std::unique_ptr
 
 // =========================================================================
@@ -65,113 +66,6 @@ bool PhysicsEngine::checkIfCanJump(const MoveSolidEntityEvent& event) {
     return true;
 }
 
-std::tuple<float, float, float> PhysicsEngine::translatePhysicsToGridMovement(
-    float velocityX, float velocityY, float velocityZ, float accelerationX, float accelerationY,
-    float accelerationZ, int16_t maxSpeed) {
-    float newVx;
-    float newVy;
-    float newVz;
-
-    if (PhysicsManager::Instance()->getAllowMultiDirection()) {
-        newVx = velocityX + accelerationX;
-        newVy = velocityY + accelerationY;
-        newVz = velocityZ + accelerationZ;
-    } else {
-        // Calculate absolute velocities for comparison
-        float absVx = std::abs(velocityX);
-        float absVy = std::abs(velocityY);
-        float absVz = std::abs(velocityZ);
-
-        float absAx = std::abs(accelerationX);
-        float absAy = std::abs(accelerationY);
-        float absAz = std::abs(accelerationZ);
-
-        // Determine which axis has the greatest absolute velocity and acceleration
-        if (absVx >= absVy && absVx >= absVz &&  // X has the greatest velocity
-            absAx >= absAy && absAx >= absAz     // X has the greatest acceleration
-        ) {
-            // Apply acceleration only to X-axis
-            newVx = velocityX + accelerationX;
-            newVy = 0.0f;
-            newVz = 0.0f;
-        } else if (absVy >= absVx && absVy >= absVz &&  // Y has the greatest velocity
-                   absAy >= absAx && absAy >= absAz     // Y has the greatest acceleration
-        ) {
-            // Apply acceleration only to Y-axis
-            newVx = 0.0f;
-            newVy = velocityY + accelerationY;
-            newVz = 0.0f;
-        } else if (absVz >= absVx && absVz >= absVy &&  // Z has the greatest velocity
-                   absAz >= absAx && absAz >= absAy     // Z has the greatest acceleration
-        ) {
-            // Apply acceleration only to Z-axis
-            newVx = 0.0f;
-            newVy = 0.0f;
-            newVz = velocityZ + accelerationZ;
-        } else {
-            // No single axis has both the greatest velocity and acceleration
-            // You can choose to handle this case as needed. For example:
-            // - Apply acceleration to the axis with the highest acceleration
-            // - Apply no acceleration
-            // - Apply a default behavior
-
-            // Example: Apply acceleration to the axis with the highest acceleration
-            if (absAx >= absAy && absAx >= absAz) {
-                newVx = velocityX + accelerationX;
-                newVy = 0.0f;
-                newVz = 0.0f;
-            } else if (absAy >= absAx && absAy >= absAz) {
-                newVx = 0.0f;
-                newVy = velocityY + accelerationY;
-                newVz = 0.0f;
-            } else {
-                newVx = 0.0f;
-                newVy = 0.0f;
-                newVz = velocityZ + accelerationZ;
-            }
-        }
-    }
-
-    float absNewVx = std::abs(newVx);
-    float absNewVy = std::abs(newVy);
-    float absNewVz = std::abs(newVz);
-    float floatMaxSpeed;
-    if ((absNewVx > 0 && absNewVy > 0) || (absNewVx > 0 && absNewVz > 0) ||
-        (absNewVy > 0 && absNewVz > 0)) {
-        floatMaxSpeed = static_cast<float>(maxSpeed) / 2;
-    } else {
-        floatMaxSpeed = static_cast<float>(maxSpeed);
-    }
-
-    // Clamp velocities to maxSpeed
-    newVx = std::clamp(newVx, -floatMaxSpeed, floatMaxSpeed);
-    newVy = std::clamp(newVy, -floatMaxSpeed, floatMaxSpeed);
-    newVz = std::clamp(newVz, -floatMaxSpeed, floatMaxSpeed);
-
-    return std::make_tuple(newVx, newVy, newVz);
-}
-
-std::pair<float, bool> calculateVelocityAfterGravityStep(entt::registry& registry,
-                                                         VoxelGrid& voxelGrid, int i, int j, int k,
-                                                         float velocityZ, int dt) {
-    float gravity = PhysicsManager::Instance()->getGravity();
-    float newVelocityZ;
-
-    if (velocityZ > 0.0f || checkIfCanFall(registry, voxelGrid, i, j, k)) {
-        newVelocityZ = velocityZ - gravity * dt;
-    } else {
-        newVelocityZ = velocityZ;
-    }
-
-    bool willStop = false;
-    if (velocityZ * newVelocityZ < 0.0f) {
-        newVelocityZ = 0.0f;
-        willStop = true;
-    }
-
-    return std::make_pair(newVelocityZ, willStop);
-}
-
 // Helper: Apply gravity and get new Z velocity
 inline std::pair<float, bool> resolveVerticalMotion(entt::registry& registry, VoxelGrid& voxelGrid,
                                                     const Position& position, float velocityZ,
@@ -193,118 +87,18 @@ inline std::pair<float, bool> resolveVerticalMotion(entt::registry& registry, Vo
     return {velocityZ, false};
 }
 
-// Helper: Update position to destination
-inline void updatePositionToDestination(Position& position,
-                                        const MovingComponent& movingComponent) {
-    position.x = movingComponent.movingToX;
-    position.y = movingComponent.movingToY;
-    position.z = movingComponent.movingToZ;
-}
-
-// Helper: Apply terrain movement in VoxelGrid
-inline void applyTerrainMovement(VoxelGrid& voxelGrid, entt::entity entity,
-                                 const MovingComponent& movingComponent) {
-    // std::cout << "Setting movingTo positions for terrain moving."
-    //           << "moving to: " << movingComponent.movingToX << ", " << movingComponent.movingToY
-    //           << ", " << movingComponent.movingToZ << "\n";
-
-    validateTerrainEntityId(entity);
-    voxelGrid.terrainGridRepository->moveTerrain(const_cast<MovingComponent&>(movingComponent));
-}
-
-// Helper: Apply regular entity movement in VoxelGrid
-inline void applyEntityMovement(VoxelGrid& voxelGrid, entt::entity entity,
-                                const MovingComponent& movingComponent) {
-    Position movingToPosition;
-    movingToPosition.x = movingComponent.movingToX;
-    movingToPosition.y = movingComponent.movingToY;
-    movingToPosition.z = movingComponent.movingToZ;
-    voxelGrid.moveEntity(entity, movingToPosition);
-}
-
-// Main function: Create and apply movement component
-void createMovingComponent(entt::registry& registry, entt::dispatcher& dispatcher,
-                           VoxelGrid& voxelGrid, entt::entity entity, Position& position,
-                           Velocity& velocity, int movingToX, int movingToY, int movingToZ,
-                           float completionTime, bool willStopX, bool willStopY, bool willStopZ,
-                           bool isTerrain) {
-    MovingComponent movingComponent =
-        initializeMovingComponent(position, velocity, movingToX, movingToY, movingToZ,
-                                  completionTime, willStopX, willStopY, willStopZ);
-
-    registry.emplace<MovingComponent>(entity, movingComponent);
-
-    EntityTypeComponent entityType =
-        getEntityType(registry, voxelGrid, entity, position, isTerrain);
-
-    bool isTerrainType =
-        (entityType.mainType == static_cast<int>(EntityEnum::TERRAIN)) || isTerrain;
-
-    if (isTerrainType) {
-        applyTerrainMovement(voxelGrid, entity, movingComponent);
-    } else {
-        applyEntityMovement(voxelGrid, entity, movingComponent);
-    }
-
-    updatePositionToDestination(position, movingComponent);
-}
 
 // New event handlers for water physics (all state changes)
 void PhysicsEngine::onWaterSpreadEvent(const WaterSpreadEvent& event) {
-    // Lock terrain grid for atomic state change
-    voxelGrid->terrainGridRepository->lockTerrainGrid();
-
-    // Transfer water from source to target
-    MatterContainer sourceMatter = event.sourceMatter;
-    MatterContainer targetMatter = event.targetMatter;
-
-    targetMatter.WaterMatter += event.amount;
-    sourceMatter.WaterMatter -= event.amount;
-
-    // Update both voxels atomically
-    voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.target.x, event.target.y,
-                                                                event.target.z, targetMatter);
-    voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.source.x, event.source.y,
-                                                                event.source.z, sourceMatter);
-
-    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+    _handleWaterSpreadEvent(*voxelGrid, event);
 }
 
 void PhysicsEngine::onWaterGravityFlowEvent(const WaterGravityFlowEvent& event) {
-    // Lock terrain grid for atomic state change
-    voxelGrid->terrainGridRepository->lockTerrainGrid();
-
-    // TODO: Validate if the exchange is still possible. If not, skip.`
-
-    // Transfer water downward
-    MatterContainer sourceMatter = event.sourceMatter;
-    MatterContainer targetMatter = event.targetMatter;
-
-    targetMatter.WaterMatter += event.amount;
-    sourceMatter.WaterMatter -= event.amount;
-
-    // Update both voxels atomically
-    voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.target.x, event.target.y,
-                                                                event.target.z, targetMatter);
-    voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.source.x, event.source.y,
-                                                                event.source.z, sourceMatter);
-
-    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+    _handleWaterGravityFlowEvent(*voxelGrid, event);
 }
 
 void PhysicsEngine::onTerrainPhaseConversionEvent(const TerrainPhaseConversionEvent& event) {
-    // Lock terrain grid for atomic state change
-    voxelGrid->terrainGridRepository->lockTerrainGrid();
-
-    // Apply terrain phase conversion (e.g., soft-empty -> water/vapor)
-    voxelGrid->terrainGridRepository->setTerrainEntityType(event.position.x, event.position.y,
-                                                           event.position.z, event.newType);
-    voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.position.x, event.position.y,
-                                                                event.position.z, event.newMatter);
-    voxelGrid->terrainGridRepository->setTerrainStructuralIntegrity(
-        event.position.x, event.position.y, event.position.z, event.newStructuralIntegrity);
-
-    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+    _handleTerrainPhaseConversionEvent(*voxelGrid, event);
 }
 
 void PhysicsEngine::onVaporCreationEvent(const VaporCreationEvent& event) {
@@ -314,30 +108,7 @@ void PhysicsEngine::onVaporCreationEvent(const VaporCreationEvent& event) {
 }
 
 void PhysicsEngine::onCreateVaporEntityEvent(const CreateVaporEntityEvent& event) {
-    // Atomic operation: Create entity and update terrain grid
-    voxelGrid->terrainGridRepository->lockTerrainGrid();
-
-    // Create new entity for the vapor
-    entt::entity newEntity = registry.create();
-    int terrainId = static_cast<int>(newEntity);
-
-    // Set terrain ID atomically
-    voxelGrid->terrainGridRepository->setTerrainId(event.position.x, event.position.y,
-                                                   event.position.z, terrainId);
-
-    // Dispatch the move event with the newly created entity while holding lock
-    // This prevents race condition where entity could be accessed before movement is queued
-    MoveGasEntityEvent moveEvent{
-        newEntity,
-        Position{event.position.x, event.position.y, event.position.z, DirectionEnum::DOWN},
-        0.0f,
-        0.0f,
-        event.rhoEnv,
-        event.rhoVapor};
-    moveEvent.setForceApplyNewVelocity();
-    dispatcher.enqueue<MoveGasEntityEvent>(moveEvent);
-
-    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+    _handleCreateVaporEntityEvent(registry, dispatcher, *voxelGrid, event);
 }
 
 void PhysicsEngine::onDeleteOrConvertTerrainEvent(const DeleteOrConvertTerrainEvent& event) {
@@ -382,43 +153,12 @@ void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent& event) {
 }
 
 void PhysicsEngine::onVaporMergeSidewaysEvent(const VaporMergeSidewaysEvent& event) {
-    // Lock terrain grid for atomic state change (prevents race conditions with other systems)
-    voxelGrid->terrainGridRepository->lockTerrainGrid();
-
-    // Get target vapor and merge
-    MatterContainer targetMatter = voxelGrid->terrainGridRepository->getTerrainMatterContainer(
-        event.target.x, event.target.y, event.target.z);
-    targetMatter.WaterVapor += event.amount;
-    voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.target.x, event.target.y,
-                                                                event.target.z, targetMatter);
-
-    // Clear source vapor
-    MatterContainer sourceMatter = voxelGrid->terrainGridRepository->getTerrainMatterContainer(
-        event.source.x, event.source.y, event.source.z);
-    sourceMatter.WaterVapor = 0;
-    voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.source.x, event.source.y,
-                                                                event.source.z, sourceMatter);
-
-    // Delete or convert source entity if it's a valid entity (not ON_GRID_STORAGE or NONE)
-    if (event.sourceTerrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
-        event.sourceTerrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        entt::entity sourceEntity = static_cast<entt::entity>(event.sourceTerrainId);
-        if (registry.valid(sourceEntity)) {
-            std::ostringstream ossMessage;
-            ossMessage << "[VaporMergeSidewaysEvent] Deleting source vapor entity ID="
-                      << event.sourceTerrainId << " at (" << event.source.x << ", "
-                      << event.source.y << ", " << event.source.z << ")";
-            spdlog::get("console")->debug(ossMessage.str());
-            dispatcher.enqueue<KillEntityEvent>(sourceEntity);
-        }
-    }
-
-    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+    _handleVaporMergeSidewaysEvent(registry, dispatcher, *voxelGrid, event);
 }
 
 void PhysicsEngine::onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent& event) {
     // Lock terrain grid for atomic operation
-    voxelGrid->terrainGridRepository->lockTerrainGrid();
+    TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
     const int x = event.sourcePos.x;
     const int y = event.sourcePos.y;
@@ -453,8 +193,6 @@ void PhysicsEngine::onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent& e
                    << ", " << y << ", " << z << ")";
         spdlog::get("console")->info(ossMessage.str());
     }
-
-    voxelGrid->terrainGridRepository->unlockTerrainGrid();
 }
 
 // Register event handlers
@@ -496,7 +234,7 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
 }
 
 void PhysicsEngine::onInvalidTerrainFound(const InvalidTerrainFoundEvent& event) {
-    voxelGrid->deleteTerrain(dispatcher, event.x, event.y, event.z);
+    _handleInvalidTerrainFound(dispatcher, *voxelGrid, event);
 }
 
 // ================ END OF REFACTORING ================
@@ -826,7 +564,7 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
                     entityId != static_cast<int>(TerrainIdTypeEnum::NONE) ) {
                         std::cout << "[processPhysics] Could not find position of entity " << entityId
                                 << " in TerrainGridRepository - just delete it." << std::endl;
-                        registry.destroy(entity);
+                        _destroyEntity(registry, entity);
                 }
                 continue;
             } else {
@@ -872,7 +610,7 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
                           << std::endl;
 
                 // Revive the terrain by ensuring it's active in ECS
-                entity = voxelGrid.terrainGridRepository->ensureActive(pos.x, pos.y, pos.z);
+                entity = _ensureEntityActive(voxelGrid, pos.x, pos.y, pos.z);
 
                 std::cout << "[processPhysics] Revived vapor terrain as entity "
                           << static_cast<int>(entity) << " - will continue processing" << std::endl;
@@ -911,7 +649,7 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             // std::cout << "[processPhysics] WARNING: Invalid entity in movingComponentView - "
             //              "skipping; Entity ID="
             //           << static_cast<int>(entity) << std::endl;
-            registry.destroy(entity);
+            _destroyEntity(registry, entity);
             continue;
         }
 
@@ -1357,26 +1095,3 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent& event) {
                                    event.position.z, event.fallingAmount, event.entity);
     }
 }
-
-// =========================================================================
-// ================ Terrain Conversion Helper Functions ================
-// These functions handle atomic terrain transformations for water/vapor flow.
-// They must be in PhysicsEngine since they perform direct state modifications.
-
-// Helper: Check and convert soft empty into water
-// void PhysicsEngine::checkAndConvertSoftEmptyIntoWater(entt::registry& registry,
-//                                                       VoxelGrid& voxelGrid, int terrainId, int x,
-//                                                       int y, int z) {
-//     if (getTypeAndCheckSoftEmpty(registry, voxelGrid, terrainId, x, y, z)) {
-//         convertSoftEmptyIntoWater(registry, voxelGrid, terrainId, x, y, z);
-//     }
-// }
-
-// // Helper: Check and convert soft empty into vapor
-// void PhysicsEngine::checkAndConvertSoftEmptyIntoVapor(entt::registry& registry,
-//                                                       VoxelGrid& voxelGrid, int terrainId, int x,
-//                                                       int y, int z) {
-//     if (getTypeAndCheckSoftEmpty(registry, voxelGrid, terrainId, x, y, z)) {
-//         convertSoftEmptyIntoVapor(registry, voxelGrid, terrainId, x, y, z);
-//     }
-// }
