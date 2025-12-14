@@ -13,35 +13,43 @@
 #include <sstream>
 #include <stdexcept>
 
-// Helper: Clean up zero velocity
-inline void cleanupZeroVelocity(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
-                                const Position& position, const Velocity& velocity,
-                                bool isTerrain) {
-    if (velocity.vx == 0 && velocity.vy == 0 && velocity.vz == 0) {
-        if (isTerrain) {
-            // std::cout << "[cleanupZeroVelocity] Zeroing Velocity from Terrain!\n";
-            voxelGrid.terrainGridRepository->setVelocity(position.x, position.y, position.z,
-                                                         {0.0f, 0.0f, 0.0f});
-            // voxelGrid.terrainGridRepository->setTerrainId(position.x, position.y, position.z,
-            // static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
-            // registry.remove<Velocity>(entity);
-            // if (registry.valid(entity)) {
-            //     registry.destroy(entity);
-            // }
-        } else {
-            registry.remove<Velocity>(entity);
-        }
-    }
-}
+// Forward declarations for functions used across categories
+static void convertIntoSoftEmpty(entt::registry& registry, entt::entity& terrain);
+static void setEmptyWaterComponentsEnTT(entt::registry& registry, entt::entity& terrain,
+                                        MatterState matterState);
+static void setEmptyWaterComponentsStorage(entt::registry& registry, VoxelGrid& voxelGrid,
+                                           int terrainId, int x, int y, int z,
+                                           MatterState matterState);
+inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid, int x,
+                                             int y, int z, int vaporAmount);
 
-// Helper: Update entity velocity
+// =========================================================================
+// ================ 1. Direct Component Mutators ================
+// =========================================================================
+
+/**
+ * @brief Directly modifies the fields of a Velocity component.
+ * @param velocity Reference to the Velocity component to modify.
+ * @param newVx The new velocity on the X-axis.
+ * @param newVy The new velocity on the Y-axis.
+ * @param newVz The new velocity on the Z-axis.
+ */
 inline void updateEntityVelocity(Velocity& velocity, float newVx, float newVy, float newVz) {
     velocity.vx = newVx;
     velocity.vy = newVy;
     velocity.vz = newVz;
 }
 
-// Helper: Ensure terrain entities have a Position component
+/**
+ * @brief Ensures a terrain entity has a Position component, adding one if it's missing.
+ * @details This is a safety check for terrain entities (e.g., vapor) that might be processed
+ * by physics before being fully initialized. It fetches the position from the TerrainGridRepository.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid for accessing the terrain repository.
+ * @param entity The entity to check.
+ * @param isTerrain Flag indicating if the entity is a terrain entity.
+ * @throws std::runtime_error if the entity is missing a position and it cannot be found in the repository.
+ */
 inline void ensurePositionComponentForTerrain(entt::registry& registry, VoxelGrid& voxelGrid,
                                               entt::entity entity, bool isTerrain) {
     // For terrain entities, verify they have Position component
@@ -64,7 +72,13 @@ inline void ensurePositionComponentForTerrain(entt::registry& registry, VoxelGri
     }
 }
 
-// Helper: Convert terrain into soft empty
+/**
+ * @brief Transforms an existing entity into "soft empty" terrain in the ECS.
+ * @details This is done by updating its EntityTypeComponent and StructuralIntegrityComponent
+ * to reflect the properties of an empty, gaseous tile.
+ * @param registry The entt::registry.
+ * @param terrain The entity to convert.
+ */
 static void convertIntoSoftEmpty(entt::registry& registry, entt::entity& terrain) {
     EntityTypeComponent* terrainType = registry.try_get<EntityTypeComponent>(terrain);
     bool shouldEmplaceTerrainType{terrainType == nullptr};
@@ -92,7 +106,12 @@ static void convertIntoSoftEmpty(entt::registry& registry, entt::entity& terrain
     }
 }
 
-// Helper: Set empty water components in EnTT registry
+/**
+ * @brief Sets or overwrites components of an entity in the ECS to represent an empty water tile.
+ * @param registry The entt::registry.
+ * @param terrain The entity to modify.
+ * @param matterState The matter state (e.g., LIQUID) to assign to the entity.
+ */
 static void setEmptyWaterComponentsEnTT(entt::registry& registry, entt::entity& terrain,
                                         MatterState matterState) {
     EntityTypeComponent* terrainType = registry.try_get<EntityTypeComponent>(terrain);
@@ -134,7 +153,144 @@ static void setEmptyWaterComponentsEnTT(entt::registry& registry, entt::entity& 
     }
 }
 
-// Helper: Set empty water components in terrain storage
+// =========================================================================
+// ================ 2. Entity Lifecycle Mutators ================
+// =========================================================================
+
+/**
+ * @brief Creates a new entity and initializes it as a vapor terrain block.
+ * @details Creates an entity in the ECS and sets its corresponding properties (Position, Type, Matter, etc.)
+ * directly in the TerrainGridRepository.
+ * @param registry The entt::registry to create the entity in.
+ * @param voxelGrid The VoxelGrid for accessing the terrain repository.
+ * @param x The x-coordinate for the new entity.
+ * @param y The y-coordinate for the new entity.
+ * @param z The z-coordinate for the new entity.
+ * @param vaporAmount The amount of vapor to initialize the entity with.
+ * @return The newly created vapor entity.
+ */
+inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid, int x,
+                                             int y, int z, int vaporAmount) {
+    auto newVaporEntity = registry.create();
+    Position newPosition = {x, y, z, DirectionEnum::DOWN};
+
+    EntityTypeComponent newType = {};
+    newType.mainType = 0;  // Terrain type
+    newType.subType0 = 1;  // Water terrain (vapor)
+    newType.subType1 = 0;
+
+    MatterContainer newMatterContainer = {};
+    newMatterContainer.WaterVapor = vaporAmount;
+    newMatterContainer.WaterMatter = 0;
+
+    PhysicsStats newPhysicsStats = {};
+    newPhysicsStats.mass = 0.1;
+    newPhysicsStats.maxSpeed = 10;
+    newPhysicsStats.minSpeed = 0.0;
+
+    StructuralIntegrityComponent newStructuralIntegrityComponent = {};
+    newStructuralIntegrityComponent.canStackEntities = false;
+    newStructuralIntegrityComponent.maxLoadCapacity = -1;
+    newStructuralIntegrityComponent.matterState = MatterState::GAS;
+
+    voxelGrid.terrainGridRepository->setPosition(x, y, z, newPosition);
+    voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z, newType);
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z, newMatterContainer);
+    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z,
+                                                                   newStructuralIntegrityComponent);
+    voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
+    int newTerrainId = static_cast<int>(newVaporEntity);
+    voxelGrid.terrainGridRepository->setTerrainId(x, y, z, newTerrainId);
+
+    return newVaporEntity;
+}
+
+/**
+ * @brief Destroys an entity and cleans up its associated data from the TerrainGridRepository.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid for accessing the terrain repository.
+ * @param entity The entity to destroy.
+ * @param e The exception that triggered the cleanup.
+ */
+inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid,
+                                        entt::entity entity,
+                                        const aetherion::InvalidEntityException& e) {
+    std::cout << "[cleanupInvalidTerrainEntity] InvalidEntityException: " << e.what()
+              << " - entity ID=" << static_cast<int>(entity) << std::endl;
+
+    Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+    int entityId = static_cast<int>(entity);
+
+    if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+        std::cout << "[cleanupInvalidTerrainEntity] Could not find position of entity " << entityId
+                  << " in TerrainGridRepository - just delete it." << std::endl;
+        registry.destroy(entity);
+        VoxelCoord key{pos.x, pos.y, pos.z};
+        voxelGrid.terrainGridRepository->removeFromTrackingMaps(key, entity);
+    } else {
+        std::optional<int> terrainIdOnGrid =
+            voxelGrid.terrainGridRepository->getTerrainIdIfExists(pos.x, pos.y, pos.z);
+        if (terrainIdOnGrid.has_value()) {
+            // Terrain exists on grid - remove from tracking maps and destroy entity
+            std::cout
+                << "[cleanupInvalidTerrainEntity] Terrain does exist at the given position in "
+                   "repository - checking terrainIdOnGrid: "
+                << terrainIdOnGrid.value() << " for entity ID: " << entityId
+                << " at position: " << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
+            VoxelCoord key{pos.x, pos.y, pos.z};
+            voxelGrid.terrainGridRepository->removeFromTrackingMaps(key, entity);
+            registry.destroy(entity);
+        } else {
+            std::cout
+                << "[cleanupInvalidTerrainEntity] Terrain does exist at the given position in "
+                   "repository or grid ???"
+                << entityId << " at position: " << pos.x << ", " << pos.y << ", " << pos.z
+                << std::endl;
+            registry.destroy(entity);
+            voxelGrid.terrainGridRepository->setTerrainId(
+                pos.x, pos.y, pos.z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+        }
+    }
+}
+
+/**
+ * @brief Dispatches an event to kill an entity or converts it to soft empty.
+ * @details If the entity has no active tile effects, it enqueues a `KillEntityEvent`.
+ * Otherwise, it converts the entity into a "soft empty" terrain block to allow effects to resolve.
+ * @param registry The entt::registry.
+ * @param dispatcher The entt::dispatcher to enqueue events.
+ * @param terrain The entity to delete or convert.
+ */
+inline void deleteEntityOrConvertInEmpty(entt::registry& registry, entt::dispatcher& dispatcher,
+                                         entt::entity& terrain) {
+    TileEffectsList* terrainEffectsList = registry.try_get<TileEffectsList>(terrain);
+    if (terrainEffectsList == nullptr ||
+        (terrainEffectsList && terrainEffectsList->tileEffectsIDs.empty())) {
+        dispatcher.enqueue<KillEntityEvent>(terrain);
+    } else {
+        // Convert into empty terrain because there are effects being processed
+        std::cout << "terrainEffectsList && terrainEffectsList->tileEffectsIDs.empty(): is "
+                     "False... converting into soft empty"
+                  << std::endl;
+        convertIntoSoftEmpty(registry, terrain);
+    }
+}
+
+
+// =========================================================================
+// ================ 3. VoxelGrid State Mutators ================
+// =========================================================================
+
+/**
+ * @brief Sets the components for a coordinate in the TerrainGridRepository to represent an empty water tile.
+ * @param registry The entt::registry (used for context, not modified).
+ * @param voxelGrid The VoxelGrid for accessing the terrain repository.
+ * @param terrainId The ID of the terrain.
+ * @param x The x-coordinate to modify.
+ * @param y The y-coordinate to modify.
+ * @param z The z-coordinate to modify.
+ * @param matterState The matter state to assign.
+ */
 static void setEmptyWaterComponentsStorage(entt::registry& registry, VoxelGrid& voxelGrid,
                                            int terrainId, int x, int y, int z,
                                            MatterState matterState) {
@@ -161,7 +317,68 @@ static void setEmptyWaterComponentsStorage(entt::registry& registry, VoxelGrid& 
     voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z, *terrainMC);
 }
 
-// Helper: Convert soft empty terrain into water
+/**
+ * @brief Modifies the StructuralIntegrityComponent of a tile in the VoxelGrid to have vapor properties.
+ * @param x The x-coordinate of the tile.
+ * @param y The y-coordinate of the tile.
+ * @param z The z-coordinate of the tile.
+ * @param voxelGrid The VoxelGrid for accessing the terrain repository.
+ */
+inline void setVaporSI(int x, int y, int z, VoxelGrid& voxelGrid) {
+    StructuralIntegrityComponent terrainSI =
+        voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(x, y, z);
+    terrainSI.canStackEntities = false;
+    terrainSI.maxLoadCapacity = -1;
+    terrainSI.matterState = MatterState::GAS;
+    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z, terrainSI);
+}
+
+// =========================================================================
+// ================ 4. Compound & Orchestration Mutators ================
+// =========================================================================
+
+/**
+ * @brief Cleans up entities with zero velocity.
+ * @details For non-terrain entities, it removes the Velocity component. For terrain entities,
+ * it resets the velocity to zero directly in the TerrainGridRepository.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid for accessing the terrain repository.
+ * @param entity The entity to check.
+ * @param position The position of the entity.
+ * @param velocity The velocity of the entity.
+ * @param isTerrain Flag indicating if the entity is a terrain entity.
+ */
+inline void cleanupZeroVelocity(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
+                                const Position& position, const Velocity& velocity,
+                                bool isTerrain) {
+    if (velocity.vx == 0 && velocity.vy == 0 && velocity.vz == 0) {
+        if (isTerrain) {
+            // std::cout << "[cleanupZeroVelocity] Zeroing Velocity from Terrain!\n";
+            voxelGrid.terrainGridRepository->setVelocity(position.x, position.y, position.z,
+                                                         {0.0f, 0.0f, 0.0f});
+            // voxelGrid.terrainGridRepository->setTerrainId(position.x, position.y, position.z,
+            // static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+            // registry.remove<Velocity>(entity);
+            // if (registry.valid(entity)) {
+            //     registry.destroy(entity);
+            // }
+        } else {
+            registry.remove<Velocity>(entity);
+        }
+    }
+}
+
+/**
+ * @brief Orchestrates the conversion of a terrain block to water.
+ * @details It calls different underlying mutators based on whether the terrain
+ * data is stored in the ECS or directly in the VoxelGrid storage.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param terrainId The ID of the terrain entity/tile.
+ * @param x The x-coordinate of the tile.
+ * @param y The y-coordinate of the tile.
+ * @param z The z-coordinate of the tile.
+ */
 static void convertSoftEmptyIntoWater(entt::registry& registry, VoxelGrid& voxelGrid, int terrainId,
                                       int x, int y, int z) {
     if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
@@ -177,7 +394,15 @@ static void convertSoftEmptyIntoWater(entt::registry& registry, VoxelGrid& voxel
     }
 }
 
-// Helper: Check and convert soft empty into water
+/**
+ * @brief A wrapper that performs a read-only check before converting a tile to water.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param terrainId The ID of the terrain entity/tile.
+ * @param x The x-coordinate of the tile.
+ * @param y The y-coordinate of the tile.
+ * @param z The z-coordinate of the tile.
+ */
 inline void checkAndConvertSoftEmptyIntoWater(entt::registry& registry, VoxelGrid& voxelGrid,
                                               int terrainId, int x, int y, int z) {
     if (getTypeAndCheckSoftEmpty(registry, voxelGrid, terrainId, x, y, z)) {
@@ -185,7 +410,15 @@ inline void checkAndConvertSoftEmptyIntoWater(entt::registry& registry, VoxelGri
     }
 }
 
-// Helper: Convert soft empty terrain into vapor
+/**
+ * @brief Converts a soft empty terrain tile into vapor. (Currently a placeholder).
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param terrainId The ID of the terrain entity/tile.
+ * @param x The x-coordinate of the tile.
+ * @param y The y-coordinate of the tile.
+ * @param z The z-coordinate of the tile.
+ */
 static void convertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxelGrid, int terrainId,
                                       int x, int y, int z) {
     std::cout << "[convertSoftEmptyIntoVapor] Just marking a checkpoint on logs." << std::endl;
@@ -193,7 +426,15 @@ static void convertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxel
     // setEmptyWaterComponents(registry, terrain, MatterState::GAS);
 }
 
-// Helper: Check and convert soft empty into vapor
+/**
+ * @brief A wrapper that performs a read-only check before converting a tile to vapor.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param terrainId The ID of the terrain entity/tile.
+ * @param x The x-coordinate of the tile.
+ * @param y The y-coordinate of the tile.
+ * @param z The z-coordinate of the tile.
+ */
 inline void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, VoxelGrid& voxelGrid,
                                               int terrainId, int x, int y, int z) {
     if (getTypeAndCheckSoftEmpty(registry, voxelGrid, terrainId, x, y, z)) {
@@ -201,24 +442,19 @@ inline void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, VoxelGri
     }
 }
 
-// Helper: Delete entity or convert to empty
-inline void deleteEntityOrConvertInEmpty(entt::registry& registry, entt::dispatcher& dispatcher,
-                                         entt::entity& terrain) {
-    TileEffectsList* terrainEffectsList = registry.try_get<TileEffectsList>(terrain);
-    if (terrainEffectsList == nullptr ||
-        (terrainEffectsList && terrainEffectsList->tileEffectsIDs.empty())) {
-        dispatcher.enqueue<KillEntityEvent>(terrain);
-    } else {
-        // Convert into empty terrain because there are effects being processed
-        std::cout << "terrainEffectsList && terrainEffectsList->tileEffectsIDs.empty(): is "
-                     "False... converting into soft empty"
-                  << std::endl;
-        convertIntoSoftEmpty(registry, terrain);
-    }
-}
-
-
-// Helper: Revive cold terrain entities (e.g., vapor that went dormant)
+/**
+ * @brief A complex handler for "dormant" or invalid terrain entities that still have a Velocity component.
+ * @details It attempts to reactivate a valid terrain entity from the `TerrainGridRepository`.
+ * If revival fails, it may destroy the entity or convert it to an EMPTY tile.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param dispatcher The entt::dispatcher.
+ * @param positionOfEntt The last known position of the entity.
+ * @param invalidTerrain The entity handle, which may be invalid.
+ * @return A valid, revived entity handle.
+ * @throws aetherion::InvalidEntityException if the entity cannot be revived.
+ * @throws std::runtime_error for other fatal errors.
+ */
 inline entt::entity reviveColdTerrainEntities(entt::registry& registry, VoxelGrid& voxelGrid,
                                               entt::dispatcher& dispatcher,
                                               Position& positionOfEntt,
@@ -290,7 +526,17 @@ inline entt::entity reviveColdTerrainEntities(entt::registry& registry, VoxelGri
     }
 }
 
-// Helper: Handle invalid entities during movement processing
+/**
+ * @brief Orchestrates the handling of an invalid entity detected during physics movement.
+ * @details It attempts to revive the entity by calling `reviveColdTerrainEntities`. If that fails,
+ * or if the entity's position is not found, it destroys the entity.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param dispatcher The entt::dispatcher.
+ * @param entity The entity handle, which may be invalid.
+ * @return A valid, potentially new, entity handle if revival was successful.
+ * @throws aetherion::InvalidEntityException if the entity cannot be handled and must be skipped.
+ */
 inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, VoxelGrid& voxelGrid,
                                                    entt::dispatcher& dispatcher,
                                                    entt::entity entity) {
@@ -322,45 +568,23 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, Vox
     }
 }
 
-
-// Helper: Create a new vapor terrain entity with all required components
-inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid, int x,
-                                             int y, int z, int vaporAmount) {
-    auto newVaporEntity = registry.create();
-    Position newPosition = {x, y, z, DirectionEnum::DOWN};
-
-    EntityTypeComponent newType = {};
-    newType.mainType = 0;  // Terrain type
-    newType.subType0 = 1;  // Water terrain (vapor)
-    newType.subType1 = 0;
-
-    MatterContainer newMatterContainer = {};
-    newMatterContainer.WaterVapor = vaporAmount;
-    newMatterContainer.WaterMatter = 0;
-
-    PhysicsStats newPhysicsStats = {};
-    newPhysicsStats.mass = 0.1;
-    newPhysicsStats.maxSpeed = 10;
-    newPhysicsStats.minSpeed = 0.0;
-
-    StructuralIntegrityComponent newStructuralIntegrityComponent = {};
-    newStructuralIntegrityComponent.canStackEntities = false;
-    newStructuralIntegrityComponent.maxLoadCapacity = -1;
-    newStructuralIntegrityComponent.matterState = MatterState::GAS;
-
-    voxelGrid.terrainGridRepository->setPosition(x, y, z, newPosition);
-    voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z, newType);
-    voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z, newMatterContainer);
-    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z,
-                                                                   newStructuralIntegrityComponent);
-    voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
-    int newTerrainId = static_cast<int>(newVaporEntity);
-    voxelGrid.terrainGridRepository->setTerrainId(x, y, z, newTerrainId);
-
-    return newVaporEntity;
-}
-
-// Helper: Create water terrain entity from falling water
+/**
+ * @brief Creates a new water entity from a "water fall" event.
+ * @details This is a highly compound function that:
+ * 1. Creates a new entity in the ECS.
+ * 2. Emplaces all required components (`Position`, `Velocity`, `MatterContainer`, etc.).
+ * 3. Updates the `VoxelGrid` to reference the new entity.
+ * 4. Modifies the `MatterContainer` of the source entity that produced the water.
+ * 5. Potentially destroys the source entity if its matter is depleted.
+ * @note This function performs its own manual grid locking.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param x The x-coordinate for the new water tile.
+ * @param y The y-coordinate for the new water tile.
+ * @param z The z-coordinate for the new water tile.
+ * @param fallingAmount The amount of water matter for the new tile.
+ * @param sourceEntity The entity from which the water is falling.
+ */
 inline void createWaterTerrainFromFall(entt::registry& registry, VoxelGrid& voxelGrid, int x, int y,
                                        int z, double fallingAmount, entt::entity sourceEntity) {
     // Lock for atomic state change
@@ -418,7 +642,15 @@ inline void createWaterTerrainFromFall(entt::registry& registry, VoxelGrid& voxe
     voxelGrid.terrainGridRepository->unlockTerrainGrid();
 }
 
-// Helper function to add vapor to existing tile above or create new vapor terrain
+/**
+ * @brief Adds vapor to an existing tile above a source or creates a new vapor entity if no tile exists.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param x The x-coordinate of the source tile.
+ * @param y The y-coordinate of the source tile.
+ * @param z The z-coordinate of the source tile.
+ * @param amount The amount of vapor to add.
+ */
 inline void addOrCreateVaporAbove(entt::registry& registry, VoxelGrid& voxelGrid, int x, int y,
                                   int z, int amount) {
     int terrainAboveId = voxelGrid.getTerrain(x, y, z + 1);
@@ -443,7 +675,19 @@ inline void addOrCreateVaporAbove(entt::registry& registry, VoxelGrid& voxelGrid
     }
 }
 
-// Standalone helper: Create water terrain below vapor and clean up depleted vapor
+/**
+ * @brief Creates a new water tile below a vapor tile during condensation.
+ * @details This is a compound function that creates a new water entity with all its components,
+ * updates the `VoxelGrid`, modifies the source vapor tile's `MatterContainer`, and may destroy
+ * the vapor entity if it's depleted.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid.
+ * @param vaporX The x-coordinate of the source vapor tile.
+ * @param vaporY The y-coordinate of the source vapor tile.
+ * @param vaporZ The z-coordinate of the source vapor tile.
+ * @param condensationAmount The amount of water to create.
+ * @param vaporMatter A reference to the `MatterContainer` of the source vapor tile.
+ */
 inline void createWaterTerrainBelowVapor(entt::registry& registry, VoxelGrid& voxelGrid, int vaporX,
                                          int vaporY, int vaporZ, double condensationAmount,
                                          MatterContainer& vaporMatter) {
@@ -494,74 +738,5 @@ inline void createWaterTerrainBelowVapor(entt::registry& registry, VoxelGrid& vo
         }
     }
 }
-
-// Helper: Clean up invalid terrain entity with proper tracking map removal
-inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid,
-                                        entt::entity entity,
-                                        const aetherion::InvalidEntityException& e) {
-    std::cout << "[cleanupInvalidTerrainEntity] InvalidEntityException: " << e.what()
-              << " - entity ID=" << static_cast<int>(entity) << std::endl;
-
-    Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
-    int entityId = static_cast<int>(entity);
-
-    if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-        std::cout << "[cleanupInvalidTerrainEntity] Could not find position of entity " << entityId
-                  << " in TerrainGridRepository - just delete it." << std::endl;
-        registry.destroy(entity);
-        VoxelCoord key{pos.x, pos.y, pos.z};
-        voxelGrid.terrainGridRepository->removeFromTrackingMaps(key, entity);
-    } else {
-        std::optional<int> terrainIdOnGrid =
-            voxelGrid.terrainGridRepository->getTerrainIdIfExists(pos.x, pos.y, pos.z);
-        if (terrainIdOnGrid.has_value()) {
-            // Terrain exists on grid - remove from tracking maps and destroy entity
-            std::cout
-                << "[cleanupInvalidTerrainEntity] Terrain does exist at the given position in "
-                   "repository - checking terrainIdOnGrid: "
-                << terrainIdOnGrid.value() << " for entity ID: " << entityId
-                << " at position: " << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
-            VoxelCoord key{pos.x, pos.y, pos.z};
-            voxelGrid.terrainGridRepository->removeFromTrackingMaps(key, entity);
-            registry.destroy(entity);
-        } else {
-            std::cout
-                << "[cleanupInvalidTerrainEntity] Terrain does exist at the given position in "
-                   "repository or grid ???"
-                << entityId << " at position: " << pos.x << ", " << pos.y << ", " << pos.z
-                << std::endl;
-            registry.destroy(entity);
-            voxelGrid.terrainGridRepository->setTerrainId(
-                pos.x, pos.y, pos.z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
-        }
-    }
-}
-
-// Helper: Set vapor structural integrity properties
-inline void setVaporSI(int x, int y, int z, VoxelGrid& voxelGrid) {
-    StructuralIntegrityComponent terrainSI =
-        voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(x, y, z);
-    terrainSI.canStackEntities = false;
-    terrainSI.maxLoadCapacity = -1;
-    terrainSI.matterState = MatterState::GAS;
-    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z, terrainSI);
-}
-
-// // Helper: Delete entity or convert to empty
-// void deleteEntityOrConvertInEmpty(entt::registry& registry,
-//                                                  entt::dispatcher& dispatcher,
-//                                                  entt::entity& terrain) {
-//     TileEffectsList* terrainEffectsList = registry.try_get<TileEffectsList>(terrain);
-//     if (terrainEffectsList == nullptr ||
-//         (terrainEffectsList && terrainEffectsList->tileEffectsIDs.empty())) {
-//         dispatcher.enqueue<KillEntityEvent>(terrain);
-//     } else {
-//         // Convert into empty terrain because there are effects being processed
-//         std::cout << "terrainEffectsList && terrainEffectsList->tileEffectsIDs.empty(): is "
-//                      "False... converting into soft empty"
-//                   << std::endl;
-//         convertIntoSoftEmpty(registry, terrain);
-//     }
-// }
 
 #endif  // PHYSICS_MUTATORS_HPP
