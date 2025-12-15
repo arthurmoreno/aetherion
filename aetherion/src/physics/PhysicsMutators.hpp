@@ -267,7 +267,12 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
  * @param registry The entt::registry.
  * @param entity The entity to destroy.
  */
-inline void _destroyEntity(entt::registry& registry, entt::entity entity) {
+inline void _destroyEntity(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity, bool shouldLock=true) {
+    std::unique_ptr<TerrainGridLock> terrainLockGuard;
+    if (shouldLock) {
+        terrainLockGuard = std::make_unique<TerrainGridLock>(voxelGrid.terrainGridRepository.get());
+    }
+
     registry.destroy(entity);
 }
 
@@ -280,6 +285,8 @@ inline void _destroyEntity(entt::registry& registry, entt::entity entity) {
  * @return The active entity.
  */
 inline entt::entity _ensureEntityActive(VoxelGrid& voxelGrid, int x, int y, int z) {
+    TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
     return voxelGrid.terrainGridRepository->ensureActive(x, y, z);
 }
 

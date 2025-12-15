@@ -6,6 +6,8 @@
 #include <functional>
 #include <shared_mutex>
 
+#include "terrain/TerrainGridLock.hpp"
+
 namespace {
 inline openvdb::Coord C(int x, int y, int z) { return openvdb::Coord(x, y, z); }
 }  // namespace
@@ -725,13 +727,18 @@ bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
 
 // Delete terrain at a specific voxel
 void TerrainGridRepository::deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z) {
-    int terrainId = withUniqueLock([&]() { return storage_.deleteTerrain(x, y, z); });
 
+    TerrainGridLock lock(this);
+
+    int terrainId =  storage_.deleteTerrain(x, y, z);
+
+    VoxelCoord key{x, y, z};
     if (terrainId != -2 && terrainId != -1 &&
         registry_.valid(static_cast<entt::entity>(terrainId))) {
         // TODO: Handle dropping components and remove from EnTT
         std::cout << "Deleting terrain entity: " << terrainId << std::endl;
         entt::entity entity = static_cast<entt::entity>(terrainId);
+        removeFromTrackingMaps(key, entity);
         dispatcher.enqueue<KillEntityEvent>(entity);
     } else {
         std::cout << "No active terrain entity to delete at (" << x << ", " << y << ", " << z
