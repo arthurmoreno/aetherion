@@ -114,8 +114,7 @@ inline void printTerrainDiagnostics(entt::registry& registry, VoxelGrid& voxelGr
     int invalidTerrainId = static_cast<int>(invalidTerrain);
 
     std::cout << "\n========== TERRAIN REVIVAL FAILED - DETAILED DIAGNOSTICS ==========\n";
-    std::cout << "[reviveColdTerrainEntities] Entity " << invalidTerrainId
-              << " cannot be revived\n";
+    std::cout << "[printTerrainDiagnostics] Entity " << invalidTerrainId << "\n";
     std::cout << "Position: (" << position.x << ", " << position.y << ", " << position.z << ")\n";
 
     // EntityTypeComponent

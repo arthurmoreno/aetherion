@@ -566,20 +566,52 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             // This happens during the timing window between registry.destroy() and hook execution
             // The onDestroyVelocity hook will clean up tracking maps - just skip for now
             std::cout
-                << "[processPhysics:Velocity] WARNING: Invalid entity in velocityView - skipping; entity ID="
-                << static_cast<int>(entity) << " (cleanup will be handled by hooks)" << std::endl;
+                << "[processPhysics:Velocity] WARNING: Invalid entity in velocityView - Starting sanity checks; entity ID="
+                << static_cast<int>(entity) << " (Starting cleanup routine)" << std::endl;
 
-            Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+            Position pos;
+            try {
+                pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+            } catch (const aetherion::InvalidEntityException& e) {
+                // Exception indicates we should stop processing this entity.
+                // The mutator function already logged the details.
+                Position *_pos = registry.try_get<Position>(entity);
+                pos = _pos ? *_pos : Position{-1, -1, -1, DirectionEnum::UP};
+                if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+                    std::cout << "[processPhysics:Velocity] Could not find position of entity "
+                            << static_cast<int>(entity)
+                            << " in TerrainGridRepository or registry - just delete it." << std::endl;
+                    printTerrainDiagnostics(registry, voxelGrid, entity, pos,
+                                            EntityTypeComponent{}, 0);
+                    // throw std::runtime_error("Could not find entity position for Velocity processing");
+                    continue;
+                }
+            }
+
+            EntityTypeComponent *entityType = registry.try_get<EntityTypeComponent>(entity);
+
+            bool isTerrain = (entityType &&
+                (entityType->mainType != static_cast<int>(EntityEnum::BEAST) && entityType->mainType != static_cast<int>(EntityEnum::PLANT))
+            ) || (entityType == nullptr);
             int entityId = static_cast<int>(entity);
-            if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+            if (pos.x == -1 && pos.y == -1 && pos.z == -1 && isTerrain) {
                 if (entityId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
                     entityId != static_cast<int>(TerrainIdTypeEnum::NONE) ) {
                         std::cout << "[processPhysics:Velocity] Could not find position of entity " << entityId
                                 << " in TerrainGridRepository - just delete it." << std::endl;
+                        registry.remove<Velocity>(entity);
+                        printTerrainDiagnostics(registry, voxelGrid, entity, pos,
+                                                entityType ? *entityType : EntityTypeComponent{},
+                                                0);
                         _destroyEntity(registry, voxelGrid, entity);
+
+                        printTerrainDiagnostics(registry, voxelGrid, entity, pos,
+                                                entityType ? *entityType : EntityTypeComponent{},
+                                                0);
+                        throw std::runtime_error("Entity invalid during Velocity processing");
                 }
                 continue;
-            } else {
+            } else if (isTerrain) {
                 try {
                     entity =
                         reviveColdTerrainEntities(registry, voxelGrid, dispatcher, pos, entity);
@@ -589,6 +621,11 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
                               << " - entity ID=" << entityId << " - early return" << std::endl;
                     continue;
                 }
+            } else {
+                std::cout << "[processPhysics] Entity " << static_cast<int>(entity)
+                          << " has Velocity and Position - proceeding" << std::endl;
+                throw std::runtime_error(
+                    "Entity invalid during Velocity processing but revival succeeded");
             }
         }
 
@@ -600,7 +637,23 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
                       << " has Velocity but no Position - skipping" << std::endl;
 
             // delete from terrain repository mapping.
-            pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+            Position pos;
+            try {
+                pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+            } catch (const aetherion::InvalidEntityException& e) {
+                // Exception indicates we should stop processing this entity.
+                // The mutator function already logged the details.
+                Position *_pos = registry.try_get<Position>(entity);
+                pos = _pos ? *_pos : Position{-1, -1, -1, DirectionEnum::UP};
+                if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+                    std::cout << "[processPhysics:Velocity] Could not find position of entity "
+                            << static_cast<int>(entity)
+                            << " in TerrainGridRepository or registry - just delete it." << std::endl;
+                    throw std::runtime_error("Could not find entity position for Velocity processing");
+                    // continue;
+                }
+            }
+
             if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
                 std::cout << "[processPhysics:Velocity] Could not find position of entity " << entityId
                           << " in TerrainGridRepository, skipping entity." << std::endl;
@@ -666,14 +719,32 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
                 << "[processPhysics:MovingComponent] WARNING: Invalid entity in velocityView - skipping; entity ID="
                 << static_cast<int>(entity) << " (cleanup will be handled by hooks)" << std::endl;
 
-            Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+            Position pos;
+            try {
+                pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+            } catch (const aetherion::InvalidEntityException& e) {
+                // Exception indicates we should stop processing this entity.
+                // The mutator function already logged the details.
+                Position *_pos = registry.try_get<Position>(entity);
+                pos = _pos ? *_pos : Position{-1, -1, -1, DirectionEnum::UP};
+                if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+                    std::cout << "[processPhysics:MovingComponent] Could not find position of entity "
+                            << static_cast<int>(entity)
+                            << " in TerrainGridRepository or registry - just delete it." << std::endl;
+                    // throw std::runtime_error("Could not find entity position for MovingComponent processing");
+                    continue;
+                }
+            }
+
             int entityId = static_cast<int>(entity);
             if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
                 if (entityId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
                     entityId != static_cast<int>(TerrainIdTypeEnum::NONE) ) {
                         std::cout << "[processPhysics:MovingComponent] Could not find position of entity " << entityId
                                 << " in TerrainGridRepository - just delete it." << std::endl;
+                        registry.remove<MovingComponent>(entity);
                         _destroyEntity(registry, voxelGrid, entity);
+                        throw std::runtime_error("Entity invalid during MovingComponent processing");
                 }
                 continue;
             } else {

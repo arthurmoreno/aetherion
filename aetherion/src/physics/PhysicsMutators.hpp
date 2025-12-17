@@ -181,6 +181,7 @@ inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid
                                              int y, int z, int vaporAmount) {
     auto newVaporEntity = registry.create();
     Position newPosition = {x, y, z, DirectionEnum::DOWN};
+    registry.emplace<Position>(newVaporEntity, newPosition);
 
     EntityTypeComponent newType = {};
     newType.mainType = 0;  // Terrain type
@@ -210,6 +211,9 @@ inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid
     int newTerrainId = static_cast<int>(newVaporEntity);
     voxelGrid.terrainGridRepository->setTerrainId(x, y, z, newTerrainId);
 
+    VoxelCoord key{newPosition.x, newPosition.y, newPosition.z};
+    voxelGrid.terrainGridRepository->addToTrackingMaps(key, newVaporEntity);
+
     return newVaporEntity;
 }
 
@@ -226,7 +230,22 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
     std::cout << "[cleanupInvalidTerrainEntity] InvalidEntityException: " << e.what()
               << " - entity ID=" << static_cast<int>(entity) << std::endl;
 
-    Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+    Position pos;
+    try {
+        pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+    } catch (const aetherion::InvalidEntityException& e) {
+        // Exception indicates we should stop processing this entity.
+        // The mutator function already logged the details.
+        Position *_pos = registry.try_get<Position>(entity);
+        pos = _pos ? *_pos : Position{-1, -1, -1, DirectionEnum::UP};
+        if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+            std::cout << "[cleanupInvalidTerrainEntity] Could not find position of entity "
+                      << static_cast<int>(entity)
+                      << " in TerrainGridRepository or registry - just delete it." << std::endl;
+            throw std::runtime_error("Could not find entity position for cleanup");
+        }
+    }
+
     int entityId = static_cast<int>(entity);
 
     if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
@@ -534,7 +553,8 @@ inline void dropEntityItems(entt::registry& registry, VoxelGrid& voxelGrid, entt
  * @param entity The entity to remove from the grid.
  */
 inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
-                                 entt::dispatcher& dispatcher, entt::entity entity) {
+                                 entt::dispatcher& dispatcher, entt::entity entity,
+                                 bool takeLock = true) {
     int entityId = static_cast<int>(entity);
     bool isSpecialId = entityId == -1 || entityId == -2;
     if (!isSpecialId && registry.valid(entity) &&
@@ -551,7 +571,7 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
         }
 
         if (type.mainType == static_cast<int>(EntityEnum::TERRAIN)) {
-            voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z);
+            voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z, takeLock);
         } else if (type.mainType == static_cast<int>(EntityEnum::BEAST) ||
                    type.mainType == static_cast<int>(EntityEnum::PLANT)) {
             voxelGrid.deleteEntity(pos.x, pos.y, pos.z);
@@ -560,16 +580,71 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
         std::cout << "Entity " << entityId << " is a special ID, skipping grid removal."
                   << std::endl;
     } else if (!isSpecialId && registry.valid(entity)) {
-        Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
-        if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+        Position* position = registry.try_get<Position>(entity);
+        EntityTypeComponent* entityType = registry.try_get<EntityTypeComponent>(entity);
+        if (position) {
+            std::cout << "Entity " << entityId << " has Position component at ("
+                      << position->x << ", " << position->y << ", " << position->z << ")." << std::endl;
+        } else {
+            std::cout << "Entity " << entityId << " is missing Position component." << std::endl;
+            Position _pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+            position = &_pos;
+        }
+
+        std::cout << "Entity " << entityId
+                  << " is missing Position or EntityTypeComponent, checking TerrainGridRepository."
+                  << std::endl;
+        if (position->x == -1 && position->y == -1 && position->z == -1) {
             std::cout << "Could not find position of entity " << entityId
                       << " in TerrainGridRepository, skipping grid removal."
                       << std::endl;
-        } else {
-            voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z);
+            throw std::runtime_error(
+                "Entity is missing Position component and not found in TerrainGridRepository.");
+            } else {
+            std::cout << "Removing entity " << entityId
+                      << " from grid using position from TerrainGridRepository at ("
+                      << position->x << ", " << position->y << ", " << position->z << ")."
+                      << std::endl;
+            voxelGrid.deleteTerrain(dispatcher, position->x, position->y, position->z, takeLock);
         }
     } else {
         std::cout << "Entity " << entityId << " is invalid, skipping grid removal."
+                  << std::endl;
+    }
+}
+
+/**
+ * @brief Removes an entity from terrain storage (VoxelGrid / TerrainGridRepository)
+ * @details This is a free function variant of the previous World::removeEntityFromTerrain.
+ * The caller is responsible for holding any lifecycle locks (e.g., entityLifecycleMutex)
+ * if required by the caller's locking contract. This function will acquire a
+ * TerrainGridLock when modifying the repository if `removeFromGrid` is true.
+ */
+inline void removeEntityFromTerrain(entt::registry& registryRef, VoxelGrid& voxelGridRef,
+                                    entt::dispatcher& dispatcherRef, entt::entity entity,
+                                    bool removeFromGrid) {
+    if (!registryRef.valid(entity)) {
+        std::cout << "removeEntityFromTerrain: entity invalid, skipping: "
+                  << static_cast<int>(entity) << std::endl;
+        return;
+    }
+
+    const int entityId = static_cast<int>(entity);
+
+    if (removeFromGrid) {
+        std::cout << "removeEntityFromTerrain: removing entity from grid: " << entityId
+                  << std::endl;
+        // Acquire TerrainGridLock for the duration of grid modification
+        if (voxelGridRef.terrainGridRepository) {
+            TerrainGridLock terrainLock(voxelGridRef.terrainGridRepository.get());
+            // removeEntityFromGrid handles voxel bookkeeping; do not destroy here
+            removeEntityFromGrid(registryRef, voxelGridRef, dispatcherRef, entity, false);
+        } else {
+            // Fallback: still call removeEntityFromGrid even if repo pointer missing
+            removeEntityFromGrid(registryRef, voxelGridRef, dispatcherRef, entity, false);
+        }
+    } else {
+        std::cout << "removeEntityFromTerrain: skip grid removal for entity: " << entityId
                   << std::endl;
     }
 }

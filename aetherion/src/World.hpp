@@ -68,6 +68,8 @@ class World {
     entt::entity createEntity(const EntityInterface& entityInterface);
     entt::entity createEntityFromPython(nb::object pyEntity);
     void removeEntity(entt::entity entity);
+    // Destroy only the EnTT entity handle. Caller must hold appropriate lifecycle locks.
+    void destroyEntityHandle(entt::entity entity);
 
     nb::list getEntityIdsByType(int entityMainType, int entitySubType0);
     nb::dict getEntitiesByType(int entityMainType, int entitySubType0);
@@ -155,6 +157,11 @@ class World {
     int getPerceptionBounds(int pos, int perception) const;
     void onTakeItemEventPython(const TakeItemEvent& event);
     void onUseItemEventPython(const UseItemEvent& event);
+    // Helper: remove entity from terrain storage. Caller MUST hold exclusive
+    // `entityLifecycleMutex` before calling this.
+
+    // Helper: acquire lifecycle lock and destroy entity handle safely.
+    void destroyEntityHandleWithLifecycleLock(entt::entity entity);
 };
 
 #endif  // WORLD_H

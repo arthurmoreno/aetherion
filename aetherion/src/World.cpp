@@ -68,7 +68,29 @@ World::~World() {
     // openvdb::uninitialize();
 }
 
-void World::removeEntity(entt::entity entity) { registry.destroy(entity); }
+void World::removeEntity(entt::entity entity) { destroyEntityHandleWithLifecycleLock(entity); }
+
+// Destroy only the EnTT entity handle. Caller must hold appropriate lifecycle locks.
+void World::destroyEntityHandle(entt::entity entity) {
+    if (!registry.valid(entity)) return;
+    int entityId = static_cast<int>(entity);
+    if (entityId == -1 || entityId == -2) {
+        // Special terrain markers - do not attempt to destroy
+        std::cout << "destroyEntityHandle: skipping special ID " << entityId << std::endl;
+        return;
+    }
+
+    std::cout << "destroyEntityHandle: calling registry.destroy() on entity " << entityId << std::endl;
+    registry.destroy(entity);
+}
+
+// Acquire the lifecycle mutex exclusively and destroy the entity handle.
+// This helper is useful for callers that don't already hold `entityLifecycleMutex`.
+void World::destroyEntityHandleWithLifecycleLock(entt::entity entity) {
+    std::unique_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+    // Delegate to the existing destroyEntityHandle which assumes caller holds lifecycle guarantees
+    destroyEntityHandle(entity);
+}
 
 void World::initializeVoxelGrid() {
     // Initializes the grid with default GridData
@@ -800,6 +822,10 @@ void World::update() {
             // Acquire EXCLUSIVE lock to prevent any perception operations during entity destruction
             std::unique_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
 
+            // Locking contract: acquire `entityLifecycleMutex` (exclusive) first,
+            // then acquire a `TerrainGridLock` if modifying terrain. This prevents
+            // deadlocks with perception readers and other terrain operations.
+
             std::cout << "\n=== ENTITY DELETION DEBUG ===" << std::endl;
             std::cout << "Total entities to delete: " << lifeEngine->entitiesToDelete.size()
                       << std::endl;
@@ -838,20 +864,19 @@ void World::update() {
                                   << " missing Position or EntityTypeComponent" << std::endl;
                     }
 
+                    // Decide whether to remove from grid (true for hard kills)
                     const bool shouldRemoveFromGrid = !softKill;
-                    if (shouldRemoveFromGrid) {
-                        std::cout << "Removing from grid..." << std::endl;
-                        removeEntityFromGrid(registry, *voxelGrid, dispatcher, entity);
-                    }
 
-                    if (entityId != -1 && entityId != -2 && registry.valid(entity)) {
-                        std::cout << "Calling registry.destroy() on entity " << entityId
-                                  << std::endl;
-                        registry.destroy(entity);
+                    // Caller holds `entityLifecycleMutex` (see above). Delegate terrain
+                    // removal into helper which will acquire `TerrainGridLock` if needed.
+                    removeEntityFromTerrain(registry, *voxelGrid, dispatcher, entity,
+                                            shouldRemoveFromGrid);
+
+                    // Still holding lifecycle lock: destroy the registry handle
+                    if (registry.valid(entity)) {
+                        destroyEntityHandle(entity);
                         std::cout << "Destroyed entity " << entityId << std::endl;
                     }
-
-                    // std::cout << "Destroyed entity: " << static_cast<int>(entity) << std::endl;
                 } else {
                     if (isSpecialId) {
                         std::cout << "Skipping special ID: " << entityId << std::endl;

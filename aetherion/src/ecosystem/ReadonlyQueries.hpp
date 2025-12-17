@@ -49,6 +49,7 @@ inline bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& 
         ossMessage << "[isTerrainVoxelEmptyOrSoftEmpty] Error: Invalid terrain ID " << terrainId
                    << " at (" << x << ", " << y << ", " << z << ")";
         spdlog::get("console")->error(ossMessage.str());
+        throw std::runtime_error(ossMessage.str());
         dispatcher.trigger<InvalidTerrainFoundEvent>(InvalidTerrainFoundEvent{x, y, z});
         // Trigger deletion at physics engine layer. Block will not be empty immediately.
         return false;

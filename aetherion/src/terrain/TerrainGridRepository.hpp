@@ -71,13 +71,13 @@ class TerrainGridRepository {
     // Tick transient systems; auto-deactivate when no transients remain
     void tick(int dtTicks = 1);
 
-    void setTerrainId(int x, int y, int z, int terrainID);
+    void setTerrainId(int x, int y, int z, int terrainID, bool takeLock = true);
 
     bool isTerrainIdOnEnttRegistry(int terrainID) const;
 
     // ---------------- Static getters/setters (VDB-backed) ----------------
 
-    std::optional<int> getTerrainIdIfExists(int x, int y, int z) const;
+    std::optional<int> getTerrainIdIfExists(int x, int y, int z, bool takeLock = true) const;
 
     // EntityTypeComponent
     EntityTypeComponent getTerrainEntityType(int x, int y, int z) const;
@@ -151,8 +151,11 @@ class TerrainGridRepository {
     // void setTerrain(int x, int y, int z, int terrainID);
     void setTerrainFromEntt(entt::entity entity);
     bool checkIfTerrainExists(int x, int y, int z) const;
-    bool checkIfTerrainHasEntity(int x, int y, int z) const;
-    void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z);
+    bool checkIfTerrainHasEntity(int x, int y, int z, bool takeLock = true) const;
+    // If `takeLock` is true (default) the function will acquire the TerrainGridLock;
+    // callers that already hold the lock may pass `false` to avoid double-locking.
+    void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z,
+                       bool takeLock = true);
 
     // Check if a terrain voxel has a MovingComponent
     bool hasMovingComponent(int x, int y, int z) const;
@@ -182,8 +185,30 @@ class TerrainGridRepository {
     entt::entity ensureActive(int x, int y, int z);
 
     // Tracking map helpers
-    void addToTrackingMaps(const VoxelCoord& key, entt::entity e);
-    void removeFromTrackingMaps(const VoxelCoord& key, entt::entity e);
+    // Tracking map helpers. Two-level configurability:
+    // - `takeTrackingLock`: whether to acquire `trackingMapsMutex_`.
+    // - `respectTerrainGridLock`: when true (default) the helper will skip acquiring
+    //    `trackingMapsMutex_` if the terrain grid is externally locked via
+    //    `lockTerrainGrid()`; this mirrors the previous behavior.
+    void addToTrackingMaps(const VoxelCoord& key, entt::entity e,
+                           bool takeTrackingLock = true, bool respectTerrainGridLock = true);
+    void removeFromTrackingMaps(const VoxelCoord& key, entt::entity e,
+                                bool takeTrackingLock = true, bool respectTerrainGridLock = true);
+
+    template <typename Func>
+    auto withTrackingMapsLock(Func&& func, bool takeTrackingLock = true,
+                              bool respectTerrainGridLock = true) -> decltype(func()) {
+        if (!takeTrackingLock) return func();
+        if (respectTerrainGridLock) {
+            if (!isTerrainGridLocked()) {
+                std::unique_lock<std::shared_mutex> lock(trackingMapsMutex_);
+                return func();
+            }
+            return func();
+        }
+        std::unique_lock<std::shared_mutex> lock(trackingMapsMutex_);
+        return func();
+    }
 
    private:
     // Check if terrain grid is currently locked
@@ -191,7 +216,10 @@ class TerrainGridRepository {
 
     // Utility methods for conditional locking
     template <typename Func>
-    auto withSharedLock(Func&& func) const -> decltype(func()) {
+    auto withSharedLock(Func&& func, bool takeLock = true) const -> decltype(func()) {
+        if (!takeLock) {
+            return func();
+        }
         if (!isTerrainGridLocked()) {
             std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
             return func();
@@ -200,7 +228,10 @@ class TerrainGridRepository {
     }
 
     template <typename Func>
-    auto withUniqueLock(Func&& func) -> decltype(func()) {
+    auto withUniqueLock(Func&& func, bool takeLock = true) -> decltype(func()) {
+        if (!takeLock) {
+            return func();
+        }
         if (!isTerrainGridLocked()) {
             std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
             return func();
@@ -223,8 +254,8 @@ class TerrainGridRepository {
     std::unordered_map<entt::entity, VoxelCoord> byEntity_;
 
     entt::entity getEntityAt(int x, int y, int z) const;
-    void markActive(int x, int y, int z, entt::entity e);
-    void clearActive(int x, int y, int z);
+    void markActive(int x, int y, int z, entt::entity e, bool takeLock = true);
+    void clearActive(int x, int y, int z, bool takeLock = true);
 
     // EnTT hooks to auto-activate on transient component emplacement
     void onConstructVelocity(entt::registry& reg, entt::entity e);
