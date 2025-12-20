@@ -6,6 +6,8 @@
 #include <functional>
 #include <shared_mutex>
 
+#include <spdlog/spdlog.h>
+
 #include "physics/PhysicsExceptions.hpp"
 #include "terrain/TerrainGridLock.hpp"
 
@@ -13,7 +15,7 @@ namespace {
 inline openvdb::Coord C(int x, int y, int z) { return openvdb::Coord(x, y, z); }
 }  // namespace
 
-bool TerrainGridRepository::isTerrainGridLocked() const { return terrainGridLocked_; }
+bool TerrainGridRepository::isTerrainGridLocked() const { return terrainGridLocked_.load(); }
 
 bool TerrainGridRepository::isTerrainIdOnEnttRegistry(int terrainID) const {
     return terrainID != static_cast<int>(TerrainIdTypeEnum::NONE) &&
@@ -192,44 +194,44 @@ void TerrainGridRepository::removeFromTrackingMaps(const VoxelCoord& key, entt::
 
 void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entity e) {
     // If entity has a Position, mark active in the TerrainStorage grid
-    if (!reg.valid(e)) return;
-    if (auto pos = reg.try_get<Position>(e)) {
-        auto entityType = reg.try_get<EntityTypeComponent>(e);
-        if (entityType && entityType->mainType != static_cast<int>(EntityEnum::TERRAIN)) {
-            return;
-        }
+    // if (!reg.valid(e)) return;
+    // if (auto pos = reg.try_get<Position>(e)) {
+    //     auto entityType = reg.try_get<EntityTypeComponent>(e);
+    //     if (entityType && entityType->mainType != static_cast<int>(EntityEnum::TERRAIN)) {
+    //         return;
+    //     }
 
-        withTrackingMapsLock([&]() {
-            if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z, false)) {
-                // std::cout << "TerrainGridRepository: onConstructVelocity at (" << pos->x << ", "
-                //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
-                VoxelCoord key{pos->x, pos->y, pos->z};
-                addToTrackingMaps(key, e, false, false);
-                markActive(pos->x, pos->y, pos->z, e, false);
-            }
-        }, true, true);
-    }
+    //     withTrackingMapsLock([&]() {
+    //         if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z, false)) {
+    //             // std::cout << "TerrainGridRepository: onConstructVelocity at (" << pos->x << ", "
+    //             //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
+    //             VoxelCoord key{pos->x, pos->y, pos->z};
+    //             addToTrackingMaps(key, e, false, false);
+    //             markActive(pos->x, pos->y, pos->z, e, false);
+    //         }
+    //     }, true, true);
+    // }
 }
 
 void TerrainGridRepository::onConstructMoving(entt::registry& reg, entt::entity e) {
-    if (!reg.valid(e)) return;
-    if (auto pos = reg.try_get<Position>(e)) {
-        auto entityType = reg.try_get<EntityTypeComponent>(e);
-        if (entityType && entityType->mainType != static_cast<int>(EntityEnum::TERRAIN)) {
-            return;
-        }
-        withTrackingMapsLock([&]() {
-            if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z, false)) {
-            // std::cout << "TerrainGridRepository: onConstructMoving at (" << pos->x << ", " <<
-            // pos->y
-            //           << ", " << pos->z << ") entity=" << int(e) << "\n";
+    // if (!reg.valid(e)) return;
+    // if (auto pos = reg.try_get<Position>(e)) {
+    //     auto entityType = reg.try_get<EntityTypeComponent>(e);
+    //     if (entityType && entityType->mainType != static_cast<int>(EntityEnum::TERRAIN)) {
+    //         return;
+    //     }
+    //     withTrackingMapsLock([&]() {
+    //         if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z, false)) {
+    //         // std::cout << "TerrainGridRepository: onConstructMoving at (" << pos->x << ", " <<
+    //         // pos->y
+    //         //           << ", " << pos->z << ") entity=" << int(e) << "\n";
 
-                VoxelCoord key{pos->x, pos->y, pos->z};
-                addToTrackingMaps(key, e, false, false);
-                markActive(pos->x, pos->y, pos->z, e, false);
-                }
-        }, true, true);
-    }
+    //             VoxelCoord key{pos->x, pos->y, pos->z};
+    //             addToTrackingMaps(key, e, false, false);
+    //             markActive(pos->x, pos->y, pos->z, e, false);
+    //             }
+    //     }, true, true);
+    // }
 }
 
 void TerrainGridRepository::onDestroyVelocity(entt::registry& reg, entt::entity e) {
@@ -803,11 +805,64 @@ bool TerrainGridRepository::hasMovingComponent(int x, int y, int z) const {
 // Lock terrain grid for external synchronization
 void TerrainGridRepository::lockTerrainGrid() {
     terrainGridMutex.lock();
-    terrainGridLocked_ = true;
+    terrainGridLocked_.store(true);
 }
 
 // Unlock terrain grid after external synchronization
 void TerrainGridRepository::unlockTerrainGrid() {
-    terrainGridLocked_ = false;
+    terrainGridLocked_.store(false);
     terrainGridMutex.unlock();
+}
+
+void TerrainGridRepository::softDeactivateEntity(entt::entity e, bool takeLock) {
+    if (takeLock) {
+        TerrainGridLock lock(this);
+    }
+
+    if (!registry_.valid(e)) {
+        spdlog::warn("softDeactivateEntity: entity {} is not valid", static_cast<int>(e));
+        return;
+    }
+
+    // Try to find the voxel coord for this entity
+    VoxelCoord key{0, 0, 0};
+    bool found = false;
+    {
+        std::shared_lock<std::shared_mutex> tlock(trackingMapsMutex_);
+        auto it = byEntity_.find(e);
+        if (it != byEntity_.end()) {
+            key = it->second;
+            found = true;
+        }
+    }
+
+    // If entity has transient components, remove them and rely on hooks to clean mapping
+    bool hadTransient = false;
+    if (registry_.all_of<Velocity>(e)) {
+        hadTransient = true;
+        registry_.remove<Velocity>(e);
+    }
+    if (registry_.all_of<MovingComponent>(e)) {
+        hadTransient = true;
+        registry_.remove<MovingComponent>(e);
+    }
+
+    if (!hadTransient) {
+        // No transient components removed — perform cleanup directly
+        if (!found) {
+            spdlog::warn("softDeactivateEntity: entity {} has no mapping and no transients", static_cast<int>(e));
+            return;
+        }
+
+        // Remove mapping and mark voxel as storage-only
+        withTrackingMapsLock([&]() {
+            byCoord_.erase(key);
+            byEntity_.erase(e);
+            // Mark as ON_GRID_STORAGE
+            setTerrainId(key.x, key.y, key.z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE), false);
+            clearActive(key.x, key.y, key.z, false);
+        }, false, false);
+    }
+
+    spdlog::info("softDeactivateEntity: entity {} soft-deactivated", static_cast<int>(e));
 }

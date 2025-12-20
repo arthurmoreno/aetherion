@@ -4,6 +4,7 @@
 #include <entt/entt.hpp>
 #include <optional>
 #include <shared_mutex>
+#include <atomic>
 #include <unordered_map>
 
 #include "components/EntityTypeComponent.hpp"
@@ -157,6 +158,12 @@ class TerrainGridRepository {
     void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z,
                        bool takeLock = true);
 
+    // Soft-deactivate an active terrain EnTT entity without immediately destroying it.
+    // This removes transient components (Velocity/MovingComponent) and ensures the
+    // repository mapping and storage are updated to mark the voxel as back in grid storage.
+    // Callers may then decide to schedule a final destruction later.
+    void softDeactivateEntity(entt::entity e, bool takeLock = true);
+
     // Check if a terrain voxel has a MovingComponent
     bool hasMovingComponent(int x, int y, int z) const;
 
@@ -241,8 +248,8 @@ class TerrainGridRepository {
 
     // Mutex specifically for terrainGrid thread safety
     mutable std::shared_mutex terrainGridMutex;
-    // Track if terrain grid is currently locked
-    mutable bool terrainGridLocked_ = false;
+    // Track if terrain grid is currently locked (atomic to avoid races)
+    mutable std::atomic<bool> terrainGridLocked_{false};
 
     // Mutex specifically for tracking maps (byCoord_ and byEntity_) thread safety
     // Separate from terrainGridMutex for better performance (less lock contention)

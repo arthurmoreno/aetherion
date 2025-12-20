@@ -63,6 +63,10 @@ inline void ensurePositionComponentForTerrain(entt::registry& registry, VoxelGri
     // For terrain entities, verify they have Position component
     // This ensures vapor entities are fully initialized before physics processes them
     if (isTerrain && !registry.all_of<Position>(entity)) {
+        if (!voxelGrid.terrainGridRepository) {
+            spdlog::warn("ensurePositionComponentForTerrain: no terrainGridRepository available");
+            throw std::runtime_error("Missing TerrainGridRepository");
+        }
         std::ostringstream error;
         error << "[handleMovement] Terrain entity " << static_cast<int>(entity)
               << " missing Position component (not fully initialized yet)";
@@ -179,6 +183,10 @@ static void setEmptyWaterComponentsEnTT(entt::registry& registry, entt::entity& 
  */
 inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid, int x,
                                              int y, int z, int vaporAmount) {
+    if (!voxelGrid.terrainGridRepository) {
+        spdlog::warn("createVaporTerrainEntity: missing terrainGridRepository");
+        return entt::null;
+    }
     auto newVaporEntity = registry.create();
     Position newPosition = {x, y, z, DirectionEnum::DOWN};
     registry.emplace<Position>(newVaporEntity, newPosition);
@@ -241,7 +249,9 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
         if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
             std::cout << "[cleanupInvalidTerrainEntity] Could not find position of entity "
                       << static_cast<int>(entity)
-                      << " in TerrainGridRepository or registry - just delete it." << std::endl;
+                      << " in TerrainGridRepository or registry - soft-deactivating it." << std::endl;
+            // Soft-deactivate instead of immediate destroy to avoid TOCTOU races
+            voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
             throw std::runtime_error("Could not find entity position for cleanup");
         }
     }
@@ -250,10 +260,8 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
 
     if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
         std::cout << "[cleanupInvalidTerrainEntity] Could not find position of entity " << entityId
-                  << " in TerrainGridRepository - just delete it." << std::endl;
-        registry.destroy(entity);
-        VoxelCoord key{pos.x, pos.y, pos.z};
-        voxelGrid.terrainGridRepository->removeFromTrackingMaps(key, entity);
+                  << " in TerrainGridRepository - soft-deactivating it." << std::endl;
+        voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
     } else {
         std::optional<int> terrainIdOnGrid =
             voxelGrid.terrainGridRepository->getTerrainIdIfExists(pos.x, pos.y, pos.z);
@@ -264,16 +272,15 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
                    "repository - checking terrainIdOnGrid: "
                 << terrainIdOnGrid.value() << " for entity ID: " << entityId
                 << " at position: " << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
-            VoxelCoord key{pos.x, pos.y, pos.z};
-            voxelGrid.terrainGridRepository->removeFromTrackingMaps(key, entity);
-            registry.destroy(entity);
+            // Ensure repository mapping cleaned up and transient components removed
+            voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
         } else {
             std::cout
                 << "[cleanupInvalidTerrainEntity] Terrain does exist at the given position in "
                    "repository or grid ???"
                 << entityId << " at position: " << pos.x << ", " << pos.y << ", " << pos.z
                 << std::endl;
-            registry.destroy(entity);
+            voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
             voxelGrid.terrainGridRepository->setTerrainId(
                 pos.x, pos.y, pos.z,
                 static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
@@ -292,6 +299,12 @@ inline void _destroyEntity(entt::registry& registry, VoxelGrid& voxelGrid, entt:
         terrainLockGuard = std::make_unique<TerrainGridLock>(voxelGrid.terrainGridRepository.get());
     }
 
+    // Ensure repository mapping cleaned before destroying entity to avoid stale mappings
+    if (voxelGrid.terrainGridRepository) {
+        // If we already acquired the TerrainGridLock above (shouldLock==true),
+        // tell softDeactivateEntity not to take the lock again to avoid deadlock.
+        voxelGrid.terrainGridRepository->softDeactivateEntity(entity, !shouldLock);
+    }
     registry.destroy(entity);
 }
 
@@ -649,6 +662,51 @@ inline void removeEntityFromTerrain(entt::registry& registryRef, VoxelGrid& voxe
     }
 }
 
+
+/**
+ * @brief Destroys an entity and performs grid/repository cleanup.
+ * @param registry The entt::registry.
+ * @param voxelGrid The VoxelGrid for repository access.
+ * @param dispatcher The dispatcher used by removeEntityFromGrid if necessary.
+ * @param entity The entity to destroy.
+ * @param takeGridLock If true, callers will attempt to take repository locks when modifying the grid.
+ *
+ * Locking contract: this function DOES NOT acquire World::entityLifecycleMutex. The caller must
+ * hold any lifecycle locks required to prevent races with perception/creation. This function will
+ * acquire a TerrainGridLock when performing grid modifications if `takeGridLock` is true.
+ */
+inline void destroyEntityWithGridCleanup(entt::registry& registry, VoxelGrid& voxelGrid,
+                                         entt::dispatcher& dispatcher, entt::entity entity,
+                                         bool takeGridLock = true) {
+    if (!registry.valid(entity)) {
+        std::cout << "destroyEntityWithGridCleanup: entity invalid, skipping: "
+                  << static_cast<int>(entity) << std::endl;
+        return;
+    }
+
+    const int entityId = static_cast<int>(entity);
+
+    // Special terrain markers (-1, -2) should not be destroyed through ECS
+    if (entityId == -1 || entityId == -2) {
+        std::cout << "destroyEntityWithGridCleanup: skipping special ID " << entityId << std::endl;
+        return;
+    }
+
+    try {
+        // Remove references from VoxelGrid / TerrainGridRepository first
+        removeEntityFromGrid(registry, voxelGrid, dispatcher, entity, takeGridLock);
+    } catch (const std::exception& e) {
+        std::cout << "destroyEntityWithGridCleanup: removeEntityFromGrid failed for entity "
+                  << entityId << ": " << e.what() << std::endl;
+    }
+
+    // Ensure the entity is destroyed in the registry. Do not attempt to re-lock the repository here
+    // because removeEntityFromGrid already handled grid locking when requested.
+    if (registry.valid(entity)) {
+        _destroyEntity(registry, voxelGrid, entity, false);
+    }
+}
+
 /**
  * @brief Performs a "soft kill" on an entity, removing its life components and grid representation.
  * @details A soft kill removes essential life components like Health and Metabolism, effectively
@@ -738,7 +796,8 @@ inline entt::entity reviveColdTerrainEntities(entt::registry& registry, VoxelGri
                          "VoxelGrid reports "
                       << vaporMatter << ", but MatterContainer has " << matterContainer.WaterVapor
                       << std::endl;
-            registry.destroy(invalidTerrain);
+            // Soft-deactivate invalid terrain entity instead of immediate destroy
+            voxelGrid.terrainGridRepository->softDeactivateEntity(invalidTerrain);
             voxelGrid.terrainGridRepository->setTerrainId(
                 positionOfEntt.x, positionOfEntt.y, positionOfEntt.z,
                 static_cast<int>(TerrainIdTypeEnum::NONE));
@@ -788,11 +847,11 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, Vox
     int entityId = static_cast<int>(entity);
     if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
         std::cout << "[handleMovement] Could not find position of entity " << entityId
-                  << " in TerrainGridRepository - just delete it." << std::endl;
-        registry.destroy(entity);
+                  << " in TerrainGridRepository - soft-deactivating it." << std::endl;
+        voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
         // Throw exception to signal to caller that processing for this entity should stop.
         throw aetherion::InvalidEntityException(
-            "Entity destroyed as it could not be found in TerrainGridRepository");
+            "Entity soft-deactivated as it could not be found in TerrainGridRepository");
 
     } else {
         try {
@@ -872,7 +931,7 @@ inline void createWaterTerrainFromFall(entt::registry& registry, VoxelGrid& voxe
             sourceType.subType0 == static_cast<int>(TerrainEnum::WATER)) {
             auto& sourcePos = registry.get<Position>(sourceEntity);
             voxelGrid.setTerrain(sourcePos.x, sourcePos.y, sourcePos.z, -1);
-            registry.destroy(sourceEntity);
+            voxelGrid.terrainGridRepository->softDeactivateEntity(sourceEntity);
         }
     }
 }
@@ -969,12 +1028,11 @@ inline void createWaterTerrainBelowVapor(entt::registry& registry, VoxelGrid& vo
         int vaporTerrainId = voxelGrid.getTerrain(vaporX, vaporY, vaporZ);
         if (vaporTerrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
             voxelGrid.setTerrain(vaporX, vaporY, vaporZ, static_cast<int>(TerrainIdTypeEnum::NONE));
-            registry.destroy(static_cast<entt::entity>(vaporTerrainId));
+            voxelGrid.terrainGridRepository->softDeactivateEntity(static_cast<entt::entity>(vaporTerrainId), false);
         }
     }
 }
 
-#endif  // PHYSICS_MUTATORS_HPP
 
 // =========================================================================
 // ================ 5. Event-based Mutators = ================
@@ -1148,3 +1206,5 @@ inline void createMovingComponent(entt::registry& registry, entt::dispatcher& di
 
     updatePositionToDestination(position, movingComponent);
 }
+
+#endif  // PHYSICS_MUTATORS_HPP

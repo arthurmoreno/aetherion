@@ -72,16 +72,8 @@ void World::removeEntity(entt::entity entity) { destroyEntityHandleWithLifecycle
 
 // Destroy only the EnTT entity handle. Caller must hold appropriate lifecycle locks.
 void World::destroyEntityHandle(entt::entity entity) {
-    if (!registry.valid(entity)) return;
-    int entityId = static_cast<int>(entity);
-    if (entityId == -1 || entityId == -2) {
-        // Special terrain markers - do not attempt to destroy
-        std::cout << "destroyEntityHandle: skipping special ID " << entityId << std::endl;
-        return;
-    }
-
-    std::cout << "destroyEntityHandle: calling registry.destroy() on entity " << entityId << std::endl;
-    registry.destroy(entity);
+    // Delegate to physics mutator which handles validation, grid cleanup and destruction.
+    destroyEntityWithGridCleanup(registry, *voxelGrid, dispatcher, entity, true);
 }
 
 // Acquire the lifecycle mutex exclusively and destroy the entity handle.
@@ -867,16 +859,12 @@ void World::update() {
                     // Decide whether to remove from grid (true for hard kills)
                     const bool shouldRemoveFromGrid = !softKill;
 
-                    // Caller holds `entityLifecycleMutex` (see above). Delegate terrain
-                    // removal into helper which will acquire `TerrainGridLock` if needed.
-                    removeEntityFromTerrain(registry, *voxelGrid, dispatcher, entity,
-                                            shouldRemoveFromGrid);
-
-                    // Still holding lifecycle lock: destroy the registry handle
-                    if (registry.valid(entity)) {
-                        destroyEntityHandle(entity);
-                        std::cout << "Destroyed entity " << entityId << std::endl;
-                    }
+                    // Caller holds `entityLifecycleMutex` (see above). Delegate full
+                    // destruction and grid cleanup into a single helper that will
+                    // acquire `TerrainGridLock` when needed.
+                    destroyEntityWithGridCleanup(registry, *voxelGrid, dispatcher, entity,
+                                                  shouldRemoveFromGrid);
+                    std::cout << "Destroyed entity " << entityId << std::endl;
                 } else {
                     if (isSpecialId) {
                         std::cout << "Skipping special ID: " << entityId << std::endl;
