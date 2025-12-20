@@ -818,42 +818,39 @@ void World::update() {
             // then acquire a `TerrainGridLock` if modifying terrain. This prevents
             // deadlocks with perception readers and other terrain operations.
 
-            std::cout << "\n=== ENTITY DELETION DEBUG ===" << std::endl;
-            std::cout << "Total entities to delete: " << lifeEngine->entitiesToDelete.size()
-                      << std::endl;
+            // std::cout << "\n=== ENTITY DELETION DEBUG ===" << std::endl;
+            // std::cout << "Total entities to delete: " << lifeEngine->entitiesToDelete.size()
+            //           << std::endl;
 
             for (const auto& [entity, softKill] : lifeEngine->entitiesToDelete) {
                 int entityId = static_cast<int>(entity);
                 bool isSpecialId = entityId == -1 || entityId == -2;
                 bool isValidEntity = registry.valid(entity);
 
-                std::cout << "\n--- Processing deletion request ---" << std::endl;
-                std::cout << "Entity handle: " << static_cast<uint32_t>(entity) << std::endl;
-                std::cout << "Entity ID (cast): " << entityId << std::endl;
-                std::cout << "Is special ID: " << isSpecialId << std::endl;
-                std::cout << "Registry valid: " << isValidEntity << std::endl;
-                std::cout << "Soft kill: " << softKill << std::endl;
+                // std::cout << "\n--- Processing deletion request ---" << std::endl;
+                // std::cout << "Entity handle: " << static_cast<uint32_t>(entity) << std::endl;
+                // std::cout << "Entity ID (cast): " << entityId << std::endl;
+                // std::cout << "Is special ID: " << isSpecialId << std::endl;
+                // std::cout << "Registry valid: " << isValidEntity << std::endl;
+                // std::cout << "Soft kill: " << softKill << std::endl;
 
                 if (!isSpecialId && isValidEntity) {
                     // Get entity details before destruction
                     if (registry.all_of<Position, EntityTypeComponent>(entity)) {
                         auto [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
-                        std::cout << "Entity position: (" << pos.x << "," << pos.y << "," << pos.z
-                                  << ")" << std::endl;
-                        std::cout << "Entity type: " << type.mainType << "," << type.subType0
-                                  << std::endl;
+                        // std::cout << "Entity position: (" << pos.x << "," << pos.y << "," << pos.z
+                        //           << ")" << std::endl;
+                        // std::cout << "Entity type: " << type.mainType << "," << type.subType0
+                        //           << std::endl;
 
                         // Check what's actually in the voxel grid at this position
                         int gridEntity = voxelGrid->getEntity(pos.x, pos.y, pos.z);
-                        std::cout << "Grid entity at position: " << gridEntity << std::endl;
+                        // std::cout << "Grid entity at position: " << gridEntity << std::endl;
 
                         if (gridEntity != entityId) {
                             std::cout << "ERROR: Grid mismatch! Grid has " << gridEntity
                                       << " but trying to delete " << entityId << std::endl;
                         }
-                    } else {
-                        std::cout << "Entity " << entityId
-                                  << " missing Position or EntityTypeComponent" << std::endl;
                     }
 
                     // Decide whether to remove from grid (true for hard kills)
@@ -864,7 +861,7 @@ void World::update() {
                     // acquire `TerrainGridLock` when needed.
                     destroyEntityWithGridCleanup(registry, *voxelGrid, dispatcher, entity,
                                                   shouldRemoveFromGrid);
-                    std::cout << "Destroyed entity " << entityId << std::endl;
+                    // std::cout << "Destroyed entity " << entityId << std::endl;
                 } else {
                     if (isSpecialId) {
                         std::cout << "Skipping special ID: " << entityId << std::endl;
@@ -874,12 +871,13 @@ void World::update() {
                     }
 
                     std::ostringstream ossMessage;
-                    ossMessage << "Entity " << entityId << " is already invalid.";
-                    spdlog::get("console")->info(ossMessage.str());
+                    ossMessage << "Warning: Attempted to delete invalid or special entity ID "
+                               << entityId << ".";
+                    spdlog::get("console")->warn(ossMessage.str());
                 }
             }
 
-            std::cout << "=== END ENTITY DELETION DEBUG ===\n" << std::endl;
+            // std::cout << "=== END ENTITY DELETION DEBUG ===\n" << std::endl;
             lifeEngine->entitiesToDelete.clear();
         }
     }

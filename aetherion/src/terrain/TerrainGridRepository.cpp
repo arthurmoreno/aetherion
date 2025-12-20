@@ -748,7 +748,7 @@ void TerrainGridRepository::deleteTerrain(entt::dispatcher& dispatcher, int x, i
     if (terrainId != -2 && terrainId != -1 &&
         registry_.valid(static_cast<entt::entity>(terrainId))) {
         // TODO: Handle dropping components and remove from EnTT
-        std::cout << "Deleting terrain entity: " << terrainId << std::endl;
+        // std::cout << "Deleting terrain entity: " << terrainId << std::endl;
         entt::entity entity = static_cast<entt::entity>(terrainId);
         removeFromTrackingMaps(key, entity);
         dispatcher.enqueue<KillEntityEvent>(entity);
@@ -816,7 +816,17 @@ void TerrainGridRepository::unlockTerrainGrid() {
 
 void TerrainGridRepository::softDeactivateEntity(entt::entity e, bool takeLock) {
     if (takeLock) {
-        TerrainGridLock lock(this);
+        if (!isTerrainGridLocked()) {
+            spdlog::debug("softDeactivateEntity: acquiring TerrainGridLock for entity {}", static_cast<int>(e));
+            TerrainGridLock lock(this);
+        } else {
+            spdlog::debug("softDeactivateEntity: repository already locked; skipping lock for entity {}", static_cast<int>(e));
+        }
+    } else {
+        // Caller requested no lock; warn if repository is not externally locked to help catch misuse
+        if (!isTerrainGridLocked()) {
+            spdlog::debug("softDeactivateEntity: called with takeLock=false but repository is not locked for entity {}", static_cast<int>(e));
+        }
     }
 
     if (!registry_.valid(e)) {
@@ -864,5 +874,5 @@ void TerrainGridRepository::softDeactivateEntity(entt::entity e, bool takeLock) 
         }, false, false);
     }
 
-    spdlog::info("softDeactivateEntity: entity {} soft-deactivated", static_cast<int>(e));
+    spdlog::debug("softDeactivateEntity: entity {} soft-deactivated", static_cast<int>(e));
 }

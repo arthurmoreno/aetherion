@@ -288,6 +288,20 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
     }
 }
 
+
+/**
+ * @brief Wrapper around `TerrainGridRepository::softDeactivateEntity` to centralize
+ * state changes in this module.
+ * @param voxelGrid The VoxelGrid containing the `terrainGridRepository`.
+ * @param entity The entity to soft-deactivate.
+ * @param takeLock Whether the repository should take its internal lock.
+ */
+inline void softDeactivateTerrainEntity(VoxelGrid& voxelGrid, entt::entity entity, bool takeLock) {
+    if (!voxelGrid.terrainGridRepository) return;
+
+    voxelGrid.terrainGridRepository->softDeactivateEntity(entity, takeLock);
+}
+
 /**
  * @brief Destroys an entity in the registry.
  * @param registry The entt::registry.
@@ -300,11 +314,9 @@ inline void _destroyEntity(entt::registry& registry, VoxelGrid& voxelGrid, entt:
     }
 
     // Ensure repository mapping cleaned before destroying entity to avoid stale mappings
-    if (voxelGrid.terrainGridRepository) {
-        // If we already acquired the TerrainGridLock above (shouldLock==true),
-        // tell softDeactivateEntity not to take the lock again to avoid deadlock.
-        voxelGrid.terrainGridRepository->softDeactivateEntity(entity, !shouldLock);
-    }
+    // Use centralized wrapper to keep state-changes in this module.
+    softDeactivateTerrainEntity(voxelGrid, entity, !shouldLock);
+
     registry.destroy(entity);
 }
 
@@ -572,14 +584,18 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
     bool isSpecialId = entityId == -1 || entityId == -2;
     if (!isSpecialId && registry.valid(entity) &&
         registry.all_of<Position, EntityTypeComponent>(entity)) {
-        std::cout << "Removing entity from grid: " << entityId << std::endl;
+        std::ostringstream ossMessage;
+        ossMessage << "[processPhysics:Velocity] Removing entity from grid: " << entityId;
+        spdlog::get("console")->debug(ossMessage.str());
         auto&& [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
 
         int currentGridEntity = voxelGrid.getEntity(pos.x, pos.y, pos.z);
         if (currentGridEntity != entityId) {
-            std::cout << "WARNING: Grid position (" << pos.x << "," << pos.y << "," << pos.z
-                      << ") contains entity " << currentGridEntity
-                      << " but trying to remove entity " << entityId << std::endl;
+            std::ostringstream ossMessage2;
+            ossMessage2 << "[processPhysics:Velocity] WARNING: Grid position (" << pos.x << "," << pos.y << "," << pos.z
+                        << ") contains entity " << currentGridEntity
+                        << " but trying to remove entity " << entityId;
+            spdlog::get("console")->debug(ossMessage2.str());
             return;
         }
 
@@ -590,39 +606,48 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
             voxelGrid.deleteEntity(pos.x, pos.y, pos.z);
         }
     } else if (isSpecialId) {
-        std::cout << "Entity " << entityId << " is a special ID, skipping grid removal."
-                  << std::endl;
+        std::ostringstream ossMessage;
+        ossMessage << "[processPhysics:Velocity] Entity " << entityId << " is a special ID, skipping grid removal.";
+        spdlog::get("console")->debug(ossMessage.str());
     } else if (!isSpecialId && registry.valid(entity)) {
         Position* position = registry.try_get<Position>(entity);
         EntityTypeComponent* entityType = registry.try_get<EntityTypeComponent>(entity);
         if (position) {
-            std::cout << "Entity " << entityId << " has Position component at ("
-                      << position->x << ", " << position->y << ", " << position->z << ")." << std::endl;
+            std::ostringstream ossMessage;
+            ossMessage << "[processPhysics:Velocity] Entity " << entityId << " has Position component at ("
+                       << position->x << ", " << position->y << ", " << position->z << ").";
+            spdlog::get("console")->debug(ossMessage.str());
         } else {
-            std::cout << "Entity " << entityId << " is missing Position component." << std::endl;
+            std::ostringstream ossMessage;
+            ossMessage << "[processPhysics:Velocity] Entity " << entityId << " is missing Position component.";
+            spdlog::get("console")->debug(ossMessage.str());
             Position _pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
             position = &_pos;
         }
 
-        std::cout << "Entity " << entityId
-                  << " is missing Position or EntityTypeComponent, checking TerrainGridRepository."
-                  << std::endl;
+        std::ostringstream ossMessage3;
+        ossMessage3 << "[processPhysics:Velocity] Entity " << entityId
+                     << " is missing Position or EntityTypeComponent, checking TerrainGridRepository.";
+        spdlog::get("console")->debug(ossMessage3.str());
         if (position->x == -1 && position->y == -1 && position->z == -1) {
-            std::cout << "Could not find position of entity " << entityId
-                      << " in TerrainGridRepository, skipping grid removal."
-                      << std::endl;
+            std::ostringstream ossMessage4;
+            ossMessage4 << "[processPhysics:Velocity] Could not find position of entity " << entityId
+                        << " in TerrainGridRepository, skipping grid removal.";
+            spdlog::get("console")->debug(ossMessage4.str());
             throw std::runtime_error(
                 "Entity is missing Position component and not found in TerrainGridRepository.");
             } else {
-            std::cout << "Removing entity " << entityId
-                      << " from grid using position from TerrainGridRepository at ("
-                      << position->x << ", " << position->y << ", " << position->z << ")."
-                      << std::endl;
+            std::ostringstream ossMessage5;
+            ossMessage5 << "[processPhysics:Velocity] Removing entity " << entityId
+                        << " from grid using position from TerrainGridRepository at ("
+                        << position->x << ", " << position->y << ", " << position->z << ").";
+            spdlog::get("console")->debug(ossMessage5.str());
             voxelGrid.deleteTerrain(dispatcher, position->x, position->y, position->z, takeLock);
         }
     } else {
-        std::cout << "Entity " << entityId << " is invalid, skipping grid removal."
-                  << std::endl;
+        std::ostringstream ossMessage;
+        ossMessage << "[processPhysics:Velocity] Entity " << entityId << " is invalid, skipping grid removal.";
+        spdlog::get("console")->debug(ossMessage.str());
     }
 }
 
@@ -843,7 +868,13 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, Vox
     std::cout << "[handleMovement] WARNING: Invalid entity in velocityView - skipping; entity ID="
               << static_cast<int>(entity) << " (cleanup will be handled by hooks)" << std::endl;
 
-    Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+    Position pos = {-1, -1, -1, DirectionEnum::DOWN};
+    try {
+        pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+    } catch (const aetherion::InvalidEntityException& e) {
+        voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
+        throw;  // Re-throw to be caught by handleMovement
+    }
     int entityId = static_cast<int>(entity);
     if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
         std::cout << "[handleMovement] Could not find position of entity " << entityId
@@ -931,7 +962,8 @@ inline void createWaterTerrainFromFall(entt::registry& registry, VoxelGrid& voxe
             sourceType.subType0 == static_cast<int>(TerrainEnum::WATER)) {
             auto& sourcePos = registry.get<Position>(sourceEntity);
             voxelGrid.setTerrain(sourcePos.x, sourcePos.y, sourcePos.z, -1);
-            voxelGrid.terrainGridRepository->softDeactivateEntity(sourceEntity);
+            // We're already holding TerrainGridLock for this operation, avoid double-locking
+            voxelGrid.terrainGridRepository->softDeactivateEntity(sourceEntity, false);
         }
     }
 }
@@ -1028,7 +1060,8 @@ inline void createWaterTerrainBelowVapor(entt::registry& registry, VoxelGrid& vo
         int vaporTerrainId = voxelGrid.getTerrain(vaporX, vaporY, vaporZ);
         if (vaporTerrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
             voxelGrid.setTerrain(vaporX, vaporY, vaporZ, static_cast<int>(TerrainIdTypeEnum::NONE));
-            voxelGrid.terrainGridRepository->softDeactivateEntity(static_cast<entt::entity>(vaporTerrainId), false);
+            // Caller did not hold the repository lock here; allow softDeactivateEntity to take the lock
+            voxelGrid.terrainGridRepository->softDeactivateEntity(static_cast<entt::entity>(vaporTerrainId));
         }
     }
 }
