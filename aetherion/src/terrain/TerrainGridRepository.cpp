@@ -754,15 +754,15 @@ void TerrainGridRepository::deleteTerrain(entt::dispatcher& dispatcher, int x, i
         dispatcher.enqueue<KillEntityEvent>(entity);
     } else if (terrainId != -2 && terrainId != -1) {
         // TODO
-        std::cout << "No active terrain entity to delete at (" << x << ", " << y << ", " << z
-                  << ") EntityID: "
-                  << terrainId << "But we might clean up something else here."
-                  << "\n";
+        // std::cout << "No active terrain entity to delete at (" << x << ", " << y << ", " << z
+        //           << ") EntityID: "
+        //           << terrainId << "But we might clean up something else here."
+        //           << "\n";
     } else {
-        std::cout << "No active terrain entity to delete at (" << x << ", " << y << ", " << z
-                  << ") EntityID: "
-                  << terrainId
-                  << "\n";
+        // std::cout << "No active terrain entity to delete at (" << x << ", " << y << ", " << z
+        //           << ") EntityID: "
+        //           << terrainId
+        //           << "\n";
     }
 }
 

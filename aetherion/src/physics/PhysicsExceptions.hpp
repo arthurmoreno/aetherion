@@ -61,4 +61,16 @@ class InvalidTerrainStateException : public PhysicsException {
     using PhysicsException::PhysicsException;
 };
 
+/**
+ * @brief Exception thrown when vapor upward movement is blocked and should diffuse sideways
+ *
+ * Thrown by `moveVaporUp` when upward movement cannot proceed (e.g. moving obstruction
+ * or no suitable vapor above to merge). The orchestrator can catch this and call
+ * `moveVaporSideways` to attempt lateral diffusion.
+ */
+class VaporMovementBlockedException : public MovementException {
+   public:
+    using MovementException::MovementException;
+};
+
 }  // namespace aetherion

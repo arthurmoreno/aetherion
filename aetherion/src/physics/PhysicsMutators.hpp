@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <memory>
 
 #include "components/EntityTypeComponent.hpp"
 #include "components/PhysicsComponents.hpp"
@@ -527,8 +528,8 @@ inline void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, VoxelGri
 inline void dropEntityItems(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity) {
     // NOTE: The logic for this function is based on the commented-out `dropItems`
     // function in `LifeEvents.cpp` and serves as a placeholder for the intended functionality.
-    std::cout << "Checking for item drops from entity " << static_cast<int>(entity)
-              << " (placeholder)." << std::endl;
+    // std::cout << "Checking for item drops from entity " << static_cast<int>(entity)
+    //           << " (placeholder)." << std::endl;
 
     // if (registry.valid(entity) && registry.all_of<Position, DropRates>(entity)) {
     //     auto&& [pos, dropRates] = registry.get<Position, DropRates>(entity);
@@ -1123,20 +1124,27 @@ inline void _handleTerrainPhaseConversionEvent(VoxelGrid& voxelGrid, const Terra
         event.position.x, event.position.y, event.position.z, event.newStructuralIntegrity);
 }
 
-inline void _handleCreateVaporEntityEvent(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, const CreateVaporEntityEvent& event) {
-    // Atomic operation: Create entity and update terrain grid
-    TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+// Helper: Create an Entt entity and register its terrain id in the TerrainGridRepository.
+// If `takeLock` is true (default) a TerrainGridLock is acquired for atomic update.
+inline entt::entity createAndRegisterVaporEntity(entt::registry& registry, VoxelGrid& voxelGrid,
+                                                int x, int y, int z, bool takeLock = true) {
+    std::unique_ptr<TerrainGridLock> lockGuard;
+    if (takeLock) {
+        lockGuard = std::make_unique<TerrainGridLock>(voxelGrid.terrainGridRepository.get());
+    }
 
-    // Create new entity for the vapor
     entt::entity newEntity = registry.create();
     int terrainId = static_cast<int>(newEntity);
+    voxelGrid.terrainGridRepository->setTerrainId(x, y, z, terrainId);
+    return newEntity;
+}
 
-    // Set terrain ID atomically
-    voxelGrid.terrainGridRepository->setTerrainId(event.position.x, event.position.y,
-                                                   event.position.z, terrainId);
+inline void _handleCreateVaporEntityEvent(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, const CreateVaporEntityEvent& event) {
+    // Create and register the vapor entity atomically (helper takes the repo lock)
+    entt::entity newEntity = createAndRegisterVaporEntity(registry, voxelGrid, event.position.x,
+                                                          event.position.y, event.position.z, true);
 
-    // Dispatch the move event with the newly created entity while holding lock
-    // This prevents race condition where entity could be accessed before movement is queued
+    // Dispatch the move event for the newly created entity (no need to hold repo lock here)
     MoveGasEntityEvent moveEvent{
         newEntity,
         Position{event.position.x, event.position.y, event.position.z, DirectionEnum::DOWN},

@@ -13,6 +13,9 @@
 #include "physics/ReadonlyQueries.hpp"
 #include "terrain/TerrainGridLock.hpp"
 
+#include "physics/PhysicsMutators.hpp"
+#include "physics/PhysicsExceptions.hpp"
+
 //==============================================================================
 // SECTION 1: PARALLEL WATER SIMULATION INFRASTRUCTURE
 //==============================================================================
@@ -891,9 +894,14 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
         } else if (haveMovement) {
             std::cout << "[moveVaporUp] Vapor obstructed at (" << pos.x << ", " << pos.y << ", "
                       << pos.z << "); cannot move up; It have movement already.\n";
+            throw aetherion::VaporMovementBlockedException(
+                "Vapor obstructed: upward movement blocked due to movement component above");
+
         } else {
             std::cout << "[moveVaporUp] Vapor obstructed at (" << pos.x << ", " << pos.y << ", "
                       << pos.z << "); cannot move up; No suitable vapor above to merge.\n";
+            throw aetherion::VaporMovementBlockedException(
+                "Vapor obstructed: no suitable vapor above to merge");
         }
     }
     
@@ -947,7 +955,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
         // Update position in the registry and voxel grid
 
         if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-            entt::entity newTerrainEntity = registry.create();
+            entt::entity newTerrainEntity = createAndRegisterVaporEntity(registry, voxelGrid, pos.x, pos.y, pos.z, true);
             terrainId = static_cast<int>(newTerrainEntity);
         }
         entt::entity entity = static_cast<entt::entity>(terrainId);
@@ -960,18 +968,18 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
     } else {
         auto terrainSide = static_cast<entt::entity>(terrainSideId);
         // checkAndConvertSoftEmptyIntoVapor(registry, terrainSide);
-        if (registry.all_of<EntityTypeComponent, MatterContainer>(
-                static_cast<entt::entity>(terrainSideId))) {
-            ossMessage << "[moveVaporSideways] Vapor cannot move sideways; obstruction at (" << newX
-                       << ", " << newY << ", " << pos.z << ")\n";
+        EntityTypeComponent typeSide =
+            voxelGrid.terrainGridRepository->getTerrainEntityType(newX, newY, pos.z);
+        MatterContainer matterContainerSide =
+            voxelGrid.terrainGridRepository->getTerrainMatterContainer(newX, newY, pos.z);
+        if (typeSide.mainType == static_cast<int>(EntityEnum::TERRAIN)) {
+            ossMessage << "[moveVaporSideways] there is a terrain on the sideways; (" << newX
+                       << ", " << newY << ", " << pos.z << ")";
             spdlog::get("console")->debug(ossMessage.str());
             ossMessage.str("");
             ossMessage.clear();
 
             // Merge with vapor if possible
-            auto&& [typeSide, matterContainerSide] =
-                registry.get<EntityTypeComponent, MatterContainer>(
-                    static_cast<entt::entity>(terrainSideId));
             bool haveMovement =
                 voxelGrid.terrainGridRepository->hasMovingComponent(pos.x, pos.y, pos.z);
 
@@ -980,7 +988,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
                  typeSide.subType0 == static_cast<int>(TerrainEnum::WATER)) &&
                 matterContainerSide.WaterVapor >= 0 && matterContainerSide.WaterMatter == 0) {
                 ossMessage << "[moveVaporSideways] Vapor merging with vapor at (" << newX << ", "
-                           << newY << ", " << pos.z << ")\n";
+                           << newY << ", " << pos.z << ")";
                 spdlog::get("console")->debug(ossMessage.str());
                 ossMessage.str("");
                 ossMessage.clear();
@@ -993,13 +1001,19 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
                 dispatcher.enqueue<VaporMergeSidewaysEvent>(event);
             } else {
                 ossMessage << "[moveVaporSideways] Vapor Obstructed; cannot move sideways (" << newX
-                           << ", " << newY << ", " << pos.z << ")\n";
+                           << ", " << newY << ", " << pos.z << ")";
                 spdlog::get("console")->debug(ossMessage.str());
                 ossMessage.str("");
                 ossMessage.clear();
                 // Obstructed; cannot move sideways
                 // Optionally handle other directions or stay in place
             }
+        } else {
+            ossMessage << "[moveVaporSideways] Vapor cannot move sideways; The entity at (" << newX
+                       << ", " << newY << ", " << pos.z << ") is not terrain";
+            spdlog::get("console")->debug(ossMessage.str());
+            ossMessage.str("");
+            ossMessage.clear();
         }
     }
 }
@@ -1090,9 +1104,12 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
 
     if (pos.z < maxAltitude && isTerrainAboveVaporOrEmpty) {
         // Move vapor up
-        // std::cout << "[moveVapor] Dispatching moveVaporUp for vapor entity at (" << pos.x
-        //             << ", " << pos.y << ", " << pos.z << ")\n";
-        moveVaporUp(registry, voxelGrid, dispatcher, pos, type, matterContainer);
+        try {
+            moveVaporUp(registry, voxelGrid, dispatcher, pos, type, matterContainer);
+        } catch (const aetherion::VaporMovementBlockedException& e) {
+            // Upward movement blocked: attempt lateral diffusion
+            moveVaporSideways(registry, voxelGrid, dispatcher, pos, type, matterContainer);
+        }
     } else {
         if (pos.z < maxAltitude) {
             std::cout
@@ -1110,7 +1127,7 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
         }
         // Vapor has reached max altitude; move sideways
         // TODO: Uncomment when ready.
-        // moveVaporSideways(registry, voxelGrid, dispatcher, pos, type, matterContainer);
+        moveVaporSideways(registry, voxelGrid, dispatcher, pos, type, matterContainer);
     }
 }
 
