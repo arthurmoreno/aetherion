@@ -736,9 +736,7 @@ void dispatchVaporCreationOrAddition(entt::registry& registry, VoxelGrid& voxelG
 // 4.2 Condensation
 
 void condenseVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
-                   entt::entity entity, Position& pos, EntityTypeComponent& type,
-                   MatterContainer& matterContainer,
-                   tbb::concurrent_queue<CondenseWaterEntityEvent>& pendingCondenseWater) {
+                   Position& pos, EntityTypeComponent& type, MatterContainer& matterContainer) {
     int condensationAmount = 1;
 
     std::ostringstream ossMessage;
@@ -1028,8 +1026,7 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
     const int condensationThreshold = 21;
     if (matterContainer.WaterVapor >= condensationThreshold) {
         // TODO: Uncomment when ready.
-        // condenseVapor(registry, voxelGrid, dispatcher, entity, pos, type, matterContainer,
-        //               pendingCondenseWater);
+        condenseVapor(registry, voxelGrid, dispatcher, pos, type, matterContainer);
         return;  // Condensation happened, exit the function
     }
 
@@ -1274,8 +1271,21 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
 
         // Ensure that both WaterMatter and WaterVapor cannot coexist
         if (isWater && matterContainer.WaterMatter > 0 && matterContainer.WaterVapor > 0) {
+
+
+            std::ostringstream ossMessage;
+            ossMessage << "[processTileWater] Error info: entity (" << entity_id_for_print << ")"
+                       << " at (" << x << ", " << y << ", " << z << ")\n"
+                       << "  ------------------------------------------------\n"
+                       << "    matterBelow now has WaterMatter: " << matterContainer.WaterMatter << "\n"
+                       << "    matterBelow now has WaterVapor: " << matterContainer.WaterVapor << "\n"
+                       << "  ------------------------------------------------\n";
+            
+            spdlog::get("console")->info(ossMessage.str());
+
             // This should not happen; adjust accordingly
             std::cerr << "Error: Entity has both WaterMatter and WaterVapor\n";
+            throw std::runtime_error("Error: Entity has both WaterMatter and WaterVapor");
         }
     }
 }

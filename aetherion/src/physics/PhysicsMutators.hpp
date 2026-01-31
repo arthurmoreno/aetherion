@@ -22,149 +22,15 @@
 #include "terrain/TerrainGridLock.hpp"
 #include <spdlog/spdlog.h>
 
+#include "physics/ComponentMutators.hpp"
+
 // Forward declarations for functions used across categories
-static void convertIntoSoftEmpty(entt::registry& registry, entt::entity& terrain);
-static void setEmptyWaterComponentsEnTT(entt::registry& registry, entt::entity& terrain,
-                                        MatterState matterState);
+// Note: direct component mutators are declared in ComponentMutators.hpp
 static void setEmptyWaterComponentsStorage(entt::registry& registry, VoxelGrid& voxelGrid,
                                            int terrainId, int x, int y, int z,
                                            MatterState matterState);
 inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid, int x,
                                              int y, int z, int vaporAmount);
-
-// =========================================================================
-// ================ 1. Direct Component Mutators = ================
-// =========================================================================
-
-/**
- * @brief Directly modifies the fields of a Velocity component.
- * @param velocity Reference to the Velocity component to modify.
- * @param newVx The new velocity on the X-axis.
- * @param newVy The new velocity on the Y-axis.
- * @param newVz The new velocity on the Z-axis.
- */
-inline void updateEntityVelocity(Velocity& velocity, float newVx, float newVy, float newVz) {
-    velocity.vx = newVx;
-    velocity.vy = newVy;
-    velocity.vz = newVz;
-}
-
-/**
- * @brief Ensures a terrain entity has a Position component, adding one if it's missing.
- * @details This is a safety check for terrain entities (e.g., vapor) that might be processed
- * by physics before being fully initialized. It fetches the position from the TerrainGridRepository.
- * @param registry The entt::registry.
- * @param voxelGrid The VoxelGrid for accessing the terrain repository.
- * @param entity The entity to check.
- * @param isTerrain Flag indicating if the entity is a terrain entity.
- * @throws std::runtime_error if the entity is missing a position and it cannot be found in the repository.
- */
-inline void ensurePositionComponentForTerrain(entt::registry& registry, VoxelGrid& voxelGrid,
-                                              entt::entity entity, bool isTerrain) {
-    // For terrain entities, verify they have Position component
-    // This ensures vapor entities are fully initialized before physics processes them
-    if (isTerrain && !registry.all_of<Position>(entity)) {
-        if (!voxelGrid.terrainGridRepository) {
-            spdlog::warn("ensurePositionComponentForTerrain: no terrainGridRepository available");
-            throw std::runtime_error("Missing TerrainGridRepository");
-        }
-        std::ostringstream error;
-        error << "[handleMovement] Terrain entity " << static_cast<int>(entity)
-              << " missing Position component (not fully initialized yet)";
-
-        // delete from terrain repository mapping.
-        Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
-        int entityId = static_cast<int>(entity);
-        if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-            std::cout << "[handleMovement] Could not find position of entity " << entityId
-                      << " in TerrainGridRepository, skipping entity." << std::endl;
-            throw std::runtime_error(error.str());
-        }
-        registry.emplace<Position>(entity, pos);
-        // throw std::runtime_error(error.str());
-    }
-}
-
-/**
- * @brief Transforms an existing entity into "soft empty" terrain in the ECS.
- * @details This is done by updating its EntityTypeComponent and StructuralIntegrityComponent
- * to reflect the properties of an empty, gaseous tile.
- * @param registry The entt::registry.
- * @param terrain The entity to convert.
- */
-static void convertIntoSoftEmpty(entt::registry& registry, entt::entity& terrain) {
-    EntityTypeComponent* terrainType = registry.try_get<EntityTypeComponent>(terrain);
-    bool shouldEmplaceTerrainType{terrainType == nullptr};
-    if (terrainType == nullptr) {
-        terrainType = new EntityTypeComponent();
-    }
-    terrainType->mainType = static_cast<int>(EntityEnum::TERRAIN);
-    terrainType->subType0 = static_cast<int>(TerrainEnum::EMPTY);
-    terrainType->subType1 = 0;
-    if (shouldEmplaceTerrainType) {
-        registry.emplace<EntityTypeComponent>(terrain, *terrainType);
-    }
-
-    StructuralIntegrityComponent* terrainSI =
-        registry.try_get<StructuralIntegrityComponent>(terrain);
-    bool shouldEmplaceTerrainSI{terrainSI == nullptr};
-    if (terrainSI == nullptr) {
-        terrainSI = new StructuralIntegrityComponent();
-    }
-    terrainSI->canStackEntities = false;
-    terrainSI->maxLoadCapacity = -1;
-    terrainSI->matterState = MatterState::GAS;
-    if (shouldEmplaceTerrainSI) {
-        registry.emplace<StructuralIntegrityComponent>(terrain, *terrainSI);
-    }
-}
-
-/**
- * @brief Sets or overwrites components of an entity in the ECS to represent an empty water tile.
- * @param registry The entt::registry.
- * @param terrain The entity to modify.
- * @param matterState The matter state (e.g., LIQUID) to assign to the entity.
- */
-static void setEmptyWaterComponentsEnTT(entt::registry& registry, entt::entity& terrain,
-                                        MatterState matterState) {
-    EntityTypeComponent* terrainType = registry.try_get<EntityTypeComponent>(terrain);
-    bool shouldEmplaceTerrainType{terrainType == nullptr};
-    if (terrainType == nullptr) {
-        terrainType = new EntityTypeComponent();
-    }
-    terrainType->mainType = static_cast<int>(EntityEnum::TERRAIN);
-    terrainType->subType0 = static_cast<int>(TerrainEnum::WATER);
-    terrainType->subType1 = 0;
-    if (shouldEmplaceTerrainType) {
-        registry.emplace<EntityTypeComponent>(terrain, *terrainType);
-    }
-
-    StructuralIntegrityComponent* terrainSI =
-        registry.try_get<StructuralIntegrityComponent>(terrain);
-    bool shouldEmplaceTerrainSI{terrainSI == nullptr};
-    if (terrainSI == nullptr) {
-        terrainSI = new StructuralIntegrityComponent();
-    }
-    terrainSI->canStackEntities = false;
-    terrainSI->maxLoadCapacity = -1;
-    terrainSI->matterState = matterState;
-    if (shouldEmplaceTerrainSI) {
-        registry.emplace<StructuralIntegrityComponent>(terrain, *terrainSI);
-    }
-
-    MatterContainer* terrainMC = registry.try_get<MatterContainer>(terrain);
-    bool shouldEmplaceTerrainMC{terrainMC == nullptr};
-    if (terrainMC == nullptr) {
-        terrainMC = new MatterContainer();
-    }
-    terrainMC->TerrainMatter = 0;
-    terrainMC->WaterMatter = 0;
-    terrainMC->WaterVapor = 0;
-    terrainMC->BioMassMatter = 0;
-    if (shouldEmplaceTerrainMC) {
-        registry.emplace<MatterContainer>(terrain, *terrainMC);
-    }
-}
 
 // =========================================================================
 // ================ 2. Entity Lifecycle Mutators = ================

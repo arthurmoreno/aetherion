@@ -217,9 +217,9 @@ class TerrainGridRepository {
         return func();
     }
 
+    bool isTerrainGridLocked() const;
    private:
     // Check if terrain grid is currently locked
-    bool isTerrainGridLocked() const;
 
     // Utility methods for conditional locking
     template <typename Func>
