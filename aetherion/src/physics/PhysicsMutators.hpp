@@ -752,10 +752,10 @@ inline entt::entity reviveColdTerrainEntities(entt::registry& registry, VoxelGri
     Position positionOnTerrainGrid =
         voxelGrid.terrainGridRepository->getPositionOfEntt(invalidTerrain);
 
-    std::cout << "[processPhysics] Found position of entity " << invalidTerrainId
-              << " in TerrainGridRepository at (" << positionOfEntt.x << ", " << positionOfEntt.y
-              << ", " << positionOfEntt.z << ")" << " - checking if vapor terrain needs revival"
-              << std::endl;
+    // std::cout << "[processPhysics] Found position of entity " << invalidTerrainId
+    //           << " in TerrainGridRepository at (" << positionOfEntt.x << ", " << positionOfEntt.y
+    //           << ", " << positionOfEntt.z << ")" << " - checking if vapor terrain needs revival"
+    //           << std::endl;
 
     // Check if this is vapor terrain that needs to be revived
     EntityTypeComponent terrainType = voxelGrid.terrainGridRepository->getTerrainEntityType(

@@ -111,6 +111,10 @@ class World {
 
     void registerPythonEventHandler(const std::string& eventType, nb::object callback);
 
+    // Water simulation error handling
+    std::vector<ThreadError> getWaterSimErrors() const;
+    bool hasWaterSimErrors() const;
+
     // Method to return a capsule containing the pointer to this instance
     nb::capsule get_ptr() { return nb::capsule(this, "World"); }
 
@@ -136,6 +140,7 @@ class World {
     // Ecosystem
     EcosystemEngine* ecosystemEngine;
     std::future<void> ecosystemFuture;
+    bool ecosystemStarted_ = false;
 
     // MetabolismSystem
     MetabolismSystem* metabolismSystem;

@@ -17,6 +17,7 @@
 // clang-format off
 #include "CameraUtils.hpp"
 #include "components/core/Command.hpp"
+#include "EcosystemEngine.hpp"
 #include "EntityInterface.hpp"
 #include "Gui/Gui.hpp"
 #include "Gui/GuiStateManager.hpp"
@@ -30,6 +31,7 @@
 #include "voxelgrid/VoxelGridView.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
 #include "World.hpp"
+#include "WorldExceptions.hpp"
 #include "neat/genome.hpp"
 #include "terrain/TerrainGridRepository.hpp"
 #include "terrain/TerrainStorage.hpp"

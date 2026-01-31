@@ -19,6 +19,7 @@
 #include "flatbuffers/flatbuffers.h"
 #include "voxelgrid/VoxelGrid.hpp"
 #include "physics/PhysicsMutators.hpp"
+#include "WorldExceptions.hpp"
 
 World::World(int width, int height, int depth)
     : voxelGrid(new VoxelGrid(registry)),
@@ -914,15 +915,26 @@ void World::update() {
             } catch (const std::exception& e) {
                 std::cerr << "EcosystemEngine async task crashed: " << e.what() << std::endl;
                 // Handle the exception
+                throw aetherion::EcosystemEngineException("[EcosystemEngineException] EcosystemEngine async task crashed: " + std::string(e.what()));
             }
+        } else if (ecosystemStarted_) {
+            // Future is invalid AND we've run before = error state
+            Logger::getLogger()->error("EcosystemEngine future invalid after being started - critical error detected");
+            throw aetherion::EcosystemEngineException("[EcosystemEngineException] EcosystemEngine future became invalid after error");
         }
+        // else: First run, future not started yet - this is normal
 
-        ecosystemFuture = std::async(
-            std::launch::async, safeExecute,
-            [this]() {
-                ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, dispatcher, gameClock);
-            },
-            "EcosystemEngine");
+        // Only restart ecosystem task if no critical error has occurred
+        if (ecosystemEngine && ecosystemEngine->waterSimManager_ && 
+            !ecosystemEngine->waterSimManager_->hasEncounteredCriticalError()) {
+            ecosystemFuture = std::async(
+                std::launch::async, safeExecute,
+                [this]() {
+                    ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, dispatcher, gameClock);
+                },
+                "EcosystemEngine");
+            ecosystemStarted_ = true;  // Mark as started
+        }
     }
 
     if (processMetabolismAsync) {
@@ -959,3 +971,17 @@ std::vector<std::pair<uint64_t, double>> World::queryTimeSeries(const std::strin
 }
 
 void World::executeSQL(const std::string& sql) { dbHandler->executeSQL(sql); }
+
+std::vector<ThreadError> World::getWaterSimErrors() const {
+    if (ecosystemEngine && ecosystemEngine->waterSimManager_) {
+        return ecosystemEngine->waterSimManager_->getErrors();
+    }
+    return {};
+}
+
+bool World::hasWaterSimErrors() const {
+    if (ecosystemEngine && ecosystemEngine->waterSimManager_) {
+        return ecosystemEngine->waterSimManager_->hasEncounteredCriticalError();
+    }
+    return false;
+}

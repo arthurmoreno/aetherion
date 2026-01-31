@@ -742,11 +742,11 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             }
 
             {
-                std::ostringstream ossMessage;
-                ossMessage << "[processPhysics:Velocity] Found position of entity " << entityId
-                           << " in TerrainGridRepository at (" << pos.x << ", " << pos.y << ", " << pos.z
-                           << ") - checking if vapor terrain needs revival";
-                spdlog::get("console")->debug(ossMessage.str());
+                // std::ostringstream ossMessage;
+                // ossMessage << "[processPhysics:Velocity] Found position of entity " << entityId
+                //            << " in TerrainGridRepository at (" << pos.x << ", " << pos.y << ", " << pos.z
+                //            << ") - checking if vapor terrain needs revival";
+                // spdlog::get("console")->debug(ossMessage.str());
             }
 
             // Check if this is vapor terrain that needs to be revived
@@ -895,11 +895,11 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             }
 
             {
-                std::ostringstream ossMessage;
-                ossMessage << "[processPhysics:MovingComponent] Found position of entity " << entityId
-                          << " in TerrainGridRepository at (" << pos.x << ", " << pos.y << ", " << pos.z
-                          << ") - checking if vapor terrain needs revival";
-                spdlog::get("console")->debug(ossMessage.str());
+                // std::ostringstream ossMessage;
+                // ossMessage << "[processPhysics:MovingComponent] Found position of entity " << entityId
+                //           << " in TerrainGridRepository at (" << pos.x << ", " << pos.y << ", " << pos.z
+                //           << ") - checking if vapor terrain needs revival";
+                // spdlog::get("console")->debug(ossMessage.str());
             }
 
             // Check if this is vapor terrain that needs to be revived

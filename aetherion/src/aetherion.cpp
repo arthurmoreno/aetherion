@@ -23,6 +23,9 @@ nb::object variant_to_pyobject(const ItemConfiguration::DefaultValue& var) {
 }
 
 NB_MODULE(_aetherion, m) {
+    // Register custom exceptions
+    nb::exception<aetherion::EcosystemEngineException>(m, "EcosystemEngineException");
+
     nb::bind_map<std::map<std::string, int>>(m, "MapStrInt");
     nb::bind_map<std::map<std::string, std::string>>(m, "MapStrStr");
     nb::bind_map<std::map<std::string, double>>(m, "MapStrDouble");
@@ -604,6 +607,16 @@ NB_MODULE(_aetherion, m) {
         .value("ENTITY", GridType::ENTITY)
         .export_values();
 
+    // Expose ThreadError struct for water simulation error reporting
+    nb::class_<ThreadError>(m, "ThreadError")
+        .def(nb::init<int, const std::string&>(), nb::arg("thread_id"), nb::arg("error_message"))
+        .def_ro("thread_id", &ThreadError::threadId, "Worker thread ID that encountered the error")
+        .def_ro("error_message", &ThreadError::errorMessage, "Error message from the thread")
+        .def("__repr__", [](const ThreadError& e) {
+            return "<ThreadError thread_id=" + std::to_string(e.threadId) + 
+                   " message='" + e.errorMessage + "'>";
+        });
+
     nb::class_<World>(m, "World")
         .def(nb::init<int, int, int>())
         .def_rw("width", &World::width)
@@ -658,7 +671,12 @@ NB_MODULE(_aetherion, m) {
         .def("execute_sql", [](World& w, nb::object sql) {
             std::string s = nb::cast<std::string>(sql);
             w.executeSQL(s);
-        });
+        })
+        // Water simulation error handling methods
+        .def("get_water_sim_errors", &World::getWaterSimErrors,
+             "Get list of water simulation thread errors with details (thread ID, message)")
+        .def("has_water_sim_errors", &World::hasWaterSimErrors,
+             "Check if water simulation has encountered critical errors");
 
     nb::class_<WorldView>(m, "WorldView")
         .def(nb::init<>())  // Expose the constructor
