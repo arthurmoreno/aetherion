@@ -7,6 +7,7 @@
 #include <iostream>
 #include <random>
 #include <ranges>
+#include <sstream>
 #include <thread>
 
 #include "ecosystem/ReadonlyQueries.hpp"
@@ -117,7 +118,15 @@ WaterSimulationManager::WaterSimulationManager(int numThreads)
     workerThreads_.reserve(numThreads_);
 }
 
-WaterSimulationManager::~WaterSimulationManager() { stopWorkerThreads(); }
+WaterSimulationManager::~WaterSimulationManager() { 
+    // Destructor MUST NOT THROW
+    try {
+        initiateShutdown();
+    } catch (...) {
+        // Swallow exceptions in destructor to prevent termination
+        std::cerr << "[WaterSimulationManager] Exception during shutdown in destructor\n";
+    }
+}
 
 void WaterSimulationManager::initializeProcessors(entt::registry& registry, VoxelGrid& voxelGrid,
                                                   entt::dispatcher& dispatcher) {
@@ -188,12 +197,29 @@ void WaterSimulationManager::workerThreadFunction(int threadId, entt::registry& 
 
         activeWorkers_++;
 
-        // Process the box
-        auto modifications = processBoxConcurrently(threadId % processors_.size(),
-                                                    gridBoxes_[boxIndex], sunIntensity);
+        try {
+            // Process the box
+            auto modifications = processBoxConcurrently(threadId % processors_.size(),
+                                                        gridBoxes_[boxIndex], sunIntensity);
 
-        // Push results to concurrent queue
-        resultQueue_.push(std::move(modifications));
+            // Push results to concurrent queue
+            resultQueue_.push(std::move(modifications));
+        } catch (const std::exception& e) {
+            // Capture exception and push to error queue instead of crashing
+            std::ostringstream oss;
+            oss << "[Thread " << threadId << "] Exception at box " << boxIndex 
+                << ": " << e.what();
+            errorQueue_.push(ThreadError(threadId, oss.str()));
+            
+            std::cerr << oss.str() << std::endl;
+        } catch (...) {
+            // Capture unknown exceptions
+            std::ostringstream oss;
+            oss << "[Thread " << threadId << "] Unknown exception at box " << boxIndex;
+            errorQueue_.push(ThreadError(threadId, oss.str()));
+            
+            std::cerr << oss.str() << std::endl;
+        }
 
         activeWorkers_--;
         completedTasks_++;
@@ -333,10 +359,38 @@ void WaterSimulationManager::applyModificationsWithLock(
 
 void WaterSimulationManager::processWaterSimulation(entt::registry& registry, VoxelGrid& voxelGrid,
                                                     float sunIntensity) {
+    // Don't process if we've encountered a critical error or are shutting down
+    if (hasEncounteredCriticalError_.load() || isShuttingDown_.load()) {
+        return;  // Graceful exit, don't throw during shutdown
+    }
+    
     // Clear previous results
     std::vector<WaterFlow> temp;
     while (resultQueue_.try_pop(temp)) {
         // Clear queue
+    }
+
+    // Check for errors from worker threads
+    auto errors = getErrors();
+    if (!errors.empty()) {
+        std::ostringstream oss;
+        oss << "Worker thread errors detected (" << errors.size() << " errors):\n";
+        for (const auto& error : errors) {
+            oss << "  Thread " << error.threadId << ": " << error.errorMessage << "\n";
+        }
+        // Log the errors to spdlog if available
+        auto logger = spdlog::get("console");
+        if (logger) {
+            logger->error(oss.str());
+        } else {
+            std::cerr << oss.str() << std::endl;
+        }
+        
+        // CRITICAL: Initiate clean shutdown BEFORE throwing exception
+        initiateShutdown();
+        
+        // Throw exception to propagate to Python
+        throw std::runtime_error(oss.str());
     }
 
     // Check if scheduler has available slots and add 30% of boxes if needed
@@ -359,6 +413,37 @@ void WaterSimulationManager::processWaterSimulation(entt::registry& registry, Vo
     if (!allModifications.empty()) {
         applyModificationsWithLock(registry, voxelGrid, allModifications);
     }
+}
+
+bool WaterSimulationManager::hasErrors() {
+    ThreadError temp(0, "");
+    return errorQueue_.try_pop(temp) && (errorQueue_.push(temp), true);
+}
+
+std::vector<ThreadError> WaterSimulationManager::getErrors() {
+    std::vector<ThreadError> errors;
+    ThreadError error(0, "");
+    while (errorQueue_.try_pop(error)) {
+        errors.push_back(error);
+    }
+    return errors;
+}
+
+void WaterSimulationManager::initiateShutdown() {
+    // Use exchange to make this idempotent - only first call does the work
+    if (isShuttingDown_.exchange(true)) {
+        return;  // Already shutting down, return immediately
+    }
+    
+    std::cout << "[WaterSimulationManager] Initiating clean shutdown...\n";
+    
+    // Set error flag
+    hasEncounteredCriticalError_.store(true);
+    
+    // Stop all worker threads cleanly
+    stopWorkerThreads();
+    
+    std::cout << "[WaterSimulationManager] Shutdown complete.\n";
 }
 
 

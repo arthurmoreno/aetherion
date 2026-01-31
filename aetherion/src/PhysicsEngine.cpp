@@ -105,6 +105,30 @@ void PhysicsEngine::onVaporCreationEvent(const VaporCreationEvent& event) {
     // Reuse existing helper function which already has proper locking
     TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
+    // Defensive check: ensure tile above is valid for vapor addition
+    int tx = event.position.x;
+    int ty = event.position.y;
+    int tz = event.position.z + 1;
+    int terrainAboveId = voxelGrid->getTerrain(tx, ty, tz);
+    if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        EntityTypeComponent typeAbove =
+            voxelGrid->terrainGridRepository->getTerrainEntityType(tx, ty, tz);
+        MatterContainer matterAbove =
+            voxelGrid->terrainGridRepository->getTerrainMatterContainer(tx, ty, tz);
+
+        if (!(typeAbove.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+              typeAbove.subType0 == static_cast<int>(TerrainEnum::WATER) &&
+              matterAbove.WaterMatter == 0)) {
+            std::ostringstream oss;
+            oss << "[onVaporCreationEvent] Cannot add vapor above at (" << tx << ", " << ty
+                << ", " << tz << ") - target invalid. type=" << typeAbove.mainType
+                << ", subtype=" << typeAbove.subType0 << ", WaterMatter="
+                << matterAbove.WaterMatter << ", WaterVapor=" << matterAbove.WaterVapor;
+            spdlog::get("console")->warn(oss.str());
+            return;
+        }
+    }
+
     addOrCreateVaporAbove(registry, *voxelGrid, event.position.x, event.position.y,
                           event.position.z, event.amount);
 }
@@ -125,12 +149,30 @@ void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent& event) {
     // Lock terrain grid for atomic state change
     TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
-    // Get target vapor and merge
+    // Validate merge target before adding vapor
+    EntityTypeComponent targetType =
+        voxelGrid->terrainGridRepository->getTerrainEntityType(event.target.x, event.target.y,
+                                                              event.target.z);
     MatterContainer targetMatter = voxelGrid->terrainGridRepository->getTerrainMatterContainer(
         event.target.x, event.target.y, event.target.z);
-    targetMatter.WaterVapor += event.amount;
-    voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.target.x, event.target.y,
-                                                                event.target.z, targetMatter);
+
+    // Only merge into a vapor/transitory tile: must be terrain WATER with no liquid water
+    if (targetType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+        targetType.subType0 == static_cast<int>(TerrainEnum::WATER) &&
+        targetMatter.WaterMatter == 0) {
+        targetMatter.WaterVapor += event.amount;
+        voxelGrid->terrainGridRepository->setTerrainMatterContainer(event.target.x, event.target.y,
+                                                                    event.target.z, targetMatter);
+    } else {
+        std::ostringstream ossMessage;
+        ossMessage << "[VaporMergeUpEvent] Merge target invalid at (" << event.target.x << ", "
+                   << event.target.y << ", " << event.target.z << ") - skipping merge."
+                   << " type=" << targetType.mainType << ", subtype=" << targetType.subType0
+                   << ", WaterMatter=" << targetMatter.WaterMatter
+                   << ", WaterVapor=" << targetMatter.WaterVapor;
+        spdlog::get("console")->warn(ossMessage.str());
+        return;
+    }
 
     // Clear source vapor
     MatterContainer sourceMatter = voxelGrid->terrainGridRepository->getTerrainMatterContainer(
@@ -1280,12 +1322,33 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
     const int y = event.vaporPos.y;
     const int z = event.vaporPos.z;
 
-    // Lock terrain grid for atomic condensation operation
-    voxelGrid->terrainGridRepository->lockTerrainGrid();
+    // Acquire RAII terrain grid lock for atomic condensation operation
+    TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
     // Get current vapor state
     MatterContainer vaporMatter =
         voxelGrid->terrainGridRepository->getTerrainMatterContainer(x, y, z);
+
+    if (vaporMatter.WaterVapor < event.condensationAmount) {
+        // Not enough vapor to condense
+        std::ostringstream ossMessage;
+        ossMessage
+            << "[onCondenseWaterEntityEvent] Not enough vapor to condense at (" << x << ", " << y << ", " << z
+            << ") - available: " << vaporMatter.WaterVapor
+            << ", requested: " << event.condensationAmount;
+        spdlog::get("console")->warn(ossMessage.str());
+        return;
+    }
+
+    if (vaporMatter.WaterMatter > 0 || vaporMatter.WaterVapor == 0) {
+        std::ostringstream ossMessage;
+        ossMessage << "[onCondenseWaterEntityEvent] Invalid vapor state for condensation at ("
+                   << x << ", " << y << ", " << z
+                   << ") - WaterMatter: " << vaporMatter.WaterMatter
+                   << ", WaterVapor: " << vaporMatter.WaterVapor;
+        spdlog::get("console")->warn(ossMessage.str());
+        return;
+    }
 
     // Check if there's terrain below
     if (event.terrainBelowId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
@@ -1303,6 +1366,20 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
             matterBelow.WaterMatter += event.condensationAmount;
             vaporMatter.WaterVapor -= event.condensationAmount;
 
+            std::ostringstream ossMessage;
+            ossMessage << "[onCondenseWaterEntityEvent] Condensed " << event.condensationAmount
+                       << " vapor at (" << x << ", " << y << ", " << z << ")\n"
+                       << "  ------------------------------------------------\n"
+                       << "    matterBelow now has WaterMatter: " << matterBelow.WaterMatter << "\n"
+                       << "    matterBelow now has WaterVapor: " << matterBelow.WaterVapor << "\n"
+                       << "  ------------------------------------------------\n"
+                       << "    vaporMatter now has WaterMatter: " << vaporMatter.WaterMatter << "\n"
+                       << "    vaporMatter now has WaterVapor: " << vaporMatter.WaterVapor << "\n"
+                       << "  ------------------------------------------------\n"
+                       << "    into water terrain below at";
+            
+            spdlog::get("console")->info(ossMessage.str());
+
             voxelGrid->terrainGridRepository->setTerrainMatterContainer(x, y, z - 1, matterBelow);
             voxelGrid->terrainGridRepository->setTerrainMatterContainer(x, y, z, vaporMatter);
 
@@ -1310,10 +1387,15 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
             if (vaporMatter.WaterVapor <= 0) {
                 int vaporTerrainId = voxelGrid->getTerrain(x, y, z);
                 if (vaporTerrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-                    voxelGrid->terrainGridRepository->unlockTerrainGrid();
-                    entt::entity vaporEntity = static_cast<entt::entity>(vaporTerrainId);
-                    deleteEntityOrConvertInEmpty(registry, dispatcher, vaporEntity);
-                    voxelGrid->terrainGridRepository->lockTerrainGrid();
+                    // voxelGrid->terrainGridRepository->unlockTerrainGrid();
+
+                    spdlog::get("console")->warn(
+                        "[onCondenseWaterEntityEvent] Vapor depleted after condensation - removing vapor terrain entity");
+                    return;
+
+                    // entt::entity vaporEntity = static_cast<entt::entity>(vaporTerrainId);
+                    // deleteEntityOrConvertInEmpty(registry, dispatcher, vaporEntity);
+                    // voxelGrid->terrainGridRepository->lockTerrainGrid();
                 }
             }
         }
@@ -1323,7 +1405,7 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
                                      vaporMatter);
     }
 
-    voxelGrid->terrainGridRepository->unlockTerrainGrid();
+    // RAII `lock` will release the terrain grid lock when it goes out of scope
 }
 
 // Water fall event handler - moved from EcosystemEngine

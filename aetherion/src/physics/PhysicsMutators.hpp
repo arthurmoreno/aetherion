@@ -23,6 +23,54 @@
 #include <spdlog/spdlog.h>
 
 #include "physics/ComponentMutators.hpp"
+/**
+ * @file PhysicsMutators.hpp
+ * @brief Centralized access point for physics state mutators.
+ *
+ * This header centralizes and documents the set of functions that mutate
+ * physics-related state in the engine. Its primary purpose is to provide a
+ * single, well-documented surface for callers to locate and use mutators that
+ * affect either ECS component storage, terrain repository storage, or both.
+ *
+ * The module also classifies each mutator by three concerns so callers can
+ * reason about safety and side-effects: where state is stored, what
+ * synchronization or atomicity guarantees (if any) exist, and the expected
+ * scope of side-effects. That classification reduces accidental misuse and
+ * centralizes locking guidance for terrain/ECS interactions.
+ *
+ * Purpose
+ * - Centralize: Expose physics mutators from a single, discoverable header.
+ * - Classify: Make storage target, locking model, and scope explicit.
+ * - Guide: Help callers pick the correct mutator and adhere to locking
+ *   contracts so repository and ECS state remain consistent.
+ *
+ * Classification Dimensions:
+ * 1. Storage Target
+ * - ECS-only: Mutates only `entt` component storage (Position, Velocity, MatterContainer...).
+ *   Example: `updateEntityVelocity`, `convertIntoSoftEmpty`, `setEmptyWaterComponentsEnTT`.
+ * - Repository-only: Mutates only `TerrainGridRepository`/`VoxelGrid` storage (tile id, matter container, SI).
+ *   Example: `setEmptyWaterComponentsStorage`, `setVaporSI`.
+ * - Hybrid: Touches both ECS and repository to keep them consistent.
+ *   Example: `createVaporTerrainEntity`, `createWaterTerrainFromFall`.
+ *
+ * 2. Synchronization & Atomicity
+ * - Lock-Free / Caller-Synchronized: No locks taken; caller must ensure safety.
+ *   Example: `updateEntityVelocity`, `setEmptyWaterComponentsEnTT`.
+ * - Conditional Locking: Take a lock only when needed / via `takeLock` flag.
+ *   Example: `addOrCreateVaporAbove`.
+ * - Internal Atomic (Self-locking): Acquire `TerrainGridLock` internally for atomic repo writes.
+ *   Example: `createWaterTerrainFromFall`, `convertTerrainTileToEmpty`.
+ *
+ * 3. Scope & Side-Effects
+ * - Single-Entity-Local: Changes limited to one entity's components.
+ *   Example: `ensurePositionComponentForTerrain`, `convertIntoSoftEmpty`.
+ * - Multi-Entity / Multi-Tile: Updates multiple entities/tiles or repository maps.
+ *   Example: `reviveColdTerrainEntities`, `addOrCreateVaporAbove`.
+ * - Orchestration / Global Effects: Triggers events or lifecycle transitions.
+ *   Example: `destroyEntityWithGridCleanup`, `handleInvalidEntityForMovement`.
+ *
+ * Placement guidance: add a short tag comment on each function: `[Storage:ECS|Repo|Hybrid] [Lock:None|Cond|Internal] [Scope:Entity|Multi|Orch]`
+ */
 
 // Forward declarations for functions used across categories
 // Note: direct component mutators are declared in ComponentMutators.hpp
@@ -48,6 +96,7 @@ inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid
  * @param vaporAmount The amount of vapor to initialize the entity with.
  * @return The newly created vapor entity.
  */
+// [Storage:Hybrid] [Lock:None] [Scope:Entity]
 inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid, int x,
                                              int y, int z, int vaporAmount) {
     if (!voxelGrid.terrainGridRepository) {
@@ -99,6 +148,7 @@ inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid
  * @param entity The entity to destroy.
  * @param e The exception that triggered the cleanup.
  */
+// [Storage:Hybrid] [Lock:Cond] [Scope:Entity]
 inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid,
                                         entt::entity entity,
                                         const aetherion::InvalidEntityException& e) {
@@ -163,6 +213,7 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
  * @param entity The entity to soft-deactivate.
  * @param takeLock Whether the repository should take its internal lock.
  */
+// [Storage:Repo] [Lock:Cond] [Scope:Entity]
 inline void softDeactivateTerrainEntity(VoxelGrid& voxelGrid, entt::entity entity, bool takeLock) {
     if (!voxelGrid.terrainGridRepository) return;
 
@@ -174,6 +225,7 @@ inline void softDeactivateTerrainEntity(VoxelGrid& voxelGrid, entt::entity entit
  * @param registry The entt::registry.
  * @param entity The entity to destroy.
  */
+// [Storage:Hybrid] [Lock:Cond] [Scope:Entity]
 inline void _destroyEntity(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity, bool shouldLock=true) {
     std::unique_ptr<TerrainGridLock> terrainLockGuard;
     if (shouldLock) {
@@ -195,6 +247,7 @@ inline void _destroyEntity(entt::registry& registry, VoxelGrid& voxelGrid, entt:
  * @param z The z-coordinate.
  * @return The active entity.
  */
+// [Storage:Repo] [Lock:Internal] [Scope:Entity]
 inline entt::entity _ensureEntityActive(VoxelGrid& voxelGrid, int x, int y, int z) {
     TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
@@ -209,6 +262,7 @@ inline entt::entity _ensureEntityActive(VoxelGrid& voxelGrid, int x, int y, int 
  * @param dispatcher The entt::dispatcher to enqueue events.
  * @param terrain The entity to delete or convert.
  */
+// [Storage:Hybrid] [Lock:None] [Scope:Entity]
 inline void deleteEntityOrConvertInEmpty(entt::registry& registry, entt::dispatcher& dispatcher,
                                          entt::entity& terrain) {
     TileEffectsList* terrainEffectsList = registry.try_get<TileEffectsList>(terrain);
@@ -239,10 +293,11 @@ inline void deleteEntityOrConvertInEmpty(entt::registry& registry, entt::dispatc
  * @param z The z-coordinate to modify.
  * @param matterState The matter state to assign.
  */
+// Part 1: Set EntityTypeComponent
 static void setEmptyWaterComponentsStorage(entt::registry& registry, VoxelGrid& voxelGrid,
                                            int terrainId, int x, int y, int z,
                                            MatterState matterState) {
-    // Part 1: Set EntityTypeComponent
+    // [Storage:Repo] [Lock:None] [Scope:Entity]
     EntityTypeComponent* terrainType = new EntityTypeComponent();
     terrainType->mainType = static_cast<int>(EntityEnum::TERRAIN);
     terrainType->subType0 = static_cast<int>(TerrainEnum::WATER);
@@ -274,6 +329,7 @@ static void setEmptyWaterComponentsStorage(entt::registry& registry, VoxelGrid& 
  * @param pos The position of the tile to convert.
  * @param invalidTerrain The entity handle that is being converted (may be invalid).
  */
+// [Storage:Repo] [Lock:Internal] [Scope:Entity]
 static void convertTerrainTileToEmpty(entt::registry& registry, VoxelGrid& voxelGrid,
                                          const Position& pos, entt::entity invalidTerrain) {
     if (!voxelGrid.terrainGridRepository) return;
@@ -316,6 +372,7 @@ static void convertTerrainTileToEmpty(entt::registry& registry, VoxelGrid& voxel
  * @param z The z-coordinate of the tile.
  * @param voxelGrid The VoxelGrid for accessing the terrain repository.
  */
+// [Storage:Repo] [Lock:None] [Scope:Entity]
 inline void setVaporSI(int x, int y, int z, VoxelGrid& voxelGrid) {
     StructuralIntegrityComponent terrainSI =
         voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(x, y, z);

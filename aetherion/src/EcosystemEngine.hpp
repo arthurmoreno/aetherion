@@ -65,6 +65,16 @@ struct WaterFlow {
           targetZ(targetZ) {}
 };
 
+// Thread error tracking for parallel water simulation
+struct ThreadError {
+    int threadId;
+    std::string errorMessage;
+    std::chrono::steady_clock::time_point timestamp;
+
+    ThreadError(int id, const std::string& msg)
+        : threadId(id), errorMessage(msg), timestamp(std::chrono::steady_clock::now()) {}
+};
+
 // Forward declaration for WaterSimulationManager
 class WaterSimulationManager;
 
@@ -198,6 +208,11 @@ class WaterSimulationManager {
     std::atomic<int> activeWorkers_{0};
     std::atomic<int> completedTasks_{0};
 
+    // Error tracking for thread safety
+    tbb::concurrent_queue<ThreadError> errorQueue_;
+    std::atomic<bool> hasEncounteredCriticalError_{false};
+    std::atomic<bool> isShuttingDown_{false};
+
     // Default minimum box dimensions for optimal cache performance (32x32x32)
     static constexpr int DEFAULT_MIN_BOX_SIZE = 32;
 
@@ -214,6 +229,14 @@ class WaterSimulationManager {
 
     // Populate scheduler with a subset of grid boxes (for continuous processing)
     void populateSchedulerWithSubset(float percentage = 0.3f, float sunIntensity = 1.0f);
+
+    // Error checking methods
+    bool hasErrors();
+    std::vector<ThreadError> getErrors();
+    
+    // Public method to initiate clean shutdown (for cleanup or error handling)
+    void initiateShutdown();
+    bool hasEncounteredCriticalError() const { return hasEncounteredCriticalError_.load(); }
 
    private:
     // Thread pool management
