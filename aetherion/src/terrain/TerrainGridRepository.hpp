@@ -12,6 +12,7 @@
 #include "components/MovingComponent.hpp"
 #include "components/PhysicsComponents.hpp"
 #include "components/TerrainComponents.hpp"
+#include "ecosystem/EcosystemEvents.hpp"
 #include "terrain/TerrainStorage.hpp"
 #include "terrain/VoxelCoord.hpp"
 
@@ -162,7 +163,7 @@ class TerrainGridRepository {
     // This removes transient components (Velocity/MovingComponent) and ensures the
     // repository mapping and storage are updated to mark the voxel as back in grid storage.
     // Callers may then decide to schedule a final destruction later.
-    void softDeactivateEntity(entt::entity e, bool takeLock = true);
+    void softDeactivateEntity(entt::dispatcher& dispatcher, entt::entity e, bool takeLock = true);
 
     // Check if a terrain voxel has a MovingComponent
     bool hasMovingComponent(int x, int y, int z) const;

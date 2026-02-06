@@ -32,7 +32,27 @@ void LifeEngine::onKillEntity(const KillEntityEvent& event) {
     }
 }
 
+void LifeEngine::onTerrainRemoveVelocityEvent(const TerrainRemoveVelocityEvent& event) {
+    int entityId = static_cast<int>(event.entity);
+    // std::cout << "Removing Velocity component from entity: " << entityId << std::endl;
+
+    if (entityId != -1 && entityId != -2) {
+        entitiesToRemoveVelocity.emplace_back(event.entity, false);
+    }
+}
+
+void LifeEngine::onTerrainRemoveMovingComponentEvent(const TerrainRemoveMovingComponentEvent& event) {
+    int entityId = static_cast<int>(event.entity);
+    // std::cout << "Removing MovingComponent from entity: " << entityId << std::endl;
+
+    if (entityId != -1 && entityId != -2) {
+        entitiesToRemoveMovingComponent.emplace_back(event.entity, false);
+    }
+}
+
 // Register event handlers
 void LifeEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     dispatcher.sink<KillEntityEvent>().connect<&LifeEngine::onKillEntity>(*this);
+    dispatcher.sink<TerrainRemoveVelocityEvent>().connect<&LifeEngine::onTerrainRemoveVelocityEvent>(*this);
+    dispatcher.sink<TerrainRemoveMovingComponentEvent>().connect<&LifeEngine::onTerrainRemoveMovingComponentEvent>(*this);
 }

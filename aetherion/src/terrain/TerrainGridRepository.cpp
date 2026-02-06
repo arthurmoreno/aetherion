@@ -814,7 +814,7 @@ void TerrainGridRepository::unlockTerrainGrid() {
     terrainGridMutex.unlock();
 }
 
-void TerrainGridRepository::softDeactivateEntity(entt::entity e, bool takeLock) {
+void TerrainGridRepository::softDeactivateEntity(entt::dispatcher& dispatcher, entt::entity e, bool takeLock) {
     if (takeLock) {
         if (!isTerrainGridLocked()) {
             spdlog::debug("softDeactivateEntity: acquiring TerrainGridLock for entity {}", static_cast<int>(e));
@@ -830,7 +830,7 @@ void TerrainGridRepository::softDeactivateEntity(entt::entity e, bool takeLock) 
     }
 
     if (!registry_.valid(e)) {
-        spdlog::warn("softDeactivateEntity: entity {} is not valid", static_cast<int>(e));
+        // spdlog::warn("softDeactivateEntity: entity {} is not valid", static_cast<int>(e));
         return;
     }
 
@@ -850,17 +850,19 @@ void TerrainGridRepository::softDeactivateEntity(entt::entity e, bool takeLock) 
     bool hadTransient = false;
     if (registry_.all_of<Velocity>(e)) {
         hadTransient = true;
-        registry_.remove<Velocity>(e);
+        // registry_.remove<Velocity>(e);
+        dispatcher.enqueue<TerrainRemoveVelocityEvent>(e);
     }
     if (registry_.all_of<MovingComponent>(e)) {
         hadTransient = true;
-        registry_.remove<MovingComponent>(e);
+        // registry_.remove<MovingComponent>(e);
+        dispatcher.enqueue<TerrainRemoveMovingComponentEvent>(e);
     }
 
     if (!hadTransient) {
         // No transient components removed — perform cleanup directly
         if (!found) {
-            spdlog::warn("softDeactivateEntity: entity {} has no mapping and no transients", static_cast<int>(e));
+            spdlog::debug("softDeactivateEntity: entity {} has no mapping and no transients", static_cast<int>(e));
             return;
         }
 

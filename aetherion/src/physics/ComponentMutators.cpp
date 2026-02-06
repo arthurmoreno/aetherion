@@ -26,12 +26,19 @@ void ensurePositionComponentForTerrain(entt::registry& registry, VoxelGrid& voxe
 		error << "[handleMovement] Terrain entity " << static_cast<int>(entity)
 			  << " missing Position component (not fully initialized yet)";
 
-		Position pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+		Position pos;
 		int entityId = static_cast<int>(entity);
+		try {
+			pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+		} catch (const aetherion::InvalidEntityException& e) {
+			std::cout << "[ensurePositionComponentForTerrain] Entity " << entityId
+					  << " not found in TerrainGridRepository: " << e.what() << std::endl;
+			throw aetherion::InvalidEntityException(error.str());
+		}
 		if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
 			std::cout << "[handleMovement] Could not find position of entity " << entityId
 					  << " in TerrainGridRepository, skipping entity." << std::endl;
-			throw std::runtime_error(error.str());
+			throw aetherion::InvalidEntityException(error.str());
 		}
 		registry.emplace<Position>(entity, pos);
 	}

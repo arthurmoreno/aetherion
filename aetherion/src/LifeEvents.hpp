@@ -19,6 +19,8 @@ namespace nb = nanobind;
 class LifeEngine {
    public:
     std::vector<std::tuple<entt::entity, bool>> entitiesToDelete;
+    std::vector<std::tuple<entt::entity, bool>> entitiesToRemoveVelocity;
+    std::vector<std::tuple<entt::entity, bool>> entitiesToRemoveMovingComponent;
     std::unordered_set<entt::entity> entitiesScheduledForDeletion;
 
     LifeEngine() = default;
@@ -27,6 +29,8 @@ class LifeEngine {
 
     // Handle entity movement event
     void onKillEntity(const KillEntityEvent& event);
+    void onTerrainRemoveVelocityEvent(const TerrainRemoveVelocityEvent& event);
+    void onTerrainRemoveMovingComponentEvent(const TerrainRemoveMovingComponentEvent& event);
 
     // Register the event handler
     void registerEventHandlers(entt::dispatcher& dispatcher);

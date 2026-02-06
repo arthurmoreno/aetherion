@@ -27,6 +27,11 @@ class TerrainLockException : public PhysicsException {
     using PhysicsException::PhysicsException;
 };
 
+class InvalidTerrainMovementException : public PhysicsException {
+   public:
+    using PhysicsException::PhysicsException;
+};
+
 /**
  * @brief Exception thrown when an entity is in an invalid state
  *

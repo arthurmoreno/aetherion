@@ -105,6 +105,21 @@ struct TerrainPhaseConversionEvent {
           newStructuralIntegrity(newStructuralIntegrity) {}
 };
 
+
+struct TerrainRemoveVelocityEvent {
+    entt::entity entity;
+
+    explicit TerrainRemoveVelocityEvent(entt::entity entity)
+        : entity(entity) {}
+};
+
+struct TerrainRemoveMovingComponentEvent {
+    entt::entity entity;
+
+    explicit TerrainRemoveMovingComponentEvent(entt::entity entity)
+        : entity(entity) {}
+};
+
 struct VaporCreationEvent {
     Position position;
     int amount;

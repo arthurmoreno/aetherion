@@ -945,8 +945,8 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             // Dispatch entity creation event - PhysicsEngine will handle atomically
             CreateVaporEntityEvent createEvent(sourcePos, rhoEnv, rhoVapor);
             dispatcher.enqueue<CreateVaporEntityEvent>(createEvent);
-            std::cout << "[moveVaporUp] Creating vapor entity from ON_GRID_STORAGE at (" << pos.x
-                      << ", " << pos.y << ", " << pos.z << ")\n";
+            // std::cout << "[moveVaporUp] Creating vapor entity from ON_GRID_STORAGE at (" << pos.x
+            //           << ", " << pos.y << ", " << pos.z << ")\n";
             return;
         }
 
@@ -975,8 +975,8 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
             dispatchVaporMergeEvent(dispatcher, sourcePos, matterContainer.WaterVapor, entity);
             return;
         } else if (haveMovement) {
-            std::cout << "[moveVaporUp] Vapor obstructed at (" << pos.x << ", " << pos.y << ", "
-                      << pos.z << "); cannot move up; It have movement already.\n";
+            // std::cout << "[moveVaporUp] Vapor obstructed at (" << pos.x << ", " << pos.y << ", "
+            //           << pos.z << "); cannot move up; It have movement already.\n";
             throw aetherion::VaporMovementBlockedException(
                 "Vapor obstructed: upward movement blocked due to movement component above");
 
@@ -993,6 +993,9 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
 
 void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                        Position& pos, EntityTypeComponent& type, MatterContainer& matterContainer) {
+
+    TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
     int terrainId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
 
     float rhoEnv = 1.225f;    // Density of air
@@ -1193,20 +1196,20 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
             moveVaporSideways(registry, voxelGrid, dispatcher, pos, type, matterContainer);
         }
     } else {
-        if (pos.z < maxAltitude) {
-            std::cout
-                << "[moveVapor] Vapor bellow max altitude and blocked - Should move sideways!\n";
-            std::cout << "  Position: (" << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
-            std::cout << "  maxAltitude: " << maxAltitude << "\n";
-            std::cout << "  isTerrainAboveVaporOrEmpty: " << isTerrainAboveVaporOrEmpty << "\n";
-            std::cout << "  isTerrainAboveEmpty: " << isTerrainAboveEmpty << "\n";
-            std::cout << "  isTerrainAboveVapor: " << isTerrainAboveVapor << "\n";
-            std::cout << "  terrainAboveId: " << terrainAboveId << "\n";
-            std::cout << "  WaterVapor: " << matterContainer.WaterVapor << "\n";
-            std::cout << "  WaterMatter: " << matterContainer.WaterMatter << "\n";
-            std::cout << "  mainType: " << type.mainType << "\n";
-            std::cout << "  subType0: " << type.subType0 << "\n";
-        }
+        // if (pos.z < maxAltitude) {
+        //     std::cout
+        //         << "[moveVapor] Vapor bellow max altitude and blocked - Should move sideways!\n";
+        //     std::cout << "  Position: (" << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
+        //     std::cout << "  maxAltitude: " << maxAltitude << "\n";
+        //     std::cout << "  isTerrainAboveVaporOrEmpty: " << isTerrainAboveVaporOrEmpty << "\n";
+        //     std::cout << "  isTerrainAboveEmpty: " << isTerrainAboveEmpty << "\n";
+        //     std::cout << "  isTerrainAboveVapor: " << isTerrainAboveVapor << "\n";
+        //     std::cout << "  terrainAboveId: " << terrainAboveId << "\n";
+        //     std::cout << "  WaterVapor: " << matterContainer.WaterVapor << "\n";
+        //     std::cout << "  WaterMatter: " << matterContainer.WaterMatter << "\n";
+        //     std::cout << "  mainType: " << type.mainType << "\n";
+        //     std::cout << "  subType0: " << type.subType0 << "\n";
+        // }
         // Vapor has reached max altitude; move sideways
         // TODO: Uncomment when ready.
         moveVaporSideways(registry, voxelGrid, dispatcher, pos, type, matterContainer);

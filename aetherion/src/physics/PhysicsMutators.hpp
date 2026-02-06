@@ -149,7 +149,7 @@ inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid
  * @param e The exception that triggered the cleanup.
  */
 // [Storage:Hybrid] [Lock:Cond] [Scope:Entity]
-inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& voxelGrid,
+inline void cleanupInvalidTerrainEntity(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid,
                                         entt::entity entity,
                                         const aetherion::InvalidEntityException& e) {
     std::cout << "[cleanupInvalidTerrainEntity] InvalidEntityException: " << e.what()
@@ -168,7 +168,7 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
                       << static_cast<int>(entity)
                       << " in TerrainGridRepository or registry - soft-deactivating it." << std::endl;
             // Soft-deactivate instead of immediate destroy to avoid TOCTOU races
-            voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
+            voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, entity);
             throw std::runtime_error("Could not find entity position for cleanup");
         }
     }
@@ -178,7 +178,7 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
     if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
         std::cout << "[cleanupInvalidTerrainEntity] Could not find position of entity " << entityId
                   << " in TerrainGridRepository - soft-deactivating it." << std::endl;
-        voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
+        voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, entity);
     } else {
         std::optional<int> terrainIdOnGrid =
             voxelGrid.terrainGridRepository->getTerrainIdIfExists(pos.x, pos.y, pos.z);
@@ -190,14 +190,14 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
                 << terrainIdOnGrid.value() << " for entity ID: " << entityId
                 << " at position: " << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
             // Ensure repository mapping cleaned up and transient components removed
-            voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
+            voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, entity);
         } else {
             std::cout
                 << "[cleanupInvalidTerrainEntity] Terrain does exist at the given position in "
                    "repository or grid ???"
                 << entityId << " at position: " << pos.x << ", " << pos.y << ", " << pos.z
                 << std::endl;
-            voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
+            voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, entity);
             voxelGrid.terrainGridRepository->setTerrainId(
                 pos.x, pos.y, pos.z,
                 static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
@@ -214,10 +214,10 @@ inline void cleanupInvalidTerrainEntity(entt::registry& registry, VoxelGrid& vox
  * @param takeLock Whether the repository should take its internal lock.
  */
 // [Storage:Repo] [Lock:Cond] [Scope:Entity]
-inline void softDeactivateTerrainEntity(VoxelGrid& voxelGrid, entt::entity entity, bool takeLock) {
+inline void softDeactivateTerrainEntity(entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, entt::entity entity, bool takeLock) {
     if (!voxelGrid.terrainGridRepository) return;
 
-    voxelGrid.terrainGridRepository->softDeactivateEntity(entity, takeLock);
+    voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, entity, takeLock);
 }
 
 /**
@@ -226,7 +226,7 @@ inline void softDeactivateTerrainEntity(VoxelGrid& voxelGrid, entt::entity entit
  * @param entity The entity to destroy.
  */
 // [Storage:Hybrid] [Lock:Cond] [Scope:Entity]
-inline void _destroyEntity(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity, bool shouldLock=true) {
+inline void _destroyEntity(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, entt::entity entity, bool shouldLock=true) {
     std::unique_ptr<TerrainGridLock> terrainLockGuard;
     if (shouldLock) {
         terrainLockGuard = std::make_unique<TerrainGridLock>(voxelGrid.terrainGridRepository.get());
@@ -234,7 +234,7 @@ inline void _destroyEntity(entt::registry& registry, VoxelGrid& voxelGrid, entt:
 
     // Ensure repository mapping cleaned before destroying entity to avoid stale mappings
     // Use centralized wrapper to keep state-changes in this module.
-    softDeactivateTerrainEntity(voxelGrid, entity, !shouldLock);
+    softDeactivateTerrainEntity(dispatcher, voxelGrid, entity, !shouldLock);
 
     registry.destroy(entity);
 }
@@ -330,7 +330,7 @@ static void setEmptyWaterComponentsStorage(entt::registry& registry, VoxelGrid& 
  * @param invalidTerrain The entity handle that is being converted (may be invalid).
  */
 // [Storage:Repo] [Lock:Internal] [Scope:Entity]
-static void convertTerrainTileToEmpty(entt::registry& registry, VoxelGrid& voxelGrid,
+static void convertTerrainTileToEmpty(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid,
                                          const Position& pos, entt::entity invalidTerrain) {
     if (!voxelGrid.terrainGridRepository) return;
 
@@ -338,7 +338,7 @@ static void convertTerrainTileToEmpty(entt::registry& registry, VoxelGrid& voxel
     TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
     // Soft-deactivate mapping/components for the entity while we mutate storage
-    voxelGrid.terrainGridRepository->softDeactivateEntity(invalidTerrain, false);
+    voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, invalidTerrain, false);
 
     // Mark the tile as NONE / EMPTY in repository
     voxelGrid.terrainGridRepository->setTerrainId(pos.x, pos.y, pos.z,
@@ -696,7 +696,7 @@ inline void destroyEntityWithGridCleanup(entt::registry& registry, VoxelGrid& vo
     // Ensure the entity is destroyed in the registry. Do not attempt to re-lock the repository here
     // because removeEntityFromGrid already handled grid locking when requested.
     if (registry.valid(entity)) {
-        _destroyEntity(registry, voxelGrid, entity, false);
+        _destroyEntity(registry, dispatcher, voxelGrid, entity, false);
     }
 }
 
@@ -768,16 +768,16 @@ inline entt::entity reviveColdTerrainEntities(entt::registry& registry, VoxelGri
     if (terrainType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
         terrainType.subType0 == static_cast<int>(TerrainEnum::WATER) &&
         vaporMatter > 0 && waterMatter == 0) {
-        std::cout << "[processPhysics] Reviving cold vapor terrain at (" << positionOfEntt.x << ", "
-                  << positionOfEntt.y << ", " << positionOfEntt.z
-                  << ") with vapor matter: " << vaporMatter << std::endl;
+        // std::cout << "[processPhysics] Reviving cold vapor terrain at (" << positionOfEntt.x << ", "
+        //           << positionOfEntt.y << ", " << positionOfEntt.z
+        //           << ") with vapor matter: " << vaporMatter << std::endl;
 
         // Revive the terrain by ensuring it's active in ECS
         entt::entity entity = voxelGrid.terrainGridRepository->ensureActive(
             positionOfEntt.x, positionOfEntt.y, positionOfEntt.z);
 
-        std::cout << "[processPhysics] Revived vapor terrain as entity " << static_cast<int>(entity)
-                  << std::endl;
+        // std::cout << "[processPhysics] Revived vapor terrain as entity " << static_cast<int>(entity)
+        //           << std::endl;
         // Continue processing with the newly revived entity (don't skip)
         return entity;
     } else {
@@ -789,14 +789,14 @@ inline entt::entity reviveColdTerrainEntities(entt::registry& registry, VoxelGri
         if (matterContainer.WaterVapor == 0 && matterContainer.WaterMatter == 0 &&
             terrainType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
             terrainType.subType0 == static_cast<int>(TerrainEnum::WATER)) {
-            std::cout << "[reviveColdTerrainEntities] WARNING: Discrepancy in vapor matter values! "
-                         "VoxelGrid reports "
-                      << vaporMatter << ", but MatterContainer has " << matterContainer.WaterVapor
-                      << std::endl;
+            // std::cout << "[reviveColdTerrainEntities] WARNING: Discrepancy in vapor matter values! "
+            //              "VoxelGrid reports "
+            //           << vaporMatter << ", but MatterContainer has " << matterContainer.WaterVapor
+            //           << std::endl;
             // Convert repository-backed tile into EMPTY and clear storage (under repo lock)
-            convertTerrainTileToEmpty(registry, voxelGrid, positionOfEntt, invalidTerrain);
-            std::cout << "[reviveColdTerrainEntities] Converted terrain entity " << invalidTerrainId
-                      << " into empty terrain due to zero water matter." << std::endl;
+            convertTerrainTileToEmpty(registry, dispatcher, voxelGrid, positionOfEntt, invalidTerrain);
+            // std::cout << "[reviveColdTerrainEntities] Converted terrain entity " << invalidTerrainId
+            //           << " into empty terrain due to zero water matter." << std::endl;
             throw aetherion::InvalidEntityException(
                 "Entity with Velocity had zero vapor matter; converted to empty terrain");
 
@@ -805,9 +805,9 @@ inline entt::entity reviveColdTerrainEntities(entt::registry& registry, VoxelGri
             throw aetherion::InvalidEntityException("Terrain is EMPTY; cannot be revived");
 
         } else {
-            printTerrainDiagnostics(registry, voxelGrid, invalidTerrain, positionOfEntt,
-                                    terrainType, vaporMatter);
-            throw std::runtime_error(
+            // printTerrainDiagnostics(registry, voxelGrid, invalidTerrain, positionOfEntt,
+            //                         terrainType, vaporMatter);
+            throw aetherion::InvalidEntityException(
                 "Entity with Velocity is invalid and cannot be revived; skipping");
         }
     }
@@ -837,7 +837,7 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, Vox
     try {
         pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
     } catch (const aetherion::InvalidEntityException& e) {
-        convertTerrainTileToEmpty(registry, voxelGrid, pos, entity);
+        convertTerrainTileToEmpty(registry, dispatcher, voxelGrid, pos, entity);
         // voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
         throw;  // Re-throw to be caught by handleMovement
     }
@@ -846,7 +846,7 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, Vox
         std::cout << "[handleMovement] Could not find position of entity " << entityId
                   << " in TerrainGridRepository - soft-deactivating it." << std::endl;
 
-        convertTerrainTileToEmpty(registry, voxelGrid, pos, entity);
+        convertTerrainTileToEmpty(registry, dispatcher, voxelGrid, pos, entity);
         // voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
         // Throw exception to signal to caller that processing for this entity should stop.
         throw aetherion::InvalidEntityException(
@@ -880,7 +880,7 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, Vox
  * @param fallingAmount The amount of water matter for the new tile.
  * @param sourceEntity The entity from which the water is falling.
  */
-inline void createWaterTerrainFromFall(entt::registry& registry, VoxelGrid& voxelGrid, int x, int y,
+inline void createWaterTerrainFromFall(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, int x, int y,
                                        int z, double fallingAmount, entt::entity sourceEntity) {
     // Lock for atomic state change
     TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
@@ -910,14 +910,18 @@ inline void createWaterTerrainFromFall(entt::registry& registry, VoxelGrid& voxe
     newStructuralIntegrityComponent.maxLoadCapacity = -1;
     newStructuralIntegrityComponent.matterState = MatterState::LIQUID;
 
-    registry.emplace<Position>(newWaterEntity, newPosition);
-    registry.emplace<Velocity>(newWaterEntity, newVelocity);
-    registry.emplace<EntityTypeComponent>(newWaterEntity, newType);
-    registry.emplace<MatterContainer>(newWaterEntity, newMatterContainer);
-    registry.emplace<StructuralIntegrityComponent>(newWaterEntity, newStructuralIntegrityComponent);
-    registry.emplace<PhysicsStats>(newWaterEntity, newPhysicsStats);
-
+    // Set terrain ID in voxel grid (associates entity with voxel)
     voxelGrid.setTerrain(x, y, z, static_cast<int>(newWaterEntity));
+
+    // Store static terrain data in TerrainStorage via repository (not in EnTT)
+    voxelGrid.terrainGridRepository->setPosition(x, y, z, newPosition);
+    voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z, newType);
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z, newMatterContainer);
+    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z, newStructuralIntegrityComponent);
+    voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
+
+    // Only transient data (Velocity) goes in ECS if needed for active movement
+    // Water at rest doesn't need velocity in ECS; it will be activated when movement starts
 
     // Update source entity's water matter
     auto& sourceMatterContainer = registry.get<MatterContainer>(sourceEntity);
@@ -931,7 +935,7 @@ inline void createWaterTerrainFromFall(entt::registry& registry, VoxelGrid& voxe
             auto& sourcePos = registry.get<Position>(sourceEntity);
             voxelGrid.setTerrain(sourcePos.x, sourcePos.y, sourcePos.z, -1);
             // We're already holding TerrainGridLock for this operation, avoid double-locking
-            voxelGrid.terrainGridRepository->softDeactivateEntity(sourceEntity, false);
+            voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, sourceEntity, false);
         }
     }
 }
@@ -972,7 +976,7 @@ inline void addOrCreateVaporAbove(entt::registry& registry, VoxelGrid& voxelGrid
                 << " type=" << typeAbove.mainType << ", subtype=" << typeAbove.subType0
                 << ", WaterMatter=" << matterContainerAbove.WaterMatter
                 << ", WaterVapor=" << matterContainerAbove.WaterVapor;
-            spdlog::get("console")->info(oss.str());
+            spdlog::get("console")->debug(oss.str());
             voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z + 1,
                                                                        matterContainerAbove);
         } else {
@@ -982,7 +986,7 @@ inline void addOrCreateVaporAbove(entt::registry& registry, VoxelGrid& voxelGrid
                 << " type=" << typeAbove.mainType << ", subtype=" << typeAbove.subType0
                 << ", WaterMatter=" << matterContainerAbove.WaterMatter
                 << ", WaterVapor=" << matterContainerAbove.WaterVapor;
-            spdlog::get("console")->warn(oss.str());
+            spdlog::get("console")->debug(oss.str());
         }
     } else {
         // No entity above; create new vapor terrain entity
@@ -995,6 +999,12 @@ inline void addOrCreateVaporAbove(entt::registry& registry, VoxelGrid& voxelGrid
  * @details This is a compound function that creates a new water entity with all its components,
  * updates the `VoxelGrid`, modifies the source vapor tile's `MatterContainer`, and may destroy
  * the vapor entity if it's depleted.
+ * 
+ * @note This function acquires a TerrainGridLock internally for atomic state changes.
+ * Caller MUST NOT hold the terrain grid lock before calling this function.
+ * 
+ * @note Enforces the invariant: vapor tile must have WaterMatter == 0 (cannot have both liquid and vapor).
+ * 
  * @param registry The entt::registry.
  * @param voxelGrid The VoxelGrid.
  * @param vaporX The x-coordinate of the source vapor tile.
@@ -1002,10 +1012,25 @@ inline void addOrCreateVaporAbove(entt::registry& registry, VoxelGrid& voxelGrid
  * @param vaporZ The z-coordinate of the source vapor tile.
  * @param condensationAmount The amount of water to create.
  * @param vaporMatter A reference to the `MatterContainer` of the source vapor tile.
+ * @throws std::runtime_error if vapor tile already contains WaterMatter (state invariant violation).
  */
-inline void createWaterTerrainBelowVapor(entt::registry& registry, VoxelGrid& voxelGrid, int vaporX,
+inline void createWaterTerrainBelowVapor(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, int vaporX,
                                          int vaporY, int vaporZ, double condensationAmount,
                                          MatterContainer& vaporMatter) {
+    // Lock for atomic state change
+    // TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
+    // Validate state invariant: vapor tile must not have liquid water
+    if (vaporMatter.WaterMatter > 0) {
+        std::ostringstream oss;
+        oss << "[createWaterTerrainBelowVapor] State invariant violation at (" 
+            << vaporX << ", " << vaporY << ", " << vaporZ << "): "
+            << "Vapor tile has WaterMatter=" << vaporMatter.WaterMatter 
+            << " and WaterVapor=" << vaporMatter.WaterVapor 
+            << ". Cannot condense vapor when liquid water already present.";
+        throw std::runtime_error(oss.str());
+    }
+
     // Create a new water tile below
     entt::entity newWaterEntity = registry.create();
     Position newPosition = {vaporX, vaporY, vaporZ - 1, DirectionEnum::DOWN};
@@ -1031,14 +1056,18 @@ inline void createWaterTerrainBelowVapor(entt::registry& registry, VoxelGrid& vo
     newStructuralIntegrityComponent.maxLoadCapacity = -1;
     newStructuralIntegrityComponent.matterState = MatterState::LIQUID;
 
-    registry.emplace<Position>(newWaterEntity, newPosition);
-    registry.emplace<Velocity>(newWaterEntity, newVelocity);
-    registry.emplace<EntityTypeComponent>(newWaterEntity, newType);
-    registry.emplace<MatterContainer>(newWaterEntity, newMatterContainer);
-    registry.emplace<StructuralIntegrityComponent>(newWaterEntity, newStructuralIntegrityComponent);
-    registry.emplace<PhysicsStats>(newWaterEntity, newPhysicsStats);
-
+    // Set terrain ID in voxel grid (associates entity with voxel)
     voxelGrid.setTerrain(vaporX, vaporY, vaporZ - 1, static_cast<int>(newWaterEntity));
+
+    // Store static terrain data in TerrainStorage via repository (not in EnTT)
+    voxelGrid.terrainGridRepository->setPosition(vaporX, vaporY, vaporZ - 1, newPosition);
+    voxelGrid.terrainGridRepository->setTerrainEntityType(vaporX, vaporY, vaporZ - 1, newType);
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(vaporX, vaporY, vaporZ - 1, newMatterContainer);
+    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(vaporX, vaporY, vaporZ - 1, newStructuralIntegrityComponent);
+    voxelGrid.terrainGridRepository->setPhysicsStats(vaporX, vaporY, vaporZ - 1, newPhysicsStats);
+
+    // Only transient data (Velocity) goes in ECS if needed for active movement
+    // Water at rest doesn't need velocity in ECS; it will be activated when movement starts
 
     // Reduce vapor amount
     vaporMatter.WaterVapor -= condensationAmount;
@@ -1049,8 +1078,8 @@ inline void createWaterTerrainBelowVapor(entt::registry& registry, VoxelGrid& vo
         int vaporTerrainId = voxelGrid.getTerrain(vaporX, vaporY, vaporZ);
         if (vaporTerrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
             voxelGrid.setTerrain(vaporX, vaporY, vaporZ, static_cast<int>(TerrainIdTypeEnum::NONE));
-            // Caller did not hold the repository lock here; allow softDeactivateEntity to take the lock
-            voxelGrid.terrainGridRepository->softDeactivateEntity(static_cast<entt::entity>(vaporTerrainId));
+            // We're already holding TerrainGridLock for this operation, avoid double-locking
+            voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, static_cast<entt::entity>(vaporTerrainId), false);
         }
     }
 }
@@ -1218,7 +1247,24 @@ inline void _handleVaporMergeSidewaysEvent(entt::registry& registry, entt::dispa
     // Get target vapor and merge
     MatterContainer targetMatter = voxelGrid.terrainGridRepository->getTerrainMatterContainer(
         event.target.x, event.target.y, event.target.z);
-    targetMatter.WaterVapor += event.amount;
+    
+    // Enforce that WaterMatter and WaterVapor cannot coexist
+    // If target has liquid water, condense the vapor into it (quantum condensation)
+    if (targetMatter.WaterMatter > 0 && targetMatter.WaterVapor == 0) {
+        targetMatter.WaterMatter += event.amount;  // Vapor condenses into liquid
+    } else if (targetMatter.WaterVapor > 0 && targetMatter.WaterMatter == 0) {
+        targetMatter.WaterVapor += event.amount;   // Add to vapor
+    } else if (targetMatter.WaterMatter == 0 && targetMatter.WaterVapor == 0) {
+        targetMatter.WaterVapor += event.amount;   // Empty tile, add vapor
+    } else {
+        spdlog::get("console")->error(
+            "[VaporMergeSidewaysEvent] State invariant violation at target ({}, {}, {}): "
+            "Both WaterMatter ({}) and WaterVapor ({}) are non-zero.",
+            event.target.x, event.target.y, event.target.z,
+            targetMatter.WaterMatter, targetMatter.WaterVapor);
+        throw aetherion::InvalidTerrainStateException("VaporMergeSidewaysEvent: State invariant violation - both WaterMatter and WaterVapor non-zero.");
+    }
+
     voxelGrid.terrainGridRepository->setTerrainMatterContainer(event.target.x, event.target.y,
                                                                 event.target.z, targetMatter);
 

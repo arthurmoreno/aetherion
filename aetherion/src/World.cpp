@@ -85,6 +85,96 @@ void World::destroyEntityHandleWithLifecycleLock(entt::entity entity) {
     destroyEntityHandle(entity);
 }
 
+void World::processEntityDeletion() {
+    // Acquire EXCLUSIVE lock to prevent any perception operations during entity destruction
+    std::unique_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+
+    // Locking contract: acquire `entityLifecycleMutex` (exclusive) first,
+    // then acquire a `TerrainGridLock` if modifying terrain. This prevents
+    // deadlocks with perception readers and other terrain operations.
+
+    // std::cout << "\n=== ENTITY DELETION DEBUG ===" << std::endl;
+    // std::cout << "Total entities to delete: " << lifeEngine->entitiesToDelete.size()
+    //           << std::endl;
+
+    for (const auto& [entity, _] : lifeEngine->entitiesToRemoveVelocity) {
+        if (registry.valid(entity) && registry.all_of<Velocity>(entity)) {
+            registry.remove<Velocity>(entity);
+            // std::cout << "Removed Velocity component from entity "
+            //           << static_cast<int>(entity) << std::endl;
+        }
+    }
+    lifeEngine->entitiesToRemoveVelocity.clear();
+
+    for (const auto& [entity, _] : lifeEngine->entitiesToRemoveMovingComponent) {
+        if (registry.valid(entity) && registry.all_of<MovingComponent>(entity)) {
+            registry.remove<MovingComponent>(entity);
+            // std::cout << "Removed MovingComponent from entity "
+            //           << static_cast<int>(entity) << std::endl;
+        }
+    }
+    lifeEngine->entitiesToRemoveMovingComponent.clear();
+
+    for (const auto& [entity, softKill] : lifeEngine->entitiesToDelete) {
+        int entityId = static_cast<int>(entity);
+        bool isSpecialId = entityId == -1 || entityId == -2;
+        bool isValidEntity = registry.valid(entity);
+
+        // std::cout << "\n--- Processing deletion request ---" << std::endl;
+        // std::cout << "Entity handle: " << static_cast<uint32_t>(entity) << std::endl;
+        // std::cout << "Entity ID (cast): " << entityId << std::endl;
+        // std::cout << "Is special ID: " << isSpecialId << std::endl;
+        // std::cout << "Registry valid: " << isValidEntity << std::endl;
+        // std::cout << "Soft kill: " << softKill << std::endl;
+
+        if (!isSpecialId && isValidEntity) {
+            // Get entity details before destruction
+            if (registry.all_of<Position, EntityTypeComponent>(entity)) {
+                auto [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
+                // std::cout << "Entity position: (" << pos.x << "," << pos.y << "," << pos.z
+                //           << ")" << std::endl;
+                // std::cout << "Entity type: " << type.mainType << "," << type.subType0
+                //           << std::endl;
+
+                // Check what's actually in the voxel grid at this position
+                int gridEntity = voxelGrid->getEntity(pos.x, pos.y, pos.z);
+                // std::cout << "Grid entity at position: " << gridEntity << std::endl;
+
+                if (gridEntity != entityId) {
+                    std::cout << "ERROR: Grid mismatch! Grid has " << gridEntity
+                              << " but trying to delete " << entityId << std::endl;
+                }
+            }
+
+            // Decide whether to remove from grid (true for hard kills)
+            const bool shouldRemoveFromGrid = !softKill;
+
+            // Caller holds `entityLifecycleMutex` (see above). Delegate full
+            // destruction and grid cleanup into a single helper that will
+            // acquire `TerrainGridLock` when needed.
+            destroyEntityWithGridCleanup(registry, *voxelGrid, dispatcher, entity,
+                                          shouldRemoveFromGrid);
+            // std::cout << "Destroyed entity " << entityId << std::endl;
+        } else {
+            if (isSpecialId) {
+                // std::cout << "Skipping special ID: " << entityId << std::endl;
+            } else if (!isValidEntity) {
+                // There is a lot of cases falling here - double deletions?
+                // std::cout << "Entity " << entityId << " already invalid, skipping"
+                //           << std::endl;
+            }
+
+            // std::ostringstream ossMessage;
+            // ossMessage << "Warning: Attempted to delete invalid or special entity ID "
+            //            << entityId << ".";
+            // spdlog::get("console")->warn(ossMessage.str());
+        }
+    }
+
+    // std::cout << "=== END ENTITY DELETION DEBUG ===\n" << std::endl;
+    lifeEngine->entitiesToDelete.clear();
+}
+
 void World::initializeVoxelGrid() {
     // Initializes the grid with default GridData
     voxelGrid->initializeGrids();
@@ -812,150 +902,87 @@ void World::update() {
     if (hasAnyCleanup && !anyAsyncTasksRunning) {
         // SAFE to do cleanup - no async tasks are accessing the data
         if (hasEntitiesToDelete) {
-            // Acquire EXCLUSIVE lock to prevent any perception operations during entity destruction
-            std::unique_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
-
-            // Locking contract: acquire `entityLifecycleMutex` (exclusive) first,
-            // then acquire a `TerrainGridLock` if modifying terrain. This prevents
-            // deadlocks with perception readers and other terrain operations.
-
-            // std::cout << "\n=== ENTITY DELETION DEBUG ===" << std::endl;
-            // std::cout << "Total entities to delete: " << lifeEngine->entitiesToDelete.size()
-            //           << std::endl;
-
-            for (const auto& [entity, softKill] : lifeEngine->entitiesToDelete) {
-                int entityId = static_cast<int>(entity);
-                bool isSpecialId = entityId == -1 || entityId == -2;
-                bool isValidEntity = registry.valid(entity);
-
-                // std::cout << "\n--- Processing deletion request ---" << std::endl;
-                // std::cout << "Entity handle: " << static_cast<uint32_t>(entity) << std::endl;
-                // std::cout << "Entity ID (cast): " << entityId << std::endl;
-                // std::cout << "Is special ID: " << isSpecialId << std::endl;
-                // std::cout << "Registry valid: " << isValidEntity << std::endl;
-                // std::cout << "Soft kill: " << softKill << std::endl;
-
-                if (!isSpecialId && isValidEntity) {
-                    // Get entity details before destruction
-                    if (registry.all_of<Position, EntityTypeComponent>(entity)) {
-                        auto [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
-                        // std::cout << "Entity position: (" << pos.x << "," << pos.y << "," << pos.z
-                        //           << ")" << std::endl;
-                        // std::cout << "Entity type: " << type.mainType << "," << type.subType0
-                        //           << std::endl;
-
-                        // Check what's actually in the voxel grid at this position
-                        int gridEntity = voxelGrid->getEntity(pos.x, pos.y, pos.z);
-                        // std::cout << "Grid entity at position: " << gridEntity << std::endl;
-
-                        if (gridEntity != entityId) {
-                            std::cout << "ERROR: Grid mismatch! Grid has " << gridEntity
-                                      << " but trying to delete " << entityId << std::endl;
-                        }
-                    }
-
-                    // Decide whether to remove from grid (true for hard kills)
-                    const bool shouldRemoveFromGrid = !softKill;
-
-                    // Caller holds `entityLifecycleMutex` (see above). Delegate full
-                    // destruction and grid cleanup into a single helper that will
-                    // acquire `TerrainGridLock` when needed.
-                    destroyEntityWithGridCleanup(registry, *voxelGrid, dispatcher, entity,
-                                                  shouldRemoveFromGrid);
-                    // std::cout << "Destroyed entity " << entityId << std::endl;
-                } else {
-                    if (isSpecialId) {
-                        std::cout << "Skipping special ID: " << entityId << std::endl;
-                    } else if (!isValidEntity) {
-                        std::cout << "Entity " << entityId << " already invalid, skipping"
-                                  << std::endl;
-                    }
-
-                    std::ostringstream ossMessage;
-                    ossMessage << "Warning: Attempted to delete invalid or special entity ID "
-                               << entityId << ".";
-                    spdlog::get("console")->warn(ossMessage.str());
-                }
-            }
-
-            // std::cout << "=== END ENTITY DELETION DEBUG ===\n" << std::endl;
-            lifeEngine->entitiesToDelete.clear();
+            processEntityDeletion();
         }
     }
 
-    // Handle async task lifecycle - always check for completed tasks and launch new ones
-    // Handle Physics Async Task
-    if (!physicsFuture.valid() ||
-        physicsFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
-        // Optionally handle exceptions from the previous task
-        if (physicsFuture.valid()) {
-            try {
-                physicsFuture.get();  // This will rethrow any exception from the async task
-            } catch (const std::exception& e) {
-                std::cerr << "PhysicsEngine async task crashed: " << e.what() << std::endl;
-                // Implement additional error handling here (e.g., retry limits, state cleanup)
-            }
-        }
-
-        // Launch a new async task using the standalone safeExecute
-        physicsFuture = std::async(
-            std::launch::async, safeExecute,
-            [this]() {
-                physicsEngine->processPhysicsAsync(registry, *voxelGrid, dispatcher, gameClock);
-            },
-            "PhysicsEngine");
-    }
-
-    // Handle Ecosystem Async Task
-    if (!ecosystemFuture.valid() ||
-        ecosystemFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
-        if (ecosystemFuture.valid()) {
-            try {
-                ecosystemFuture.get();
-            } catch (const std::exception& e) {
-                std::cerr << "EcosystemEngine async task crashed: " << e.what() << std::endl;
-                // Handle the exception
-                throw aetherion::EcosystemEngineException("[EcosystemEngineException] EcosystemEngine async task crashed: " + std::string(e.what()));
-            }
-        } else if (ecosystemStarted_) {
-            // Future is invalid AND we've run before = error state
-            Logger::getLogger()->error("EcosystemEngine future invalid after being started - critical error detected");
-            throw aetherion::EcosystemEngineException("[EcosystemEngineException] EcosystemEngine future became invalid after error");
-        }
-        // else: First run, future not started yet - this is normal
-
-        // Only restart ecosystem task if no critical error has occurred
-        if (ecosystemEngine && ecosystemEngine->waterSimManager_ && 
-            !ecosystemEngine->waterSimManager_->hasEncounteredCriticalError()) {
-            ecosystemFuture = std::async(
-                std::launch::async, safeExecute,
-                [this]() {
-                    ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, dispatcher, gameClock);
-                },
-                "EcosystemEngine");
-            ecosystemStarted_ = true;  // Mark as started
-        }
-    }
-
-    if (processMetabolismAsync) {
-        // Handle Metabolism Async Task
-        if (!metabolismFuture.valid() ||
-            metabolismFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
-            if (metabolismFuture.valid()) {
+    // Handle async task lifecycle - check for completed tasks and launch new ones
+    // GUARDRAIL: Do not launch new async tasks if entities are waiting to be deleted
+    // This ensures we get a clean window where no async tasks are running so deletion can proceed
+    if (!hasEntitiesToDelete) {
+        // Handle Physics Async Task
+        if (!physicsFuture.valid() ||
+            physicsFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+            // Optionally handle exceptions from the previous task
+            if (physicsFuture.valid()) {
                 try {
-                    metabolismFuture.get();
+                    physicsFuture.get();  // This will rethrow any exception from the async task
                 } catch (const std::exception& e) {
-                    std::cerr << "MetabolismSystem async task crashed: " << e.what() << std::endl;
-                    // Handle the exception
+                    std::cerr << "PhysicsEngine async task crashed: " << e.what() << std::endl;
+                    // Implement additional error handling here (e.g., retry limits, state cleanup)
                 }
             }
 
-            metabolismFuture = std::async(
+            // Launch a new async task using the standalone safeExecute
+            physicsFuture = std::async(
                 std::launch::async, safeExecute,
                 [this]() {
-                    metabolismSystem->processMetabolismAsync(registry, *voxelGrid, dispatcher);
+                    physicsEngine->processPhysicsAsync(registry, *voxelGrid, dispatcher, gameClock);
                 },
-                "MetabolismSystem");
+                "PhysicsEngine");
+        }
+
+        // Handle Ecosystem Async Task
+        if (!ecosystemFuture.valid() ||
+            ecosystemFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+            if (ecosystemFuture.valid()) {
+                try {
+                    ecosystemFuture.get();
+                } catch (const std::exception& e) {
+                    std::cerr << "EcosystemEngine async task crashed: " << e.what() << std::endl;
+                    // Handle the exception
+                    throw aetherion::EcosystemEngineException("[EcosystemEngineException] EcosystemEngine async task crashed: " + std::string(e.what()));
+                }
+            } else if (ecosystemStarted_) {
+                // Future is invalid AND we've run before = error state
+                Logger::getLogger()->error("EcosystemEngine future invalid after being started - critical error detected");
+                throw aetherion::EcosystemEngineException("[EcosystemEngineException] EcosystemEngine future became invalid after error");
+            }
+            // else: First run, future not started yet - this is normal
+
+            // Only restart ecosystem task if no critical error has occurred
+            if (ecosystemEngine && ecosystemEngine->waterSimManager_ && 
+                !ecosystemEngine->waterSimManager_->hasEncounteredCriticalError()) {
+                ecosystemFuture = std::async(
+                    std::launch::async, safeExecute,
+                    [this]() {
+                        ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, dispatcher, gameClock);
+                    },
+                    "EcosystemEngine");
+                ecosystemStarted_ = true;  // Mark as started
+            }
+        }
+
+        if (processMetabolismAsync) {
+            // Handle Metabolism Async Task
+            if (!metabolismFuture.valid() ||
+                metabolismFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+                if (metabolismFuture.valid()) {
+                    try {
+                        metabolismFuture.get();
+                    } catch (const std::exception& e) {
+                        std::cerr << "MetabolismSystem async task crashed: " << e.what() << std::endl;
+                        // Handle the exception
+                    }
+                }
+
+                metabolismFuture = std::async(
+                    std::launch::async, safeExecute,
+                    [this]() {
+                        metabolismSystem->processMetabolismAsync(registry, *voxelGrid, dispatcher);
+                    },
+                    "MetabolismSystem");
+            }
         }
     }
 }

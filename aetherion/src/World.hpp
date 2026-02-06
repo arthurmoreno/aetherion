@@ -167,6 +167,9 @@ class World {
 
     // Helper: acquire lifecycle lock and destroy entity handle safely.
     void destroyEntityHandleWithLifecycleLock(entt::entity entity);
+
+    // Process queued entity deletions when safe to do so (no async tasks running)
+    void processEntityDeletion();
 };
 
 #endif  // WORLD_H
