@@ -1,10 +1,10 @@
 #ifndef TERRAIN_GRID_REPOSITORY_HPP
 #define TERRAIN_GRID_REPOSITORY_HPP
 
+#include <atomic>
 #include <entt/entt.hpp>
 #include <optional>
 #include <shared_mutex>
-#include <atomic>
 #include <unordered_map>
 
 #include "components/EntityTypeComponent.hpp"
@@ -82,8 +82,8 @@ class TerrainGridRepository {
     std::optional<int> getTerrainIdIfExists(int x, int y, int z, bool takeLock = true) const;
 
     // EntityTypeComponent
-    EntityTypeComponent getTerrainEntityType(int x, int y, int z) const;
-    void setTerrainEntityType(int x, int y, int z, EntityTypeComponent etc);
+    EntityTypeComponent getTerrainEntityType(int x, int y, int z, bool takeLock = true) const;
+    void setTerrainEntityType(int x, int y, int z, EntityTypeComponent etc, bool takeLock = true);
 
     int getTerrainMainType(int x, int y, int z) const;
     void setTerrainMainType(int x, int y, int z, int v);
@@ -95,9 +95,10 @@ class TerrainGridRepository {
     void setTerrainSubType1(int x, int y, int z, int v);
 
     // StructuralIntegrityComponent
-    StructuralIntegrityComponent getTerrainStructuralIntegrity(int x, int y, int z) const;
-    void setTerrainStructuralIntegrity(int x, int y, int z,
-                                       const StructuralIntegrityComponent& sic);
+    StructuralIntegrityComponent getTerrainStructuralIntegrity(int x, int y, int z,
+                                                               bool takeLock = true) const;
+    void setTerrainStructuralIntegrity(int x, int y, int z, const StructuralIntegrityComponent& sic,
+                                       bool takeLock = true);
 
     // Matter
     MatterContainer getTerrainMatterContainer(int x, int y, int z) const;
@@ -113,9 +114,8 @@ class TerrainGridRepository {
     void setBiomassMatter(int x, int y, int z, int v);
 
     // Physics stats
-    PhysicsStats getPhysicsStats(int x, int y, int z) const;
-    void setPhysicsStats(int x, int y, int z, const PhysicsStats& ps);
-
+    PhysicsStats getPhysicsStats(int x, int y, int z, bool takeLock = true) const;
+    void setPhysicsStats(int x, int y, int z, const PhysicsStats& ps, bool takeLock = true);
     // Atomic multi-read for physics calculations (prevents TOCTOU bugs)
     TerrainPhysicsSnapshot getPhysicsSnapshot(int x, int y, int z) const;
 
@@ -156,8 +156,7 @@ class TerrainGridRepository {
     bool checkIfTerrainHasEntity(int x, int y, int z, bool takeLock = true) const;
     // If `takeLock` is true (default) the function will acquire the TerrainGridLock;
     // callers that already hold the lock may pass `false` to avoid double-locking.
-    void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z,
-                       bool takeLock = true);
+    void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z, bool takeLock = true);
 
     // Soft-deactivate an active terrain EnTT entity without immediately destroying it.
     // This removes transient components (Velocity/MovingComponent) and ensures the
@@ -183,6 +182,9 @@ class TerrainGridRepository {
     template <typename Callback>
     void iterateActiveVoxels(Callback callback) const;
 
+    // Sum all water (liquid + vapor) across the entire grid
+    int64_t sumTotalWater() const;
+
     Position getPositionOfEntt(entt::entity terrain_entity) const;
     void moveTerrain(MovingComponent& movingComponent);
 
@@ -198,10 +200,10 @@ class TerrainGridRepository {
     // - `respectTerrainGridLock`: when true (default) the helper will skip acquiring
     //    `trackingMapsMutex_` if the terrain grid is externally locked via
     //    `lockTerrainGrid()`; this mirrors the previous behavior.
-    void addToTrackingMaps(const VoxelCoord& key, entt::entity e,
-                           bool takeTrackingLock = true, bool respectTerrainGridLock = true);
-    void removeFromTrackingMaps(const VoxelCoord& key, entt::entity e,
-                                bool takeTrackingLock = true, bool respectTerrainGridLock = true);
+    void addToTrackingMaps(const VoxelCoord& key, entt::entity e, bool takeTrackingLock = true,
+                           bool respectTerrainGridLock = true);
+    void removeFromTrackingMaps(const VoxelCoord& key, entt::entity e, bool takeTrackingLock = true,
+                                bool respectTerrainGridLock = true);
 
     template <typename Func>
     auto withTrackingMapsLock(Func&& func, bool takeTrackingLock = true,
@@ -219,6 +221,7 @@ class TerrainGridRepository {
     }
 
     bool isTerrainGridLocked() const;
+
    private:
     // Check if terrain grid is currently locked
 

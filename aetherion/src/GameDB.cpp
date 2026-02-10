@@ -18,6 +18,9 @@ GameDB::GameDB(const std::string& sqlite_path)
         Logger::getLogger()->info("SQLite DB opened at: {}", sqlite_path);
     }
 
+    // Validate and fix time_series table schema if needed
+    validateTimeSeriesSchema();
+
     // Create tables if they don't exist
     createTables();
 
@@ -34,6 +37,52 @@ GameDB::~GameDB() {
     // Close SQLite database
     if (sqliteDb) {
         sqlite3_close(sqliteDb);
+    }
+}
+
+void GameDB::validateTimeSeriesSchema() {
+    const char* checkTableSql =
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='time_series'";
+    sqlite3_stmt* checkStmt = nullptr;
+
+    if (sqlite3_prepare_v2(sqliteDb, checkTableSql, -1, &checkStmt, nullptr) != SQLITE_OK) {
+        return;
+    }
+
+    bool tableExists = (sqlite3_step(checkStmt) == SQLITE_ROW);
+    sqlite3_finalize(checkStmt);
+
+    if (!tableExists) {
+        return;
+    }
+
+    // Check for required columns
+    const char* pragmaSql = "PRAGMA table_info(time_series)";
+    sqlite3_stmt* pragmaStmt = nullptr;
+
+    if (sqlite3_prepare_v2(sqliteDb, pragmaSql, -1, &pragmaStmt, nullptr) != SQLITE_OK) {
+        return;
+    }
+
+    bool hasSeries_name = false, hasTimestamp = false, hasValue = false;
+    while (sqlite3_step(pragmaStmt) == SQLITE_ROW) {
+        const char* columnName = reinterpret_cast<const char*>(sqlite3_column_text(pragmaStmt, 1));
+        if (columnName) {
+            if (strcmp(columnName, "series_name") == 0) hasSeries_name = true;
+            if (strcmp(columnName, "timestamp") == 0) hasTimestamp = true;
+            if (strcmp(columnName, "value") == 0) hasValue = true;
+        }
+    }
+    sqlite3_finalize(pragmaStmt);
+
+    // Drop invalid table so createTables() will recreate it correctly
+    if (!hasSeries_name || !hasTimestamp || !hasValue) {
+        Logger::getLogger()->warn(
+            "[validateTimeSeriesSchema] Dropping invalid time_series table (series_name: {}, "
+            "timestamp: {}, "
+            "value: {})",
+            hasSeries_name, hasTimestamp, hasValue);
+        executeSQL("DROP TABLE IF EXISTS time_series");
     }
 }
 
@@ -80,8 +129,31 @@ std::vector<std::pair<uint64_t, double>> GameDB::queryTimeSeries(const std::stri
                                                                  uint64_t end_time) {
     std::vector<std::pair<uint64_t, double>> results;
 
+    // Validate inputs
+    if (!sqliteDb) {
+        spdlog::get("console")->debug("[queryTimeSeries] SQLite DB is not initialized");
+        return results;
+    }
+
+    if (seriesName.empty()) {
+        spdlog::get("console")->warn(
+            "[queryTimeSeries] Called with empty seriesName, returning empty results");
+        return results;
+    }
+
+    if (start_time > end_time) {
+        spdlog::get("console")->warn(
+            "[queryTimeSeries] Invalid time range: start_time ({}) > end_time ({}), swapping",
+            start_time, end_time);
+        std::swap(start_time, end_time);
+    }
+
+    spdlog::get("console")->debug("[queryTimeSeries] Querying series='{}' for time range [{}, {}]",
+                                  seriesName, start_time, end_time);
+
     try {
         // First check in-memory cache
+        spdlog::get("console")->debug("[queryTimeSeries] Checking in-memory cache...");
         for (auto entity : registry.view<TimeSeriesComponent>()) {
             auto& timeSeriesComp = registry.get<TimeSeriesComponent>(entity);
             if (timeSeriesComp.timeSeriesName == seriesName) {
@@ -89,10 +161,14 @@ std::vector<std::pair<uint64_t, double>> GameDB::queryTimeSeries(const std::stri
 
                 // If we have results, return them
                 if (!results.empty()) {
-                    // Logger::getLogger()->info("Found {} results in memory cache",
-                    // results.size());
+                    spdlog::get("console")->debug(
+                        "[queryTimeSeries] Found {} results in memory cache for '{}'",
+                        results.size(), seriesName);
                     return results;
                 }
+                spdlog::get("console")->debug(
+                    "[queryTimeSeries] Series '{}' found in cache but no data in range",
+                    seriesName);
             }
         }
 
@@ -101,37 +177,46 @@ std::vector<std::pair<uint64_t, double>> GameDB::queryTimeSeries(const std::stri
             "SELECT timestamp, value FROM time_series WHERE series_name = ? AND timestamp >= ? AND "
             "timestamp <= ? "
             "ORDER BY timestamp";
+
+        spdlog::get("console")->debug("[queryTimeSeries] Preparing SQL query: {}", query);
         sqlite3_stmt* stmt = nullptr;
 
         if (sqlite3_prepare_v2(sqliteDb, query, -1, &stmt, nullptr) != SQLITE_OK) {
-            Logger::getLogger()->error("Failed to prepare SQLite query: {}",
-                                       sqlite3_errmsg(sqliteDb));
+            spdlog::get("console")->error(
+                "[queryTimeSeries] Failed to prepare SQLite query: {} -- SQL: {}",
+                sqlite3_errmsg(sqliteDb), query);
             return results;
         }
 
         // Bind parameters
+        spdlog::get("console")->debug(
+            "[queryTimeSeries] Binding parameters: seriesName='{}', start={}, end={}", seriesName,
+            start_time, end_time);
         sqlite3_bind_text(stmt, 1, seriesName.c_str(), -1, SQLITE_TRANSIENT);
         sqlite3_bind_int64(stmt, 2, static_cast<sqlite3_int64>(start_time));
         sqlite3_bind_int64(stmt, 3, static_cast<sqlite3_int64>(end_time));
 
-        // Execute query and fetch results
-        while (sqlite3_step(stmt) == SQLITE_ROW) {
-            uint64_t ts = static_cast<uint64_t>(sqlite3_column_int64(stmt, 1));
-            double val = sqlite3_column_double(stmt, 2);
+        // Execute query and fetch results (columns: 0=timestamp, 1=value)
+        int stepResult = 0;
+        while ((stepResult = sqlite3_step(stmt)) == SQLITE_ROW) {
+            uint64_t ts = static_cast<uint64_t>(sqlite3_column_int64(stmt, 0));
+            double val = sqlite3_column_double(stmt, 1);
             results.emplace_back(ts, val);
+            spdlog::get("console")->debug("[queryTimeSeries] Got row: ts={}, val={}", ts, val);
+        }
 
-            // Also update memory cache
-            auto entity = registry.create();
-            auto& timeSeriesComp = registry.emplace<TimeSeriesComponent>(entity);
-            timeSeriesComp.timeSeriesName = seriesName;
-            timeSeriesComp.addDataPoint(ts, val);
+        if (stepResult != SQLITE_DONE) {
+            spdlog::get("console")->error("[queryTimeSeries] Error during query execution: {}",
+                                          sqlite3_errmsg(sqliteDb));
         }
 
         sqlite3_finalize(stmt);
-        Logger::getLogger()->info("Found {} results in database", results.size());
+        spdlog::get("console")->debug(
+            "[queryTimeSeries] Found {} results in database for series '{}'", results.size(),
+            seriesName);
 
     } catch (const std::exception& e) {
-        Logger::getLogger()->error("Error querying time series data: {}", e.what());
+        spdlog::get("console")->error("[queryTimeSeries] Exception occurred: {}", e.what());
     }
 
     return results;

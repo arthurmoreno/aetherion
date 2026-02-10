@@ -6,9 +6,9 @@
 
 // Helper: Initialize MovingComponent with movement parameters
 inline MovingComponent initializeMovingComponent(const Position& position, const Velocity& velocity,
-                                          int movingToX, int movingToY, int movingToZ,
-                                          float completionTime, bool willStopX, bool willStopY,
-                                          bool willStopZ) {
+                                                 int movingToX, int movingToY, int movingToZ,
+                                                 float completionTime, bool willStopX,
+                                                 bool willStopY, bool willStopZ) {
     MovingComponent movingComponent;
     movingComponent.isMoving = true;
 

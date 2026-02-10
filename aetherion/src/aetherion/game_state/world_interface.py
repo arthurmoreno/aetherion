@@ -15,7 +15,7 @@ class WorldInterfaceMetadata(BaseModel):
     allow_multi_direction: bool = True
     evaporation_coefficient: float = 8.0
     heat_to_water_evaporation: float = 120.0
-    water_minimum_units: int = 120000
+    water_minimum_units: int = 30000
     metabolism_cost_to_apply_force: float = 1.999999949504854e-06
 
     host: str = "localhost"

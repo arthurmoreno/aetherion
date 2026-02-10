@@ -54,8 +54,7 @@ class VoxelGrid {
     int getTerrain(int x, int y, int z) const;
     // Forward to TerrainGridRepository::deleteTerrain. If `takeLock` is false,
     // the repository will assume the caller already holds the terrain grid lock.
-    void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z,
-                       bool takeLock = true);
+    void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z, bool takeLock = true);
 
     void setEntity(int x, int y, int z, int entityID);
     int getEntity(int x, int y, int z) const;

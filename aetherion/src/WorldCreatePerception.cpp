@@ -1,5 +1,6 @@
 #include "Logger.hpp"
 #include "World.hpp"
+#include "WorldClientAPI/ProcessOptionalQueries.hpp"
 
 // Step 1: Retrieve entity's position and perception component
 std::pair<const Position&, const PerceptionComponent&> getEntityPositionAndPerception(
@@ -301,116 +302,9 @@ void createEntityInterfacesForEntitiesInView(
 //     return nb::bytes(serialized_data.data(), serialized_data.size());
 // }
 
-void addTimeSeriesDataToResponse(std::shared_ptr<MapOfMapsOfDoubleResponse> response,
-                                 const std::string& seriesName, uint64_t start, uint64_t end,
-                                 GameDBHandler* dbHandler) {
-    // Query the time series data
-    std::vector<std::pair<uint64_t, double>> result =
-        dbHandler->queryTimeSeries(seriesName, start, end);
-
-    // Logger::getLogger()->debug("[World::processOptionalQueries] Querying {} data from {} to {}",
-    //                           seriesName, start, end);
-
-    // Create a nested map for the time series data
-    std::map<std::string, double> timeSeriesMap;
-
-    // Fill the inner map with timestamp -> value pairs
-    for (const auto& pair : result) {
-        std::string timestampKey = std::to_string(static_cast<double>(pair.first));
-        timeSeriesMap[timestampKey] = pair.second;
-    }
-
-    // Add to the response
-    response->mapOfMaps[seriesName] = std::move(timeSeriesMap);
-}
-
 void World::processOptionalQueries(const std::vector<QueryCommand>& commands,
                                    PerceptionResponse& response) {
-    for (const auto& cmd : commands) {
-        // Process the command type
-        if (cmd.type == "query_entities_data") {
-            // Make sure entity_type_id is present
-            auto it = cmd.params.find("entity_type_id");
-            if (it != cmd.params.end()) {
-                int entity_type_id = std::stoi(it->second);
-
-                auto mapOfMapsResponse = std::make_shared<MapOfMapsResponse>();
-
-                // Example: we iterate over some ECS registry
-                auto view = registry.view<MetabolismComponent, DigestionComponent, HealthComponent,
-                                          EntityTypeComponent>();
-
-                for (auto entity : view) {
-                    if (registry.all_of<MetabolismComponent, DigestionComponent, HealthComponent,
-                                        EntityTypeComponent>(entity)) {
-                        auto& healthComp = view.get<HealthComponent>(entity);
-                        int entityId = static_cast<int>(entity);
-
-                        auto entityIdString = std::to_string(entityId);
-                        auto entityHealthLevelString = std::to_string(healthComp.healthLevel);
-
-                        // Fill in your mapOfMaps data
-                        mapOfMapsResponse->mapOfMaps[entityIdString] = {
-                            {"ID", entityIdString},
-                            {"Name", "Squirrel"},
-                            {"Health", entityHealthLevelString}};
-                    }
-                }
-
-                response.queryResponses.emplace(1, mapOfMapsResponse);
-                std::cout << "Processing 'query_entities_data' with entity_type_id: "
-                          << entity_type_id << std::endl;
-            } else {
-                std::cerr << "Error: 'query_entities_data' missing 'entity_type_id' parameter.\n";
-            }
-        } else if (cmd.type == "move") {
-            // Example handling for 'move' command
-            int x = 0, y = 0;
-            auto itx = cmd.params.find("x");
-            if (itx != cmd.params.end()) {
-                x = std::stoi(itx->second);
-            }
-            auto ity = cmd.params.find("y");
-            if (ity != cmd.params.end()) {
-                y = std::stoi(ity->second);
-            }
-
-            std::cout << "Processing 'move' command to position (" << x << ", " << y << ")\n";
-            // Perform the move operation as needed
-        } else if (cmd.type == "get_ai_statistics") {
-            // Example handling for 'get_ai_statistics' command
-            // Logger::getLogger()->debug(
-            //     "[World::processOptionalQueries] Processing 'get_ai_statistics' command");
-            auto it = cmd.params.find("start");
-            long long start = 0;
-            if (it != cmd.params.end()) {
-                start = std::stoll(it->second);
-            }
-            auto it2 = cmd.params.find("end");
-            long long end = 0;
-            if (it2 != cmd.params.end()) {
-                end = std::stoll(it2->second);
-            }
-
-            auto mapOfMapsOfDoubleResponse = std::make_shared<MapOfMapsOfDoubleResponse>();
-
-            std::vector<std::string> seriesNames = {"population_size",   "inference_queue_size",
-                                                    "action_queue_size", "population_mean",
-                                                    "population_max",    "population_min"};
-            for (const auto& seriesName : seriesNames) {
-                addTimeSeriesDataToResponse(mapOfMapsOfDoubleResponse, seriesName, start, end,
-                                            dbHandler.get());
-            }
-
-            response.queryResponses.emplace(2, mapOfMapsOfDoubleResponse);
-
-            // Logger::getLogger()->debug(
-            //     "[World::processOptionalQueries] Processing 'get_ai_statistics' command");
-        } else {
-            // Handle unknown command types
-            std::cerr << "Error: Unknown command type '" << cmd.type << "'." << std::endl;
-        }
-    }
+    _processOptionalQueries(commands, response, registry, dbHandler.get());
 }
 
 std::vector<char> World::createPerceptionResponseC(int entityId,

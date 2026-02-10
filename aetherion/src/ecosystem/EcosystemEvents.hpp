@@ -3,8 +3,6 @@
 
 #include <entt/entt.hpp>
 
-
-
 #include "components/EntityTypeComponent.hpp"
 #include "components/HealthComponents.hpp"
 #include "components/ItemsComponents.hpp"
@@ -105,19 +103,16 @@ struct TerrainPhaseConversionEvent {
           newStructuralIntegrity(newStructuralIntegrity) {}
 };
 
-
 struct TerrainRemoveVelocityEvent {
     entt::entity entity;
 
-    explicit TerrainRemoveVelocityEvent(entt::entity entity)
-        : entity(entity) {}
+    explicit TerrainRemoveVelocityEvent(entt::entity entity) : entity(entity) {}
 };
 
 struct TerrainRemoveMovingComponentEvent {
     entt::entity entity;
 
-    explicit TerrainRemoveMovingComponentEvent(entt::entity entity)
-        : entity(entity) {}
+    explicit TerrainRemoveMovingComponentEvent(entt::entity entity) : entity(entity) {}
 };
 
 struct VaporCreationEvent {
@@ -166,7 +161,6 @@ struct AddVaporToTileAboveEvent {
     AddVaporToTileAboveEvent(Position sourcePos, int amount, int terrainAboveId)
         : sourcePos(sourcePos), amount(amount), terrainAboveId(terrainAboveId) {}
 };
-
 
 struct MoveGasEntityEvent {
     entt::entity entity;

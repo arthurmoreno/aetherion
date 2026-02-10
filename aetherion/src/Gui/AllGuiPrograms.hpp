@@ -33,6 +33,8 @@
 #include "GuiPrograms/Debug/EntityInterfaceProgram.hpp"
 #include "GuiPrograms/Debug/GadgetsProgram.hpp"
 #include "GuiPrograms/Debug/GeneralMetricsProgram.hpp"
+#include "GuiPrograms/Debug/LifeMetricsProgram.hpp"
+#include "GuiPrograms/Debug/PhysicsMetricsProgram.hpp"
 
 // Game programs
 #include "GuiPrograms/Game/EquipmentProgram.hpp"

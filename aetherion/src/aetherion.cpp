@@ -613,8 +613,8 @@ NB_MODULE(_aetherion, m) {
         .def_ro("thread_id", &ThreadError::threadId, "Worker thread ID that encountered the error")
         .def_ro("error_message", &ThreadError::errorMessage, "Error message from the thread")
         .def("__repr__", [](const ThreadError& e) {
-            return "<ThreadError thread_id=" + std::to_string(e.threadId) + 
-                   " message='" + e.errorMessage + "'>";
+            return "<ThreadError thread_id=" + std::to_string(e.threadId) + " message='" +
+                   e.errorMessage + "'>";
         });
 
     nb::class_<World>(m, "World")
@@ -668,10 +668,11 @@ NB_MODULE(_aetherion, m) {
                  long long e = nb::cast<long long>(end);
                  return w.queryTimeSeries(name, s, e);
              })
-        .def("execute_sql", [](World& w, nb::object sql) {
-            std::string s = nb::cast<std::string>(sql);
-            w.executeSQL(s);
-        })
+        .def("execute_sql",
+             [](World& w, nb::object sql) {
+                 std::string s = nb::cast<std::string>(sql);
+                 w.executeSQL(s);
+             })
         // Water simulation error handling methods
         .def("get_water_sim_errors", &World::getWaterSimErrors,
              "Get list of water simulation thread errors with details (thread ID, message)")

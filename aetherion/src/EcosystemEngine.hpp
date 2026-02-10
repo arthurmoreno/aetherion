@@ -27,11 +27,10 @@
 #include "components/PhysicsComponents.hpp"
 #include "components/PlantsComponents.hpp"
 #include "components/TerrainComponents.hpp"
-#include "physics/PhysicsManager.hpp"
 #include "ecosystem/EcosystemEvents.hpp"
+#include "physics/PhysicsManager.hpp"
 #include "terrain/TerrainStorage.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
-
 
 // Forward declarations and supporting types for GridBoxProcessor
 struct GridBox {
@@ -233,7 +232,7 @@ class WaterSimulationManager {
     // Error checking methods
     bool hasErrors();
     std::vector<ThreadError> getErrors();
-    
+
     // Public method to initiate clean shutdown (for cleanup or error handling)
     void initiateShutdown();
     bool hasEncounteredCriticalError() const { return hasEncounteredCriticalError_.load(); }

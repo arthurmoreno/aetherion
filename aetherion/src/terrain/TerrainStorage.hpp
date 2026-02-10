@@ -155,6 +155,12 @@ class TerrainStorage {
     void iterateGrid(const openvdb::Int32Grid::Ptr& grid, Callback callback,
                      int minValue = 1) const;
 
+    // Sum all active values in a single Int32Grid
+    int64_t sumGrid(const openvdb::Int32Grid::Ptr& grid) const;
+
+    // Sum all water (liquid + vapor) across both grids
+    int64_t sumTotalWater() const;
+
    private:
     // Thread-local accessor cache for fast O(1) get/set
     struct ThreadCache {

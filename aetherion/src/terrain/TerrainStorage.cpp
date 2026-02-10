@@ -600,9 +600,11 @@ int TerrainStorage::deleteTerrain(int x, int y, int z) {
     openvdb::Coord coord(x, y, z);
 
     // Deactivate the voxel in all grids to keep the tree clean
-    int terrainId = -2;
+    int emptyTerrainId = -2;
+    int oldTerrainId = -2;
     if (terrainGrid) {
-        terrainId = terrainGrid->tree().getValue(coord);
+        oldTerrainId = terrainGrid->tree().getValue(coord);
+        terrainGrid->tree().setValue(openvdb::Coord(x, y, z), emptyTerrainId);
         terrainGrid->tree().setValueOff(coord);
     }
 
@@ -620,7 +622,7 @@ int TerrainStorage::deleteTerrain(int x, int y, int z) {
     flagsGrid->tree().setValueOff(coord);
     maxLoadCapacityGrid->tree().setValueOff(coord);
 
-    return terrainId;
+    return oldTerrainId;
 }
 
 // StructuralIntegrityComponent accessors:
@@ -642,4 +644,18 @@ StructuralIntegrityComponent TerrainStorage::getTerrainStructuralIntegrity(int x
     sic.gradientVector = decodeGradientVector(encodedFlags);
     sic.maxLoadCapacity = maxLoadCapacityGrid->tree().getValue(coord);
     return sic;
+}
+
+int64_t TerrainStorage::sumGrid(const openvdb::Int32Grid::Ptr& grid) const {
+    int64_t total = 0;
+    if (!grid) return total;
+
+    for (auto it = grid->cbeginValueOn(); it; ++it) {
+        total += it.getValue();
+    }
+    return total;
+}
+
+int64_t TerrainStorage::sumTotalWater() const {
+    return sumGrid(waterMatterGrid) + sumGrid(vaporMatterGrid);
 }

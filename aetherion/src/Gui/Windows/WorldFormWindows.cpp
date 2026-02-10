@@ -52,7 +52,7 @@ void imguiPrepareWorldFormWindows(nb::list& commands, nb::dict& shared_data) {
     static bool allowMultiDirection = true;
     static float evaporationCoefficient = 8.0f;
     static float heatToWaterEvaporation = 120.0f;
-    static int waterMinimumUnits = 120000;
+    static int waterMinimumUnits = 30000;
     static float metabolismCostToApplyForce = 0.000002f;
 
     // Create scrollable child region for form content, leaving space for buttons
@@ -102,7 +102,7 @@ void imguiPrepareWorldFormWindows(nb::list& commands, nb::dict& shared_data) {
     ImGui::Text("Environmental Physics:");
     ImGui::SliderFloat("Evaporation Coefficient", &evaporationCoefficient, 1.0f, 20.0f, "%.2f");
     ImGui::SliderFloat("Heat to Water Evaporation", &heatToWaterEvaporation, 50.0f, 300.0f, "%.2f");
-    ImGui::SliderInt("Water Minimum Units", &waterMinimumUnits, 10000, 500000);
+    ImGui::SliderInt("Water Minimum Units", &waterMinimumUnits, 200, 34000);
 
     ImGui::Spacing();
     ImGui::Text("Metabolism Settings:");

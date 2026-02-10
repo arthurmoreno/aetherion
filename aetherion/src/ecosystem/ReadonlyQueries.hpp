@@ -9,14 +9,12 @@
 #include "components/PhysicsComponents.hpp"
 #include "components/TerrainComponents.hpp"
 #include "physics/PhysicalMath.hpp"
+#include "physics/PhysicsEvents.hpp"
 #include "physics/ReadonlyQueries.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
-#include "physics/PhysicsEvents.hpp"
-
-
 
 inline std::tuple<bool, bool> isNeighborWaterOrEmpty(entt::registry& registry, VoxelGrid& voxelGrid,
-                                              const int x, const int y, const int z) {
+                                                     const int x, const int y, const int z) {
     int terrainNeighborId = voxelGrid.getTerrain(x, y, z);
     bool isNeighborEmpty = (terrainNeighborId == static_cast<int>(TerrainIdTypeEnum::NONE));
     bool isTerrainNeighborSoftEmpty{false};
@@ -37,11 +35,9 @@ inline std::tuple<bool, bool> isNeighborWaterOrEmpty(entt::registry& registry, V
     return std::make_tuple(isNeighborEmpty, isNeighborWater);
 }
 
-
-
 inline bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid,
-                                    entt::dispatcher& dispatcher, const int x, const int y,
-                                    const int z) {
+                                           entt::dispatcher& dispatcher, const int x, const int y,
+                                           const int z) {
     int terrainId = voxelGrid.getTerrain(x, y, z);
     if (terrainId < static_cast<int>(TerrainIdTypeEnum::NONE)) {
         // Invalid terrain ID
@@ -74,6 +70,5 @@ inline bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& 
     // Review this after fixing the current bug.
     return false;
 }
-
 
 #endif  // ECOSYSTEM_READONLY_QUERIES_HPP

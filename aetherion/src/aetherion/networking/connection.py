@@ -28,6 +28,12 @@ if TYPE_CHECKING:
 
 from aetherion import BaseEntity, EntityInterface, GameClock, PerceptionResponseFlatB, SharedState
 
+OPTIONAL_QUERIES_COMMANDS: list[str] = [
+    "get_ai_statistics",
+    "get_physics_statistics",
+    "get_life_statistics",
+]
+
 
 class BeastConnection(ABC):
     """Abstract base class for connections to a world interface."""
@@ -214,16 +220,13 @@ class SynchronousBeastConnection(BeastConnection):
         if self.world_instance is None:
             return None
 
-        optional_queries = {}
+        optional_queries: dict[Any, Any] = {}
         optional_queries[self.name] = [command for command in shared_state.commands if "query" in command.get("type")]
 
-        for command in shared_state.commands:
-            if command.get("type") == "get_ai_statistics":
-                optional_queries[self.name].append(command)
-
-        for command in shared_state.commands:
-            if command.get("type") == "get_ai_statistics":
-                optional_queries[self.name].append(command)
+        if shared_state and shared_state.commands:
+            for command in shared_state.commands:
+                if command.get("type") in OPTIONAL_QUERIES_COMMANDS:
+                    optional_queries[self.name].append(command)
 
         entities_ids_with_queries = {}
         entities_ids_connection_names = {}

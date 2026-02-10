@@ -16,10 +16,10 @@
 #include <vector>
 
 #include "PerceptionResponse_generated.h"
-#include "flatbuffers/flatbuffers.h"
-#include "voxelgrid/VoxelGrid.hpp"
-#include "physics/PhysicsMutators.hpp"
 #include "WorldExceptions.hpp"
+#include "flatbuffers/flatbuffers.h"
+#include "physics/PhysicsMutators.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 World::World(int width, int height, int depth)
     : voxelGrid(new VoxelGrid(registry)),
@@ -93,86 +93,178 @@ void World::processEntityDeletion() {
     // then acquire a `TerrainGridLock` if modifying terrain. This prevents
     // deadlocks with perception readers and other terrain operations.
 
-    // std::cout << "\n=== ENTITY DELETION DEBUG ===" << std::endl;
-    // std::cout << "Total entities to delete: " << lifeEngine->entitiesToDelete.size()
-    //           << std::endl;
+    auto console = spdlog::get("console");
+    if (!console) console = spdlog::stdout_color_mt("console");
 
+    console->debug("\n========== ENTITY DELETION PHASE START ==========");
+    console->debug("Total entities in entitiesToDelete: {}", lifeEngine->entitiesToDelete.size());
+    console->debug("Total entities in entitiesToRemoveVelocity: {}",
+                   lifeEngine->entitiesToRemoveVelocity.size());
+    console->debug("Total entities in entitiesToRemoveMovingComponent: {}",
+                   lifeEngine->entitiesToRemoveMovingComponent.size());
+
+    // Phase 1: Remove Velocity components
+    console->debug("--- PHASE 1: Removing Velocity components ---");
+    int velocityRemoved = 0;
+    int velocitySkipped = 0;
     for (const auto& [entity, _] : lifeEngine->entitiesToRemoveVelocity) {
-        if (registry.valid(entity) && registry.all_of<Velocity>(entity)) {
+        int entityId = static_cast<int>(entity);
+        bool valid = registry.valid(entity);
+        bool hasVelocity = valid && registry.all_of<Velocity>(entity);
+
+        if (hasVelocity) {
             registry.remove<Velocity>(entity);
-            // std::cout << "Removed Velocity component from entity "
-            //           << static_cast<int>(entity) << std::endl;
+            console->debug("[Velocity] Removed from entity {}", entityId);
+            velocityRemoved++;
+        } else {
+            console->debug("[Velocity] Skipped entity {} (valid={}, hasVelocity={})", entityId,
+                           valid, hasVelocity);
+            velocitySkipped++;
         }
     }
+    console->debug("[Velocity Summary] Removed: {}, Skipped: {}", velocityRemoved, velocitySkipped);
     lifeEngine->entitiesToRemoveVelocity.clear();
 
+    // Phase 2: Remove MovingComponent
+    console->debug("--- PHASE 2: Removing MovingComponent ---");
+    int movingRemoved = 0;
+    int movingSkipped = 0;
     for (const auto& [entity, _] : lifeEngine->entitiesToRemoveMovingComponent) {
-        if (registry.valid(entity) && registry.all_of<MovingComponent>(entity)) {
+        int entityId = static_cast<int>(entity);
+        bool valid = registry.valid(entity);
+        bool hasMoving = valid && registry.all_of<MovingComponent>(entity);
+
+        if (hasMoving) {
             registry.remove<MovingComponent>(entity);
-            // std::cout << "Removed MovingComponent from entity "
-            //           << static_cast<int>(entity) << std::endl;
+            console->debug("[Moving] Removed from entity {}", entityId);
+            movingRemoved++;
+        } else {
+            console->debug("[Moving] Skipped entity {} (valid={}, hasMoving={})", entityId, valid,
+                           hasMoving);
+            movingSkipped++;
         }
     }
+    console->debug("[Moving Summary] Removed: {}, Skipped: {}", movingRemoved, movingSkipped);
     lifeEngine->entitiesToRemoveMovingComponent.clear();
+
+    // Phase 3: Full entity deletion
+    console->debug("--- PHASE 3: Full entity deletion ---");
+    int successfulDeletions = 0;
+    int skippedDeletions = 0;
+    int gridMismatches = 0;
+
+    std::map<int, int> deletionReasons;  // Track why entities were skipped
 
     for (const auto& [entity, softKill] : lifeEngine->entitiesToDelete) {
         int entityId = static_cast<int>(entity);
         bool isSpecialId = entityId == -1 || entityId == -2;
         bool isValidEntity = registry.valid(entity);
 
-        // std::cout << "\n--- Processing deletion request ---" << std::endl;
-        // std::cout << "Entity handle: " << static_cast<uint32_t>(entity) << std::endl;
-        // std::cout << "Entity ID (cast): " << entityId << std::endl;
-        // std::cout << "Is special ID: " << isSpecialId << std::endl;
-        // std::cout << "Registry valid: " << isValidEntity << std::endl;
-        // std::cout << "Soft kill: " << softKill << std::endl;
+        console->debug("[Deletion] Processing entity {}: specialId={}, valid={}, softKill={}",
+                       entityId, isSpecialId, isValidEntity, softKill);
 
         if (!isSpecialId && isValidEntity) {
             // Get entity details before destruction
             if (registry.all_of<Position, EntityTypeComponent>(entity)) {
                 auto [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
-                // std::cout << "Entity position: (" << pos.x << "," << pos.y << "," << pos.z
-                //           << ")" << std::endl;
-                // std::cout << "Entity type: " << type.mainType << "," << type.subType0
-                //           << std::endl;
+                console->debug("[Deletion] Entity {} position: ({},{},{}), type: {}/{}", entityId,
+                               pos.x, pos.y, pos.z, type.mainType, type.subType0);
 
                 // Check what's actually in the voxel grid at this position
                 int gridEntity = voxelGrid->getEntity(pos.x, pos.y, pos.z);
-                // std::cout << "Grid entity at position: " << gridEntity << std::endl;
+                console->debug("[Deletion] Grid entity at ({},{},{}): {}", pos.x, pos.y, pos.z,
+                               gridEntity);
 
                 if (gridEntity != entityId) {
-                    std::cout << "ERROR: Grid mismatch! Grid has " << gridEntity
-                              << " but trying to delete " << entityId << std::endl;
+                    console->error(
+                        "[Deletion] MISMATCH! Grid has {} but trying to delete {}. "
+                        "This may cause duplicates on retry!",
+                        gridEntity, entityId);
+                    gridMismatches++;
                 }
+            } else {
+                console->debug("[Deletion] Entity {} lacks Position/EntityTypeComponent", entityId);
             }
 
             // Decide whether to remove from grid (true for hard kills)
             const bool shouldRemoveFromGrid = !softKill;
+            console->debug("[Deletion] Entity {} - shouldRemoveFromGrid: {}", entityId,
+                           shouldRemoveFromGrid);
 
             // Caller holds `entityLifecycleMutex` (see above). Delegate full
             // destruction and grid cleanup into a single helper that will
             // acquire `TerrainGridLock` when needed.
-            destroyEntityWithGridCleanup(registry, *voxelGrid, dispatcher, entity,
-                                          shouldRemoveFromGrid);
-            // std::cout << "Destroyed entity " << entityId << std::endl;
+            try {
+                destroyEntityWithGridCleanup(registry, *voxelGrid, dispatcher, entity,
+                                             shouldRemoveFromGrid);
+                console->debug("[Deletion] Before erase - entitiesScheduledForDeletion size: {}",
+                               lifeEngine->entitiesScheduledForDeletion.size());
+                size_t erased = lifeEngine->entitiesScheduledForDeletion.erase(entity);
+                console->debug(
+                    "[Deletion] Erased {} entities from scheduled deletion. New size: {}", erased,
+                    lifeEngine->entitiesScheduledForDeletion.size());
+                console->debug("[Deletion] Successfully destroyed entity {}", entityId);
+                successfulDeletions++;
+            } catch (const std::exception& e) {
+                console->error("[Deletion] EXCEPTION while destroying entity {}: {}", entityId,
+                               e.what());
+                skippedDeletions++;
+                deletionReasons[entityId] = 1;  // Exception flag
+            }
         } else {
             if (isSpecialId) {
-                // std::cout << "Skipping special ID: " << entityId << std::endl;
+                console->warn("[Deletion] Skipping special ID: {}", entityId);
+                deletionReasons[entityId] = 2;  // Special ID flag
             } else if (!isValidEntity) {
-                // There is a lot of cases falling here - double deletions?
-                // std::cout << "Entity " << entityId << " already invalid, skipping"
-                //           << std::endl;
+                console->warn("[Deletion] Entity {} already invalid - forcing cleanup", entityId);
+                try {
+                    registry.destroy(entity);
+                    console->debug(
+                        "[Deletion] Before erase (invalid) - entitiesScheduledForDeletion size: {}",
+                        lifeEngine->entitiesScheduledForDeletion.size());
+                    size_t erased = lifeEngine->entitiesScheduledForDeletion.erase(entity);
+                    console->debug(
+                        "[Deletion] Erased {} entities from scheduled deletion (invalid). New "
+                        "size: {}",
+                        erased, lifeEngine->entitiesScheduledForDeletion.size());
+                    console->debug("[Deletion] Force-destroyed invalid entity {}", entityId);
+                    successfulDeletions++;
+                } catch (const std::exception& e) {
+                    console->error("[Deletion] EXCEPTION while force-destroying entity {}: {}",
+                                   entityId, e.what());
+                    skippedDeletions++;
+                    deletionReasons[entityId] = 3;  // Force destroy exception flag
+                }
             }
-
-            // std::ostringstream ossMessage;
-            // ossMessage << "Warning: Attempted to delete invalid or special entity ID "
-            //            << entityId << ".";
-            // spdlog::get("console")->warn(ossMessage.str());
         }
     }
 
-    // std::cout << "=== END ENTITY DELETION DEBUG ===\n" << std::endl;
+    console->debug("[Deletion Summary] Successful: {}, Skipped: {}, Grid Mismatches: {}",
+                   successfulDeletions, skippedDeletions, gridMismatches);
+
+    if (!deletionReasons.empty()) {
+        console->warn("[Deletion Reasons] {} entities had issues:", deletionReasons.size());
+        for (const auto& [id, reason] : deletionReasons) {
+            std::string reasonStr;
+            if (reason == 1)
+                reasonStr = "Exception";
+            else if (reason == 2)
+                reasonStr = "Special ID";
+            else if (reason == 3)
+                reasonStr = "Force destroy exception";
+            console->warn("  - Entity {}: {}", id, reasonStr);
+        }
+    }
+
+    // Clear the deletion queue - CRITICAL: Only clear if we've processed everything
+    console->debug("[Deletion] Clearing entitiesToDelete queue");
+    console->debug("[Deletion] Before final clear - entitiesScheduledForDeletion size: {}",
+                   lifeEngine->entitiesScheduledForDeletion.size());
     lifeEngine->entitiesToDelete.clear();
+    lifeEngine->entitiesScheduledForDeletion.clear();
+    console->debug("[Deletion] After final clear - entitiesScheduledForDeletion size: {}",
+                   lifeEngine->entitiesScheduledForDeletion.size());
+    console->debug("========== ENTITY DELETION PHASE COMPLETE ==========\n");
 }
 
 void World::initializeVoxelGrid() {
@@ -865,6 +957,10 @@ void World::update() {
     std::lock_guard<std::mutex> lock(registryMutex);
 
     healthSystem->processHealth(registry, *voxelGrid, dispatcher);
+    if (dbHandler) {
+        physicsEngine->flushPhysicsMetrics(dbHandler.get());
+        lifeEngine->flushLifeMetrics(dbHandler.get());
+    }
     dispatcher.update();
     physicsEngine->processPhysics(registry, *voxelGrid, dispatcher, gameClock);
     if (!processMetabolismAsync) {
@@ -941,22 +1037,27 @@ void World::update() {
                 } catch (const std::exception& e) {
                     std::cerr << "EcosystemEngine async task crashed: " << e.what() << std::endl;
                     // Handle the exception
-                    throw aetherion::EcosystemEngineException("[EcosystemEngineException] EcosystemEngine async task crashed: " + std::string(e.what()));
+                    throw aetherion::EcosystemEngineException(
+                        "[EcosystemEngineException] EcosystemEngine async task crashed: " +
+                        std::string(e.what()));
                 }
             } else if (ecosystemStarted_) {
                 // Future is invalid AND we've run before = error state
-                Logger::getLogger()->error("EcosystemEngine future invalid after being started - critical error detected");
-                throw aetherion::EcosystemEngineException("[EcosystemEngineException] EcosystemEngine future became invalid after error");
+                Logger::getLogger()->error(
+                    "EcosystemEngine future invalid after being started - critical error detected");
+                throw aetherion::EcosystemEngineException(
+                    "[EcosystemEngineException] EcosystemEngine future became invalid after error");
             }
             // else: First run, future not started yet - this is normal
 
             // Only restart ecosystem task if no critical error has occurred
-            if (ecosystemEngine && ecosystemEngine->waterSimManager_ && 
+            if (ecosystemEngine && ecosystemEngine->waterSimManager_ &&
                 !ecosystemEngine->waterSimManager_->hasEncounteredCriticalError()) {
                 ecosystemFuture = std::async(
                     std::launch::async, safeExecute,
                     [this]() {
-                        ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, dispatcher, gameClock);
+                        ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, dispatcher,
+                                                               gameClock);
                     },
                     "EcosystemEngine");
                 ecosystemStarted_ = true;  // Mark as started
@@ -971,7 +1072,8 @@ void World::update() {
                     try {
                         metabolismFuture.get();
                     } catch (const std::exception& e) {
-                        std::cerr << "MetabolismSystem async task crashed: " << e.what() << std::endl;
+                        std::cerr << "MetabolismSystem async task crashed: " << e.what()
+                                  << std::endl;
                         // Handle the exception
                     }
                 }

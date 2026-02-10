@@ -54,8 +54,8 @@ class PhysicsManager {
 
     float EVAPORATION_COEFFICIENT = 8.0f;
     float HEAT_TO_WATER_EVAPORATION = 120.0f;
-    // const int waterMinimumUnits = 60'000;   // Good for a 10x100x100
-    int waterMinimumUnits = 120'000;
+    int waterMinimumUnits = 60'000;  // Good for a 10x100x100
+    // int waterMinimumUnits = 120'000;
     // const int waterMinimumUnits = 8'000'000;  // 8 million is a lot of water
 
     // Constant that worked well:

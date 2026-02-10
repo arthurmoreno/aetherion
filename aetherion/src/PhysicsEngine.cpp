@@ -1,11 +1,14 @@
 #include "PhysicsEngine.hpp"
 
 #include <algorithm>
+#include <chrono>
 #include <iostream>
+#include <memory>  // For std::unique_ptr
 #include <random>
 #include <sstream>
 
 #include "EcosystemEngine.hpp"
+#include "ecosystem/EcosystemEvents.hpp"
 #include "physics/Collision.hpp"
 #include "physics/PhysicalMath.hpp"
 #include "physics/PhysicsExceptions.hpp"
@@ -14,9 +17,24 @@
 #include "physics/PhysicsValidators.hpp"
 #include "physics/ReadonlyQueries.hpp"
 #include "settings.hpp"
-#include "terrain/TerrainGridLock.hpp" // For TerrainGridLock
-#include "ecosystem/EcosystemEvents.hpp"
-#include <memory>                      // For std::unique_ptr
+#include "terrain/TerrainGridLock.hpp"  // For TerrainGridLock
+
+// Physics event time series
+inline const std::string PHYSICS_MOVE_GAS_ENTITY = "physics_move_gas_entity";
+inline const std::string PHYSICS_MOVE_SOLID_ENTITY = "physics_move_solid_entity";
+inline const std::string PHYSICS_EVAPORATE_WATER_ENTITY = "physics_evaporate_water_entity";
+inline const std::string PHYSICS_CONDENSE_WATER_ENTITY = "physics_condense_water_entity";
+inline const std::string PHYSICS_WATER_FALL_ENTITY = "physics_water_fall_entity";
+inline const std::string PHYSICS_WATER_SPREAD = "physics_water_spread";
+inline const std::string PHYSICS_WATER_GRAVITY_FLOW = "physics_water_gravity_flow";
+inline const std::string PHYSICS_TERRAIN_PHASE_CONVERSION = "physics_terrain_phase_conversion";
+inline const std::string PHYSICS_VAPOR_CREATION = "physics_vapor_creation";
+inline const std::string PHYSICS_VAPOR_MERGE_UP = "physics_vapor_merge_up";
+inline const std::string PHYSICS_VAPOR_MERGE_SIDEWAYS = "physics_vapor_merge_sideways";
+inline const std::string PHYSICS_ADD_VAPOR_TO_TILE_ABOVE = "physics_add_vapor_to_tile_above";
+inline const std::string PHYSICS_CREATE_VAPOR_ENTITY = "physics_create_vapor_entity";
+inline const std::string PHYSICS_DELETE_OR_CONVERT_TERRAIN = "physics_delete_or_convert_terrain";
+inline const std::string PHYSICS_INVALID_TERRAIN_FOUND = "physics_invalid_terrain_found";
 
 // =========================================================================
 // ================ PHYSICS ENGINE ORGANIZATION ================
@@ -87,28 +105,31 @@ inline std::pair<float, bool> resolveVerticalMotion(entt::registry& registry, Vo
     return {velocityZ, false};
 }
 
-
 // New event handlers for water physics (all state changes)
 void PhysicsEngine::onWaterSpreadEvent(const WaterSpreadEvent& event) {
+    incPhysicsMetric(PHYSICS_WATER_SPREAD);
     _handleWaterSpreadEvent(*voxelGrid, event);
 }
 
 void PhysicsEngine::onWaterGravityFlowEvent(const WaterGravityFlowEvent& event) {
+    incPhysicsMetric(PHYSICS_WATER_GRAVITY_FLOW);
     _handleWaterGravityFlowEvent(*voxelGrid, event);
 }
 
 void PhysicsEngine::onTerrainPhaseConversionEvent(const TerrainPhaseConversionEvent& event) {
+    incPhysicsMetric(PHYSICS_TERRAIN_PHASE_CONVERSION);
     _handleTerrainPhaseConversionEvent(*voxelGrid, event);
 }
 
 void PhysicsEngine::onVaporCreationEvent(const VaporCreationEvent& event) {
+    incPhysicsMetric(PHYSICS_VAPOR_CREATION);
     // Reuse existing helper function which already has proper locking
     TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
-    // Defensive check: ensure tile above is valid for vapor addition
+    // Defensive check: ensure the tile on position is valid for vapor addition
     int tx = event.position.x;
     int ty = event.position.y;
-    int tz = event.position.z + 1;
+    int tz = event.position.z;
     int terrainAboveId = voxelGrid->getTerrain(tx, ty, tz);
     if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
         EntityTypeComponent typeAbove =
@@ -120,24 +141,26 @@ void PhysicsEngine::onVaporCreationEvent(const VaporCreationEvent& event) {
               typeAbove.subType0 == static_cast<int>(TerrainEnum::WATER) &&
               matterAbove.WaterMatter == 0)) {
             std::ostringstream oss;
-            oss << "[onVaporCreationEvent] Cannot add vapor above at (" << tx << ", " << ty
-                << ", " << tz << ") - target invalid. type=" << typeAbove.mainType
-                << ", subtype=" << typeAbove.subType0 << ", WaterMatter="
-                << matterAbove.WaterMatter << ", WaterVapor=" << matterAbove.WaterVapor;
+            oss << "[onVaporCreationEvent] Cannot add vapor above at (" << tx << ", " << ty << ", "
+                << tz << ") - target invalid. type=" << typeAbove.mainType
+                << ", subtype=" << typeAbove.subType0 << ", WaterMatter=" << matterAbove.WaterMatter
+                << ", WaterVapor=" << matterAbove.WaterVapor;
             spdlog::get("console")->warn(oss.str());
             return;
         }
     }
 
-    addOrCreateVaporAbove(registry, *voxelGrid, event.position.x, event.position.y,
-                          event.position.z, event.amount);
+    createVaporTerrainEntity(registry, *voxelGrid, event.position.x, event.position.y,
+                             event.position.z, event.amount);
 }
 
 void PhysicsEngine::onCreateVaporEntityEvent(const CreateVaporEntityEvent& event) {
+    incPhysicsMetric(PHYSICS_CREATE_VAPOR_ENTITY);
     _handleCreateVaporEntityEvent(registry, dispatcher, *voxelGrid, event);
 }
 
 void PhysicsEngine::onDeleteOrConvertTerrainEvent(const DeleteOrConvertTerrainEvent& event) {
+    incPhysicsMetric(PHYSICS_DELETE_OR_CONVERT_TERRAIN);
     // Delegate to existing helper which handles effects and soft-empty conversion
     TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
@@ -146,13 +169,13 @@ void PhysicsEngine::onDeleteOrConvertTerrainEvent(const DeleteOrConvertTerrainEv
 }
 
 void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent& event) {
+    incPhysicsMetric(PHYSICS_VAPOR_MERGE_UP);
     // Lock terrain grid for atomic state change
     TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
     // Validate merge target before adding vapor
-    EntityTypeComponent targetType =
-        voxelGrid->terrainGridRepository->getTerrainEntityType(event.target.x, event.target.y,
-                                                              event.target.z);
+    EntityTypeComponent targetType = voxelGrid->terrainGridRepository->getTerrainEntityType(
+        event.target.x, event.target.y, event.target.z);
     MatterContainer targetMatter = voxelGrid->terrainGridRepository->getTerrainMatterContainer(
         event.target.x, event.target.y, event.target.z);
 
@@ -187,6 +210,11 @@ void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent& event) {
     if (registry.valid(event.sourceEntity)) {
         // std::cout << "[VaporMergeUpEvent] Deleting source vapor entity ID="
         //           << static_cast<int>(event.sourceEntity) << "\n";
+        std::ostringstream ossMessage;
+        ossMessage << "[VaporMergeUpEvent] Source entity valid for vapor merge at ("
+                   << event.source.x << ", " << event.source.y << ", " << event.source.z
+                   << ") EntityId=" << static_cast<int>(event.sourceEntity);
+        spdlog::get("console")->info(ossMessage.str());
         dispatcher.enqueue<KillEntityEvent>(event.sourceEntity);
     } else {
         std::ostringstream ossMessage;
@@ -197,10 +225,12 @@ void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent& event) {
 }
 
 void PhysicsEngine::onVaporMergeSidewaysEvent(const VaporMergeSidewaysEvent& event) {
+    incPhysicsMetric(PHYSICS_VAPOR_MERGE_SIDEWAYS);
     _handleVaporMergeSidewaysEvent(registry, dispatcher, *voxelGrid, event);
 }
 
 void PhysicsEngine::onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent& event) {
+    incPhysicsMetric(PHYSICS_ADD_VAPOR_TO_TILE_ABOVE);
     // Lock terrain grid for atomic operation
     TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
@@ -265,20 +295,47 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher& dispatcher) {
     // Register vapor event handlers
     dispatcher.sink<VaporCreationEvent>().connect<&PhysicsEngine::onVaporCreationEvent>(*this);
     dispatcher.sink<VaporMergeUpEvent>().connect<&PhysicsEngine::onVaporMergeUpEvent>(*this);
-    dispatcher.sink<VaporMergeSidewaysEvent>()
-        .connect<&PhysicsEngine::onVaporMergeSidewaysEvent>(*this);
+    dispatcher.sink<VaporMergeSidewaysEvent>().connect<&PhysicsEngine::onVaporMergeSidewaysEvent>(
+        *this);
     dispatcher.sink<AddVaporToTileAboveEvent>().connect<&PhysicsEngine::onAddVaporToTileAboveEvent>(
         *this);
     dispatcher.sink<CreateVaporEntityEvent>().connect<&PhysicsEngine::onCreateVaporEntityEvent>(
         *this);
     dispatcher.sink<DeleteOrConvertTerrainEvent>()
         .connect<&PhysicsEngine::onDeleteOrConvertTerrainEvent>(*this);
-    dispatcher.sink<InvalidTerrainFoundEvent>()
-        .connect<&PhysicsEngine::onInvalidTerrainFound>(*this);
+    dispatcher.sink<InvalidTerrainFoundEvent>().connect<&PhysicsEngine::onInvalidTerrainFound>(
+        *this);
 }
 
 void PhysicsEngine::onInvalidTerrainFound(const InvalidTerrainFoundEvent& event) {
+    incPhysicsMetric(PHYSICS_INVALID_TERRAIN_FOUND);
     _handleInvalidTerrainFound(dispatcher, *voxelGrid, event);
+}
+
+// Increment metric counter (thread-safe)
+void PhysicsEngine::incPhysicsMetric(const std::string& metricName) {
+    std::lock_guard<std::mutex> lock(metricsMutex_);
+    physicsMetrics_[metricName]++;
+}
+
+// Flush current metrics to GameDB via provided handler and reset counters
+void PhysicsEngine::flushPhysicsMetrics(GameDBHandler* dbHandler) {
+    if (dbHandler == nullptr) return;
+
+    std::lock_guard<std::mutex> lock(metricsMutex_);
+    auto now = std::chrono::system_clock::now();
+    long long ts = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
+
+    for (const auto& kv : physicsMetrics_) {
+        const std::string& name = kv.first;
+        uint64_t value = kv.second;
+        dbHandler->putTimeSeries(name, ts, static_cast<double>(value));
+    }
+
+    // reset counters
+    for (auto& kv : physicsMetrics_) {
+        kv.second = 0;
+    }
 }
 
 // ================ END OF REFACTORING ================
@@ -286,8 +343,9 @@ void PhysicsEngine::onInvalidTerrainFound(const InvalidTerrainFoundEvent& event)
 // Helper: Load entity data (Position, Velocity, PhysicsStats) from either ECS or terrain storage
 // ATOMIC: For terrain, uses getPhysicsSnapshot() to read all data under a single lock
 inline std::tuple<Position&, Velocity&, PhysicsStats&> loadEntityPhysicsData(
-    entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, entt::entity entity, bool isTerrain,
-    Position& terrainPos, Velocity& terrainVel, PhysicsStats& terrainPS) {
+    entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid,
+    entt::entity entity, bool isTerrain, Position& terrainPos, Velocity& terrainVel,
+    PhysicsStats& terrainPS) {
     if (isTerrain) {
         // std::cout << "[loadEntityPhysicsData] Loading terrain physics data for entity ID=" <<
         // int(entity) << "\n";
@@ -446,8 +504,8 @@ void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, Voxe
 
         // SAFETY CHECK 3: Load entity data (exceptions will propagate if issues occur)
         // NOTE: For terrain entities, this now executes with terrainGridMutex held
-        auto tuple = loadEntityPhysicsData(registry, dispatcher, voxelGrid, entity, isTerrain, terrainPos,
-                                           terrainVel, terrainPS);
+        auto tuple = loadEntityPhysicsData(registry, dispatcher, voxelGrid, entity, isTerrain,
+                                           terrainPos, terrainVel, terrainPS);
         Position& position = std::get<0>(tuple);
         Velocity& velocity = std::get<1>(tuple);
         PhysicsStats& physicsStats = std::get<2>(tuple);
@@ -533,24 +591,23 @@ void handleMovement(entt::registry& registry, entt::dispatcher& dispatcher, Voxe
 
 // =========================================================================
 
-void handleMovingTo(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity, bool isTerrain) {
+void handleMovingTo(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
+                    bool isTerrain) {
     // SAFETY CHECK: Validate entity is still valid
     if (!registry.valid(entity)) {
         std::ostringstream ossMessage;
-        ossMessage
-            << "[handleMovingTo] WARNING: Invalid entity " << static_cast<int>(entity)
-                  << " - skipping";
-        spdlog::get("console")->debug(ossMessage.str());
+        ossMessage << "[handleMovingTo] WARNING: Invalid entity " << static_cast<int>(entity)
+                   << " - skipping";
+        spdlog::get("console")->info(ossMessage.str());
         return;
     }
 
     // SAFETY CHECK: Ensure entity has required components
     if (!registry.all_of<MovingComponent, Position>(entity)) {
         std::ostringstream ossMessage;
-        ossMessage
-            << "[handleMovingTo] WARNING: Entity " << static_cast<int>(entity)
-            << " missing MovingComponent or Position - skipping";
-        spdlog::get("console")->debug(ossMessage.str());
+        ossMessage << "[handleMovingTo] WARNING: Entity " << static_cast<int>(entity)
+                   << " missing MovingComponent or Position - skipping";
+        spdlog::get("console")->info(ossMessage.str());
         return;
     }
 
@@ -583,9 +640,15 @@ void handleMovingTo(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity
 
         MatterState matterState = MatterState::SOLID;
         // TODO: Terrains does not get this component like this anymore - fix later
-        StructuralIntegrityComponent* sic = registry.try_get<StructuralIntegrityComponent>(entity);
-        if (sic) {
-            matterState = sic->matterState;
+        StructuralIntegrityComponent* p_sic =
+            registry.try_get<StructuralIntegrityComponent>(entity);
+        if (p_sic && !isTerrain) {
+            matterState = p_sic->matterState;
+        } else if (isTerrain) {
+            StructuralIntegrityComponent sic =
+                voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(
+                    position.x, position.y, position.z);
+            matterState = sic.matterState;
         }
 
         if (matterState == MatterState::SOLID) {
@@ -603,6 +666,15 @@ void handleMovingTo(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity
         }
 
         if (!hasVelocity) {
+            // if (isTerrain) {
+            //     std::ostringstream ossMessage;
+            //     ossMessage
+            //         << "[handleMovingTo] WARNING: Creating Velocity component for terrain entity
+            //         "
+            //         << static_cast<int>(entity) << " at position (" << position.x << ", "
+            //         << position.y << ", " << position.z << ")";
+            //     spdlog::get("console")->info(ossMessage.str());
+            // }
             registry.emplace<Velocity>(entity, velocity);
         }
 
@@ -623,92 +695,16 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
     for (auto entity : velocityView) {
         // SAFETY CHECK: Validate entity before processing
         if (!registry.valid(entity)) {
-            // Entity is invalid but still in Velocity component storage
+            // Entity is invalid but still in MovingComponent component storage
             // This happens during the timing window between registry.destroy() and hook execution
             // The onDestroyVelocity hook will clean up tracking maps - just skip for now
-            {
-                std::ostringstream ossMessage;
-                ossMessage
-                    << "[processPhysics:Velocity] WARNING: Invalid entity in velocityView - Starting sanity checks; entity ID="
-                    << static_cast<int>(entity) << " (Starting cleanup routine)";
-                spdlog::get("console")->debug(ossMessage.str());
-            }
+            std::ostringstream ossMessage;
+            ossMessage << "[processPhysics:MovingComponent] WARNING: Invalid entity in "
+                          "velocityView - skipping; entity ID="
+                       << static_cast<int>(entity) << " (cleanup will be handled by hooks)";
+            spdlog::get("console")->debug(ossMessage.str());
 
-            Position pos;
-            try {
-                pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
-            } catch (const aetherion::InvalidEntityException& e) {
-                // Exception indicates we should stop processing this entity.
-                // The mutator function already logged the details.
-                Position *_pos = registry.try_get<Position>(entity);
-                pos = _pos ? *_pos : Position{-1, -1, -1, DirectionEnum::UP};
-                if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-                    {
-                        std::ostringstream ossMessage;
-                        ossMessage << "[processPhysics:Velocity] Could not find position of entity "
-                                   << static_cast<int>(entity)
-                                   << " in TerrainGridRepository or registry - just delete it.";
-                        spdlog::get("console")->debug(ossMessage.str());
-                    }
-                    // printTerrainDiagnostics(registry, voxelGrid, entity, pos,
-                    //                         EntityTypeComponent{}, 0);
-                    // throw std::runtime_error("Could not find entity position for Velocity processing");
-                    continue;
-                }
-            }
-
-            EntityTypeComponent *entityType = registry.try_get<EntityTypeComponent>(entity);
-
-            bool isTerrain = (entityType &&
-                (entityType->mainType != static_cast<int>(EntityEnum::BEAST) && entityType->mainType != static_cast<int>(EntityEnum::PLANT))
-            ) || (entityType == nullptr);
-            int entityId = static_cast<int>(entity);
-            if (pos.x == -1 && pos.y == -1 && pos.z == -1 && isTerrain) {
-                if (entityId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
-                    entityId != static_cast<int>(TerrainIdTypeEnum::NONE) ) {
-                        {
-                            std::ostringstream ossMessage;
-                            ossMessage << "[processPhysics:Velocity] Could not find position of entity " << entityId
-                                       << " in TerrainGridRepository - just delete it.";
-                            spdlog::get("console")->debug(ossMessage.str());
-                        }
-                        registry.remove<Velocity>(entity);
-                        // printTerrainDiagnostics(registry, voxelGrid, entity, pos,
-                        //                         entityType ? *entityType : EntityTypeComponent{},
-                        //                         0);
-                        _destroyEntity(registry, dispatcher, voxelGrid, entity);
-
-                        // printTerrainDiagnostics(registry, voxelGrid, entity, pos,
-                        //                         entityType ? *entityType : EntityTypeComponent{},
-                        //                         0);
-                        throw std::runtime_error("Entity invalid during Velocity processing");
-                }
-                continue;
-            } else if (isTerrain) {
-                try {
-                    entity =
-                        reviveColdTerrainEntities(registry, voxelGrid, dispatcher, pos, entity);
-                } catch (const aetherion::InvalidEntityException& e) {
-                    // Entity cannot be revived (e.g., zero vapor matter converted to empty)
-                    {
-                        std::ostringstream ossMessage;
-                        ossMessage << "[processPhysics:Velocity] Revival failed: " << e.what()
-                                   << " - entity ID=" << entityId << " - early return";
-                        spdlog::get("console")->debug(ossMessage.str());
-                    }
-                    dispatcher.enqueue<KillEntityEvent>(entity);
-                    continue;
-                }
-            } else {
-                {
-                    std::ostringstream ossMessage;
-                    ossMessage << "[processPhysics] Entity " << static_cast<int>(entity)
-                               << " has Velocity and Position - proceeding";
-                    spdlog::get("console")->debug(ossMessage.str());
-                }
-                throw std::runtime_error(
-                    "Entity invalid during Velocity processing but revival succeeded");
-            }
+            continue;
         }
 
         // SAFETY CHECK: Ensure entity has Position component
@@ -717,7 +713,8 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
         if (!registry.all_of<Position>(entity)) {
             {
                 std::ostringstream ossMessage;
-                ossMessage << "[processPhysics:Velocity] WARNING: Entity " << static_cast<int>(entity)
+                ossMessage << "[processPhysics:Velocity] WARNING: Entity "
+                           << static_cast<int>(entity)
                            << " has Velocity but no Position - skipping";
                 spdlog::get("console")->debug(ossMessage.str());
             }
@@ -729,7 +726,7 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             } catch (const aetherion::InvalidEntityException& e) {
                 // Exception indicates we should stop processing this entity.
                 // The mutator function already logged the details.
-                Position *_pos = registry.try_get<Position>(entity);
+                Position* _pos = registry.try_get<Position>(entity);
                 pos = _pos ? *_pos : Position{-1, -1, -1, DirectionEnum::UP};
                 if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
                     {
@@ -740,7 +737,8 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
                         spdlog::get("console")->debug(ossMessage.str());
                     }
                     softDeactivateTerrainEntity(dispatcher, voxelGrid, entity, true);
-                    // throw std::runtime_error("Could not find entity position for Velocity processing");
+                    // throw std::runtime_error("Could not find entity position for Velocity
+                    // processing");
                     continue;
                 }
             }
@@ -748,8 +746,8 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
                 {
                     std::ostringstream ossMessage;
-                    ossMessage << "[processPhysics:Velocity] Could not find position of entity " << entityId
-                               << " in TerrainGridRepository, skipping entity.";
+                    ossMessage << "[processPhysics:Velocity] Could not find position of entity "
+                               << entityId << " in TerrainGridRepository, skipping entity.";
                     spdlog::get("console")->debug(ossMessage.str());
                 }
                 continue;
@@ -758,7 +756,8 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             {
                 // std::ostringstream ossMessage;
                 // ossMessage << "[processPhysics:Velocity] Found position of entity " << entityId
-                //            << " in TerrainGridRepository at (" << pos.x << ", " << pos.y << ", " << pos.z
+                //            << " in TerrainGridRepository at (" << pos.x << ", " << pos.y << ", "
+                //            << pos.z
                 //            << ") - checking if vapor terrain needs revival";
                 // spdlog::get("console")->debug(ossMessage.str());
             }
@@ -771,8 +770,9 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             if (terrainType.mainType == static_cast<int>(EntityEnum::TERRAIN) && vaporMatter > 0) {
                 {
                     std::ostringstream ossMessage;
-                    ossMessage << "[processPhysics:Velocity] Reviving cold vapor terrain at (" << pos.x << ", "
-                               << pos.y << ", " << pos.z << ") with vapor matter: " << vaporMatter;
+                    ossMessage << "[processPhysics:Velocity] Reviving cold vapor terrain at ("
+                               << pos.x << ", " << pos.y << ", " << pos.z
+                               << ") with vapor matter: " << vaporMatter;
                     spdlog::get("console")->debug(ossMessage.str());
                 }
 
@@ -791,8 +791,9 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             } else {
                 {
                     std::ostringstream ossMessage;
-                    ossMessage << "[processPhysics:Velocity] Not vapor terrain (mainType=" << terrainType.mainType
-                               << ", vapor=" << vaporMatter << ") - skipping";
+                    ossMessage << "[processPhysics:Velocity] Not vapor terrain (mainType="
+                               << terrainType.mainType << ", vapor=" << vaporMatter
+                               << ") - skipping";
                     spdlog::get("console")->debug(ossMessage.str());
                 }
                 continue;
@@ -810,17 +811,17 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             } catch (const aetherion::InvalidEntityException& e) {
                 std::ostringstream ossMessage;
                 ossMessage << "[processPhysics] InvalidEntityException for entity " << entityId
-                          << ": " << e.what() << " - skipping";
+                           << ": " << e.what() << " - skipping";
                 spdlog::get("console")->warn(ossMessage.str());
             } catch (const aetherion::TerrainLockException& e) {
                 std::ostringstream ossMessage;
                 ossMessage << "[processPhysics] TerrainLockException for entity " << entityId
-                          << ": " << e.what() << " - skipping";
+                           << ": " << e.what() << " - skipping";
                 spdlog::get("console")->warn(ossMessage.str());
             } catch (const aetherion::PhysicsException& e) {
                 std::ostringstream ossMessage;
-                ossMessage << "[processPhysics] PhysicsException for entity " << entityId
-                          << ": " << e.what() << " - skipping";
+                ossMessage << "[processPhysics] PhysicsException for entity " << entityId << ": "
+                           << e.what() << " - skipping";
                 spdlog::get("console")->warn(ossMessage.str());
             }
             continue;
@@ -833,18 +834,18 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
                 handleMovement(registry, dispatcher, voxelGrid, entity, entityBeingDebugged, true);
             } catch (const aetherion::InvalidEntityException& e) {
                 std::ostringstream ossMessage;
-                ossMessage << "[processPhysics] InvalidEntityException for terrain entity " << entityId
-                          << ": " << e.what() << " - skipping";
+                ossMessage << "[processPhysics] InvalidEntityException for terrain entity "
+                           << entityId << ": " << e.what() << " - skipping";
                 spdlog::get("console")->warn(ossMessage.str());
             } catch (const aetherion::TerrainLockException& e) {
                 std::ostringstream ossMessage;
-                ossMessage << "[processPhysics] TerrainLockException for terrain entity " << entityId
-                          << ": " << e.what() << " - skipping";
+                ossMessage << "[processPhysics] TerrainLockException for terrain entity "
+                           << entityId << ": " << e.what() << " - skipping";
                 spdlog::get("console")->warn(ossMessage.str());
             } catch (const aetherion::PhysicsException& e) {
                 std::ostringstream ossMessage;
                 ossMessage << "[processPhysics] PhysicsException for terrain entity " << entityId
-                          << ": " << e.what() << " - skipping";
+                           << ": " << e.what() << " - skipping";
                 spdlog::get("console")->warn(ossMessage.str());
             }
         }
@@ -856,67 +857,16 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
         // Note: handleMovingTo also validates, but checking here prevents unnecessary calls
         // SAFETY CHECK: Validate entity before processing
         if (!registry.valid(entity)) {
-            // Entity is invalid but still in Velocity component storage
+            // Entity is invalid but still in MovingComponent component storage
             // This happens during the timing window between registry.destroy() and hook execution
             // The onDestroyVelocity hook will clean up tracking maps - just skip for now
             std::ostringstream ossMessage;
-            ossMessage
-                << "[processPhysics:MovingComponent] WARNING: Invalid entity in velocityView - skipping; entity ID="
-                << static_cast<int>(entity) << " (cleanup will be handled by hooks)";
-            spdlog::get("console")->debug(ossMessage.str());
+            ossMessage << "[processPhysics:MovingComponent] WARNING: Invalid entity in "
+                          "movingComponentView - skipping; entity ID="
+                       << static_cast<int>(entity) << " (cleanup will be handled by hooks)";
+            spdlog::get("console")->info(ossMessage.str());
 
-            Position pos;
-            try {
-                pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
-            } catch (const aetherion::InvalidEntityException& e) {
-                // Exception indicates we should stop processing this entity.
-                // The mutator function already logged the details.
-                Position *_pos = registry.try_get<Position>(entity);
-                pos = _pos ? *_pos : Position{-1, -1, -1, DirectionEnum::UP};
-                if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-
-                    std::ostringstream ossMessage;
-                    ossMessage
-                        << "[processPhysics:MovingComponent] Could not find position of entity "
-                        << static_cast<int>(entity)
-                        << " in TerrainGridRepository or registry - just delete it.";
-                    spdlog::get("console")->debug(ossMessage.str());
-                    // throw std::runtime_error("Could not find entity position for MovingComponent processing");
-                    continue;
-                }
-            }
-
-            int entityId = static_cast<int>(entity);
-            if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-                if (entityId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
-                    entityId != static_cast<int>(TerrainIdTypeEnum::NONE) ) {
-                        {
-                            std::ostringstream ossMessage;
-                            ossMessage << "[processPhysics:MovingComponent] Could not find position of entity " << entityId
-                                       << " in TerrainGridRepository - just delete it.";
-                            spdlog::get("console")->debug(ossMessage.str());
-                        }
-                        registry.remove<MovingComponent>(entity);
-                        _destroyEntity(registry, dispatcher, voxelGrid, entity);
-                        throw std::runtime_error("Entity invalid during MovingComponent processing");
-                }
-                continue;
-            } else {
-                try {
-                    entity =
-                        reviveColdTerrainEntities(registry, voxelGrid, dispatcher, pos, entity);
-                } catch (const aetherion::InvalidEntityException& e) {
-                    // Entity cannot be revived (e.g., zero vapor matter converted to empty)
-                    {
-                        std::ostringstream ossMessage;
-                        ossMessage << "[processPhysics:MovingComponent] Revival failed: " << e.what()
-                                  << " - entity ID=" << entityId << " - early return";
-                        spdlog::get("console")->debug(ossMessage.str());
-                    }
-                    dispatcher.enqueue<KillEntityEvent>(entity);
-                    continue;
-                }
-            }
+            continue;
         }
 
         // SAFETY CHECK: Ensure entity has Position component
@@ -926,9 +876,10 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
         if (!registry.all_of<Position>(entity)) {
             {
                 std::ostringstream ossMessage;
-                ossMessage << "[processPhysics:MovingComponent] WARNING: Entity " << static_cast<int>(entity)
-                          << " has Velocity but no Position - skipping";
-                spdlog::get("console")->debug(ossMessage.str());
+                ossMessage << "[processPhysics:MovingComponent] WARNING: Entity "
+                           << static_cast<int>(entity)
+                           << " has Velocity but no Position - skipping";
+                spdlog::get("console")->info(ossMessage.str());
             }
 
             // delete from terrain repository mapping.
@@ -937,25 +888,28 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             } catch (const aetherion::InvalidEntityException& e) {
                 std::ostringstream ossMessage;
                 ossMessage << "[processPhysics:MovingComponent] Entity " << entityId
-                          << " not found in TerrainGridRepository: " << e.what() << " - skipping";
-                spdlog::get("console")->debug(ossMessage.str());
+                           << " not found in TerrainGridRepository: " << e.what() << " - skipping";
+                spdlog::get("console")->info(ossMessage.str());
                 dispatcher.enqueue<KillEntityEvent>(entity);
                 continue;
             }
             if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
                 {
                     std::ostringstream ossMessage;
-                    ossMessage << "[processPhysics:MovingComponent] Could not find position of entity " << entityId
-                              << " in TerrainGridRepository, skipping entity.";
-                    spdlog::get("console")->debug(ossMessage.str());
+                    ossMessage
+                        << "[processPhysics:MovingComponent] Could not find position of entity "
+                        << entityId << " in TerrainGridRepository, skipping entity.";
+                    spdlog::get("console")->info(ossMessage.str());
                 }
                 continue;
             }
 
             {
                 // std::ostringstream ossMessage;
-                // ossMessage << "[processPhysics:MovingComponent] Found position of entity " << entityId
-                //           << " in TerrainGridRepository at (" << pos.x << ", " << pos.y << ", " << pos.z
+                // ossMessage << "[processPhysics:MovingComponent] Found position of entity " <<
+                // entityId
+                //           << " in TerrainGridRepository at (" << pos.x << ", " << pos.y << ", "
+                //           << pos.z
                 //           << ") - checking if vapor terrain needs revival";
                 // spdlog::get("console")->debug(ossMessage.str());
             }
@@ -970,8 +924,10 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             if (terrainType.mainType == static_cast<int>(EntityEnum::TERRAIN) && vaporMatter > 0) {
                 {
                     std::ostringstream ossMessage;
-                    ossMessage << "[processPhysics:MovingComponent] Reviving cold vapor terrain at (" << pos.x << ", "
-                              << pos.y << ", " << pos.z << ") with vapor matter: " << vaporMatter;
+                    ossMessage
+                        << "[processPhysics:MovingComponent] Reviving cold vapor terrain at ("
+                        << pos.x << ", " << pos.y << ", " << pos.z
+                        << ") with vapor matter: " << vaporMatter;
                     spdlog::get("console")->debug(ossMessage.str());
                 }
 
@@ -980,8 +936,9 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
 
                 {
                     std::ostringstream ossMessage;
-                    ossMessage << "[processPhysics:MovingComponent] Revived vapor terrain as entity "
-                              << static_cast<int>(entity) << " - will continue processing";
+                    ossMessage
+                        << "[processPhysics:MovingComponent] Revived vapor terrain as entity "
+                        << static_cast<int>(entity) << " - will continue processing";
                     spdlog::get("console")->debug(ossMessage.str());
                 }
 
@@ -990,8 +947,9 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
             } else {
                 {
                     std::ostringstream ossMessage;
-                    ossMessage << "[processPhysics:MovingComponent] Not vapor terrain (mainType=" << terrainType.mainType
-                              << ", vapor=" << vaporMatter << ") - skipping";
+                    ossMessage << "[processPhysics:MovingComponent] Not vapor terrain (mainType="
+                               << terrainType.mainType << ", vapor=" << vaporMatter
+                               << ") - skipping";
                     spdlog::get("console")->debug(ossMessage.str());
                 }
                 continue;
@@ -1029,21 +987,39 @@ void PhysicsEngine::processPhysicsAsync(entt::registry& registry, VoxelGrid& vox
             continue;
         }
 
+        Position pos = registry.get<Position>(entity);
+
         MatterState matterState = MatterState::SOLID;
         StructuralIntegrityComponent* sic = registry.try_get<StructuralIntegrityComponent>(entity);
         if (sic) {
             matterState = sic->matterState;
+        } else {
+            int terrainId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
+            if (terrainId == static_cast<int>(entity)) {
+                StructuralIntegrityComponent sic =
+                    voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(pos.x, pos.y,
+                                                                                   pos.z);
+                matterState = sic.matterState;
+            }
         }
-
         if (matterState == MatterState::SOLID || matterState == MatterState::LIQUID) {
-            // Your physics processing code here
-            if (!registry.all_of<Velocity, Position, EntityTypeComponent>(entity)) {
-                auto&& [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
-                if (checkIfCanFall(registry, voxelGrid, pos.x, pos.y, pos.z)) {
+            // Physics processing for solid/liquid entities
+            if (!registry.all_of<EntityTypeComponent>(entity)) {
+                EntityTypeComponent type = registry.get<EntityTypeComponent>(entity);
+                // Guard: Don't enqueue movement event if entity is already moving
+                // This prevents feedback loops where MoveSolidEntityEvent cascades
+                bool isAlreadyMoving = registry.all_of<MovingComponent>(entity);
+                if (!isAlreadyMoving && checkIfCanFall(registry, voxelGrid, pos.x, pos.y, pos.z)) {
                     float gravity = PhysicsManager::Instance()->getGravity();
                     dispatcher.enqueue<MoveSolidEntityEvent>(entity, 0, 0, -gravity);
                 }
             }
+        } else if (matterState == MatterState::GAS) {
+            // Physics processing for gas entities (vapor)
+            // Gas entities should be processed via EcosystemEngine for buoyancy-driven movement
+            // This prevents duplicate event generation that would cause cascading events
+            // Note: Vapor movement is driven by density differences and is handled by
+            // the ecosystem engine during its vapor movement phase, not by async gravity events
         }
     }
 
@@ -1052,22 +1028,55 @@ void PhysicsEngine::processPhysicsAsync(entt::registry& registry, VoxelGrid& vox
 
 bool PhysicsEngine::isProcessingComplete() const { return processingComplete; }
 
+// Handle movement of gas entities based on applied forces and environmental conditions
+// Algorithm:
+// 1. Validate voxelGrid exists
+// 2. Acquire terrain grid lock for thread-safe access
+// 3. Get terrain at event position (exit early if NONE)
+// 4. Validate entity is valid and not null/on-grid
+// 5. Read terrain data atomically: position, physics stats, and velocity
+// 6. Ensure Position component exists in ECS for consistency
+// 7. Check if entity already has MovingComponent
+// 8. Calculate acceleration from forces:
+//    - X and Y acceleration from applied forces (F = ma)
+//    - Z acceleration from buoyancy (density difference with environment)
+// 9. Translate physics acceleration to grid velocities with max speed limits
+// 10. Determine movement direction from new velocities
+// 11. Decide if force can be applied:
+//     - Allow if no movement yet
+//     - Allow if same direction as current movement
+//     - Allow if forceApplyNewVelocity override is set (e.g., evaporation)
+//     - Block if changing direction mid-movement
+// 12. If force can be applied:
+//     - Update velocity in terrain grid (source of truth)
+//     - Sync velocity to MovingComponent if it exists
 void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
-    // Validate voxelGrid before acquiring lock
+    incPhysicsMetric(PHYSICS_MOVE_GAS_ENTITY);
+    // Step 1: Validate voxelGrid before acquiring lock
     if (voxelGrid == nullptr) {
         throw std::runtime_error("onMoveGasEntityEvent: voxelGrid is null");
     }
 
-    
+    // Step 2: Acquire terrain grid lock for thread-safe access
     TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
+    // Step 3: Get terrain at event position (exit early if NONE)
     int terrainId = voxelGrid->getTerrain(event.position.x, event.position.y, event.position.z);
 
     if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
         return;
     }
 
-    // Validate entity early
+    if (terrainId != static_cast<int>(event.entity)) {
+        // This can happen if the gas entity is in the process of being removed but still has a
+        // pending movement event Just skip processing since the entity will be removed shortly
+        return;
+        // throw std::runtime_error(
+        //     "onMoveGasEntityEvent: Terrain ID at position does not match event entity (entity may
+        //     be pending removal) - skipping");
+    }
+
+    // Step 4: Validate entity is valid and not null/on-grid
     bool hasEntity =
         event.entity != entt::null &&
         static_cast<int>(event.entity) != static_cast<int>(TerrainIdTypeEnum::NONE) &&
@@ -1078,23 +1087,29 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
             "onMoveGasEntityEvent: event.entity is null or invalid (Either none or on grid)");
     }
 
-    // Read all terrain data atomically right after lock acquisition
-    Position pos = voxelGrid->terrainGridRepository->getPosition(
-        event.position.x, event.position.y, event.position.z);
+    if (!registry.valid(event.entity)) {
+        // throw std::runtime_error(
+        //     "onMoveGasEntityEvent: event.entity is not a valid entity in the registry");
+        return;
+    }
+
+    // Step 5: Read terrain data atomically: position, physics stats, and velocity
+    Position pos = voxelGrid->terrainGridRepository->getPosition(event.position.x, event.position.y,
+                                                                 event.position.z);
     PhysicsStats physicsStats =
         voxelGrid->terrainGridRepository->getPhysicsStats(pos.x, pos.y, pos.z);
     Velocity velocity = voxelGrid->terrainGridRepository->getVelocity(pos.x, pos.y, pos.z);
 
-    // Ensure Position component exists in ECS for consistency
+    // Step 6: Ensure Position component exists in ECS for consistency
     bool hasEnTTPosition = registry.all_of<Position>(event.entity);
     if (!hasEnTTPosition) {
         registry.emplace<Position>(event.entity, pos);
     }
 
-    // Check if entity is currently moving
+    // Step 7: Check if entity already has MovingComponent
     bool haveMovement = registry.all_of<MovingComponent>(event.entity);
 
-    // Calculate acceleration from forces
+    // Step 8: Calculate acceleration from forces (X and Y from applied forces, Z from buoyancy)
     float gravity = PhysicsManager::Instance()->getGravity();
     float accelerationX = static_cast<float>(event.forceX) / physicsStats.mass;
     float accelerationY = static_cast<float>(event.forceY) / physicsStats.mass;
@@ -1103,18 +1118,17 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
         accelerationZ = ((event.rhoEnv - event.rhoGas) * gravity) / event.rhoGas;
     }
 
-    // Translate physics to grid movement
+    // Step 9: Translate physics acceleration to grid velocities with max speed limits
     float newVelocityX, newVelocityY, newVelocityZ;
     std::tie(newVelocityX, newVelocityY, newVelocityZ) =
         translatePhysicsToGridMovement(velocity.vx, velocity.vy, velocity.vz, accelerationX,
-                                        accelerationY, accelerationZ, physicsStats.maxSpeed);
+                                       accelerationY, accelerationZ, physicsStats.maxSpeed);
 
-    // Determine direction from new velocities (mirrors solid entity pattern)
-    DirectionEnum direction =
-        getDirectionFromVelocities(newVelocityX, newVelocityY, newVelocityZ);
+    // Step 10: Determine movement direction from new velocities
+    DirectionEnum direction = getDirectionFromVelocities(newVelocityX, newVelocityY, newVelocityZ);
     bool canApplyForce = true;
 
-    // Only block force application if trying to change direction mid-movement
+    // Step 11: Decide if force can be applied (check direction constraints)
     if (haveMovement) {
         auto& movingComponent = registry.get<MovingComponent>(event.entity);
         // Allow same-direction acceleration, block direction changes
@@ -1126,6 +1140,7 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
         }
     }
 
+    // Step 12: If force can be applied, update velocity in terrain grid and sync to ECS
     if (canApplyForce) {
         // Update velocity in terrainGridRepository (source of truth for terrain entities)
         velocity.vx = newVelocityX;
@@ -1141,11 +1156,11 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent& event) {
             movingComp.vz = newVelocityZ;
         }
     }
-
 }
 
 // Subscribe to the MoveSolidEntityEvent and handle the movement
 void PhysicsEngine::onMoveSolidEntityEvent(const MoveSolidEntityEvent& event) {
+    incPhysicsMetric(PHYSICS_MOVE_SOLID_ENTITY);
     spdlog::get("console")->debug("onMoveSolidEntityEvent -> entered");
 
     if (registry.valid(event.entity) &&
@@ -1320,6 +1335,7 @@ void PhysicsEngine::onSetPhysicsEntityToDebug(const SetPhysicsEntityToDebug& eve
 
 // Water evaporation event handler - moved from EcosystemEngine
 void PhysicsEngine::onEvaporateWaterEntityEvent(const EvaporateWaterEntityEvent& event) {
+    incPhysicsMetric(PHYSICS_EVAPORATE_WATER_ENTITY);
     int terrainId = voxelGrid->getTerrain(event.position.x, event.position.y, event.position.z);
     if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
         return;  // No terrain to evaporate from
@@ -1376,6 +1392,7 @@ void PhysicsEngine::onEvaporateWaterEntityEvent(const EvaporateWaterEntityEvent&
 
 // Water condensation event handler - moved from EcosystemEngine
 void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& event) {
+    incPhysicsMetric(PHYSICS_CONDENSE_WATER_ENTITY);
     const int x = event.vaporPos.x;
     const int y = event.vaporPos.y;
     const int z = event.vaporPos.z;
@@ -1390,23 +1407,27 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
     if (vaporMatter.WaterVapor < event.condensationAmount) {
         // Not enough vapor to condense
         std::ostringstream ossMessage;
-        ossMessage
-            << "[onCondenseWaterEntityEvent] Not enough vapor to condense at (" << x << ", " << y << ", " << z
-            << ") - available: " << vaporMatter.WaterVapor
-            << ", requested: " << event.condensationAmount;
+        ossMessage << "[onCondenseWaterEntityEvent] Not enough vapor to condense at (" << x << ", "
+                   << y << ", " << z << ") - available: " << vaporMatter.WaterVapor
+                   << ", requested: " << event.condensationAmount;
         spdlog::get("console")->warn(ossMessage.str());
         return;
     }
 
     if (vaporMatter.WaterMatter > 0 || vaporMatter.WaterVapor == 0) {
         std::ostringstream ossMessage;
-        ossMessage << "[onCondenseWaterEntityEvent] Invalid vapor state for condensation at ("
-                   << x << ", " << y << ", " << z
-                   << ") - WaterMatter: " << vaporMatter.WaterMatter
+        ossMessage << "[onCondenseWaterEntityEvent] Invalid vapor state for condensation at (" << x
+                   << ", " << y << ", " << z << ") - WaterMatter: " << vaporMatter.WaterMatter
                    << ", WaterVapor: " << vaporMatter.WaterVapor;
         spdlog::get("console")->warn(ossMessage.str());
         return;
     }
+
+    spdlog::get("console")->info(
+        "[onCondenseWaterEntityEvent] Attempting to condense vapor at (" + std::to_string(x) +
+        ", " + std::to_string(y) + ", " + std::to_string(z) +
+        ") with vapor matter: " + std::to_string(vaporMatter.WaterVapor) +
+        " and condensation amount: " + std::to_string(event.condensationAmount));
 
     // Check if there's terrain below
     if (event.terrainBelowId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
@@ -1424,19 +1445,19 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
             matterBelow.WaterMatter += event.condensationAmount;
             vaporMatter.WaterVapor -= event.condensationAmount;
 
-            // std::ostringstream ossMessage;
-            // ossMessage << "[onCondenseWaterEntityEvent] Condensed " << event.condensationAmount
-            //            << " vapor at (" << x << ", " << y << ", " << z << ")\n"
-            //            << "  ------------------------------------------------\n"
-            //            << "    matterBelow now has WaterMatter: " << matterBelow.WaterMatter << "\n"
-            //            << "    matterBelow now has WaterVapor: " << matterBelow.WaterVapor << "\n"
-            //            << "  ------------------------------------------------\n"
-            //            << "    vaporMatter now has WaterMatter: " << vaporMatter.WaterMatter << "\n"
-            //            << "    vaporMatter now has WaterVapor: " << vaporMatter.WaterVapor << "\n"
-            //            << "  ------------------------------------------------\n"
-            //            << "    into water terrain below at";
-            
-            // spdlog::get("console")->info(ossMessage.str());
+            std::ostringstream ossMessage;
+            ossMessage << "[onCondenseWaterEntityEvent] Condensed " << event.condensationAmount
+                       << " vapor at (" << x << ", " << y << ", " << z << ")\n"
+                       << "  ------------------------------------------------\n"
+                       << "    matterBelow now has WaterMatter: " << matterBelow.WaterMatter << "\n"
+                       << "    matterBelow now has WaterVapor: " << matterBelow.WaterVapor << "\n"
+                       << "  ------------------------------------------------\n"
+                       << "    vaporMatter now has WaterMatter: " << vaporMatter.WaterMatter << "\n"
+                       << "    vaporMatter now has WaterVapor: " << vaporMatter.WaterVapor << "\n"
+                       << "  ------------------------------------------------\n"
+                       << "    into water terrain below at";
+
+            spdlog::get("console")->info(ossMessage.str());
 
             voxelGrid->terrainGridRepository->setTerrainMatterContainer(x, y, z - 1, matterBelow);
             voxelGrid->terrainGridRepository->setTerrainMatterContainer(x, y, z, vaporMatter);
@@ -1448,7 +1469,8 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
                     // voxelGrid->terrainGridRepository->unlockTerrainGrid();
 
                     // spdlog::get("console")->warn(
-                    //     "[onCondenseWaterEntityEvent] Vapor depleted after condensation - removing vapor terrain entity");
+                    //     "[onCondenseWaterEntityEvent] Vapor depleted after condensation -
+                    //     removing vapor terrain entity");
                     return;
 
                     // entt::entity vaporEntity = static_cast<entt::entity>(vaporTerrainId);
@@ -1458,9 +1480,13 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
             }
         }
     } else {
+        std::ostringstream ossMessage;
+        ossMessage << "[onCondenseWaterEntityEvent] No terrain below vapor at (" << x << ", " << y
+                   << ", " << z << ") - creating new water terrain below with condensed water";
+        spdlog::get("console")->info(ossMessage.str());
         // Path 2: Create new water tile below (no terrain exists)
-        createWaterTerrainBelowVapor(registry, dispatcher, *voxelGrid, x, y, z, event.condensationAmount,
-                                     vaporMatter);
+        createWaterTerrainBelowVapor(registry, dispatcher, *voxelGrid, x, y, z,
+                                     event.condensationAmount, vaporMatter);
     }
 
     // RAII `lock` will release the terrain grid lock when it goes out of scope
@@ -1468,6 +1494,7 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
 
 // Water fall event handler - moved from EcosystemEngine
 void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent& event) {
+    incPhysicsMetric(PHYSICS_WATER_FALL_ENTITY);
     if (!registry.valid(event.entity) ||
         !registry.all_of<Position, EntityTypeComponent, MatterContainer>(event.entity)) {
         return;
@@ -1479,7 +1506,8 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent& event) {
     int terrainToCreateWaterId =
         voxelGrid->getTerrain(event.position.x, event.position.y, event.position.z);
     if (terrainToCreateWaterId == -1) {
-        createWaterTerrainFromFall(registry, dispatcher, *voxelGrid, event.position.x, event.position.y,
-                                   event.position.z, event.fallingAmount, event.entity);
+        createWaterTerrainFromFall(registry, dispatcher, *voxelGrid, event.position.x,
+                                   event.position.y, event.position.z, event.fallingAmount,
+                                   event.entity);
     }
 }

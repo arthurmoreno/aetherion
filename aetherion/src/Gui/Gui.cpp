@@ -172,6 +172,8 @@ void initializeGuiPrograms() {
     manager->registerProgram(std::make_shared<GadgetsProgram>());
     manager->registerProgram(std::make_shared<EntityInterfaceProgram>());
     manager->registerProgram(std::make_shared<AIStatisticsProgram>());
+    manager->registerProgram(std::make_shared<PhysicsMetricsProgram>());
+    manager->registerProgram(std::make_shared<LifeMetricsProgram>());
     manager->registerProgram(std::make_shared<ConsoleProgram>());
     manager->registerProgram(std::make_shared<EditorDebuggerProgram>());
 
@@ -249,7 +251,11 @@ void RenderGeneralMetricsWindow(int worldTicks, float availableFps) {
     // ImGui::Begin("General metrics");
     ImGui::Text("Available FPS (fixed 30 FPS): %.2f", availableFps);
     ImGui::Text("World Ticks: %d", worldTicks);
-    // ImGui::End();
+
+    // Physics Metrics Button
+    if (ImGui::Button("Physics Metrics")) {
+        GuiProgramManager::Instance()->toggleProgram("physics_metrics");
+    }
 }
 
 void RenderPlayerStatsWindow(std::shared_ptr<World> world_ptr) {
@@ -1083,7 +1089,24 @@ void RenderAIStatisticPlot(const nb::dict& statistics, const std::string& plotNa
         else
             stat_map = nb::cast<std::map<std::string, double>>(statistics);
     } catch (const nb::cast_error& e) {
-        std::cerr << "Statistics dict cast failed: " << e.what() << '\n';
+        std::cerr << "Statistics dict cast failed for plot '" << plotName << "': " << e.what()
+                  << '\n';
+        std::cerr << "  - Statistics dict size: " << statistics.size() << '\n';
+        std::cerr << "  - Contains key '" << plotName
+                  << "': " << (statistics.contains(plotName) ? "yes" : "no") << '\n';
+        if (statistics.contains(plotName)) {
+            nb::object val = statistics[plotName.c_str()];
+            std::cerr << "  - Is dict: " << (nb::isinstance<nb::dict>(val) ? "yes" : "no") << '\n';
+        }
+        std::cerr << "  - Available keys: ";
+        for (auto [k, v] : statistics) {
+            try {
+                std::cerr << "[" << nb::cast<std::string>(k) << "] ";
+            } catch (...) {
+                std::cerr << "[<non-string-key>] ";
+            }
+        }
+        std::cerr << '\n';
         stat_map.clear();
     }
     std::vector<double> xs, ys;
@@ -1108,10 +1131,11 @@ void RenderAIStatisticPlot(const nb::dict& statistics, const std::string& plotNa
                              0.67);
             ImPlot::EndPlot();
         }
-
-        // ImPlot::EndSubplots();
     } else {
-        ImGui::TextUnformatted("Failed to create subplots.");
+        ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "No data available for '%s'",
+                           plotName.c_str());
+        ImGui::TextWrapped("Debug: stat_map size=%zu, xs.size=%zu, ys.size=%zu", stat_map.size(),
+                           xs.size(), ys.size());
     }
 }
 
@@ -1123,6 +1147,36 @@ void RenderAIStatisticsWindow(const nb::dict& statistics) {
     RenderAIStatisticPlot(statistics, "population_mean", "Population inference interval Mean");
     RenderAIStatisticPlot(statistics, "population_max", "Population inference interval Max");
     RenderAIStatisticPlot(statistics, "population_min", "Population inference interval Min");
+}
+
+// Render Physics Metrics content
+void RenderPhysicsMetricsWindow(const nb::dict& statistics) {
+    RenderAIStatisticPlot(statistics, "physics_move_gas_entity", "Move Gas Entity");
+    RenderAIStatisticPlot(statistics, "physics_move_solid_entity", "Move Solid Entity");
+    RenderAIStatisticPlot(statistics, "physics_evaporate_water_entity", "Evaporate Water Entity");
+    RenderAIStatisticPlot(statistics, "physics_condense_water_entity", "Condense Water Entity");
+    RenderAIStatisticPlot(statistics, "physics_water_fall_entity", "Water Fall Entity");
+    RenderAIStatisticPlot(statistics, "physics_water_spread", "Water Spread");
+    RenderAIStatisticPlot(statistics, "physics_water_gravity_flow", "Water Gravity Flow");
+    RenderAIStatisticPlot(statistics, "physics_terrain_phase_conversion",
+                          "Terrain Phase Conversion");
+    RenderAIStatisticPlot(statistics, "physics_vapor_creation", "Vapor Creation");
+    RenderAIStatisticPlot(statistics, "physics_vapor_merge_up", "Vapor Merge Up");
+    RenderAIStatisticPlot(statistics, "physics_vapor_merge_sideways", "Vapor Merge Sideways");
+    RenderAIStatisticPlot(statistics, "physics_add_vapor_to_tile_above", "Add Vapor To Tile Above");
+    RenderAIStatisticPlot(statistics, "physics_create_vapor_entity", "Create Vapor Entity");
+    RenderAIStatisticPlot(statistics, "physics_delete_or_convert_terrain",
+                          "Delete or Convert Terrain");
+    RenderAIStatisticPlot(statistics, "physics_invalid_terrain_found", "Invalid Terrain Found");
+}
+
+// Render Life Metrics content
+void RenderLifeMetricsWindow(const nb::dict& statistics) {
+    RenderAIStatisticPlot(statistics, "life_kill_entity", "Kill Entity");
+    RenderAIStatisticPlot(statistics, "life_soft_kill_entity", "Soft Kill Entity");
+    RenderAIStatisticPlot(statistics, "life_hard_kill_entity", "Hard Kill Entity");
+    RenderAIStatisticPlot(statistics, "life_remove_velocity", "Remove Velocity");
+    RenderAIStatisticPlot(statistics, "life_remove_moving_component", "Remove Moving Component");
 }
 
 // Simple self-contained text editor window using ImGui's built-in text input

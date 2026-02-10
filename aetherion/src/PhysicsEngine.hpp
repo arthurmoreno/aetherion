@@ -3,14 +3,18 @@
 
 #include <tbb/concurrent_queue.h>
 
+#include <chrono>
 #include <entt/entt.hpp>
+#include <mutex>
+#include <string>
+#include <unordered_map>
 
+#include "EcosystemEngine.hpp"
 #include "GameClock.hpp"
+#include "GameDBHandler.hpp"
 #include "ItemsEvents.hpp"
 #include "MoveEntityEvent.hpp"
 #include "SunIntensity.hpp"
-#include "physics/PhysicsEvents.hpp"
-#include "EcosystemEngine.hpp"
 #include "components/ConsoleLogsComponent.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/ItemsComponents.hpp"
@@ -19,6 +23,7 @@
 #include "components/PhysicsComponents.hpp"
 #include "components/PlantsComponents.hpp"
 #include "components/TerrainComponents.hpp"
+#include "physics/PhysicsEvents.hpp"
 #include "physics/PhysicsManager.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
 
@@ -87,12 +92,22 @@ class PhysicsEngine {
     void registerEventHandlers(entt::dispatcher& dispatcher);
     void registerVoxelGrid(VoxelGrid* voxelGrid) { this->voxelGrid = voxelGrid; }
 
+    // Metrics flush to game DB
+    void flushPhysicsMetrics(GameDBHandler* dbHandler);
+
+    // Increment a named metric
+    void incPhysicsMetric(const std::string& metricName);
+
     bool isProcessingComplete() const;
 
    private:
     entt::registry& registry;
     entt::dispatcher& dispatcher;
     VoxelGrid* voxelGrid = nullptr;
+
+    // Monitoring counters for physics events
+    std::unordered_map<std::string, uint64_t> physicsMetrics_;
+    std::mutex metricsMutex_;
 
     // Mutex for thread safety
     bool processingComplete = true;  // Flag to indicate processing state

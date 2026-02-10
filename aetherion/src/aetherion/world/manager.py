@@ -101,7 +101,8 @@ class WorldManager:
             self.worlds_metadata[world_key].heat_to_water_evaporation = world_config.get(
                 "heat_to_water_evaporation", 120.0
             )
-            self.worlds_metadata[world_key].water_minimum_units = world_config.get("water_minimum_units", 120000)
+            # self.worlds_metadata[world_key].water_minimum_units = world_config.get("water_minimum_units", 120000)
+            self.worlds_metadata[world_key].water_minimum_units = world_config.get("water_minimum_units", 30000)
             self.worlds_metadata[world_key].metabolism_cost_to_apply_force = world_config.get(
                 "metabolism_cost_to_apply_force", 1.999999949504854e-06
             )

@@ -44,6 +44,10 @@ class EditorDebuggerProgram : public GuiProgram {
         if (ImGui::Begin("Editor Debugger Menu", &isActive_, ImGuiWindowFlags_None)) {
             renderSimulationControl(context);
             ImGui::Separator();
+
+            ImGui::Separator();
+            renderGameMetrics(context);
+            ImGui::Separator();
             renderSnapshotDebugger(context);
         }
         ImGui::End();
@@ -133,6 +137,29 @@ class EditorDebuggerProgram : public GuiProgram {
 
             ImGui::SameLine();
             ImGui::TextDisabled("(1-1000)");
+        }
+    }
+
+    /**
+     * @brief Render game metrics section
+     */
+    void renderGameMetrics(GuiContext& context) {
+        if (ImGui::CollapsingHeader("Game Metrics", ImGuiTreeNodeFlags_DefaultOpen)) {
+            ImGui::TextDisabled("Game metrics will be displayed here");
+            ImGui::Text("Available FPS (fixed 30 FPS): %.2f", context.availableFps);
+            ImGui::Text("World Ticks: %d", context.worldTicks);
+
+            // Physics Metrics Button
+            if (ImGui::Button("Physics Metrics")) {
+                GuiProgramManager::Instance()->toggleProgram("physics_metrics");
+            }
+
+            ImGui::SameLine();
+
+            // Life Metrics Button
+            if (ImGui::Button("Life Metrics")) {
+                GuiProgramManager::Instance()->toggleProgram("life_metrics");
+            }
         }
     }
 

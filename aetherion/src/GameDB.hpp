@@ -90,6 +90,11 @@ class GameDB {
     bool loadFromDatabase();
 
    private:
+    /**
+     * @brief Validate and fix time_series table schema
+     */
+    void validateTimeSeriesSchema();
+
     // SQLite database
     std::string sqlitePath;
     sqlite3 *sqliteDb;

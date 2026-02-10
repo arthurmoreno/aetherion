@@ -168,6 +168,7 @@ add_subdirectory(src/physics)
 add_subdirectory(src/terrain)
 add_subdirectory(src/ecosystem)
 add_subdirectory(src/voxelgrid)
+add_subdirectory(src/WorldClientAPI)
 
 # ------------------------------------------------------------------------------
 # Build the Python Module (nanobind)
@@ -186,6 +187,7 @@ target_link_libraries(_aetherion PRIVATE
     ecosystem
     voxelgrid
     terrain
+    WorldClientAPI
     ${SDL2_LIBRARIES}
     ${SDL2_IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES}

@@ -3,7 +3,6 @@
 
 #include <entt/entt.hpp>
 
-
 struct MoveSolidEntityEvent {
     entt::entity entity;
     float forceX, forceY, forceZ;

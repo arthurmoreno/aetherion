@@ -1,12 +1,11 @@
 #include "terrain/TerrainGridRepository.hpp"
 
 #include <openvdb/openvdb.h>
+#include <spdlog/spdlog.h>
 
 #include <cassert>
 #include <functional>
 #include <shared_mutex>
-
-#include <spdlog/spdlog.h>
 
 #include "physics/PhysicsExceptions.hpp"
 #include "terrain/TerrainGridLock.hpp"
@@ -55,63 +54,117 @@ Position TerrainGridRepository::getPositionOfEntt(entt::entity terrain_entity) c
 }
 
 void TerrainGridRepository::moveTerrain(MovingComponent& movingComponent) {
+    // Hold the terrain grid lock for the entire move operation to ensure atomicity.
+    // Inner methods that use withUniqueLock/withSharedLock will see isTerrainGridLocked()==true
+    // and skip re-acquiring terrainGridMutex. Methods with takeLock param get false explicitly.
+    // TerrainGridLock gridLock(this);
+
     // Get the current position of the entity
-    std::optional<int> currentPositionEntityId = getTerrainIdIfExists(
-        movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
+    std::optional<int> currentPositionEntityId =
+        getTerrainIdIfExists(movingComponent.movingFromX, movingComponent.movingFromY,
+                             movingComponent.movingFromZ, false);
     std::optional<int> movingToPositionEntityId = getTerrainIdIfExists(
-        movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ);
+        movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ, false);
     if (currentPositionEntityId && !movingToPositionEntityId) {
         int terrainID = currentPositionEntityId.value();
-        // std::cout << "Moving terrain entity ID " << terrainID << " from ("
-        //           << movingComponent.movingFromX << ", " << movingComponent.movingFromY << ", "
-        //           << movingComponent.movingFromZ << ") to (" << movingComponent.movingToX << ", "
-        //           << movingComponent.movingToY << ", " << movingComponent.movingToZ << ")\n";
+
+        registry_.remove<Position>(static_cast<entt::entity>(terrainID));
+        registry_.remove<Velocity>(static_cast<entt::entity>(terrainID));
+        registry_.remove<MovingComponent>(static_cast<entt::entity>(terrainID));
 
         // CRITICAL: Reserve destination FIRST to prevent race conditions
         // This must happen before copying any data to prevent other entities from trying to move
         // here
+        // [COMMENTED OUT FOR TESTING - isolating inconsistent data source]
         setTerrainId(movingComponent.movingToX, movingComponent.movingToY,
-                     movingComponent.movingToZ, terrainID);
+                     movingComponent.movingToZ, terrainID, false);
         setTerrainId(movingComponent.movingFromX, movingComponent.movingFromY,
-                     movingComponent.movingFromZ, -2);  // Clear old position
+                     movingComponent.movingFromZ, -2, false);  // Clear old position
 
-        // Copy Position component
-        setDirection(movingComponent.movingToX, movingComponent.movingToY,
-                     movingComponent.movingToZ, movingComponent.direction);
+        // TODO: Clear moving from data.
+        // [COMMENTED OUT FOR TESTING - only keeping removal from old position]
+        // // Copy Position component
+        // setDirection(movingComponent.movingToX, movingComponent.movingToY,
+        //              movingComponent.movingToZ, movingComponent.direction);
 
-        // Copy structural EntityTypeComponent component
-        EntityTypeComponent currentEntityType = getTerrainEntityType(
-            movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
+        // // Copy structural EntityTypeComponent component
+        EntityTypeComponent currentEntityType =
+            getTerrainEntityType(movingComponent.movingFromX, movingComponent.movingFromY,
+                                 movingComponent.movingFromZ, false);
+
         setTerrainEntityType(
             movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ,
             EntityTypeComponent{currentEntityType.mainType, currentEntityType.subType0,
-                                currentEntityType.subType1});
-
+                                currentEntityType.subType1},
+            false);
+        // EntityTypeComponent emptyEntityType{static_cast<int>(EntityEnum::TERRAIN),
+        // static_cast<int>(TerrainEnum::EMPTY), 0}; setTerrainEntityType(
+        //     movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ,
+        //     emptyEntityType, false);
         // Copy structural StructuralIntegrityComponent component
-        StructuralIntegrityComponent currentSIC = getTerrainStructuralIntegrity(
-            movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
-        setCanStackEntities(movingComponent.movingToX, movingComponent.movingToY,
-                            movingComponent.movingToZ, currentSIC.canStackEntities);
-        setMaxLoadCapacity(movingComponent.movingToX, movingComponent.movingToY,
-                           movingComponent.movingToZ, currentSIC.maxLoadCapacity);
-        setGradient(movingComponent.movingToX, movingComponent.movingToY, movingComponent.movingToZ,
-                    currentSIC.gradientVector);
-        setMatterState(movingComponent.movingToX, movingComponent.movingToY,
-                       movingComponent.movingToZ, currentSIC.matterState);
+        StructuralIntegrityComponent currentSIC =
+            getTerrainStructuralIntegrity(movingComponent.movingFromX, movingComponent.movingFromY,
+                                          movingComponent.movingFromZ, false);
 
-        // Copy structural MatterContainer component
+        setTerrainStructuralIntegrity(movingComponent.movingToX, movingComponent.movingToY,
+                                      movingComponent.movingToZ, currentSIC);
+        // StructuralIntegrityComponent emptySIC{};
+        // emptySIC.canStackEntities = false;
+        // emptySIC.maxLoadCapacity = -1;
+        // emptySIC.matterState = MatterState::GAS;
+        // setTerrainStructuralIntegrity(movingComponent.movingFromX, movingComponent.movingFromY,
+        // movingComponent.movingFromZ, emptySIC);
+
+        // // I am here, on the refactor work.
+        // // [These ones does not need to takeLock]
+        // setCanStackEntities(movingComponent.movingToX, movingComponent.movingToY,
+        //                     movingComponent.movingToZ, currentSIC.canStackEntities);
+        // setMaxLoadCapacity(movingComponent.movingToX, movingComponent.movingToY,
+        //                    movingComponent.movingToZ, currentSIC.maxLoadCapacity);
+        // setGradient(movingComponent.movingToX, movingComponent.movingToY,
+        // movingComponent.movingToZ,
+        //             currentSIC.gradientVector);
+        // setMatterState(movingComponent.movingToX, movingComponent.movingToY,
+        //                movingComponent.movingToZ, currentSIC.matterState);
+
+        // // Copy structural MatterContainer component
         MatterContainer currentMC = getTerrainMatterContainer(
             movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
         setTerrainMatterContainer(movingComponent.movingToX, movingComponent.movingToY,
                                   movingComponent.movingToZ, currentMC);
+        // MatterContainer emptyMC{0, 0, 0, 0};
+        // setTerrainMatterContainer(movingComponent.movingFromX, movingComponent.movingFromY,
+        //                           movingComponent.movingFromZ, emptyMC);
 
         // Copy structural PhysicsStats component
-        PhysicsStats currentPS = getPhysicsStats(
-            movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
+        PhysicsStats currentPS =
+            getPhysicsStats(movingComponent.movingFromX, movingComponent.movingFromY,
+                            movingComponent.movingFromZ, false);
         setPhysicsStats(movingComponent.movingToX, movingComponent.movingToY,
                         movingComponent.movingToZ,
                         PhysicsStats{currentPS.mass, currentPS.maxSpeed, currentPS.minSpeed, 0.0f,
-                                     0.0f, 0.0f, 0.0f});
+                                     0.0f, 0.0f, 0.0f},
+                        false);
+        // PhysicsStats emptyPS{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+        // setPhysicsStats(movingComponent.movingFromX, movingComponent.movingFromY,
+        //                 movingComponent.movingFromZ, emptyPS, false);
+
+        int movFromTerrainId = storage_.deleteTerrain(
+            movingComponent.movingFromX, movingComponent.movingFromY, movingComponent.movingFromZ);
+        Position newPosition{movingComponent.movingToX, movingComponent.movingToY,
+                             movingComponent.movingToZ, movingComponent.direction};
+        registry_.emplace<Position>(static_cast<entt::entity>(terrainID), newPosition);
+        // Update tracking maps to keep byCoord_/byEntity_ in sync with the grid move.
+        // Without this, cleanup hooks (onDestroyVelocity) look up the new Position but
+        // find stale tracking map entries pointing to the old position, causing zombie entities.
+        entt::entity entity = static_cast<entt::entity>(terrainID);
+        VoxelCoord oldKey{movingComponent.movingFromX, movingComponent.movingFromY,
+                          movingComponent.movingFromZ};
+        VoxelCoord newKey{movingComponent.movingToX, movingComponent.movingToY,
+                          movingComponent.movingToZ};
+        removeFromTrackingMaps(oldKey, entity, true, false);
+        // [COMMENTED OUT FOR TESTING]
+        addToTrackingMaps(newKey, entity, true, false);
     } else {
         std::string errorMsg =
             "Invalid terrain move from (" + std::to_string(movingComponent.movingFromX) + "," +
@@ -132,64 +185,79 @@ void TerrainGridRepository::moveTerrain(MovingComponent& movingComponent) {
 
 std::optional<int> TerrainGridRepository::getTerrainIdIfExists(int x, int y, int z,
                                                                bool takeLock) const {
-    return withSharedLock([&]() -> std::optional<int> {
-        int terrainId = storage_.getTerrainIdIfExists(x, y, z);
-        if (terrainId == -2) {
-            return std::nullopt;
-        }
-        return terrainId;
-    }, takeLock);
+    return withSharedLock(
+        [&]() -> std::optional<int> {
+            int terrainId = storage_.getTerrainIdIfExists(x, y, z);
+            if (terrainId == -2) {
+                return std::nullopt;
+            }
+            return terrainId;
+        },
+        takeLock);
 }
 
 bool TerrainGridRepository::checkIfTerrainHasEntity(int x, int y, int z, bool takeLock) const {
-    return withSharedLock([&]() {
-        std::optional<int> entityId = storage_.getTerrainIdIfExists(x, y, z);
-        return entityId.has_value() && entityId.value() >= 0;
-    }, takeLock);
+    return withSharedLock(
+        [&]() {
+            std::optional<int> entityId = storage_.getTerrainIdIfExists(x, y, z);
+            return entityId.has_value() && entityId.value() >= 0;
+        },
+        takeLock);
 }
 
 void TerrainGridRepository::markActive(int x, int y, int z, entt::entity e, bool takeLock) {
     // Update TerrainStorage activation indicator based on strategy
-    withUniqueLock([&]() {
-        if (storage_.terrainGrid) {
-            storage_.terrainGrid->tree().setValue(C(x, y, z), static_cast<int>(e));
-        }
-    }, takeLock);
+    withUniqueLock(
+        [&]() {
+            if (storage_.terrainGrid) {
+                storage_.terrainGrid->tree().setValue(C(x, y, z), static_cast<int>(e));
+            }
+        },
+        takeLock);
 }
 
 void TerrainGridRepository::clearActive(int x, int y, int z, bool takeLock) {
-    withUniqueLock([&]() {
-        if (!storage_.terrainGrid) return;
-        if (storage_.useActiveMask) {
-            storage_.terrainGrid->tree().setValue(C(x, y, z), 0);
-        } else {
-            storage_.terrainGrid->tree().setValue(C(x, y, z), storage_.bgEntityId);
-        }
-    }, takeLock);
+    withUniqueLock(
+        [&]() {
+            if (!storage_.terrainGrid) return;
+            if (storage_.useActiveMask) {
+                storage_.terrainGrid->tree().setValue(C(x, y, z), 0);
+            } else {
+                storage_.terrainGrid->tree().setValue(C(x, y, z), storage_.bgEntityId);
+            }
+        },
+        takeLock);
 }
 
 void TerrainGridRepository::setTerrainId(int x, int y, int z, int terrainID, bool takeLock) {
-    withUniqueLock([&]() {
-        // std::cout << "[setTerrainId] Setting terrain ID at (" << x << ", " << y << ", " << z
-        //           << ") to " << terrainID << std::endl;
-        storage_.terrainGrid->tree().setValue(C(x, y, z), terrainID);
-    }, takeLock);
+    withUniqueLock(
+        [&]() {
+            // std::cout << "[setTerrainId] Setting terrain ID at (" << x << ", " << y << ", " << z
+            //           << ") to " << terrainID << std::endl;
+            storage_.terrainGrid->tree().setValue(C(x, y, z), terrainID);
+        },
+        takeLock);
 }
 
 void TerrainGridRepository::addToTrackingMaps(const VoxelCoord& key, entt::entity e,
-                                             bool takeTrackingLock, bool respectTerrainGridLock) {
-    withTrackingMapsLock([&]() {
-        byCoord_[key] = e;
-        byEntity_[e] = key;
-    }, takeTrackingLock, respectTerrainGridLock);
+                                              bool takeTrackingLock, bool respectTerrainGridLock) {
+    withTrackingMapsLock(
+        [&]() {
+            byCoord_[key] = e;
+            byEntity_[e] = key;
+        },
+        takeTrackingLock, respectTerrainGridLock);
 }
 
 void TerrainGridRepository::removeFromTrackingMaps(const VoxelCoord& key, entt::entity e,
-                                                  bool takeTrackingLock, bool respectTerrainGridLock) {
-    withTrackingMapsLock([&]() {
-        byCoord_.erase(key);
-        byEntity_.erase(e);
-    }, takeTrackingLock, respectTerrainGridLock);
+                                                   bool takeTrackingLock,
+                                                   bool respectTerrainGridLock) {
+    withTrackingMapsLock(
+        [&]() {
+            byCoord_.erase(key);
+            byEntity_.erase(e);
+        },
+        takeTrackingLock, respectTerrainGridLock);
 }
 
 void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entity e) {
@@ -203,7 +271,8 @@ void TerrainGridRepository::onConstructVelocity(entt::registry& reg, entt::entit
 
     //     withTrackingMapsLock([&]() {
     //         if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z, false)) {
-    //             // std::cout << "TerrainGridRepository: onConstructVelocity at (" << pos->x << ", "
+    //             // std::cout << "TerrainGridRepository: onConstructVelocity at (" << pos->x << ",
+    //             "
     //             //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
     //             VoxelCoord key{pos->x, pos->y, pos->z};
     //             addToTrackingMaps(key, e, false, false);
@@ -249,13 +318,16 @@ void TerrainGridRepository::onDestroyVelocity(entt::registry& reg, entt::entity 
     // std::cout << "TerrainGridRepository: onDestroyVelocity at (" << pos->x << ", "
     //           << pos->y << ", " << pos->z << ") entity=" << int(e) << "\n";
 
-    withTrackingMapsLock([&]() {
-        VoxelCoord key{pos->x, pos->y, pos->z};
-        removeFromTrackingMaps(key, e, false, false);
-        // Set terrain ID back to ON_GRID_STORAGE (-1) to mark it as static
-        setTerrainId(pos->x, pos->y, pos->z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE), false);
-        clearActive(pos->x, pos->y, pos->z, false);
-    }, true, true);
+    withTrackingMapsLock(
+        [&]() {
+            VoxelCoord key{pos->x, pos->y, pos->z};
+            removeFromTrackingMaps(key, e, false, false);
+            // Set terrain ID back to ON_GRID_STORAGE (-1) to mark it as static
+            setTerrainId(pos->x, pos->y, pos->z,
+                         static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE), false);
+            clearActive(pos->x, pos->y, pos->z, false);
+        },
+        true, true);
 }
 
 void TerrainGridRepository::onDestroyMoving(entt::registry& reg, entt::entity e) {
@@ -281,20 +353,23 @@ void TerrainGridRepository::onDestroyMoving(entt::registry& reg, entt::entity e)
     // Only clean up if this is an entity destruction (not just component removal)
     // Check if entity still has other transient components
     bool hasVelocity = reg.all_of<Velocity>(e);
-    
+
     // If entity still has Velocity, it's still active - don't deactivate
     // The onDestroyVelocity hook will handle cleanup when Velocity is also removed
     if (hasVelocity) {
         return;
     }
 
-    withTrackingMapsLock([&]() {
-        VoxelCoord key{pos->x, pos->y, pos->z};
-        removeFromTrackingMaps(key, e, false, false);
-        // Set terrain ID back to ON_GRID_STORAGE (-1) to mark it as static
-        setTerrainId(pos->x, pos->y, pos->z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE), false);
-        clearActive(pos->x, pos->y, pos->z, false);
-    }, true, true);
+    withTrackingMapsLock(
+        [&]() {
+            VoxelCoord key{pos->x, pos->y, pos->z};
+            removeFromTrackingMaps(key, e, false, false);
+            // Set terrain ID back to ON_GRID_STORAGE (-1) to mark it as static
+            setTerrainId(pos->x, pos->y, pos->z,
+                         static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE), false);
+            clearActive(pos->x, pos->y, pos->z, false);
+        },
+        true, true);
 }
 
 entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {
@@ -339,22 +414,28 @@ entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {
 }
 
 // ---------------- EntityTypeComponent aggregation ----------------
-EntityTypeComponent TerrainGridRepository::getTerrainEntityType(int x, int y, int z) const {
-    return withSharedLock([&]() {
-        EntityTypeComponent etc{};
-        etc.mainType = storage_.getTerrainMainType(x, y, z);
-        etc.subType0 = storage_.getTerrainSubType0(x, y, z);
-        etc.subType1 = storage_.getTerrainSubType1(x, y, z);
-        return etc;
-    });
+EntityTypeComponent TerrainGridRepository::getTerrainEntityType(int x, int y, int z,
+                                                                bool takeLock) const {
+    return withSharedLock(
+        [&]() {
+            EntityTypeComponent etc{};
+            etc.mainType = storage_.getTerrainMainType(x, y, z);
+            etc.subType0 = storage_.getTerrainSubType0(x, y, z);
+            etc.subType1 = storage_.getTerrainSubType1(x, y, z);
+            return etc;
+        },
+        takeLock);
 }
 
-void TerrainGridRepository::setTerrainEntityType(int x, int y, int z, EntityTypeComponent etc) {
-    withUniqueLock([&]() {
-        storage_.setTerrainMainType(x, y, z, etc.mainType);
-        storage_.setTerrainSubType0(x, y, z, etc.subType0);
-        storage_.setTerrainSubType1(x, y, z, etc.subType1);
-    });
+void TerrainGridRepository::setTerrainEntityType(int x, int y, int z, EntityTypeComponent etc,
+                                                 bool takeLock) {
+    withUniqueLock(
+        [&]() {
+            storage_.setTerrainMainType(x, y, z, etc.mainType);
+            storage_.setTerrainSubType0(x, y, z, etc.subType0);
+            storage_.setTerrainSubType1(x, y, z, etc.subType1);
+        },
+        takeLock);
 }
 
 TerrainInfo TerrainGridRepository::readTerrainInfo(int x, int y, int z) const {
@@ -485,18 +566,20 @@ void TerrainGridRepository::setMinSpeed(int x, int y, int z, int v) {
     storage_.setTerrainMinSpeed(x, y, z, v);
 }
 
-PhysicsStats TerrainGridRepository::getPhysicsStats(int x, int y, int z) const {
-    return withSharedLock([&]() {
-        PhysicsStats ps{};
-        ps.mass = static_cast<float>(storage_.getTerrainMass(x, y, z));
-        ps.maxSpeed = static_cast<float>(storage_.getTerrainMaxSpeed(x, y, z));
-        ps.minSpeed = static_cast<float>(storage_.getTerrainMinSpeed(x, y, z));
-        ps.heat = static_cast<float>(storage_.getTerrainHeat(x, y, z));
-        ps.forceX = 0.0f;
-        ps.forceY = 0.0f;
-        ps.forceZ = 0.0f;
-        return ps;
-    });
+PhysicsStats TerrainGridRepository::getPhysicsStats(int x, int y, int z, bool takeLock) const {
+    return withSharedLock(
+        [&]() {
+            PhysicsStats ps{};
+            ps.mass = static_cast<float>(storage_.getTerrainMass(x, y, z));
+            ps.maxSpeed = static_cast<float>(storage_.getTerrainMaxSpeed(x, y, z));
+            ps.minSpeed = static_cast<float>(storage_.getTerrainMinSpeed(x, y, z));
+            ps.heat = static_cast<float>(storage_.getTerrainHeat(x, y, z));
+            ps.forceX = 0.0f;
+            ps.forceY = 0.0f;
+            ps.forceZ = 0.0f;
+            return ps;
+        },
+        takeLock);
 }
 
 TerrainPhysicsSnapshot TerrainGridRepository::getPhysicsSnapshot(int x, int y, int z) const {
@@ -552,14 +635,17 @@ TerrainPhysicsSnapshot TerrainGridRepository::getPhysicsSnapshot(int x, int y, i
     return TerrainPhysicsSnapshot{};  // TODO: Implement proper snapshot retrieval
 }
 
-void TerrainGridRepository::setPhysicsStats(int x, int y, int z, const PhysicsStats& ps) {
-    withUniqueLock([&]() {
-        storage_.setTerrainHeat(x, y, z, static_cast<int>(ps.heat));
-        storage_.setTerrainMass(x, y, z, static_cast<int>(ps.mass));
-        storage_.setTerrainMaxSpeed(x, y, z, static_cast<int>(ps.maxSpeed));
-        storage_.setTerrainMinSpeed(x, y, z, static_cast<int>(ps.minSpeed));
-        // forceX/forceY/forceZ/heat are transient or derived; not persisted to VDB here.
-    });
+void TerrainGridRepository::setPhysicsStats(int x, int y, int z, const PhysicsStats& ps,
+                                            bool takeLock) {
+    withUniqueLock(
+        [&]() {
+            storage_.setTerrainHeat(x, y, z, static_cast<int>(ps.heat));
+            storage_.setTerrainMass(x, y, z, static_cast<int>(ps.mass));
+            storage_.setTerrainMaxSpeed(x, y, z, static_cast<int>(ps.maxSpeed));
+            storage_.setTerrainMinSpeed(x, y, z, static_cast<int>(ps.minSpeed));
+            // forceX/forceY/forceZ/heat are transient or derived; not persisted to VDB here.
+        },
+        takeLock);
 }
 
 DirectionEnum TerrainGridRepository::getDirection(int x, int y, int z) const {
@@ -737,7 +823,6 @@ bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
 // Delete terrain at a specific voxel
 void TerrainGridRepository::deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z,
                                           bool takeLock) {
-
     if (takeLock) {
         TerrainGridLock lock(this);
     }
@@ -754,26 +839,25 @@ void TerrainGridRepository::deleteTerrain(entt::dispatcher& dispatcher, int x, i
         dispatcher.enqueue<KillEntityEvent>(entity);
     } else if (terrainId != -2 && terrainId != -1) {
         // TODO
-        // std::cout << "No active terrain entity to delete at (" << x << ", " << y << ", " << z
-        //           << ") EntityID: "
-        //           << terrainId << "But we might clean up something else here."
-        //           << "\n";
+        std::cout << "No active terrain entity to delete at (" << x << ", " << y << ", " << z
+                  << ") EntityID: " << terrainId << "But we might clean up something else here."
+                  << "\n";
     } else {
-        // std::cout << "No active terrain entity to delete at (" << x << ", " << y << ", " << z
-        //           << ") EntityID: "
-        //           << terrainId
-        //           << "\n";
+        std::cout << "No active terrain entity to delete at (" << x << ", " << y << ", " << z
+                  << ") EntityID: " << terrainId << "\n";
     }
 }
 
-StructuralIntegrityComponent TerrainGridRepository::getTerrainStructuralIntegrity(int x, int y,
-                                                                                  int z) const {
-    return withSharedLock([&]() { return storage_.getTerrainStructuralIntegrity(x, y, z); });
+StructuralIntegrityComponent TerrainGridRepository::getTerrainStructuralIntegrity(
+    int x, int y, int z, bool takeLock) const {
+    return withSharedLock([&]() { return storage_.getTerrainStructuralIntegrity(x, y, z); },
+                          takeLock);
 }
 
 void TerrainGridRepository::setTerrainStructuralIntegrity(int x, int y, int z,
-                                                          const StructuralIntegrityComponent& sic) {
-    withUniqueLock([&]() { storage_.setTerrainStructuralIntegrity(x, y, z, sic); });
+                                                          const StructuralIntegrityComponent& sic,
+                                                          bool takeLock) {
+    withUniqueLock([&]() { storage_.setTerrainStructuralIntegrity(x, y, z, sic); }, takeLock);
 }
 
 bool TerrainGridRepository::hasMovingComponent(int x, int y, int z) const {
@@ -814,18 +898,26 @@ void TerrainGridRepository::unlockTerrainGrid() {
     terrainGridMutex.unlock();
 }
 
-void TerrainGridRepository::softDeactivateEntity(entt::dispatcher& dispatcher, entt::entity e, bool takeLock) {
+void TerrainGridRepository::softDeactivateEntity(entt::dispatcher& dispatcher, entt::entity e,
+                                                 bool takeLock) {
     if (takeLock) {
         if (!isTerrainGridLocked()) {
-            spdlog::debug("softDeactivateEntity: acquiring TerrainGridLock for entity {}", static_cast<int>(e));
+            spdlog::debug("softDeactivateEntity: acquiring TerrainGridLock for entity {}",
+                          static_cast<int>(e));
             TerrainGridLock lock(this);
         } else {
-            spdlog::debug("softDeactivateEntity: repository already locked; skipping lock for entity {}", static_cast<int>(e));
+            spdlog::debug(
+                "softDeactivateEntity: repository already locked; skipping lock for entity {}",
+                static_cast<int>(e));
         }
     } else {
-        // Caller requested no lock; warn if repository is not externally locked to help catch misuse
+        // Caller requested no lock; warn if repository is not externally locked to help catch
+        // misuse
         if (!isTerrainGridLocked()) {
-            spdlog::debug("softDeactivateEntity: called with takeLock=false but repository is not locked for entity {}", static_cast<int>(e));
+            spdlog::debug(
+                "softDeactivateEntity: called with takeLock=false but repository is not locked for "
+                "entity {}",
+                static_cast<int>(e));
         }
     }
 
@@ -862,19 +954,25 @@ void TerrainGridRepository::softDeactivateEntity(entt::dispatcher& dispatcher, e
     if (!hadTransient) {
         // No transient components removed — perform cleanup directly
         if (!found) {
-            spdlog::debug("softDeactivateEntity: entity {} has no mapping and no transients", static_cast<int>(e));
+            spdlog::debug("softDeactivateEntity: entity {} has no mapping and no transients",
+                          static_cast<int>(e));
             return;
         }
 
         // Remove mapping and mark voxel as storage-only
-        withTrackingMapsLock([&]() {
-            byCoord_.erase(key);
-            byEntity_.erase(e);
-            // Mark as ON_GRID_STORAGE
-            setTerrainId(key.x, key.y, key.z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE), false);
-            clearActive(key.x, key.y, key.z, false);
-        }, false, false);
+        withTrackingMapsLock(
+            [&]() {
+                byCoord_.erase(key);
+                byEntity_.erase(e);
+                // Mark as ON_GRID_STORAGE
+                setTerrainId(key.x, key.y, key.z,
+                             static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE), false);
+                clearActive(key.x, key.y, key.z, false);
+            },
+            false, false);
     }
 
     spdlog::debug("softDeactivateEntity: entity {} soft-deactivated", static_cast<int>(e));
 }
+
+int64_t TerrainGridRepository::sumTotalWater() const { return storage_.sumTotalWater(); }

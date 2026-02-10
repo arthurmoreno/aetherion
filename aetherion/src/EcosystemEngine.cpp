@@ -11,11 +11,10 @@
 #include <thread>
 
 #include "ecosystem/ReadonlyQueries.hpp"
+#include "physics/PhysicsExceptions.hpp"
+#include "physics/PhysicsMutators.hpp"
 #include "physics/ReadonlyQueries.hpp"
 #include "terrain/TerrainGridLock.hpp"
-
-#include "physics/PhysicsMutators.hpp"
-#include "physics/PhysicsExceptions.hpp"
 
 //==============================================================================
 // SECTION 1: PARALLEL WATER SIMULATION INFRASTRUCTURE
@@ -118,7 +117,7 @@ WaterSimulationManager::WaterSimulationManager(int numThreads)
     workerThreads_.reserve(numThreads_);
 }
 
-WaterSimulationManager::~WaterSimulationManager() { 
+WaterSimulationManager::~WaterSimulationManager() {
     // Destructor MUST NOT THROW
     try {
         initiateShutdown();
@@ -207,17 +206,16 @@ void WaterSimulationManager::workerThreadFunction(int threadId, entt::registry& 
         } catch (const std::exception& e) {
             // Capture exception and push to error queue instead of crashing
             std::ostringstream oss;
-            oss << "[Thread " << threadId << "] Exception at box " << boxIndex 
-                << ": " << e.what();
+            oss << "[Thread " << threadId << "] Exception at box " << boxIndex << ": " << e.what();
             errorQueue_.push(ThreadError(threadId, oss.str()));
-            
+
             std::cerr << oss.str() << std::endl;
         } catch (...) {
             // Capture unknown exceptions
             std::ostringstream oss;
             oss << "[Thread " << threadId << "] Unknown exception at box " << boxIndex;
             errorQueue_.push(ThreadError(threadId, oss.str()));
-            
+
             std::cerr << oss.str() << std::endl;
         }
 
@@ -363,7 +361,7 @@ void WaterSimulationManager::processWaterSimulation(entt::registry& registry, Vo
     if (hasEncounteredCriticalError_.load() || isShuttingDown_.load()) {
         return;  // Graceful exit, don't throw during shutdown
     }
-    
+
     // Clear previous results
     std::vector<WaterFlow> temp;
     while (resultQueue_.try_pop(temp)) {
@@ -385,10 +383,10 @@ void WaterSimulationManager::processWaterSimulation(entt::registry& registry, Vo
         } else {
             std::cerr << oss.str() << std::endl;
         }
-        
+
         // CRITICAL: Initiate clean shutdown BEFORE throwing exception
         initiateShutdown();
-        
+
         // Throw exception to propagate to Python
         throw std::runtime_error(oss.str());
     }
@@ -434,18 +432,17 @@ void WaterSimulationManager::initiateShutdown() {
     if (isShuttingDown_.exchange(true)) {
         return;  // Already shutting down, return immediately
     }
-    
+
     std::cout << "[WaterSimulationManager] Initiating clean shutdown...\n";
-    
+
     // Set error flag
     hasEncounteredCriticalError_.store(true);
-    
+
     // Stop all worker threads cleanly
     stopWorkerThreads();
-    
+
     std::cout << "[WaterSimulationManager] Shutdown complete.\n";
 }
-
 
 //==============================================================================
 // SECTION 3: WATER CYCLE - LIQUID PHASE
@@ -791,7 +788,7 @@ bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGr
 void dispatchVaporCreationOrAddition(entt::registry& registry, VoxelGrid& voxelGrid,
                                      entt::dispatcher& dispatcher, int x, int y, int z,
                                      int amount) {
-    int terrainAboveId = voxelGrid.getTerrain(x, y, z + 1);
+    int terrainAboveId = voxelGrid.getTerrain(x, y, z);
 
     if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
         // Dispatch event to atomically add vapor to tile above
@@ -803,16 +800,15 @@ void dispatchVaporCreationOrAddition(entt::registry& registry, VoxelGrid& voxelG
 
         std::ostringstream ossMessage;
         ossMessage << "[dispatchVaporCreationOrAddition] Creating new vapor entity at (" << x
-                   << ", " << y << ", " << z + 1 << ")";
+                   << ", " << y << ", " << z << ")";
         spdlog::get("console")->info(ossMessage.str());
 
-        if (voxelGrid.terrainGridRepository->checkIfTerrainHasEntity(x, y, z + 1)) {
-            throw std::runtime_error(
-                "[dispatchVaporCreationOrAddition] Error: Checkpoint bingo.");
+        if (voxelGrid.terrainGridRepository->checkIfTerrainHasEntity(x, y, z)) {
+            throw std::runtime_error("[dispatchVaporCreationOrAddition] Error: Checkpoint bingo.");
         }
 
         // Dispatch event instead of direct state changes
-        Position targetPos{x, y, z + 1, DirectionEnum::DOWN};
+        Position targetPos{x, y, z, DirectionEnum::DOWN};
         VaporCreationEvent event(targetPos, amount, false);
         dispatcher.enqueue<VaporCreationEvent>(event);
     }
@@ -826,7 +822,7 @@ void condenseVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatc
 
     std::ostringstream ossMessage;
     ossMessage << "Vapor condensing at (" << pos.x << ", " << pos.y << ", " << pos.z << ")";
-    spdlog::get("console")->debug(ossMessage.str());
+    spdlog::get("console")->info(ossMessage.str());
 
     // Detection only - all state changes happen atomically in PhysicsEngine
     int terrainBelowId = voxelGrid.getTerrain(pos.x, pos.y, pos.z - 1);
@@ -987,13 +983,12 @@ void moveVaporUp(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatche
                 "Vapor obstructed: no suitable vapor above to merge");
         }
     }
-    
+
     // Lock automatically released by TerrainGridLock destructor
 }
 
 void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher& dispatcher,
                        Position& pos, EntityTypeComponent& type, MatterContainer& matterContainer) {
-
     TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
     int terrainId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
@@ -1033,15 +1028,19 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
 
     int terrainSideId = voxelGrid.getTerrain(newX, newY, pos.z);
     if (!haveMovement && terrainSideId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        ossMessage << "[moveVaporSideways] Vapor moving to (" << forceX << ", " << forceY << ", "
-                   << pos.z << ")\n";
+        ossMessage << "[moveVaporSideways] Vapor moving to (" << newX << ", " << newY << ", "
+                   << pos.z << ") with forces (" << forceX << ", " << forceY << ", 0)\n";
         spdlog::get("console")->debug(ossMessage.str());
         ossMessage.str("");
         ossMessage.clear();
         // Update position in the registry and voxel grid
 
         if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-            entt::entity newTerrainEntity = createAndRegisterVaporEntity(registry, voxelGrid, pos.x, pos.y, pos.z, true);
+            entt::entity newTerrainEntity =
+                createAndRegisterVaporEntity(registry, voxelGrid, pos.x, pos.y, pos.z, true);
+            if (newTerrainEntity == entt::null) {
+                return;  // Entity creation failed, exit the function
+            }
             terrainId = static_cast<int>(newTerrainEntity);
         }
         entt::entity entity = static_cast<entt::entity>(terrainId);
@@ -1075,7 +1074,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
                 matterContainerSide.WaterVapor >= 0 && matterContainerSide.WaterMatter == 0) {
                 ossMessage << "[moveVaporSideways] Vapor merging with vapor at (" << newX << ", "
                            << newY << ", " << pos.z << ")";
-                spdlog::get("console")->debug(ossMessage.str());
+                spdlog::get("console")->info(ossMessage.str());
                 ossMessage.str("");
                 ossMessage.clear();
 
@@ -1088,7 +1087,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
             } else {
                 ossMessage << "[moveVaporSideways] Vapor Obstructed; cannot move sideways (" << newX
                            << ", " << newY << ", " << pos.z << ")";
-                spdlog::get("console")->debug(ossMessage.str());
+                spdlog::get("console")->info(ossMessage.str());
                 ossMessage.str("");
                 ossMessage.clear();
                 // Obstructed; cannot move sideways
@@ -1097,7 +1096,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
         } else {
             ossMessage << "[moveVaporSideways] Vapor cannot move sideways; The entity at (" << newX
                        << ", " << newY << ", " << pos.z << ") is not terrain";
-            spdlog::get("console")->debug(ossMessage.str());
+            spdlog::get("console")->info(ossMessage.str());
             ossMessage.str("");
             ossMessage.clear();
         }
@@ -1111,8 +1110,12 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
     int maxAltitude = voxelGrid.depth - 1;  // Example maximum altitude for vapor to rise
 
     // Condensation Logic for Vapor
-    const int condensationThreshold = 21;
+    const int condensationThreshold = 16;
     if (matterContainer.WaterVapor >= condensationThreshold) {
+        spdlog::get("console")->info(
+            "[moveVapor] Vapor at (" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " +
+            std::to_string(pos.z) + ") reached condensation threshold with WaterVapor = " +
+            std::to_string(matterContainer.WaterVapor) + "; initiating condensation.");
         // TODO: Uncomment when ready.
         condenseVapor(registry, voxelGrid, dispatcher, pos, type, matterContainer);
         return;  // Condensation happened, exit the function
@@ -1359,16 +1362,16 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
 
         // Ensure that both WaterMatter and WaterVapor cannot coexist
         if (isWater && matterContainer.WaterMatter > 0 && matterContainer.WaterVapor > 0) {
-
-
             std::ostringstream ossMessage;
             ossMessage << "[processTileWater] Error info: entity (" << entity_id_for_print << ")"
                        << " at (" << x << ", " << y << ", " << z << ")\n"
                        << "  ------------------------------------------------\n"
-                       << "    matterBelow now has WaterMatter: " << matterContainer.WaterMatter << "\n"
-                       << "    matterBelow now has WaterVapor: " << matterContainer.WaterVapor << "\n"
+                       << "    matterBelow now has WaterMatter: " << matterContainer.WaterMatter
+                       << "\n"
+                       << "    matterBelow now has WaterVapor: " << matterContainer.WaterVapor
+                       << "\n"
                        << "  ------------------------------------------------\n";
-            
+
             spdlog::get("console")->info(ossMessage.str());
 
             // This should not happen; adjust accordingly
@@ -1557,6 +1560,8 @@ void EcosystemEngine::processEcosystem(entt::registry& registry, VoxelGrid& voxe
 
 void EcosystemEngine::processEcosystemAsync(entt::registry& registry, VoxelGrid& voxelGrid,
                                             entt::dispatcher& dispatcher, GameClock& clock) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
     // std::cout << "Processing ecosystem Async\n";
     std::scoped_lock lock(ecosystemMutex);  // Ensure exclusive access
 
@@ -1570,6 +1575,43 @@ void EcosystemEngine::processEcosystemAsync(entt::registry& registry, VoxelGrid&
     // std::cout << "[processEcosystemAsync] Before water simulation\n";
 
     waterSimManager_->processWaterSimulation(registry, voxelGrid, sunIntensity);
+
+    int64_t waterUnits = voxelGrid.terrainGridRepository->sumTotalWater();
+    const int waterMinimumUnits = PhysicsManager::Instance()->getWaterMinimumUnits();
+
+    // std::cout << "Total water units: " << waterUnits << std::endl;
+    spdlog::get("console")->info("[processEcosystemAsync] Minimum water units required: {}",
+                                 waterMinimumUnits);
+    spdlog::get("console")->info("[processEcosystemAsync] Total water units after simulation: {}",
+                                 waterUnits);
+
+    int x, y, z;
+    if (waterUnits < waterMinimumUnits) {
+        int waterToCreate = waterMinimumUnits - waterUnits;
+
+        int vaporUnits = 0;
+        while (waterToCreate > 0) {
+            // Create x value from voxelGrid.width and y value from voxelGrid.height (randomly from
+            // 0 to voxelGrid.width and height)
+
+            vaporUnits = 0;
+            if (waterToCreate > 10) {
+                vaporUnits = 10;
+            } else {
+                vaporUnits = waterToCreate;
+            }
+
+            std::uniform_int_distribution<> disX(0, voxelGrid.width - 1);
+            std::uniform_int_distribution<> disY(0, voxelGrid.height - 1);
+            x = disX(gen);
+            y = disY(gen);
+            z = voxelGrid.depth - 1;
+            // spdlog::get("console")->info("[processEcosystemAsync] Dispatching vapor
+            // creation/addition at ({}, {}, {}) with {} units", x, y, z, vaporUnits);
+            dispatchVaporCreationOrAddition(registry, voxelGrid, dispatcher, x, y, z, vaporUnits);
+            waterToCreate -= vaporUnits;
+        }
+    }
 
     processingComplete = true;
 }

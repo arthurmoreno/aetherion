@@ -29,9 +29,10 @@
  */
 
 #include <entt/entt.hpp>
-#include "voxelgrid/VoxelGrid.hpp"
-#include "components/PhysicsComponents.hpp"
+
 #include "components/EntityTypeComponent.hpp"
+#include "components/PhysicsComponents.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 // Direct component mutators (definitions in ComponentMutators.cpp)
 /**
@@ -46,15 +47,17 @@ void updateEntityVelocity(Velocity& velocity, float newVx, float newVy, float ne
 /**
  * @brief Ensures a terrain entity has a Position component, adding one if it's missing.
  * @details This is a safety check for terrain entities (e.g., vapor) that might be processed
- * by physics before being fully initialized. It fetches the position from the TerrainGridRepository.
+ * by physics before being fully initialized. It fetches the position from the
+ * TerrainGridRepository.
  * @param registry The entt::registry.
  * @param voxelGrid The VoxelGrid for accessing the terrain repository.
  * @param entity The entity to check.
  * @param isTerrain Flag indicating if the entity is a terrain entity.
- * @throws std::runtime_error if the entity is missing a position and it cannot be found in the repository.
+ * @throws std::runtime_error if the entity is missing a position and it cannot be found in the
+ * repository.
  */
 void ensurePositionComponentForTerrain(entt::registry& registry, VoxelGrid& voxelGrid,
-                                      entt::entity entity, bool isTerrain);
+                                       entt::entity entity, bool isTerrain);
 
 /**
  * @brief Converts an entity into a "soft empty" terrain block.
@@ -75,4 +78,4 @@ void convertIntoSoftEmpty(entt::registry& registry, entt::entity& terrain);
 void setEmptyWaterComponentsEnTT(entt::registry& registry, entt::entity& terrain,
                                  MatterState matterState);
 
-#endif // COMPONENT_MUTATORS_HPP
+#endif  // COMPONENT_MUTATORS_HPP

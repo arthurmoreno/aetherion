@@ -1,9 +1,9 @@
 #ifndef PHYSICAL_MATH_HPP
 #define PHYSICAL_MATH_HPP
 
+#include <algorithm>
 #include <cmath>
 #include <limits>
-#include <algorithm>
 #include <tuple>
 
 #include "components/PhysicsComponents.hpp"

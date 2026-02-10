@@ -3,18 +3,30 @@
 
 #include <nanobind/nanobind.h>
 
+#include <chrono>
 #include <entt/entt.hpp>
+#include <mutex>
+#include <string>
 #include <tuple>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
 #include "EntityInterface.hpp"
+#include "GameDBHandler.hpp"
 #include "ItemConfigurationManager.hpp"
 #include "components/ItemsComponents.hpp"
 #include "components/LifecycleComponents.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
 
 namespace nb = nanobind;
+
+// Life event time series metric names
+inline const std::string LIFE_KILL_ENTITY = "life_kill_entity";
+inline const std::string LIFE_SOFT_KILL_ENTITY = "life_soft_kill_entity";
+inline const std::string LIFE_HARD_KILL_ENTITY = "life_hard_kill_entity";
+inline const std::string LIFE_REMOVE_VELOCITY = "life_remove_velocity";
+inline const std::string LIFE_REMOVE_MOVING_COMPONENT = "life_remove_moving_component";
 
 class LifeEngine {
    public:
@@ -35,11 +47,20 @@ class LifeEngine {
     // Register the event handler
     void registerEventHandlers(entt::dispatcher& dispatcher);
 
+    // Metrics flush to game DB
+    void flushLifeMetrics(GameDBHandler* dbHandler);
+
+    // Increment a named metric
+    void incLifeMetric(const std::string& metricName);
+
    private:
     entt::registry& registry;
     entt::dispatcher& dispatcher;
     VoxelGrid* voxelGrid;
 
+    // Monitoring counters for life events
+    std::unordered_map<std::string, uint64_t> lifeMetrics_;
+    std::mutex metricsMutex_;
 };
 
 #endif  // LIFE_EVENTS_HPP

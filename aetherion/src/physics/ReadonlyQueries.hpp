@@ -50,7 +50,7 @@ inline MatterState getMatterState(entt::registry& registry, VoxelGrid& voxelGrid
     } else {
         StructuralIntegrityComponent bellowTerrainSic =
             voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(position.x, position.y,
-                                                                           position.z - 1);
+                                                                           position.z);
         return bellowTerrainSic.matterState;
     }
 }
@@ -105,7 +105,6 @@ std::tuple<int, int, int, float> calculateMovementDestination(
 bool hasCollision(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity,
                   int movingFromX, int movingFromY, int movingFromZ, int movingToX, int movingToY,
                   int movingToZ, bool isTerrain);
-
 
 // Helper: Print exhaustive terrain diagnostics for debugging
 inline void printTerrainDiagnostics(entt::registry& registry, VoxelGrid& voxelGrid,
@@ -174,10 +173,9 @@ inline void printTerrainDiagnostics(entt::registry& registry, VoxelGrid& voxelGr
     std::cout << "==================================================================\n\n";
 }
 
-
 inline std::pair<float, bool> calculateVelocityAfterGravityStep(entt::registry& registry,
-                                                         VoxelGrid& voxelGrid, int i, int j, int k,
-                                                         float velocityZ, int dt) {
+                                                                VoxelGrid& voxelGrid, int i, int j,
+                                                                int k, float velocityZ, int dt) {
     float gravity = PhysicsManager::Instance()->getGravity();
     float newVelocityZ;
 
