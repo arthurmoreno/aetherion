@@ -11,4 +11,12 @@ struct MoveSolidEntityEvent {
         : entity(entity), forceX(forceX), forceY(forceY), forceZ(forceZ) {}
 };
 
+struct MoveSolidLiquidTerrainEvent {
+    entt::entity entity;
+    float forceX, forceY, forceZ;
+
+    MoveSolidLiquidTerrainEvent(entt::entity entity, float forceX, float forceY, float forceZ)
+        : entity(entity), forceX(forceX), forceY(forceY), forceZ(forceZ) {}
+};
+
 #endif  // MOVE_ENTITY_EVENT_HPP

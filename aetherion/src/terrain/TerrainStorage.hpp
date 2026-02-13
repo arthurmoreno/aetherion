@@ -213,6 +213,10 @@ class TerrainStorage {
 
     static thread_local ThreadCache s_threadCache;
     void configureThreadCache();
+
+   public:
+    /// Force the thread-local accessor cache to be rebuilt on the next read.
+    void resetThreadCache();
 };
 
 // ================ Template Method Implementations ================

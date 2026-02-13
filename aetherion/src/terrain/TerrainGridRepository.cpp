@@ -166,20 +166,7 @@ void TerrainGridRepository::moveTerrain(MovingComponent& movingComponent) {
         // [COMMENTED OUT FOR TESTING]
         addToTrackingMaps(newKey, entity, true, false);
     } else {
-        std::string errorMsg =
-            "Invalid terrain move from (" + std::to_string(movingComponent.movingFromX) + "," +
-            std::to_string(movingComponent.movingFromY) + "," +
-            std::to_string(movingComponent.movingFromZ) + ") to (" +
-            std::to_string(movingComponent.movingToX) + "," +
-            std::to_string(movingComponent.movingToY) + "," +
-            std::to_string(movingComponent.movingToZ) + "). Source: " +
-            (currentPositionEntityId ? "ID=" + std::to_string(currentPositionEntityId.value())
-                                     : "none") +
-            ", Dest: " +
-            (movingToPositionEntityId ? "ID=" + std::to_string(movingToPositionEntityId.value())
-                                      : "none");
-        std::cout << errorMsg << "\n";
-        throw std::runtime_error(errorMsg);
+        return;
     }
 }
 

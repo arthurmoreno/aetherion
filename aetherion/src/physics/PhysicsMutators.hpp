@@ -958,6 +958,7 @@ inline void createWaterTerrainFromFall(entt::registry& registry, entt::dispatche
     voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z,
                                                                    newStructuralIntegrityComponent);
     voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
+    registry.emplace<Position>(newWaterEntity, newPosition);
 
     // Only transient data (Velocity) goes in ECS if needed for active movement
     // Water at rest doesn't need velocity in ECS; it will be activated when movement starts

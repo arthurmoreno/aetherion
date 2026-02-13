@@ -3,8 +3,110 @@ System Architecture
 
 The Physics and Ecosystem engines are the core simulation components of the Aetherion engine. They operate as distinct but interacting systems within the game loop, sharing state through the ``VoxelGrid`` and the Entity Component System (ECS) provided by ``EnTT``.
 
+There are four key data systems that underpin the simulation:
+
+- **VoxelGrid**: The central spatial data structure that integrates all grid-based storage and exposes a unified interface for spatial queries.
+- **TerrainStorage**: The low-level, OpenVDB-backed storage for static terrain data, providing sparse and memory-efficient persistence.
+- **TerrainGridRepository**: An ECS overlay for terrain voxels that manages the boundary between static terrain data (OpenVDB) and transient runtime behavior (ECS).
+- **entt::registry (ECS)**: The entity-component registry that manages all entities and their components, covering both terrain entities (active/dynamic terrain) and non-terrain entities (creatures, items, etc.).
+
+The **PhysicsEngine** is responsible for simulating physical interactions — movement, collision detection, gravity, and forces. While other subsystems may contribute force values, it is the PhysicsEngine that resolves them into position and state changes for entities with velocity and moving components.
+
+The **EcosystemEngine** handles higher-level environmental processes such as the water cycle. It should ideally perform read-only queries against the data systems and queue changes to be applied after its iteration completes, since ecosystem processing (and other systems) may run in parallel, with each spatial partition on its own thread.
+
+The following sections explore each of these areas in detail:
+
+1. **Data Structures** — A breakdown of the storage and state management layers and how they interact.
+2. **Physics Movement & Event Flow** — How movement events are created, validated, and resolved until an entity actually moves.
+3. **Water Cycle & Ecosystem Simulation** — How water dynamics, evaporation, and other environmental processes are modeled.
+
 High-Level Overview
 -------------------
+
+.. graphviz::
+
+   digraph ownership {
+       rankdir=TB;
+       compound=true;
+       node [shape=box, style="rounded,filled", fontsize=10];
+       edge [fontsize=9];
+
+       // Root
+       World [label="World", fillcolor="#FFD700", style="rounded,filled,bold"];
+
+       // World direct members
+       Registry [label="entt::registry\n(Entity Component System)", fillcolor=lightyellow];
+       Dispatcher [label="entt::dispatcher\n(Event Dispatcher)", fillcolor=lightyellow];
+       VoxelGrid [label="VoxelGrid*\n(Central Spatial Hub)", fillcolor=lightcoral];
+       PyRegistry [label="PyRegistry", fillcolor="#E8E8E8"];
+       GameClock [label="GameClock", fillcolor="#E8E8E8"];
+
+       // World -> direct members
+       World -> Registry [label="owns"];
+       World -> Dispatcher [label="owns"];
+       World -> VoxelGrid [label="owns (raw ptr)"];
+       World -> PyRegistry [label="owns"];
+       World -> GameClock [label="owns"];
+
+       // World private engine members (listed in text below diagram)
+       Engines [label="Engines\n(private, raw ptrs)", fillcolor="#F0F0F0", style="rounded,filled"];
+       World -> Engines [label="owns"];
+
+       // VoxelGrid internal ownership
+       TerrainStorage [label="TerrainStorage\n(unique_ptr)", fillcolor=lightcyan];
+       TerrainGridRepo [label="TerrainGridRepository\n(unique_ptr)", fillcolor=lavender];
+       EntityGrid [label="entityGrid\n(Int32Grid::Ptr)", fillcolor=lightgray];
+       EventGrid [label="eventGrid\n(Int32Grid::Ptr)", fillcolor=lightgray];
+       LightingGrid [label="lightingGrid\n(FloatGrid::Ptr)", fillcolor=lightgray];
+
+       VoxelGrid -> TerrainStorage [label="owns (unique_ptr)"];
+       VoxelGrid -> TerrainGridRepo [label="owns (unique_ptr)"];
+       VoxelGrid -> EntityGrid [label="owns (shared_ptr)"];
+       VoxelGrid -> EventGrid [label="owns (shared_ptr)"];
+       VoxelGrid -> LightingGrid [label="owns (shared_ptr)"];
+
+       // VoxelGrid references
+       VoxelGrid -> Registry [label="references (&)", style=dashed, color=blue];
+
+       // TerrainStorage OpenVDB Grids (listed in text below diagram)
+       OpenVDBGrids [label="OpenVDB Grids\n(Int32Grid / FloatGrid)", fillcolor="#E0F7FA", style="rounded,filled"];
+       TerrainStorage -> OpenVDBGrids [label="owns"];
+
+       // TerrainGridRepository internal data
+       subgraph cluster_tgr_maps {
+           label="Bidirectional Tracking Maps";
+           style=filled;
+           fillcolor="#F3E5F5";
+           ByCoord [label="byCoord_\n(unordered_map<VoxelCoord, entity>)", fillcolor=white];
+           ByEntity [label="byEntity_\n(unordered_map<entity, VoxelCoord>)", fillcolor=white];
+       }
+
+       TerrainGridRepo -> ByCoord [label="owns"];
+       TerrainGridRepo -> ByEntity [label="owns"];
+       TerrainGridRepo -> Registry [label="references (&)", style=dashed, color=blue];
+       TerrainGridRepo -> TerrainStorage [label="references (&)", style=dashed, color=blue];
+   }
+
+**World → Engines** (private, raw ptrs):
+
+- ``PhysicsEngine*`` — Movement, collision, gravity, forces
+- ``EcosystemEngine*`` — Water dynamics, plant cycles
+- ``LifeEngine*`` — Life cycle management
+- ``MetabolismSystem*`` — Energy, hunger, consumption
+- ``HealthSystem*`` — HP, damage, healing
+- ``CombatSystem*`` — Attack resolution, combat logic
+- ``EffectsSystem*`` — Status effects, buffs, debuffs
+
+**TerrainStorage → OpenVDB Grids** (Int32Grid::Ptr unless noted):
+
+- ``terrainGrid`` — Entity ID source of truth (−2=empty, −1=VDB-only, ≥0=ECS entity)
+- ``mainTypeGrid`` — Entity main type (TERRAIN, PLANT, BEAST, etc.)
+- ``subType0Grid``, ``subType1Grid`` — Subtype classifications
+- ``terrainMatterGrid``, ``waterMatterGrid``, ``vaporMatterGrid``, ``biomassMatterGrid`` — Matter quantities
+- ``massGrid``, ``maxSpeedGrid``, ``minSpeedGrid`` — Physical properties
+- ``heatGrid`` — Temperature (FloatGrid)
+- ``flagsGrid`` — Packed bit flags (direction, canStack, matterState, gradient)
+- ``maxLoadCapacityGrid`` — Structural load capacity
 
 .. graphviz::
 

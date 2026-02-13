@@ -48,10 +48,10 @@ inline MatterState getMatterState(entt::registry& registry, VoxelGrid& voxelGrid
         }
         return MatterState::SOLID;
     } else {
-        StructuralIntegrityComponent bellowTerrainSic =
+        StructuralIntegrityComponent terrainSic =
             voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(position.x, position.y,
                                                                            position.z);
-        return bellowTerrainSic.matterState;
+        return terrainSic.matterState;
     }
 }
 
@@ -71,6 +71,7 @@ inline EntityTypeComponent getEntityTypeComponent(entt::registry& registry, Voxe
 }
 
 bool checkIfCanFall(entt::registry& registry, VoxelGrid& voxelGrid, int i, int j, int k);
+bool checkIfTerrainCanFall(entt::registry& registry, VoxelGrid& voxelGrid, int i, int j, int k, MatterState matterState);
 
 bool getTypeAndCheckSoftEmpty(entt::registry& registry, VoxelGrid& voxelGrid, int terrainId, int x,
                               int y, int z);

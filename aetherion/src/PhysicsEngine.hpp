@@ -68,6 +68,7 @@ class PhysicsEngine {
 
     // Handle entity movement event
     void onMoveSolidEntityEvent(const MoveSolidEntityEvent& event);
+    void onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEvent& event);
     void onMoveGasEntityEvent(const MoveGasEntityEvent& event);
     void onTakeItemEvent(const TakeItemEvent& event);
     void onUseItemEvent(const UseItemEvent& event);

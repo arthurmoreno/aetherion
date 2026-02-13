@@ -10,6 +10,8 @@
 #include "ReadonlyQueries.hpp"
 
 #include <entt/entt.hpp>
+#include <format>
+#include <iostream>
 #include <tuple>
 
 // #include "MoveEntityEvent.hpp"
@@ -65,6 +67,23 @@ bool checkIfCanJump(const MoveSolidEntityEvent& event) {
 bool checkIfCanFall(entt::registry& registry, VoxelGrid& voxelGrid, int i, int j, int k) {
     // return false;
 
+    int movingToEntityId = voxelGrid.getEntity(i, j, k - 1);
+    bool canFallOnterrain = false;
+    if (voxelGrid.checkIfTerrainExists(i, j, k - 1)) {
+        EntityTypeComponent etc =
+            voxelGrid.terrainGridRepository->getTerrainEntityType(i, j, k - 1);
+        // Any terrain that is different than water
+        if (etc.subType0 == 1) {
+            canFallOnterrain = true;
+        }
+    } else {
+        canFallOnterrain = true;
+    }
+
+    return (k > 0 and movingToEntityId == -1 and canFallOnterrain);
+}
+
+bool checkIfTerrainCanFall(entt::registry& registry, VoxelGrid& voxelGrid, int i, int j, int k, MatterState matterState) {
     int movingToEntityId = voxelGrid.getEntity(i, j, k - 1);
     bool canFallOnterrain = false;
     if (voxelGrid.checkIfTerrainExists(i, j, k - 1)) {

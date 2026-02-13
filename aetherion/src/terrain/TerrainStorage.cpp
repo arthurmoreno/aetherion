@@ -106,6 +106,13 @@ inline uint32_t encodeStructuralIntegrity(const StructuralIntegrityComponent& si
     flags = setBits(flags, FlagBits::GRADIENT_SHIFT, FlagBits::GRADIENT_MASK,
                     packGradToBits(sic.gradientVector));
 
+    // Set matter state (bits 28-29)
+    int matterVal = static_cast<int>(sic.matterState) - 1;
+    if (matterVal < 0) matterVal = 0;
+    if (matterVal > 3) matterVal = 3;
+    flags = setBits(flags, FlagBits::MATTERSTATE_SHIFT, FlagBits::MATTERSTATE_MASK,
+                    static_cast<uint32_t>(matterVal));
+
     return flags;
 }
 
@@ -322,6 +329,43 @@ void TerrainStorage::configureThreadCache() {
 
         tc.configured = true;
     }
+}
+
+void TerrainStorage::resetThreadCache() {
+    s_threadCache.owner = this;
+    s_threadCache.configured = false;
+
+    // Reset all tree pointers
+    s_threadCache.terrainPtr = nullptr;
+    s_threadCache.mainTypePtr = nullptr;
+    s_threadCache.subType0Ptr = nullptr;
+    s_threadCache.subType1Ptr = nullptr;
+    s_threadCache.terrainMatterPtr = nullptr;
+    s_threadCache.waterMatterPtr = nullptr;
+    s_threadCache.vaporMatterPtr = nullptr;
+    s_threadCache.biomassMatterPtr = nullptr;
+    s_threadCache.massPtr = nullptr;
+    s_threadCache.maxSpeedPtr = nullptr;
+    s_threadCache.minSpeedPtr = nullptr;
+    s_threadCache.flagsPtr = nullptr;
+    s_threadCache.maxLoadCapacityPtr = nullptr;
+    s_threadCache.heatPtr = nullptr;
+
+    // Reset all accessors to drop stale references into previous instance trees
+    s_threadCache.terrainAcc.reset();
+    s_threadCache.mainTypeAcc.reset();
+    s_threadCache.subType0Acc.reset();
+    s_threadCache.subType1Acc.reset();
+    s_threadCache.terrainMatterAcc.reset();
+    s_threadCache.waterMatterAcc.reset();
+    s_threadCache.vaporMatterAcc.reset();
+    s_threadCache.biomassMatterAcc.reset();
+    s_threadCache.massAcc.reset();
+    s_threadCache.maxSpeedAcc.reset();
+    s_threadCache.minSpeedAcc.reset();
+    s_threadCache.flagsAcc.reset();
+    s_threadCache.maxLoadCapacityAcc.reset();
+    s_threadCache.heatAcc.reset();
 }
 
 // Accessors
@@ -628,10 +672,12 @@ int TerrainStorage::deleteTerrain(int x, int y, int z) {
 // StructuralIntegrityComponent accessors:
 void TerrainStorage::setTerrainStructuralIntegrity(int x, int y, int z,
                                                    const StructuralIntegrityComponent& sic) {
-    int encodedFlags = flagsGrid->tree().getValue(openvdb::Coord(x, y, z));
+    openvdb::Coord coord(x, y, z);
+    int encodedFlags = flagsGrid->tree().getValue(coord);
     // Combine the structural integrity data with the existing flags
-    flagsGrid->tree().setValue(openvdb::Coord(x, y, z),
-                               encodeStructuralIntegrity(sic, encodedFlags));
+    flagsGrid->tree().setValue(coord, encodeStructuralIntegrity(sic, encodedFlags));
+    // maxLoadCapacity is stored in its own grid (matching getTerrainStructuralIntegrity)
+    maxLoadCapacityGrid->tree().setValue(coord, sic.maxLoadCapacity);
 }
 
 StructuralIntegrityComponent TerrainStorage::getTerrainStructuralIntegrity(int x, int y,
@@ -643,6 +689,7 @@ StructuralIntegrityComponent TerrainStorage::getTerrainStructuralIntegrity(int x
     sic.canStackEntities = decodeCanStackEntities(encodedFlags);
     sic.gradientVector = decodeGradientVector(encodedFlags);
     sic.maxLoadCapacity = maxLoadCapacityGrid->tree().getValue(coord);
+    sic.matterState = decodeMatterState(encodedFlags);
     return sic;
 }
 
