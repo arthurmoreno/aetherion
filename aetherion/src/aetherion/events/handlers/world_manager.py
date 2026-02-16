@@ -18,6 +18,7 @@ from aetherion.world.manager import WorldManager
 def on_world_create_requested(world_manager: WorldManager, event: GameEvent[GameEventType]) -> None:
     """Handle world creation requests"""
     world_name: str = event.data.get("world_name", "default_world")
+    world_factory_name: str = event.data.get("world_factory_name", "default")
     world_config: dict[str, Any] = event.data.get("world_config", {})
     world_description: str = event.data.get("world_description", "")
     # world_instance_type = world_config["type"]
@@ -34,6 +35,7 @@ def on_world_create_requested(world_manager: WorldManager, event: GameEvent[Game
                 args=(),
                 kwargs={
                     "world_name": world_name,
+                    "world_factory_name": world_factory_name,
                     "world_config": world_config,
                 },
             )

@@ -82,9 +82,9 @@ class WorldManager:
             if handler:  # Allow disabling a handler by passing None
                 self.event_bus.subscribe(event_type, partial(handler, self))
 
-    def load_world(self, world_name: str = "default", world_config: dict[str, Any] = {}) -> None:
+    def load_world(self, world_name: str = "default", world_factory_name: str = "default", world_config: dict[str, Any] = {}) -> None:
         with self.world_thread_lock:
-            factory_method = self.world_factories.get("default")
+            factory_method = self.world_factories.get(world_factory_name)
             if factory_method is None:
                 raise RuntimeError("World factory is not set.")
 
