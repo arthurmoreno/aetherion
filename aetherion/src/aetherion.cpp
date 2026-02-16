@@ -623,6 +623,9 @@ NB_MODULE(_aetherion, m) {
         .def_rw("height", &World::height)
         .def_rw("depth", &World::depth)
         .def_rw("game_clock", &World::gameClock)
+        .def_prop_rw("process_ecosystem_async",
+                     [](const World& w) { return w.getProcessEcosystemAsync(); },
+                     [](World& w, bool v) { w.setProcessEcosystemAsync(v); })
         .def("initialize_voxel_grid", &World::initializeVoxelGrid)
         .def("set_voxel", &World::setVoxel)
         .def("get_voxel", &World::getVoxel)

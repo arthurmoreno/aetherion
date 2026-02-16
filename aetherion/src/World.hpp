@@ -111,6 +111,10 @@ class World {
 
     void registerPythonEventHandler(const std::string& eventType, nb::object callback);
 
+    // Ecosystem async processing toggle
+    bool getProcessEcosystemAsync() const { return processEcosystemAsync_; }
+    void setProcessEcosystemAsync(bool value) { processEcosystemAsync_ = value; }
+
     // Water simulation error handling
     std::vector<ThreadError> getWaterSimErrors() const;
     bool hasWaterSimErrors() const;
@@ -141,6 +145,7 @@ class World {
     EcosystemEngine* ecosystemEngine;
     std::future<void> ecosystemFuture;
     bool ecosystemStarted_ = false;
+    bool processEcosystemAsync_ = false;
 
     // MetabolismSystem
     MetabolismSystem* metabolismSystem;

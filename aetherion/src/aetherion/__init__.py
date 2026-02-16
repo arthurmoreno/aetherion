@@ -21,6 +21,7 @@ from aetherion.game_state.world_interface import *  # noqa: F403
 from aetherion.input.action_processor import *  # noqa: F403
 from aetherion.input.event_action_handler import *  # noqa: F403
 from aetherion.resource_manager import *  # noqa: F403
+from aetherion.game import *  # noqa: F403
 
 from aetherion.scheduler import *  # noqa: F403
 from aetherion.paths import *  # noqa: F403

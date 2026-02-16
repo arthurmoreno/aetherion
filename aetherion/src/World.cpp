@@ -989,7 +989,7 @@ void World::update() {
     bool anyAsyncTasksRunning =
         (physicsFuture.valid() &&
          physicsFuture.wait_for(std::chrono::seconds(0)) != std::future_status::ready) ||
-        (ecosystemFuture.valid() &&
+        (processEcosystemAsync_ && ecosystemFuture.valid() &&
          ecosystemFuture.wait_for(std::chrono::seconds(0)) != std::future_status::ready) ||
         (metabolismFuture.valid() &&
          metabolismFuture.wait_for(std::chrono::seconds(0)) != std::future_status::ready);
@@ -1028,9 +1028,10 @@ void World::update() {
                 "PhysicsEngine");
         }
 
-        // Handle Ecosystem Async Task
-        if (!ecosystemFuture.valid() ||
-            ecosystemFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+        // Handle Ecosystem Async Task (optional, disabled by default)
+        if (processEcosystemAsync_ &&
+            (!ecosystemFuture.valid() ||
+             ecosystemFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready)) {
             if (ecosystemFuture.valid()) {
                 try {
                     ecosystemFuture.get();
