@@ -560,6 +560,9 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ, entt::
               typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_WEST) ||
               typeNeighbor.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_SOUTH)) &&
              isAboveNeighborEmpty);
+        spdlog::get("console")->debug("[spreadWater] Checking grass to grass spreading from ({}, {}, {}) to ({}, {}, {}) - canSpreadGrassToGrass: {}, WaterMatter: {}, NeighborWaterVapor: {}, NeighborWaterMatter: {}",
+            terrainX, terrainY, terrainZ, x, y, z, canSpredGrassToGrass, matterContainer.WaterMatter,
+            matterContainerNeighbor.WaterVapor, matterContainerNeighbor.WaterMatter);
 
         if (!actionPerformed && canSpredGrassToGrass && matterContainer.WaterMatter > 0 &&
             matterContainerNeighbor.WaterVapor == 0 && matterContainerNeighbor.WaterMatter < 4) {
@@ -570,51 +573,56 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ, entt::
             WaterSpreadEvent event(sourcePos, targetPos, transferAmount, direction, type,
                                    typeNeighbor, matterContainer, matterContainerNeighbor);
             dispatcher.enqueue<WaterSpreadEvent>(event);
-            std::cout << "[spreadWater] Dispatching WaterSpreadEvent to grass terrain at (" << x
-                      << ", " << y << ", " << z << ")\n";
+            spdlog::get("console")->debug("[spreadWater] Dispatching WaterSpreadEvent to grass terrain at ({}, {}, {})", x, y, z);
             actionPerformed = true;
         }
         // }
     }
     // TODO: Test first without spreading to empty tiles. Uncomment.
-    // else {
-    //     // Neighbor tile has no terrain
-    //     bool directionOutOfBounds = (x < 0 || x > voxelGrid.width - 1 || y < 0 ||
-    //                                  y > voxelGrid.height - 1 || z < 0 || z > voxelGrid.depth -
-    //                                  1);
+    else {
+        // Neighbor tile has no terrain
+        bool directionOutOfBounds = (x < 0 || x > voxelGrid.width - 1 || y < 0 ||
+                                     y > voxelGrid.height - 1 || z < 0 || z > voxelGrid.depth -
+                                     1);
 
-    //     const bool canSpredGrassRampToEmpty =
-    //         (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-    //          type.subType0 == static_cast<int>(TerrainEnum::GRASS) &&
-    //          (type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_EAST) ||
-    //           type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_NORTH) ||
-    //           type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_WEST) ||
-    //           type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_SOUTH)) &&
-    //          isAboveNeighborEmpty);
+        const bool canSpredGrassRampToEmpty =
+            (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+             type.subType0 == static_cast<int>(TerrainEnum::GRASS) &&
+             (type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_EAST) ||
+              type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_NORTH) ||
+              type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_WEST) ||
+              type.subType1 == static_cast<int>(TerrainVariantEnum::RAMP_SOUTH)) &&
+             isAboveNeighborEmpty);
 
-    //     if (!actionPerformed && !directionOutOfBounds && canSpredGrassRampToEmpty &&
-    //         matterContainer.WaterMatter > 0) {
-    //         const int transferAmount = 1;
-    //         Position pos{x, y, z};
-    //         WaterFallEntityEvent waterFallEntityEvent{entity, pos, transferAmount};
-    //         pendingWaterFall.push(waterFallEntityEvent);
-    //         actionPerformed = true;
-    //     }
+        if (!actionPerformed && !directionOutOfBounds && canSpredGrassRampToEmpty &&
+            matterContainer.WaterMatter > 0) {
+            const int transferAmount = 1;
+            Position sourcePos{terrainX, terrainY, terrainZ, direction};
+            Position targetPos{x, y, z, direction};
+            WaterFallEntityEvent waterFallEntityEvent{entity, sourcePos, targetPos, transferAmount};
+            // TODO: Implement proper physics event for waterFallEvent or something.
+            // pendingWaterFall.push(waterFallEntityEvent);
+            dispatcher.enqueue<WaterFallEntityEvent>(waterFallEntityEvent);
+            actionPerformed = true;
+        }
 
-    //     const bool canSpredWaterToEmpty =
-    //         (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-    //          type.subType0 == static_cast<int>(TerrainEnum::WATER) && isAboveNeighborEmpty);
+        const bool canSpredWaterToEmpty =
+            (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+             type.subType0 == static_cast<int>(TerrainEnum::WATER) && isAboveNeighborEmpty);
 
-    //     if (!actionPerformed && !directionOutOfBounds && canSpredWaterToEmpty &&
-    //         matterContainer.WaterMatter > 0) {
-    //         const int transferAmount = 1;
-    //         Position pos{x, y, z};
-    //         WaterFallEntityEvent waterFallEntityEvent{entity, pos, transferAmount};
-    //         pendingWaterFall.push(waterFallEntityEvent);
-
-    //         actionPerformed = true;
-    //     }
-    // }
+        if (!actionPerformed && !directionOutOfBounds && canSpredWaterToEmpty &&
+            matterContainer.WaterMatter > 0) {
+            const int transferAmount = 1;
+            Position pos{x, y, z};
+            Position sourcePos{terrainX, terrainY, terrainZ, direction};
+            Position targetPos{x, y, z, direction};
+            WaterFallEntityEvent waterFallEntityEvent{entity, sourcePos, targetPos, transferAmount};
+            // TODO: Implement proper physics event for waterFallEvent or something.
+            // pendingWaterFall.push(waterFallEntityEvent);
+            dispatcher.enqueue<WaterFallEntityEvent>(waterFallEntityEvent);
+            actionPerformed = true;
+        }
+    }
 }
 
 bool moveWater(int terrainEntityId, entt::registry& registry, VoxelGrid& voxelGrid,
@@ -801,7 +809,7 @@ void dispatchVaporCreationOrAddition(entt::registry& registry, VoxelGrid& voxelG
         std::ostringstream ossMessage;
         ossMessage << "[dispatchVaporCreationOrAddition] Creating new vapor entity at (" << x
                    << ", " << y << ", " << z << ")";
-        spdlog::get("console")->info(ossMessage.str());
+        spdlog::get("console")->debug(ossMessage.str());
 
         if (voxelGrid.terrainGridRepository->checkIfTerrainHasEntity(x, y, z)) {
             throw std::runtime_error("[dispatchVaporCreationOrAddition] Error: Checkpoint bingo.");
@@ -822,7 +830,7 @@ void condenseVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatc
 
     std::ostringstream ossMessage;
     ossMessage << "Vapor condensing at (" << pos.x << ", " << pos.y << ", " << pos.z << ")";
-    spdlog::get("console")->info(ossMessage.str());
+    spdlog::get("console")->debug(ossMessage.str());
 
     // Detection only - all state changes happen atomically in PhysicsEngine
     int terrainBelowId = voxelGrid.getTerrain(pos.x, pos.y, pos.z - 1);
@@ -1074,7 +1082,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
                 matterContainerSide.WaterVapor >= 0 && matterContainerSide.WaterMatter == 0) {
                 ossMessage << "[moveVaporSideways] Vapor merging with vapor at (" << newX << ", "
                            << newY << ", " << pos.z << ")";
-                spdlog::get("console")->info(ossMessage.str());
+                spdlog::get("console")->debug(ossMessage.str());
                 ossMessage.str("");
                 ossMessage.clear();
 
@@ -1087,7 +1095,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
             } else {
                 ossMessage << "[moveVaporSideways] Vapor Obstructed; cannot move sideways (" << newX
                            << ", " << newY << ", " << pos.z << ")";
-                spdlog::get("console")->info(ossMessage.str());
+                spdlog::get("console")->debug(ossMessage.str());
                 ossMessage.str("");
                 ossMessage.clear();
                 // Obstructed; cannot move sideways
@@ -1096,7 +1104,7 @@ void moveVaporSideways(entt::registry& registry, VoxelGrid& voxelGrid, entt::dis
         } else {
             ossMessage << "[moveVaporSideways] Vapor cannot move sideways; The entity at (" << newX
                        << ", " << newY << ", " << pos.z << ") is not terrain";
-            spdlog::get("console")->info(ossMessage.str());
+            spdlog::get("console")->debug(ossMessage.str());
             ossMessage.str("");
             ossMessage.clear();
         }
@@ -1112,7 +1120,7 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
     // Condensation Logic for Vapor
     const int condensationThreshold = 16;
     if (matterContainer.WaterVapor >= condensationThreshold) {
-        spdlog::get("console")->info(
+        spdlog::get("console")->debug(
             "[moveVapor] Vapor at (" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " +
             std::to_string(pos.z) + ") reached condensation threshold with WaterVapor = " +
             std::to_string(matterContainer.WaterVapor) + "; initiating condensation.");
@@ -1372,7 +1380,7 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
                        << "\n"
                        << "  ------------------------------------------------\n";
 
-            spdlog::get("console")->info(ossMessage.str());
+            spdlog::get("console")->debug(ossMessage.str());
 
             // This should not happen; adjust accordingly
             std::cerr << "Error: Entity has both WaterMatter and WaterVapor\n";
@@ -1580,9 +1588,9 @@ void EcosystemEngine::processEcosystemAsync(entt::registry& registry, VoxelGrid&
     const int waterMinimumUnits = PhysicsManager::Instance()->getWaterMinimumUnits();
 
     // std::cout << "Total water units: " << waterUnits << std::endl;
-    spdlog::get("console")->info("[processEcosystemAsync] Minimum water units required: {}",
+    spdlog::get("console")->info("=======================\n[processEcosystemAsync] Minimum water units required: {}",
                                  waterMinimumUnits);
-    spdlog::get("console")->info("[processEcosystemAsync] Total water units after simulation: {}",
+    spdlog::get("console")->info("[processEcosystemAsync] Total water units after simulation: {}\n=======================",
                                  waterUnits);
 
     int x, y, z;

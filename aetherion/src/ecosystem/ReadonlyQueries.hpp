@@ -49,22 +49,24 @@ inline bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry& registry, VoxelGrid& 
         dispatcher.trigger<InvalidTerrainFoundEvent>(InvalidTerrainFoundEvent{x, y, z});
         // Trigger deletion at physics engine layer. Block will not be empty immediately.
         return false;
+    } else if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        // Voxel is completely empty
+        spdlog::get("console")->debug(
+            "[isTerrainVoxelEmptyOrSoftEmpty] Voxel at ({}, {}, {}) is completely empty.",
+            x, y, z);
+        return true;
     } else if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
         // This should not happen; means vapor entity is missing in voxel grid
-        // std::ostringstream ossMessage;
-        // ossMessage << "[isTerrainVoxelEmptyOrSoftEmpty] Error: Vapor entity in ON_GRID_STORAGE at
-        // ("
-        //             << x << ", " << y << ", " << z << ")\n";
-        // spdlog::get("console")->error(ossMessage.str());
+        std::ostringstream ossMessage;
+        ossMessage << "[isTerrainVoxelEmptyOrSoftEmpty] Error ?: entity in ON_GRID_STORAGE at("
+            << x << ", " << y << ", " << z << ")\n";
+        spdlog::get("console")->debug(ossMessage.str());
         return false;
     } else if (terrainId > 0) {
-        // Voxel is completely empty
-        auto terrain = static_cast<entt::entity>(terrainId);
-        EntityTypeComponent* type = registry.try_get<EntityTypeComponent>(terrain);
-        const bool isVoxelEmpty{terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)};
-        const bool isSoftEmpty{(type && isTerrainSoftEmpty(*type))};
-        const bool isEmpty{isVoxelEmpty || isSoftEmpty};
-        return isEmpty;
+        // Voxel has terrain — check if it's "soft empty" (e.g., EMPTY subtype)
+        EntityTypeComponent type = voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
+        const bool isSoftEmpty{isTerrainSoftEmpty(type)};
+        return isSoftEmpty;
     }
 
     // Review this after fixing the current bug.

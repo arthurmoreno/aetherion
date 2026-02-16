@@ -214,7 +214,7 @@ void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent& event) {
         ossMessage << "[VaporMergeUpEvent] Source entity valid for vapor merge at ("
                    << event.source.x << ", " << event.source.y << ", " << event.source.z
                    << ") EntityId=" << static_cast<int>(event.sourceEntity);
-        spdlog::get("console")->info(ossMessage.str());
+        spdlog::get("console")->debug(ossMessage.str());
         dispatcher.enqueue<KillEntityEvent>(event.sourceEntity);
     } else {
         std::ostringstream ossMessage;
@@ -260,12 +260,12 @@ void PhysicsEngine::onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent& e
         std::ostringstream ossMessage;
         ossMessage << "[AddVaporToTileAboveEvent] Added " << event.amount << " vapor at (" << x
                    << ", " << y << ", " << z << ")";
-        spdlog::get("console")->info(ossMessage.str());
+        spdlog::get("console")->debug(ossMessage.str());
     } else {
         std::ostringstream ossMessage;
         ossMessage << "[AddVaporToTileAboveEvent] Cannot add vapor above; obstruction at (" << x
                    << ", " << y << ", " << z << ")";
-        spdlog::get("console")->info(ossMessage.str());
+        spdlog::get("console")->debug(ossMessage.str());
     }
 }
 
@@ -708,7 +708,7 @@ void handleMovingTo(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity
         std::ostringstream ossMessage;
         ossMessage << "[handleMovingTo] WARNING: Invalid entity " << static_cast<int>(entity)
                    << " - skipping";
-        spdlog::get("console")->info(ossMessage.str());
+        spdlog::get("console")->debug(ossMessage.str());
         return;
     }
 
@@ -717,13 +717,13 @@ void handleMovingTo(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity
         std::ostringstream ossMessage;
         ossMessage << "[handleMovingTo] WARNING: Entity " << static_cast<int>(entity)
                    << " missing MovingComponent or Position - skipping";
-        spdlog::get("console")->info(ossMessage.str());
+        spdlog::get("console")->debug(ossMessage.str());
         return;
     }
 
     if (isTerrain) {
         throw std::runtime_error("handleMovingTo: isTerrain - Just checking...");
-        spdlog::get("console")->info("[handleMovingTo] isTerrain Fetching matter state for terrain entity ID={}", int(entity));
+        spdlog::get("console")->debug("[handleMovingTo] isTerrain Fetching matter state for terrain entity ID={}", int(entity));
         auto pos = registry.get<Position>(entity);
         StructuralIntegrityComponent sic = voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(
                 pos.x, pos.y, pos.z);
@@ -769,7 +769,7 @@ void handleMovingTo(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity
             // TODO: Remove me
             throw std::runtime_error(
                 "handleMovingTo: isTerrain - Just checking...");
-            spdlog::get("console")->info("[handleMovingTo] isTerrain Fetching matter state for terrain entity ID={}", int(entity));
+            spdlog::get("console")->debug("[handleMovingTo] isTerrain Fetching matter state for terrain entity ID={}", int(entity));
             StructuralIntegrityComponent sic =
                 voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(
                     position.x, position.y, position.z);
@@ -1008,7 +1008,7 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
                 ossMessage << "[processPhysics:MovingComponent] WARNING: Entity "
                            << static_cast<int>(entity)
                            << " has Velocity but no Position - skipping";
-                spdlog::get("console")->info(ossMessage.str());
+                spdlog::get("console")->debug(ossMessage.str());
             }
 
             // delete from terrain repository mapping.
@@ -1018,7 +1018,7 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
                 std::ostringstream ossMessage;
                 ossMessage << "[processPhysics:MovingComponent] Entity " << entityId
                            << " not found in TerrainGridRepository: " << e.what() << " - skipping";
-                spdlog::get("console")->info(ossMessage.str());
+                spdlog::get("console")->debug(ossMessage.str());
                 dispatcher.enqueue<KillEntityEvent>(entity);
                 continue;
             }
@@ -1028,7 +1028,7 @@ void PhysicsEngine::processPhysics(entt::registry& registry, VoxelGrid& voxelGri
                     ossMessage
                         << "[processPhysics:MovingComponent] Could not find position of entity "
                         << entityId << " in TerrainGridRepository, skipping entity.";
-                    spdlog::get("console")->info(ossMessage.str());
+                    spdlog::get("console")->debug(ossMessage.str());
                 }
                 continue;
             }
@@ -1393,7 +1393,7 @@ void PhysicsEngine::onMoveSolidEntityEvent(const MoveSolidEntityEvent& event) {
 
 void PhysicsEngine::onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEvent& event) {
     incPhysicsMetric(PHYSICS_MOVE_SOLID_ENTITY);
-    spdlog::get("console")->info(
+    spdlog::get("console")->debug(
         "onMoveSolidLiquidTerrainEvent -> entered | entity={} | event.force=({}, {}, {})",
         static_cast<int>(event.entity), event.forceX, event.forceY, event.forceZ);
 
@@ -1409,7 +1409,7 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEv
             spdlog::get("console")->warn( "onMoveSolidLiquidTerrainEvent -> Terrain ID {} at position ({}, {}, {}) does not match event entity {} - skipping event", terrainId.value(), pos.x, pos.y, pos.z, static_cast<int>(event.entity));
             return;
         } else {
-            spdlog::get("console")->info( "onMoveSolidLiquidTerrainEvent -> Found terrain with ID {} at position ({}, {}, {}) for entity {}", terrainId.value(), pos.x, pos.y, pos.z, static_cast<int>(event.entity));
+            spdlog::get("console")->debug( "onMoveSolidLiquidTerrainEvent -> Found terrain with ID {} at position ({}, {}, {}) for entity {}", terrainId.value(), pos.x, pos.y, pos.z, static_cast<int>(event.entity));
         }
 
         EntityTypeComponent type = voxelGrid->terrainGridRepository->getTerrainEntityType(
@@ -1424,7 +1424,7 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEv
         if (physicsStats.mass == 0.0f &&
             type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
             type.subType0 == static_cast<int>(TerrainEnum::WATER)) {
-            spdlog::get("console")->info(
+            spdlog::get("console")->debug(
                 "onMoveSolidLiquidTerrainEvent -> entity={} at pos=({}, {}, {}) has zero mass but is water terrain - assigning mass based on water matter (WaterMatter={})",
                 static_cast<int>(event.entity), pos.x, pos.y, pos.z, matterContainer.WaterMatter);
             if (matterContainer.WaterMatter == 0) {
@@ -1439,7 +1439,7 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEv
         }
 
 
-        spdlog::get("console")->info(
+        spdlog::get("console")->debug(
             "onMoveSolidLiquidTerrainEvent -> entity={} | pos=({}, {}, {}) dir={} | "
             "physicsStats: mass={}, maxSpeed={} | entityType: mainType={}, subType0={}",
             static_cast<int>(event.entity), pos.x, pos.y, pos.z, static_cast<int>(pos.direction),
@@ -1454,7 +1454,7 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEv
         }
         auto& velocity = registry.get<Velocity>(event.entity);
 
-        spdlog::get("console")->info(
+        spdlog::get("console")->debug(
             "onMoveSolidLiquidTerrainEvent -> entity={} | pre-existing velocity=({}, {}, {}) | "
             "hasVelocity={} | haveMovement={}",
             static_cast<int>(event.entity), velocity.vx, velocity.vy, velocity.vz,
@@ -1465,7 +1465,7 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEv
         float accelerationY = static_cast<float>(event.forceY) / physicsStats.mass;
         float accelerationZ = static_cast<float>(event.forceZ) / physicsStats.mass;
 
-        spdlog::get("console")->info(
+        spdlog::get("console")->debug(
             "onMoveSolidLiquidTerrainEvent -> entity={} | "
             "acceleration=({}, {}, {}) (NOTE: accZ forced to 0, event.forceZ={} is IGNORED) | "
             "allowMultiDirection={}",
@@ -1478,7 +1478,7 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEv
             translatePhysicsToGridMovement(velocity.vx, velocity.vy, velocity.vz, accelerationX,
                                            accelerationY, accelerationZ, physicsStats.maxSpeed);
 
-        spdlog::get("console")->info(
+        spdlog::get("console")->debug(
             "onMoveSolidLiquidTerrainEvent -> entity={} | "
             "translatePhysicsToGridMovement result: newVelocity=({}, {}, {}) | "
             "inputs: oldVelocity=({}, {}, {}), accel=({}, {}, {}), maxSpeed={}",
@@ -1495,7 +1495,7 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEv
         if (haveMovement) {
             auto& movingComponent = registry.get<MovingComponent>(event.entity);
             (direction == movingComponent.direction) ? canApplyForce = true : canApplyForce = false;
-            spdlog::get("console")->info(
+            spdlog::get("console")->debug(
                 "onMoveSolidLiquidTerrainEvent -> entity={} | "
                 "direction check: newDirection={} vs movingComponent.direction={} -> canApplyForce={}",
                 static_cast<int>(event.entity),
@@ -1504,7 +1504,7 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEv
         // If velocities are zero, retain the current direction
 
         if (canApplyForce) {
-            spdlog::get("console")->info(
+            spdlog::get("console")->debug(
                 "onMoveSolidLiquidTerrainEvent -> APPLYING force | entity={} | "
                 "velocity: ({}, {}, {}) -> ({}, {}, {}) | direction: {} (int={})",
                 static_cast<int>(event.entity),
@@ -1519,7 +1519,7 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(const MoveSolidLiquidTerrainEv
                 pos.direction = direction;
             }
         } else {
-            spdlog::get("console")->info(
+            spdlog::get("console")->debug(
                 "onMoveSolidLiquidTerrainEvent -> BLOCKED force | entity={} | "
                 "cannot apply force due to direction constraints | newVelocity=({}, {}, {})",
                 static_cast<int>(event.entity), newVelocityX, newVelocityY, newVelocityZ);
@@ -1726,7 +1726,7 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
         return;
     }
 
-    spdlog::get("console")->info(
+    spdlog::get("console")->debug(
         "[onCondenseWaterEntityEvent] Attempting to condense vapor at (" + std::to_string(x) +
         ", " + std::to_string(y) + ", " + std::to_string(z) +
         ") with vapor matter: " + std::to_string(vaporMatter.WaterVapor) +
@@ -1760,7 +1760,7 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
                        << "  ------------------------------------------------\n"
                        << "    into water terrain below at";
 
-            spdlog::get("console")->info(ossMessage.str());
+            spdlog::get("console")->debug(ossMessage.str());
 
             voxelGrid->terrainGridRepository->setTerrainMatterContainer(x, y, z - 1, matterBelow);
             voxelGrid->terrainGridRepository->setTerrainMatterContainer(x, y, z, vaporMatter);
@@ -1786,7 +1786,7 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
         std::ostringstream ossMessage;
         ossMessage << "[onCondenseWaterEntityEvent] No terrain below vapor at (" << x << ", " << y
                    << ", " << z << ") - creating new water terrain below with condensed water";
-        spdlog::get("console")->info(ossMessage.str());
+        spdlog::get("console")->debug(ossMessage.str());
         // Path 2: Create new water tile below (no terrain exists)
         createWaterTerrainBelowVapor(registry, dispatcher, *voxelGrid, x, y, z,
                                      event.condensationAmount, vaporMatter);
@@ -1798,19 +1798,44 @@ void PhysicsEngine::onCondenseWaterEntityEvent(const CondenseWaterEntityEvent& e
 // Water fall event handler - moved from EcosystemEngine
 void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent& event) {
     incPhysicsMetric(PHYSICS_WATER_FALL_ENTITY);
-    if (!registry.valid(event.entity) ||
-        !registry.all_of<Position, EntityTypeComponent, MatterContainer>(event.entity)) {
+    // On EnTT only need to check for Position, the others are on voxelGrid
+    if (static_cast<int>(event.entity) == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        spdlog::get("console")->info(
+            "onWaterFallEntityEvent -> entity is ON_GRID_STORAGE, skipping Position check");
+        return;
+    } else if (static_cast<int>(event.entity) != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
+        (!registry.valid(event.entity) || !registry.all_of<Position>(event.entity))) {
+        spdlog::get("console")->info(
+            "onWaterFallEntityEvent -> entity {} is not valid or missing Position component - skipping event",
+            static_cast<int>(event.entity));
         return;
     }
 
-    auto&& [pos, type, matterContainer] =
-        registry.get<Position, EntityTypeComponent, MatterContainer>(event.entity);
+    Position pos;
+    if (static_cast<int>(event.entity) != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
+        auto* posPtr = registry.try_get<Position>(event.entity);
+        if (!posPtr) {
+            spdlog::get("console")->warn(
+                "onWaterFallEntityEvent -> entity {} missing Position component after validation - skipping event",
+                static_cast<int>(event.entity));
+            return;
+        }
+        pos = *posPtr;
+    } else {
+        pos = event.position;
+    }
+    EntityTypeComponent type = voxelGrid->terrainGridRepository->getTerrainEntityType(pos.x, pos.y, pos.z);
+    MatterContainer matterContainer = voxelGrid->terrainGridRepository->getTerrainMatterContainer(pos.x, pos.y, pos.z);
 
     int terrainToCreateWaterId =
         voxelGrid->getTerrain(event.position.x, event.position.y, event.position.z);
-    if (terrainToCreateWaterId == -1) {
-        createWaterTerrainFromFall(registry, dispatcher, *voxelGrid, event.position.x,
-                                   event.position.y, event.position.z, event.fallingAmount,
-                                   event.entity);
+    if (terrainToCreateWaterId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+        // TODO [feature#181-water-not-running]: Here seems dangerous and causing segfaults when trying to create water terrain on fall - need to investigate and ensure all necessary state is properly initialized before creating terrain. For now, just logging and skipping the event to prevent crashes.
+        // createWaterTerrainFromFall(registry, dispatcher, *voxelGrid, event.position.x,
+        //                            event.position.y, event.position.z, event.fallingAmount,
+        //                            event.entity, event.sourcePos);
+        spdlog::get("console")->info(
+            "onWaterFallEntityEvent -> No terrain at position ({}, {}, {}) to create water from fall - skipping event",
+            event.position.x, event.position.y, event.position.z);
     }
 }

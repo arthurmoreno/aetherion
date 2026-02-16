@@ -919,7 +919,7 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, Vox
  */
 inline void createWaterTerrainFromFall(entt::registry& registry, entt::dispatcher& dispatcher,
                                        VoxelGrid& voxelGrid, int x, int y, int z,
-                                       double fallingAmount, entt::entity sourceEntity) {
+                                       double fallingAmount, entt::entity sourceEntity, Position sourcePos) {
     // Lock for atomic state change
     TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
@@ -960,24 +960,30 @@ inline void createWaterTerrainFromFall(entt::registry& registry, entt::dispatche
     voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
     registry.emplace<Position>(newWaterEntity, newPosition);
 
+    VoxelCoord key{newPosition.x, newPosition.y, newPosition.z};
+    voxelGrid.terrainGridRepository->addToTrackingMaps(key, newWaterEntity);
+
     // Only transient data (Velocity) goes in ECS if needed for active movement
     // Water at rest doesn't need velocity in ECS; it will be activated when movement starts
 
     // Update source entity's water matter
-    auto& sourceMatterContainer = registry.get<MatterContainer>(sourceEntity);
+    MatterContainer sourceMatterContainer = voxelGrid.terrainGridRepository->getTerrainMatterContainer(sourcePos.x, sourcePos.y, sourcePos.z);
     sourceMatterContainer.WaterMatter -= fallingAmount;
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(sourcePos.x, sourcePos.y, sourcePos.z, sourceMatterContainer);
 
-    // Cleanup source entity if depleted
-    if (sourceMatterContainer.WaterVapor <= 0 && sourceMatterContainer.WaterMatter <= 0) {
-        auto& sourceType = registry.get<EntityTypeComponent>(sourceEntity);
-        if (sourceType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-            sourceType.subType0 == static_cast<int>(TerrainEnum::WATER)) {
-            auto& sourcePos = registry.get<Position>(sourceEntity);
-            voxelGrid.setTerrain(sourcePos.x, sourcePos.y, sourcePos.z, -1);
-            // We're already holding TerrainGridLock for this operation, avoid double-locking
-            voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, sourceEntity, false);
-        }
-    }
+    // The bellow might be not necessary, because it is usually a ramp terrain.
+    // // Cleanup source entity if depleted
+    // if (sourceMatterContainer.WaterVapor <= 0 && sourceMatterContainer.WaterMatter <= 0) {
+    //     // auto& sourceType = registry.get<EntityTypeComponent>(sourceEntity);
+    //     EntityTypeComponent sourceType = voxelGrid.terrainGridRepository->getTerrainEntityType(sourcePos.x, sourcePos.y, sourcePos.z);
+    //     if (sourceType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+    //         sourceType.subType0 == static_cast<int>(TerrainEnum::WATER)) {
+    //         voxelGrid.setTerrain(sourcePos.x, sourcePos.y, sourcePos.z, -1);
+    //         // We're already holding TerrainGridLock for this operation, avoid double-locking
+    //         voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, sourceEntity, false);
+    //     }
+    // }
+    // throw std::runtime_error("createWaterTerrainFromFall  -> Just exploding for testing.");
 }
 
 /**

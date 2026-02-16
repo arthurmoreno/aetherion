@@ -33,11 +33,12 @@ struct CondenseWaterEntityEvent {
 
 struct WaterFallEntityEvent {
     entt::entity entity;
+    Position sourcePos;  // Position of the falling water (x, y, z)
     Position position;
     int fallingAmount;
 
-    WaterFallEntityEvent(entt::entity entity, Position position, int fallingAmount)
-        : entity(entity), position(position), fallingAmount(fallingAmount) {}
+    WaterFallEntityEvent(entt::entity entity, Position sourcePos, Position position, int fallingAmount)
+        : entity(entity), sourcePos(sourcePos), position(position), fallingAmount(fallingAmount) {}
 };
 
 struct WaterSpreadEvent {
