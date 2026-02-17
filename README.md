@@ -1,6 +1,6 @@
 ## ![Aetherion Logo](docs/_images/aetherion-logo.png) Aetherion — C++ Engine with Python Bindings
 
-![Aetherion Logo](docs/_images/aetherion-logo.png)
+![Dungeon Test](docs/_images/lifesim-dungeon-test-screenshot.png)
 
 Aetherion is the native C++ engine and runtime designed to bridge the gap between classic and modern sandbox simulations. It builds C++ components and exposes a Python extension via nanobind (Python module: `_aetherion`). This document explains system and Conda deps, how to build, test, and a minimal usage example surfaced as a unit test.
 
