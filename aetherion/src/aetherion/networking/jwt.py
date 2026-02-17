@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 
 import jwt
-from logger import logger
+from aetherion.logger import logger
 
 from aetherion.networking.constants import PermissionLevel
 from aetherion.networking.exceptions import AuthenticationError

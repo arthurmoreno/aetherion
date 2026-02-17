@@ -9,7 +9,7 @@ from typing import Optional
 
 import sdl2
 import sdl2.sdlmixer as mixer
-from logger import logger
+from aetherion.logger import logger
 
 from aetherion.audio.base_manager import BaseAudioManager
 from aetherion.audio.exceptions import AudioLoadError, AudioPlaybackError

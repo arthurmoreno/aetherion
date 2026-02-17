@@ -4,8 +4,7 @@ import time
 from typing import Any, Callable
 
 import sdl2
-from aetherion.entities.base import Classification
-from logger import logger
+from aetherion.logger import logger
 from sdl2 import SDL_Event
 
 import aetherion
@@ -31,6 +30,7 @@ from aetherion.audio.audio_manager import AudioManager
 from aetherion.audio.sdl_utils import init_mixer
 from aetherion.audio.sound_effects import SoundEffectManager
 from aetherion.engine_config import EngineConfig
+from aetherion.entities.base import Classification
 from aetherion.entities.beasts import BeastEntity
 from aetherion.events.action_event import InputEventActionType
 from aetherion.networking.admin_connection import ServerAdminConnection
@@ -308,6 +308,7 @@ class GameEngine:
 
     def run(self) -> None:
         self.running = True
+        self.init_engine_components()
 
         font_path: str = str(resolve_path("res://assets/Toriko.ttf"))
         aetherion.imgui_init(self.window_ptr, self.renderer_ptr, font_path)
@@ -403,9 +404,10 @@ class GameEngine:
 
         except aetherion.EcosystemEngineException as e:
             import traceback
+
             traceback.print_exc()
             logger.error(f"❌ CRITICAL: Water simulation error occurred: {e}")
-            
+
             # Check for detailed errors
             if self.world_manager.current:
                 errors = self.world_manager.current.world.get_water_sim_errors()
@@ -413,7 +415,7 @@ class GameEngine:
                     logger.error(f"Water simulation errors ({len(errors)} errors):")
                     for error in errors:
                         logger.error(f"  Thread {error.thread_id}: {error.error_message}")
-            
+
             # Re-raise to stop the game loop
             raise
         except Exception as e:

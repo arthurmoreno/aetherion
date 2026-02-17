@@ -15,7 +15,7 @@ from aetherion.entities.beasts import BeastEntity
 if TYPE_CHECKING:
     # Only imported for typing to avoid circular import at runtime
     from aetherion.world.interface import WorldInterface
-from logger import logger
+from aetherion.logger import logger
 from networking.exceptions import AuthenticationError
 from networking.jwt import JWTAuthenticator
 

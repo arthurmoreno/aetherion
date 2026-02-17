@@ -1,4 +1,4 @@
-from logger import logger
+from aetherion.logger import logger
 
 from aetherion import EntityEnum, EntityInterface, World
 from aetherion.entities.beasts import BeastEntity, BeastEnum

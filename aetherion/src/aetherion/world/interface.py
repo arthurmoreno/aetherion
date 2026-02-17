@@ -12,9 +12,9 @@ from typing import TYPE_CHECKING, cast
 
 import lz4.frame
 import msgpack
-from logger import logger
 
 from aetherion.entities.beasts import BeastEnum
+from aetherion.logger import logger
 from aetherion.world.constants import WorldInstanceTypes
 from aetherion.world.models import AIEntityMetadataResponse, AIMetadataResponse
 from aetherion.world.state_manager import create_perception_multithread

@@ -14,7 +14,7 @@ except ImportError:
 
 import lz4.frame
 import msgpack
-from logger import logger
+from aetherion.logger import logger
 from websockets.sync.client import ClientConnection, connect
 
 from aetherion.entities.beasts import BeastEntity

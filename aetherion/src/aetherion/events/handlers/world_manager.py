@@ -3,7 +3,7 @@ from __future__ import annotations
 from threading import Thread
 from typing import Any, Callable
 
-from logger import logger
+from aetherion.logger import logger
 
 from aetherion import (
     GameEvent,

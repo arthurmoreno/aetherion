@@ -1,7 +1,7 @@
 from time import sleep
 
 import msgpack
-from logger import logger
+from aetherion.logger import logger
 from websockets.sync.client import connect
 
 from aetherion.networking.jwt import MockJWTProvider

@@ -10,7 +10,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional
 
-from logger import logger
+from aetherion.logger import logger
 
 from aetherion import EntityEnum, World
 from aetherion.entities.beasts import BeastEnum
