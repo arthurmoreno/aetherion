@@ -7,10 +7,10 @@ managing background music playback, and handling sound effects using SDL2_mixer.
 from ctypes import c_void_p
 
 import sdl2.sdlmixer as mixer
-from aetherion.logger import logger
 
 from aetherion.audio.base_manager import BaseAudioManager
 from aetherion.audio.exceptions import AudioLoadError, AudioPlaybackError
+from aetherion.logger import logger
 
 
 class SoundEffectManager(BaseAudioManager):

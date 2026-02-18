@@ -9,10 +9,10 @@ from typing import Optional
 
 import sdl2
 import sdl2.sdlmixer as mixer
-from aetherion.logger import logger
 
 from aetherion.audio.base_manager import BaseAudioManager
 from aetherion.audio.exceptions import AudioLoadError, AudioPlaybackError
+from aetherion.logger import logger
 
 
 class MusicAndAmbienceManager(BaseAudioManager):

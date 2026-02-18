@@ -2,9 +2,8 @@ from functools import partial
 from threading import Lock
 from typing import Any, Callable, Optional
 
-from aetherion.logger import logger
-
 from aetherion import EventBus, GameEvent, GameEventType, SharedState, World, WorldInterfaceMetadata
+from aetherion.logger import logger
 from aetherion.networking.ai_manager import AIProcessManager
 from aetherion.world.constants import WorldInstanceTypes
 from aetherion.world.interface import WorldInterface

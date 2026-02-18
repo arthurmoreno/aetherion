@@ -1,0 +1,76 @@
+# Compiled Python files
+__pycache__/
+*.pyc
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Local development settings
+*.env
+*.env.local
+*.venv
+venv/
+ENV/
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Jupyter Notebook specific
+.ipynb_checkpoints/
+
+# System generated files
+.DS_Store
+Thumbs.db
+
+# Cache files
+*.cache/
+.cache/
+
+# -----------------------------
+# Aetherion
+# -----------------------------
+
+data/*
+
+libs/*
+site-packages/*
+
+build-tests/*
+tmp/*
+html/*
+xml/*
+latex
+
+# ----------------------
+#  Aetherion Webclient
+# ----------------------
+
+webclient/dist/
+webclient/node_modules/
+webclient/tests/fixtures/
+
+# ------------
+#  Docs
+# ------------
+
+# Ignore the Sphinx build directory
+docs/_build/
+# Ignore temporary files
+docs/_static/.doctrees/
+docs/_static/.buildinfo
+# Ignore Python cache files
+docs/__pycache__/
+docs/**/*.pyc
+# Ignore editor backups (e.g., vim, emacs)
+docs/*~
+docs/#*#
+docs/.#*
+# Ignore logs and debug files
+docs/*.log
+docs/*.tmp
+
+docs/html
+docs/latex

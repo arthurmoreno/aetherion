@@ -4,7 +4,6 @@ import time
 from typing import Any, Callable
 
 import sdl2
-from aetherion.logger import logger
 from sdl2 import SDL_Event
 
 import aetherion
@@ -33,6 +32,7 @@ from aetherion.engine_config import EngineConfig
 from aetherion.entities.base import Classification
 from aetherion.entities.beasts import BeastEntity
 from aetherion.events.action_event import InputEventActionType
+from aetherion.logger import logger
 from aetherion.networking.admin_connection import ServerAdminConnection
 from aetherion.networking.connection import (
     BeastConnection,

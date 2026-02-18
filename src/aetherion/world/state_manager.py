@@ -1,7 +1,6 @@
-from aetherion.logger import logger
-
 from aetherion import EntityEnum, EntityInterface, World
 from aetherion.entities.beasts import BeastEntity, BeastEnum
+from aetherion.logger import logger
 from aetherion.world.exceptions import CreatePerceptionResponseException
 
 

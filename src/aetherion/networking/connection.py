@@ -14,10 +14,10 @@ except ImportError:
 
 import lz4.frame
 import msgpack
-from aetherion.logger import logger
 from websockets.sync.client import ClientConnection, connect
 
 from aetherion.entities.beasts import BeastEntity
+from aetherion.logger import logger
 from aetherion.networking.exceptions import AuthenticationError
 from aetherion.networking.jwt import MockJWTProvider
 from aetherion.networking.receiver import WebSocketReceiver
