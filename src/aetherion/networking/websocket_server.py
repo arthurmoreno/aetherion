@@ -15,11 +15,11 @@ from aetherion.entities.beasts import BeastEntity
 if TYPE_CHECKING:
     # Only imported for typing to avoid circular import at runtime
     from aetherion.world.interface import WorldInterface
-from aetherion.logger import logger
 from networking.exceptions import AuthenticationError
 from networking.jwt import JWTAuthenticator
 
 from aetherion.entities.beasts import BeastEnum
+from aetherion.logger import logger
 
 FPS = 30  # Default frames per second for the server
 

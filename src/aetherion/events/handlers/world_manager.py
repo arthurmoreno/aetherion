@@ -3,13 +3,12 @@ from __future__ import annotations
 from threading import Thread
 from typing import Any, Callable
 
-from aetherion.logger import logger
-
 from aetherion import (
     GameEvent,
     GameEventType,
     WorldInterfaceMetadata,
 )
+from aetherion.logger import logger
 from aetherion.world.constants import WorldInstanceTypes
 from aetherion.world.manager import WorldManager
 

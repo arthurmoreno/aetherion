@@ -1,9 +1,9 @@
 from time import sleep
 
 import msgpack
-from aetherion.logger import logger
 from websockets.sync.client import connect
 
+from aetherion.logger import logger
 from aetherion.networking.jwt import MockJWTProvider
 from aetherion.world.constants import WorldInstanceTypes
 
