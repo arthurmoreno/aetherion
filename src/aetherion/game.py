@@ -143,6 +143,7 @@ class GameEngine:
         self.beast_connection_metadata: dict[str, BeastConnectionMetadata] = {}
 
         self.views = views if views is not None else {}
+        self.shared_state = SharedState()
 
     def register_world_factory(self, name: str, factory: Callable[[], World]) -> None:
         """Register a world factory under a name."""
@@ -319,7 +320,6 @@ class GameEngine:
 
         event: SDL_Event = SDL_Event()
 
-        self.shared_state = SharedState()
         self.shared_state.desired_fps = self.config.fps
         console_logs: list[Any] = []  # noqa: F841 -- reserved for future use
         # shared_state.fastforward_count = 0

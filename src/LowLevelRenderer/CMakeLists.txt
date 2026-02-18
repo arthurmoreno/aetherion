@@ -2,13 +2,13 @@
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/../cmake/")
 
-set(NANOBIND_DIR "${CMAKE_SOURCE_DIR}/libs/nanobind")
-include_directories(${NANOBIND_DIR}/include)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+set(NANOBIND_DIR "${CMAKE_SOURCE_DIR}/libs/nanobind")
 set(nanobind_DIR "${CMAKE_SOURCE_DIR}/libs/nanobind/cmake")
 find_package(nanobind CONFIG REQUIRED)
 

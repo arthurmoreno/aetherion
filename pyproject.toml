@@ -30,7 +30,16 @@ cmake.args = [
   "-DCMAKE_CXX_FLAGS=-fdiagnostics-color=always",
   "-DBUILD_WORLD_TEST=OFF",
 ]
-
+# properly includes cmake files and your libs folder in the sdist
+sdist.include = [
+  "libs/entt",
+  "libs/flatbuffers",
+  "libs/imgui",
+  "libs/imdb++",
+  "libs/nanobind",
+  "libs/neat",
+  "libs/ylt",
+]
 build-dir = "build/{wheel_tag}"
 
 # Build stable ABI wheels for CPython 3.12+

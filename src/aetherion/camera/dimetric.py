@@ -19,6 +19,7 @@ from aetherion.events.action_event import InputEventActionType
 from aetherion.game_state.state import SharedState
 from aetherion.paths import resolve_path
 
+from aetherion.renderer.views import BaseView
 # ---------------------------------------------------------------------------
 # Type aliases
 # ---------------------------------------------------------------------------
@@ -129,6 +130,44 @@ def adjust_camera_entity_moving(
     return screen_x_offset, screen_y_offset, None
 
 
+
+def _noop_entity_handler(
+    camera_model: CameraModel,
+    camera_settings: CameraSettings,
+    world_view: WorldView,
+    entity: EntityInterface,
+    view_object: Any,
+    screen_x: int,
+    screen_y: int,
+    layer_index: int,
+    mouse_state: MouseState,
+    selected_entity: Optional[int],
+    entity_hovered: EntityInterface | None,
+    sun_light: float,
+) -> EntityInterface | None:
+    return entity_hovered
+
+
+def _noop_terrain_handler(
+    camera_model: CameraModel,
+    camera_settings: CameraSettings,
+    terrain: EntityInterface,
+    view_object: Any,
+    selected_entity: Optional[int],
+    world_view: WorldView,
+    mouse_state: Any,
+    screen_x: int,
+    screen_y: int,
+    layer_index: int,
+    entity_hovered: EntityInterface | None,
+    sun_light: float,
+    player: EntityInterface,
+    gradient_view_object: Any,
+    water_view: Any,
+) -> EntityInterface | None:
+    return None
+
+
 class Camera:
     """Camera class responsible for drawing a beast perspective."""
 
@@ -138,7 +177,8 @@ class Camera:
         views: dict[str, Any],
         settings: CameraSettings,
         pubsub_broker: PubSubTopicBroker[InputEventActionType],
-        entity_handlers: dict[Union[tuple[int, int], int], Callable[..., Any]] | None = None,
+        beast_entity_handler: Callable[..., Any] | None = None,
+        plant_entity_handler: Callable[..., Any] | None = None,
         terrain_handler: Callable[..., Any] | None = None,
     ) -> None:
         self.renderer: Any = renderer
@@ -182,19 +222,30 @@ class Camera:
             4: 0.8 - SUN_LIGHT_SCALING_FACTOR,
         }
         # Handler registries for entity and terrain rendering
-        self._entity_handlers: dict[Union[tuple[int, int], int], Callable[..., Any]] = {}
-        self._terrain_handler: Optional[Callable[..., Any]] = None
+
+        self._beast_entity_handler: Callable[..., Any]
+        if beast_entity_handler:
+            self._beast_entity_handler = beast_entity_handler
+        else:
+            self._beast_entity_handler = _noop_entity_handler
+
+        self._plant_entity_handler: Callable[..., Any]
+        if plant_entity_handler:
+            self._plant_entity_handler = plant_entity_handler
+        else:
+            self._plant_entity_handler = _noop_entity_handler
+
+        self._terrain_handler: Callable[..., Any]
+        if terrain_handler:
+            self._terrain_handler = terrain_handler
+        else:
+            self._terrain_handler = _noop_terrain_handler
 
         self.settings: CameraSettings = settings
 
         # Build a camera model for handlers that expect CameraModel instead of full Camera
         self._camera_model = self._build_camera_model()
 
-        if entity_handlers:
-            for k, h in entity_handlers.items():
-                self._entity_handlers[k] = h
-        if terrain_handler:
-            self._terrain_handler = terrain_handler
 
     def _build_camera_model(self) -> CameraModel:
         return CameraModel(
@@ -214,68 +265,71 @@ class Camera:
             settings=self.settings,
         )
 
-    def register_entity_handler(self, key: Union[tuple[int, int], int], handler: Callable[..., Any]) -> None:
-        """Register a handler for entities.
+    def non_terrain_entity_handler(
+        self,
+        camera_model: CameraModel,
+        camera_settings: CameraSettings,
+        world_view: WorldView,
+        entity: EntityInterface,
+        view_object: BaseView,
+        screen_x: int,
+        screen_y: int,
+        layer_index: int,
+        mouse_state: Any,
+        selected_entity: Optional[int],
+        entity_hovered: EntityInterface | None,
+        sun_light: float
+    ) -> EntityInterface | None:
+        ui_view_lifebar: BaseView | None
+        if "lifebar" in self.views["camera-ui"]:
+            ui_view_lifebar = self.views["camera-ui"]["lifebar"]
+        else:
+            ui_view_lifebar = None
 
-        key can be either (main_type, sub_type) for specific subtypes or main_type for general handlers.
-        Handler signature should match: (world_view, entity, view_object, screen_x, screen_y, layer_index,
-        mouse_state, selected_entity, entity_hovered, sun_light) -> EntityInterface|None
-        """
-        # bind the provided handler to a CameraModel so handler signature stays (world_view,...)
-        self._entity_handlers[key] = handler
+        _screen_x, _screen_y = None, None
+        is_moving = entity.has_component(aetherion.ComponentFlag.MOVING_COMPONENT.value)
+        if is_moving and entity.get_entity_type().main_type == aetherion.EntityEnum_BEAST:
+            _screen_x, _screen_y = self._beast_entity_handler(
+                camera_model,
+                camera_settings,
+                world_view,
+                entity,
+                view_object,
+                screen_x,
+                screen_y,
+                layer_index,
+                mouse_state,
+                selected_entity,
+                entity_hovered,
+                sun_light,
+            )
+        else:
+            _screen_x, _screen_y = self._plant_entity_handler(
+                camera_model,
+                camera_settings,
+                world_view,
+                entity,
+                view_object,
+                screen_x,
+                screen_y,
+                layer_index,
+                mouse_state,
+                selected_entity,
+                entity_hovered,
+                sun_light
+            )
 
-    def get_entity_handler(self, classification: Classification | None) -> Callable[..., Any]:
-        def _noop_entity_handler(
-            camera_model: CameraModel,
-            camera_settings: CameraSettings,
-            world_view: WorldView,
-            entity: EntityInterface,
-            view_object: Any,
-            screen_x: int,
-            screen_y: int,
-            layer_index: int,
-            mouse_state: MouseState,
-            selected_entity: Optional[int],
-            entity_hovered: EntityInterface | None,
-            sun_light: float,
-        ) -> EntityInterface | None:
-            return entity_hovered
+        # TODO: This should be another entity_handler implementation.
+        if ui_view_lifebar is not None:
+            max_health_level = entity.get_health().max_health
+            health_level = entity.get_health().health_level
 
-        if classification is None:
-            return _noop_entity_handler
-        exact_key = (classification.main_type, classification.sub_type)
-        main_key = classification.main_type
-        if exact_key in self._entity_handlers:
-            return self._entity_handlers[exact_key]
-        if main_key in self._entity_handlers:
-            return self._entity_handlers[main_key]
-        return _noop_entity_handler
+            ui_view_lifebar.set_health(health_level, max_health_level)
+            ui_view_lifebar.set_position_draw(
+                camera_model.render_queue, _screen_x, _screen_y, layer_index=layer_index, group=camera_model.gui_group
+            )
 
-    def register_terrain_handler(self, handler: Callable[..., Any]) -> None:
-        """Register a terrain drawing handler. Signature should match draw_terrain wrapper call."""
-        self._terrain_handler = handler
-
-    def get_terrain_handler(self) -> Callable[..., Any]:
-        def _noop_terrain_handler(
-            camera_model: CameraModel,
-            camera_settings: CameraSettings,
-            terrain: EntityInterface,
-            view_object: Any,
-            selected_entity: Optional[int],
-            world_view: WorldView,
-            mouse_state: Any,
-            screen_x: int,
-            screen_y: int,
-            layer_index: int,
-            entity_hovered: EntityInterface | None,
-            sun_light: float,
-            player: EntityInterface,
-            gradient_view_object: Any,
-            water_view: Any,
-        ) -> EntityInterface | None:
-            return None
-
-        return self._terrain_handler or _noop_terrain_handler
+        return entity_hovered
 
     def draw_player_perspective_layer(
         self,
@@ -310,9 +364,23 @@ class Camera:
         world_layer_x_start = int(top_left[0])
         world_layer_y_start = int(top_left[1])
 
-        water_view = self.views["terrains"][aetherion.TerrainEnum_WATER]
-        gradient_view_object = self.views["camera-ui"]["gradient_arrow"]
-        ui_view_lifebar = self.views["camera-ui"]["lifebar"]
+        water_view: BaseView | None
+        if aetherion.TerrainEnum_WATER in self.views["terrains"]:
+            water_view = self.views["terrains"][aetherion.TerrainEnum_WATER]
+        else:
+            water_view = None
+
+        gradient_view_object: BaseView | None
+        if "gradient_arrow" in self.views["camera-ui"]:
+            gradient_view_object = self.views["camera-ui"]["gradient_arrow"]
+        else:
+            gradient_view_object = None
+
+        ui_view_lifebar: BaseView | None
+        if "lifebar" in self.views["camera-ui"]:
+            ui_view_lifebar = self.views["camera-ui"]["lifebar"]
+        else:
+            ui_view_lifebar = None
 
         for j in range(blocks_height):
             if iterate_right_to_left:
@@ -328,12 +396,12 @@ class Camera:
                 world_layer_y = world_layer_y_start + j
 
             for i in range(blocks_width):
-                terrain: EntityInterface = (
+                terrain: EntityInterface | None = (
                     world_view.get_terrain(world_layer_x, world_layer_y, z)
                     if world_view.check_if_terrain_exist(world_layer_x, world_layer_y, z)
                     else None
                 )
-                entity: EntityInterface = (
+                entity: EntityInterface | None = (
                     world_view.get_entity(world_layer_x, world_layer_y, z)
                     if world_view.check_if_entity_exist(world_layer_x, world_layer_y, z)
                     else None
@@ -355,8 +423,7 @@ class Camera:
                         view_object = None
 
                     if view_object is not None:
-                        handler = self.get_entity_handler(classification)
-                        entity_hovered = handler(
+                        entity_hovered = self.non_terrain_entity_handler(
                             self._camera_model,
                             self.settings,
                             world_view,
@@ -368,7 +435,7 @@ class Camera:
                             mouse_state,
                             selected_entity,
                             entity_hovered,
-                            sun_light,
+                            sun_light
                         )
 
                 if (
@@ -396,8 +463,7 @@ class Camera:
                         )
 
                     if view_object is not None and not aetherion.is_terrain_an_empty_water(terrain):
-                        terrain_handler = self.get_terrain_handler()
-                        current_entity_hovered = terrain_handler(
+                        current_entity_hovered = self._terrain_handler(
                             self._camera_model,
                             self.settings,
                             terrain,

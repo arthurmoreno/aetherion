@@ -88,6 +88,10 @@ def on_world_connect_requested(world_manager: WorldManager, event: GameEvent[Gam
     world_manager.current = world_manager.worlds.get(world_key)
     world_manager.current_key = world_key
 
+    if world_manager.current_metadata is not None and world_manager.current_metadata.status not in ["ready", "created"]:
+        logger.error(f"World '{world_key}' is not ready for connection. Current status: {world_manager.current_metadata.status}")
+        raise RuntimeError(f"World '{world_key}' is not ready for connection. Current status: {world_manager.current_metadata.status}")
+
     if world_manager.current_metadata is not None and world_manager.current is None:
         # virtual connection created. For world server type.
         world_manager.event_bus.emit(
