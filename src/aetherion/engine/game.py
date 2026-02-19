@@ -25,6 +25,7 @@ from aetherion import (
     WorldInterfaceMetadata,
     get_renderer,
 )
+from aetherion.events.handlers.world_manager import worldmanager_event_handlers
 from aetherion.audio.audio_manager import AudioManager
 from aetherion.audio.sdl_utils import init_mixer
 from aetherion.audio.sound_effects import SoundEffectManager
@@ -138,7 +139,7 @@ class GameEngine:
             self.event_bus,
             ai_manager_factory=config.ai_manager_factory,
             event_handlers=config.worldmanager_event_handlers,
-            default_event_handlers=config.worldmanager_event_handlers,
+            default_event_handlers=worldmanager_event_handlers,
         )
         self.beast_connection_metadata: dict[str, BeastConnectionMetadata] = {}
 

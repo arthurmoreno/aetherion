@@ -10,11 +10,12 @@ from aetherion import (
 )
 from aetherion.logger import logger
 from aetherion.world.constants import WorldInstanceTypes
-from aetherion.world.manager import WorldManager
+from aetherion.events.handlers.types import WorldEventHandlersMap
+from aetherion.world.models import WorldManagerProtocol
 
 
 # CONSUMER: Event handlers
-def on_world_create_requested(world_manager: WorldManager, event: GameEvent[GameEventType]) -> None:
+def on_world_create_requested(world_manager: WorldManagerProtocol, event: GameEvent[GameEventType]) -> None:
     """Handle world creation requests"""
     world_name: str = event.data.get("world_name", "default_world")
     world_factory_name: str = event.data.get("world_factory_name", "default")
@@ -74,7 +75,7 @@ def on_world_create_requested(world_manager: WorldManager, event: GameEvent[Game
         )
 
 
-def on_world_connect_requested(world_manager: WorldManager, event: GameEvent[GameEventType]) -> None:
+def on_world_connect_requested(world_manager: WorldManagerProtocol, event: GameEvent[GameEventType]) -> None:
     """Handle world connection requests"""
     world_name: str = event.data.get("world_name")
     world_key: str = event.data.get("world_key", world_name.lower().replace(" ", "_"))
@@ -117,7 +118,7 @@ def on_world_connect_requested(world_manager: WorldManager, event: GameEvent[Gam
 
 
 # RECORDER: Event handlers
-def on_recorder_start_requested(world_manager: WorldManager, event: GameEvent[GameEventType]) -> None:
+def on_recorder_start_requested(world_manager: WorldManagerProtocol, event: GameEvent[GameEventType]) -> None:
     """Handle world recorder start requests.
 
     Expected event data:
@@ -157,7 +158,7 @@ def on_recorder_start_requested(world_manager: WorldManager, event: GameEvent[Ga
         )
 
 
-def on_recorder_stop_and_save_requested(world_manager: WorldManager, event: GameEvent[GameEventType]) -> None:
+def on_recorder_stop_and_save_requested(world_manager: WorldManagerProtocol, event: GameEvent[GameEventType]) -> None:
     """Handle world recorder stop and save requests.
 
     Expected event data:
@@ -214,7 +215,7 @@ def on_recorder_stop_and_save_requested(world_manager: WorldManager, event: Game
 
 
 # SNAPSHOT: Event handlers
-def on_snapshot_take_requested(world_manager: WorldManager, event: GameEvent[GameEventType]) -> None:
+def on_snapshot_take_requested(world_manager: WorldManagerProtocol, event: GameEvent[GameEventType]) -> None:
     """Handle world snapshot take requests.
 
     Expected event data:
@@ -250,7 +251,7 @@ def on_snapshot_take_requested(world_manager: WorldManager, event: GameEvent[Gam
         logger.error(f"Failed to take snapshot: {e}")
 
 
-def on_snapshot_delete_requested(world_manager: WorldManager, event: GameEvent[GameEventType]) -> None:
+def on_snapshot_delete_requested(world_manager: WorldManagerProtocol, event: GameEvent[GameEventType]) -> None:
     """Handle world snapshot deletion requests.
 
     Expected event data:
@@ -284,9 +285,7 @@ def on_snapshot_delete_requested(world_manager: WorldManager, event: GameEvent[G
         logger.error(f"Failed to delete snapshot: {e}")
 
 
-worldmanager_event_handlers: (
-    dict[GameEventType, Callable[[WorldManager, GameEvent[GameEventType]], None] | None] | None
-) = {
+worldmanager_event_handlers: WorldEventHandlersMap | None = {
     GameEventType.WORLD_CREATE_REQUESTED: on_world_create_requested,
     GameEventType.WORLD_CONNECT_REQUESTED: on_world_connect_requested,
     GameEventType.WORLD_RECORDER_START_REQUESTED: on_recorder_start_requested,

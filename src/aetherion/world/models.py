@@ -4,6 +4,16 @@ from pydantic import BaseModel, ConfigDict
 
 from aetherion import EntityInterface
 
+from typing import Any, Protocol
+
+class WorldManagerProtocol(Protocol):
+    event_bus: Any
+    worlds: dict[str, Any]
+    worlds_metadata: dict[str, Any]
+    world_snapshots: dict[str, list[str]]
+    recorder_manager_: Any
+    current_key: str | None
+
 
 class AIEntityMetadataResponse(BaseModel):
     entity_interface: EntityInterface | None
