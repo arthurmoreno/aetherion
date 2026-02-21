@@ -19,13 +19,14 @@ from aetherion.world.interface import WorldInterface
 class WorldRecorder:
     """Records and replays world simulation states.
 
-    This class is responsible for capturing the state of the world at various points in time
-    and allowing for replaying those states for debugging or analysis purposes.
+    This class is responsible for capturing the world state at points in time
+    and replaying those records for debugging or analysis.
 
-    The state should be a flexible data structure that can represent the entire world state, but with numpy arrays for specific checks.
+    The state is a flexible structure capable of representing the whole world.
+    Use numpy arrays for numerical checks and large datasets.
 
-    For instance, during the initialization of the WorldRecorder,
-    you might define the state structure of which fields will be recorded. and how they should be transformed into the final state representation.
+    For example, during initialization define which fields to record and how
+    they should be transformed into the final state representation.
     """
 
     def __init__(self, recording_config: Optional[dict[str, Any]] = None):

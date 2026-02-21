@@ -9,18 +9,25 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "aetherion"
-version = "0.1.0"
-description = "Life Simulation Core module built with nanobind"
+version = "0.3.0"
+description = "Isometric tile-based sandbox engine for narrative RPGs and emergent roguelikes."
 requires-python = ">=3.12"
+license = {file = "LICENSE"}
 authors = [
     { name = "Arthur Moreno", email = "morenorarthur@gmail.com" }
 ]
 dependencies = [
+  "jwt>=1.4.0",
+  "lz4>=4.4.5",
+  "msgpack>=1.1.2",
+  "pydantic>=2.12.5",
   "PySDL2>=0.9.17",
+  "structlog>=25.5.0",
+  "websockets>=16.0",
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/aetherion"
+Homepage = "https://github.com/arthurmoreno/aetherion"
 
 [tool.scikit-build]
 build.verbose = false
@@ -30,7 +37,17 @@ cmake.args = [
   "-DCMAKE_CXX_FLAGS=-fdiagnostics-color=always",
   "-DBUILD_WORLD_TEST=OFF",
 ]
-
+# properly includes cmake files and your libs folder in the sdist
+sdist.include = [
+  "LICENSE",
+  "libs/entt",
+  "libs/flatbuffers",
+  "libs/imgui",
+  "libs/imdb++",
+  "libs/nanobind",
+  "libs/neat",
+  "libs/ylt",
+]
 build-dir = "build/{wheel_tag}"
 
 # Build stable ABI wheels for CPython 3.12+
@@ -109,4 +126,11 @@ exclude = [
     "dist",
     "libs/**",
     "lifesimcore.pyi",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "ruff>=0.15.2",
+    "uv>=0.10.4",
 ]

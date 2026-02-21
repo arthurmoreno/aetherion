@@ -2,7 +2,8 @@ from functools import partial
 from threading import Lock
 from typing import Any, Callable, Optional
 
-from aetherion import EventBus, GameEvent, GameEventType, SharedState, World, WorldInterfaceMetadata
+from aetherion import EventBus, GameEventType, SharedState, World, WorldInterfaceMetadata
+from aetherion.events.handlers.types import WorldEventHandlersMap
 from aetherion.logger import logger
 from aetherion.networking.ai_manager import AIProcessManager
 from aetherion.world.constants import WorldInstanceTypes
@@ -41,10 +42,8 @@ class WorldManager:
         self,
         event_bus: EventBus[GameEventType],
         ai_manager_factory: Callable[[Any, WorldInstanceTypes], AIProcessManager] | None = None,
-        event_handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None]
-        | None = None,
-        default_event_handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None]
-        | None = None,
+        event_handlers: WorldEventHandlersMap | None = None,
+        default_event_handlers: WorldEventHandlersMap | None = None,
     ):
         self.ai_manager: AIProcessManager | None = None
         self.ai_manager_factory = ai_manager_factory
@@ -70,11 +69,12 @@ class WorldManager:
 
         # Merge user-provided handlers with defaults
         # User handlers override defaults if provided
-        self.handlers: dict[GameEventType, Callable[["WorldManager", GameEvent[GameEventType]], None] | None] = (
-            default_event_handlers.copy()
-        )
+        self.handlers: WorldEventHandlersMap = {}
         if event_handlers:
+            self.handlers = event_handlers.copy()
             self.handlers.update(event_handlers)
+        elif default_event_handlers:
+            self.handlers = default_event_handlers.copy()
 
         # Subscribe to events
         for event_type, handler in self.handlers.items():

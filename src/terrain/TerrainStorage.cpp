@@ -422,7 +422,7 @@ void TerrainStorage::setTerrainMainType(int x, int y, int z, int terrainType) {
 
 int TerrainStorage::getTerrainMainType(int x, int y, int z) const {
     if (!mainTypeGrid) return 0;
-    if (s_threadCache.mainTypeAcc) {
+    if (s_threadCache.owner == this && s_threadCache.mainTypeAcc) {
         return s_threadCache.mainTypeAcc->getValue(openvdb::Coord(x, y, z));
     }
     return mainTypeGrid->tree().getValue(openvdb::Coord(x, y, z));
@@ -435,7 +435,7 @@ void TerrainStorage::setTerrainSubType0(int x, int y, int z, int subType) {
 
 int TerrainStorage::getTerrainSubType0(int x, int y, int z) const {
     if (!subType0Grid) return 0;
-    if (s_threadCache.subType0Acc) {
+    if (s_threadCache.owner == this && s_threadCache.subType0Acc) {
         return s_threadCache.subType0Acc->getValue(openvdb::Coord(x, y, z));
     }
     return subType0Grid->tree().getValue(openvdb::Coord(x, y, z));
@@ -448,7 +448,7 @@ void TerrainStorage::setTerrainSubType1(int x, int y, int z, int subType) {
 
 int TerrainStorage::getTerrainSubType1(int x, int y, int z) const {
     if (!subType1Grid) return -1;
-    if (s_threadCache.subType1Acc) {
+    if (s_threadCache.owner == this && s_threadCache.subType1Acc) {
         return s_threadCache.subType1Acc->getValue(openvdb::Coord(x, y, z));
     }
     return subType1Grid->tree().getValue(openvdb::Coord(x, y, z));

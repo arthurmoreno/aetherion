@@ -32,6 +32,7 @@ from aetherion.engine_config import EngineConfig
 from aetherion.entities.base import Classification
 from aetherion.entities.beasts import BeastEntity
 from aetherion.events.action_event import InputEventActionType
+from aetherion.events.handlers.world_manager import worldmanager_event_handlers
 from aetherion.logger import logger
 from aetherion.networking.admin_connection import ServerAdminConnection
 from aetherion.networking.connection import (
@@ -138,11 +139,12 @@ class GameEngine:
             self.event_bus,
             ai_manager_factory=config.ai_manager_factory,
             event_handlers=config.worldmanager_event_handlers,
-            default_event_handlers=config.worldmanager_event_handlers,
+            default_event_handlers=worldmanager_event_handlers,
         )
         self.beast_connection_metadata: dict[str, BeastConnectionMetadata] = {}
 
         self.views = views if views is not None else {}
+        self.shared_state = SharedState()
 
     def register_world_factory(self, name: str, factory: Callable[[], World]) -> None:
         """Register a world factory under a name."""
@@ -176,10 +178,11 @@ class GameEngine:
         # Create the SDL2 window using GameWindow
         window_flags = sdl2.SDL_WINDOW_RESIZABLE
         width, height = self.config.screen_width, self.config.screen_height
+        title = self.config.window_title
         if opengl:
-            self.game_window = OpenGLGameWindow("The Life Simulator", width, height, window_flags)
+            self.game_window = OpenGLGameWindow(title, width, height, window_flags)
         else:
-            self.game_window = BasicGameWindow("The Life Simulator", width, height, window_flags)
+            self.game_window = BasicGameWindow(title, width, height, window_flags)
         self.game_window.show()
 
         self.set_window_ptr()
@@ -319,7 +322,6 @@ class GameEngine:
 
         event: SDL_Event = SDL_Event()
 
-        self.shared_state = SharedState()
         self.shared_state.desired_fps = self.config.fps
         console_logs: list[Any] = []  # noqa: F841 -- reserved for future use
         # shared_state.fastforward_count = 0

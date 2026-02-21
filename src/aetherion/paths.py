@@ -4,7 +4,7 @@ from pathlib import Path
 from aetherion.utils import is_running_pyinstaller_bundle
 
 
-def get_project_root() -> Path:
+def get_project_root(entrypoint_name: str = "run.py") -> Path:
     """
     Returns the root directory of the project (where the entry point run.py is located).
 
@@ -25,7 +25,7 @@ def get_project_root() -> Path:
         entry_point = Path(sys.argv[0]).resolve()
 
         # entry_point is run.py, so its parent is the game root
-        if entry_point.name == "run.py":
+        if entry_point.name == entrypoint_name:
             return entry_point.parent
 
         # Fallback: if we can't determine from entry point,
@@ -33,26 +33,27 @@ def get_project_root() -> Path:
         return Path(__file__).resolve().parent.parent
 
 
-def get_user_data_dir() -> Path:
+def get_user_data_dir(entrypoint_name: str = "run.py") -> Path:
     """
     Returns the user data directory.
     """
-    return get_project_root() / ".aetherion"
+    return get_project_root(entrypoint_name) / ".aetherion"
 
 
-def get_core_data_dir() -> Path:
+def get_core_data_dir(entrypoint_name: str = "run.py") -> Path:
     """
     Returns the core engine data directory.
     """
-    return get_project_root() / "aetherion" / "data"
+    return get_project_root(entrypoint_name) / "aetherion" / "data"
 
 
-def resolve_path(virtual_path: str) -> Path:
+def resolve_path(virtual_path: str, entrypoint_name: str = "run.py") -> Path:
     """
     Resolves a virtual path (e.g., res://...) to an absolute system path.
 
     Args:
         virtual_path: The virtual path string (e.g., "res://sprites/player.png")
+        entrypoint_name: The name of the entry point script (default is "run.py")
 
     Returns:
         Path: The resolved absolute path.
@@ -61,11 +62,11 @@ def resolve_path(virtual_path: str) -> Path:
         ValueError: If the protocol is not supported.
     """
     if virtual_path.startswith("res://"):
-        return get_project_root() / virtual_path.replace("res://", "")
+        return get_project_root(entrypoint_name) / virtual_path.replace("res://", "")
     elif virtual_path.startswith("user://"):
-        return get_user_data_dir() / virtual_path.replace("user://", "")
+        return get_user_data_dir(entrypoint_name) / virtual_path.replace("user://", "")
     elif virtual_path.startswith("core://"):
-        return get_core_data_dir() / virtual_path.replace("core://", "")
+        return get_core_data_dir(entrypoint_name) / virtual_path.replace("core://", "")
     else:
         # Fallback for non-virtual paths (e.g. absolute paths or relative to CWD)
         # Ideally we should warn or forbid this, but for transition we allow it.
