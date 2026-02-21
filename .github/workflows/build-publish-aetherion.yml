@@ -52,15 +52,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install wheelhouse/*.whl
-          python - <<'PY'
-import importlib, sys
-try:
-    m = importlib.import_module('_aetherion')
-    print('imported', getattr(m, '__name__', repr(m)))
-except Exception as e:
-    print('Import failed:', e)
-    sys.exit(2)
-PY
+          python scripts/smoke_import.py
 
   build_sdist:
     name: Build sdist
