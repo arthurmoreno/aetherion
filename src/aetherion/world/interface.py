@@ -175,9 +175,9 @@ class WorldInterface:
                         if nn_action == 6:
                             # TODO: Multiple input actions (from AI) are not supported yet (Setting default values)
                             self.make_entity_use_item(entity, 0, None, None)
-                    except RuntimeError as exc:
-                        logger.error(
-                            f"[WorldInterface] Error processing action {nn_action} for entity ID {entity_id}. Exception: {exc}"
+                    except RuntimeError:
+                        logger.exception(
+                            f"[WorldInterface] Error processing action {nn_action} for entity ID {entity_id}."
                         )
                         entities_to_remove.append(entity_id)
 

@@ -4,9 +4,9 @@ from typing import Any, Optional
 
 from aetherion import EntityInterface, WorldView, get_terrain_camera_stats, get_water_camera_stats
 from aetherion.animation.dimetric import entity_animation_handler
-from aetherion.camera.terrain import draw_terrain
 from aetherion.camera.models import CameraModel, CameraSettings
 from aetherion.camera.mouse import get_and_draw_selected_entity
+from aetherion.camera.terrain import draw_terrain
 from aetherion.renderer.views import BaseView
 
 

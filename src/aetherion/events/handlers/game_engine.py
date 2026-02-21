@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from aetherion.logger import logger
-
 from aetherion import (
     GameEvent,
     GameEventType,
@@ -13,6 +11,7 @@ from aetherion import (
 from aetherion.events.handlers.types import (
     GameEngineEventHandlersMap,
 )
+from aetherion.logger import logger
 from aetherion.networking.admin_connection import ServerAdminConnection
 from aetherion.paths import resolve_path
 from aetherion.world.constants import WorldInstanceTypes
@@ -90,15 +89,11 @@ def on_world_play_requested(game_engine: GameEngineProtocol, event: GameEvent[Ga
 
 
 def on_create_beast_requested(game_engine: GameEngineProtocol, event: GameEvent[GameEventType]) -> None:
-    raise NotImplementedError(
-        "Creating a beast is not implemented yet. This is very game specific and will need to be implemented by the user."
-    )
+    raise NotImplementedError("Creating a beast is not implemented. Implement this in your game-specific code.")
 
 
 def on_connect_beast_requested(game_engine: GameEngineProtocol, event: GameEvent[GameEventType]) -> None:
-    raise NotImplementedError(
-        "Connecting to beast is not implemented yet. This is very game specific and will need to be implemented by the user."
-    )
+    raise NotImplementedError("Beast connection handling is not implemented. Provide a game-specific implementation.")
 
 
 def on_audio_sound_effect_play(game_engine: GameEngineProtocol, event: GameEvent[GameEventType]) -> None:

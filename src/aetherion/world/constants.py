@@ -9,7 +9,6 @@ class WorldInstanceTypes(IntEnum):
     SERVER = 3
 
 
-
 TERRAIN_VARIATION_TYPE_MAP = {
     TerrainVariantEnum.FULL.value: "full",
     TerrainVariantEnum.RAMP_EAST.value: "ramp_east",

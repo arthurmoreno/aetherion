@@ -1,9 +1,8 @@
 from typing import Any
 
-from aetherion.logger import logger
-
 import aetherion
 from aetherion.entities.items.models import ItemConfiguration
+from aetherion.logger import logger
 
 
 class ItemConfigurationHandler:

@@ -3,7 +3,6 @@ from time import time
 from typing import Any
 
 import sdl2
-from aetherion.logger import logger
 from sdl2 import (
     SDLK_0,
     SDLK_1,
@@ -30,6 +29,7 @@ from sdl2 import (
 from aetherion import EventBus, PubSubTopicBroker, TopicReader
 from aetherion.events import GameEvent, GameEventType
 from aetherion.events.action_event import InputEventActionType
+from aetherion.logger import logger
 
 
 class UserInputController:

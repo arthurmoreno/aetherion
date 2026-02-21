@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import Any, Callable, Optional, TypedDict
 
 import sdl2
-from aetherion.logger import logger
 
 import aetherion
 from aetherion import EntityInterface, GameClock, PubSubTopicBroker, TopicReader, WorldView
@@ -17,6 +16,7 @@ from aetherion.entities.base import Classification
 from aetherion.entities.beasts import BeastEntity
 from aetherion.events.action_event import InputEventActionType
 from aetherion.game_state.state import SharedState
+from aetherion.logger import logger
 from aetherion.paths import resolve_path
 from aetherion.renderer.views import BaseView
 
@@ -374,12 +374,6 @@ class Camera:
         else:
             gradient_view_object = None
 
-        ui_view_lifebar: BaseView | None
-        if "lifebar" in self.views["camera-ui"]:
-            ui_view_lifebar = self.views["camera-ui"]["lifebar"]
-        else:
-            ui_view_lifebar = None
-
         for j in range(blocks_height):
             if iterate_right_to_left:
                 screen_x = (blocks_width - 1) * self.settings.tile_size_on_screen - screen_x_offset
@@ -404,7 +398,7 @@ class Camera:
                     if world_view.check_if_entity_exist(world_layer_x, world_layer_y, z)
                     else None
                 )
-                event = None
+                # unused in this loop; no-op
                 if (
                     world_layer_x >= 0
                     and world_layer_x < world_shape_x

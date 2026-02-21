@@ -2,21 +2,19 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional
 
+import aetherion
+from aetherion import EntityInterface, RenderQueue, TextureQuadrant, WorldView
+from aetherion.camera.models import CameraSettings
 from aetherion.camera.mouse import get_and_draw_selected_entity
 
 # from camera.occlusion_culling import is_occluding_entity_perspective
 from aetherion.entities.base import Classification
 from aetherion.world.constants import TERRAIN_VARIATION_TYPE_MAP
 
-import aetherion
-from aetherion import EntityInterface, RenderQueue, TextureQuadrant, WorldView
-from aetherion.camera.models import CameraSettings
-
 
 def should_draw_terrain(terrain: EntityInterface, camera_settings: CameraSettings) -> bool:
     return (
-        terrain.get_entity_type().sub_type0 == aetherion.TerrainEnum_EMPTY
-        and camera_settings.empty_tile_debugging
+        terrain.get_entity_type().sub_type0 == aetherion.TerrainEnum_EMPTY and camera_settings.empty_tile_debugging
     ) or terrain.get_entity_type().sub_type0 != aetherion.TerrainEnum_EMPTY
 
 
@@ -218,8 +216,10 @@ def draw_terrain(
             TextureQuadrant.TOP_LEFT.value,
         )
 
-    if water_view is not None and terrain.get_entity_type().sub_type0 == 0 and (
-        terrain.get_matter_container().water_matter > 0 or terrain.get_matter_container().water_vapor > 0
+    if (
+        water_view is not None
+        and terrain.get_entity_type().sub_type0 == 0
+        and (terrain.get_matter_container().water_matter > 0 or terrain.get_matter_container().water_vapor > 0)
     ):
         water_view.set_terrain_variation_sprite("full")
         render_queue.add_task_by_id(
@@ -271,9 +271,7 @@ def draw_terrain(
             water_volume = str(terrain.get_matter_container().water_matter)
             # TODO: Fix this hardcoded font and color.
             sdl_color = (255, 255, 255)
-            render_queue.add_task_text(
-                layer_index, gui_group, water_volume, "my_font", sdl_color, screen_x, screen_y
-            )
+            render_queue.add_task_text(layer_index, gui_group, water_volume, "my_font", sdl_color, screen_x, screen_y)
         if terrain.get_matter_container().water_vapor > 0 or terrain.get_entity_type().sub_type0 == 1:
             water_volume = str(terrain.get_matter_container().water_vapor)
             sdl_color = (255, 255, 255)
