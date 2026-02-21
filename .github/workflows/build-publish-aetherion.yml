@@ -19,28 +19,17 @@ jobs:
           miniforge-version: latest
           auto-update-conda: true
 
-      - name: Install cibuildwheel
+      - name: Create conda env and install build deps
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install cibuildwheel==2.16.5
+          # Create a named conda environment similar to the developer setup
+          conda create -y -n aetherion-312 python=3.12 -c conda-forge scikit-build-core cmake ninja numpy nanobind flatbuffers tbb openvdb || true
+          # Ensure pip build tool is available inside the env
+          conda run -n aetherion-312 python -m pip install --upgrade pip build
 
-      - name: Pre-install common conda build deps
+      - name: Build wheel using the conda environment
         run: |
-          # Install common build deps from conda-forge to speed cibuildwheel builds
-          conda install -y -c conda-forge scikit-build-core cmake ninja numpy nanobind flatbuffers tbb openvdb || true
-
-      - name: Build wheels (cibuildwheel)
-        run: python -m cibuildwheel --output-dir wheelhouse
-        env:
-          # Use conda for environment isolation; cibuildwheel will create envs per Python.
-          CIBW_ENVIRONMENT: conda
-          # Build only modern CPython manylinux wheel; adjust as needed.
-          CIBW_BUILD: cp311-manylinux_x86_64
-          CIBW_SKIP: "cp36-* cp37-* pp*"
-          # Ensure CMake finds the active conda prefix; CMake args passed to scikit-build
-          CMAKE_ARGS: -G Ninja -DBUILD_WORLD_TEST=OFF -DCMAKE_PREFIX_PATH=$CONDA_PREFIX
-          # Before each build, make sure required packages are installed in the conda env
-          CIBW_BEFORE_BUILD: "conda install -y -c conda-forge scikit-build-core cmake ninja numpy nanobind flatbuffers tbb openvdb || true"
+          # Run the build inside the named conda env; export CMake args so scikit-build picks up the conda prefix
+          conda run -n aetherion-312 python -m build --wheel --outdir wheelhouse
 
       - name: Upload wheel artifacts
         uses: actions/upload-artifact@v4
