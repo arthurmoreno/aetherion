@@ -3,12 +3,12 @@ from threading import Lock
 from typing import Any, Callable, Optional
 
 from aetherion import EventBus, GameEventType, SharedState, World, WorldInterfaceMetadata
+from aetherion.events.handlers.types import WorldEventHandlersMap
 from aetherion.logger import logger
 from aetherion.networking.ai_manager import AIProcessManager
 from aetherion.world.constants import WorldInstanceTypes
 from aetherion.world.interface import WorldInterface
 from aetherion.world.recorder import WorldRecorderManager
-from aetherion.events.handlers.types import WorldEventHandlersMap
 
 
 class WorldManager:
@@ -71,9 +71,7 @@ class WorldManager:
         # User handlers override defaults if provided
         self.handlers: WorldEventHandlersMap = {}
         if event_handlers:
-            self.handlers = (
-                event_handlers.copy()
-            )
+            self.handlers = event_handlers.copy()
             self.handlers.update(event_handlers)
         elif default_event_handlers:
             self.handlers = default_event_handlers.copy()

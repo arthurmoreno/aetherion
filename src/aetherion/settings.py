@@ -1,20 +1,20 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
+from typing import TypedDict
 
 
-class BlockDimensions(BaseModel):
+class BlockDimensions(TypedDict):
     width: int
     height: int
     depth: int
 
 
-class PlayerBlockPosition(BaseModel):
+class PlayerBlockPosition(TypedDict):
     x: int
     y: int
 
 
-class ResolutionConfig(BaseModel):
+class ResolutionConfig(TypedDict):
     BLOCKS_IN_SCREEN: BlockDimensions
     SPRITE_SCALE: int
     RIGHT_OFFSET: int
@@ -25,7 +25,7 @@ class ResolutionConfig(BaseModel):
     CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET: int
 
 
-class ScreenParameters(BaseModel):
+class ScreenParameters(TypedDict):
     BLOCKS_IN_SCREEN: BlockDimensions
     PLAYER_BLOCK_POSITION: PlayerBlockPosition
     LAYERS_TO_DRAW: int

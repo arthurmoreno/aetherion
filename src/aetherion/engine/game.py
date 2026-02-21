@@ -25,7 +25,6 @@ from aetherion import (
     WorldInterfaceMetadata,
     get_renderer,
 )
-from aetherion.events.handlers.world_manager import worldmanager_event_handlers
 from aetherion.audio.audio_manager import AudioManager
 from aetherion.audio.sdl_utils import init_mixer
 from aetherion.audio.sound_effects import SoundEffectManager
@@ -33,6 +32,7 @@ from aetherion.engine_config import EngineConfig
 from aetherion.entities.base import Classification
 from aetherion.entities.beasts import BeastEntity
 from aetherion.events.action_event import InputEventActionType
+from aetherion.events.handlers.world_manager import worldmanager_event_handlers
 from aetherion.logger import logger
 from aetherion.networking.admin_connection import ServerAdminConnection
 from aetherion.networking.connection import (
@@ -178,10 +178,11 @@ class GameEngine:
         # Create the SDL2 window using GameWindow
         window_flags = sdl2.SDL_WINDOW_RESIZABLE
         width, height = self.config.screen_width, self.config.screen_height
+        title = self.config.window_title
         if opengl:
-            self.game_window = OpenGLGameWindow("The Life Simulator", width, height, window_flags)
+            self.game_window = OpenGLGameWindow(title, width, height, window_flags)
         else:
-            self.game_window = BasicGameWindow("The Life Simulator", width, height, window_flags)
+            self.game_window = BasicGameWindow(title, width, height, window_flags)
         self.game_window.show()
 
         self.set_window_ptr()

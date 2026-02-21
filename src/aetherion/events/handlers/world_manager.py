@@ -1,16 +1,16 @@
 from __future__ import annotations
 
 from threading import Thread
-from typing import Any, Callable
+from typing import Any
 
 from aetherion import (
     GameEvent,
     GameEventType,
     WorldInterfaceMetadata,
 )
+from aetherion.events.handlers.types import WorldEventHandlersMap
 from aetherion.logger import logger
 from aetherion.world.constants import WorldInstanceTypes
-from aetherion.events.handlers.types import WorldEventHandlersMap
 from aetherion.world.models import WorldManagerProtocol
 
 
@@ -90,8 +90,12 @@ def on_world_connect_requested(world_manager: WorldManagerProtocol, event: GameE
     world_manager.current_key = world_key
 
     if world_manager.current_metadata is not None and world_manager.current_metadata.status not in ["ready", "created"]:
-        logger.error(f"World '{world_key}' is not ready for connection. Current status: {world_manager.current_metadata.status}")
-        raise RuntimeError(f"World '{world_key}' is not ready for connection. Current status: {world_manager.current_metadata.status}")
+        logger.error(
+            f"World '{world_key}' is not ready for connection. Current status: {world_manager.current_metadata.status}"
+        )
+        raise RuntimeError(
+            f"World '{world_key}' is not ready for connection. Current status: {world_manager.current_metadata.status}"
+        )
 
     if world_manager.current_metadata is not None and world_manager.current is None:
         # virtual connection created. For world server type.

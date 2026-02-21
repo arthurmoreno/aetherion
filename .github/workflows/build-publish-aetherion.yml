@@ -1,0 +1,80 @@
+name: Build Aetherion wheels (Linux only)
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build_wheels_linux:
+    name: Build wheels (linux)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-variant: Mambaforge
+          auto-update-conda: true
+
+      - name: Install cibuildwheel
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install cibuildwheel==2.16.5
+
+      - name: Pre-install common conda build deps
+        run: |
+          # Install common build deps from conda-forge to speed cibuildwheel builds
+          conda install -y -c conda-forge scikit-build-core cmake ninja numpy nanobind flatbuffers tbb openvdb || true
+
+      - name: Build wheels (cibuildwheel)
+        run: python -m cibuildwheel --output-dir wheelhouse
+        env:
+          # Use conda for environment isolation; cibuildwheel will create envs per Python.
+          CIBW_ENVIRONMENT: conda
+          # Build only modern CPython manylinux wheel; adjust as needed.
+          CIBW_BUILD: cp311-manylinux_x86_64
+          CIBW_SKIP: "cp36-* cp37-* pp*"
+          # Ensure CMake finds the active conda prefix; CMake args passed to scikit-build
+          CMAKE_ARGS: -G Ninja -DBUILD_WORLD_TEST=OFF -DCMAKE_PREFIX_PATH=$CONDA_PREFIX
+          # Before each build, make sure required packages are installed in the conda env
+          CIBW_BEFORE_BUILD: "conda install -y -c conda-forge scikit-build-core cmake ninja numpy nanobind flatbuffers tbb openvdb || true"
+
+      - name: Upload wheel artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: aetherion-wheels-linux
+          path: ./wheelhouse/*.whl
+
+      - name: Smoke test wheel (import)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install wheelhouse/*.whl
+          python - <<'PY'
+import importlib, sys
+try:
+    m = importlib.import_module('_aetherion')
+    print('imported', getattr(m, '__name__', repr(m)))
+except Exception as e:
+    print('Import failed:', e)
+    sys.exit(2)
+PY
+
+  build_sdist:
+    name: Build sdist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build sdist
+        run: pipx run build --sdist
+      - name: Upload sdist
+        uses: actions/upload-artifact@v4
+        with:
+          name: aetherion-sdist
+          path: dist/*.tar.gz

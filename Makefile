@@ -26,6 +26,12 @@ build-test:
 	cd .. && \
 	pytest tests
 
+
+.PHONY: test
+test:
+	@echo "Running aetherion tests with pytest..."
+	conda run --no-capture-output -n aetherion-312 pytest tests
+
 device-info:
 	nvidia-smi
 
@@ -71,6 +77,12 @@ install-package:
 # Create an empty py.typed marker file
 	if [ -f py.typed ]; then cp py.typed site-packages/lifesimcore/; else touch site-packages/lifesimcore/py.typed; fi
 	@echo "Package installed in site-packages/lifesimcore"
+
+
+.PHONY: wheel-install
+wheel-install:
+	@echo "Installing aetherion..."
+	conda run --no-capture-output -n aetherion-312 pip install --force-reinstall dist/aetherion-0.1.0-cp312-abi3-linux_x86_64.whl
 
 .PHONY: conda-install
 conda-install:

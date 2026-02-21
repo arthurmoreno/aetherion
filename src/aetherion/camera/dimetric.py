@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from typing import Any, Callable, Optional, TypedDict, Union
+from typing import Any, Callable, Optional, TypedDict
 
 import sdl2
-from logger import logger
+from aetherion.logger import logger
 
 import aetherion
 from aetherion import EntityInterface, GameClock, PubSubTopicBroker, TopicReader, WorldView
@@ -18,8 +18,8 @@ from aetherion.entities.beasts import BeastEntity
 from aetherion.events.action_event import InputEventActionType
 from aetherion.game_state.state import SharedState
 from aetherion.paths import resolve_path
-
 from aetherion.renderer.views import BaseView
+
 # ---------------------------------------------------------------------------
 # Type aliases
 # ---------------------------------------------------------------------------
@@ -128,7 +128,6 @@ def adjust_camera_entity_moving(
             screen_y_offset += (pixel_offset_z) * z_factor_y  # Adjust the y-axis based on z-movement
 
     return screen_x_offset, screen_y_offset, None
-
 
 
 def _noop_entity_handler(
@@ -246,7 +245,6 @@ class Camera:
         # Build a camera model for handlers that expect CameraModel instead of full Camera
         self._camera_model = self._build_camera_model()
 
-
     def _build_camera_model(self) -> CameraModel:
         return CameraModel(
             render_queue=self.render_queue,
@@ -278,7 +276,7 @@ class Camera:
         mouse_state: Any,
         selected_entity: Optional[int],
         entity_hovered: EntityInterface | None,
-        sun_light: float
+        sun_light: float,
     ) -> EntityInterface | None:
         ui_view_lifebar: BaseView | None
         if "lifebar" in self.views["camera-ui"]:
@@ -316,7 +314,7 @@ class Camera:
                 mouse_state,
                 selected_entity,
                 entity_hovered,
-                sun_light
+                sun_light,
             )
 
         # TODO: This should be another entity_handler implementation.
@@ -435,7 +433,7 @@ class Camera:
                             mouse_state,
                             selected_entity,
                             entity_hovered,
-                            sun_light
+                            sun_light,
                         )
 
                 if (
