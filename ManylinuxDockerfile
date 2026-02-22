@@ -1,0 +1,125 @@
+# We use manylinux_2_28 (AlmaLinux 8) to ensure compatibility with modern C++ 
+# while maintaining a low enough glibc (2.28) for broad compatibility.
+FROM quay.io/pypa/manylinux_2_28_x86_64 AS builder
+
+# 1) Enable Extra Packages for Enterprise Linux (EPEL) and PowerTools
+# This is necessary to get dev packages like SDL2, blosc, and fmt on AlmaLinux
+RUN dnf install -y epel-release \
+    && dnf config-manager --set-enabled powertools \
+    && dnf update -y
+
+# 2) Install system dependencies (dnf equivalents of your apt packages)
+RUN dnf install -y \
+        wget \
+        curl \
+        jemalloc \
+        jemalloc-devel \
+        bzip2 \
+        git \
+        cmake \
+        ninja-build \
+        pkgconf \
+        fmt-devel \
+        eigen3-devel \
+        # tbb-devel \
+        SDL2-devel \
+        SDL2_image-devel \
+        SDL2_ttf-devel \
+        msgpack-devel \
+        lmdb-devel \
+        spdlog-devel \
+        boost-devel \
+        zlib-devel \
+        blosc-devel \
+        # sqlite-devel \
+    && dnf clean all
+
+
+# Build & install the latest Boost (1.90.0) from source
+ARG BOOST_VERSION=1.90.0
+ARG BOOST_DIR=boost_1_90_0
+
+RUN wget -O boost.tar.gz https://sourceforge.net/projects/boost/files/boost/${BOOST_VERSION}/${BOOST_DIR}.tar.gz/download \
+    && tar -xzf boost.tar.gz \
+    && cd ${BOOST_DIR} \
+    && ./bootstrap.sh --prefix=/usr/local \
+    && ./b2 -j"$(nproc)" install \
+    && cd .. \
+    && rm -rf ${BOOST_DIR} boost.tar.gz
+
+
+# Build & install Intel oneTBB (replaces outdated system tbb-devel)
+ARG TBB_VERSION=v2021.13.0
+RUN git clone --depth 1 -b ${TBB_VERSION} https://github.com/oneapi-src/oneTBB.git /tmp/onetbb \
+    && cd /tmp/onetbb \
+    && mkdir build && cd build \
+    && cmake \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DTBB_TEST=OFF \
+        -DTBB_STRICT=OFF \
+        -DCMAKE_INSTALL_PREFIX=/usr/local \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        .. \
+    && make -j"$(nproc)" install \
+    && rm -rf /tmp/onetbb
+
+
+# 4) Clone & configure OpenVDB (use Ubuntu-style layout)
+RUN git clone --depth 1 https://github.com/AcademySoftwareFoundation/openvdb.git /tmp/openvdb \
+ && cd /tmp/openvdb \
+ && git fetch origin --tags && git checkout v11.0.0 \
+ && mkdir /tmp/openvdb/build \
+ && cd /tmp/openvdb/build \
+ && cmake .. -DCMAKE_BUILD_TYPE=Release \
+ && make -j4 && make install \
+ && rm -rf /tmp/openvdb
+
+# 4) Build & install FlatBuffers
+ARG FLATBUFFERS_VERSION=24.3.25
+RUN git clone --depth 1 -b v${FLATBUFFERS_VERSION} \
+      https://github.com/google/flatbuffers.git /tmp/flatbuffers \
+ && mkdir /tmp/flatbuffers/build \
+ && cd /tmp/flatbuffers/build \
+ && cmake \
+      -DFLATBUFFERS_BUILD_TESTS=OFF \
+      -DFLATBUFFERS_BUILD_CPP17=ON \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DFLATBUFFERS_ENABLE_PCH=ON \
+      -DCMAKE_INSTALL_PREFIX=/usr/local \
+      -DCMAKE_INSTALL_LIBDIR=lib \
+      .. \
+ && make -j"$(nproc)" install \
+ && rm -rf /tmp/flatbuffers
+
+
+
+# 2) Install system dependencies (dnf equivalents of your apt packages)
+RUN dnf install -y sqlite-devel
+
+# 5) Setup Official Manylinux Python 3.12
+# The manylinux image has Python 3.12 pre-installed here. 
+# We add it to the PATH so 'python' and 'pip' map directly to it.
+ENV PYBIN="/opt/python/cp312-cp312/bin"
+ENV PATH="${PYBIN}:/usr/local/bin:${PATH}"
+
+RUN ln -s /opt/python/cp312-cp312/bin/python /bin/python \
+    && ln -s /opt/python/cp312-cp312/bin/pip /bin/pip
+
+# 6) Install your Python build requirements
+# We install auditwheel directly into this environment
+RUN pip install --upgrade pip build scikit-build-core auditwheel
+
+# 7) Setup working directory
+WORKDIR /project
+COPY . /project/
+
+# Install project and build/dev dependencies using `uv` (reads pyproject.toml)
+# `uv` is faster and provides a compatible pip interface. We attempt to
+# generate a lockfile first (non-fatal), then sync dependencies into the
+# active Python environment used by the manylinux image.
+RUN pip install uv && \
+    uv lock || true && \
+    uv sync --all-groups --no-install-project
+
+# 8) Default to bash
+CMD ["bash"]
