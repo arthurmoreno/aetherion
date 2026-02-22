@@ -67,7 +67,7 @@ def entity_beast_handler(
     selected_entity: Optional[int],
     entity_hovered: EntityInterface | None,
     sun_light: float,
-) -> tuple[int, int]:
+) -> tuple[int, int, EntityInterface | None]:
     _screen_x, _screen_y = entity_animation_handler(
         None, entity, view_object, screen_x, screen_y, camera_settings.tile_size_on_screen
     )
@@ -114,7 +114,7 @@ def entity_beast_handler(
         float(1.0),
     )
 
-    return _screen_x, _screen_y
+    return _screen_x, _screen_y, entity_hovered
 
 
 def entity_plant_handler(
@@ -130,7 +130,7 @@ def entity_plant_handler(
     selected_entity: Optional[int],
     entity_hovered: EntityInterface | None,
     sun_light: float,
-) -> tuple[int, int]:
+) -> tuple[int, int, EntityInterface | None]:
     _screen_x, _screen_y = screen_x, screen_y
     entity_direction = entity.get_position().get_direction_as_int()
     try:
@@ -169,4 +169,4 @@ def entity_plant_handler(
         float(1.0),
     )
 
-    return _screen_x, _screen_y
+    return _screen_x, _screen_y, entity_hovered

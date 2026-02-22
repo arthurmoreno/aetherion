@@ -287,7 +287,7 @@ class Camera:
         _screen_x, _screen_y = None, None
         is_moving = entity.has_component(aetherion.ComponentFlag.MOVING_COMPONENT.value)
         if is_moving and entity.get_entity_type().main_type == aetherion.EntityEnum_BEAST:
-            _screen_x, _screen_y = self._beast_entity_handler(
+            _screen_x, _screen_y, entity_hovered = self._beast_entity_handler(
                 camera_model,
                 camera_settings,
                 world_view,
@@ -302,7 +302,7 @@ class Camera:
                 sun_light,
             )
         else:
-            _screen_x, _screen_y = self._plant_entity_handler(
+            _screen_x, _screen_y, entity_hovered = self._plant_entity_handler(
                 camera_model,
                 camera_settings,
                 world_view,
