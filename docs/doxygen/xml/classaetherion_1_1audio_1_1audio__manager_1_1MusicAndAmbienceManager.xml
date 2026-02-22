@@ -1,0 +1,664 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::audio::audio_manager::MusicAndAmbienceManager</compoundname>
+    <basecompoundref refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager" prot="public" virt="non-virtual">aetherion.audio.base_manager.BaseAudioManager</basecompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a7da716d618b16609c6784afe03d432d1" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.audio.audio_manager.MusicAndAmbienceManager::_ambient_channels</definition>
+        <argsstring></argsstring>
+        <name>_ambient_channels</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager._ambient_channels</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="41" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1ae63502189e546113781a7a672bd0610b" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.audio.audio_manager.MusicAndAmbienceManager::_channel_offset</definition>
+        <argsstring></argsstring>
+        <name>_channel_offset</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager._channel_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="42" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1ad6c17ded77d94f63b54f770a266cd092" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.audio.audio_manager.MusicAndAmbienceManager::_channel_end</definition>
+        <argsstring></argsstring>
+        <name>_channel_end</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager._channel_end</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="43" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1aec62d0e0df47852472383e8dee2849e6" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.audio.audio_manager.MusicAndAmbienceManager::_current_file</definition>
+        <argsstring></argsstring>
+        <name>_current_file</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager._current_file</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="78" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="78" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a1a43db083c12a43fde034dd29697d055" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.audio.audio_manager.MusicAndAmbienceManager::music</definition>
+        <argsstring></argsstring>
+        <name>music</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.music</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="66" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="66" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1ac8fec75c6f36bb5d1c537896d0e6dce6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.__init__</definition>
+        <argsstring>(self, int ambient_channels=4, int channel_offset=0)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ambient_channels</declname>
+          <defval>4</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>channel_offset</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initialize the MusicAndAmbienceManager.
+
+Args:
+    ambient_channels: Number of channels to reserve for ambient sounds (default: 4).
+    channel_offset: Starting channel index for ambient sounds (default: 0).
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="29" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="29" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a55a761351cac5199b58ea9235116a68d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.load_music</definition>
+        <argsstring>(self, str|bytes file_path)</argsstring>
+        <name>load_music</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.load_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|bytes</type>
+          <declname>file_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Load a music file for playback.
+
+Args:
+    file_path: Path to the music file (MP3, OGG, WAV, etc.).
+
+Raises:
+    AudioLoadError: If the music file cannot be loaded.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="55" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="55" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a83602a9759ef34a88553c7dc2feef2ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.play_music</definition>
+        <argsstring>(self, int loops=-1)</argsstring>
+        <name>play_music</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.play_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>loops</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Play the loaded music.
+
+Args:
+    loops: Number of times to loop (-1 for infinite, 0 for once).
+
+Raises:
+    AudioPlaybackError: If no music is loaded or playback fails.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="81" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="81" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1abdb899bad828e88e81222d8b54f0877a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.pause_music</definition>
+        <argsstring>(self)</argsstring>
+        <name>pause_music</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.pause_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Pause music playback if currently playing.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="103" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="103" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a05913bca25af535f8c5fbae5ec6d1829" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.resume_music</definition>
+        <argsstring>(self)</argsstring>
+        <name>resume_music</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.resume_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Resume music playback if currently paused.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="108" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="108" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a71741ded4d85b1a932139d42c3d7eb25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.stop_music</definition>
+        <argsstring>(self)</argsstring>
+        <name>stop_music</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.stop_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Stop music playback immediately.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="113" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="113" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a2e827800ea20440901284d3c88df136b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.fade_in_music</definition>
+        <argsstring>(self, int loops=-1, int fade_ms=1000)</argsstring>
+        <name>fade_in_music</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.fade_in_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>loops</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fade_ms</declname>
+          <defval>1000</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Play music with a fade-in effect.
+
+Args:
+    loops: Number of times to loop (-1 for infinite).
+    fade_ms: Fade-in duration in milliseconds.
+
+Raises:
+    AudioPlaybackError: If no music is loaded or playback fails.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="118" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="118" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1aba611a74925d75923d40b1eb6a37492e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.fade_out_music</definition>
+        <argsstring>(self, int fade_ms=1000)</argsstring>
+        <name>fade_out_music</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.fade_out_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fade_ms</declname>
+          <defval>1000</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Fade out and stop music playback.
+
+Args:
+    fade_ms: Fade-out duration in milliseconds.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="140" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="140" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1aab5cc820910c77208162d343a39473f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.set_music_volume</definition>
+        <argsstring>(self, int volume)</argsstring>
+        <name>set_music_volume</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.set_music_volume</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>volume</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Set the music volume.
+
+Args:
+    volume: Volume level (0-128, where 128 is maximum).
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="149" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="149" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a2f5bc53efcbd9c30f9767d6731d7d93b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.audio.audio_manager.MusicAndAmbienceManager.get_music_volume</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_music_volume</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.get_music_volume</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get the current music volume.
+
+Returns:
+    Current volume level (0-128).
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="159" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="159" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a7b1a76b31d0db8afce0b6eb1fad02aa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.audio.audio_manager.MusicAndAmbienceManager.is_music_playing</definition>
+        <argsstring>(self)</argsstring>
+        <name>is_music_playing</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.is_music_playing</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if music is currently playing.
+
+Returns:
+    True if music is playing, False otherwise.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="167" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="167" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a8b91cc5280d79b389e37ccbd2f4ecde1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.audio.audio_manager.MusicAndAmbienceManager.is_music_paused</definition>
+        <argsstring>(self)</argsstring>
+        <name>is_music_paused</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.is_music_paused</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if music is currently paused.
+
+Returns:
+    True if music is paused, False otherwise.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="175" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="175" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a107a91f12716feec560e4536691fa310" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.load_ambient</definition>
+        <argsstring>(self, str name, str|bytes file_path)</argsstring>
+        <name>load_ambient</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.load_ambient</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>str|bytes</type>
+          <declname>file_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Load an ambient sound file for looping playback.
+
+Args:
+    name: Identifier for the ambient sound.
+    file_path: Path to the sound file (WAV, OGG, etc.).
+
+Raises:
+    AudioLoadError: If the sound file cannot be loaded.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="183" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="183" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1acd076c3b989d9770289310171ddeded5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.audio.audio_manager.MusicAndAmbienceManager.play_ambient</definition>
+        <argsstring>(self, str name, int loops=-1, int volume=128)</argsstring>
+        <name>play_ambient</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.play_ambient</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>loops</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>volume</declname>
+          <defval>128</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Play an ambient sound on a reserved channel.
+
+Args:
+    name: Identifier of the ambient sound to play.
+    loops: Number of additional loops (-1 for infinite, 0 for once).
+    volume: Volume level for this ambient sound (0-128).
+
+Returns:
+    Channel number used for playback, or -1 if failed.
+
+Raises:
+    AudioPlaybackError: If the sound is not loaded or no channels available.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="209" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="209" bodyend="251"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a454e9d282ee01facca2781e9a4ffed6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.stop_ambient</definition>
+        <argsstring>(self, str name)</argsstring>
+        <name>stop_ambient</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.stop_ambient</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Stop a specific ambient sound by name.
+
+Args:
+    name: Identifier of the ambient sound to stop.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="252" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="252" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a82139c6d693b68c299e55365ec1ff99e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.stop_all_ambient</definition>
+        <argsstring>(self)</argsstring>
+        <name>stop_all_ambient</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.stop_all_ambient</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Stop all ambient sounds.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="271" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="271" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1af4e962932fd9f21c1be33c98baa9e131" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.fade_ambient</definition>
+        <argsstring>(self, str name, int fade_ms)</argsstring>
+        <name>fade_ambient</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.fade_ambient</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fade_ms</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Fade out and stop a specific ambient sound.
+
+Args:
+    name: Identifier of the ambient sound to fade out.
+    fade_ms: Fade-out duration in milliseconds.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="278" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="278" bodyend="289"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a40ad317d7df4392f060dd1c3d4f7a1d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.set_ambient_volume</definition>
+        <argsstring>(self, int volume)</argsstring>
+        <name>set_ambient_volume</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.set_ambient_volume</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>volume</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Set the volume for all ambient sound channels.
+
+Args:
+    volume: Volume level (0-128, where 128 is maximum).
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="290" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="290" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a9b0430a886906102bc56264bb812b8cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.audio_manager.MusicAndAmbienceManager.cleanup</definition>
+        <argsstring>(self)</argsstring>
+        <name>cleanup</name>
+        <qualifiedname>aetherion.audio.audio_manager.MusicAndAmbienceManager.cleanup</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Clean up audio resources and shut down SDL2.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="301" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="301" bodyend="321"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Manages background music and ambient sound loops using SDL2_mixer.
+
+Handles:
+- Single background music track (using dedicated music channel)
+- Multiple ambient sound loops (using reserved SFX channels)
+
+Music uses SDL2&apos;s dedicated music channel, while ambient sounds use
+regular sound effect channels for simultaneous playback.
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.audio.audio_manager.MusicAndAmbienceManager</label>
+        <link refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.audio.base_manager.BaseAudioManager</label>
+        <link refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.audio.audio_manager.MusicAndAmbienceManager</label>
+        <link refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.audio.base_manager.BaseAudioManager</label>
+        <link refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/audio/audio_manager.py" line="18" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="18" bodyend="321"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1ac8fec75c6f36bb5d1c537896d0e6dce6" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a7da716d618b16609c6784afe03d432d1" prot="protected" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>_ambient_channels</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1ad6c17ded77d94f63b54f770a266cd092" prot="protected" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>_channel_end</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1ae63502189e546113781a7a672bd0610b" prot="protected" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>_channel_offset</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1aec62d0e0df47852472383e8dee2849e6" prot="protected" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>_current_file</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a9b0430a886906102bc56264bb812b8cd" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>cleanup</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1af4e962932fd9f21c1be33c98baa9e131" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>fade_ambient</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a2e827800ea20440901284d3c88df136b" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>fade_in_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1aba611a74925d75923d40b1eb6a37492e" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>fade_out_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a2f5bc53efcbd9c30f9767d6731d7d93b" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>get_music_volume</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a8b91cc5280d79b389e37ccbd2f4ecde1" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>is_music_paused</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a7b1a76b31d0db8afce0b6eb1fad02aa0" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>is_music_playing</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a107a91f12716feec560e4536691fa310" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>load_ambient</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a55a761351cac5199b58ea9235116a68d" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>load_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a1a43db083c12a43fde034dd29697d055" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>music</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1abdb899bad828e88e81222d8b54f0877a" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>pause_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1acd076c3b989d9770289310171ddeded5" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>play_ambient</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a83602a9759ef34a88553c7dc2feef2ba" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>play_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a05913bca25af535f8c5fbae5ec6d1829" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>resume_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a40ad317d7df4392f060dd1c3d4f7a1d0" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>set_ambient_volume</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1aab5cc820910c77208162d343a39473f0" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>set_music_volume</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a82139c6d693b68c299e55365ec1ff99e" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>stop_all_ambient</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a454e9d282ee01facca2781e9a4ffed6c" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>stop_ambient</name></member>
+      <member refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager_1a71741ded4d85b1a932139d42c3d7eb25" prot="public" virt="non-virtual"><scope>aetherion::audio::audio_manager::MusicAndAmbienceManager</scope><name>stop_music</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

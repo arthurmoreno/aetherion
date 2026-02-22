@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1networking" kind="namespace" language="Python">
+    <compoundname>aetherion::networking</compoundname>
+    <innernamespace refid="namespaceaetherion_1_1networking_1_1admin__connection">aetherion::networking::admin_connection</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking_1_1ai__manager">aetherion::networking::ai_manager</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking_1_1connection">aetherion::networking::connection</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking_1_1constants">aetherion::networking::constants</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking_1_1exceptions">aetherion::networking::exceptions</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking_1_1jwt">aetherion::networking::jwt</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking_1_1receiver">aetherion::networking::receiver</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking_1_1websocket__server">aetherion::networking::websocket_server</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/networking/admin_connection.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

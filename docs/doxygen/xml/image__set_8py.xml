@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="image__set_8py" kind="file" language="Python">
+    <compoundname>image_set.py</compoundname>
+    <innerclass refid="classaetherion_1_1renderer_1_1image__set_1_1ImageSet" prot="public">aetherion::renderer::image_set::ImageSet</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer">aetherion::renderer</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1image__set">aetherion::renderer::image_set</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="classaetherion_1_1renderer_1_1image__set_1_1ImageSet" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1image__set_1_1ImageSet" kindref="compound">ImageSet</ref>:</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>image_paths:<sp/>dict[str,<sp/>str],<sp/>*args,<sp/>**kwargs)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.images_path_dict:<sp/>dict[str,<sp/>str]<sp/>=<sp/>image_paths</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.images:<sp/>dict[str,<sp/>str]<sp/>=<sp/>{}</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1image__set_1_1ImageSet_1ae1f8c448247c410a46358ab3bb7aeea9" kindref="member">load_images</ref>()</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">load_images(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>key,<sp/>image_path<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>self.images_path_dict.items():</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.images[key]<sp/>=<sp/>image_path</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/renderer/image_set.py"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_efb128c9cdd4c670260bbe25fba18852" kind="dir">
+    <compoundname>src/aetherion/audio</compoundname>
+    <innerfile refid="audio_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="audio__manager_8py">audio_manager.py</innerfile>
+    <innerfile refid="base__manager_8py">base_manager.py</innerfile>
+    <innerfile refid="audio_2exceptions_8py">exceptions.py</innerfile>
+    <innerfile refid="audio_2models_8py">models.py</innerfile>
+    <innerfile refid="sdl__utils_8py">sdl_utils.py</innerfile>
+    <innerfile refid="sound__effects_8py">sound_effects.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/audio/"/>
+  </compounddef>
+</doxygen>

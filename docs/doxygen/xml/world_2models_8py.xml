@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="world_2models_8py" kind="file" language="Python">
+    <compoundname>models.py</compoundname>
+    <innerclass refid="classaetherion_1_1world_1_1models_1_1WorldFactory" prot="public">aetherion::world::models::WorldFactory</innerclass>
+    <innerclass refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol" prot="public">aetherion::world::models::WorldManagerProtocol</innerclass>
+    <innerclass refid="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse" prot="public">aetherion::world::models::AIEntityMetadataResponse</innerclass>
+    <innerclass refid="classaetherion_1_1world_1_1models_1_1AIMetadataResponse" prot="public">aetherion::world::models::AIMetadataResponse</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1world">aetherion::world</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1world_1_1models">aetherion::world::models</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>__future__<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>annotations</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>abc<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ABC,<sp/>abstractmethod</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Any,<sp/>Protocol</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>pydantic<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>BaseModel,<sp/>ConfigDict</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>aetherion<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>EntityInterface,<sp/>World</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="classaetherion_1_1world_1_1models_1_1WorldFactory" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1world_1_1models_1_1WorldFactory" kindref="compound">WorldFactory</ref>(ABC):</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Interface<sp/>for<sp/>anything<sp/>that<sp/>can<sp/>build<sp/>a<sp/>World<sp/>instance.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>width:<sp/>int<sp/>=<sp/>3,<sp/>height:<sp/>int<sp/>=<sp/>3,<sp/>depth:<sp/>int<sp/>=<sp/>3):</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.width:<sp/>int<sp/>=<sp/>width</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.height:<sp/>int<sp/>=<sp/>height</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.depth:<sp/>int<sp/>=<sp/>depth</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1world_1_1models_1_1WorldFactory_1aaf6ae5e8c1b68127b7b92ce2881aef57" kindref="member">create_world</ref>(self)<sp/>-&gt;<sp/>World:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Creates<sp/>a<sp/>new<sp/>world<sp/>instance.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>world:<sp/>World<sp/>=<sp/>World(self.width,<sp/>self.height,<sp/>self.depth)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>world.width<sp/>=<sp/>self.width</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>world.height<sp/>=<sp/>self.height</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>world.depth<sp/>=<sp/>self.depth</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>world</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1world_1_1models_1_1WorldFactory_1a62728227fcd307b6e5b4ced890512747" kindref="member">generate_world</ref>(self)<sp/>-&gt;<sp/>World:</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Constructs,<sp/>populates,<sp/>and<sp/>returns<sp/>a<sp/>fully-initialized<sp/>World.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">WorldManagerProtocol(Protocol):</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>event_bus:<sp/>Any</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>worlds:<sp/>dict[str,<sp/>Any]</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>worlds_metadata:<sp/>dict[str,<sp/>Any]</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>world_snapshots:<sp/>dict[str,<sp/>list[str]]</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>recorder_manager_:<sp/>Any</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>current_key:<sp/>str<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse" kindref="compound">AIEntityMetadataResponse</ref>(BaseModel):</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>entity_interface:<sp/>EntityInterface<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>brain_created:<sp/>bool</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>model_config<sp/>=<sp/>ConfigDict(arbitrary_types_allowed=</highlight><highlight class="keyword">True</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="classaetherion_1_1world_1_1models_1_1AIMetadataResponse" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1world_1_1models_1_1AIMetadataResponse" kindref="compound">AIMetadataResponse</ref>(BaseModel):</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>model_config<sp/>=<sp/>ConfigDict(arbitrary_types_allowed=</highlight><highlight class="keyword">True</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Mapping<sp/>of<sp/>entity<sp/>ID<sp/>to<sp/>AI<sp/>metadata</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>ai_metadata:<sp/>dict[int,<sp/>AIEntityMetadataResponse]<sp/>=<sp/>{}</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/world/models.py"/>
+  </compounddef>
+</doxygen>

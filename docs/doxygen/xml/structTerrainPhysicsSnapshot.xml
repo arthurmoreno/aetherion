@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTerrainPhysicsSnapshot" kind="struct" language="C++" prot="public">
+    <compoundname>TerrainPhysicsSnapshot</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTerrainPhysicsSnapshot_1ae3a557045c4e59e7c97da970238e2bcd" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position TerrainPhysicsSnapshot::position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <qualifiedname>TerrainPhysicsSnapshot::position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="60" column="14" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainPhysicsSnapshot_1afa4a11cab1ed0caad0ae71c84faed7ba" prot="public" static="no" mutable="no">
+        <type><ref refid="structVelocity" kindref="compound">Velocity</ref></type>
+        <definition>Velocity TerrainPhysicsSnapshot::velocity</definition>
+        <argsstring></argsstring>
+        <name>velocity</name>
+        <qualifiedname>TerrainPhysicsSnapshot::velocity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="61" column="14" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainPhysicsSnapshot_1a04d1262d7f5125a35e5eb5260e3eb870" prot="public" static="no" mutable="no">
+        <type><ref refid="structPhysicsStats" kindref="compound">PhysicsStats</ref></type>
+        <definition>PhysicsStats TerrainPhysicsSnapshot::stats</definition>
+        <argsstring></argsstring>
+        <name>stats</name>
+        <qualifiedname>TerrainPhysicsSnapshot::stats</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="62" column="18" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainPhysicsSnapshot_1acc8351d1391367e51a7c5bb5616c4019" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TerrainPhysicsSnapshot::terrainExists</definition>
+        <argsstring></argsstring>
+        <name>terrainExists</name>
+        <qualifiedname>TerrainPhysicsSnapshot::terrainExists</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="63" column="10" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="63" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>PhysicsStats</label>
+        <link refid="structPhysicsStats"/>
+      </node>
+      <node id="2">
+        <label>Position</label>
+        <link refid="structPosition"/>
+      </node>
+      <node id="1">
+        <label>TerrainPhysicsSnapshot</label>
+        <link refid="structTerrainPhysicsSnapshot"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>position</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>velocity</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Velocity</label>
+        <link refid="structVelocity"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/terrain/TerrainGridRepository.hpp" line="59" column="1" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="59" bodyend="64"/>
+    <listofallmembers>
+      <member refid="structTerrainPhysicsSnapshot_1ae3a557045c4e59e7c97da970238e2bcd" prot="public" virt="non-virtual"><scope>TerrainPhysicsSnapshot</scope><name>position</name></member>
+      <member refid="structTerrainPhysicsSnapshot_1a04d1262d7f5125a35e5eb5260e3eb870" prot="public" virt="non-virtual"><scope>TerrainPhysicsSnapshot</scope><name>stats</name></member>
+      <member refid="structTerrainPhysicsSnapshot_1acc8351d1391367e51a7c5bb5616c4019" prot="public" virt="non-virtual"><scope>TerrainPhysicsSnapshot</scope><name>terrainExists</name></member>
+      <member refid="structTerrainPhysicsSnapshot_1afa4a11cab1ed0caad0ae71c84faed7ba" prot="public" virt="non-virtual"><scope>TerrainPhysicsSnapshot</scope><name>velocity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGuiProgramManager" kind="class" language="C++" prot="public">
+    <compoundname>GuiProgramManager</compoundname>
+    <basecompoundref refid="classProgramManager" prot="public" virt="non-virtual">ProgramManager&lt; GuiProgram &gt;</basecompoundref>
+    <includes refid="GuiProgramManager_8hpp" local="no">GuiProgramManager.hpp</includes>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classGuiProgramManager_1a986993f4314c97002dafbed17bbed0e8" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classGuiProgramManager" kindref="compound">GuiProgramManager</ref> *</type>
+        <definition>static GuiProgramManager * GuiProgramManager::Instance</definition>
+        <argsstring>()</argsstring>
+        <name>Instance</name>
+        <qualifiedname>GuiProgramManager::Instance</qualifiedname>
+        <briefdescription>
+<para>Get singleton instance. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/GuiProgramManager.hpp" line="28" column="30" bodyfile="src/Gui/GuiCore/GuiProgramManager.hpp" bodystart="28" bodyend="31"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGuiProgramManager_1a858837e5be7c4edca816c44684949e17" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void GuiProgramManager::renderAllPrograms</definition>
+        <argsstring>(GuiContext &amp;context)</argsstring>
+        <name>renderAllPrograms</name>
+        <qualifiedname>GuiProgramManager::renderAllPrograms</qualifiedname>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Render all active GUI programs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Iterates over all registered programs and renders those that are active. Should be called once per frame. This is the GUI-specific functionality that extends the base <ref refid="classProgramManager" kindref="compound">ProgramManager</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shared GUI context for all programs </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/GuiProgramManager.hpp" line="42" column="10" bodyfile="src/Gui/GuiCore/GuiProgramManager.hpp" bodystart="42" bodyend="48"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classGuiProgramManager_1a096e0b10dbf991cb4f4c42fcb121158b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>GuiProgramManager::GuiProgramManager</definition>
+        <argsstring>()=default</argsstring>
+        <name>GuiProgramManager</name>
+        <qualifiedname>GuiProgramManager::GuiProgramManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/GuiProgramManager.hpp" line="51" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Manages the lifecycle of all GUI programs. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Acts as the &quot;process manager&quot; for the GUI OS, maintaining a registry of available programs and handling activation/deactivation. This is a singleton to provide global access throughout the GUI system.</para>
+<para>Extends the generic <ref refid="classProgramManager" kindref="compound">ProgramManager</ref> with GUI-specific functionality:<itemizedlist>
+<listitem><para>Rendering all active programs with <ref refid="structGuiContext" kindref="compound">GuiContext</ref></para>
+</listitem><listitem><para>Singleton access pattern for global GUI management</para>
+</listitem></itemizedlist>
+</para>
+<para>Inherits from <ref refid="classProgramManager" kindref="compound">ProgramManager&lt;GuiProgram&gt;</ref>:<itemizedlist>
+<listitem><para>Program registration and lifecycle management</para>
+</listitem><listitem><para>Activation/deactivation with callbacks</para>
+</listitem><listitem><para>Program lookup and enumeration </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>GuiProgramManager</label>
+        <link refid="classGuiProgramManager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ProgramManager&lt; GuiProgram &gt;</label>
+        <link refid="classProgramManager"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>GuiProgramManager</label>
+        <link refid="classGuiProgramManager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ProgramManager&lt; GuiProgram &gt;</label>
+        <link refid="classProgramManager"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/GuiCore/GuiProgramManager.hpp" line="23" column="1" bodyfile="src/Gui/GuiCore/GuiProgramManager.hpp" bodystart="23" bodyend="52"/>
+    <listofallmembers>
+      <member refid="classProgramManager_1a0226795a728fed180ace5dac95fb8e38" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>activateProgram</name></member>
+      <member refid="classProgramManager_1aa871ec380e70c17104b75bbcf54ac558" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>clearAllPrograms</name></member>
+      <member refid="classProgramManager_1a4165f303197c8a49f105bc13909ea3c1" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>deactivateProgram</name></member>
+      <member refid="classProgramManager_1aeeab60f7661ea137f13a67bec98b60a9" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>getActiveProgramCount</name></member>
+      <member refid="classProgramManager_1ad129970d8ba9d98ae88cd8ec4754ddc9" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>getActiveProgramIds</name></member>
+      <member refid="classProgramManager_1ab76866e37717c734df69130f410c03ec" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>getAllProgramIds</name></member>
+      <member refid="classProgramManager_1af7ecb5f32823a65148843776ebba8e46" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>getProgram</name></member>
+      <member refid="classProgramManager_1a880dce7afcc201a6b4fa1fe5eb7bd9f7" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>getProgram</name></member>
+      <member refid="classProgramManager_1ab4dc12d18b0a4ff56e98a0ee47fc6cca" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>getProgramCount</name></member>
+      <member refid="classGuiProgramManager_1a096e0b10dbf991cb4f4c42fcb121158b" prot="private" virt="non-virtual"><scope>GuiProgramManager</scope><name>GuiProgramManager</name></member>
+      <member refid="classGuiProgramManager_1a986993f4314c97002dafbed17bbed0e8" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>Instance</name></member>
+      <member refid="classProgramManager_1a622525f5df380373752da26eb2e0fd1e" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>isProgramActive</name></member>
+      <member refid="classProgramManager_1a4bb7c1de7d54d08df62b6c2152e51b90" prot="protected" virt="non-virtual"><scope>GuiProgramManager</scope><name>programs_</name></member>
+      <member refid="classProgramManager_1af2e6ac155034f5335d34be1a6d0b0126" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>registerProgram</name></member>
+      <member refid="classGuiProgramManager_1a858837e5be7c4edca816c44684949e17" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>renderAllPrograms</name></member>
+      <member refid="classProgramManager_1a6fdb85ecf0a4268f74964be4fcc13fb3" prot="public" virt="non-virtual"><scope>GuiProgramManager</scope><name>toggleProgram</name></member>
+      <member refid="classProgramManager_1a89847b458f1114e3c46c6a1368dbf471" prot="public" virt="virtual"><scope>GuiProgramManager</scope><name>~ProgramManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPhysicsSettings" kind="class" language="C++" prot="public">
+    <compoundname>PhysicsSettings</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPhysicsSettings_1ae5d5cb8df225e1446a98fd043093819f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsSettings::setGravity</definition>
+        <argsstring>(float g)</argsstring>
+        <name>setGravity</name>
+        <qualifiedname>PhysicsSettings::setGravity</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>g</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsSettings.hpp" line="8" column="10" bodyfile="src/PhysicsSettings.cpp" bodystart="3" bodyend="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsSettings_1a6d05ae1e3f7d8006e32c746519d43d16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsSettings::setFriction</definition>
+        <argsstring>(float f)</argsstring>
+        <name>setFriction</name>
+        <qualifiedname>PhysicsSettings::setFriction</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsSettings.hpp" line="9" column="10" bodyfile="src/PhysicsSettings.cpp" bodystart="5" bodyend="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsSettings_1afc50cdf2595e03e96172fc1812c60758" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsSettings::setAllowMultiDirection</definition>
+        <argsstring>(bool amd)</argsstring>
+        <name>setAllowMultiDirection</name>
+        <qualifiedname>PhysicsSettings::setAllowMultiDirection</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>amd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsSettings.hpp" line="10" column="10" bodyfile="src/PhysicsSettings.cpp" bodystart="7" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsSettings_1a9241c2430a462032226341b4277c340e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsSettings::setMetabolismCostToApplyForce</definition>
+        <argsstring>(float value)</argsstring>
+        <name>setMetabolismCostToApplyForce</name>
+        <qualifiedname>PhysicsSettings::setMetabolismCostToApplyForce</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsSettings.hpp" line="11" column="10" bodyfile="src/PhysicsSettings.cpp" bodystart="11" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsSettings_1ac087abdddf54a965969fa7db4a43b62c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsSettings::setEvaporationCoefficient</definition>
+        <argsstring>(float value)</argsstring>
+        <name>setEvaporationCoefficient</name>
+        <qualifiedname>PhysicsSettings::setEvaporationCoefficient</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsSettings.hpp" line="12" column="10" bodyfile="src/PhysicsSettings.cpp" bodystart="15" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsSettings_1a63faa3f94d719dfc141cf312397d54d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsSettings::setHeatToWaterEvaporation</definition>
+        <argsstring>(float value)</argsstring>
+        <name>setHeatToWaterEvaporation</name>
+        <qualifiedname>PhysicsSettings::setHeatToWaterEvaporation</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsSettings.hpp" line="13" column="10" bodyfile="src/PhysicsSettings.cpp" bodystart="19" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsSettings_1a25ca1d9a6b2c2a04c40e60106f059c8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PhysicsSettings::setWaterMinimumUnits</definition>
+        <argsstring>(float value)</argsstring>
+        <name>setWaterMinimumUnits</name>
+        <qualifiedname>PhysicsSettings::setWaterMinimumUnits</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsSettings.hpp" line="14" column="10" bodyfile="src/PhysicsSettings.cpp" bodystart="23" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsSettings_1ac9cb9990770d3e67775b531ce61dbfb3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float PhysicsSettings::getGravity</definition>
+        <argsstring>() const</argsstring>
+        <name>getGravity</name>
+        <qualifiedname>PhysicsSettings::getGravity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsSettings.hpp" line="16" column="11" bodyfile="src/PhysicsSettings.cpp" bodystart="27" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsSettings_1a18a04dffcca06e019020c5598c256bff" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float PhysicsSettings::getFriction</definition>
+        <argsstring>() const</argsstring>
+        <name>getFriction</name>
+        <qualifiedname>PhysicsSettings::getFriction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsSettings.hpp" line="17" column="11" bodyfile="src/PhysicsSettings.cpp" bodystart="29" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classPhysicsSettings_1a81c6dbda353ccd8838d32256c98ea598" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PhysicsSettings::getAllowMultiDirection</definition>
+        <argsstring>() const</argsstring>
+        <name>getAllowMultiDirection</name>
+        <qualifiedname>PhysicsSettings::getAllowMultiDirection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PhysicsSettings.hpp" line="18" column="10" bodyfile="src/PhysicsSettings.cpp" bodystart="31" bodyend="33"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/PhysicsSettings.hpp" line="6" column="1" bodyfile="src/PhysicsSettings.hpp" bodystart="6" bodyend="19"/>
+    <listofallmembers>
+      <member refid="classPhysicsSettings_1a81c6dbda353ccd8838d32256c98ea598" prot="public" virt="non-virtual"><scope>PhysicsSettings</scope><name>getAllowMultiDirection</name></member>
+      <member refid="classPhysicsSettings_1a18a04dffcca06e019020c5598c256bff" prot="public" virt="non-virtual"><scope>PhysicsSettings</scope><name>getFriction</name></member>
+      <member refid="classPhysicsSettings_1ac9cb9990770d3e67775b531ce61dbfb3" prot="public" virt="non-virtual"><scope>PhysicsSettings</scope><name>getGravity</name></member>
+      <member refid="classPhysicsSettings_1afc50cdf2595e03e96172fc1812c60758" prot="public" virt="non-virtual"><scope>PhysicsSettings</scope><name>setAllowMultiDirection</name></member>
+      <member refid="classPhysicsSettings_1ac087abdddf54a965969fa7db4a43b62c" prot="public" virt="non-virtual"><scope>PhysicsSettings</scope><name>setEvaporationCoefficient</name></member>
+      <member refid="classPhysicsSettings_1a6d05ae1e3f7d8006e32c746519d43d16" prot="public" virt="non-virtual"><scope>PhysicsSettings</scope><name>setFriction</name></member>
+      <member refid="classPhysicsSettings_1ae5d5cb8df225e1446a98fd043093819f" prot="public" virt="non-virtual"><scope>PhysicsSettings</scope><name>setGravity</name></member>
+      <member refid="classPhysicsSettings_1a63faa3f94d719dfc141cf312397d54d6" prot="public" virt="non-virtual"><scope>PhysicsSettings</scope><name>setHeatToWaterEvaporation</name></member>
+      <member refid="classPhysicsSettings_1a9241c2430a462032226341b4277c340e" prot="public" virt="non-virtual"><scope>PhysicsSettings</scope><name>setMetabolismCostToApplyForce</name></member>
+      <member refid="classPhysicsSettings_1a25ca1d9a6b2c2a04c40e60106f059c8a" prot="public" virt="non-virtual"><scope>PhysicsSettings</scope><name>setWaterMinimumUnits</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

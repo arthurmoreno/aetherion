@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1settings_1_1PlayerBlockPosition" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::settings::PlayerBlockPosition</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">TypedDict</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1PlayerBlockPosition_1a863f9c70352730a957ef996f01095eda" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.PlayerBlockPosition::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>aetherion.settings.PlayerBlockPosition.x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="13" column="1" bodyfile="src/aetherion/settings.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1PlayerBlockPosition_1a19460d325b10e5ac42ad3b3db629e305" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.PlayerBlockPosition::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>aetherion.settings.PlayerBlockPosition.y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="14" column="1" bodyfile="src/aetherion/settings.py" bodystart="14" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.settings.PlayerBlockPosition</label>
+        <link refid="classaetherion_1_1settings_1_1PlayerBlockPosition"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.settings.PlayerBlockPosition</label>
+        <link refid="classaetherion_1_1settings_1_1PlayerBlockPosition"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/settings.py" line="12" column="1" bodyfile="src/aetherion/settings.py" bodystart="12" bodyend="16"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1settings_1_1PlayerBlockPosition_1a863f9c70352730a957ef996f01095eda" prot="public" virt="non-virtual"><scope>aetherion::settings::PlayerBlockPosition</scope><name>x</name></member>
+      <member refid="classaetherion_1_1settings_1_1PlayerBlockPosition_1a19460d325b10e5ac42ad3b3db629e305" prot="public" virt="non-virtual"><scope>aetherion::settings::PlayerBlockPosition</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

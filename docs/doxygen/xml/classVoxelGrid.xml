@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="207" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="207" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="31" column="9" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="31" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGrid_1ae7dedbbdcff1f94501987196c12166bb" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="207" column="15" bodyfile="src/VoxelGrid.hpp" bodystart="207" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="31" column="15" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="31" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGrid_1a1c3468fdfe02c2386ee1265393103e1a" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -43,21 +43,49 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="207" column="22" bodyfile="src/VoxelGrid.hpp" bodystart="207" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="31" column="22" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="31" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classVoxelGrid_1af28acddd25b67b3ba141c449b2e3eb3a" prot="public" static="no" mutable="no">
-        <type>openvdb::Int32Grid::Ptr</type>
-        <definition>openvdb::Int32Grid::Ptr VoxelGrid::terrainGrid</definition>
+      <memberdef kind="variable" id="classVoxelGrid_1a130c7581cda8b095dab0cfbe42257ce0" prot="public" static="no" mutable="no">
+        <type>entt::registry &amp;</type>
+        <definition>entt::registry&amp; VoxelGrid::registry</definition>
         <argsstring></argsstring>
-        <name>terrainGrid</name>
-        <qualifiedname>VoxelGrid::terrainGrid</qualifiedname>
+        <name>registry</name>
+        <qualifiedname>VoxelGrid::registry</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="208" column="29" bodyfile="src/VoxelGrid.hpp" bodystart="208" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="34" column="20" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoxelGrid_1a55c8f12ad4dd939324685a6823ff345e" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classTerrainStorage" kindref="compound">TerrainStorage</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;TerrainStorage&gt; VoxelGrid::terrainStorage</definition>
+        <argsstring></argsstring>
+        <name>terrainStorage</name>
+        <qualifiedname>VoxelGrid::terrainStorage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="35" column="21" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVoxelGrid_1a07f2599215b7472d78cacb502227ebb7" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classTerrainGridRepository" kindref="compound">TerrainGridRepository</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;TerrainGridRepository&gt; VoxelGrid::terrainGridRepository</definition>
+        <argsstring></argsstring>
+        <name>terrainGridRepository</name>
+        <qualifiedname>VoxelGrid::terrainGridRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="36" column="21" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGrid_1aec990bc6778b557acd170107ea42674a" prot="public" static="no" mutable="no">
         <type>openvdb::Int32Grid::Ptr</type>
@@ -71,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="209" column="29" bodyfile="src/VoxelGrid.hpp" bodystart="209" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="39" column="29" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGrid_1af7e2110d6a15f188a2b026dabb8dce59" prot="public" static="no" mutable="no">
         <type>openvdb::Int32Grid::Ptr</type>
@@ -85,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="210" column="29" bodyfile="src/VoxelGrid.hpp" bodystart="210" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="40" column="29" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGrid_1ae729c72682c73a36a2094ff96c3470be" prot="public" static="no" mutable="no">
         <type>openvdb::FloatGrid::Ptr</type>
@@ -99,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="211" column="29" bodyfile="src/VoxelGrid.hpp" bodystart="211" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="41" column="29" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="41" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-attrib">
@@ -116,23 +144,41 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="273" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="273" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="110" column="9" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="110" bodyend="-1"/>
       </memberdef>
-    </sectiondef>
-    <sectiondef kind="public-func">
-      <memberdef kind="function" id="classVoxelGrid_1a7c8c91595d2c009db8f67557bb87c2aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>VoxelGrid::VoxelGrid</definition>
-        <argsstring>()</argsstring>
-        <name>VoxelGrid</name>
-        <qualifiedname>VoxelGrid::VoxelGrid</qualifiedname>
+      <memberdef kind="variable" id="classVoxelGrid_1a8c77c00615a4c76218952e2e669289fd" prot="private" static="no" mutable="yes">
+        <type>std::shared_mutex</type>
+        <definition>std::shared_mutex VoxelGrid::entityGridMutex</definition>
+        <argsstring></argsstring>
+        <name>entityGridMutex</name>
+        <qualifiedname>VoxelGrid::entityGridMutex</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="213" column="5" bodyfile="src/VoxelGrid.cpp" bodystart="4" bodyend="12"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="113" column="31" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classVoxelGrid_1a5f67f969e6a8c04bb4f384de1d9e5bca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>VoxelGrid::VoxelGrid</definition>
+        <argsstring>(entt::registry &amp;registry)</argsstring>
+        <name>VoxelGrid</name>
+        <qualifiedname>VoxelGrid::VoxelGrid</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="43" column="5" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="6" bodyend="21"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a782766e01b75da6d6a2f155e78a14998" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -146,7 +192,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="214" column="5" bodyfile="src/VoxelGrid.cpp" bodystart="15" bodyend="17"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="44" column="5" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="24" bodyend="26"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a1c5318980675fdaf82dbf1d96fa809cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -160,7 +206,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="216" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="20" bodyend="25"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="46" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="29" bodyend="39"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1ae743077ee8d294af2282d95bd4c408c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -190,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="217" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="28" bodyend="34"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="47" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="42" bodyend="59"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a6a616b8a78d93e0f65200e18263294ac" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structGridData" kindref="compound">GridData</ref></type>
@@ -216,7 +262,59 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="218" column="14" bodyfile="src/VoxelGrid.cpp" bodystart="37" bodyend="47"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="48" column="14" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="62" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoxelGrid_1a86df4fc39575905b3acec0fa0b174bd8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool VoxelGrid::checkIfTerrainExists</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>checkIfTerrainExists</name>
+        <qualifiedname>VoxelGrid::checkIfTerrainExists</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="51" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="148" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoxelGrid_1a03cdcc2519c61f36a6d1bd0efc395f01" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref></type>
+        <definition>EntityTypeComponent VoxelGrid::getTerrainEntityTypeComponent</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainEntityTypeComponent</name>
+        <qualifiedname>VoxelGrid::getTerrainEntityTypeComponent</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="52" column="25" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="155" bodyend="160"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a61b5e5dbb9e0f1b9fa106d9bfc21b3fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -246,7 +344,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="221" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="49" bodyend="51"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="53" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="90" bodyend="120"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a03d1cb966c5bd3429fb9c5f0d5336f06" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -272,14 +370,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="222" column="9" bodyfile="src/VoxelGrid.cpp" bodystart="53" bodyend="55"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="54" column="9" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="122" bodyend="139"/>
       </memberdef>
-      <memberdef kind="function" id="classVoxelGrid_1a7df066dfbf092fadd63edc6e58e3d760" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classVoxelGrid_1a7084c5009b78ec07844ae83a5a6e0a68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void VoxelGrid::deleteTerrain</definition>
-        <argsstring>(int x, int y, int z)</argsstring>
+        <argsstring>(entt::dispatcher &amp;dispatcher, int x, int y, int z, bool takeLock=true)</argsstring>
         <name>deleteTerrain</name>
         <qualifiedname>VoxelGrid::deleteTerrain</qualifiedname>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
         <param>
           <type>int</type>
           <declname>x</declname>
@@ -292,13 +394,18 @@
           <type>int</type>
           <declname>z</declname>
         </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="223" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="58" bodyend="60"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="57" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="142" bodyend="146"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1ab78f9aea40efc7db568c526576fcc281" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -328,7 +435,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="225" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="62" bodyend="64"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="59" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="168" bodyend="176"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1abf4359c01a6aa77f5379fb2fbfc321b1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -354,7 +461,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="226" column="9" bodyfile="src/VoxelGrid.cpp" bodystart="66" bodyend="68"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="60" column="9" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="178" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoxelGrid_1ab54f77bb5a6ee3f7f29c506e3fcb9a4f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VoxelGrid::getEntityUnsafe</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getEntityUnsafe</name>
+        <qualifiedname>VoxelGrid::getEntityUnsafe</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="61" column="9" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="194" bodyend="208"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1afd3523a514fc2299ee6cb73713df4572" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -380,7 +513,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="227" column="10"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="63" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="210" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="classVoxelGrid_1a1b71ba8a246608b9b7357d5fb4dc920f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VoxelGrid::moveEntity</definition>
+        <argsstring>(entt::entity entity, Position movingToPosition)</argsstring>
+        <name>moveEntity</name>
+        <qualifiedname>VoxelGrid::moveEntity</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>movingToPosition</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="64" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="647" bodyend="680"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a8b55237db5ad8ed95311de6aa95793ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -410,7 +565,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="229" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="70" bodyend="72"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="66" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="221" bodyend="223"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1abdbd90807a802388089017c374ffa48a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -436,7 +591,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="230" column="9" bodyfile="src/VoxelGrid.cpp" bodystart="74" bodyend="76"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="67" column="9" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="225" bodyend="227"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a5a13fe98c655c32c3ba0952dee2b44b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -466,7 +621,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="232" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="78" bodyend="80"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="69" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="229" bodyend="231"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1ab058bdcc6451d6932b0581ef1f47ff88" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
@@ -492,7 +647,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="233" column="11" bodyfile="src/VoxelGrid.cpp" bodystart="82" bodyend="84"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="70" column="11" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="233" bodyend="235"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1ab5a90f0ed41530883644df2fda0560fe" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; char &gt;</type>
@@ -506,7 +661,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="236" column="17" bodyfile="src/VoxelGrid.cpp" bodystart="86" bodyend="109"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="73" column="17" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="237" bodyend="271"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a439f1d206216f0d88491f9868b09805a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -524,7 +679,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="237" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="111" bodyend="133"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="74" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="273" bodyend="319"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1ae3a70cca06e62826144c453478fc6fe7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -547,7 +702,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="241" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="136" bodyend="144"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="78" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="322" bodyend="330"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a88fc9c18dba27353864990a8dba32fbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -565,7 +720,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="243" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="146" bodyend="158"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="80" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="332" bodyend="344"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a4becaf7f7819323e880ea6aba90462bd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; <ref refid="structVoxelGridCoordinates" kindref="compound">VoxelGridCoordinates</ref> &gt;</type>
@@ -603,7 +758,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="247" column="17" bodyfile="src/VoxelGrid.cpp" bodystart="162" bodyend="179"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="84" column="17" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="348" bodyend="374"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a7d8b74af33e94f6c994107e392902844" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; <ref refid="structVoxelGridCoordinates" kindref="compound">VoxelGridCoordinates</ref> &gt;</type>
@@ -641,7 +796,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="250" column="17" bodyfile="src/VoxelGrid.cpp" bodystart="181" bodyend="198"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="87" column="17" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="376" bodyend="398"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1ac90b9bb7aff51c0bf7b4aee28245263c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; <ref refid="structVoxelGridCoordinates" kindref="compound">VoxelGridCoordinates</ref> &gt;</type>
@@ -679,7 +834,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="253" column="17" bodyfile="src/VoxelGrid.cpp" bodystart="200" bodyend="217"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="90" column="17" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="400" bodyend="417"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1ad8dfa9432306156fa1d7e32e4b171b1f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; <ref refid="structVoxelGridCoordinates" kindref="compound">VoxelGridCoordinates</ref> &gt;</type>
@@ -717,7 +872,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="256" column="17" bodyfile="src/VoxelGrid.cpp" bodystart="219" bodyend="236"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="93" column="17" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="419" bodyend="436"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a8b94921ed0fc26eba28b359a148f17f5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; int &gt;</type>
@@ -759,7 +914,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="260" column="17" bodyfile="src/VoxelGrid.cpp" bodystart="318" bodyend="357"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="97" column="17" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="516" bodyend="559"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1a55c64238be9787bcddcf9d6caa0edcd9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; int &gt;</type>
@@ -801,7 +956,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="263" column="17" bodyfile="src/VoxelGrid.cpp" bodystart="359" bodyend="398"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="100" column="17" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="561" bodyend="605"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1afef4d653c842db657c6283148e51734f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; int &gt;</type>
@@ -839,7 +994,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="266" column="17" bodyfile="src/VoxelGrid.cpp" bodystart="400" bodyend="418"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="103" column="17" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="607" bodyend="625"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGrid_1ac724fcb9be595326aac15de37e7444fe" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; int &gt;</type>
@@ -877,21 +1032,23 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="269" column="17" bodyfile="src/VoxelGrid.cpp" bodystart="420" bodyend="438"/>
+        <location file="src/voxelgrid/VoxelGrid.hpp" line="106" column="17" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="627" bodyend="645"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/VoxelGrid.hpp" line="205" column="1" bodyfile="src/VoxelGrid.hpp" bodystart="205" bodyend="274"/>
+    <location file="src/voxelgrid/VoxelGrid.hpp" line="29" column="1" bodyfile="src/voxelgrid/VoxelGrid.hpp" bodystart="29" bodyend="114"/>
     <listofallmembers>
+      <member refid="classVoxelGrid_1a86df4fc39575905b3acec0fa0b174bd8" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>checkIfTerrainExists</name></member>
       <member refid="classVoxelGrid_1a55ead3aae948291ce584d73a248f338a" prot="private" virt="non-virtual"><scope>VoxelGrid</scope><name>defaultEmptyValue</name></member>
       <member refid="classVoxelGrid_1afd3523a514fc2299ee6cb73713df4572" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>deleteEntity</name></member>
-      <member refid="classVoxelGrid_1a7df066dfbf092fadd63edc6e58e3d760" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>deleteTerrain</name></member>
+      <member refid="classVoxelGrid_1a7084c5009b78ec07844ae83a5a6e0a68" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>deleteTerrain</name></member>
       <member refid="classVoxelGrid_1a1c3468fdfe02c2386ee1265393103e1a" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>depth</name></member>
       <member refid="classVoxelGrid_1a439f1d206216f0d88491f9868b09805a" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>deserializeFromBytes</name></member>
       <member refid="classVoxelGrid_1aec990bc6778b557acd170107ea42674a" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>entityGrid</name></member>
+      <member refid="classVoxelGrid_1a8c77c00615a4c76218952e2e669289fd" prot="private" virt="non-virtual"><scope>VoxelGrid</scope><name>entityGridMutex</name></member>
       <member refid="classVoxelGrid_1af7e2110d6a15f188a2b026dabb8dce59" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>eventGrid</name></member>
       <member refid="classVoxelGrid_1a55c64238be9787bcddcf9d6caa0edcd9" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getAllEntityIdsInRegion</name></member>
       <member refid="classVoxelGrid_1a7d8b74af33e94f6c994107e392902844" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getAllEntityInRegion</name></member>
@@ -902,23 +1059,28 @@
       <member refid="classVoxelGrid_1a8b94921ed0fc26eba28b359a148f17f5" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getAllTerrainIdsInRegion</name></member>
       <member refid="classVoxelGrid_1a4becaf7f7819323e880ea6aba90462bd" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getAllTerrainInRegion</name></member>
       <member refid="classVoxelGrid_1abf4359c01a6aa77f5379fb2fbfc321b1" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getEntity</name></member>
+      <member refid="classVoxelGrid_1ab54f77bb5a6ee3f7f29c506e3fcb9a4f" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getEntityUnsafe</name></member>
       <member refid="classVoxelGrid_1abdbd90807a802388089017c374ffa48a" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getEvent</name></member>
       <member refid="classVoxelGrid_1ab058bdcc6451d6932b0581ef1f47ff88" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getLightingLevel</name></member>
       <member refid="classVoxelGrid_1a03d1cb966c5bd3429fb9c5f0d5336f06" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getTerrain</name></member>
+      <member refid="classVoxelGrid_1a03cdcc2519c61f36a6d1bd0efc395f01" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getTerrainEntityTypeComponent</name></member>
       <member refid="classVoxelGrid_1a6a616b8a78d93e0f65200e18263294ac" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>getVoxel</name></member>
       <member refid="classVoxelGrid_1ae7dedbbdcff1f94501987196c12166bb" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>height</name></member>
       <member refid="classVoxelGrid_1a1c5318980675fdaf82dbf1d96fa809cc" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>initializeGrids</name></member>
       <member refid="classVoxelGrid_1ae729c72682c73a36a2094ff96c3470be" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>lightingGrid</name></member>
+      <member refid="classVoxelGrid_1a1b71ba8a246608b9b7357d5fb4dc920f" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>moveEntity</name></member>
       <member refid="classVoxelGrid_1ae3a70cca06e62826144c453478fc6fe7" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>msgpack_pack</name></member>
       <member refid="classVoxelGrid_1a88fc9c18dba27353864990a8dba32fbd" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>msgpack_unpack</name></member>
+      <member refid="classVoxelGrid_1a130c7581cda8b095dab0cfbe42257ce0" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>registry</name></member>
       <member refid="classVoxelGrid_1ab5a90f0ed41530883644df2fda0560fe" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>serializeToBytes</name></member>
       <member refid="classVoxelGrid_1ab78f9aea40efc7db568c526576fcc281" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>setEntity</name></member>
       <member refid="classVoxelGrid_1a8b55237db5ad8ed95311de6aa95793ab" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>setEvent</name></member>
       <member refid="classVoxelGrid_1a5a13fe98c655c32c3ba0952dee2b44b1" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>setLightingLevel</name></member>
       <member refid="classVoxelGrid_1a61b5e5dbb9e0f1b9fa106d9bfc21b3fc" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>setTerrain</name></member>
       <member refid="classVoxelGrid_1ae743077ee8d294af2282d95bd4c408c0" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>setVoxel</name></member>
-      <member refid="classVoxelGrid_1af28acddd25b67b3ba141c449b2e3eb3a" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>terrainGrid</name></member>
-      <member refid="classVoxelGrid_1a7c8c91595d2c009db8f67557bb87c2aa" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>VoxelGrid</name></member>
+      <member refid="classVoxelGrid_1a07f2599215b7472d78cacb502227ebb7" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>terrainGridRepository</name></member>
+      <member refid="classVoxelGrid_1a55c8f12ad4dd939324685a6823ff345e" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>terrainStorage</name></member>
+      <member refid="classVoxelGrid_1a5f67f969e6a8c04bb4f384de1d9e5bca" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>VoxelGrid</name></member>
       <member refid="classVoxelGrid_1a868d0eaabcec65f87869bdaec7ec516c" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>width</name></member>
       <member refid="classVoxelGrid_1a782766e01b75da6d6a2f155e78a14998" prot="public" virt="non-virtual"><scope>VoxelGrid</scope><name>~VoxelGrid</name></member>
     </listofallmembers>

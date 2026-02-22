@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classMoveCommandHandler" kind="class" language="C++" prot="public">
+    <compoundname>MoveCommandHandler</compoundname>
+    <basecompoundref refid="classICommandHandler" prot="public" virt="non-virtual">ICommandHandler</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMoveCommandHandler_1ac77e721d52e232ac152bdac145dac7a9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool MoveCommandHandler::validate</definition>
+        <argsstring>(const QueryCommand &amp;cmd, std::string &amp;errorMsg) const override</argsstring>
+        <name>validate</name>
+        <qualifiedname>MoveCommandHandler::validate</qualifiedname>
+        <reimplements refid="classICommandHandler_1a9e3dab195963e1d3ec7c62343c01f71b">validate</reimplements>
+        <param>
+          <type>const <ref refid="structQueryCommand" kindref="compound">QueryCommand</ref> &amp;</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>errorMsg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="79" column="10" bodyfile="src/WorldClientAPI/CommandHandlers.cpp" bodystart="275" bodyend="278"/>
+      </memberdef>
+      <memberdef kind="function" id="classMoveCommandHandler_1a4b480090d11a3999fd0817d695266333" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MoveCommandHandler::execute</definition>
+        <argsstring>(const QueryCommand &amp;cmd, PerceptionResponse &amp;response, entt::registry &amp;registry, GameDBHandler *dbHandler) override</argsstring>
+        <name>execute</name>
+        <qualifiedname>MoveCommandHandler::execute</qualifiedname>
+        <reimplements refid="classICommandHandler_1a4995cb32f3816435e273e45b4e985da1">execute</reimplements>
+        <param>
+          <type>const <ref refid="structQueryCommand" kindref="compound">QueryCommand</ref> &amp;</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="structPerceptionResponse" kindref="compound">PerceptionResponse</ref> &amp;</type>
+          <declname>response</declname>
+        </param>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classGameDBHandler" kindref="compound">GameDBHandler</ref> *</type>
+          <declname>dbHandler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="80" column="10" bodyfile="src/WorldClientAPI/CommandHandlers.cpp" bodystart="257" bodyend="273"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ICommandHandler</label>
+        <link refid="classICommandHandler"/>
+      </node>
+      <node id="1">
+        <label>MoveCommandHandler</label>
+        <link refid="classMoveCommandHandler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ICommandHandler</label>
+        <link refid="classICommandHandler"/>
+      </node>
+      <node id="1">
+        <label>MoveCommandHandler</label>
+        <link refid="classMoveCommandHandler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/WorldClientAPI/CommandHandlers.hpp" line="77" column="1" bodyfile="src/WorldClientAPI/CommandHandlers.hpp" bodystart="77" bodyend="82"/>
+    <listofallmembers>
+      <member refid="classMoveCommandHandler_1a4b480090d11a3999fd0817d695266333" prot="public" virt="virtual"><scope>MoveCommandHandler</scope><name>execute</name></member>
+      <member refid="classMoveCommandHandler_1ac77e721d52e232ac152bdac145dac7a9" prot="public" virt="virtual"><scope>MoveCommandHandler</scope><name>validate</name></member>
+      <member refid="classICommandHandler_1a2c2d11b6bd94d4bd721935b793fcd33d" prot="public" virt="virtual"><scope>MoveCommandHandler</scope><name>~ICommandHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

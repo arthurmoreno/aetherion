@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="24" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="24" bodyend="-1"/>
+        <location file="src/EcosystemEngine.hpp" line="265" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="265" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -35,14 +35,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="26" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="26" bodyend="26"/>
+        <location file="src/EcosystemEngine.hpp" line="267" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="267" bodyend="267"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/EcosystemEngine.hpp" line="23" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="23" bodyend="27"/>
+    <location file="src/EcosystemEngine.hpp" line="264" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="264" bodyend="268"/>
     <listofallmembers>
       <member refid="structSetEcoEntityToDebug_1a3a91ad72701a6026d628ce7502b9ef2e" prot="public" virt="non-virtual"><scope>SetEcoEntityToDebug</scope><name>entity</name></member>
       <member refid="structSetEcoEntityToDebug_1a69c115992230505985478aa2b453d122" prot="public" virt="non-virtual"><scope>SetEcoEntityToDebug</scope><name>SetEcoEntityToDebug</name></member>

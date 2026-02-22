@@ -1,0 +1,1843 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTerrainStorage" kind="class" language="C++" prot="public">
+    <compoundname>TerrainStorage</compoundname>
+    <innerclass refid="structTerrainStorage_1_1ThreadCache" prot="private">TerrainStorage::ThreadCache</innerclass>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classTerrainStorage_1a24d5e4ef03c2bede298e9df40c8a5f75" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerrainStorage::bgTerrainType</definition>
+        <argsstring></argsstring>
+        <name>bgTerrainType</name>
+        <qualifiedname>TerrainStorage::bgTerrainType</qualifiedname>
+        <initializer>= -2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="16" column="9" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a4dfb5d9e56f8c6ebea467079ad412191" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerrainStorage::bgVariant</definition>
+        <argsstring></argsstring>
+        <name>bgVariant</name>
+        <qualifiedname>TerrainStorage::bgVariant</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="17" column="9" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1ac7fbfe981b995fb229f1a8afaa67c8ae" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerrainStorage::bgMatter</definition>
+        <argsstring></argsstring>
+        <name>bgMatter</name>
+        <qualifiedname>TerrainStorage::bgMatter</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="18" column="9" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a2556f48d40988b6715c81e2645cf49aa" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerrainStorage::bgFlags</definition>
+        <argsstring></argsstring>
+        <name>bgFlags</name>
+        <qualifiedname>TerrainStorage::bgFlags</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="19" column="9" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a4864013ce94668b33aa15e959f405985" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TerrainStorage::bgHeat</definition>
+        <argsstring></argsstring>
+        <name>bgHeat</name>
+        <qualifiedname>TerrainStorage::bgHeat</qualifiedname>
+        <initializer>= 0.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="20" column="11" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a46cd5d6ddec358532711035e60b035e3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerrainStorage::bgEntityId</definition>
+        <argsstring></argsstring>
+        <name>bgEntityId</name>
+        <qualifiedname>TerrainStorage::bgEntityId</qualifiedname>
+        <initializer>= -2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="21" column="9" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1af75c60e56df3ec66b44f7357134f1e37" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TerrainStorage::useActiveMask</definition>
+        <argsstring></argsstring>
+        <name>useActiveMask</name>
+        <qualifiedname>TerrainStorage::useActiveMask</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="22" column="10" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a60d2bb1eeaf56fe7cf483596623013e3" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double TerrainStorage::voxelSize</definition>
+        <argsstring></argsstring>
+        <name>voxelSize</name>
+        <qualifiedname>TerrainStorage::voxelSize</qualifiedname>
+        <initializer>= 1.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="25" column="12" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a3858f778c8864d0baebbaedb5bfb07ab" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::terrainGrid</definition>
+        <argsstring></argsstring>
+        <name>terrainGrid</name>
+        <qualifiedname>TerrainStorage::terrainGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="29" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a424e7b16b6d3c32b26c892c9af753d3e" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::mainTypeGrid</definition>
+        <argsstring></argsstring>
+        <name>mainTypeGrid</name>
+        <qualifiedname>TerrainStorage::mainTypeGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="31" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a5ebfa05ff2eebca985160cbc8ea33877" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::subType0Grid</definition>
+        <argsstring></argsstring>
+        <name>subType0Grid</name>
+        <qualifiedname>TerrainStorage::subType0Grid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="32" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a0aef334b780460a95636044719a789f9" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::subType1Grid</definition>
+        <argsstring></argsstring>
+        <name>subType1Grid</name>
+        <qualifiedname>TerrainStorage::subType1Grid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="33" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1aabf188af1b812e0b14ba029db7a85ef0" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::terrainMatterGrid</definition>
+        <argsstring></argsstring>
+        <name>terrainMatterGrid</name>
+        <qualifiedname>TerrainStorage::terrainMatterGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="35" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a842677778466246820d4ad49cd344792" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::waterMatterGrid</definition>
+        <argsstring></argsstring>
+        <name>waterMatterGrid</name>
+        <qualifiedname>TerrainStorage::waterMatterGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="36" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a96890e198b99e33867573c3ea209e050" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::vaporMatterGrid</definition>
+        <argsstring></argsstring>
+        <name>vaporMatterGrid</name>
+        <qualifiedname>TerrainStorage::vaporMatterGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="37" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a010498c6473cef210f042224b0993d26" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::biomassMatterGrid</definition>
+        <argsstring></argsstring>
+        <name>biomassMatterGrid</name>
+        <qualifiedname>TerrainStorage::biomassMatterGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="38" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a0da88737b106f41797913195b548adc4" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::massGrid</definition>
+        <argsstring></argsstring>
+        <name>massGrid</name>
+        <qualifiedname>TerrainStorage::massGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="42" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a918948a9931b295d689559a28198eeea" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::maxSpeedGrid</definition>
+        <argsstring></argsstring>
+        <name>maxSpeedGrid</name>
+        <qualifiedname>TerrainStorage::maxSpeedGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="43" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a379d22f7393a4f17e2d0dc8b2e12244b" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::minSpeedGrid</definition>
+        <argsstring></argsstring>
+        <name>minSpeedGrid</name>
+        <qualifiedname>TerrainStorage::minSpeedGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="44" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a9872d2702e8c7a64469e921a591aec37" prot="public" static="no" mutable="no">
+        <type>openvdb::FloatGrid::Ptr</type>
+        <definition>openvdb::FloatGrid::Ptr TerrainStorage::heatGrid</definition>
+        <argsstring></argsstring>
+        <name>heatGrid</name>
+        <qualifiedname>TerrainStorage::heatGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="45" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a79247f0f1cf616230074a58ef718f1df" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::flagsGrid</definition>
+        <argsstring></argsstring>
+        <name>flagsGrid</name>
+        <qualifiedname>TerrainStorage::flagsGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="52" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1adb2731d80857c57e7041ef27b973a80c" prot="public" static="no" mutable="no">
+        <type>openvdb::Int32Grid::Ptr</type>
+        <definition>openvdb::Int32Grid::Ptr TerrainStorage::maxLoadCapacityGrid</definition>
+        <argsstring></argsstring>
+        <name>maxLoadCapacityGrid</name>
+        <qualifiedname>TerrainStorage::maxLoadCapacityGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="53" column="29" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1aad21fdc83a216c654c8e7ced32942515" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerrainStorage::pruneInterval</definition>
+        <argsstring></argsstring>
+        <name>pruneInterval</name>
+        <qualifiedname>TerrainStorage::pruneInterval</qualifiedname>
+        <initializer>= 60</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="56" column="9" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainStorage_1a617e6ed93ea35e7dc930614669df24ce" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerrainStorage::lastPruneTick</definition>
+        <argsstring></argsstring>
+        <name>lastPruneTick</name>
+        <qualifiedname>TerrainStorage::lastPruneTick</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="57" column="9" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classTerrainStorage_1a2226c9fe04a1eb5c268bc76608a11b38" prot="private" static="yes" mutable="no">
+        <type>thread_local ThreadCache</type>
+        <definition>thread_local TerrainStorage::ThreadCache TerrainStorage::s_threadCache</definition>
+        <argsstring></argsstring>
+        <name>s_threadCache</name>
+        <qualifiedname>TerrainStorage::s_threadCache</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="214" column="37" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="214" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTerrainStorage_1aa22ec7f606b4605611f079dac13597cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TerrainStorage::TerrainStorage</definition>
+        <argsstring>()</argsstring>
+        <name>TerrainStorage</name>
+        <qualifiedname>TerrainStorage::TerrainStorage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="59" column="5" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="148" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1aa84ab57015180c5541b4de2c6acc7c62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <qualifiedname>TerrainStorage::initialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="60" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="177" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1af9fd7cbbf2171a293e5c4cc779216ecf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::applyTransform</definition>
+        <argsstring>(double voxelSize_)</argsstring>
+        <name>applyTransform</name>
+        <qualifiedname>TerrainStorage::applyTransform</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>voxelSize_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="61" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="179" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a183dc75de9bb5693abbd6a73f317f447" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t TerrainStorage::memUsage</definition>
+        <argsstring>() const</argsstring>
+        <name>memUsage</name>
+        <qualifiedname>TerrainStorage::memUsage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="64" column="12" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="198" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a41928ea6ba17b25307aa5afbfb6bb29a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainIdIfExists</definition>
+        <argsstring>(int x, int y, int z)</argsstring>
+        <name>getTerrainIdIfExists</name>
+        <qualifiedname>TerrainStorage::getTerrainIdIfExists</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="66" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="387" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a26344da440c638db6f8f1954db50ad39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainId</definition>
+        <argsstring>(int x, int y, int z, int id)</argsstring>
+        <name>setTerrainId</name>
+        <qualifiedname>TerrainStorage::setTerrainId</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="68" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="631" bodyend="635"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1ae8a722087b389c7fcc2490041daaf118" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TerrainStorage::checkIfTerrainExists</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>checkIfTerrainExists</name>
+        <qualifiedname>TerrainStorage::checkIfTerrainExists</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="69" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="637" bodyend="641"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a33dc0836e6d053a65dfaa2d05bea21cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainMainType</definition>
+        <argsstring>(int x, int y, int z, int terrainType)</argsstring>
+        <name>setTerrainMainType</name>
+        <qualifiedname>TerrainStorage::setTerrainMainType</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>terrainType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="72" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="418" bodyend="421"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a5d314db3ba427f53f48fc179c923a959" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainMainType</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainMainType</name>
+        <qualifiedname>TerrainStorage::getTerrainMainType</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="73" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="423" bodyend="429"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1aad09c5a0c560c3dd60f1ad047af209d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainSubType0</definition>
+        <argsstring>(int x, int y, int z, int subType)</argsstring>
+        <name>setTerrainSubType0</name>
+        <qualifiedname>TerrainStorage::setTerrainSubType0</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>subType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="75" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="431" bodyend="434"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1aec73086d56058f99e66084896574707d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainSubType0</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainSubType0</name>
+        <qualifiedname>TerrainStorage::getTerrainSubType0</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="76" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="436" bodyend="442"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a5a373545e0ffce2aeca7006c98fd7e0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainSubType1</definition>
+        <argsstring>(int x, int y, int z, int subType)</argsstring>
+        <name>setTerrainSubType1</name>
+        <qualifiedname>TerrainStorage::setTerrainSubType1</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>subType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="78" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="444" bodyend="447"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1ad7509018d199c6dd5db8a8cbca83d920" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainSubType1</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainSubType1</name>
+        <qualifiedname>TerrainStorage::getTerrainSubType1</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="79" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="449" bodyend="455"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a50ff46274e93f924facd21ce5f6af2f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainStructuralIntegrity</definition>
+        <argsstring>(int x, int y, int z, const StructuralIntegrityComponent &amp;sic)</argsstring>
+        <name>setTerrainStructuralIntegrity</name>
+        <qualifiedname>TerrainStorage::setTerrainStructuralIntegrity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structStructuralIntegrityComponent" kindref="compound">StructuralIntegrityComponent</ref> &amp;</type>
+          <declname>sic</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="82" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="673" bodyend="681"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a05f0ebbe2167d7a0a96fe05e660cd411" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structStructuralIntegrityComponent" kindref="compound">StructuralIntegrityComponent</ref></type>
+        <definition>StructuralIntegrityComponent TerrainStorage::getTerrainStructuralIntegrity</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainStructuralIntegrity</name>
+        <qualifiedname>TerrainStorage::getTerrainStructuralIntegrity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="84" column="34" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="683" bodyend="694"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a4f657a7d92b9ff673918ce598ea98ca2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainMatter</definition>
+        <argsstring>(int x, int y, int z, int amount)</argsstring>
+        <name>setTerrainMatter</name>
+        <qualifiedname>TerrainStorage::setTerrainMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="87" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="458" bodyend="460"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a0ad14e98519c92af3eb7323f328ff9aa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainMatter</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainMatter</name>
+        <qualifiedname>TerrainStorage::getTerrainMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="88" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="462" bodyend="464"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a59026ad7d90f06640e8fdc35118a0a71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainWaterMatter</definition>
+        <argsstring>(int x, int y, int z, int amount)</argsstring>
+        <name>setTerrainWaterMatter</name>
+        <qualifiedname>TerrainStorage::setTerrainWaterMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="90" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="466" bodyend="468"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1ada3dd8807828a5ebe7d46000c53a1f62" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainWaterMatter</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainWaterMatter</name>
+        <qualifiedname>TerrainStorage::getTerrainWaterMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="91" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="470" bodyend="472"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a91f20f7375322316c0306250fc01314d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainVaporMatter</definition>
+        <argsstring>(int x, int y, int z, int amount)</argsstring>
+        <name>setTerrainVaporMatter</name>
+        <qualifiedname>TerrainStorage::setTerrainVaporMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="93" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="474" bodyend="476"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a7d04f31bb9deba4c568592b9ebe63172" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainVaporMatter</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainVaporMatter</name>
+        <qualifiedname>TerrainStorage::getTerrainVaporMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="94" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="478" bodyend="480"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a8a2b38af70d30f17edaa59d88f84f245" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainBiomassMatter</definition>
+        <argsstring>(int x, int y, int z, int amount)</argsstring>
+        <name>setTerrainBiomassMatter</name>
+        <qualifiedname>TerrainStorage::setTerrainBiomassMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="96" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="482" bodyend="484"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1abc1a3a44af62b9fc8989d32efa58e16e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainBiomassMatter</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainBiomassMatter</name>
+        <qualifiedname>TerrainStorage::getTerrainBiomassMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="97" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="486" bodyend="488"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a41164ed3e50d58c9f6d3505232e01eee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainMass</definition>
+        <argsstring>(int x, int y, int z, int mass)</argsstring>
+        <name>setTerrainMass</name>
+        <qualifiedname>TerrainStorage::setTerrainMass</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>mass</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="100" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="491" bodyend="493"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a0c7aa662515e7c63f7a2aaff708f6a2d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainMass</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainMass</name>
+        <qualifiedname>TerrainStorage::getTerrainMass</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="101" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="495" bodyend="497"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1ac59ba38437b7afca691bd7cb5200d7a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainMaxSpeed</definition>
+        <argsstring>(int x, int y, int z, int maxSpeed)</argsstring>
+        <name>setTerrainMaxSpeed</name>
+        <qualifiedname>TerrainStorage::setTerrainMaxSpeed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>maxSpeed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="103" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="499" bodyend="501"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1ab2dce214bf7ec1e5cc756db6618538a6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainMaxSpeed</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainMaxSpeed</name>
+        <qualifiedname>TerrainStorage::getTerrainMaxSpeed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="104" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="503" bodyend="505"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a883f1a3155bafab7d4713fd1e4622710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainMinSpeed</definition>
+        <argsstring>(int x, int y, int z, int minSpeed)</argsstring>
+        <name>setTerrainMinSpeed</name>
+        <qualifiedname>TerrainStorage::setTerrainMinSpeed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>minSpeed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="106" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="507" bodyend="509"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a0fea29fe26a5c37e58d0b264669c46d4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainMinSpeed</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainMinSpeed</name>
+        <qualifiedname>TerrainStorage::getTerrainMinSpeed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="107" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="511" bodyend="513"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a0e560329bdd46c5a130f30f13ecc9014" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainHeat</definition>
+        <argsstring>(int x, int y, int z, float heat)</argsstring>
+        <name>setTerrainHeat</name>
+        <qualifiedname>TerrainStorage::setTerrainHeat</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>heat</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="109" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="515" bodyend="517"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a842324bf36f4d03f53f11058e204fcc6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float TerrainStorage::getTerrainHeat</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainHeat</name>
+        <qualifiedname>TerrainStorage::getTerrainHeat</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="110" column="11" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="519" bodyend="521"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a26c73b4f0a98af62d9bec15f9e34422f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainDirection</definition>
+        <argsstring>(int x, int y, int z, DirectionEnum direction)</argsstring>
+        <name>setTerrainDirection</name>
+        <qualifiedname>TerrainStorage::setTerrainDirection</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>DirectionEnum</type>
+          <declname>direction</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="114" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="524" bodyend="529"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a0ca44b88e42d0f0cd888923007349475" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>DirectionEnum</type>
+        <definition>DirectionEnum TerrainStorage::getTerrainDirection</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainDirection</name>
+        <qualifiedname>TerrainStorage::getTerrainDirection</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="115" column="19" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="531" bodyend="535"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1ad937492ef9d52f6275485f1bd454a0a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainCanStackEntities</definition>
+        <argsstring>(int x, int y, int z, bool canStack)</argsstring>
+        <name>setTerrainCanStackEntities</name>
+        <qualifiedname>TerrainStorage::setTerrainCanStackEntities</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>canStack</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="118" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="537" bodyend="542"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a1c282503a04a7993290fa98980af2281" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TerrainStorage::getTerrainCanStackEntities</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainCanStackEntities</name>
+        <qualifiedname>TerrainStorage::getTerrainCanStackEntities</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="119" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="544" bodyend="548"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1abe1a98092c937264b5ed191c573958a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainMatterState</definition>
+        <argsstring>(int x, int y, int z, MatterState state)</argsstring>
+        <name>setTerrainMatterState</name>
+        <qualifiedname>TerrainStorage::setTerrainMatterState</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>MatterState</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="122" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="550" bodyend="555"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1aeee50e9133420837dd93cab4586ee9f9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>MatterState</type>
+        <definition>MatterState TerrainStorage::getTerrainMatterState</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainMatterState</name>
+        <qualifiedname>TerrainStorage::getTerrainMatterState</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="123" column="17" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="557" bodyend="561"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1aec2a9f72847d3afa850a5428af762eee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainGradientVector</definition>
+        <argsstring>(int x, int y, int z, const GradientVector &amp;gradient)</argsstring>
+        <name>setTerrainGradientVector</name>
+        <qualifiedname>TerrainStorage::setTerrainGradientVector</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structGradientVector" kindref="compound">GradientVector</ref> &amp;</type>
+          <declname>gradient</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="126" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="563" bodyend="568"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1ac35d4b49f90f10a9dd9d2710e1dc5bef" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structGradientVector" kindref="compound">GradientVector</ref></type>
+        <definition>GradientVector TerrainStorage::getTerrainGradientVector</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainGradientVector</name>
+        <qualifiedname>TerrainStorage::getTerrainGradientVector</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="127" column="20" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="570" bodyend="574"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1aed51c451916418334a77b103ccdeffba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setTerrainMaxLoadCapacity</definition>
+        <argsstring>(int x, int y, int z, int capacity)</argsstring>
+        <name>setTerrainMaxLoadCapacity</name>
+        <qualifiedname>TerrainStorage::setTerrainMaxLoadCapacity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>capacity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="129" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="576" bodyend="578"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a1ed68c22ebdbb76483c59d238503726b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getTerrainMaxLoadCapacity</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainMaxLoadCapacity</name>
+        <qualifiedname>TerrainStorage::getTerrainMaxLoadCapacity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="130" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="580" bodyend="582"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1aa0850d032dcceba3200629721f8be981" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::setFlagBits</definition>
+        <argsstring>(int x, int y, int z, int bits)</argsstring>
+        <name>setFlagBits</name>
+        <qualifiedname>TerrainStorage::setFlagBits</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>bits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="133" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="373" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1aa738622ca0bdcf7dc0ea667baf176e3f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::getFlagBits</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getFlagBits</name>
+        <qualifiedname>TerrainStorage::getFlagBits</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="134" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="383" bodyend="385"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a834e1a55790552e7265495eb9db4041d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TerrainStorage::isActive</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>isActive</name>
+        <qualifiedname>TerrainStorage::isActive</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="136" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="584" bodyend="589"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a781d851f8db9c173401d5da4ff704517" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t TerrainStorage::prune</definition>
+        <argsstring>(int currentTick)</argsstring>
+        <name>prune</name>
+        <qualifiedname>TerrainStorage::prune</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>currentTick</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="137" column="12" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="591" bodyend="629"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1ab9826da12b9dba2f9701a06ed394bac7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainStorage::deleteTerrain</definition>
+        <argsstring>(int x, int y, int z)</argsstring>
+        <name>deleteTerrain</name>
+        <qualifiedname>TerrainStorage::deleteTerrain</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="140" column="9" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="643" bodyend="670"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a1b6a208bf812cb20255cc82dd6212477" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Callback</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void TerrainStorage::iterateWaterMatter</definition>
+        <argsstring>(Callback callback) const</argsstring>
+        <name>iterateWaterMatter</name>
+        <qualifiedname>TerrainStorage::iterateWaterMatter</qualifiedname>
+        <param>
+          <type>Callback</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="145" column="10" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="239" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1afddfc344d4416a6bc85039f0a3297208" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Callback</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void TerrainStorage::iterateVaporMatter</definition>
+        <argsstring>(Callback callback) const</argsstring>
+        <name>iterateVaporMatter</name>
+        <qualifiedname>TerrainStorage::iterateVaporMatter</qualifiedname>
+        <param>
+          <type>Callback</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="148" column="10" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="244" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1aea00729cbf433af28d581d25aeb2d8f7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Callback</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void TerrainStorage::iterateBiomassMatter</definition>
+        <argsstring>(Callback callback) const</argsstring>
+        <name>iterateBiomassMatter</name>
+        <qualifiedname>TerrainStorage::iterateBiomassMatter</qualifiedname>
+        <param>
+          <type>Callback</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="151" column="10" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="249" bodyend="251"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a8241bfc414d80df5e265b2664ebce4ce" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Callback</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void TerrainStorage::iterateGrid</definition>
+        <argsstring>(const openvdb::Int32Grid::Ptr &amp;grid, Callback callback, int minValue=1) const</argsstring>
+        <name>iterateGrid</name>
+        <qualifiedname>TerrainStorage::iterateGrid</qualifiedname>
+        <param>
+          <type>const openvdb::Int32Grid::Ptr &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>Callback</type>
+          <declname>callback</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>minValue</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="155" column="10" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="225" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a9d7b43ba1d1f109016e179dbca8da83e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t TerrainStorage::sumGrid</definition>
+        <argsstring>(const openvdb::Int32Grid::Ptr &amp;grid) const</argsstring>
+        <name>sumGrid</name>
+        <qualifiedname>TerrainStorage::sumGrid</qualifiedname>
+        <param>
+          <type>const openvdb::Int32Grid::Ptr &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="159" column="13" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="696" bodyend="704"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a17eb0f36ef56cb72c5269032706d5a34" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t TerrainStorage::sumTotalWater</definition>
+        <argsstring>() const</argsstring>
+        <name>sumTotalWater</name>
+        <qualifiedname>TerrainStorage::sumTotalWater</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="162" column="13" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="706" bodyend="708"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainStorage_1a83c6150b61d778f8e70d42042ecb90b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::resetThreadCache</definition>
+        <argsstring>()</argsstring>
+        <name>resetThreadCache</name>
+        <qualifiedname>TerrainStorage::resetThreadCache</qualifiedname>
+        <briefdescription>
+<para>Force the thread-local accessor cache to be rebuilt on the next read. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="219" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="334" bodyend="369"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classTerrainStorage_1abbfa2a4c7028a8a18b1a696d3aececc3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainStorage::configureThreadCache</definition>
+        <argsstring>()</argsstring>
+        <name>configureThreadCache</name>
+        <qualifiedname>TerrainStorage::configureThreadCache</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="215" column="10" bodyfile="src/terrain/TerrainStorage.cpp" bodystart="217" bodyend="332"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/terrain/TerrainStorage.hpp" line="13" column="1" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="13" bodyend="220"/>
+    <listofallmembers>
+      <member refid="classTerrainStorage_1af9fd7cbbf2171a293e5c4cc779216ecf" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>applyTransform</name></member>
+      <member refid="classTerrainStorage_1a46cd5d6ddec358532711035e60b035e3" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>bgEntityId</name></member>
+      <member refid="classTerrainStorage_1a2556f48d40988b6715c81e2645cf49aa" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>bgFlags</name></member>
+      <member refid="classTerrainStorage_1a4864013ce94668b33aa15e959f405985" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>bgHeat</name></member>
+      <member refid="classTerrainStorage_1ac7fbfe981b995fb229f1a8afaa67c8ae" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>bgMatter</name></member>
+      <member refid="classTerrainStorage_1a24d5e4ef03c2bede298e9df40c8a5f75" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>bgTerrainType</name></member>
+      <member refid="classTerrainStorage_1a4dfb5d9e56f8c6ebea467079ad412191" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>bgVariant</name></member>
+      <member refid="classTerrainStorage_1a010498c6473cef210f042224b0993d26" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>biomassMatterGrid</name></member>
+      <member refid="classTerrainStorage_1ae8a722087b389c7fcc2490041daaf118" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>checkIfTerrainExists</name></member>
+      <member refid="classTerrainStorage_1abbfa2a4c7028a8a18b1a696d3aececc3" prot="private" virt="non-virtual"><scope>TerrainStorage</scope><name>configureThreadCache</name></member>
+      <member refid="classTerrainStorage_1ab9826da12b9dba2f9701a06ed394bac7" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>deleteTerrain</name></member>
+      <member refid="classTerrainStorage_1a79247f0f1cf616230074a58ef718f1df" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>flagsGrid</name></member>
+      <member refid="classTerrainStorage_1aa738622ca0bdcf7dc0ea667baf176e3f" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getFlagBits</name></member>
+      <member refid="classTerrainStorage_1abc1a3a44af62b9fc8989d32efa58e16e" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainBiomassMatter</name></member>
+      <member refid="classTerrainStorage_1a1c282503a04a7993290fa98980af2281" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainCanStackEntities</name></member>
+      <member refid="classTerrainStorage_1a0ca44b88e42d0f0cd888923007349475" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainDirection</name></member>
+      <member refid="classTerrainStorage_1ac35d4b49f90f10a9dd9d2710e1dc5bef" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainGradientVector</name></member>
+      <member refid="classTerrainStorage_1a842324bf36f4d03f53f11058e204fcc6" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainHeat</name></member>
+      <member refid="classTerrainStorage_1a41928ea6ba17b25307aa5afbfb6bb29a" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainIdIfExists</name></member>
+      <member refid="classTerrainStorage_1a5d314db3ba427f53f48fc179c923a959" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainMainType</name></member>
+      <member refid="classTerrainStorage_1a0c7aa662515e7c63f7a2aaff708f6a2d" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainMass</name></member>
+      <member refid="classTerrainStorage_1a0ad14e98519c92af3eb7323f328ff9aa" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainMatter</name></member>
+      <member refid="classTerrainStorage_1aeee50e9133420837dd93cab4586ee9f9" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainMatterState</name></member>
+      <member refid="classTerrainStorage_1a1ed68c22ebdbb76483c59d238503726b" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainMaxLoadCapacity</name></member>
+      <member refid="classTerrainStorage_1ab2dce214bf7ec1e5cc756db6618538a6" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainMaxSpeed</name></member>
+      <member refid="classTerrainStorage_1a0fea29fe26a5c37e58d0b264669c46d4" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainMinSpeed</name></member>
+      <member refid="classTerrainStorage_1a05f0ebbe2167d7a0a96fe05e660cd411" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainStructuralIntegrity</name></member>
+      <member refid="classTerrainStorage_1aec73086d56058f99e66084896574707d" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainSubType0</name></member>
+      <member refid="classTerrainStorage_1ad7509018d199c6dd5db8a8cbca83d920" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainSubType1</name></member>
+      <member refid="classTerrainStorage_1a7d04f31bb9deba4c568592b9ebe63172" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainVaporMatter</name></member>
+      <member refid="classTerrainStorage_1ada3dd8807828a5ebe7d46000c53a1f62" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>getTerrainWaterMatter</name></member>
+      <member refid="classTerrainStorage_1a9872d2702e8c7a64469e921a591aec37" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>heatGrid</name></member>
+      <member refid="classTerrainStorage_1aa84ab57015180c5541b4de2c6acc7c62" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>initialize</name></member>
+      <member refid="classTerrainStorage_1a834e1a55790552e7265495eb9db4041d" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>isActive</name></member>
+      <member refid="classTerrainStorage_1aea00729cbf433af28d581d25aeb2d8f7" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>iterateBiomassMatter</name></member>
+      <member refid="classTerrainStorage_1a8241bfc414d80df5e265b2664ebce4ce" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>iterateGrid</name></member>
+      <member refid="classTerrainStorage_1afddfc344d4416a6bc85039f0a3297208" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>iterateVaporMatter</name></member>
+      <member refid="classTerrainStorage_1a1b6a208bf812cb20255cc82dd6212477" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>iterateWaterMatter</name></member>
+      <member refid="classTerrainStorage_1a617e6ed93ea35e7dc930614669df24ce" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>lastPruneTick</name></member>
+      <member refid="classTerrainStorage_1a424e7b16b6d3c32b26c892c9af753d3e" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>mainTypeGrid</name></member>
+      <member refid="classTerrainStorage_1a0da88737b106f41797913195b548adc4" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>massGrid</name></member>
+      <member refid="classTerrainStorage_1adb2731d80857c57e7041ef27b973a80c" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>maxLoadCapacityGrid</name></member>
+      <member refid="classTerrainStorage_1a918948a9931b295d689559a28198eeea" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>maxSpeedGrid</name></member>
+      <member refid="classTerrainStorage_1a183dc75de9bb5693abbd6a73f317f447" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>memUsage</name></member>
+      <member refid="classTerrainStorage_1a379d22f7393a4f17e2d0dc8b2e12244b" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>minSpeedGrid</name></member>
+      <member refid="classTerrainStorage_1a781d851f8db9c173401d5da4ff704517" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>prune</name></member>
+      <member refid="classTerrainStorage_1aad21fdc83a216c654c8e7ced32942515" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>pruneInterval</name></member>
+      <member refid="classTerrainStorage_1a83c6150b61d778f8e70d42042ecb90b2" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>resetThreadCache</name></member>
+      <member refid="classTerrainStorage_1a2226c9fe04a1eb5c268bc76608a11b38" prot="private" virt="non-virtual"><scope>TerrainStorage</scope><name>s_threadCache</name></member>
+      <member refid="classTerrainStorage_1aa0850d032dcceba3200629721f8be981" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setFlagBits</name></member>
+      <member refid="classTerrainStorage_1a8a2b38af70d30f17edaa59d88f84f245" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainBiomassMatter</name></member>
+      <member refid="classTerrainStorage_1ad937492ef9d52f6275485f1bd454a0a2" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainCanStackEntities</name></member>
+      <member refid="classTerrainStorage_1a26c73b4f0a98af62d9bec15f9e34422f" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainDirection</name></member>
+      <member refid="classTerrainStorage_1aec2a9f72847d3afa850a5428af762eee" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainGradientVector</name></member>
+      <member refid="classTerrainStorage_1a0e560329bdd46c5a130f30f13ecc9014" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainHeat</name></member>
+      <member refid="classTerrainStorage_1a26344da440c638db6f8f1954db50ad39" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainId</name></member>
+      <member refid="classTerrainStorage_1a33dc0836e6d053a65dfaa2d05bea21cb" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainMainType</name></member>
+      <member refid="classTerrainStorage_1a41164ed3e50d58c9f6d3505232e01eee" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainMass</name></member>
+      <member refid="classTerrainStorage_1a4f657a7d92b9ff673918ce598ea98ca2" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainMatter</name></member>
+      <member refid="classTerrainStorage_1abe1a98092c937264b5ed191c573958a8" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainMatterState</name></member>
+      <member refid="classTerrainStorage_1aed51c451916418334a77b103ccdeffba" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainMaxLoadCapacity</name></member>
+      <member refid="classTerrainStorage_1ac59ba38437b7afca691bd7cb5200d7a7" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainMaxSpeed</name></member>
+      <member refid="classTerrainStorage_1a883f1a3155bafab7d4713fd1e4622710" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainMinSpeed</name></member>
+      <member refid="classTerrainStorage_1a50ff46274e93f924facd21ce5f6af2f6" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainStructuralIntegrity</name></member>
+      <member refid="classTerrainStorage_1aad09c5a0c560c3dd60f1ad047af209d5" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainSubType0</name></member>
+      <member refid="classTerrainStorage_1a5a373545e0ffce2aeca7006c98fd7e0b" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainSubType1</name></member>
+      <member refid="classTerrainStorage_1a91f20f7375322316c0306250fc01314d" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainVaporMatter</name></member>
+      <member refid="classTerrainStorage_1a59026ad7d90f06640e8fdc35118a0a71" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>setTerrainWaterMatter</name></member>
+      <member refid="classTerrainStorage_1a5ebfa05ff2eebca985160cbc8ea33877" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>subType0Grid</name></member>
+      <member refid="classTerrainStorage_1a0aef334b780460a95636044719a789f9" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>subType1Grid</name></member>
+      <member refid="classTerrainStorage_1a9d7b43ba1d1f109016e179dbca8da83e" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>sumGrid</name></member>
+      <member refid="classTerrainStorage_1a17eb0f36ef56cb72c5269032706d5a34" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>sumTotalWater</name></member>
+      <member refid="classTerrainStorage_1a3858f778c8864d0baebbaedb5bfb07ab" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>terrainGrid</name></member>
+      <member refid="classTerrainStorage_1aabf188af1b812e0b14ba029db7a85ef0" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>terrainMatterGrid</name></member>
+      <member refid="classTerrainStorage_1aa22ec7f606b4605611f079dac13597cf" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>TerrainStorage</name></member>
+      <member refid="classTerrainStorage_1af75c60e56df3ec66b44f7357134f1e37" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>useActiveMask</name></member>
+      <member refid="classTerrainStorage_1a96890e198b99e33867573c3ea209e050" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>vaporMatterGrid</name></member>
+      <member refid="classTerrainStorage_1a60d2bb1eeaf56fe7cf483596623013e3" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>voxelSize</name></member>
+      <member refid="classTerrainStorage_1a842677778466246820d4ad49cd344792" prot="public" virt="non-virtual"><scope>TerrainStorage</scope><name>waterMatterGrid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

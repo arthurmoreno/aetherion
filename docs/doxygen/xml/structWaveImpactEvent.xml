@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structWaveImpactEvent" kind="struct" language="C++" prot="public">
+    <compoundname>WaveImpactEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structWaveImpactEvent_1ac5adb4e0b202d949e1e1f3dd49284c3c" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity WaveImpactEvent::target</definition>
+        <argsstring></argsstring>
+        <name>target</name>
+        <qualifiedname>WaveImpactEvent::target</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="100" column="18" bodyfile="src/WavePhysicsEngine.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveImpactEvent_1a284b2c5186b4521cbab5d43d053c6d9c" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t WaveImpactEvent::source</definition>
+        <argsstring></argsstring>
+        <name>source</name>
+        <qualifiedname>WaveImpactEvent::source</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="101" column="13" bodyfile="src/WavePhysicsEngine.hpp" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveImpactEvent_1a0a0382cba29d278d6766ba8f194903cb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveImpactEvent::impulseX</definition>
+        <argsstring></argsstring>
+        <name>impulseX</name>
+        <qualifiedname>WaveImpactEvent::impulseX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="102" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveImpactEvent_1a07155d991ff339d0a7ac1e99f4b367de" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveImpactEvent::impulseY</definition>
+        <argsstring></argsstring>
+        <name>impulseY</name>
+        <qualifiedname>WaveImpactEvent::impulseY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="102" column="20" bodyfile="src/WavePhysicsEngine.hpp" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveImpactEvent_1a69971b9325ed198b16beb1902c0a8aa2" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveImpactEvent::impulseZ</definition>
+        <argsstring></argsstring>
+        <name>impulseZ</name>
+        <qualifiedname>WaveImpactEvent::impulseZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="102" column="29" bodyfile="src/WavePhysicsEngine.hpp" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveImpactEvent_1aff346497961d1ca400842247b51a248e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveImpactEvent::amplitude</definition>
+        <argsstring></argsstring>
+        <name>amplitude</name>
+        <qualifiedname>WaveImpactEvent::amplitude</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="103" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structWaveImpactEvent_1a8f2c93762cdbf63461c2d864e3d4e4b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>WaveImpactEvent::WaveImpactEvent</definition>
+        <argsstring>(entt::entity target, int32_t source, float impulseX, float impulseY, float impulseZ, float amplitude)</argsstring>
+        <name>WaveImpactEvent</name>
+        <qualifiedname>WaveImpactEvent::WaveImpactEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>impulseX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>impulseY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>impulseZ</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>amplitude</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="105" column="5" bodyfile="src/WavePhysicsEngine.hpp" bodystart="105" bodyend="112"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/WavePhysicsEngine.hpp" line="99" column="1" bodyfile="src/WavePhysicsEngine.hpp" bodystart="99" bodyend="113"/>
+    <listofallmembers>
+      <member refid="structWaveImpactEvent_1aff346497961d1ca400842247b51a248e" prot="public" virt="non-virtual"><scope>WaveImpactEvent</scope><name>amplitude</name></member>
+      <member refid="structWaveImpactEvent_1a0a0382cba29d278d6766ba8f194903cb" prot="public" virt="non-virtual"><scope>WaveImpactEvent</scope><name>impulseX</name></member>
+      <member refid="structWaveImpactEvent_1a07155d991ff339d0a7ac1e99f4b367de" prot="public" virt="non-virtual"><scope>WaveImpactEvent</scope><name>impulseY</name></member>
+      <member refid="structWaveImpactEvent_1a69971b9325ed198b16beb1902c0a8aa2" prot="public" virt="non-virtual"><scope>WaveImpactEvent</scope><name>impulseZ</name></member>
+      <member refid="structWaveImpactEvent_1a284b2c5186b4521cbab5d43d053c6d9c" prot="public" virt="non-virtual"><scope>WaveImpactEvent</scope><name>source</name></member>
+      <member refid="structWaveImpactEvent_1ac5adb4e0b202d949e1e1f3dd49284c3c" prot="public" virt="non-virtual"><scope>WaveImpactEvent</scope><name>target</name></member>
+      <member refid="structWaveImpactEvent_1a8f2c93762cdbf63461c2d864e3d4e4b0" prot="public" virt="non-virtual"><scope>WaveImpactEvent</scope><name>WaveImpactEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

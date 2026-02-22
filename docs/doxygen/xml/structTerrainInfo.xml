@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTerrainInfo" kind="struct" language="C++" prot="public">
+    <compoundname>TerrainInfo</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTerrainInfo_1ad7b4a3ca8b9b2e8d48d04e3f1224ba94" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerrainInfo::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>TerrainInfo::x</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="52" column="9" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainInfo_1a7a80a7a79e77b2aacb653a5a2dd18c23" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerrainInfo::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>TerrainInfo::y</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="52" column="11" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainInfo_1a1307b92818d7a1df5982047628111104" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerrainInfo::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>TerrainInfo::z</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="52" column="13" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainInfo_1ac58f43da6297d8fdcdff93b396e049ef" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TerrainInfo::active</definition>
+        <argsstring></argsstring>
+        <name>active</name>
+        <qualifiedname>TerrainInfo::active</qualifiedname>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="53" column="10" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainInfo_1a6b7b69eb11fd46002d160b2e98570422" prot="public" static="no" mutable="no">
+        <type><ref refid="structStaticData" kindref="compound">StaticData</ref></type>
+        <definition>StaticData TerrainInfo::stat</definition>
+        <argsstring></argsstring>
+        <name>stat</name>
+        <qualifiedname>TerrainInfo::stat</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="54" column="16" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainInfo_1a1241c48f290c73ea29d4d2328b004011" prot="public" static="no" mutable="no">
+        <type>std::optional&lt; <ref refid="structTransientData" kindref="compound">TransientData</ref> &gt;</type>
+        <definition>std::optional&lt;TransientData&gt; TerrainInfo::transient</definition>
+        <argsstring></argsstring>
+        <name>transient</name>
+        <qualifiedname>TerrainInfo::transient</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="55" column="19" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="55" bodyend="55"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>GradientVector</label>
+        <link refid="structGradientVector"/>
+      </node>
+      <node id="3">
+        <label>MatterContainer</label>
+        <link refid="structMatterContainer"/>
+      </node>
+      <node id="2">
+        <label>StaticData</label>
+        <link refid="structStaticData"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>matter</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>gradient</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>TerrainInfo</label>
+        <link refid="structTerrainInfo"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>stat</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/terrain/TerrainGridRepository.hpp" line="51" column="1" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="51" bodyend="56"/>
+    <listofallmembers>
+      <member refid="structTerrainInfo_1ac58f43da6297d8fdcdff93b396e049ef" prot="public" virt="non-virtual"><scope>TerrainInfo</scope><name>active</name></member>
+      <member refid="structTerrainInfo_1a6b7b69eb11fd46002d160b2e98570422" prot="public" virt="non-virtual"><scope>TerrainInfo</scope><name>stat</name></member>
+      <member refid="structTerrainInfo_1a1241c48f290c73ea29d4d2328b004011" prot="public" virt="non-virtual"><scope>TerrainInfo</scope><name>transient</name></member>
+      <member refid="structTerrainInfo_1ad7b4a3ca8b9b2e8d48d04e3f1224ba94" prot="public" virt="non-virtual"><scope>TerrainInfo</scope><name>x</name></member>
+      <member refid="structTerrainInfo_1a7a80a7a79e77b2aacb653a5a2dd18c23" prot="public" virt="non-virtual"><scope>TerrainInfo</scope><name>y</name></member>
+      <member refid="structTerrainInfo_1a1307b92818d7a1df5982047628111104" prot="public" virt="non-virtual"><scope>TerrainInfo</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

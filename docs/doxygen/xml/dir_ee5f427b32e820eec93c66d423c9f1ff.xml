@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_ee5f427b32e820eec93c66d423c9f1ff" kind="dir">
+    <compoundname>src/aetherion/camera</compoundname>
+    <innerfile refid="camera_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="camera_2dimetric_8py">dimetric.py</innerfile>
+    <innerfile refid="entities__handlers_8py">entities_handlers.py</innerfile>
+    <innerfile refid="camera_2models_8py">models.py</innerfile>
+    <innerfile refid="mouse_8py">mouse.py</innerfile>
+    <innerfile refid="terrain_8py">terrain.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/camera/"/>
+  </compounddef>
+</doxygen>

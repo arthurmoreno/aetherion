@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="text_8py" kind="file" language="Python">
+    <compoundname>text.py</compoundname>
+    <innerclass refid="classaetherion_1_1renderer_1_1text_1_1Text" prot="public">aetherion::renderer::text::Text</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer">aetherion::renderer</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1text">aetherion::renderer::text</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Optional</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sdl2</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1renderer_1_1fonts" kindref="compound">aetherion.renderer.fonts</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Font</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="classaetherion_1_1renderer_1_1text_1_1Text" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1text_1_1Text" kindref="compound">Text</ref>:</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1ae82d5c22b22ab2b79227550763e99eef" kindref="member">__init__</ref>(</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self,</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>text:<sp/>str,</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>renderer,</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>font_path:<sp/>bytes<sp/>=<sp/>b</highlight><highlight class="stringliteral">&quot;assets/Toriko.ttf&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>font_size:<sp/>int<sp/>=<sp/>32,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>color:<sp/>tuple[int,<sp/>int,<sp/>int]<sp/>=<sp/>(255,<sp/>255,<sp/>255),</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>):</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Initializes<sp/>a<sp/>Text<sp/>object.</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>text<sp/>(str):<sp/>The<sp/>text<sp/>to<sp/>render.</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>renderer:<sp/>The<sp/>renderer<sp/>object<sp/>responsible<sp/>for<sp/>drawing.</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>font_path<sp/>(bytes,<sp/>optional):<sp/>Path<sp/>to<sp/>the<sp/>TTF<sp/>font<sp/>file.<sp/>Defaults<sp/>to<sp/>b&quot;assets/Toriko.ttf&quot;.</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>font_size<sp/>(int,<sp/>optional):<sp/>Size<sp/>of<sp/>the<sp/>font.<sp/>Defaults<sp/>to<sp/>32.</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>color<sp/>(tuple,<sp/>optional):<sp/>The<sp/>color<sp/>of<sp/>the<sp/>text<sp/>in<sp/>RGB<sp/>format.<sp/>Defaults<sp/>to<sp/>white.</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1addb1e919a85e93a13c8683b1e397216f" kindref="member">renderer</ref><sp/>=<sp/>renderer</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a72bf7c84d7c05afc0a9aea200ab41a8d" kindref="member">font</ref><sp/>=<sp/><ref refid="classaetherion_1_1renderer_1_1fonts_1_1Font" kindref="compound">Font</ref>(font_path,<sp/>font_size)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a14b5062af05b9a2ac42aab2ad9e02712" kindref="member">color</ref><sp/>=<sp/>color<sp/><sp/></highlight><highlight class="comment">#<sp/>RGB<sp/>tuple</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a4157245758b91ee1ac3dcea68ae90b5d" kindref="member">text</ref><sp/>=<sp/>text</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Initialize<sp/>SDL_Color</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a9cb6b27877667189f3b0b3371c08b040" kindref="member">text_color</ref><sp/>=<sp/>sdl2.SDL_Color(*self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a14b5062af05b9a2ac42aab2ad9e02712" kindref="member">color</ref>)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Initialize<sp/>texture<sp/>and<sp/>dimensions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a268979d8505a41873ca00f13e6830d78" kindref="member">text_texture</ref>:<sp/>Optional[sdl2.SDL_Texture]<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1ad96482072aba89e316f7461e73f0cb4d" kindref="member">text_width</ref>:<sp/>int<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1acac92e22b1fede792343154010fcb35e" kindref="member">text_height</ref>:<sp/>int<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Render<sp/>the<sp/>initial<sp/>text</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a6a3cea7199cc5ba04f2e1bdc79cfd33c" kindref="member">_render_text</ref>()</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a6a3cea7199cc5ba04f2e1bdc79cfd33c" kindref="member">_render_text</ref>(self):</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Renders<sp/>the<sp/>text<sp/>to<sp/>an<sp/>SDL_Texture.</highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Render<sp/>text<sp/>to<sp/>a<sp/>surface</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>surface<sp/>=<sp/>sdl2.sdlttf.TTF_RenderUTF8_Blended(self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a72bf7c84d7c05afc0a9aea200ab41a8d" kindref="member">font</ref>._font,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a4157245758b91ee1ac3dcea68ae90b5d" kindref="member">text</ref>.encode(</highlight><highlight class="stringliteral">&quot;utf-8&quot;</highlight><highlight class="normal">),<sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a9cb6b27877667189f3b0b3371c08b040" kindref="member">text_color</ref>)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>surface:</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;TTF_RenderUTF8_Blended<sp/>Error:&quot;</highlight><highlight class="normal">,<sp/>sdl2.sdlttf.TTF_GetError())</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Create<sp/>texture<sp/>from<sp/>surface</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a268979d8505a41873ca00f13e6830d78" kindref="member">text_texture</ref><sp/>=<sp/>sdl2.SDL_CreateTextureFromSurface(self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1addb1e919a85e93a13c8683b1e397216f" kindref="member">renderer</ref>._renderer,<sp/>surface)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a268979d8505a41873ca00f13e6830d78" kindref="member">text_texture</ref>:</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;SDL_CreateTextureFromSurface<sp/>Error:&quot;</highlight><highlight class="normal">,<sp/>sdl2.SDL_GetError())</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_FreeSurface(surface)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Get<sp/>width<sp/>and<sp/>height</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1ad96482072aba89e316f7461e73f0cb4d" kindref="member">text_width</ref><sp/>=<sp/>surface.contents.w</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1acac92e22b1fede792343154010fcb35e" kindref="member">text_height</ref><sp/>=<sp/>surface.contents.h</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_FreeSurface(surface)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a0320f21954d4ef5d3e903094c263f8fc" kindref="member">set_position</ref>(self,<sp/>x:<sp/>int,<sp/>y:<sp/>int):</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="67"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sets<sp/>the<sp/>position<sp/>where<sp/>the<sp/>text<sp/>will<sp/>be<sp/>rendered.</highlight></codeline>
+<codeline lineno="68"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="69"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="70"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>(int):<sp/>The<sp/>x-coordinate<sp/>for<sp/>the<sp/>text.</highlight></codeline>
+<codeline lineno="71"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>(int):<sp/>The<sp/>y-coordinate<sp/>for<sp/>the<sp/>text.</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a4944f2635539cdf7cd5152bbc7b8289c" kindref="member">x</ref><sp/>=<sp/>x</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1afa6a63734a3245ae217758e099ac6812" kindref="member">y</ref><sp/>=<sp/>y</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1af4c84ccac61904efd8614ecf75aaf3d1" kindref="member">set_text</ref>(self,<sp/>new_text:<sp/>str):</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="78"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Updates<sp/>the<sp/>text<sp/>content<sp/>and<sp/>re-renders<sp/>the<sp/>texture.</highlight></codeline>
+<codeline lineno="79"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="80"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="81"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>new_text<sp/>(str):<sp/>The<sp/>new<sp/>text<sp/>to<sp/>display.</highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a4157245758b91ee1ac3dcea68ae90b5d" kindref="member">text</ref><sp/>=<sp/>new_text</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a6a3cea7199cc5ba04f2e1bdc79cfd33c" kindref="member">_render_text</ref>()</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1ab321363eab971d8a8adfde2b61fa743c" kindref="member">set_color</ref>(self,<sp/>color:<sp/>tuple[int,<sp/>int,<sp/>int]):</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="88"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sets<sp/>the<sp/>color<sp/>of<sp/>the<sp/>text<sp/>and<sp/>re-renders<sp/>the<sp/>texture.</highlight></codeline>
+<codeline lineno="89"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="90"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="91"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>color<sp/>(tuple):<sp/>The<sp/>new<sp/>color<sp/>in<sp/>RGB<sp/>format.</highlight></codeline>
+<codeline lineno="92"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a14b5062af05b9a2ac42aab2ad9e02712" kindref="member">color</ref><sp/>=<sp/>color</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a9cb6b27877667189f3b0b3371c08b040" kindref="member">text_color</ref><sp/>=<sp/>sdl2.SDL_Color(*self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a14b5062af05b9a2ac42aab2ad9e02712" kindref="member">color</ref>)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a6a3cea7199cc5ba04f2e1bdc79cfd33c" kindref="member">_render_text</ref>()</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a976c3cfb900e7e9216ed3627169d71db" kindref="member">render</ref>(self,<sp/>x:<sp/>int,<sp/>y:<sp/>int):</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="99"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Renders<sp/>the<sp/>text<sp/>at<sp/>the<sp/>specified<sp/>position.</highlight></codeline>
+<codeline lineno="100"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="101"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="102"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>(int):<sp/>The<sp/>x-coordinate<sp/>for<sp/>the<sp/>text.</highlight></codeline>
+<codeline lineno="103"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>(int):<sp/>The<sp/>y-coordinate<sp/>for<sp/>the<sp/>text.</highlight></codeline>
+<codeline lineno="104"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a268979d8505a41873ca00f13e6830d78" kindref="member">text_texture</ref>:</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Set<sp/>destination<sp/>rectangle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dst_rect<sp/>=<sp/>sdl2.SDL_Rect(x,<sp/>y,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1ad96482072aba89e316f7461e73f0cb4d" kindref="member">text_width</ref>,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1acac92e22b1fede792343154010fcb35e" kindref="member">text_height</ref>)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Render<sp/>the<sp/>texture</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>sdl2.SDL_RenderCopy(self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1addb1e919a85e93a13c8683b1e397216f" kindref="member">renderer</ref>._renderer,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a268979d8505a41873ca00f13e6830d78" kindref="member">text_texture</ref>,<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,<sp/>dst_rect)<sp/>!=<sp/>0:</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;SDL_RenderCopy<sp/>Error:&quot;</highlight><highlight class="normal">,<sp/>sdl2.SDL_GetError())</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1aa8af218a0fab467568b4219635d99597" kindref="member">destroy</ref>(self):</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="117"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cleans<sp/>up<sp/>the<sp/>text<sp/>texture<sp/>and<sp/>font<sp/>resources.</highlight></codeline>
+<codeline lineno="118"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a268979d8505a41873ca00f13e6830d78" kindref="member">text_texture</ref>:</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_DestroyTexture(self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a268979d8505a41873ca00f13e6830d78" kindref="member">text_texture</ref>)</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a268979d8505a41873ca00f13e6830d78" kindref="member">text_texture</ref><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a72bf7c84d7c05afc0a9aea200ab41a8d" kindref="member">font</ref>:</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a72bf7c84d7c05afc0a9aea200ab41a8d" kindref="member">font</ref>.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1aa8af218a0fab467568b4219635d99597" kindref="member">destroy</ref>()</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1text_1_1Text_1a72bf7c84d7c05afc0a9aea200ab41a8d" kindref="member">font</ref><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/renderer/text.py"/>
+  </compounddef>
+</doxygen>

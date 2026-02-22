@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1audio" kind="namespace" language="Python">
+    <compoundname>aetherion::audio</compoundname>
+    <innernamespace refid="namespaceaetherion_1_1audio_1_1audio__manager">aetherion::audio::audio_manager</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio_1_1base__manager">aetherion::audio::base_manager</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio_1_1exceptions">aetherion::audio::exceptions</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio_1_1models">aetherion::audio::models</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio_1_1sdl__utils">aetherion::audio::sdl_utils</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio_1_1sound__effects">aetherion::audio::sound_effects</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/audio/audio_manager.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

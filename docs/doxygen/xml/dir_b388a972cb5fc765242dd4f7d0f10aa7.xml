@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_b388a972cb5fc765242dd4f7d0f10aa7" kind="dir">
+    <compoundname>src/WorldClientAPI</compoundname>
+    <innerfile refid="CommandConstants_8hpp">CommandConstants.hpp</innerfile>
+    <innerfile refid="CommandHandlers_8cpp">CommandHandlers.cpp</innerfile>
+    <innerfile refid="CommandHandlers_8hpp">CommandHandlers.hpp</innerfile>
+    <innerfile refid="CommandValidator_8cpp">CommandValidator.cpp</innerfile>
+    <innerfile refid="CommandValidator_8hpp">CommandValidator.hpp</innerfile>
+    <innerfile refid="PerceptionCore_8cpp">PerceptionCore.cpp</innerfile>
+    <innerfile refid="PerceptionCore_8hpp">PerceptionCore.hpp</innerfile>
+    <innerfile refid="ProcessOptionalQueries_8cpp">ProcessOptionalQueries.cpp</innerfile>
+    <innerfile refid="ProcessOptionalQueries_8hpp">ProcessOptionalQueries.hpp</innerfile>
+    <innerfile refid="ResponseSerializer_8cpp">ResponseSerializer.cpp</innerfile>
+    <innerfile refid="ResponseSerializer_8hpp">ResponseSerializer.hpp</innerfile>
+    <innerfile refid="TerrainVisibility_8cpp">TerrainVisibility.cpp</innerfile>
+    <innerfile refid="TerrainVisibility_8hpp">TerrainVisibility.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/WorldClientAPI/"/>
+  </compounddef>
+</doxygen>

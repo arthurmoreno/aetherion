@@ -1,0 +1,501 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="PhysicalMath_8hpp" kind="file" language="C++">
+    <compoundname>PhysicalMath.hpp</compoundname>
+    <includes local="no">algorithm</includes>
+    <includes local="no">cmath</includes>
+    <includes local="no">limits</includes>
+    <includes local="no">tuple</includes>
+    <includes refid="PhysicsComponents_8hpp" local="yes">components/PhysicsComponents.hpp</includes>
+    <includes refid="PhysicsConstants_8hpp" local="yes">physics/PhysicsConstants.hpp</includes>
+    <includes refid="PhysicsManager_8hpp" local="yes">physics/PhysicsManager.hpp</includes>
+    <includedby refid="PhysicsEngine_8cpp" local="yes">src/PhysicsEngine.cpp</includedby>
+    <includedby refid="ecosystem_2ReadonlyQueries_8hpp" local="yes">src/ecosystem/ReadonlyQueries.hpp</includedby>
+    <includedby refid="PhysicalMath_8cpp" local="yes">src/physics/PhysicalMath.cpp</includedby>
+    <includedby refid="PhysicsMutators_8hpp" local="yes">src/physics/PhysicsMutators.hpp</includedby>
+    <includedby refid="physics_2ReadonlyQueries_8hpp" local="yes">src/physics/ReadonlyQueries.hpp</includedby>
+    <incdepgraph>
+      <node id="6">
+        <label>components/PhysicsComponents.hpp</label>
+        <link refid="PhysicsComponents_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/physics/PhysicalMath.hpp</label>
+        <link refid="PhysicalMath_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>physics/PhysicsConstants.hpp</label>
+        <link refid="PhysicsConstants_8hpp_source"/>
+      </node>
+      <node id="9">
+        <label>physics/PhysicsManager.hpp</label>
+        <link refid="PhysicsManager_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>algorithm</label>
+      </node>
+      <node id="3">
+        <label>cmath</label>
+      </node>
+      <node id="7">
+        <label>iostream</label>
+      </node>
+      <node id="4">
+        <label>limits</label>
+      </node>
+      <node id="10">
+        <label>map</label>
+      </node>
+      <node id="11">
+        <label>string</label>
+      </node>
+      <node id="5">
+        <label>tuple</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/ecosystem/ReadonlyQueries.hpp</label>
+        <link refid="ecosystem_2ReadonlyQueries_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>src/physics/PhysicalMath.hpp</label>
+        <link refid="PhysicalMath_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/physics/PhysicsMutators.hpp</label>
+        <link refid="PhysicsMutators_8hpp"/>
+      </node>
+      <node id="5">
+        <label>src/physics/PhysicsUtils.hpp</label>
+        <link refid="PhysicsUtils_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/physics/ReadonlyQueries.hpp</label>
+        <link refid="physics_2ReadonlyQueries_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="PhysicalMath_8hpp_1ab2f1f3793f838d97b050eb99a3486553" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::tuple&lt; float, float, float &gt;</type>
+        <definition>std::tuple&lt; float, float, float &gt; translatePhysicsToGridMovement</definition>
+        <argsstring>(float velocityX, float velocityY, float velocityZ, float accelerationX, float accelerationY, float accelerationZ, int16_t maxSpeed)</argsstring>
+        <name>translatePhysicsToGridMovement</name>
+        <param>
+          <type>float</type>
+          <declname>velocityX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>velocityY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>velocityZ</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>accelerationX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>accelerationY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>accelerationZ</declname>
+        </param>
+        <param>
+          <type>int16_t</type>
+          <declname>maxSpeed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/PhysicalMath.hpp" line="13" column="19" bodyfile="src/physics/PhysicalMath.hpp" bodystart="13" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="PhysicalMath_8hpp_1ab5d4b181a73c2a4615fe8f1c2179a40f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int calculateTimeToMove</definition>
+        <argsstring>(float velocityX, float velocityY, float velocityZ)</argsstring>
+        <name>calculateTimeToMove</name>
+        <param>
+          <type>float</type>
+          <declname>velocityX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>velocityY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>velocityZ</declname>
+        </param>
+        <briefdescription>
+<para>Calculate the time required to move 100 units given a 3D velocity vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>velocityX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>X component of velocity </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>velocityY</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Y component of velocity </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>velocityZ</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Z component of velocity </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Time to move 100 units as an integer </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/PhysicalMath.hpp" line="106" column="12" bodyfile="src/physics/PhysicalMath.hpp" bodystart="106" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="PhysicalMath_8hpp_1a5a9e73546d185aca4a074568abfb31f4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int calculateTimeToMove</definition>
+        <argsstring>(float velocity)</argsstring>
+        <name>calculateTimeToMove</name>
+        <param>
+          <type>float</type>
+          <declname>velocity</declname>
+        </param>
+        <briefdescription>
+<para>Calculate the time required to move 100 units given a 1D velocity. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>velocity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Single dimensional velocity </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Time to move 100 units as an integer </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/PhysicalMath.hpp" line="132" column="12" bodyfile="src/physics/PhysicalMath.hpp" bodystart="132" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="PhysicalMath_8hpp_1a30037baabb84ff29ca43c7cd8cca4472" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float calculateVelocityFromTime</definition>
+        <argsstring>(int timeToMove)</argsstring>
+        <name>calculateVelocityFromTime</name>
+        <param>
+          <type>int</type>
+          <declname>timeToMove</declname>
+        </param>
+        <briefdescription>
+<para>Calculate velocity from time to move 100 units. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeToMove</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time required to move 100 units </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Calculated velocity </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/PhysicalMath.hpp" line="150" column="14" bodyfile="src/physics/PhysicalMath.hpp" bodystart="150" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="PhysicalMath_8hpp_1a35cfa5091acdc2a40ab6553b54df2755" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::pair&lt; float, bool &gt;</type>
+        <definition>std::pair&lt; float, bool &gt; calculateVelocityAfterFrictionStep</definition>
+        <argsstring>(float velocity, int dt)</argsstring>
+        <name>calculateVelocityAfterFrictionStep</name>
+        <param>
+          <type>float</type>
+          <declname>velocity</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>dt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/PhysicalMath.hpp" line="159" column="11" bodyfile="src/physics/PhysicalMath.cpp" bodystart="4" bodyend="36" declfile="src/physics/PhysicalMath.hpp" declline="159" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="PhysicalMath_8hpp_1adb038ce46777e87578a9fcaae2391279" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::tuple&lt; float, float, bool, bool &gt;</type>
+        <definition>std::tuple&lt; float, float, bool, bool &gt; applyKineticFrictionDamping</definition>
+        <argsstring>(float velocityX, float velocityY, MatterState matterState, bool bellowIsStable, float newVelocityZ)</argsstring>
+        <name>applyKineticFrictionDamping</name>
+        <param>
+          <type>float</type>
+          <declname>velocityX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>velocityY</declname>
+        </param>
+        <param>
+          <type>MatterState</type>
+          <declname>matterState</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bellowIsStable</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>newVelocityZ</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/PhysicalMath.hpp" line="162" column="19" bodyfile="src/physics/PhysicalMath.hpp" bodystart="162" bodyend="183"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>PHYSICAL_MATH_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHYSICAL_MATH_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;limits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/PhysicsComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;physics/PhysicsConstants.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;physics/PhysicsManager.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::tuple&lt;float,<sp/>float,<sp/>float&gt;<sp/>translatePhysicsToGridMovement(</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityX,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityY,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityZ,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>accelerationX,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>accelerationY,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>accelerationZ,<sp/>int16_t<sp/>maxSpeed)<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVx;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVy;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVz;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PhysicsManager::Instance()-&gt;getAllowMultiDirection())<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVx<sp/>=<sp/>velocityX<sp/>+<sp/>accelerationX;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVy<sp/>=<sp/>velocityY<sp/>+<sp/>accelerationY;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVz<sp/>=<sp/>velocityZ<sp/>+<sp/>accelerationZ;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculate<sp/>absolute<sp/>velocities<sp/>for<sp/>comparison</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>absVx<sp/>=<sp/>std::abs(velocityX);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>absVy<sp/>=<sp/>std::abs(velocityY);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>absVz<sp/>=<sp/>std::abs(velocityZ);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>absAx<sp/>=<sp/>std::abs(accelerationX);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>absAy<sp/>=<sp/>std::abs(accelerationY);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>absAz<sp/>=<sp/>std::abs(accelerationZ);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Determine<sp/>which<sp/>axis<sp/>has<sp/>the<sp/>greatest<sp/>absolute<sp/>velocity<sp/>and<sp/>acceleration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(absVx<sp/>&gt;=<sp/>absVy<sp/>&amp;&amp;<sp/>absVx<sp/>&gt;=<sp/>absVz<sp/>&amp;&amp;<sp/><sp/></highlight><highlight class="comment">//<sp/>X<sp/>has<sp/>the<sp/>greatest<sp/>velocity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>absAx<sp/>&gt;=<sp/>absAy<sp/>&amp;&amp;<sp/>absAx<sp/>&gt;=<sp/>absAz<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>X<sp/>has<sp/>the<sp/>greatest<sp/>acceleration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Apply<sp/>acceleration<sp/>only<sp/>to<sp/>X-axis</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVx<sp/>=<sp/>velocityX<sp/>+<sp/>accelerationX;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVy<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVz<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(absVy<sp/>&gt;=<sp/>absVx<sp/>&amp;&amp;<sp/>absVy<sp/>&gt;=<sp/>absVz<sp/>&amp;&amp;<sp/><sp/></highlight><highlight class="comment">//<sp/>Y<sp/>has<sp/>the<sp/>greatest<sp/>velocity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>absAy<sp/>&gt;=<sp/>absAx<sp/>&amp;&amp;<sp/>absAy<sp/>&gt;=<sp/>absAz<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Y<sp/>has<sp/>the<sp/>greatest<sp/>acceleration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Apply<sp/>acceleration<sp/>only<sp/>to<sp/>Y-axis</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVx<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVy<sp/>=<sp/>velocityY<sp/>+<sp/>accelerationY;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVz<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(absVz<sp/>&gt;=<sp/>absVx<sp/>&amp;&amp;<sp/>absVz<sp/>&gt;=<sp/>absVy<sp/>&amp;&amp;<sp/><sp/></highlight><highlight class="comment">//<sp/>Z<sp/>has<sp/>the<sp/>greatest<sp/>velocity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>absAz<sp/>&gt;=<sp/>absAx<sp/>&amp;&amp;<sp/>absAz<sp/>&gt;=<sp/>absAy<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Z<sp/>has<sp/>the<sp/>greatest<sp/>acceleration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Apply<sp/>acceleration<sp/>only<sp/>to<sp/>Z-axis</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVx<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVy<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVz<sp/>=<sp/>velocityZ<sp/>+<sp/>accelerationZ;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>No<sp/>single<sp/>axis<sp/>has<sp/>both<sp/>the<sp/>greatest<sp/>velocity<sp/>and<sp/>acceleration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>You<sp/>can<sp/>choose<sp/>to<sp/>handle<sp/>this<sp/>case<sp/>as<sp/>needed.<sp/>For<sp/>example:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>-<sp/>Apply<sp/>acceleration<sp/>to<sp/>the<sp/>axis<sp/>with<sp/>the<sp/>highest<sp/>acceleration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>-<sp/>Apply<sp/>no<sp/>acceleration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>-<sp/>Apply<sp/>a<sp/>default<sp/>behavior</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Example:<sp/>Apply<sp/>acceleration<sp/>to<sp/>the<sp/>axis<sp/>with<sp/>the<sp/>highest<sp/>acceleration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(absAx<sp/>&gt;=<sp/>absAy<sp/>&amp;&amp;<sp/>absAx<sp/>&gt;=<sp/>absAz)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVx<sp/>=<sp/>velocityX<sp/>+<sp/>accelerationX;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVy<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVz<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(absAy<sp/>&gt;=<sp/>absAx<sp/>&amp;&amp;<sp/>absAy<sp/>&gt;=<sp/>absAz)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVx<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVy<sp/>=<sp/>velocityY<sp/>+<sp/>accelerationY;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVz<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVx<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVy<sp/>=<sp/>0.0f;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>newVz<sp/>=<sp/>velocityZ<sp/>+<sp/>accelerationZ;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>absNewVx<sp/>=<sp/>std::abs(newVx);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>absNewVy<sp/>=<sp/>std::abs(newVy);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>absNewVz<sp/>=<sp/>std::abs(newVz);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>floatMaxSpeed;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((absNewVx<sp/>&gt;<sp/>0<sp/>&amp;&amp;<sp/>absNewVy<sp/>&gt;<sp/>0)<sp/>||<sp/>(absNewVx<sp/>&gt;<sp/>0<sp/>&amp;&amp;<sp/>absNewVz<sp/>&gt;<sp/>0)<sp/>||</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(absNewVy<sp/>&gt;<sp/>0<sp/>&amp;&amp;<sp/>absNewVz<sp/>&gt;<sp/>0))<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>floatMaxSpeed<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(maxSpeed)<sp/>/<sp/>2;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>floatMaxSpeed<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(maxSpeed);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Clamp<sp/>velocities<sp/>to<sp/>maxSpeed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>newVx<sp/>=<sp/>std::clamp(newVx,<sp/>-floatMaxSpeed,<sp/>floatMaxSpeed);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>newVy<sp/>=<sp/>std::clamp(newVy,<sp/>-floatMaxSpeed,<sp/>floatMaxSpeed);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>newVz<sp/>=<sp/>std::clamp(newVz,<sp/>-floatMaxSpeed,<sp/>floatMaxSpeed);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::make_tuple(newVx,<sp/>newVy,<sp/>newVz);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>calculateTimeToMove(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityX,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityY,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityZ)<sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Compute<sp/>the<sp/>squared<sp/>velocity<sp/>components</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityXSq<sp/>=<sp/>velocityX<sp/>*<sp/>velocityX;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityYSq<sp/>=<sp/>velocityY<sp/>*<sp/>velocityY;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityZSq<sp/>=<sp/>velocityZ<sp/>*<sp/>velocityZ;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculate<sp/>the<sp/>magnitude<sp/>of<sp/>the<sp/>velocity<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityMagnitude<sp/>=<sp/>std::sqrt(velocityXSq<sp/>+<sp/>velocityYSq<sp/>+<sp/>velocityZSq);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>timeToMove;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Avoid<sp/>division<sp/>by<sp/>zero<sp/>using<sp/>epsilon</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(velocityMagnitude<sp/>&gt;<sp/>std::numeric_limits&lt;float&gt;::epsilon())<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>timeToMove<sp/>=<sp/>100.0f<sp/>/<sp/>velocityMagnitude;<sp/><sp/></highlight><highlight class="comment">//<sp/>Time<sp/>to<sp/>move<sp/>100<sp/>units</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>timeToMove<sp/>=<sp/>std::numeric_limits&lt;float&gt;::max();<sp/><sp/></highlight><highlight class="comment">//<sp/>Represents<sp/>no<sp/>movement</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(timeToMove);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>calculateTimeToMove(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocity)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>timeToMove;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Avoid<sp/>division<sp/>by<sp/>zero<sp/>using<sp/>epsilon</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::abs(velocity)<sp/>&gt;<sp/>std::numeric_limits&lt;float&gt;::epsilon())<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>timeToMove<sp/>=<sp/>100.0f<sp/>/<sp/>std::abs(velocity);<sp/><sp/></highlight><highlight class="comment">//<sp/>Time<sp/>to<sp/>move<sp/>100<sp/>units</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>timeToMove<sp/>=<sp/>std::numeric_limits&lt;float&gt;::max();<sp/><sp/></highlight><highlight class="comment">//<sp/>Represents<sp/>no<sp/>movement</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(timeToMove);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>calculateVelocityFromTime(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>timeToMove)<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Handle<sp/>the<sp/>case<sp/>where<sp/>timeToMove<sp/>is<sp/>zero<sp/>or<sp/>extremely<sp/>small<sp/>to<sp/>avoid<sp/>division<sp/>by<sp/>zero</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(timeToMove<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>100.0f<sp/>/<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(timeToMove);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.0f;<sp/><sp/></highlight><highlight class="comment">//<sp/>Represents<sp/>infinite<sp/>time<sp/>meaning<sp/>no<sp/>movement<sp/>(or<sp/>stationary)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal">std::pair&lt;float,<sp/>bool&gt;<sp/>calculateVelocityAfterFrictionStep(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocity,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dt);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper:<sp/>Apply<sp/>friction<sp/>to<sp/>horizontal<sp/>velocities</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::tuple&lt;float,<sp/>float,<sp/>bool,<sp/>bool&gt;<sp/>applyKineticFrictionDamping(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityX,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityY,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MatterState<sp/>matterState,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>bellowIsStable,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVelocityZ)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(matterState<sp/>==<sp/>MatterState::SOLID<sp/>&amp;&amp;<sp/>bellowIsStable<sp/>&amp;&amp;<sp/>newVelocityZ<sp/>&lt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>resultX<sp/>=<sp/>calculateVelocityAfterFrictionStep(velocityX,<sp/>1);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVelocityX<sp/>=<sp/>resultX.first;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>resultY<sp/>=<sp/>calculateVelocityAfterFrictionStep(velocityY,<sp/>1);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVelocityY<sp/>=<sp/>resultY.first;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>resultX<sp/>=<sp/>calculateVelocityAfterFrictionStep(velocityX,<sp/>2);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>willStopX<sp/>=<sp/>resultX.second;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>resultY<sp/>=<sp/>calculateVelocityAfterFrictionStep(velocityY,<sp/>2);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>willStopY<sp/>=<sp/>resultY.second;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{newVelocityX,<sp/>newVelocityY,<sp/>willStopX,<sp/>willStopY};</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{velocityX,<sp/>velocityY,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>PHYSICAL_MATH_HPP</highlight></codeline>
+    </programlisting>
+    <location file="src/physics/PhysicalMath.hpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_2d7d2b3592c1299be114ca461067d2b3" kind="dir">
+    <compoundname>src/Gui/Windows</compoundname>
+    <innerfile refid="3DVoxelViewportWindows_8cpp">3DVoxelViewportWindows.cpp</innerfile>
+    <innerfile refid="CharacterFormWindows_8cpp">CharacterFormWindows.cpp</innerfile>
+    <innerfile refid="CharacterListWindows_8cpp">CharacterListWindows.cpp</innerfile>
+    <innerfile refid="WorldFormWindows_8cpp">WorldFormWindows.cpp</innerfile>
+    <innerfile refid="WorldListWindows_8cpp">WorldListWindows.cpp</innerfile>
+    <innerfile refid="WorldServerFormWindows_8cpp">WorldServerFormWindows.cpp</innerfile>
+    <innerfile refid="WorldTypeForm_8cpp">WorldTypeForm.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Gui/Windows/"/>
+  </compounddef>
+</doxygen>

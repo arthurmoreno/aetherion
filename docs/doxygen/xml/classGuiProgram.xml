@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGuiProgram" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>GuiProgram</compoundname>
+    <basecompoundref refid="classBasicProgram" prot="public" virt="non-virtual">BasicProgram</basecompoundref>
+    <derivedcompoundref refid="classAIStatisticsProgram" prot="public" virt="non-virtual">AIStatisticsProgram</derivedcompoundref>
+    <derivedcompoundref refid="classCameraSettingsProgram" prot="public" virt="non-virtual">CameraSettingsProgram</derivedcompoundref>
+    <derivedcompoundref refid="classConsoleProgram" prot="public" virt="non-virtual">ConsoleProgram</derivedcompoundref>
+    <derivedcompoundref refid="classEditorDebuggerProgram" prot="public" virt="non-virtual">EditorDebuggerProgram</derivedcompoundref>
+    <derivedcompoundref refid="classEntitiesStatsProgram" prot="public" virt="non-virtual">EntitiesStatsProgram</derivedcompoundref>
+    <derivedcompoundref refid="classEntityInterfaceProgram" prot="public" virt="non-virtual">EntityInterfaceProgram</derivedcompoundref>
+    <derivedcompoundref refid="classEquipmentProgram" prot="public" virt="non-virtual">EquipmentProgram</derivedcompoundref>
+    <derivedcompoundref refid="classGadgetsProgram" prot="public" virt="non-virtual">GadgetsProgram</derivedcompoundref>
+    <derivedcompoundref refid="classGeneralMetricsProgram" prot="public" virt="non-virtual">GeneralMetricsProgram</derivedcompoundref>
+    <derivedcompoundref refid="classInventoryProgram" prot="public" virt="non-virtual">InventoryProgram</derivedcompoundref>
+    <derivedcompoundref refid="classLifeMetricsProgram" prot="public" virt="non-virtual">LifeMetricsProgram</derivedcompoundref>
+    <derivedcompoundref refid="classPhysicsMetricsProgram" prot="public" virt="non-virtual">PhysicsMetricsProgram</derivedcompoundref>
+    <derivedcompoundref refid="classPhysicsSettingsProgram" prot="public" virt="non-virtual">PhysicsSettingsProgram</derivedcompoundref>
+    <derivedcompoundref refid="classPlayerStatsProgram" prot="public" virt="non-virtual">PlayerStatsProgram</derivedcompoundref>
+    <derivedcompoundref refid="classSettingsProgram" prot="public" virt="non-virtual">SettingsProgram</derivedcompoundref>
+    <includes refid="GuiProgram_8hpp" local="no">GuiProgram.hpp</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGuiProgram_1af255777992774b2e7e81a6e75c9c36a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual GuiProgram::~GuiProgram</definition>
+        <argsstring>()=default</argsstring>
+        <name>~GuiProgram</name>
+        <qualifiedname>GuiProgram::~GuiProgram</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/GuiProgram.hpp" line="25" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classGuiProgram_1af29b808428011e8e7a97a2341a867cb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void GuiProgram::render</definition>
+        <argsstring>(GuiContext &amp;context)=0</argsstring>
+        <name>render</name>
+        <qualifiedname>GuiProgram::render</qualifiedname>
+        <reimplementedby refid="classAIStatisticsProgram_1aaf1146f1ded7eda207f349d57a4a772a">render</reimplementedby>
+        <reimplementedby refid="classConsoleProgram_1ade364ab560c05a7540effca6a6f84ca7">render</reimplementedby>
+        <reimplementedby refid="classEditorDebuggerProgram_1a9ac521c8d750d9546adfe39964dc9477">render</reimplementedby>
+        <reimplementedby refid="classEntitiesStatsProgram_1a9a4575c490462031427e956085b105c1">render</reimplementedby>
+        <reimplementedby refid="classEntityInterfaceProgram_1a7741fbceb09f8f47b1fa42a0cbed0458">render</reimplementedby>
+        <reimplementedby refid="classGadgetsProgram_1a244e829f767d17c15d2361ff1afca171">render</reimplementedby>
+        <reimplementedby refid="classGeneralMetricsProgram_1ae25df26b20f176c293e6071aed3e976d">render</reimplementedby>
+        <reimplementedby refid="classLifeMetricsProgram_1a9cd37e62f42362c99d48d41807935e41">render</reimplementedby>
+        <reimplementedby refid="classPhysicsMetricsProgram_1a2360fb12720eaf21eb486f9861750561">render</reimplementedby>
+        <reimplementedby refid="classEquipmentProgram_1a744edb64dbb0b7469df45cff70293be7">render</reimplementedby>
+        <reimplementedby refid="classInventoryProgram_1a14a2f1711a4b4026950edcaa5319ae38">render</reimplementedby>
+        <reimplementedby refid="classPlayerStatsProgram_1aca619f8e366bed5d34fb31ec17db2a9d">render</reimplementedby>
+        <reimplementedby refid="classCameraSettingsProgram_1aa91d24deec7bfc82e36a9e2f818ea069">render</reimplementedby>
+        <reimplementedby refid="classPhysicsSettingsProgram_1a68b4aedc235a4b245aaf4deff255484e">render</reimplementedby>
+        <reimplementedby refid="classSettingsProgram_1a1e386be2f7932dd1f0ba1a3c52e6fc52">render</reimplementedby>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Render the program&apos;s GUI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Called once per frame if the program is active. The program should render its ImGui window(s) and append any generated commands to context.commands.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shared context containing all GUI data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/GuiProgram.hpp" line="35" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Base class for GUI programs in the GUI OS. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Extends <ref refid="classBasicProgram" kindref="compound">BasicProgram</ref> with rendering capabilities. Each GUI program represents an independent window/feature that can be shown/hidden and rendered independently. Programs are analogous to OS processes - they have lifecycle management, state, and can communicate via the command queue.</para>
+<para>Design Philosophy:<itemizedlist>
+<listitem><para>Each program is self-contained and owns its rendering logic</para>
+</listitem><listitem><para>Programs communicate via commands (loose coupling)</para>
+</listitem><listitem><para>Programs can be activated/deactivated independently</para>
+</listitem><listitem><para>The <ref refid="classGuiProgramManager" kindref="compound">GuiProgramManager</ref> acts as the &quot;process scheduler&quot; </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>AIStatisticsProgram</label>
+        <link refid="classAIStatisticsProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BasicProgram</label>
+        <link refid="classBasicProgram"/>
+      </node>
+      <node id="4">
+        <label>CameraSettingsProgram</label>
+        <link refid="classCameraSettingsProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>ConsoleProgram</label>
+        <link refid="classConsoleProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>EditorDebuggerProgram</label>
+        <link refid="classEditorDebuggerProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>EntitiesStatsProgram</label>
+        <link refid="classEntitiesStatsProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>EntityInterfaceProgram</label>
+        <link refid="classEntityInterfaceProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>EquipmentProgram</label>
+        <link refid="classEquipmentProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>GadgetsProgram</label>
+        <link refid="classGadgetsProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>GeneralMetricsProgram</label>
+        <link refid="classGeneralMetricsProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>GuiProgram</label>
+        <link refid="classGuiProgram"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>InventoryProgram</label>
+        <link refid="classInventoryProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>LifeMetricsProgram</label>
+        <link refid="classLifeMetricsProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>PhysicsMetricsProgram</label>
+        <link refid="classPhysicsMetricsProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>PhysicsSettingsProgram</label>
+        <link refid="classPhysicsSettingsProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>PlayerStatsProgram</label>
+        <link refid="classPlayerStatsProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>SettingsProgram</label>
+        <link refid="classSettingsProgram"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>BasicProgram</label>
+        <link refid="classBasicProgram"/>
+      </node>
+      <node id="1">
+        <label>GuiProgram</label>
+        <link refid="classGuiProgram"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/GuiCore/GuiProgram.hpp" line="23" column="1" bodyfile="src/Gui/GuiCore/GuiProgram.hpp" bodystart="23" bodyend="36"/>
+    <listofallmembers>
+      <member refid="classBasicProgram_1a2f0c761903eef20e843057c38117f316" prot="public" virt="pure-virtual"><scope>GuiProgram</scope><name>getDisplayName</name></member>
+      <member refid="classBasicProgram_1a26a8591ac10151b13a2d964fe44100ea" prot="public" virt="pure-virtual"><scope>GuiProgram</scope><name>getId</name></member>
+      <member refid="classBasicProgram_1a088f2f2d77597b4dcaeb8313703818c7" prot="public" virt="virtual"><scope>GuiProgram</scope><name>isActive</name></member>
+      <member refid="classBasicProgram_1ae4ca127f42a532988559ac5bcedf48b9" prot="protected" virt="non-virtual"><scope>GuiProgram</scope><name>isActive_</name></member>
+      <member refid="classBasicProgram_1a3e56437001058497ed1335eb0c014462" prot="public" virt="virtual"><scope>GuiProgram</scope><name>onActivate</name></member>
+      <member refid="classBasicProgram_1a02bb31892e0407f34232309b113e53b6" prot="public" virt="virtual"><scope>GuiProgram</scope><name>onDeactivate</name></member>
+      <member refid="classGuiProgram_1af29b808428011e8e7a97a2341a867cb2" prot="public" virt="pure-virtual"><scope>GuiProgram</scope><name>render</name></member>
+      <member refid="classBasicProgram_1aca42de4be8452dc77eb528a7726d4539" prot="public" virt="virtual"><scope>GuiProgram</scope><name>setActive</name></member>
+      <member refid="classBasicProgram_1ac5391a87afbf596da74c74111ab2ae3b" prot="public" virt="virtual"><scope>GuiProgram</scope><name>~BasicProgram</name></member>
+      <member refid="classGuiProgram_1af255777992774b2e7e81a6e75c9c36a1" prot="public" virt="virtual"><scope>GuiProgram</scope><name>~GuiProgram</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

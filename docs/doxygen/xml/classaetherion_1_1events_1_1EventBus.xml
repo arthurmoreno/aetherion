@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1events_1_1EventBus" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::events::EventBus</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Generic</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">E</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1events_1_1EventBus_1ac051ec3ec0aa7dc598d6d8f73f389dad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.EventBus.__init__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.events.EventBus.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="117" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="117" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1EventBus_1add1220f28ca431398870b45c71fda806" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.EventBus.subscribe</definition>
+        <argsstring>(self, E event_type, Callable[[GameEvent[E]], None] callback)</argsstring>
+        <name>subscribe</name>
+        <qualifiedname>aetherion.events.EventBus.subscribe</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>E</type>
+          <declname>event_type</declname>
+        </param>
+        <param>
+          <type>Callable]</type>
+          <defname>callback</defname>
+          <array>[[GameEvent[E]</array>
+        </param>
+        <param>
+          <type>None]</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Register a callback to be invoked when the specified event type occurs.
+
+Args:
+    event_type: The type of event to listen for (e.g., GameEventType.WORLD_CREATED)
+    callback: Function to call when the event occurs. Must accept a GameEvent parameter.
+
+Note:
+    Duplicate callbacks for the same event type are automatically prevented.
+    The callback will be executed synchronously when the event is processed.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="124" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="124" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1EventBus_1af6b89cb15a4b6e10f0b6881c61d16dff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.EventBus.unsubscribe</definition>
+        <argsstring>(self, E event_type, Callable[[GameEvent[E]], None] callback)</argsstring>
+        <name>unsubscribe</name>
+        <qualifiedname>aetherion.events.EventBus.unsubscribe</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>E</type>
+          <declname>event_type</declname>
+        </param>
+        <param>
+          <type>Callable]</type>
+          <defname>callback</defname>
+          <array>[[GameEvent[E]</array>
+        </param>
+        <param>
+          <type>None]</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Remove a callback from event type notifications.
+
+Args:
+    event_type: The event type to stop listening to
+    callback: The specific callback function to remove
+
+Note:
+    Silently ignores attempts to remove non-existent callbacks.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="138" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="138" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1EventBus_1a0dc947424d7276f0b073d3c367f7bad6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref>[E]</type>
+        <definition> GameEvent[E] aetherion.events.EventBus.emit</definition>
+        <argsstring>(self, E event_type, dict[str, Any] data={}, str|None source=None)</argsstring>
+        <name>emit</name>
+        <qualifiedname>aetherion.events.EventBus.emit</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>E</type>
+          <declname>event_type</declname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>data</declname>
+          <array>[str, Any]</array>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>source</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Create an event and queue it for later processing via process_events().
+
+Args:
+    event_type: The type of event to emit (e.g., GameEventType.WORLD_CREATED)
+    data: Optional dictionary containing event-specific data
+    source: Optional identifier of the event source for debugging/tracing
+
+Returns:
+    The created GameEvent instance (with auto-generated timestamp)
+
+Note:
+    Events are queued, not immediately dispatched. Call process_events() to deliver
+    them to subscribers. For immediate delivery, use emit_immediate() instead.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="156" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="156" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1EventBus_1aa595731c3a72ded70585dd142cbf10a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.EventBus.emit_immediate</definition>
+        <argsstring>(self, GameEvent[E] event)</argsstring>
+        <name>emit_immediate</name>
+        <qualifiedname>aetherion.events.EventBus.emit_immediate</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[E]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Dispatch an event to all registered listeners immediately.
+
+Args:
+    event: The GameEvent to dispatch
+
+Note:
+    Callbacks are executed synchronously in registration order. If a callback
+    raises an exception, it&apos;s logged but doesn&apos;t prevent other callbacks from running.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="175" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="175" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1EventBus_1a12169f7c0a8a33dc4a30bf36f401830b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.EventBus.process_events</definition>
+        <argsstring>(self)</argsstring>
+        <name>process_events</name>
+        <qualifiedname>aetherion.events.EventBus.process_events</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Dispatch all queued events to their registered listeners in FIFO order.
+
+This is typically called once per game loop iteration to process all events
+that were emitted since the last call. Events are processed in the order
+they were emitted (first-in, first-out).
+
+Note:
+    After processing, the event queue is empty. If a callback during processing
+    emits new events, they will be queued for the next process_events() call.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="194" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="194" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1EventBus_1a1900700863e32018b4de0ad9befbdadc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.EventBus.clear</definition>
+        <argsstring>(self)</argsstring>
+        <name>clear</name>
+        <qualifiedname>aetherion.events.EventBus.clear</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Remove all pending events from the queue without dispatching them.
+
+Useful for resetting the event system state, such as when transitioning
+between game scenes or during error recovery.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="209" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="209" bodyend="218"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Push-based event system using observer pattern with callback registration.
+
+Events are queued and dispatched to registered callbacks synchronously.
+Ideal for real-time game systems requiring immediate event response.
+
+Key features:
+    - Push-based: Immediate callback execution
+    - Type-safe: Enum-based event types
+    - Queued processing: Batch event handling
+    - Error-resilient: Callback exceptions don&apos;t block others
+
+Note: Not thread-safe. Use in single-threaded game loops.
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>E</label>
+      </node>
+      <node id="1">
+        <label>aetherion.events.EventBus</label>
+        <link refid="classaetherion_1_1events_1_1EventBus"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Generic</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>E</label>
+      </node>
+      <node id="1">
+        <label>aetherion.events.EventBus</label>
+        <link refid="classaetherion_1_1events_1_1EventBus"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Generic</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/events/__init__.py" line="102" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="102" bodyend="218"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1events_1_1EventBus_1ac051ec3ec0aa7dc598d6d8f73f389dad" prot="public" virt="non-virtual"><scope>aetherion::events::EventBus</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1events_1_1EventBus_1a1900700863e32018b4de0ad9befbdadc" prot="public" virt="non-virtual"><scope>aetherion::events::EventBus</scope><name>clear</name></member>
+      <member refid="classaetherion_1_1events_1_1EventBus_1a0dc947424d7276f0b073d3c367f7bad6" prot="public" virt="non-virtual"><scope>aetherion::events::EventBus</scope><name>emit</name></member>
+      <member refid="classaetherion_1_1events_1_1EventBus_1aa595731c3a72ded70585dd142cbf10a4" prot="public" virt="non-virtual"><scope>aetherion::events::EventBus</scope><name>emit_immediate</name></member>
+      <member refid="classaetherion_1_1events_1_1EventBus_1a12169f7c0a8a33dc4a30bf36f401830b" prot="public" virt="non-virtual"><scope>aetherion::events::EventBus</scope><name>process_events</name></member>
+      <member refid="classaetherion_1_1events_1_1EventBus_1add1220f28ca431398870b45c71fda806" prot="public" virt="non-virtual"><scope>aetherion::events::EventBus</scope><name>subscribe</name></member>
+      <member refid="classaetherion_1_1events_1_1EventBus_1af6b89cb15a4b6e10f0b6881c61d16dff" prot="public" virt="non-virtual"><scope>aetherion::events::EventBus</scope><name>unsubscribe</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

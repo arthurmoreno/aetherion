@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::windowing::window::OpenGLGameWindow</compoundname>
+    <basecompoundref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow" prot="public" virt="non-virtual">aetherion.windowing.window.GameWindow</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a9d02f3d7958c60fa2e9c9745d66809f5" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.windowing.window.OpenGLGameWindow::gl_context</definition>
+        <argsstring></argsstring>
+        <name>gl_context</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.gl_context</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="109" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.windowing.window.OpenGLGameWindow::window</definition>
+        <argsstring></argsstring>
+        <name>window</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.window</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="114" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a1b1059f5ec8d677ef90a241a61ed39d9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.windowing.window.OpenGLGameWindow::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="121" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a497890b3dda5fa864a67eb5e5e23b4a9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.windowing.window.OpenGLGameWindow::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="121" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="121" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a11bd134d20347751ebbc49809453117e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.windowing.window.OpenGLGameWindow.__init__</definition>
+        <argsstring>(self, str title, int width, int height, int flags=0)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>title</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="84" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="84" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a722a1d28020e88c1d623ee2b007a9303" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.windowing.window.OpenGLGameWindow.show</definition>
+        <argsstring>(self)</argsstring>
+        <name>show</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.show</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1ae84b012e42b45f50523e43f2eaff3fe6">show</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="113" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="113" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a4ce814143c50b2a28e17e6ad7c528d7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.windowing.window.OpenGLGameWindow.hide</definition>
+        <argsstring>(self)</argsstring>
+        <name>hide</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.hide</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1ac63d2d92e397ea54e3ee7c2d90aaa8d4">hide</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="116" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="116" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1acb2880a32051b88d7665de9cbca027b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.windowing.window.OpenGLGameWindow.refresh_size</definition>
+        <argsstring>(self)</argsstring>
+        <name>refresh_size</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.refresh_size</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a0c9b49a1a3ef391e7ed9288e1aa2e718">refresh_size</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="119" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="119" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a59eaf47812331d3c306139311a92e34d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>tuple[int, int]</type>
+        <definition> tuple[int, int] aetherion.windowing.window.OpenGLGameWindow.get_size</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_size</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.get_size</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a056fda569189168377bf8e481d4f2150">get_size</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="123" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="123" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a402477a3290365e3af75e84f5538fdf4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.windowing.window.OpenGLGameWindow.swap_buffers</definition>
+        <argsstring>(self)</argsstring>
+        <name>swap_buffers</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.swap_buffers</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a393566aae5916928cde4be661d5d7eda">swap_buffers</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Optional: swap buffers for OpenGL windows.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="126" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="126" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a1349f156215d4c1c1538db3f3940fbc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.windowing.window.OpenGLGameWindow.close</definition>
+        <argsstring>(self)</argsstring>
+        <name>close</name>
+        <qualifiedname>aetherion.windowing.window.OpenGLGameWindow.close</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a5af6cba4e624d19ae73d52ba4c28ba27">close</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="129" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="129" bodyend="134"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.windowing.window.OpenGLGameWindow</label>
+        <link refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.windowing.window.GameWindow</label>
+        <link refid="classaetherion_1_1windowing_1_1window_1_1GameWindow"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.windowing.window.OpenGLGameWindow</label>
+        <link refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.windowing.window.GameWindow</label>
+        <link refid="classaetherion_1_1windowing_1_1window_1_1GameWindow"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>window</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>SDL_Window</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/windowing/window.py" line="83" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="83" bodyend="134"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a11bd134d20347751ebbc49809453117e" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a1349f156215d4c1c1538db3f3940fbc3" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>close</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a59eaf47812331d3c306139311a92e34d" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>get_size</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a9d02f3d7958c60fa2e9c9745d66809f5" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>gl_context</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a497890b3dda5fa864a67eb5e5e23b4a9" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>height</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a4ce814143c50b2a28e17e6ad7c528d7c" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>hide</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1acb2880a32051b88d7665de9cbca027b2" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>refresh_size</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a722a1d28020e88c1d623ee2b007a9303" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>show</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a402477a3290365e3af75e84f5538fdf4" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>swap_buffers</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a1b1059f5ec8d677ef90a241a61ed39d9" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>width</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::OpenGLGameWindow</scope><name>window</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

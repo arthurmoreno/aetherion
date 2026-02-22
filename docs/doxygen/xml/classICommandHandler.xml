@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classICommandHandler" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>ICommandHandler</compoundname>
+    <derivedcompoundref refid="classGetAIStatisticsHandler" prot="public" virt="non-virtual">GetAIStatisticsHandler</derivedcompoundref>
+    <derivedcompoundref refid="classGetLifeStatisticsHandler" prot="public" virt="non-virtual">GetLifeStatisticsHandler</derivedcompoundref>
+    <derivedcompoundref refid="classGetPhysicsStatisticsHandler" prot="public" virt="non-virtual">GetPhysicsStatisticsHandler</derivedcompoundref>
+    <derivedcompoundref refid="classMoveCommandHandler" prot="public" virt="non-virtual">MoveCommandHandler</derivedcompoundref>
+    <derivedcompoundref refid="classQueryEntitiesDataHandler" prot="public" virt="non-virtual">QueryEntitiesDataHandler</derivedcompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classICommandHandler_1a2c2d11b6bd94d4bd721935b793fcd33d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual ICommandHandler::~ICommandHandler</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ICommandHandler</name>
+        <qualifiedname>ICommandHandler::~ICommandHandler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="16" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classICommandHandler_1a9e3dab195963e1d3ec7c62343c01f71b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool ICommandHandler::validate</definition>
+        <argsstring>(const QueryCommand &amp;cmd, std::string &amp;errorMsg) const =0</argsstring>
+        <name>validate</name>
+        <qualifiedname>ICommandHandler::validate</qualifiedname>
+        <reimplementedby refid="classQueryEntitiesDataHandler_1abc088d1eb5f09de10ba40efd7881ec9c">validate</reimplementedby>
+        <reimplementedby refid="classGetAIStatisticsHandler_1a6767135da86297180660a662ed9e3038">validate</reimplementedby>
+        <reimplementedby refid="classGetPhysicsStatisticsHandler_1a803c77cadd6ae3f6107187b62fea90bb">validate</reimplementedby>
+        <reimplementedby refid="classGetLifeStatisticsHandler_1a80924cccaa172fa8b5da14a0474a5293">validate</reimplementedby>
+        <reimplementedby refid="classMoveCommandHandler_1ac77e721d52e232ac152bdac145dac7a9">validate</reimplementedby>
+        <param>
+          <type>const <ref refid="structQueryCommand" kindref="compound">QueryCommand</ref> &amp;</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>errorMsg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="19" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classICommandHandler_1a4995cb32f3816435e273e45b4e985da1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void ICommandHandler::execute</definition>
+        <argsstring>(const QueryCommand &amp;cmd, PerceptionResponse &amp;response, entt::registry &amp;registry, GameDBHandler *dbHandler)=0</argsstring>
+        <name>execute</name>
+        <qualifiedname>ICommandHandler::execute</qualifiedname>
+        <reimplementedby refid="classQueryEntitiesDataHandler_1a8ffc90b1785d0578fc1e66dcd394e4a3">execute</reimplementedby>
+        <reimplementedby refid="classGetAIStatisticsHandler_1a43e1ff41630494da9ff5247a388f7ef6">execute</reimplementedby>
+        <reimplementedby refid="classGetPhysicsStatisticsHandler_1a97e9a53acdb8cb6e42d70c96d05317e0">execute</reimplementedby>
+        <reimplementedby refid="classGetLifeStatisticsHandler_1afdce98748bfb2a9bb9cdd02b0df4568d">execute</reimplementedby>
+        <reimplementedby refid="classMoveCommandHandler_1a4b480090d11a3999fd0817d695266333">execute</reimplementedby>
+        <param>
+          <type>const <ref refid="structQueryCommand" kindref="compound">QueryCommand</ref> &amp;</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="structPerceptionResponse" kindref="compound">PerceptionResponse</ref> &amp;</type>
+          <declname>response</declname>
+        </param>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classGameDBHandler" kindref="compound">GameDBHandler</ref> *</type>
+          <declname>dbHandler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="22" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>GetAIStatisticsHandler</label>
+        <link refid="classGetAIStatisticsHandler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>GetLifeStatisticsHandler</label>
+        <link refid="classGetLifeStatisticsHandler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>GetPhysicsStatisticsHandler</label>
+        <link refid="classGetPhysicsStatisticsHandler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ICommandHandler</label>
+        <link refid="classICommandHandler"/>
+      </node>
+      <node id="5">
+        <label>MoveCommandHandler</label>
+        <link refid="classMoveCommandHandler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>QueryEntitiesDataHandler</label>
+        <link refid="classQueryEntitiesDataHandler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="src/WorldClientAPI/CommandHandlers.hpp" line="14" column="1" bodyfile="src/WorldClientAPI/CommandHandlers.hpp" bodystart="14" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classICommandHandler_1a4995cb32f3816435e273e45b4e985da1" prot="public" virt="pure-virtual"><scope>ICommandHandler</scope><name>execute</name></member>
+      <member refid="classICommandHandler_1a9e3dab195963e1d3ec7c62343c01f71b" prot="public" virt="pure-virtual"><scope>ICommandHandler</scope><name>validate</name></member>
+      <member refid="classICommandHandler_1a2c2d11b6bd94d4bd721935b793fcd33d" prot="public" virt="virtual"><scope>ICommandHandler</scope><name>~ICommandHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -4,6 +4,8 @@
     <compoundname>src/LowLevelRenderer</compoundname>
     <innerfile refid="FontManager_8hpp">FontManager.hpp</innerfile>
     <innerfile refid="RenderQueue_8hpp">RenderQueue.hpp</innerfile>
+    <innerfile refid="SceneComponents_8hpp">SceneComponents.hpp</innerfile>
+    <innerfile refid="SceneGraph_8hpp">SceneGraph.hpp</innerfile>
     <innerfile refid="TextureManager_8cpp">TextureManager.cpp</innerfile>
     <innerfile refid="TextureManager_8hpp">TextureManager.hpp</innerfile>
     <briefdescription>

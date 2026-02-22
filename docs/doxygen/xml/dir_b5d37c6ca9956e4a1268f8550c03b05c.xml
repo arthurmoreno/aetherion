@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_b5d37c6ca9956e4a1268f8550c03b05c" kind="dir">
+    <compoundname>src/aetherion/entities</compoundname>
+    <innerdir refid="dir_dcfe32bc9a015f39c09dd94bd989a623">src/aetherion/entities/items</innerdir>
+    <innerdir refid="dir_f2050bfb51226511a4915da1515ae279">src/aetherion/entities/views</innerdir>
+    <innerfile refid="entities_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="entities_2base_8py">base.py</innerfile>
+    <innerfile refid="beasts_8py">beasts.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/entities/"/>
+  </compounddef>
+</doxygen>

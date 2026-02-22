@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_686d0d99a431ee0a6335b27dc2a06758" kind="dir">
+    <compoundname>src/aetherion/events</compoundname>
+    <innerdir refid="dir_51de5ad01931b8438d9916598384a04b">src/aetherion/events/handlers</innerdir>
+    <innerfile refid="events_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="action__event_8py">action_event.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/events/"/>
+  </compounddef>
+</doxygen>

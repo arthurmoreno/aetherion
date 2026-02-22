@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="TerminalCommand_8hpp" kind="file" language="C++">
+    <compoundname>TerminalCommand.hpp</compoundname>
+    <includes local="no">nanobind/nanobind.h</includes>
+    <includes local="no">deque</includes>
+    <includes local="no">string</includes>
+    <includedby refid="ConsoleProgram_8hpp" local="yes">src/Gui/GuiPrograms/Debug/ConsoleProgram.hpp</includedby>
+    <includedby refid="ClearCommand_8hpp" local="yes">src/Gui/TerminalPrograms/ClearCommand.hpp</includedby>
+    <includedby refid="HelpCommand_8hpp" local="yes">src/Gui/TerminalPrograms/HelpCommand.hpp</includedby>
+    <includedby refid="HistoryCommand_8hpp" local="yes">src/Gui/TerminalPrograms/HistoryCommand.hpp</includedby>
+    <includedby refid="QueueCommand_8hpp" local="yes">src/Gui/TerminalPrograms/QueueCommand.hpp</includedby>
+    <includedby refid="TerminalCommand_8cpp" local="yes">src/Gui/TerminalPrograms/TerminalCommand.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/Gui/TerminalPrograms/TerminalCommand.hpp</label>
+        <link refid="TerminalCommand_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>deque</label>
+      </node>
+      <node id="2">
+        <label>nanobind/nanobind.h</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>src/Gui/AllGuiPrograms.hpp</label>
+        <link refid="AllGuiPrograms_8hpp"/>
+      </node>
+      <node id="2">
+        <label>src/Gui/GuiPrograms/Debug/ConsoleProgram.hpp</label>
+        <link refid="ConsoleProgram_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/Gui/TerminalPrograms/ClearCommand.hpp</label>
+        <link refid="ClearCommand_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>src/Gui/TerminalPrograms/HelpCommand.hpp</label>
+        <link refid="HelpCommand_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>src/Gui/TerminalPrograms/HistoryCommand.hpp</label>
+        <link refid="HistoryCommand_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/Gui/TerminalPrograms/QueueCommand.hpp</label>
+        <link refid="QueueCommand_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/Gui/TerminalPrograms/TerminalCommand.hpp</label>
+        <link refid="TerminalCommand_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structTerminalLine" prot="public">TerminalLine</innerclass>
+    <innerclass refid="classTerminalCommand" prot="public">TerminalCommand</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;nanobind/nanobind.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;deque&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">nb<sp/>=<sp/>nanobind;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>TerminalLine<sp/>structure<sp/>(needs<sp/>to<sp/>be<sp/>complete<sp/>for<sp/>std::deque)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="structTerminalLine" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structTerminalLine" kindref="compound">TerminalLine</ref><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>text;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isCommand<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isError<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structTerminalLine" kindref="compound">TerminalLine</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>t,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>cmd<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>err<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>text(t),<sp/>isCommand(cmd),<sp/>isError(err)<sp/>{}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Forward<sp/>declaration<sp/>for<sp/>GuiContext</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structGuiContext" kindref="compound">GuiContext</ref>;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="classTerminalCommand" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classTerminalCommand" kindref="compound">TerminalCommand</ref><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classTerminalCommand" kindref="compound">~TerminalCommand</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="classTerminalCommand_1a8db344419dde80954a49c1dcd0d829b7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classTerminalCommand_1a8db344419dde80954a49c1dcd0d829b7" kindref="member">execute</ref>(<ref refid="structGuiContext" kindref="compound">GuiContext</ref>&amp;<sp/>context,<sp/>std::deque&lt;TerminalLine&gt;&amp;<sp/>terminalBuffer,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">&amp;<sp/>scrollToBottom)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="classTerminalCommand_1a7163905f3b608f3a7bd2076c9b45fde7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classTerminalCommand_1a7163905f3b608f3a7bd2076c9b45fde7" kindref="member">getName</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="classTerminalCommand_1a534632bd9b96f4d09df488f28b6cb5dd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classTerminalCommand_1a534632bd9b96f4d09df488f28b6cb5dd" kindref="member">getDescription</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classTerminalCommand_1a8975332a523175e1d4983db065de5ea0" kindref="member">addOutput</ref>(std::deque&lt;TerminalLine&gt;&amp;<sp/>terminalBuffer,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>text,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isCommand<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isError<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="src/Gui/TerminalPrograms/TerminalCommand.hpp"/>
+  </compounddef>
+</doxygen>

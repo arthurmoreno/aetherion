@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_b3caa97119d395f5286dbb18eb2053ed" kind="dir">
+    <compoundname>src/Gui/GuiPrograms/Game</compoundname>
+    <innerfile refid="EquipmentProgram_8hpp">EquipmentProgram.hpp</innerfile>
+    <innerfile refid="InventoryProgram_8hpp">InventoryProgram.hpp</innerfile>
+    <innerfile refid="PlayerStatsProgram_8hpp">PlayerStatsProgram.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Gui/GuiPrograms/Game/"/>
+  </compounddef>
+</doxygen>

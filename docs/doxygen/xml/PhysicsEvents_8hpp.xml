@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="PhysicsEvents_8hpp" kind="file" language="C++">
+    <compoundname>PhysicsEvents.hpp</compoundname>
+    <includedby refid="PhysicsEngine_8hpp" local="yes">src/PhysicsEngine.hpp</includedby>
+    <includedby refid="ecosystem_2ReadonlyQueries_8hpp" local="yes">src/ecosystem/ReadonlyQueries.hpp</includedby>
+    <includedby refid="PhysicsMutators_8hpp" local="yes">src/physics/PhysicsMutators.hpp</includedby>
+    <invincdepgraph>
+      <node id="7">
+        <label>src/Gui/AllGuiPrograms.hpp</label>
+        <link refid="AllGuiPrograms_8hpp"/>
+      </node>
+      <node id="4">
+        <label>src/Gui/Gui.hpp</label>
+        <link refid="Gui_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>src/Gui/GuiCore/GuiProgram.hpp</label>
+        <link refid="GuiProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>src/Gui/GuiCore/GuiProgramManager.hpp</label>
+        <link refid="GuiProgramManager_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>src/Gui/GuiCore/TerminalProgram.hpp</label>
+        <link refid="TerminalProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>src/Gui/GuiCore/TerminalProgramManager.hpp</label>
+        <link refid="TerminalProgramManager_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>src/Gui/GuiPrograms/Debug/AIStatisticsProgram.hpp</label>
+        <link refid="AIStatisticsProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>src/Gui/GuiPrograms/Debug/ConsoleProgram.hpp</label>
+        <link refid="ConsoleProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp</label>
+        <link refid="EditorDebuggerProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>src/Gui/GuiPrograms/Debug/EntitiesStatsProgram.hpp</label>
+        <link refid="EntitiesStatsProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>src/Gui/GuiPrograms/Debug/EntityInterfaceProgram.hpp</label>
+        <link refid="EntityInterfaceProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>src/Gui/GuiPrograms/Debug/GadgetsProgram.hpp</label>
+        <link refid="GadgetsProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>src/Gui/GuiPrograms/Debug/GeneralMetricsProgram.hpp</label>
+        <link refid="GeneralMetricsProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>src/Gui/GuiPrograms/Debug/LifeMetricsProgram.hpp</label>
+        <link refid="LifeMetricsProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>src/Gui/GuiPrograms/Debug/PhysicsMetricsProgram.hpp</label>
+        <link refid="PhysicsMetricsProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>src/Gui/GuiPrograms/Game/EquipmentProgram.hpp</label>
+        <link refid="EquipmentProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>src/Gui/GuiPrograms/Game/InventoryProgram.hpp</label>
+        <link refid="InventoryProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>src/Gui/GuiPrograms/Game/PlayerStatsProgram.hpp</label>
+        <link refid="PlayerStatsProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>src/Gui/GuiPrograms/Settings/CameraSettingsProgram.hpp</label>
+        <link refid="CameraSettingsProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>src/Gui/GuiPrograms/Settings/PhysicsSettingsProgram.hpp</label>
+        <link refid="PhysicsSettingsProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>src/Gui/GuiPrograms/Settings/SettingsProgram.hpp</label>
+        <link refid="SettingsProgram_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/PhysicsEngine.hpp</label>
+        <link refid="PhysicsEngine_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/World.hpp</label>
+        <link refid="World_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>src/aetherion.hpp</label>
+        <link refid="aetherion_8hpp_source"/>
+      </node>
+      <node id="8">
+        <label>src/components/core/GuiContext.hpp</label>
+        <link refid="GuiContext_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>src/ecosystem/ReadonlyQueries.hpp</label>
+        <link refid="ecosystem_2ReadonlyQueries_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>src/physics/PhysicsEvents.hpp</label>
+        <link refid="PhysicsEvents_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>src/physics/PhysicsMutators.hpp</label>
+        <link refid="PhysicsMutators_8hpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structInvalidTerrainFoundEvent" prot="public">InvalidTerrainFoundEvent</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>PHYSICS_EVENTS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHYSICS_EVENTS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="structInvalidTerrainFoundEvent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structInvalidTerrainFoundEvent" kindref="compound">InvalidTerrainFoundEvent</ref><sp/>{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/>y,<sp/>z;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>PHYSICS_EVENTS_HPP</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/physics/PhysicsEvents.hpp"/>
+  </compounddef>
+</doxygen>

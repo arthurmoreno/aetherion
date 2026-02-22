@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_ca4b723119223baf097f78ed2d734faa" kind="dir">
+    <compoundname>src/voxelgrid</compoundname>
+    <innerfile refid="GridData_8hpp">GridData.hpp</innerfile>
+    <innerfile refid="VoxelGrid_8cpp">VoxelGrid.cpp</innerfile>
+    <innerfile refid="VoxelGrid_8hpp">VoxelGrid.hpp</innerfile>
+    <innerfile refid="VoxelGridView_8hpp">VoxelGridView.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/voxelgrid/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structGridBoxProcessor_1_1ThreadAccessors" kind="struct" language="C++" prot="private">
+    <compoundname>GridBoxProcessor::ThreadAccessors</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structGridBoxProcessor_1_1ThreadAccessors_1a33bc314f93e4b723d804d0eb57f1e297" prot="public" static="no" mutable="no">
+        <type>std::optional&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::optional&lt;openvdb::Int32Grid::Accessor&gt; GridBoxProcessor::ThreadAccessors::waterAccessor</definition>
+        <argsstring></argsstring>
+        <name>waterAccessor</name>
+        <qualifiedname>GridBoxProcessor::ThreadAccessors::waterAccessor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="166" column="23" bodyfile="src/EcosystemEngine.hpp" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBoxProcessor_1_1ThreadAccessors_1a2200ee549b9f86eda04207ebe611a7e3" prot="public" static="no" mutable="no">
+        <type>std::optional&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::optional&lt;openvdb::Int32Grid::Accessor&gt; GridBoxProcessor::ThreadAccessors::vaporAccessor</definition>
+        <argsstring></argsstring>
+        <name>vaporAccessor</name>
+        <qualifiedname>GridBoxProcessor::ThreadAccessors::vaporAccessor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="167" column="23" bodyfile="src/EcosystemEngine.hpp" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBoxProcessor_1_1ThreadAccessors_1ae2ea3ebc56953005cedb6ea2b7217bc4" prot="public" static="no" mutable="no">
+        <type>std::optional&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::optional&lt;openvdb::Int32Grid::Accessor&gt; GridBoxProcessor::ThreadAccessors::mainTypeAccessor</definition>
+        <argsstring></argsstring>
+        <name>mainTypeAccessor</name>
+        <qualifiedname>GridBoxProcessor::ThreadAccessors::mainTypeAccessor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="168" column="23" bodyfile="src/EcosystemEngine.hpp" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBoxProcessor_1_1ThreadAccessors_1aea0032a34f3b104013bb77c10f3f722a" prot="public" static="no" mutable="no">
+        <type>std::optional&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::optional&lt;openvdb::Int32Grid::Accessor&gt; GridBoxProcessor::ThreadAccessors::subType0Accessor</definition>
+        <argsstring></argsstring>
+        <name>subType0Accessor</name>
+        <qualifiedname>GridBoxProcessor::ThreadAccessors::subType0Accessor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="169" column="23" bodyfile="src/EcosystemEngine.hpp" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBoxProcessor_1_1ThreadAccessors_1a71c6273b5a8eedb2eaafbc80e76ced65" prot="public" static="no" mutable="no">
+        <type>std::optional&lt; openvdb::Int32Grid::ConstAccessor &gt;</type>
+        <definition>std::optional&lt;openvdb::Int32Grid::ConstAccessor&gt; GridBoxProcessor::ThreadAccessors::flagsAccessor</definition>
+        <argsstring></argsstring>
+        <name>flagsAccessor</name>
+        <qualifiedname>GridBoxProcessor::ThreadAccessors::flagsAccessor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="170" column="23" bodyfile="src/EcosystemEngine.hpp" bodystart="170" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="165" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="165" bodyend="171"/>
+    <listofallmembers>
+      <member refid="structGridBoxProcessor_1_1ThreadAccessors_1a71c6273b5a8eedb2eaafbc80e76ced65" prot="public" virt="non-virtual"><scope>GridBoxProcessor::ThreadAccessors</scope><name>flagsAccessor</name></member>
+      <member refid="structGridBoxProcessor_1_1ThreadAccessors_1ae2ea3ebc56953005cedb6ea2b7217bc4" prot="public" virt="non-virtual"><scope>GridBoxProcessor::ThreadAccessors</scope><name>mainTypeAccessor</name></member>
+      <member refid="structGridBoxProcessor_1_1ThreadAccessors_1aea0032a34f3b104013bb77c10f3f722a" prot="public" virt="non-virtual"><scope>GridBoxProcessor::ThreadAccessors</scope><name>subType0Accessor</name></member>
+      <member refid="structGridBoxProcessor_1_1ThreadAccessors_1a2200ee549b9f86eda04207ebe611a7e3" prot="public" virt="non-virtual"><scope>GridBoxProcessor::ThreadAccessors</scope><name>vaporAccessor</name></member>
+      <member refid="structGridBoxProcessor_1_1ThreadAccessors_1a33bc314f93e4b723d804d0eb57f1e297" prot="public" virt="non-virtual"><scope>GridBoxProcessor::ThreadAccessors</scope><name>waterAccessor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

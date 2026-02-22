@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1resource__manager_1_1ResourceManager" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::resource_manager::ResourceManager</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1resource__manager_1_1ResourceManager_1a3dcd0210aafddd729e8697d5915ffeff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.resource_manager.ResourceManager.__init__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.resource_manager.ResourceManager.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/resource_manager.py" line="11" column="1" bodyfile="src/aetherion/resource_manager.py" bodystart="11" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1resource__manager_1_1ResourceManager_1a7d6d750eb680086295d6e69277284cca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.resource_manager.ResourceManager.register</definition>
+        <argsstring>(self, str key, object resource)</argsstring>
+        <name>register</name>
+        <qualifiedname>aetherion.resource_manager.ResourceManager.register</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>resource</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Register a resource under a unique key. Overwrites if key already exists.
+
+Args:
+    key: Identifier for the resource.
+    resource: The resource object to store.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/resource_manager.py" line="14" column="1" bodyfile="src/aetherion/resource_manager.py" bodystart="14" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1resource__manager_1_1ResourceManager_1a7dac5067ea1f2f14b9591a3772f6aa43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>object|None</type>
+        <definition> object | None aetherion.resource_manager.ResourceManager.get</definition>
+        <argsstring>(self, str key)</argsstring>
+        <name>get</name>
+        <qualifiedname>aetherion.resource_manager.ResourceManager.get</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Retrieve a registered resource by key.
+
+Args:
+    key: Identifier of the resource.
+
+Returns:
+    The registered resource, or None if not found.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/resource_manager.py" line="24" column="1" bodyfile="src/aetherion/resource_manager.py" bodystart="24" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1resource__manager_1_1ResourceManager_1a9b7dfb7a7936c8130b02a2b5319cc1f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.resource_manager.ResourceManager.has</definition>
+        <argsstring>(self, str key)</argsstring>
+        <name>has</name>
+        <qualifiedname>aetherion.resource_manager.ResourceManager.has</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if a resource is registered under the given key.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/resource_manager.py" line="36" column="1" bodyfile="src/aetherion/resource_manager.py" bodystart="36" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1resource__manager_1_1ResourceManager_1a5668547699d367d7ed0a149816c315f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.resource_manager.ResourceManager.unregister</definition>
+        <argsstring>(self, str key)</argsstring>
+        <name>unregister</name>
+        <qualifiedname>aetherion.resource_manager.ResourceManager.unregister</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Remove a resource from the registry.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/resource_manager.py" line="42" column="1" bodyfile="src/aetherion/resource_manager.py" bodystart="42" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1resource__manager_1_1ResourceManager_1acaef744deab58783ef741979c3451552" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.resource_manager.ResourceManager.clear</definition>
+        <argsstring>(self)</argsstring>
+        <name>clear</name>
+        <qualifiedname>aetherion.resource_manager.ResourceManager.clear</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Remove all registered resources.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/resource_manager.py" line="48" column="1" bodyfile="src/aetherion/resource_manager.py" bodystart="48" bodyend="55"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>A registry to hold and retrieve shared resource instances by key.
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/resource_manager.py" line="6" column="1" bodyfile="src/aetherion/resource_manager.py" bodystart="6" bodyend="55"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1resource__manager_1_1ResourceManager_1a3dcd0210aafddd729e8697d5915ffeff" prot="public" virt="non-virtual"><scope>aetherion::resource_manager::ResourceManager</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1resource__manager_1_1ResourceManager_1acaef744deab58783ef741979c3451552" prot="public" virt="non-virtual"><scope>aetherion::resource_manager::ResourceManager</scope><name>clear</name></member>
+      <member refid="classaetherion_1_1resource__manager_1_1ResourceManager_1a7dac5067ea1f2f14b9591a3772f6aa43" prot="public" virt="non-virtual"><scope>aetherion::resource_manager::ResourceManager</scope><name>get</name></member>
+      <member refid="classaetherion_1_1resource__manager_1_1ResourceManager_1a9b7dfb7a7936c8130b02a2b5319cc1f9" prot="public" virt="non-virtual"><scope>aetherion::resource_manager::ResourceManager</scope><name>has</name></member>
+      <member refid="classaetherion_1_1resource__manager_1_1ResourceManager_1a7d6d750eb680086295d6e69277284cca" prot="public" virt="non-virtual"><scope>aetherion::resource_manager::ResourceManager</scope><name>register</name></member>
+      <member refid="classaetherion_1_1resource__manager_1_1ResourceManager_1a5668547699d367d7ed0a149816c315f4" prot="public" virt="non-virtual"><scope>aetherion::resource_manager::ResourceManager</scope><name>unregister</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

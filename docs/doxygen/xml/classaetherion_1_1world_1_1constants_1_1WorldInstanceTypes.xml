@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::world::constants::WorldInstanceTypes</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">IntEnum</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes_1abfa9006287e03a070982ae57c3b49dbb" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.world.constants.WorldInstanceTypes::SYNCHRONOUS</definition>
+        <argsstring></argsstring>
+        <name>SYNCHRONOUS</name>
+        <qualifiedname>aetherion.world.constants.WorldInstanceTypes.SYNCHRONOUS</qualifiedname>
+        <initializer>=  1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/constants.py" line="7" column="1" bodyfile="src/aetherion/world/constants.py" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes_1ae008bb8b6f5e99bccfbe76b724edac1c" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.world.constants.WorldInstanceTypes::PIPE_PROCESS</definition>
+        <argsstring></argsstring>
+        <name>PIPE_PROCESS</name>
+        <qualifiedname>aetherion.world.constants.WorldInstanceTypes.PIPE_PROCESS</qualifiedname>
+        <initializer>=  2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/constants.py" line="8" column="1" bodyfile="src/aetherion/world/constants.py" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes_1a8392d92bfd43960d16e29170c15ceeed" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.world.constants.WorldInstanceTypes::SERVER</definition>
+        <argsstring></argsstring>
+        <name>SERVER</name>
+        <qualifiedname>aetherion.world.constants.WorldInstanceTypes.SERVER</qualifiedname>
+        <initializer>=  3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/constants.py" line="9" column="1" bodyfile="src/aetherion/world/constants.py" bodystart="9" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.world.constants.WorldInstanceTypes</label>
+        <link refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IntEnum</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.world.constants.WorldInstanceTypes</label>
+        <link refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IntEnum</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/world/constants.py" line="6" column="1" bodyfile="src/aetherion/world/constants.py" bodystart="6" bodyend="11"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes_1ae008bb8b6f5e99bccfbe76b724edac1c" prot="public" virt="non-virtual"><scope>aetherion::world::constants::WorldInstanceTypes</scope><name>PIPE_PROCESS</name></member>
+      <member refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes_1a8392d92bfd43960d16e29170c15ceeed" prot="public" virt="non-virtual"><scope>aetherion::world::constants::WorldInstanceTypes</scope><name>SERVER</name></member>
+      <member refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes_1abfa9006287e03a070982ae57c3b49dbb" prot="public" virt="non-virtual"><scope>aetherion::world::constants::WorldInstanceTypes</scope><name>SYNCHRONOUS</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

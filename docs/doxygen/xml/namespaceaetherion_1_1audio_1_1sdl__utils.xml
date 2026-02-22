@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1audio_1_1sdl__utils" kind="namespace" language="Python">
+    <compoundname>aetherion::audio::sdl_utils</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="sdl__utils_8py_1a08c426ffb6237fb020c9ce658217762d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.sdl_utils.init_sdl</definition>
+        <argsstring>()</argsstring>
+        <name>init_sdl</name>
+        <qualifiedname>aetherion.audio.sdl_utils.init_sdl</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initialize SDL2 with video and audio subsystems.
+
+Raises:
+    AudioInitError: If SDL2 initialization fails.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sdl_utils.py" line="8" column="1" bodyfile="src/aetherion/audio/sdl_utils.py" bodystart="8" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="sdl__utils_8py_1a85a50bc30437d2c51961b52b8f6ab1e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.sdl_utils.init_mixer</definition>
+        <argsstring>()</argsstring>
+        <name>init_mixer</name>
+        <qualifiedname>aetherion.audio.sdl_utils.init_mixer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initialize SDL2_mixer with MP3 and OGG support.
+
+Opens audio device with 44.1kHz, stereo, 4096 byte buffer.
+
+Raises:
+    AudioInitError: If SDL2_mixer initialization or audio device opening fails.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sdl_utils.py" line="24" column="1" bodyfile="src/aetherion/audio/sdl_utils.py" bodystart="24" bodyend="58"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/audio/sdl_utils.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

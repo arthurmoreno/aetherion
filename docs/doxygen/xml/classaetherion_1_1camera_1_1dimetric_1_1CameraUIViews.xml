@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1camera_1_1dimetric_1_1CameraUIViews" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::camera::dimetric::CameraUIViews</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">TypedDict</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1dimetric_1_1CameraUIViews_1a4e7dc0a90c51c03e51c51ffbba547f80" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.dimetric.CameraUIViews::lifebar</definition>
+        <argsstring></argsstring>
+        <name>lifebar</name>
+        <qualifiedname>aetherion.camera.dimetric.CameraUIViews.lifebar</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="32" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1dimetric_1_1CameraUIViews_1afd219c56f3fdad638d1278efd36b6cd4" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.dimetric.CameraUIViews::gradient_arrow</definition>
+        <argsstring></argsstring>
+        <name>gradient_arrow</name>
+        <qualifiedname>aetherion.camera.dimetric.CameraUIViews.gradient_arrow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="33" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.camera.dimetric.CameraUIViews</label>
+        <link refid="classaetherion_1_1camera_1_1dimetric_1_1CameraUIViews"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.camera.dimetric.CameraUIViews</label>
+        <link refid="classaetherion_1_1camera_1_1dimetric_1_1CameraUIViews"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>gradient_arrow</edgelabel>
+          <edgelabel>lifebar</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Any</label>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/camera/dimetric.py" line="31" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="31" bodyend="35"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1camera_1_1dimetric_1_1CameraUIViews_1afd219c56f3fdad638d1278efd36b6cd4" prot="public" virt="non-virtual"><scope>aetherion::camera::dimetric::CameraUIViews</scope><name>gradient_arrow</name></member>
+      <member refid="classaetherion_1_1camera_1_1dimetric_1_1CameraUIViews_1a4e7dc0a90c51c03e51c51ffbba547f80" prot="public" virt="non-virtual"><scope>aetherion::camera::dimetric::CameraUIViews</scope><name>lifebar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

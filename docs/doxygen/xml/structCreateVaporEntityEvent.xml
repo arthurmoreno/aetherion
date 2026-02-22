@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structCreateVaporEntityEvent" kind="struct" language="C++" prot="public">
+    <compoundname>CreateVaporEntityEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structCreateVaporEntityEvent_1aed69028c2d951359a3fc8d7c7e4045f0" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position CreateVaporEntityEvent::position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <qualifiedname>CreateVaporEntityEvent::position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="129" column="14" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structCreateVaporEntityEvent_1a2d177c94a3fc8a6f03f3173941d7ee6d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CreateVaporEntityEvent::rhoEnv</definition>
+        <argsstring></argsstring>
+        <name>rhoEnv</name>
+        <qualifiedname>CreateVaporEntityEvent::rhoEnv</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="130" column="11" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structCreateVaporEntityEvent_1aeab29fd70f5f2c2038798fbe5ed41a67" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CreateVaporEntityEvent::rhoVapor</definition>
+        <argsstring></argsstring>
+        <name>rhoVapor</name>
+        <qualifiedname>CreateVaporEntityEvent::rhoVapor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="131" column="11" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structCreateVaporEntityEvent_1ae274d81b46f733a405afb5ee460b6e5f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CreateVaporEntityEvent::CreateVaporEntityEvent</definition>
+        <argsstring>(Position position, float rhoEnv, float rhoVapor)</argsstring>
+        <name>CreateVaporEntityEvent</name>
+        <qualifiedname>CreateVaporEntityEvent::CreateVaporEntityEvent</qualifiedname>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>position</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>rhoEnv</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>rhoVapor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="133" column="5" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="133" bodyend="134"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>CreateVaporEntityEvent</label>
+        <link refid="structCreateVaporEntityEvent"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>position</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Position</label>
+        <link refid="structPosition"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/ecosystem/EcosystemEvents.hpp" line="128" column="1" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="128" bodyend="135"/>
+    <listofallmembers>
+      <member refid="structCreateVaporEntityEvent_1ae274d81b46f733a405afb5ee460b6e5f" prot="public" virt="non-virtual"><scope>CreateVaporEntityEvent</scope><name>CreateVaporEntityEvent</name></member>
+      <member refid="structCreateVaporEntityEvent_1aed69028c2d951359a3fc8d7c7e4045f0" prot="public" virt="non-virtual"><scope>CreateVaporEntityEvent</scope><name>position</name></member>
+      <member refid="structCreateVaporEntityEvent_1a2d177c94a3fc8a6f03f3173941d7ee6d" prot="public" virt="non-virtual"><scope>CreateVaporEntityEvent</scope><name>rhoEnv</name></member>
+      <member refid="structCreateVaporEntityEvent_1aeab29fd70f5f2c2038798fbe5ed41a67" prot="public" virt="non-virtual"><scope>CreateVaporEntityEvent</scope><name>rhoVapor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

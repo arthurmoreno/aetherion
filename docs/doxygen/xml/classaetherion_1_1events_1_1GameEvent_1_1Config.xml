@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1events_1_1GameEvent_1_1Config" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::events::GameEvent::Config</compoundname>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEvent_1_1Config_1a1fb316a34b3bdcdc513dce79b77981e9" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.events.GameEvent.Config::use_enum_values</definition>
+        <argsstring></argsstring>
+        <name>use_enum_values</name>
+        <qualifiedname>aetherion.events.GameEvent.Config.use_enum_values</qualifiedname>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="98" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEvent_1_1Config_1aae2f1a1c0d1c4ce48f930a850207dca5" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.events.GameEvent.Config::frozen</definition>
+        <argsstring></argsstring>
+        <name>frozen</name>
+        <qualifiedname>aetherion.events.GameEvent.Config.frozen</qualifiedname>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="99" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="99" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/events/__init__.py" line="96" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="96" bodyend="101"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1events_1_1GameEvent_1_1Config_1aae2f1a1c0d1c4ce48f930a850207dca5" prot="public" virt="non-virtual"><scope>aetherion::events::GameEvent::Config</scope><name>frozen</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEvent_1_1Config_1a1fb316a34b3bdcdc513dce79b77981e9" prot="public" virt="non-virtual"><scope>aetherion::events::GameEvent::Config</scope><name>use_enum_values</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

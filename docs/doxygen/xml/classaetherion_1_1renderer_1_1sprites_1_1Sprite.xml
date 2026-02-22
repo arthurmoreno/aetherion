@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1renderer_1_1sprites_1_1Sprite" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::renderer::sprites::Sprite</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ae11b424b8c546e57282ad14eda5e86a0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.sprites.Sprite::sprite_id</definition>
+        <argsstring></argsstring>
+        <name>sprite_id</name>
+        <qualifiedname>aetherion.renderer.sprites.Sprite.sprite_id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/sprites.py" line="6" column="1" bodyfile="src/aetherion/renderer/sprites.py" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ae2048f78ddfc07b74ef10341e89016a0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.sprites.Sprite::renderer</definition>
+        <argsstring></argsstring>
+        <name>renderer</name>
+        <qualifiedname>aetherion.renderer.sprites.Sprite.renderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/sprites.py" line="7" column="1" bodyfile="src/aetherion/renderer/sprites.py" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1a52c5e6e741188aaedd06f3d326bc1f46" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.sprites.Sprite::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>aetherion.renderer.sprites.Sprite.x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/sprites.py" line="12" column="1" bodyfile="src/aetherion/renderer/sprites.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1aed2abe5d162c788f4e2162bd475170a2" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.sprites.Sprite::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>aetherion.renderer.sprites.Sprite.y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/sprites.py" line="13" column="1" bodyfile="src/aetherion/renderer/sprites.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1afdb379b8df17c6334eb74353ae7f760e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.sprites.Sprite.__init__</definition>
+        <argsstring>(self, renderer, sprite_id, sprite_image_path, x=0, y=0, scale_x=0, scale_y=0)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.renderer.sprites.Sprite.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>renderer</type>
+          <defname>renderer</defname>
+        </param>
+        <param>
+          <type>sprite_id</type>
+          <defname>sprite_id</defname>
+        </param>
+        <param>
+          <type>sprite_image_path</type>
+          <defname>sprite_image_path</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>y</type>
+          <defname>y</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>scale_x</type>
+          <defname>scale_x</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>scale_y</type>
+          <defname>scale_y</defname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/sprites.py" line="5" column="1" bodyfile="src/aetherion/renderer/sprites.py" bodystart="5" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ab29a935876471454b3e3bff784fb5226" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.sprites.Sprite.render</definition>
+        <argsstring>(self)</argsstring>
+        <name>render</name>
+        <qualifiedname>aetherion.renderer.sprites.Sprite.render</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/sprites.py" line="15" column="1" bodyfile="src/aetherion/renderer/sprites.py" bodystart="15" bodyend="17"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/renderer/sprites.py" line="4" column="1" bodyfile="src/aetherion/renderer/sprites.py" bodystart="4" bodyend="17"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1afdb379b8df17c6334eb74353ae7f760e" prot="public" virt="non-virtual"><scope>aetherion::renderer::sprites::Sprite</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ab29a935876471454b3e3bff784fb5226" prot="public" virt="non-virtual"><scope>aetherion::renderer::sprites::Sprite</scope><name>render</name></member>
+      <member refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ae2048f78ddfc07b74ef10341e89016a0" prot="public" virt="non-virtual"><scope>aetherion::renderer::sprites::Sprite</scope><name>renderer</name></member>
+      <member refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ae11b424b8c546e57282ad14eda5e86a0" prot="public" virt="non-virtual"><scope>aetherion::renderer::sprites::Sprite</scope><name>sprite_id</name></member>
+      <member refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1a52c5e6e741188aaedd06f3d326bc1f46" prot="public" virt="non-virtual"><scope>aetherion::renderer::sprites::Sprite</scope><name>x</name></member>
+      <member refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1aed2abe5d162c788f4e2162bd475170a2" prot="public" virt="non-virtual"><scope>aetherion::renderer::sprites::Sprite</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

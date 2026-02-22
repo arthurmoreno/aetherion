@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="ResponseSerializer_8cpp" kind="file" language="C++">
+    <compoundname>ResponseSerializer.cpp</compoundname>
+    <includes refid="ResponseSerializer_8hpp" local="yes">ResponseSerializer.hpp</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>src/WorldClientAPI/ResponseSerializer.cpp</label>
+        <link refid="ResponseSerializer_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ResponseSerializer.hpp</label>
+        <link refid="ResponseSerializer_8hpp_source"/>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;ResponseSerializer.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Implementation<sp/>will<sp/>be<sp/>added<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/WorldClientAPI/ResponseSerializer.cpp"/>
+  </compounddef>
+</doxygen>

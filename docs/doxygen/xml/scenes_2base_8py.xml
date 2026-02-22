@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="scenes_2base_8py" kind="file" language="Python">
+    <compoundname>base.py</compoundname>
+    <innerclass refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec" prot="public">aetherion::scenes::base::NodeSpec</innerclass>
+    <innerclass refid="classaetherion_1_1scenes_1_1base_1_1Node" prot="public">aetherion::scenes::base::Node</innerclass>
+    <innerclass refid="classaetherion_1_1scenes_1_1base_1_1BaseScene" prot="public">aetherion::scenes::base::BaseScene</innerclass>
+    <innerclass refid="classaetherion_1_1scenes_1_1base_1_1Scene" prot="public">aetherion::scenes::base::Scene</innerclass>
+    <innerclass refid="classaetherion_1_1scenes_1_1base_1_1SceneManager" prot="public">aetherion::scenes::base::SceneManager</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1scenes">aetherion::scenes</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1scenes_1_1base">aetherion::scenes::base</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>abc<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ABC,<sp/>abstractmethod</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Self</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>pydantic<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>BaseModel,<sp/>ConfigDict,<sp/>Field</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>aetherion<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>GameWindow,<sp/>SceneGraph</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec" kindref="compound">NodeSpec</ref>(BaseModel):</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Specification<sp/>for<sp/>scene<sp/>graph<sp/>nodes<sp/>with<sp/>validation<sp/>and<sp/>serialization<sp/>support.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>name:<sp/>str</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>cls:<sp/>str<sp/><sp/></highlight><highlight class="comment">#<sp/>import<sp/>path<sp/>to<sp/>class,<sp/>e.g.<sp/>&quot;game.scenes.scene_a.nodes.player.PlayerController&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>kwargs:<sp/>dict[str,<sp/>object]<sp/>=<sp/>Field(default_factory=dict)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>children:<sp/>list[Self]<sp/>=<sp/>Field(default_factory=list)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>uuid:<sp/>int<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">#<sp/>stable<sp/>id<sp/>(reference<sp/>for<sp/>internal<sp/>entt)<sp/>for<sp/>hot-reload<sp/>mapping</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>model_config<sp/>=<sp/>ConfigDict(</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arbitrary_types_allowed=</highlight><highlight class="keyword">True</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>validate_assignment=</highlight><highlight class="keyword">True</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>str_strip_whitespace=</highlight><highlight class="keyword">True</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="classaetherion_1_1scenes_1_1base_1_1Node" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Node" kindref="compound">Node</ref>(ABC):</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Base<sp/>class<sp/>for<sp/>all<sp/>scene<sp/>graph<sp/>nodes.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>name:<sp/>str,<sp/>**kwargs):</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1scenes_1_1base_1_1Node_1a7ebd6d66a6243704f729174e0b0407f7" kindref="member">name</ref><sp/>=<sp/>name</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.children:<sp/>list[Node]<sp/>=<sp/>[]</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.parent:<sp/>Node<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Node_1a8947fc6171dc091a0ea4ea579208f5f6" kindref="member">on_load</ref>(self):</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Called<sp/>when<sp/>the<sp/>node<sp/>is<sp/>loaded.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Node_1a42f82d5bd171cde98f63c2297299df4f" kindref="member">on_enter</ref>(self):</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Called<sp/>when<sp/>the<sp/>node<sp/>becomes<sp/>active.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Node_1aadc71fe640d80fb0a1f02f347d2eb910" kindref="member">update</ref>(self,<sp/>dt:<sp/>float,<sp/>shared_state:<sp/>dict):</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Update<sp/>the<sp/>node<sp/>logic.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Node_1afaaa6f7adaaf0d5228c62d65dc7ff88d" kindref="member">render</ref>(self,<sp/>renderer,<sp/>shared_state,<sp/>player_connection=None):</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Draw<sp/>the<sp/>current<sp/>frame.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Node_1a6116ea20a83ab139576f47bd990aa3cc" kindref="member">on_unload</ref>(self):</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Free<sp/>resources<sp/>(called<sp/>once).&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="classaetherion_1_1scenes_1_1base_1_1BaseScene" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">BaseScene(ABC):</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Defines<sp/>the<sp/>lifecycle<sp/>of<sp/>a<sp/>game<sp/>scene.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>scene_graph:<sp/>SceneGraph</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1a66c788d3ca4d9a6c9afb0c628ae44417" kindref="member">__init__</ref>(self,<sp/>game_window:<sp/>GameWindow,<sp/>renderer,<sp/>views,<sp/>event_bus,<sp/>pubsub_broker,<sp/>**kwargs):</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="67"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Initialize<sp/>the<sp/>scene.</highlight></codeline>
+<codeline lineno="68"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:param<sp/>game_window:<sp/>the<sp/>main<sp/>game<sp/>window</highlight></codeline>
+<codeline lineno="69"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:param<sp/>renderer:<sp/>rendering<sp/>backend</highlight></codeline>
+<codeline lineno="70"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:param<sp/>views:<sp/>camera/views<sp/>configuration</highlight></codeline>
+<codeline lineno="71"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:param<sp/>event_bus:<sp/>event<sp/>bus<sp/>for<sp/>communication</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:param<sp/>kwargs:<sp/>any<sp/>extra<sp/>parameters</highlight></codeline>
+<codeline lineno="73"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.scene_graph<sp/>=<sp/><ref refid="classSceneGraph" kindref="compound">SceneGraph</ref>()</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1ad3ec37575cd9651f9cbda9ca62be71a2" kindref="member">load_scene_graph</ref>(self,<sp/>path:<sp/>str<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Load<sp/>a<sp/>scene<sp/>graph<sp/>from<sp/>a<sp/>file.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1a3d2471ddf27ddd3123d99c64a11f80b6" kindref="member">on_load</ref>(self):</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Load<sp/>assets<sp/>&amp;<sp/>prepare<sp/>data<sp/>(called<sp/>once).&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1a378bef7ae8bfbd6fdb61adecde1ca82a" kindref="member">on_enter</ref>(self):</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Called<sp/>when<sp/>this<sp/>scene<sp/>becomes<sp/>active.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1ab73f60f40e46e60c9378e9c2b9d09e8d" kindref="member">update</ref>(self,<sp/>dt,<sp/>shared_state,<sp/>player_connection=None):</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Advance<sp/>logic;<sp/>dt<sp/>is<sp/>time<sp/>since<sp/>last<sp/>frame.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1aed1783e4ffeead0de202c3fa8dde8c3e" kindref="member">render</ref>(self,<sp/>renderer,<sp/>shared_state,<sp/>player_connection=None):</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Draw<sp/>the<sp/>current<sp/>frame.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1a100c6460600838bcb8627b2ceb4af0d8" kindref="member">on_exit</ref>(self):</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Called<sp/>when<sp/>the<sp/>scene<sp/>is<sp/>popped<sp/>or<sp/>switched.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1a6501b3c79c6a58e7bf479de7ad3b7561" kindref="member">on_unload</ref>(self):</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Free<sp/>resources<sp/>(called<sp/>once).&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Alias<sp/>for<sp/>backward<sp/>compatibility</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="classaetherion_1_1scenes_1_1base_1_1Scene" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Scene(BaseScene):</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Scene_1a30d02f900de450aaa932a105150ec857" kindref="member">on_load</ref>(self):</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Scene_1a64cc93dd4a20bf79645d99416d8f2762" kindref="member">on_enter</ref>(self):</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Scene_1a8d25bd146bb657570dcedf37d1973bd0" kindref="member">update</ref>(self,<sp/>dt,<sp/>shared_state):</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Scene_1a2db1a917dd968f140bfbda2b6594821f" kindref="member">render</ref>(self,<sp/>renderer,<sp/>shared_state):</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Scene_1aef0c135c604af3c73f6ae64d28541c2a" kindref="member">on_exit</ref>(self):</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1Scene_1a6597cae8b6f2c5f8c048e303c628be18" kindref="member">on_unload</ref>(self):</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="classaetherion_1_1scenes_1_1base_1_1SceneManager" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1SceneManager" kindref="compound">SceneManager</ref>:</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Manages<sp/>scene<sp/>registration<sp/>and<sp/>lifecycle<sp/>transitions.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self):</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.scenes:<sp/>dict[str,<sp/>BaseScene]<sp/>=<sp/>{}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.current:<sp/>BaseScene<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1ae16998d6a5eb6db5001932a4b6ea679f" kindref="member">register</ref>(self,<sp/>name:<sp/>str,<sp/>scene:<sp/>BaseScene)<sp/>-&gt;<sp/>BaseScene:</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Register<sp/>a<sp/>scene<sp/>instance<sp/>under<sp/>a<sp/>name.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>name<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>self.scenes:</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>self.scenes[name]</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>isinstance(scene,<sp/>BaseScene):</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>TypeError(f</highlight><highlight class="stringliteral">&quot;{scene}<sp/>must<sp/>inherit<sp/>from<sp/>BaseScene&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.scenes[name]<sp/>=<sp/>scene</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>scene</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">get_scene(self,<sp/>scene_name:<sp/>str)<sp/>-&gt;<sp/>BaseScene:</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>self.scenes[scene_name]</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a4df6fe42238b044a4200b5ce041ca9da" kindref="member">change</ref>(self,<sp/>name):</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Switch<sp/>to<sp/>a<sp/>registered<sp/>scene<sp/>by<sp/>name.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>self.current:</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.current.on_exit()</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.current<sp/>=<sp/>self.scenes.get(name)</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>self.current:</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>TODO:<sp/>Reload<sp/>all<sp/>Scene<sp/>Python<sp/>files<sp/>here.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.current.load_scene_graph()</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.current.on_load()</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.current.on_enter()</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a177f2a986f0397686d892781f0f2444d" kindref="member">update</ref>(self,<sp/>dt,<sp/>shared_state,<sp/>player_connection=None):</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Update<sp/>the<sp/>current<sp/>scene;<sp/>handle<sp/>automatic<sp/>transitions.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>self.current:</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>next_scene<sp/>=<sp/>self.current.<ref refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a177f2a986f0397686d892781f0f2444d" kindref="member">update</ref>(dt,<sp/>shared_state,<sp/>player_connection)</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>isinstance(next_scene,<sp/>str):</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.change(next_scene)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a8f7a6205d9f6eddc70320b1b00a6fa7c" kindref="member">render</ref>(self,<sp/>renderer,<sp/>shared_state,<sp/>player_connection=None):</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Render<sp/>the<sp/>current<sp/>scene.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>self.current:</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.current.<ref refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a8f7a6205d9f6eddc70320b1b00a6fa7c" kindref="member">render</ref>(renderer,<sp/>shared_state,<sp/>player_connection)</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Provide<sp/>a<sp/>global<sp/>manager<sp/>instance<sp/>for<sp/>convenience</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal">scene_manager<sp/>=<sp/><ref refid="classaetherion_1_1scenes_1_1base_1_1SceneManager" kindref="compound">SceneManager</ref>()</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/scenes/base.py"/>
+  </compounddef>
+</doxygen>

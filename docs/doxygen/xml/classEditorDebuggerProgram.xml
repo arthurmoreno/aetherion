@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classEditorDebuggerProgram" kind="class" language="C++" prot="public">
+    <compoundname>EditorDebuggerProgram</compoundname>
+    <basecompoundref refid="classGuiProgram" prot="public" virt="non-virtual">GuiProgram</basecompoundref>
+    <includes refid="EditorDebuggerProgram_8hpp" local="no">EditorDebuggerProgram.hpp</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEditorDebuggerProgram_1af3ce42b978910b5652a405c4d62d0298" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>EditorDebuggerProgram::EditorDebuggerProgram</definition>
+        <argsstring>()=default</argsstring>
+        <name>EditorDebuggerProgram</name>
+        <qualifiedname>EditorDebuggerProgram::EditorDebuggerProgram</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" line="31" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classEditorDebuggerProgram_1a5c777f08bff16736292ae2076ee6bf25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>EditorDebuggerProgram::~EditorDebuggerProgram</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~EditorDebuggerProgram</name>
+        <qualifiedname>EditorDebuggerProgram::~EditorDebuggerProgram</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" line="32" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classEditorDebuggerProgram_1ae9e35c8e9a0cc6cae2c5b34c1aac94df" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string EditorDebuggerProgram::getId</definition>
+        <argsstring>() const override</argsstring>
+        <name>getId</name>
+        <qualifiedname>EditorDebuggerProgram::getId</qualifiedname>
+        <reimplements refid="classBasicProgram_1a26a8591ac10151b13a2d964fe44100ea">getId</reimplements>
+        <briefdescription>
+<para>Get the program&apos;s unique identifier. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Used for program activation/deactivation and inter-program communication. Should be lowercase with underscores (e.g., &quot;physics_settings&quot;).</para>
+<para><simplesect kind="return"><para>Program ID string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" line="34" column="17" bodyfile="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classEditorDebuggerProgram_1a125986710cf4c3d52004eaacc23fd620" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string EditorDebuggerProgram::getDisplayName</definition>
+        <argsstring>() const override</argsstring>
+        <name>getDisplayName</name>
+        <qualifiedname>EditorDebuggerProgram::getDisplayName</qualifiedname>
+        <reimplements refid="classBasicProgram_1a2f0c761903eef20e843057c38117f316">getDisplayName</reimplements>
+        <briefdescription>
+<para>Get program&apos;s display name for UI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Human-readable name shown in menus and window titles.</para>
+<para><simplesect kind="return"><para>Display name string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" line="35" column="17" bodyfile="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classEditorDebuggerProgram_1a9ac521c8d750d9546adfe39964dc9477" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void EditorDebuggerProgram::render</definition>
+        <argsstring>(GuiContext &amp;context) override</argsstring>
+        <name>render</name>
+        <qualifiedname>EditorDebuggerProgram::render</qualifiedname>
+        <reimplements refid="classGuiProgram_1af29b808428011e8e7a97a2341a867cb2">render</reimplements>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Render the program&apos;s GUI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Called once per frame if the program is active. The program should render its ImGui window(s) and append any generated commands to context.commands.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shared context containing all GUI data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" line="37" column="10" bodyfile="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" bodystart="37" bodyend="54"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classEditorDebuggerProgram_1a3d8b80e8cf279f8f8f19014135d6429d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EditorDebuggerProgram::renderSimulationControl</definition>
+        <argsstring>(GuiContext &amp;context)</argsstring>
+        <name>renderSimulationControl</name>
+        <qualifiedname>EditorDebuggerProgram::renderSimulationControl</qualifiedname>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Render simulation control buttons. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" line="60" column="10" bodyfile="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" bodystart="60" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classEditorDebuggerProgram_1a9e4469cbc194f79f582774e8fa42fd32" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EditorDebuggerProgram::renderGameMetrics</definition>
+        <argsstring>(GuiContext &amp;context)</argsstring>
+        <name>renderGameMetrics</name>
+        <qualifiedname>EditorDebuggerProgram::renderGameMetrics</qualifiedname>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Render game metrics section. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" line="146" column="10" bodyfile="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" bodystart="146" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="classEditorDebuggerProgram_1a8040e80cc7ee3e1adfcce18548bb93ed" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EditorDebuggerProgram::renderSnapshotDebugger</definition>
+        <argsstring>(GuiContext &amp;context)</argsstring>
+        <name>renderSnapshotDebugger</name>
+        <qualifiedname>EditorDebuggerProgram::renderSnapshotDebugger</qualifiedname>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Render snapshot debugger section. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" line="169" column="10" bodyfile="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" bodystart="169" bodyend="239"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Editor Debugger Program - Control panel for simulation debugging. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Provides controls for:<itemizedlist>
+<listitem><para>Simulation control (Play, Stop, Step, Exit to Editor)</para>
+</listitem><listitem><para>Settings access</para>
+</listitem><listitem><para>Snapshot management for world state capture and analysis</para>
+</listitem></itemizedlist>
+</para>
+<para>Snapshot data is stored in context.sharedData[&quot;snapshots&quot;] as a list of snapshot names. Commands are issued to take snapshots, analyze them, or delete them. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>BasicProgram</label>
+        <link refid="classBasicProgram"/>
+      </node>
+      <node id="1">
+        <label>EditorDebuggerProgram</label>
+        <link refid="classEditorDebuggerProgram"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>GuiProgram</label>
+        <link refid="classGuiProgram"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>BasicProgram</label>
+        <link refid="classBasicProgram"/>
+      </node>
+      <node id="1">
+        <label>EditorDebuggerProgram</label>
+        <link refid="classEditorDebuggerProgram"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>GuiProgram</label>
+        <link refid="classGuiProgram"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" line="29" column="1" bodyfile="src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp" bodystart="29" bodyend="240"/>
+    <listofallmembers>
+      <member refid="classEditorDebuggerProgram_1af3ce42b978910b5652a405c4d62d0298" prot="public" virt="non-virtual"><scope>EditorDebuggerProgram</scope><name>EditorDebuggerProgram</name></member>
+      <member refid="classEditorDebuggerProgram_1a125986710cf4c3d52004eaacc23fd620" prot="public" virt="virtual"><scope>EditorDebuggerProgram</scope><name>getDisplayName</name></member>
+      <member refid="classEditorDebuggerProgram_1ae9e35c8e9a0cc6cae2c5b34c1aac94df" prot="public" virt="virtual"><scope>EditorDebuggerProgram</scope><name>getId</name></member>
+      <member refid="classBasicProgram_1a088f2f2d77597b4dcaeb8313703818c7" prot="public" virt="virtual"><scope>EditorDebuggerProgram</scope><name>isActive</name></member>
+      <member refid="classBasicProgram_1ae4ca127f42a532988559ac5bcedf48b9" prot="protected" virt="non-virtual"><scope>EditorDebuggerProgram</scope><name>isActive_</name></member>
+      <member refid="classBasicProgram_1a3e56437001058497ed1335eb0c014462" prot="public" virt="virtual"><scope>EditorDebuggerProgram</scope><name>onActivate</name></member>
+      <member refid="classBasicProgram_1a02bb31892e0407f34232309b113e53b6" prot="public" virt="virtual"><scope>EditorDebuggerProgram</scope><name>onDeactivate</name></member>
+      <member refid="classEditorDebuggerProgram_1a9ac521c8d750d9546adfe39964dc9477" prot="public" virt="virtual"><scope>EditorDebuggerProgram</scope><name>render</name></member>
+      <member refid="classEditorDebuggerProgram_1a9e4469cbc194f79f582774e8fa42fd32" prot="private" virt="non-virtual"><scope>EditorDebuggerProgram</scope><name>renderGameMetrics</name></member>
+      <member refid="classEditorDebuggerProgram_1a3d8b80e8cf279f8f8f19014135d6429d" prot="private" virt="non-virtual"><scope>EditorDebuggerProgram</scope><name>renderSimulationControl</name></member>
+      <member refid="classEditorDebuggerProgram_1a8040e80cc7ee3e1adfcce18548bb93ed" prot="private" virt="non-virtual"><scope>EditorDebuggerProgram</scope><name>renderSnapshotDebugger</name></member>
+      <member refid="classBasicProgram_1aca42de4be8452dc77eb528a7726d4539" prot="public" virt="virtual"><scope>EditorDebuggerProgram</scope><name>setActive</name></member>
+      <member refid="classBasicProgram_1ac5391a87afbf596da74c74111ab2ae3b" prot="public" virt="virtual"><scope>EditorDebuggerProgram</scope><name>~BasicProgram</name></member>
+      <member refid="classEditorDebuggerProgram_1a5c777f08bff16736292ae2076ee6bf25" prot="public" virt="non-virtual"><scope>EditorDebuggerProgram</scope><name>~EditorDebuggerProgram</name></member>
+      <member refid="classGuiProgram_1af255777992774b2e7e81a6e75c9c36a1" prot="public" virt="virtual"><scope>EditorDebuggerProgram</scope><name>~GuiProgram</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

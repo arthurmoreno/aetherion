@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structGridBoxTask" kind="struct" language="C++" prot="public">
+    <compoundname>GridBoxTask</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structGridBoxTask_1a57d9af01164ae5fcb094923b7fe93e23" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t GridBoxTask::boxIndex</definition>
+        <argsstring></argsstring>
+        <name>boxIndex</name>
+        <qualifiedname>GridBoxTask::boxIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="82" column="12" bodyfile="src/EcosystemEngine.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBoxTask_1a7d07569636ee8e3d13e017bf7f340b9d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float GridBoxTask::sunIntensity</definition>
+        <argsstring></argsstring>
+        <name>sunIntensity</name>
+        <qualifiedname>GridBoxTask::sunIntensity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="83" column="11" bodyfile="src/EcosystemEngine.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBoxTask_1a8d063ca90ddd3bf6405d74fdc5b3c388" prot="public" static="no" mutable="no">
+        <type>std::chrono::steady_clock::time_point</type>
+        <definition>std::chrono::steady_clock::time_point GridBoxTask::creationTime</definition>
+        <argsstring></argsstring>
+        <name>creationTime</name>
+        <qualifiedname>GridBoxTask::creationTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="84" column="43" bodyfile="src/EcosystemEngine.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBoxTask_1a2d41ba26955e2a2f6bdbd53d730f73f5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GridBoxTask::priority</definition>
+        <argsstring></argsstring>
+        <name>priority</name>
+        <qualifiedname>GridBoxTask::priority</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="85" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structGridBoxTask_1a7349d9877c3c1845c5c11d30a2698fb7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GridBoxTask::GridBoxTask</definition>
+        <argsstring>(size_t idx, float sunIntensity)</argsstring>
+        <name>GridBoxTask</name>
+        <qualifiedname>GridBoxTask::GridBoxTask</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sunIntensity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="87" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="87" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="structGridBoxTask_1ad2bd7fd56828de2158a8c50c74bc783c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool GridBoxTask::operator&lt;</definition>
+        <argsstring>(const GridBoxTask &amp;other) const</argsstring>
+        <name>operator&lt;</name>
+        <qualifiedname>GridBoxTask::operator&lt;</qualifiedname>
+        <param>
+          <type>const <ref refid="structGridBoxTask" kindref="compound">GridBoxTask</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="94" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="94" bodyend="96"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="81" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="81" bodyend="97"/>
+    <listofallmembers>
+      <member refid="structGridBoxTask_1a57d9af01164ae5fcb094923b7fe93e23" prot="public" virt="non-virtual"><scope>GridBoxTask</scope><name>boxIndex</name></member>
+      <member refid="structGridBoxTask_1a8d063ca90ddd3bf6405d74fdc5b3c388" prot="public" virt="non-virtual"><scope>GridBoxTask</scope><name>creationTime</name></member>
+      <member refid="structGridBoxTask_1a7349d9877c3c1845c5c11d30a2698fb7" prot="public" virt="non-virtual"><scope>GridBoxTask</scope><name>GridBoxTask</name></member>
+      <member refid="structGridBoxTask_1ad2bd7fd56828de2158a8c50c74bc783c" prot="public" virt="non-virtual"><scope>GridBoxTask</scope><name>operator&lt;</name></member>
+      <member refid="structGridBoxTask_1a2d41ba26955e2a2f6bdbd53d730f73f5" prot="public" virt="non-virtual"><scope>GridBoxTask</scope><name>priority</name></member>
+      <member refid="structGridBoxTask_1a7d07569636ee8e3d13e017bf7f340b9d" prot="public" virt="non-virtual"><scope>GridBoxTask</scope><name>sunIntensity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -2,6 +2,11 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
   <compounddef id="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed" kind="dir">
     <compoundname>src/Gui</compoundname>
+    <innerdir refid="dir_c0f90baac025bb5d262c487727de4754">src/Gui/GuiCore</innerdir>
+    <innerdir refid="dir_13f41f0ab244f47df60b3088a6248ae5">src/Gui/GuiPrograms</innerdir>
+    <innerdir refid="dir_9d04b3066ba2283e8423b83067a1394b">src/Gui/TerminalPrograms</innerdir>
+    <innerdir refid="dir_2d7d2b3592c1299be114ca461067d2b3">src/Gui/Windows</innerdir>
+    <innerfile refid="AllGuiPrograms_8hpp">AllGuiPrograms.hpp</innerfile>
     <innerfile refid="Gui_8cpp">Gui.cpp</innerfile>
     <innerfile refid="Gui_8hpp">Gui.hpp</innerfile>
     <innerfile refid="GuiStateManager_8cpp">GuiStateManager.cpp</innerfile>

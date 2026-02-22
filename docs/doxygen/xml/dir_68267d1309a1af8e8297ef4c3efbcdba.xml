@@ -4,9 +4,14 @@
     <compoundname>src</compoundname>
     <innerdir refid="dir_c5ed2602c210e0a1aaf28cdefbff1170">src/aetherion</innerdir>
     <innerdir refid="dir_3c4c7c1a85608ccd561c026bec818e51">src/components</innerdir>
+    <innerdir refid="dir_9959143fa446b36db10f756f43e78ae8">src/ecosystem</innerdir>
     <innerdir refid="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed">src/Gui</innerdir>
     <innerdir refid="dir_f292a226b1f5babe6c8057a2f2064fd5">src/LowLevelRenderer</innerdir>
     <innerdir refid="dir_e5d57ec9cefab37e921a3693ae3e3b61">src/neat</innerdir>
+    <innerdir refid="dir_8250e12e5a19acb8ece30f1703b6dc16">src/physics</innerdir>
+    <innerdir refid="dir_dfb095edc2d67e67a1bc1b8df1ccdedd">src/terrain</innerdir>
+    <innerdir refid="dir_ca4b723119223baf097f78ed2d734faa">src/voxelgrid</innerdir>
+    <innerdir refid="dir_b388a972cb5fc765242dd4f7d0f10aa7">src/WorldClientAPI</innerdir>
     <innerfile refid="aetherion_8cpp">aetherion.cpp</innerfile>
     <innerfile refid="aetherion_8hpp">aetherion.hpp</innerfile>
     <innerfile refid="CameraUtils_8cpp">CameraUtils.cpp</innerfile>
@@ -45,8 +50,8 @@
     <innerfile refid="PerceptionResponse_8hpp">PerceptionResponse.hpp</innerfile>
     <innerfile refid="PhysicsEngine_8cpp">PhysicsEngine.cpp</innerfile>
     <innerfile refid="PhysicsEngine_8hpp">PhysicsEngine.hpp</innerfile>
-    <innerfile refid="PhysicsManager_8cpp">PhysicsManager.cpp</innerfile>
-    <innerfile refid="PhysicsManager_8hpp">PhysicsManager.hpp</innerfile>
+    <innerfile refid="PhysicsSettings_8cpp">PhysicsSettings.cpp</innerfile>
+    <innerfile refid="PhysicsSettings_8hpp">PhysicsSettings.hpp</innerfile>
     <innerfile refid="PyRegistry_8hpp">PyRegistry.hpp</innerfile>
     <innerfile refid="QueryCommand_8cpp">QueryCommand.cpp</innerfile>
     <innerfile refid="QueryCommand_8hpp">QueryCommand.hpp</innerfile>
@@ -54,11 +59,12 @@
     <innerfile refid="QueryResponse_8hpp">QueryResponse.hpp</innerfile>
     <innerfile refid="settings_8hpp">settings.hpp</innerfile>
     <innerfile refid="SunIntensity_8hpp">SunIntensity.hpp</innerfile>
-    <innerfile refid="VoxelGrid_8cpp">VoxelGrid.cpp</innerfile>
-    <innerfile refid="VoxelGrid_8hpp">VoxelGrid.hpp</innerfile>
+    <innerfile refid="WavePhysicsEngine_8cpp">WavePhysicsEngine.cpp</innerfile>
+    <innerfile refid="WavePhysicsEngine_8hpp">WavePhysicsEngine.hpp</innerfile>
     <innerfile refid="World_8cpp">World.cpp</innerfile>
     <innerfile refid="World_8hpp">World.hpp</innerfile>
     <innerfile refid="WorldCreatePerception_8cpp">WorldCreatePerception.cpp</innerfile>
+    <innerfile refid="WorldExceptions_8hpp">WorldExceptions.hpp</innerfile>
     <innerfile refid="WorldView_8hpp">WorldView.hpp</innerfile>
     <briefdescription>
     </briefdescription>

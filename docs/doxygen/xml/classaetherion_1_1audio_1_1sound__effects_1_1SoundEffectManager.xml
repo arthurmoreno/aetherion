@@ -1,0 +1,330 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::audio::sound_effects::SoundEffectManager</compoundname>
+    <basecompoundref refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager" prot="public" virt="non-virtual">aetherion.audio.base_manager.BaseAudioManager</basecompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a3cc8c4b2cc9a8a4dbc5e3c19307aee5d" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.audio.sound_effects.SoundEffectManager::_num_channels</definition>
+        <argsstring></argsstring>
+        <name>_num_channels</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager._num_channels</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="32" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1ad07a26c9bad13d6202f692f3d22ee6f4" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.audio.sound_effects.SoundEffectManager::_channel_offset</definition>
+        <argsstring></argsstring>
+        <name>_channel_offset</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager._channel_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="33" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a5eff93d3774a20d7d020e80b1d447b5d" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.audio.sound_effects.SoundEffectManager::_channel_end</definition>
+        <argsstring></argsstring>
+        <name>_channel_end</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager._channel_end</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="34" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1ab29492130e2806f4ad8d1e9f6de1eee0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.sound_effects.SoundEffectManager.__init__</definition>
+        <argsstring>(self, int num_channels=16, int channel_offset=4)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_channels</declname>
+          <defval>16</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>channel_offset</declname>
+          <defval>4</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initialize the SoundEffectManager.
+
+Args:
+    num_channels: Number of mixing channels to use (default: 16).
+    channel_offset: Starting channel index for this manager (default: 4,
+                  leaving 0-3 for ambient sounds).
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="23" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="23" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a65e9e228cc6ecc7a7abb4a6811fc8412" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.sound_effects.SoundEffectManager.load_sound</definition>
+        <argsstring>(self, str name, str|bytes file_path)</argsstring>
+        <name>load_sound</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager.load_sound</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>str|bytes</type>
+          <declname>file_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Load a sound effect file.
+
+Args:
+    name: Identifier for the sound effect.
+    file_path: Path to the sound file (WAV, OGG, etc.).
+
+Raises:
+    AudioLoadError: If the sound file cannot be loaded.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="45" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="45" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1aad5ce0dc293a6b9e15bb56ef5d36bdbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.audio.sound_effects.SoundEffectManager.play_sound</definition>
+        <argsstring>(self, str name, int loops=0, int volume=128)</argsstring>
+        <name>play_sound</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager.play_sound</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>loops</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>volume</declname>
+          <defval>128</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Play a loaded sound effect.
+
+Args:
+    name: Identifier of the sound to play.
+    loops: Number of additional loops (0 = play once).
+    volume: Volume level for this sound (0-128).
+
+Returns:
+    Channel number used for playback, or -1 if failed.
+
+Raises:
+    AudioPlaybackError: If the sound is not loaded.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="71" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="71" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a10dcfcd3b8d1956d42f88099e1ebd630" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.sound_effects.SoundEffectManager.stop_sound</definition>
+        <argsstring>(self, int channel)</argsstring>
+        <name>stop_sound</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager.stop_sound</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Stop playback on a specific channel.
+
+Args:
+    channel: Channel number to stop (global channel index).
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="116" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="116" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a40bfc1939f8435081a50cccdaf1664dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.sound_effects.SoundEffectManager.stop_all_sounds</definition>
+        <argsstring>(self)</argsstring>
+        <name>stop_all_sounds</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager.stop_all_sounds</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Stop playback on all channels managed by this instance.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="125" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="125" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1aaae39a32b1d9692e86d853bd88effaf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.sound_effects.SoundEffectManager.set_sfx_volume</definition>
+        <argsstring>(self, int volume)</argsstring>
+        <name>set_sfx_volume</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager.set_sfx_volume</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>volume</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Set the volume for all sound effect channels.
+
+Args:
+    volume: Volume level (0-128, where 128 is maximum).
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="131" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="131" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a024f5f20be773c336fc3422673d614cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.audio.sound_effects.SoundEffectManager.get_sfx_volume</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_sfx_volume</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager.get_sfx_volume</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get the current sound effects volume.
+
+Returns:
+    Current volume level (0-128) from first channel in range.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="142" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="142" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1ab86f758de70c67de048011fad24c4ea8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.sound_effects.SoundEffectManager.cleanup</definition>
+        <argsstring>(self)</argsstring>
+        <name>cleanup</name>
+        <qualifiedname>aetherion.audio.sound_effects.SoundEffectManager.cleanup</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Free all loaded sound effects.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/sound_effects.py" line="150" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="150" bodyend="156"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Manages sound effects playback using SDL2_mixer channels.
+
+Handles loading and playing multiple simultaneous sound effects with
+configurable channel allocation and priority-based playback.
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.audio.sound_effects.SoundEffectManager</label>
+        <link refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.audio.base_manager.BaseAudioManager</label>
+        <link refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.audio.sound_effects.SoundEffectManager</label>
+        <link refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.audio.base_manager.BaseAudioManager</label>
+        <link refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/audio/sound_effects.py" line="16" column="1" bodyfile="src/aetherion/audio/sound_effects.py" bodystart="16" bodyend="156"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1ab29492130e2806f4ad8d1e9f6de1eee0" prot="public" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a5eff93d3774a20d7d020e80b1d447b5d" prot="protected" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>_channel_end</name></member>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1ad07a26c9bad13d6202f692f3d22ee6f4" prot="protected" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>_channel_offset</name></member>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a3cc8c4b2cc9a8a4dbc5e3c19307aee5d" prot="protected" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>_num_channels</name></member>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1ab86f758de70c67de048011fad24c4ea8" prot="public" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>cleanup</name></member>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a024f5f20be773c336fc3422673d614cd" prot="public" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>get_sfx_volume</name></member>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a65e9e228cc6ecc7a7abb4a6811fc8412" prot="public" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>load_sound</name></member>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1aad5ce0dc293a6b9e15bb56ef5d36bdbc" prot="public" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>play_sound</name></member>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1aaae39a32b1d9692e86d853bd88effaf1" prot="public" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>set_sfx_volume</name></member>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a40bfc1939f8435081a50cccdaf1664dd" prot="public" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>stop_all_sounds</name></member>
+      <member refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager_1a10dcfcd3b8d1956d42f88099e1ebd630" prot="public" virt="non-virtual"><scope>aetherion::audio::sound_effects::SoundEffectManager</scope><name>stop_sound</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1renderer_1_1image__set_1_1ImageSet" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::renderer::image_set::ImageSet</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1image__set_1_1ImageSet_1aa37b14e1882aebad6d40163d2196bc95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.renderer.image_set.ImageSet.__init__</definition>
+        <argsstring>(self, dict[str, str] image_paths, *args, **kwargs)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.renderer.image_set.ImageSet.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>image_paths</declname>
+          <array>[str, str]</array>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>**</type>
+          <declname>kwargs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/image_set.py" line="2" column="1" bodyfile="src/aetherion/renderer/image_set.py" bodystart="2" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1image__set_1_1ImageSet_1ae1f8c448247c410a46358ab3bb7aeea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.renderer.image_set.ImageSet.load_images</definition>
+        <argsstring>(self)</argsstring>
+        <name>load_images</name>
+        <qualifiedname>aetherion.renderer.image_set.ImageSet.load_images</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/image_set.py" line="8" column="1" bodyfile="src/aetherion/renderer/image_set.py" bodystart="8" bodyend="11"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/renderer/image_set.py" line="1" column="1" bodyfile="src/aetherion/renderer/image_set.py" bodystart="1" bodyend="11"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1renderer_1_1image__set_1_1ImageSet_1aa37b14e1882aebad6d40163d2196bc95" prot="public" virt="non-virtual"><scope>aetherion::renderer::image_set::ImageSet</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1renderer_1_1image__set_1_1ImageSet_1ae1f8c448247c410a46358ab3bb7aeea9" prot="public" virt="non-virtual"><scope>aetherion::renderer::image_set::ImageSet</scope><name>load_images</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

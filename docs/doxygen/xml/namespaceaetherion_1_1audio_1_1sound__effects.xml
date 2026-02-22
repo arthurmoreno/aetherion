@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1audio_1_1sound__effects" kind="namespace" language="Python">
+    <compoundname>aetherion::audio::sound_effects</compoundname>
+    <innerclass refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager" prot="public">aetherion::audio::sound_effects::SoundEffectManager</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Audio module for SDL2-based music and sound effects management.
+
+This module provides classes and functions for initializing SDL2 audio,
+managing background music playback, and handling sound effects using SDL2_mixer.
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/audio/sound_effects.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

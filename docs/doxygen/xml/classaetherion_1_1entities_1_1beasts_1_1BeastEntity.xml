@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1entities_1_1beasts_1_1BeastEntity" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::entities::beasts::BeastEntity</compoundname>
+    <basecompoundref refid="classaetherion_1_1entities_1_1BaseEntity" prot="public" virt="non-virtual">aetherion.entities.BaseEntity</basecompoundref>
+    <basecompoundref refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys" prot="public" virt="non-virtual">aetherion.entities.beasts.BeastPhysicalSys</basecompoundref>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.entities.beasts.BeastEntity</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.entities.BaseEntity</label>
+        <link refid="classaetherion_1_1entities_1_1BaseEntity"/>
+      </node>
+      <node id="3">
+        <label>aetherion.entities.beasts.BeastPhysicalSys</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.entities.beasts.BeastEntity</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>EntityTypeComponent</label>
+      </node>
+      <node id="3">
+        <label>Position</label>
+      </node>
+      <node id="2">
+        <label>aetherion.entities.BaseEntity</label>
+        <link refid="classaetherion_1_1entities_1_1BaseEntity"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>position</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>entity_type</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>aetherion.entities.beasts.BeastPhysicalSys</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/entities/beasts.py" line="141" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="141" bodyend="143"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

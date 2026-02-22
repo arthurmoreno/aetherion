@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="scheduler_8py" kind="file" language="Python">
+    <compoundname>scheduler.py</compoundname>
+    <innerclass refid="classaetherion_1_1scheduler_1_1Scheduler" prot="public">aetherion::scheduler::Scheduler</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1scheduler">aetherion::scheduler</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>functools<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>partial</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Callable</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1game__state_1_1state" kindref="compound">aetherion.game_state.state</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>SharedState</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="classaetherion_1_1scheduler_1_1Scheduler" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scheduler_1_1Scheduler" kindref="compound">Scheduler</ref>:</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self):</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1scheduler_1_1Scheduler_1a338fc6b60ae7d74165c1e69cb7f3d61f" kindref="member">_functions</ref>:<sp/>set[Callable[[],<sp/>SharedState]]<sp/>=<sp/>set()</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scheduler_1_1Scheduler_1a045ba2da54363d9f798ee32ff70a3e77" kindref="member">schedule</ref>(self,<sp/>func:<sp/>Callable):</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Add<sp/>a<sp/>function<sp/>to<sp/>the<sp/>scheduler.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1scheduler_1_1Scheduler_1a338fc6b60ae7d74165c1e69cb7f3d61f" kindref="member">_functions</ref>.add(func)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>func_name<sp/>=<sp/>self.<ref refid="classaetherion_1_1scheduler_1_1Scheduler_1a651e98f9c04eef128e9174615dec539a" kindref="member">_get_callable_name</ref>(func)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(f</highlight><highlight class="stringliteral">&quot;Scheduled<sp/>function:<sp/>{func_name}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scheduler_1_1Scheduler_1a7674206138d2a244e5dbf002ed27980d" kindref="member">unschedule</ref>(self,<sp/>func:<sp/>Callable):</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Remove<sp/>a<sp/>function<sp/>from<sp/>the<sp/>scheduler.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1scheduler_1_1Scheduler_1a338fc6b60ae7d74165c1e69cb7f3d61f" kindref="member">_functions</ref>.discard(func)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>func_name<sp/>=<sp/>self.<ref refid="classaetherion_1_1scheduler_1_1Scheduler_1a651e98f9c04eef128e9174615dec539a" kindref="member">_get_callable_name</ref>(func)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(f</highlight><highlight class="stringliteral">&quot;Unscheduled<sp/>function:<sp/>{func_name}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scheduler_1_1Scheduler_1ad091db20febe681cf4820ee2e19e3c5c" kindref="member">execute_scheduled_funcs</ref>(self,<sp/>shared_state:<sp/>SharedState)<sp/>-&gt;<sp/>SharedState:</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Execute<sp/>all<sp/>scheduled<sp/>functions.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>func<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>list(self.<ref refid="classaetherion_1_1scheduler_1_1Scheduler_1a338fc6b60ae7d74165c1e69cb7f3d61f" kindref="member">_functions</ref>):</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shared_state<sp/>=<sp/>func(shared_state)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>e:</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>traceback</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>traceback.print_exc()</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>breakpoint()</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>func_name<sp/>=<sp/>self.<ref refid="classaetherion_1_1scheduler_1_1Scheduler_1a651e98f9c04eef128e9174615dec539a" kindref="member">_get_callable_name</ref>(func)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(f</highlight><highlight class="stringliteral">&quot;Error<sp/>executing<sp/>{func_name}:<sp/>{e}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>shared_state</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1scheduler_1_1Scheduler_1a651e98f9c04eef128e9174615dec539a" kindref="member">_get_callable_name</ref>(self,<sp/>func:<sp/>Callable)<sp/>-&gt;<sp/>str:</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Retrieve<sp/>the<sp/>name<sp/>of<sp/>the<sp/>callable<sp/>for<sp/>logging<sp/>purposes.</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supports<sp/>regular<sp/>functions,<sp/>partial<sp/>functions,<sp/>and<sp/>other<sp/>callables.</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>hasattr(func,<sp/></highlight><highlight class="stringliteral">&quot;__name__&quot;</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>func.__name__</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>isinstance(func,<sp/>partial):</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Retrieve<sp/>the<sp/>original<sp/>function&apos;s<sp/>name<sp/>from<sp/>the<sp/>partial<sp/>object</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>original_func_name<sp/>=<sp/>getattr(func.func,<sp/></highlight><highlight class="stringliteral">&quot;__name__&quot;</highlight><highlight class="normal">,<sp/>repr(func.func))</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>f</highlight><highlight class="stringliteral">&quot;partial({original_func_name})&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>hasattr(func,<sp/></highlight><highlight class="stringliteral">&quot;__class__&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>hasattr(func,<sp/></highlight><highlight class="stringliteral">&quot;__call__&quot;</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>For<sp/>callable<sp/>objects<sp/>like<sp/>class<sp/>instances<sp/>with<sp/>__call__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>func.__class__.__name__</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Fallback<sp/>representation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>repr(func)</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/scheduler.py"/>
+  </compounddef>
+</doxygen>

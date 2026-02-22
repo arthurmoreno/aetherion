@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="136" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="136" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="99" column="9" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGridView_1ae1b9f6877d24fa2266720799ee8226e1" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="136" column="15" bodyfile="src/VoxelGrid.hpp" bodystart="136" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="99" column="15" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGridView_1a8c657fc5426df162e67a46ee31485d9a" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -43,7 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="136" column="22" bodyfile="src/VoxelGrid.hpp" bodystart="136" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="99" column="22" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGridView_1afed721a7a9d554dbdb45b9e4ca20d505" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="137" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="137" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="100" column="9" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGridView_1aa5ab6d3a3a6479a188fa6e73fea11248" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="137" column="18" bodyfile="src/VoxelGrid.hpp" bodystart="137" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="100" column="18" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGridView_1ac013eee936b2925717df40e1d6cbd4b6" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -85,7 +85,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="137" column="27" bodyfile="src/VoxelGrid.hpp" bodystart="137" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="100" column="27" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGridView_1aeec8205ce0e07ee33609e16e37c5e6c8" prot="public" static="no" mutable="no">
         <type>std::vector&lt; int &gt;</type>
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="138" column="17" bodyfile="src/VoxelGrid.hpp" bodystart="138" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="101" column="17" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVoxelGridView_1afdbcd8b54a405582186a6235a1cd1478" prot="public" static="no" mutable="no">
         <type>std::vector&lt; int &gt;</type>
@@ -113,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="139" column="17" bodyfile="src/VoxelGrid.hpp" bodystart="139" bodyend="-1"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="102" column="17" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="102" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -153,7 +153,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="142" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="238" bodyend="254"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="105" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="438" bodyend="454"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGridView_1a70f57c4df376c688a6d1cbe7c8372b89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -183,7 +183,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="146" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="256" bodyend="269"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="109" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="456" bodyend="469"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGridView_1a6738b02a3b317177d8b6b8916cffea4d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -209,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="147" column="9" bodyfile="src/VoxelGrid.cpp" bodystart="271" bodyend="285"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="110" column="9" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="471" bodyend="484"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGridView_1a646f614b317d1e82693c77694f085f1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -239,7 +239,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="150" column="10" bodyfile="src/VoxelGrid.cpp" bodystart="287" bodyend="300"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="113" column="10" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="486" bodyend="499"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGridView_1a3ca9ff3ce533ce60b2d6d791c9c59c63" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -265,7 +265,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="151" column="9" bodyfile="src/VoxelGrid.cpp" bodystart="302" bodyend="316"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="114" column="9" bodyfile="src/voxelgrid/VoxelGrid.cpp" bodystart="501" bodyend="514"/>
       </memberdef>
       <memberdef kind="function" id="classVoxelGridView_1ae969a3c47c3bc2d499140f5b1db64f4b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>flatbuffers::Offset&lt; GameEngine::VoxelGridView &gt;</type>
@@ -283,7 +283,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="154" column="25" bodyfile="src/VoxelGrid.hpp" bodystart="154" bodyend="165"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="117" column="25" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="117" bodyend="128"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
@@ -303,14 +303,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="168" column="26" bodyfile="src/VoxelGrid.hpp" bodystart="168" bodyend="202"/>
+        <location file="src/voxelgrid/VoxelGridView.hpp" line="131" column="26" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="131" bodyend="165"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/VoxelGrid.hpp" line="134" column="1" bodyfile="src/VoxelGrid.hpp" bodystart="134" bodyend="203"/>
+    <location file="src/voxelgrid/VoxelGridView.hpp" line="97" column="1" bodyfile="src/voxelgrid/VoxelGridView.hpp" bodystart="97" bodyend="166"/>
     <listofallmembers>
       <member refid="classVoxelGridView_1a8c657fc5426df162e67a46ee31485d9a" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>depth</name></member>
       <member refid="classVoxelGridView_1a6856150cafc76628c51425affdf25a99" prot="public" virt="non-virtual"><scope>VoxelGridView</scope><name>deserializeFlatBuffers</name></member>

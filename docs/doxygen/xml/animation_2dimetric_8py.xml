@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="animation_2dimetric_8py" kind="file" language="Python">
+    <compoundname>dimetric.py</compoundname>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1animation">aetherion::animation</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1animation_1_1dimetric">aetherion::animation::dimetric</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>__future__<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>annotations</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>math</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Any</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">repartition_animation(array:<sp/>list[int],<sp/>size:<sp/>int)<sp/>-&gt;<sp/>list[int]:</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>ratio<sp/>=<sp/>math.ceil(size<sp/>/<sp/>len(array))</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>animation_distributed:<sp/>list[int]<sp/>=<sp/>[]</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>array_index<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>i<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>range(1,<sp/>size<sp/>+<sp/>1):</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>animation_distributed.append(array[array_index])</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>i<sp/>!=<sp/>0<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>i<sp/>%<sp/>ratio<sp/>==<sp/>0:</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array_index<sp/>+=<sp/>1</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>animation_distributed</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">calc_pixel_offset_linear(completion_time:<sp/>int,<sp/>time_remaining:<sp/>int,<sp/>tile_size_on_screen:<sp/>int)<sp/>-&gt;<sp/>int:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>math.floor(tile_size_on_screen<sp/>-<sp/>(tile_size_on_screen<sp/>*<sp/>(time_remaining<sp/>/<sp/>completion_time)))</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">calc_pixel_offset_inverted_quadratic(completion_time:<sp/>int,<sp/>time_remaining:<sp/>int,<sp/>tile_size_on_screen:<sp/>int)<sp/>-&gt;<sp/>int:</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Calculate<sp/>the<sp/>pixel<sp/>offset<sp/>with<sp/>quadratic<sp/>easing.</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>completion_time:<sp/>Total<sp/>time<sp/>steps<sp/>to<sp/>complete<sp/>the<sp/>movement.</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>time_remaining:<sp/>Time<sp/>steps<sp/>remaining.</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:return:<sp/>The<sp/>calculated<sp/>pixel<sp/>offset.</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Simulating<sp/>gravity<sp/>effect<sp/>using<sp/>a<sp/>quadratic<sp/>easing-out<sp/>pattern</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>progress<sp/>=<sp/>(completion_time<sp/>-<sp/>time_remaining)<sp/>/<sp/>completion_time<sp/><sp/></highlight><highlight class="comment">#<sp/>progress<sp/>is<sp/>between<sp/>0<sp/>and<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>eased_progress<sp/>=<sp/>1<sp/>-<sp/>(1<sp/>-<sp/>progress)<sp/>**<sp/>3<sp/><sp/></highlight><highlight class="comment">#<sp/>Quadratic<sp/>easing-out<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>math.floor(tile_size_on_screen<sp/>*<sp/>eased_progress)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">calc_pixel_offset_quadratic(completion_time:<sp/>int,<sp/>time_remaining:<sp/>int,<sp/>tile_size_on_screen:<sp/>int)<sp/>-&gt;<sp/>int:</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Calculate<sp/>the<sp/>pixel<sp/>offset<sp/>with<sp/>smooth<sp/>quadratic<sp/>easing.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>progress<sp/>=<sp/>(completion_time<sp/>-<sp/>time_remaining)<sp/>/<sp/>completion_time<sp/><sp/></highlight><highlight class="comment">#<sp/>progress<sp/>is<sp/>between<sp/>0<sp/>and<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>eased_progress<sp/>=<sp/>progress**3<sp/><sp/></highlight><highlight class="comment">#<sp/>Smooth<sp/>quadratic<sp/>increase</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>math.floor(tile_size_on_screen<sp/>*<sp/>eased_progress)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">calc_pixel_offset_logarithmic(completion_time:<sp/>int,<sp/>time_remaining:<sp/>int,<sp/>tile_size_on_screen:<sp/>int)<sp/>-&gt;<sp/>int:</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Logarithmic<sp/>easing-out<sp/>function<sp/>for<sp/>pixel<sp/>offset.</highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>completion_time:<sp/>Total<sp/>time<sp/>steps<sp/>to<sp/>complete<sp/>the<sp/>movement.</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>time_remaining:<sp/>Time<sp/>steps<sp/>remaining.</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:return:<sp/>The<sp/>calculated<sp/>pixel<sp/>offset.</highlight></codeline>
+<codeline lineno="51"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Avoid<sp/>log(0)<sp/>by<sp/>ensuring<sp/>progress<sp/>is<sp/>within<sp/>[0,<sp/>1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>progress<sp/>=<sp/>(completion_time<sp/>-<sp/>time_remaining)<sp/>/<sp/>completion_time</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Apply<sp/>logarithmic<sp/>easing:<sp/>log(1<sp/>+<sp/>progress)<sp/>normalized<sp/>by<sp/>log(2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>progress<sp/>==<sp/>0:</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>log_progress<sp/>=<sp/>math.log(1<sp/>+<sp/>progress)<sp/>/<sp/>math.log(2)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>math.floor(tile_size_on_screen<sp/>*<sp/>log_progress)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">entity_animation_handler(</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>event:<sp/>Any,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>entity:<sp/>Any,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>entity_view:<sp/>Any,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>screen_x:<sp/>int,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>screen_y:<sp/>int,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>tile_size_on_screen:<sp/>int,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">)<sp/>-&gt;<sp/>tuple[int,<sp/>int]:</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>moving_component<sp/>=<sp/>entity.get_moving_component()</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>completion_time<sp/>=<sp/>moving_component.completion_time</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>time_remaining<sp/>=<sp/>moving_component.time_remaining</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>direction<sp/>=<sp/>moving_component.direction</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>diff_x<sp/>=<sp/>entity.get_position().x<sp/>-<sp/>moving_component.moving_from_x</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>diff_y<sp/>=<sp/>entity.get_position().y<sp/>-<sp/>moving_component.moving_from_y</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>diff_z<sp/>=<sp/>entity.get_position().z<sp/>-<sp/>moving_component.moving_from_z</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>screen_x<sp/>-=<sp/>diff_x<sp/>*<sp/>tile_size_on_screen</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>screen_y<sp/>-=<sp/>diff_y<sp/>*<sp/>tile_size_on_screen</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>diff_z:</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>screen_x<sp/>+=<sp/>diff_z<sp/>*<sp/>tile_size_on_screen</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>screen_y<sp/>+=<sp/>diff_z<sp/>*<sp/>tile_size_on_screen</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>animation_index<sp/>=<sp/>completion_time<sp/>-<sp/>time_remaining<sp/>-<sp/>1</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>If<sp/>the<sp/>entity<sp/>is<sp/>going<sp/>up<sp/>or<sp/>down<sp/>uses<sp/>the<sp/>current<sp/>entity<sp/>direction</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>direction.value<sp/>==<sp/>5<sp/></highlight><highlight class="keywordflow">or</highlight><highlight class="normal"><sp/>direction.value<sp/>==<sp/>6:</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entity_direction<sp/>=<sp/>entity.get_position().direction.value</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entity_direction<sp/>=<sp/>direction.value</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>entity_view.animation_sprites[entity_direction]</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>possible_steps<sp/>=<sp/>list(entity_view.animation_sprites[entity_direction].keys())</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>animation_distributed<sp/>=<sp/>repartition_animation(possible_steps,<sp/>completion_time)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>entity_view.set_animation_sprite(animation_distributed[animation_index],<sp/>entity_direction)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Adjust<sp/>the<sp/>entity<sp/>direction<sp/>based<sp/>on<sp/>the<sp/>velocity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>velocity_x<sp/>=<sp/>moving_component.vx</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>velocity_y<sp/>=<sp/>moving_component.vy</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>velocity_z<sp/>=<sp/>moving_component.vz</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>pixel_offset<sp/>=<sp/>calc_pixel_offset_linear(completion_time,<sp/>time_remaining,<sp/>tile_size_on_screen)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>velocity_z<sp/>&gt;<sp/>0<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>moving_component.will_stop_z:</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pixel_offset_z<sp/>=<sp/>calc_pixel_offset_inverted_quadratic(completion_time,<sp/>time_remaining,<sp/>tile_size_on_screen)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>velocity_z<sp/>&lt;<sp/>0<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>moving_component.will_stop_z:</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pixel_offset_z<sp/>=<sp/>calc_pixel_offset_quadratic(completion_time,<sp/>time_remaining,<sp/>tile_size_on_screen)</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pixel_offset_z<sp/>=<sp/>calc_pixel_offset_linear(completion_time,<sp/>time_remaining,<sp/>tile_size_on_screen)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>_screen_x<sp/>=<sp/>screen_x</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>_screen_y<sp/>=<sp/>screen_y</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>_screen_x<sp/>+=<sp/>pixel_offset<sp/>*<sp/>(abs(diff_x)<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>velocity_x<sp/>&gt;<sp/>0<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>-abs(diff_x)<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>velocity_x<sp/>&lt;<sp/>0<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>0)</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Y-axis<sp/>adjustment<sp/>(up<sp/>if<sp/>velocity_y<sp/>&gt;<sp/>0,<sp/>down<sp/>if<sp/>velocity_y<sp/>&lt;<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>_screen_y<sp/>+=<sp/>pixel_offset<sp/>*<sp/>(abs(diff_y)<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>velocity_y<sp/>&gt;<sp/>0<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>-abs(diff_y)<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>velocity_y<sp/>&lt;<sp/>0<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>0)</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Z-axis<sp/>adjustment<sp/>—<sp/>Combined<sp/>with<sp/>X<sp/>and<sp/>Y<sp/>movements:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>velocity_z<sp/>!=<sp/>0:</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z_factor_x<sp/>=<sp/>1<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>velocity_z<sp/>&lt;<sp/>0<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>-1<sp/><sp/></highlight><highlight class="comment">#<sp/>Adjust<sp/>left<sp/>or<sp/>right<sp/>for<sp/>z</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z_factor_y<sp/>=<sp/>1<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>velocity_z<sp/>&lt;<sp/>0<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>-1<sp/><sp/></highlight><highlight class="comment">#<sp/>Adjust<sp/>up<sp/>or<sp/>down<sp/>for<sp/>z</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Apply<sp/>the<sp/>Z<sp/>velocity<sp/>effect<sp/>in<sp/>combination<sp/>with<sp/>existing<sp/>X<sp/>and<sp/>Y<sp/>adjustments</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_screen_x<sp/>+=<sp/>(pixel_offset_z)<sp/>*<sp/>z_factor_x<sp/><sp/></highlight><highlight class="comment">#<sp/>Adjust<sp/>the<sp/>x-axis<sp/>based<sp/>on<sp/>z-movement</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_screen_y<sp/>+=<sp/>(pixel_offset_z)<sp/>*<sp/>z_factor_y<sp/><sp/></highlight><highlight class="comment">#<sp/>Adjust<sp/>the<sp/>y-axis<sp/>based<sp/>on<sp/>z-movement</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_screen_x,<sp/>_screen_y</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/animation/dimetric.py"/>
+  </compounddef>
+</doxygen>

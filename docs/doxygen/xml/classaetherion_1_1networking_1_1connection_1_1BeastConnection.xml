@@ -1,0 +1,692 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1networking_1_1connection_1_1BeastConnection" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::networking::connection::BeastConnection</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">ABC</basecompoundref>
+    <derivedcompoundref refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection" prot="public" virt="non-virtual">aetherion.networking.connection.ServerBeastConnection</derivedcompoundref>
+    <derivedcompoundref refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection" prot="public" virt="non-virtual">aetherion.networking.connection.SynchronousBeastConnection</derivedcompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ae0be8cab3819b84860ad1c30f71602fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.connection.BeastConnection.__init__</definition>
+        <argsstring>(self, str|None name=None, *Any args, **Any kwargs)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.__init__</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1ae8b5b9dd7d5700b34d556f21998ac30c">__init__</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a18401357c2b014490fe775c8b23043fc">__init__</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>name</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>*Any</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>**Any</type>
+          <declname>kwargs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="41" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="41" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1aa92674b6f16e36da33777e16a623ac35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.networking.connection.BeastConnection.connect</definition>
+        <argsstring>(self, WorldInstanceTypes connection_type, WorldInterface|None world_instance=None, Any pipe=None)</argsstring>
+        <name>connect</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.connect</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a3e6b4b11138980af08241517d4260dd9">connect</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a5f4d3f6f925a13ff72f609ad0231186b">connect</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" kindref="compound">WorldInstanceTypes</ref></type>
+          <declname>connection_type</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref>|None</type>
+          <declname>world_instance</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>pipe</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Connect to the world interface.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="50" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="52" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ad8fbcdc149db38fc2ba0d25b87603cc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int|None</type>
+        <definition> int | None aetherion.networking.connection.BeastConnection.ticks</definition>
+        <argsstring>(self)</argsstring>
+        <name>ticks</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.ticks</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a67113799777837d4de4d36de792daa6e">ticks</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a24ff5a41d240d694d54e66132bf323b0">ticks</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get the current world ticks.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="58" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="58" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a81fc6c756dcf5de0139560d5a0f29844" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.networking.connection.BeastConnection.server_online</definition>
+        <argsstring>(self)</argsstring>
+        <name>server_online</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.server_online</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1ab5949e026f17636c677b5ef626207563">server_online</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1ac2bec6032e5835211fe276d2ce4aa512">server_online</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if the server is online.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="64" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="64" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a1502b6222b156d354707cfc93251795f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.networking.connection.BeastConnection.ready_to_render_world</definition>
+        <argsstring>(self)</argsstring>
+        <name>ready_to_render_world</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.ready_to_render_world</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a26e6b50c84afdc3e847615c3e57f79dc">ready_to_render_world</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a477db7761fef71dae39593eea3944aa5">ready_to_render_world</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if the server is online.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="70" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="70" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a3fe4a8225d3b7242c965096d9b057ff5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.connection.BeastConnection.request_world_state</definition>
+        <argsstring>(self)</argsstring>
+        <name>request_world_state</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.request_world_state</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1aeed28aa53c6bce7d5269a143c4307904">request_world_state</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a4d342001671b3758456b45408490d6d5">request_world_state</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Execute a request to get the next world state.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="75" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="75" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ab3a644c9b4f5a81ddc17b44c378b9cac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classPerceptionResponseFlatB" kindref="compound">PerceptionResponseFlatB</ref>|None</type>
+        <definition> PerceptionResponseFlatB | None aetherion.networking.connection.BeastConnection.wait_for_next_world_state</definition>
+        <argsstring>(self, SharedState|None shared_state=None)</argsstring>
+        <name>wait_for_next_world_state</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.wait_for_next_world_state</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a6ff94b207b54d5c943382be9b1672681">wait_for_next_world_state</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a6e11dbb3777b4caca8f7eb915d50ad8f">wait_for_next_world_state</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1game__state_1_1state_1_1SharedState" kindref="compound">SharedState</ref>|None</type>
+          <declname>shared_state</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Wait for the next world state.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="80" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="80" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a5ec45bc42c1def252d8705d0cb7b1cbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.change_direction_left</definition>
+        <argsstring>(self)</argsstring>
+        <name>change_direction_left</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.change_direction_left</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="85" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="85" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a8a69751be363b650d1fe5561ef5fd74e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.change_direction_up</definition>
+        <argsstring>(self)</argsstring>
+        <name>change_direction_up</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.change_direction_up</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="88" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="88" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ab007fede342a5cb2a8a01e6e146a7cf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.change_direction_right</definition>
+        <argsstring>(self)</argsstring>
+        <name>change_direction_right</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.change_direction_right</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="91" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="91" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ac0426ee1558a32a0653f6500d1e65b35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.change_direction_down</definition>
+        <argsstring>(self)</argsstring>
+        <name>change_direction_down</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.change_direction_down</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="94" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="94" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a3cfa7f6b3041c586ff511d6a2a1f4ae0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_left</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_left</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_left</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a72887a130dc11ec79dee0cf3518165d1">walk_left</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a812b18fe465cd2112bed15f1594779eb">walk_left</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="99" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="99" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a08bc5f5eecf5f68d051a056b9f4dab6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_up</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_up</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_up</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a187923382edea587b6a33a21743885e7">walk_up</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a74c6a9ae6ded3ebf68ffd2beea9fb121">walk_up</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="103" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="103" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a7ce157797447bef6f8837e540b6c09aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_right</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_right</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_right</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a1c76719d13dc228a57994e91af091c8a">walk_right</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1af6582bf08cda829f02e8c96c48c92d0f">walk_right</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="107" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="107" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a9b151c9bdab11d944d50d73e83c74d6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_down</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_down</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_down</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1ad7b914c6de70da94fb56b560e5e80464">walk_down</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a84a34c2975e0d0da1ddf42bc4d8e35b8">walk_down</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="111" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="111" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a6d5de385f1c5e535f30986ed651154ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.jump</definition>
+        <argsstring>(self)</argsstring>
+        <name>jump</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.jump</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a452f3844aeb8568453fe408604aed66b">jump</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a082ba167a604bd72dfa7777389cfb6cf">jump</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="115" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="115" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a1164dd2d4a4781b6b44368d3cfd28121" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_left_up</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_left_up</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_left_up</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a71e95f7838b758dd37b752a6d7d4ccaa">walk_left_up</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1ae232bcd5222b71d3e7a12e4acaa2bcdd">walk_left_up</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="119" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="119" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a63214753f285e269182e47966dee47d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_left_down</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_left_down</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_left_down</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a90470c1b40bae647ecd6249185979182">walk_left_down</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1ac05c22f5f66945e1419473ae0a875d56">walk_left_down</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="123" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="123" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a2894f730bf81c45ae3fb3a9880fb452d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_right_up</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_right_up</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_right_up</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1accfe05689428e392ef68ed8c5e2dcb39">walk_right_up</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a15e8d8be3e4ea6942ce34b6becebc0a2">walk_right_up</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="127" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="127" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a6d6235430fad6d4e83de8b6cb834b150" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_right_down</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_right_down</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_right_down</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a9f74b939927195561e86a59bfe52df1a">walk_right_down</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a38e55ed563de49e504c6d083cfffe35b">walk_right_down</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="131" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="131" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a9b63c03e2aed395d877cf087f8c0003f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_left_jump</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_left_jump</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_left_jump</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1adbc7d9e9b93e5e005d728426980e8d03">walk_left_jump</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1aed96060e60e594ef9e1bbe3477a54d3c">walk_left_jump</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="135" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="135" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ac10b273630fb23a46dd6affa41115ee1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_right_jump</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_right_jump</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_right_jump</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a6b690357bc7812b6043088e60ae893aa">walk_right_jump</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1aefd06404be113ab1510289ff7db7ecbf">walk_right_jump</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="139" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="139" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a1231256d8a75ad270fcee0dcea421df4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_up_jump</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_up_jump</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_up_jump</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1abc1811549c21234a4e2cfc9b80625721">walk_up_jump</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1ab05f80a16173f60dddbdacf27e69bbf3">walk_up_jump</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="143" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="143" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a8c1ffa7509fd0783d27251e39d0675c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.walk_down_jump</definition>
+        <argsstring>(self)</argsstring>
+        <name>walk_down_jump</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.walk_down_jump</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1ae8a5a4cb9619c493263e099c4c7d263e">walk_down_jump</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1aa5f1fb57033a9dcaf53b77c3490c2b32">walk_down_jump</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="147" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="147" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ac79d37db372e0994299c80e4ace3e86d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.make_entity_take_item</definition>
+        <argsstring>(self, dict[str, Any]|None shared_state=None)</argsstring>
+        <name>make_entity_take_item</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.make_entity_take_item</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1abcd99530f519f1b3ee2dd0c5bac25fb6">make_entity_take_item</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1aeae4b38e01ddab8646fd7ebcb6c38c5e">make_entity_take_item</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict|None</type>
+          <declname>shared_state</declname>
+          <array>[str, Any]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="151" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="151" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a6d47630fd1982eef4cff30ff11a22dad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.make_entity_use_item</definition>
+        <argsstring>(self, int item_slot=0, dict[str, Any]|None shared_state=None)</argsstring>
+        <name>make_entity_use_item</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.make_entity_use_item</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a69a7d9bb2e02ed1df779c2cffa23352c">make_entity_use_item</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1abccbe2525e988cdbdeb73eefb955ae06">make_entity_use_item</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>item_slot</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>dict|None</type>
+          <declname>shared_state</declname>
+          <array>[str, Any]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="155" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="155" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a2337040a2eb7eaa4227f53ca89772e23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.eat</definition>
+        <argsstring>(self)</argsstring>
+        <name>eat</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.eat</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1a4625ab830447623cad4cc69be731b46d">eat</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1a1db98cfc98750ef6f69f892f81b7dc8f">eat</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="159" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="159" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a5c78152bf38d403617896143c88d3a93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.connection.BeastConnection.set_entity_to_debug</definition>
+        <argsstring>(self, int entity_id)</argsstring>
+        <name>set_entity_to_debug</name>
+        <qualifiedname>aetherion.networking.connection.BeastConnection.set_entity_to_debug</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection_1ac68ad7c4bb778bfa644399d2a66679bd">set_entity_to_debug</reimplementedby>
+        <reimplementedby refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection_1aa2493e66b14554151ef5526204070742">set_entity_to_debug</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>entity_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/connection.py" line="163" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="163" bodyend="166"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Abstract base class for connections to a world interface.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.networking.connection.BeastConnection</label>
+        <link refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aetherion.networking.connection.ServerBeastConnection</label>
+        <link refid="classaetherion_1_1networking_1_1connection_1_1ServerBeastConnection"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aetherion.networking.connection.SynchronousBeastConnection</label>
+        <link refid="classaetherion_1_1networking_1_1connection_1_1SynchronousBeastConnection"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.networking.connection.BeastConnection</label>
+        <link refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/networking/connection.py" line="38" column="1" bodyfile="src/aetherion/networking/connection.py" bodystart="38" bodyend="166"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ae0be8cab3819b84860ad1c30f71602fd" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ac0426ee1558a32a0653f6500d1e65b35" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>change_direction_down</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a5ec45bc42c1def252d8705d0cb7b1cbb" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>change_direction_left</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ab007fede342a5cb2a8a01e6e146a7cf8" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>change_direction_right</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a8a69751be363b650d1fe5561ef5fd74e" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>change_direction_up</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1aa92674b6f16e36da33777e16a623ac35" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>connect</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a2337040a2eb7eaa4227f53ca89772e23" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>eat</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a6d5de385f1c5e535f30986ed651154ea" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>jump</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ac79d37db372e0994299c80e4ace3e86d" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>make_entity_take_item</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a6d47630fd1982eef4cff30ff11a22dad" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>make_entity_use_item</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a1502b6222b156d354707cfc93251795f" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>ready_to_render_world</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a3fe4a8225d3b7242c965096d9b057ff5" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>request_world_state</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a81fc6c756dcf5de0139560d5a0f29844" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>server_online</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a5c78152bf38d403617896143c88d3a93" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>set_entity_to_debug</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ad8fbcdc149db38fc2ba0d25b87603cc5" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>ticks</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ab3a644c9b4f5a81ddc17b44c378b9cac" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>wait_for_next_world_state</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a9b151c9bdab11d944d50d73e83c74d6a" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_down</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a8c1ffa7509fd0783d27251e39d0675c4" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_down_jump</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a3cfa7f6b3041c586ff511d6a2a1f4ae0" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_left</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a63214753f285e269182e47966dee47d2" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_left_down</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a9b63c03e2aed395d877cf087f8c0003f" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_left_jump</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a1164dd2d4a4781b6b44368d3cfd28121" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_left_up</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a7ce157797447bef6f8837e540b6c09aa" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_right</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a6d6235430fad6d4e83de8b6cb834b150" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_right_down</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1ac10b273630fb23a46dd6affa41115ee1" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_right_jump</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a2894f730bf81c45ae3fb3a9880fb452d" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_right_up</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a08bc5f5eecf5f68d051a056b9f4dab6c" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_up</name></member>
+      <member refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection_1a1231256d8a75ad270fcee0dcea421df4" prot="public" virt="non-virtual"><scope>aetherion::networking::connection::BeastConnection</scope><name>walk_up_jump</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

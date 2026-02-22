@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1paths" kind="namespace" language="Python">
+    <compoundname>aetherion::paths</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="paths_8py_1a3960b3fc1511502edb40d2ab9d968b8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Path</type>
+        <definition> Path aetherion.paths.get_project_root</definition>
+        <argsstring>(str entrypoint_name=&quot;run.py&quot;)</argsstring>
+        <name>get_project_root</name>
+        <qualifiedname>aetherion.paths.get_project_root</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>entrypoint_name</declname>
+          <defval>&quot;run.py&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Returns the root directory of the project (where the entry point run.py is located).
+
+This finds the actual game root by looking at sys.argv[0] (the entry point script).
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/paths.py" line="7" column="1" bodyfile="src/aetherion/paths.py" bodystart="7" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="paths_8py_1a78c772c4e59cfe4d9ac63f56a9c6e4f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Path</type>
+        <definition> Path aetherion.paths.get_user_data_dir</definition>
+        <argsstring>(str entrypoint_name=&quot;run.py&quot;)</argsstring>
+        <name>get_user_data_dir</name>
+        <qualifiedname>aetherion.paths.get_user_data_dir</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>entrypoint_name</declname>
+          <defval>&quot;run.py&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Returns the user data directory.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/paths.py" line="36" column="1" bodyfile="src/aetherion/paths.py" bodystart="36" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="paths_8py_1ac264d80c46743ba23baa3cde338fbd49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Path</type>
+        <definition> Path aetherion.paths.get_core_data_dir</definition>
+        <argsstring>(str entrypoint_name=&quot;run.py&quot;)</argsstring>
+        <name>get_core_data_dir</name>
+        <qualifiedname>aetherion.paths.get_core_data_dir</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>entrypoint_name</declname>
+          <defval>&quot;run.py&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Returns the core engine data directory.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/paths.py" line="43" column="1" bodyfile="src/aetherion/paths.py" bodystart="43" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="paths_8py_1aa3eed0f070f67f58c9c79cb99d26d625" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Path</type>
+        <definition> Path aetherion.paths.resolve_path</definition>
+        <argsstring>(str virtual_path, str entrypoint_name=&quot;run.py&quot;)</argsstring>
+        <name>resolve_path</name>
+        <qualifiedname>aetherion.paths.resolve_path</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>virtual_path</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>entrypoint_name</declname>
+          <defval>&quot;run.py&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Resolves a virtual path (e.g., res://...) to an absolute system path.
+
+Args:
+    virtual_path: The virtual path string (e.g., &quot;res://sprites/player.png&quot;)
+    entrypoint_name: The name of the entry point script (default is &quot;run.py&quot;)
+
+Returns:
+    Path: The resolved absolute path.
+
+Raises:
+    ValueError: If the protocol is not supported.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/paths.py" line="50" column="1" bodyfile="src/aetherion/paths.py" bodystart="50" bodyend="74"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/paths.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

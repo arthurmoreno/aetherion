@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1settings_1_1BlockDimensions" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::settings::BlockDimensions</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">TypedDict</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1BlockDimensions_1a8d6a14020b17c771aee5247586734590" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.BlockDimensions::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <qualifiedname>aetherion.settings.BlockDimensions.width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="7" column="1" bodyfile="src/aetherion/settings.py" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1BlockDimensions_1a66bdd6d9f20861122878340a4d9437fb" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.BlockDimensions::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <qualifiedname>aetherion.settings.BlockDimensions.height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="8" column="1" bodyfile="src/aetherion/settings.py" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1BlockDimensions_1a1ee64b19264fafc73ffa39da68755b5a" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.BlockDimensions::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <qualifiedname>aetherion.settings.BlockDimensions.depth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="9" column="1" bodyfile="src/aetherion/settings.py" bodystart="9" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.settings.BlockDimensions</label>
+        <link refid="classaetherion_1_1settings_1_1BlockDimensions"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.settings.BlockDimensions</label>
+        <link refid="classaetherion_1_1settings_1_1BlockDimensions"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/settings.py" line="6" column="1" bodyfile="src/aetherion/settings.py" bodystart="6" bodyend="11"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1settings_1_1BlockDimensions_1a1ee64b19264fafc73ffa39da68755b5a" prot="public" virt="non-virtual"><scope>aetherion::settings::BlockDimensions</scope><name>depth</name></member>
+      <member refid="classaetherion_1_1settings_1_1BlockDimensions_1a66bdd6d9f20861122878340a4d9437fb" prot="public" virt="non-virtual"><scope>aetherion::settings::BlockDimensions</scope><name>height</name></member>
+      <member refid="classaetherion_1_1settings_1_1BlockDimensions_1a8d6a14020b17c771aee5247586734590" prot="public" virt="non-virtual"><scope>aetherion::settings::BlockDimensions</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

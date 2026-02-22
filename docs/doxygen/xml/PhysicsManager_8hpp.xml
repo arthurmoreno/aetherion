@@ -6,11 +6,14 @@
     <includes local="no">string</includes>
     <includedby refid="EcosystemEngine_8hpp" local="yes">src/EcosystemEngine.hpp</includedby>
     <includedby refid="Gui_8cpp" local="yes">src/Gui/Gui.cpp</includedby>
+    <includedby refid="PhysicsSettingsProgram_8hpp" local="yes">src/Gui/GuiPrograms/Settings/PhysicsSettingsProgram.hpp</includedby>
     <includedby refid="PhysicsEngine_8hpp" local="yes">src/PhysicsEngine.hpp</includedby>
-    <includedby refid="PhysicsManager_8cpp" local="yes">src/PhysicsManager.cpp</includedby>
+    <includedby refid="PhysicsSettings_8hpp" local="yes">src/PhysicsSettings.hpp</includedby>
+    <includedby refid="PhysicalMath_8hpp" local="yes">src/physics/PhysicalMath.hpp</includedby>
+    <includedby refid="PhysicsManager_8cpp" local="yes">src/physics/PhysicsManager.cpp</includedby>
     <incdepgraph>
       <node id="1">
-        <label>src/PhysicsManager.hpp</label>
+        <label>src/physics/PhysicsManager.hpp</label>
         <link refid="PhysicsManager_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -32,11 +35,169 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/Gui/AllGuiPrograms.hpp</label>
+        <link refid="AllGuiPrograms_8hpp"/>
       </node>
       <node id="5">
         <label>src/Gui/Gui.hpp</label>
         <link refid="Gui_8hpp_source"/>
         <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>src/Gui/GuiCore/GuiProgram.hpp</label>
+        <link refid="GuiProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>src/Gui/GuiCore/GuiProgramManager.hpp</label>
+        <link refid="GuiProgramManager_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>src/Gui/GuiCore/TerminalProgram.hpp</label>
+        <link refid="TerminalProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>src/Gui/GuiCore/TerminalProgramManager.hpp</label>
+        <link refid="TerminalProgramManager_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>src/Gui/GuiPrograms/Debug/AIStatisticsProgram.hpp</label>
+        <link refid="AIStatisticsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>src/Gui/GuiPrograms/Debug/ConsoleProgram.hpp</label>
+        <link refid="ConsoleProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp</label>
+        <link refid="EditorDebuggerProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>src/Gui/GuiPrograms/Debug/EntitiesStatsProgram.hpp</label>
+        <link refid="EntitiesStatsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>src/Gui/GuiPrograms/Debug/EntityInterfaceProgram.hpp</label>
+        <link refid="EntityInterfaceProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>src/Gui/GuiPrograms/Debug/GadgetsProgram.hpp</label>
+        <link refid="GadgetsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>src/Gui/GuiPrograms/Debug/GeneralMetricsProgram.hpp</label>
+        <link refid="GeneralMetricsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>src/Gui/GuiPrograms/Debug/LifeMetricsProgram.hpp</label>
+        <link refid="LifeMetricsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>src/Gui/GuiPrograms/Debug/PhysicsMetricsProgram.hpp</label>
+        <link refid="PhysicsMetricsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>src/Gui/GuiPrograms/Game/EquipmentProgram.hpp</label>
+        <link refid="EquipmentProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>src/Gui/GuiPrograms/Game/InventoryProgram.hpp</label>
+        <link refid="InventoryProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/Gui/GuiPrograms/Game/PlayerStatsProgram.hpp</label>
+        <link refid="PlayerStatsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>src/Gui/GuiPrograms/Settings/CameraSettingsProgram.hpp</label>
+        <link refid="CameraSettingsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>src/Gui/GuiPrograms/Settings/PhysicsSettingsProgram.hpp</label>
+        <link refid="PhysicsSettingsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>src/Gui/GuiPrograms/Settings/SettingsProgram.hpp</label>
+        <link refid="SettingsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -45,25 +206,87 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="1">
-        <label>src/PhysicsManager.hpp</label>
-        <link refid="PhysicsManager_8hpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="28">
+        <label>src/PhysicsSettings.hpp</label>
+        <link refid="PhysicsSettings_8hpp_source"/>
       </node>
       <node id="4">
         <label>src/World.hpp</label>
         <link refid="World_8hpp_source"/>
         <childnode refid="5" relation="include">
         </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
       <node id="6">
         <label>src/aetherion.hpp</label>
         <link refid="aetherion_8hpp_source"/>
+      </node>
+      <node id="9">
+        <label>src/components/core/GuiContext.hpp</label>
+        <link refid="GuiContext_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>src/ecosystem/ReadonlyQueries.hpp</label>
+        <link refid="ecosystem_2ReadonlyQueries_8hpp_source"/>
+      </node>
+      <node id="29">
+        <label>src/physics/PhysicalMath.hpp</label>
+        <link refid="PhysicalMath_8hpp_source"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/physics/PhysicsManager.hpp</label>
+        <link refid="PhysicsManager_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>src/physics/PhysicsMutators.hpp</label>
+        <link refid="PhysicsMutators_8hpp"/>
+      </node>
+      <node id="33">
+        <label>src/physics/PhysicsUtils.hpp</label>
+        <link refid="PhysicsUtils_8hpp_source"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>src/physics/ReadonlyQueries.hpp</label>
+        <link refid="physics_2ReadonlyQueries_8hpp_source"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="classPhysicsManager" prot="public">PhysicsManager</innerclass>
@@ -79,7 +302,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PhysicsManager.hpp" line="69" column="24" bodyfile="src/PhysicsManager.hpp" bodystart="69" bodyend="-1"/>
+        <location file="src/physics/PhysicsManager.hpp" line="75" column="24" bodyfile="src/physics/PhysicsManager.hpp" bodystart="75" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -102,63 +325,69 @@
 <codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setGravity(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>g);</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setFriction(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>f);</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setAllowMultiDirection(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>amd);</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Getters</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getGravity()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getFriction()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>getAllowMultiDirection()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getMetabolismCostToApplyForce()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getEvaporationCoefficient()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getHeatToWaterEvaporation()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getWaterMinimumUnits()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional:<sp/>Load<sp/>physics<sp/>settings<sp/>from<sp/>a<sp/>file</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>loadSettings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>fileName);</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional:<sp/>Save<sp/>physics<sp/>settings<sp/>to<sp/>a<sp/>file</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>saveSettings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>fileName)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Private<sp/>constructor<sp/>to<sp/>prevent<sp/>instantiation</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setMetabolismCostToApplyForce(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setEvaporationCoefficient(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setHeatToWaterEvaporation(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setWaterMinimumUnits(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Getters</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getGravity()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getFriction()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>getAllowMultiDirection()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getMetabolismCostToApplyForce()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getEvaporationCoefficient()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getHeatToWaterEvaporation()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>getWaterMinimumUnits()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional:<sp/>Load<sp/>physics<sp/>settings<sp/>from<sp/>a<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>loadSettings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>fileName);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional:<sp/>Save<sp/>physics<sp/>settings<sp/>to<sp/>a<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>saveSettings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>fileName)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Private<sp/>destructor</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPhysicsManager" kindref="compound">~PhysicsManager</ref>();</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Delete<sp/>copy<sp/>constructor<sp/>and<sp/>assignment<sp/>operator<sp/>to<sp/>prevent<sp/>copying</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Private<sp/>constructor<sp/>to<sp/>prevent<sp/>instantiation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Private<sp/>destructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPhysicsManager" kindref="compound">~PhysicsManager</ref>();</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Static<sp/>instance<sp/>pointer</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>*<sp/>s_pInstance;</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Physics<sp/>variables</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gravity;</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>friction;</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>allowMultiDirection;</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>EVAPORATION_COEFFICIENT<sp/>=<sp/>8.0f;</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>HEAT_TO_WATER_EVAPORATION<sp/>=<sp/>120.0f;</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>waterMinimumUnits<sp/>=<sp/>60&apos;000;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Delete<sp/>copy<sp/>constructor<sp/>and<sp/>assignment<sp/>operator<sp/>to<sp/>prevent<sp/>copying</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Static<sp/>instance<sp/>pointer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref>*<sp/>s_pInstance;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Physics<sp/>variables</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gravity;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>friction;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>allowMultiDirection;</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Constant<sp/>that<sp/>worked<sp/>well:</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Super<sp/>easy<sp/>to<sp/>survive</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>float<sp/>metabolismCostToApplyForce<sp/>=<sp/>0.00000001f;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Easier<sp/>to<sp/>survive</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>float<sp/>metabolismCostToApplyForce<sp/>=<sp/>0.000001f;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Harder<sp/>to<sp/>survive</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>metabolismCostToApplyForce<sp/>=<sp/>0.000002f;</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Very<sp/>Harder<sp/>to<sp/>survive</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>float<sp/>metabolismCostToApplyForce<sp/>=<sp/>0.000005f;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>float<sp/>metabolismCostToApplyForce<sp/>=<sp/>0.00001f;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional:<sp/>Additional<sp/>physics<sp/>parameters<sp/>can<sp/>be<sp/>added<sp/>here</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref><sp/><ref refid="classPhysicsManager" kindref="compound">ThePhysicsManager</ref>;</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>PHYSICS_MANAGER_H</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>EVAPORATION_COEFFICIENT<sp/>=<sp/>8.0f;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>HEAT_TO_WATER_EVAPORATION<sp/>=<sp/>120.0f;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>waterMinimumUnits<sp/>=<sp/>60&apos;000;<sp/><sp/></highlight><highlight class="comment">//<sp/>Good<sp/>for<sp/>a<sp/>10x100x100</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>int<sp/>waterMinimumUnits<sp/>=<sp/>120&apos;000;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>int<sp/>waterMinimumUnits<sp/>=<sp/>8&apos;000&apos;000;<sp/><sp/>//<sp/>8<sp/>million<sp/>is<sp/>a<sp/>lot<sp/>of<sp/>water</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Constant<sp/>that<sp/>worked<sp/>well:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Super<sp/>easy<sp/>to<sp/>survive</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>float<sp/>metabolismCostToApplyForce<sp/>=<sp/>0.00000001f;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Easier<sp/>to<sp/>survive</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>float<sp/>metabolismCostToApplyForce<sp/>=<sp/>0.000001f;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Harder<sp/>to<sp/>survive</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>metabolismCostToApplyForce<sp/>=<sp/>0.000002f;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Very<sp/>Harder<sp/>to<sp/>survive</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>float<sp/>metabolismCostToApplyForce<sp/>=<sp/>0.000005f;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>float<sp/>metabolismCostToApplyForce<sp/>=<sp/>0.00001f;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional:<sp/>Additional<sp/>physics<sp/>parameters<sp/>can<sp/>be<sp/>added<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="classPhysicsManager" kindref="compound">PhysicsManager</ref><sp/><ref refid="classPhysicsManager" kindref="compound">ThePhysicsManager</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>PHYSICS_MANAGER_H</highlight></codeline>
     </programlisting>
-    <location file="src/PhysicsManager.hpp"/>
+    <location file="src/physics/PhysicsManager.hpp"/>
   </compounddef>
 </doxygen>

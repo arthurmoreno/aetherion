@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1renderer" kind="namespace" language="Python">
+    <compoundname>aetherion::renderer</compoundname>
+    <innerclass refid="classaetherion_1_1renderer_1_1Renderer" prot="public">aetherion::renderer::Renderer</innerclass>
+    <innerclass refid="classaetherion_1_1renderer_1_1RendererOpenGL" prot="public">aetherion::renderer::RendererOpenGL</innerclass>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1fonts">aetherion::renderer::fonts</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1image__set">aetherion::renderer::image_set</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1shapes">aetherion::renderer::shapes</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1sprites">aetherion::renderer::sprites</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1text">aetherion::renderer::text</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1utils">aetherion::renderer::utils</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1views">aetherion::renderer::views</innernamespace>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="renderer_2____init_____8py_1a441a2715d40bea67e2671b55b93b8e0f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion::renderer.singleton_instance</definition>
+        <argsstring></argsstring>
+        <name>singleton_instance</name>
+        <qualifiedname>aetherion.renderer.singleton_instance</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="35" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="renderer_2____init_____8py_1afe4010cc484abdbdf91da8f69206bc14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1renderer_1_1Renderer" kindref="compound">Renderer</ref></type>
+        <definition> Renderer aetherion.renderer.get_renderer</definition>
+        <argsstring>(GameWindow game_window)</argsstring>
+        <name>get_renderer</name>
+        <qualifiedname>aetherion.renderer.get_renderer</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow" kindref="compound">GameWindow</ref></type>
+          <declname>game_window</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="38" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="38" bodyend="48"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/renderer/__init__.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

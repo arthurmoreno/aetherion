@@ -1,0 +1,245 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::engine::models::GameEngineProtocol</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Protocol</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a1507a261b87fd1c09b5122e12984a594" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.engine.models.GameEngineProtocol::event_bus</definition>
+        <argsstring></argsstring>
+        <name>event_bus</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.event_bus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="12" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a977d6fb37cb1794c197351f673018625" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.engine.models.GameEngineProtocol::world_manager</definition>
+        <argsstring></argsstring>
+        <name>world_manager</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.world_manager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="15" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1ad9ecd3fadbd9974bd4af06d889c7f7e3" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.engine.models.GameEngineProtocol::shared_state</definition>
+        <argsstring></argsstring>
+        <name>shared_state</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.shared_state</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="16" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1ac68cef932c0f8e7c495b9fbe8384a467" prot="public" static="yes" mutable="no">
+        <type>Optional</type>
+        <definition>Optional aetherion.engine.models.GameEngineProtocol::server_admin_connection</definition>
+        <argsstring></argsstring>
+        <name>server_admin_connection</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.server_admin_connection</qualifiedname>
+        <initializer>[Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="19" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a6764267e98d39dcd6caf3c310e23e098" prot="public" static="yes" mutable="no">
+        <type>Optional</type>
+        <definition>Optional aetherion.engine.models.GameEngineProtocol::player_connection</definition>
+        <argsstring></argsstring>
+        <name>player_connection</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.player_connection</qualifiedname>
+        <initializer>[Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="20" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a81bb23a91f8ccd9cec83fbf37d47d4a4" prot="public" static="yes" mutable="no">
+        <type>Optional</type>
+        <definition>Optional aetherion.engine.models.GameEngineProtocol::player</definition>
+        <argsstring></argsstring>
+        <name>player</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.player</qualifiedname>
+        <initializer>[Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="23" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a10199146ae98f7ada035ad2cff72a9bb" prot="public" static="yes" mutable="no">
+        <type>Optional</type>
+        <definition>Optional aetherion.engine.models.GameEngineProtocol::world_interface</definition>
+        <argsstring></argsstring>
+        <name>world_interface</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.world_interface</qualifiedname>
+        <initializer>[Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="24" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a37f9791d7079c78f2e90b5034589eb68" prot="public" static="yes" mutable="no">
+        <type>Dict</type>
+        <definition>Dict aetherion.engine.models.GameEngineProtocol::beast_connection_metadata</definition>
+        <argsstring></argsstring>
+        <name>beast_connection_metadata</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.beast_connection_metadata</qualifiedname>
+        <initializer>[str, Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="27" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a1c0f70b4508cdb7d489305404fddf111" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.engine.models.GameEngineProtocol::sound_effect_manager</definition>
+        <argsstring></argsstring>
+        <name>sound_effect_manager</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.sound_effect_manager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="28" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1aec2335acc982c5443258949424599d8e" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.engine.models.GameEngineProtocol::audio_manager</definition>
+        <argsstring></argsstring>
+        <name>audio_manager</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.audio_manager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="29" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a59e073da07bf0bcdfb421707577fcb0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.models.GameEngineProtocol.set_input_action_processor</definition>
+        <argsstring>(self)</argsstring>
+        <name>set_input_action_processor</name>
+        <qualifiedname>aetherion.engine.models.GameEngineProtocol.set_input_action_processor</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/models.py" line="32" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="32" bodyend="33"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Protocol describing the minimal GameEngine surface used by handlers.
+
+Attributes are intentionally permissive (Any) to avoid tight coupling with
+concrete engine classes. Replace with concrete types from
+`aetherion.engine` if stronger typing is preferred.
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.engine.models.GameEngineProtocol</label>
+        <link refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Protocol</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.engine.models.GameEngineProtocol</label>
+        <link refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>audio_manager</edgelabel>
+          <edgelabel>event_bus</edgelabel>
+          <edgelabel>shared_state</edgelabel>
+          <edgelabel>sound_effect_manager</edgelabel>
+          <edgelabel>world_manager</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>player</edgelabel>
+          <edgelabel>player_connection</edgelabel>
+          <edgelabel>server_admin_connection</edgelabel>
+          <edgelabel>world_interface</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>beast_connection_metadata</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Any</label>
+      </node>
+      <node id="5">
+        <label>Dict</label>
+      </node>
+      <node id="4">
+        <label>Optional</label>
+      </node>
+      <node id="2">
+        <label>Protocol</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/engine/models.py" line="4" column="1" bodyfile="src/aetherion/engine/models.py" bodystart="4" bodyend="33"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1aec2335acc982c5443258949424599d8e" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>audio_manager</name></member>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a37f9791d7079c78f2e90b5034589eb68" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>beast_connection_metadata</name></member>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a1507a261b87fd1c09b5122e12984a594" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>event_bus</name></member>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a81bb23a91f8ccd9cec83fbf37d47d4a4" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>player</name></member>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a6764267e98d39dcd6caf3c310e23e098" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>player_connection</name></member>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1ac68cef932c0f8e7c495b9fbe8384a467" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>server_admin_connection</name></member>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a59e073da07bf0bcdfb421707577fcb0a" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>set_input_action_processor</name></member>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1ad9ecd3fadbd9974bd4af06d889c7f7e3" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>shared_state</name></member>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a1c0f70b4508cdb7d489305404fddf111" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>sound_effect_manager</name></member>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a10199146ae98f7ada035ad2cff72a9bb" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>world_interface</name></member>
+      <member refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol_1a977d6fb37cb1794c197351f673018625" prot="public" virt="non-virtual"><scope>aetherion::engine::models::GameEngineProtocol</scope><name>world_manager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

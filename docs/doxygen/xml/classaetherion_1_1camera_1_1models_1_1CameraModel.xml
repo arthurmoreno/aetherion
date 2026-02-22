@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1camera_1_1models_1_1CameraModel" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::camera::models::CameraModel</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1ad27e1ba2e6160384db49fe627fe0a38e" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::render_queue</definition>
+        <argsstring></argsstring>
+        <name>render_queue</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.render_queue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="9" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1a7026f0251beeda8984f63464a4d4f5ce" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::terrain_group_0</definition>
+        <argsstring></argsstring>
+        <name>terrain_group_0</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.terrain_group_0</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="10" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1aa8827084546b8870250ab61251c2b176" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::terrain_group_1</definition>
+        <argsstring></argsstring>
+        <name>terrain_group_1</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.terrain_group_1</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="11" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1a3ce5ba736b87e67123f0ea7e7fffefd1" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::terrain_group_2</definition>
+        <argsstring></argsstring>
+        <name>terrain_group_2</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.terrain_group_2</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="12" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1adb4add13013dfff7826b4b7d08484184" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::gui_group</definition>
+        <argsstring></argsstring>
+        <name>gui_group</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.gui_group</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="13" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1ad356a57479fe0460c0a60547a92f435f" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::effect_group</definition>
+        <argsstring></argsstring>
+        <name>effect_group</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.effect_group</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="14" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1a842f8aa5132f595b9a5e1c730db9b294" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::entities_group_0</definition>
+        <argsstring></argsstring>
+        <name>entities_group_0</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.entities_group_0</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="15" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1a84089636791aa3e58ab3705e869dfe22" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::entities_group_1</definition>
+        <argsstring></argsstring>
+        <name>entities_group_1</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.entities_group_1</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="16" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1a9fff8e0c33a52a10564083b8071bc5c1" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::entities_group_2</definition>
+        <argsstring></argsstring>
+        <name>entities_group_2</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.entities_group_2</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="17" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1ae5e429e7d797dc15b9342f96b2f03f39" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::light_group</definition>
+        <argsstring></argsstring>
+        <name>light_group</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.light_group</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="18" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1a5f7ca56981e590a47b121f9fff54ed4b" prot="public" static="yes" mutable="no">
+        <type>list</type>
+        <definition>list aetherion.camera.models.CameraModel::light_intensities</definition>
+        <argsstring></argsstring>
+        <name>light_intensities</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.light_intensities</qualifiedname>
+        <initializer>[float]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="19" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1a559961f153cf5899b19758b7f76423e0" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.camera.models.CameraModel::views</definition>
+        <argsstring></argsstring>
+        <name>views</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.views</qualifiedname>
+        <initializer>[str, Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="20" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1ab71d7cb6968a3e2686c076e9dce96216" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraModel::LAYERS_TO_DRAW</definition>
+        <argsstring></argsstring>
+        <name>LAYERS_TO_DRAW</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.LAYERS_TO_DRAW</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="21" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraModel_1a7911e376062457b5f5b4dae71caa803f" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.camera.models.CameraModel::settings</definition>
+        <argsstring></argsstring>
+        <name>settings</name>
+        <qualifiedname>aetherion.camera.models.CameraModel.settings</qualifiedname>
+        <initializer> | None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="22" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.camera.models.CameraModel</label>
+        <link refid="classaetherion_1_1camera_1_1models_1_1CameraModel"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.camera.models.CameraModel</label>
+        <link refid="classaetherion_1_1camera_1_1models_1_1CameraModel"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>effect_group</edgelabel>
+          <edgelabel>entities_group_0</edgelabel>
+          <edgelabel>entities_group_1</edgelabel>
+          <edgelabel>entities_group_2</edgelabel>
+          <edgelabel>gui_group</edgelabel>
+          <edgelabel>light_group</edgelabel>
+          <edgelabel>render_queue</edgelabel>
+          <edgelabel>settings</edgelabel>
+          <edgelabel>terrain_group_0</edgelabel>
+          <edgelabel>terrain_group_1</edgelabel>
+          <edgelabel>...</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+      <node id="3">
+        <label>Any</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/camera/models.py" line="8" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="8" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1ad356a57479fe0460c0a60547a92f435f" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>effect_group</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1a842f8aa5132f595b9a5e1c730db9b294" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>entities_group_0</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1a84089636791aa3e58ab3705e869dfe22" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>entities_group_1</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1a9fff8e0c33a52a10564083b8071bc5c1" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>entities_group_2</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1adb4add13013dfff7826b4b7d08484184" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>gui_group</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1ab71d7cb6968a3e2686c076e9dce96216" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>LAYERS_TO_DRAW</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1ae5e429e7d797dc15b9342f96b2f03f39" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>light_group</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1a5f7ca56981e590a47b121f9fff54ed4b" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>light_intensities</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1ad27e1ba2e6160384db49fe627fe0a38e" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>render_queue</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1a7911e376062457b5f5b4dae71caa803f" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>settings</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1a7026f0251beeda8984f63464a4d4f5ce" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>terrain_group_0</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1aa8827084546b8870250ab61251c2b176" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>terrain_group_1</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1a3ce5ba736b87e67123f0ea7e7fffefd1" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>terrain_group_2</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraModel_1a559961f153cf5899b19758b7f76423e0" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraModel</scope><name>views</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

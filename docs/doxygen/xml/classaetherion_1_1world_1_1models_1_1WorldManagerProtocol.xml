@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::world::models::WorldManagerProtocol</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Protocol</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1ad689bc4895360b33b2e48094e6a7423c" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.world.models.WorldManagerProtocol::event_bus</definition>
+        <argsstring></argsstring>
+        <name>event_bus</name>
+        <qualifiedname>aetherion.world.models.WorldManagerProtocol.event_bus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="36" column="1" bodyfile="src/aetherion/world/models.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1a5d5ccfbf952239eee7a445c6853ec4f4" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.world.models.WorldManagerProtocol::worlds</definition>
+        <argsstring></argsstring>
+        <name>worlds</name>
+        <qualifiedname>aetherion.world.models.WorldManagerProtocol.worlds</qualifiedname>
+        <initializer>[str, Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="37" column="1" bodyfile="src/aetherion/world/models.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1ab72999808075e5a31c7afd8f49f2fbc5" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.world.models.WorldManagerProtocol::worlds_metadata</definition>
+        <argsstring></argsstring>
+        <name>worlds_metadata</name>
+        <qualifiedname>aetherion.world.models.WorldManagerProtocol.worlds_metadata</qualifiedname>
+        <initializer>[str, Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="38" column="1" bodyfile="src/aetherion/world/models.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1a8b643129294de346650fa3abbd30198b" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.world.models.WorldManagerProtocol::world_snapshots</definition>
+        <argsstring></argsstring>
+        <name>world_snapshots</name>
+        <qualifiedname>aetherion.world.models.WorldManagerProtocol.world_snapshots</qualifiedname>
+        <initializer>[str, list[str]]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="39" column="1" bodyfile="src/aetherion/world/models.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1a9dfe093692fe5aa0c6c22e103e7a919d" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.world.models.WorldManagerProtocol::recorder_manager_</definition>
+        <argsstring></argsstring>
+        <name>recorder_manager_</name>
+        <qualifiedname>aetherion.world.models.WorldManagerProtocol.recorder_manager_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="40" column="1" bodyfile="src/aetherion/world/models.py" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1a35ab64f8e402a63393d1e69dbbdbf457" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.world.models.WorldManagerProtocol::current_key</definition>
+        <argsstring></argsstring>
+        <name>current_key</name>
+        <qualifiedname>aetherion.world.models.WorldManagerProtocol.current_key</qualifiedname>
+        <initializer> | None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="41" column="1" bodyfile="src/aetherion/world/models.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.world.models.WorldManagerProtocol</label>
+        <link refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Protocol</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.world.models.WorldManagerProtocol</label>
+        <link refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>event_bus</edgelabel>
+          <edgelabel>recorder_manager_</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Any</label>
+      </node>
+      <node id="2">
+        <label>Protocol</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/world/models.py" line="35" column="1" bodyfile="src/aetherion/world/models.py" bodystart="35" bodyend="43"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1a35ab64f8e402a63393d1e69dbbdbf457" prot="public" virt="non-virtual"><scope>aetherion::world::models::WorldManagerProtocol</scope><name>current_key</name></member>
+      <member refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1ad689bc4895360b33b2e48094e6a7423c" prot="public" virt="non-virtual"><scope>aetherion::world::models::WorldManagerProtocol</scope><name>event_bus</name></member>
+      <member refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1a9dfe093692fe5aa0c6c22e103e7a919d" prot="public" virt="non-virtual"><scope>aetherion::world::models::WorldManagerProtocol</scope><name>recorder_manager_</name></member>
+      <member refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1a8b643129294de346650fa3abbd30198b" prot="public" virt="non-virtual"><scope>aetherion::world::models::WorldManagerProtocol</scope><name>world_snapshots</name></member>
+      <member refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1a5d5ccfbf952239eee7a445c6853ec4f4" prot="public" virt="non-virtual"><scope>aetherion::world::models::WorldManagerProtocol</scope><name>worlds</name></member>
+      <member refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol_1ab72999808075e5a31c7afd8f49f2fbc5" prot="public" virt="non-virtual"><scope>aetherion::world::models::WorldManagerProtocol</scope><name>worlds_metadata</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

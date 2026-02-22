@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_13f41f0ab244f47df60b3088a6248ae5" kind="dir">
+    <compoundname>src/Gui/GuiPrograms</compoundname>
+    <innerdir refid="dir_091fee004c4edda6bc8bbc564a062c9b">src/Gui/GuiPrograms/Debug</innerdir>
+    <innerdir refid="dir_b3caa97119d395f5286dbb18eb2053ed">src/Gui/GuiPrograms/Game</innerdir>
+    <innerdir refid="dir_070a1bc81cf5445dcad65559daf75654">src/Gui/GuiPrograms/Settings</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Gui/GuiPrograms/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="PerceptionCore_8hpp" kind="file" language="C++">
+    <compoundname>PerceptionCore.hpp</compoundname>
+    <includedby refid="CommandHandlers_8hpp" local="yes">src/WorldClientAPI/CommandHandlers.hpp</includedby>
+    <includedby refid="PerceptionCore_8cpp" local="yes">src/WorldClientAPI/PerceptionCore.cpp</includedby>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/WorldClientAPI/CommandHandlers.hpp</label>
+        <link refid="CommandHandlers_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/WorldClientAPI/CommandValidator.hpp</label>
+        <link refid="CommandValidator_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>src/WorldClientAPI/PerceptionCore.hpp</label>
+        <link refid="PerceptionCore_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>PERCEPTION_CORE_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PERCEPTION_CORE_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Core<sp/>perception<sp/>logic<sp/>will<sp/>be<sp/>implemented<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>PERCEPTION_CORE_HPP</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/WorldClientAPI/PerceptionCore.hpp"/>
+  </compounddef>
+</doxygen>

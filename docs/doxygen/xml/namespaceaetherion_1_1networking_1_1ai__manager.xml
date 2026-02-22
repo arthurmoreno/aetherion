@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1networking_1_1ai__manager" kind="namespace" language="Python">
+    <compoundname>aetherion::networking::ai_manager</compoundname>
+    <innerclass refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager" prot="public">aetherion::networking::ai_manager::AIProcessManager</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="ai__manager_8py_1a02078a954fbf0682905d98393484ca33" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion::networking::ai_manager.ASYNC_WORKER_OFF</definition>
+        <argsstring></argsstring>
+        <name>ASYNC_WORKER_OFF</name>
+        <qualifiedname>aetherion.networking.ai_manager.ASYNC_WORKER_OFF</qualifiedname>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="7" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ai__manager_8py_1ab3b153713c9735af1caac82b6aee939e" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion::networking::ai_manager.LLM_CALLS_DISABLED</definition>
+        <argsstring></argsstring>
+        <name>LLM_CALLS_DISABLED</name>
+        <qualifiedname>aetherion.networking.ai_manager.LLM_CALLS_DISABLED</qualifiedname>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="8" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="8" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="ai__manager_8py_1a50807dee9286e0ea4f3946b95f4606c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.ai_manager.check_remove_and_create_directory</definition>
+        <argsstring>(str dir_path)</argsstring>
+        <name>check_remove_and_create_directory</name>
+        <qualifiedname>aetherion.networking.ai_manager.check_remove_and_create_directory</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>dir_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if a directory with the given path exists.
+If it does, remove the directory and its contents.
+Then, create a new empty directory with the same name.
+
+Parameters:
+- dir_path (str): The path of the directory to check, remove, and create.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="11" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="11" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/networking/ai_manager.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

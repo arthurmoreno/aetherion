@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::game_state::world_interface::WorldInterfaceMetadata</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a3e33033401807a699e545356348aa5da" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.world_interface.WorldInterfaceMetadata::key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="7" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a855779ca9a0cebb07c87d0316a383325" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.world_interface.WorldInterfaceMetadata::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="8" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a1b1c77f706c1df9deedd60c9dbc72fe4" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.world_interface.WorldInterfaceMetadata::description</definition>
+        <argsstring></argsstring>
+        <name>description</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.description</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="9" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1ad608f2ff6f5f764adbf44a99ccbd27c1" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1constants_1_1WorldInstanceTypes" kindref="compound">WorldInstanceTypes</ref></type>
+        <definition>WorldInstanceTypes aetherion.game_state.world_interface.WorldInterfaceMetadata::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.type</qualifiedname>
+        <initializer>=  WorldInstanceTypes.SYNCHRONOUS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="10" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a766968e35aaa2147c98503f355ef9a26" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.world_interface.WorldInterfaceMetadata::status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.status</qualifiedname>
+        <initializer>=  &quot;unavailable&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="11" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a9837224c325c6fc10ca9762485225be2" prot="public" static="yes" mutable="no">
+        <type>float</type>
+        <definition>float aetherion.game_state.world_interface.WorldInterfaceMetadata::gravity</definition>
+        <argsstring></argsstring>
+        <name>gravity</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.gravity</qualifiedname>
+        <initializer>=  5.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="13" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a359aaf80c03e7fe31452e9b62e10a4dd" prot="public" static="yes" mutable="no">
+        <type>float</type>
+        <definition>float aetherion.game_state.world_interface.WorldInterfaceMetadata::friction</definition>
+        <argsstring></argsstring>
+        <name>friction</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.friction</qualifiedname>
+        <initializer>=  1.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="14" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a0547b561251c4fa2e91d83bde306173b" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.game_state.world_interface.WorldInterfaceMetadata::allow_multi_direction</definition>
+        <argsstring></argsstring>
+        <name>allow_multi_direction</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.allow_multi_direction</qualifiedname>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="15" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a8123b609a94712930df0725ed12c1211" prot="public" static="yes" mutable="no">
+        <type>float</type>
+        <definition>float aetherion.game_state.world_interface.WorldInterfaceMetadata::evaporation_coefficient</definition>
+        <argsstring></argsstring>
+        <name>evaporation_coefficient</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.evaporation_coefficient</qualifiedname>
+        <initializer>=  8.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="16" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a698770841ae9f69d2941958f85fcd84d" prot="public" static="yes" mutable="no">
+        <type>float</type>
+        <definition>float aetherion.game_state.world_interface.WorldInterfaceMetadata::heat_to_water_evaporation</definition>
+        <argsstring></argsstring>
+        <name>heat_to_water_evaporation</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.heat_to_water_evaporation</qualifiedname>
+        <initializer>=  120.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="17" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a3da1a06b56a7005af9f98b743600fe97" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.game_state.world_interface.WorldInterfaceMetadata::water_minimum_units</definition>
+        <argsstring></argsstring>
+        <name>water_minimum_units</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.water_minimum_units</qualifiedname>
+        <initializer>=  30000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="18" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1aeef2924da1aff4f79fbe3273b64fe9d5" prot="public" static="yes" mutable="no">
+        <type>float</type>
+        <definition>float aetherion.game_state.world_interface.WorldInterfaceMetadata::metabolism_cost_to_apply_force</definition>
+        <argsstring></argsstring>
+        <name>metabolism_cost_to_apply_force</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.metabolism_cost_to_apply_force</qualifiedname>
+        <initializer>=  1.999999949504854e-06</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="19" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a5ce78b1a75cf532e682ad7b15b5c6616" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.world_interface.WorldInterfaceMetadata::host</definition>
+        <argsstring></argsstring>
+        <name>host</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.host</qualifiedname>
+        <initializer>=  &quot;localhost&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="21" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a1a8c891d059df8b5728fbce047f516d6" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.world_interface.WorldInterfaceMetadata::port</definition>
+        <argsstring></argsstring>
+        <name>port</name>
+        <qualifiedname>aetherion.game_state.world_interface.WorldInterfaceMetadata.port</qualifiedname>
+        <initializer>=  &quot;8765&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/world_interface.py" line="22" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.game_state.world_interface.WorldInterfaceMetadata</label>
+        <link refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.game_state.world_interface.WorldInterfaceMetadata</label>
+        <link refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aetherion.constants.WorldInstanceTypes</label>
+        <link refid="classaetherion_1_1constants_1_1WorldInstanceTypes"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IntEnum</label>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/game_state/world_interface.py" line="6" column="1" bodyfile="src/aetherion/game_state/world_interface.py" bodystart="6" bodyend="23"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a0547b561251c4fa2e91d83bde306173b" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>allow_multi_direction</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a1b1c77f706c1df9deedd60c9dbc72fe4" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>description</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a8123b609a94712930df0725ed12c1211" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>evaporation_coefficient</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a359aaf80c03e7fe31452e9b62e10a4dd" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>friction</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a9837224c325c6fc10ca9762485225be2" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>gravity</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a698770841ae9f69d2941958f85fcd84d" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>heat_to_water_evaporation</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a5ce78b1a75cf532e682ad7b15b5c6616" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>host</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a3e33033401807a699e545356348aa5da" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>key</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1aeef2924da1aff4f79fbe3273b64fe9d5" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>metabolism_cost_to_apply_force</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a855779ca9a0cebb07c87d0316a383325" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>name</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a1a8c891d059df8b5728fbce047f516d6" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>port</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a766968e35aaa2147c98503f355ef9a26" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>status</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1ad608f2ff6f5f764adbf44a99ccbd27c1" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>type</name></member>
+      <member refid="classaetherion_1_1game__state_1_1world__interface_1_1WorldInterfaceMetadata_1a3da1a06b56a7005af9f98b743600fe97" prot="public" virt="non-virtual"><scope>aetherion::game_state::world_interface::WorldInterfaceMetadata</scope><name>water_minimum_units</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

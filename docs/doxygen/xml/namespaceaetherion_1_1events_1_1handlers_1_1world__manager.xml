@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1events_1_1handlers_1_1world__manager" kind="namespace" language="Python">
+    <compoundname>aetherion::events::handlers::world_manager</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="world__manager_8py_1afb64286b3d4c04bd05e5f877cccc50bd" prot="public" static="no" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion::events::handlers::world_manager.worldmanager_event_handlers</definition>
+        <argsstring></argsstring>
+        <name>worldmanager_event_handlers</name>
+        <qualifiedname>aetherion.events.handlers.world_manager.worldmanager_event_handlers</qualifiedname>
+        <initializer>=  {
+    GameEventType.WORLD_CREATE_REQUESTED: on_world_create_requested,
+    GameEventType.WORLD_CONNECT_REQUESTED: on_world_connect_requested,
+    GameEventType.WORLD_RECORDER_START_REQUESTED: on_recorder_start_requested,
+    GameEventType.WORLD_RECORDER_STOP_AND_SAVE_REQUESTED: on_recorder_stop_and_save_requested,
+    GameEventType.WORLD_SNAPSHOT_TAKE_REQUESTED: on_snapshot_take_requested,
+    GameEventType.WORLD_SNAPSHOT_DELETE_REQUESTED: on_snapshot_delete_requested,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/world_manager.py" line="292" column="1" bodyfile="src/aetherion/events/handlers/world_manager.py" bodystart="292" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="world__manager_8py_1a4a3da72dcf42ff5fbbfab2d77b4aee42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.world_manager.on_world_create_requested</definition>
+        <argsstring>(WorldManagerProtocol world_manager, GameEvent[GameEventType] event)</argsstring>
+        <name>on_world_create_requested</name>
+        <qualifiedname>aetherion.events.handlers.world_manager.on_world_create_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol" kindref="compound">WorldManagerProtocol</ref></type>
+          <declname>world_manager</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Handle world creation requests</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/world_manager.py" line="18" column="1" bodyfile="src/aetherion/events/handlers/world_manager.py" bodystart="18" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="world__manager_8py_1a7851d16531558f27ba41d280a8a9871e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.world_manager.on_world_connect_requested</definition>
+        <argsstring>(WorldManagerProtocol world_manager, GameEvent[GameEventType] event)</argsstring>
+        <name>on_world_connect_requested</name>
+        <qualifiedname>aetherion.events.handlers.world_manager.on_world_connect_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol" kindref="compound">WorldManagerProtocol</ref></type>
+          <declname>world_manager</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Handle world connection requests</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/world_manager.py" line="78" column="1" bodyfile="src/aetherion/events/handlers/world_manager.py" bodystart="78" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="world__manager_8py_1a4efed3829c1fe9ec16e6bc71bffb71df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.world_manager.on_recorder_start_requested</definition>
+        <argsstring>(WorldManagerProtocol world_manager, GameEvent[GameEventType] event)</argsstring>
+        <name>on_recorder_start_requested</name>
+        <qualifiedname>aetherion.events.handlers.world_manager.on_recorder_start_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol" kindref="compound">WorldManagerProtocol</ref></type>
+          <declname>world_manager</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Handle world recorder start requests.
+
+Expected event data:
+    - recording_name: Optional[str] - Name for the recording
+    - recording_config: Optional[dict] - Configuration for the recorder
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/world_manager.py" line="125" column="1" bodyfile="src/aetherion/events/handlers/world_manager.py" bodystart="125" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="world__manager_8py_1aaba19c84997cd644d1802fa6c43e5c90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.world_manager.on_recorder_stop_and_save_requested</definition>
+        <argsstring>(WorldManagerProtocol world_manager, GameEvent[GameEventType] event)</argsstring>
+        <name>on_recorder_stop_and_save_requested</name>
+        <qualifiedname>aetherion.events.handlers.world_manager.on_recorder_stop_and_save_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol" kindref="compound">WorldManagerProtocol</ref></type>
+          <declname>world_manager</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Handle world recorder stop and save requests.
+
+Expected event data:
+    - save_name: Optional[str] - Name to use when saving
+    - save_path: Optional[str] - Custom filepath for saving
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/world_manager.py" line="165" column="1" bodyfile="src/aetherion/events/handlers/world_manager.py" bodystart="165" bodyend="221"/>
+      </memberdef>
+      <memberdef kind="function" id="world__manager_8py_1ac4505e33b7ea440357b057e45b2035cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.world_manager.on_snapshot_take_requested</definition>
+        <argsstring>(WorldManagerProtocol world_manager, GameEvent[GameEventType] event)</argsstring>
+        <name>on_snapshot_take_requested</name>
+        <qualifiedname>aetherion.events.handlers.world_manager.on_snapshot_take_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol" kindref="compound">WorldManagerProtocol</ref></type>
+          <declname>world_manager</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Handle world snapshot take requests.
+
+Expected event data:
+    - name: str - Name for the snapshot (with timestamp)
+    - world_key: Optional[str] - World to snapshot (defaults to current)
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/world_manager.py" line="222" column="1" bodyfile="src/aetherion/events/handlers/world_manager.py" bodystart="222" bodyend="257"/>
+      </memberdef>
+      <memberdef kind="function" id="world__manager_8py_1a6d3b113147c2d0a5b4fd8d9fb539ddc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.world_manager.on_snapshot_delete_requested</definition>
+        <argsstring>(WorldManagerProtocol world_manager, GameEvent[GameEventType] event)</argsstring>
+        <name>on_snapshot_delete_requested</name>
+        <qualifiedname>aetherion.events.handlers.world_manager.on_snapshot_delete_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol" kindref="compound">WorldManagerProtocol</ref></type>
+          <declname>world_manager</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Handle world snapshot deletion requests.
+
+Expected event data:
+    - name: str - Name of the snapshot to delete
+    - index: int - Index of the snapshot in the list
+    - world_key: Optional[str] - World key (defaults to current)
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/world_manager.py" line="258" column="1" bodyfile="src/aetherion/events/handlers/world_manager.py" bodystart="258" bodyend="291"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/events/handlers/world_manager.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="audio_2models_8py" kind="file" language="Python">
+    <compoundname>models.py</compoundname>
+    <innerclass refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol" prot="public">aetherion::audio::models::AudioManagerProtocol</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio">aetherion::audio</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio_1_1models">aetherion::audio::models</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Protocol</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol" kindref="compound">AudioManagerProtocol</ref>(Protocol):</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Protocol<sp/>describing<sp/>the<sp/>public<sp/>surface<sp/>of<sp/>an<sp/>audio<sp/>manager<sp/>used<sp/>by<sp/>the<sp/>engine.</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>This<sp/>mirrors<sp/>the<sp/>primary<sp/>methods<sp/>provided<sp/>by<sp/>`MusicAndAmbienceManager`<sp/>so</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>other<sp/>engine<sp/>components<sp/>can<sp/>accept<sp/>a<sp/>typed<sp/>audio<sp/>manager<sp/>without<sp/>depending</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>on<sp/>the<sp/>concrete<sp/>implementation.</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">load_music(self,<sp/>file_path:<sp/>str<sp/>|<sp/>bytes)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">play_music(self,<sp/>loops:<sp/>int<sp/>=<sp/>-1)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">pause_music(self)<sp/>-&gt;<sp/>None:<sp/>...</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">resume_music(self)<sp/>-&gt;<sp/>None:<sp/>...</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">stop_music(self)<sp/>-&gt;<sp/>None:<sp/>...</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">fade_in_music(self,<sp/>loops:<sp/>int<sp/>=<sp/>-1,<sp/>fade_ms:<sp/>int<sp/>=<sp/>1000)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">fade_out_music(self,<sp/>fade_ms:<sp/>int<sp/>=<sp/>1000)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">set_music_volume(self,<sp/>volume:<sp/>int)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">get_music_volume(self)<sp/>-&gt;<sp/>int:<sp/>...</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">is_music_playing(self)<sp/>-&gt;<sp/>bool:<sp/>...</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">is_music_paused(self)<sp/>-&gt;<sp/>bool:<sp/>...</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">load_ambient(self,<sp/>name:<sp/>str,<sp/>file_path:<sp/>str<sp/>|<sp/>bytes)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">play_ambient(self,<sp/>name:<sp/>str,<sp/>loops:<sp/>int<sp/>=<sp/>-1,<sp/>volume:<sp/>int<sp/>=<sp/>128)<sp/>-&gt;<sp/>int:<sp/>...</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">stop_ambient(self,<sp/>name:<sp/>str)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">stop_all_ambient(self)<sp/>-&gt;<sp/>None:<sp/>...</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">fade_ambient(self,<sp/>name:<sp/>str,<sp/>fade_ms:<sp/>int)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">set_ambient_volume(self,<sp/>volume:<sp/>int)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">cleanup(self)<sp/>-&gt;<sp/>None:<sp/>...</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/audio/models.py"/>
+  </compounddef>
+</doxygen>

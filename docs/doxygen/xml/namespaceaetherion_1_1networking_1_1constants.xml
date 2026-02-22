@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1networking_1_1constants" kind="namespace" language="Python">
+    <compoundname>aetherion::networking::constants</compoundname>
+    <innerclass refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel" prot="public">aetherion::networking::constants::PermissionLevel</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/networking/constants.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

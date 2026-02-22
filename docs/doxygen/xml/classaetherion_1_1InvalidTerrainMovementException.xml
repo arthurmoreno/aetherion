@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1InvalidTerrainMovementException" kind="class" language="C++" prot="public">
+    <compoundname>aetherion::InvalidTerrainMovementException</compoundname>
+    <basecompoundref refid="classaetherion_1_1PhysicsException" prot="public" virt="non-virtual">aetherion::PhysicsException</basecompoundref>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion::InvalidTerrainMovementException</label>
+        <link refid="classaetherion_1_1InvalidTerrainMovementException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion::PhysicsException</label>
+        <link refid="classaetherion_1_1PhysicsException"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::runtime_error</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion::InvalidTerrainMovementException</label>
+        <link refid="classaetherion_1_1InvalidTerrainMovementException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion::PhysicsException</label>
+        <link refid="classaetherion_1_1PhysicsException"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::runtime_error</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/physics/PhysicsExceptions.hpp" line="30" column="1" bodyfile="src/physics/PhysicsExceptions.hpp" bodystart="30" bodyend="33"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="sprites_8py" kind="file" language="Python">
+    <compoundname>sprites.py</compoundname>
+    <innerclass refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite" prot="public">aetherion::renderer::sprites::Sprite</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer">aetherion::renderer</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1sprites">aetherion::renderer::sprites</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">import</highlight><highlight class="normal"><sp/>aetherion</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite" kindref="compound">Sprite</ref>:</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>renderer,<sp/>sprite_id,<sp/>sprite_image_path,<sp/>x=0,<sp/>y=0,<sp/>scale_x=0,<sp/>scale_y=0):</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ae11b424b8c546e57282ad14eda5e86a0" kindref="member">sprite_id</ref><sp/>=<sp/>sprite_id</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ae2048f78ddfc07b74ef10341e89016a0" kindref="member">renderer</ref><sp/>=<sp/>renderer</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aetherion.load_texture_on_manager(</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ae2048f78ddfc07b74ef10341e89016a0" kindref="member">renderer</ref>.renderer_ptr,<sp/>sprite_image_path,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ae11b424b8c546e57282ad14eda5e86a0" kindref="member">sprite_id</ref>,<sp/>scale_x,<sp/>scale_y</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1a52c5e6e741188aaedd06f3d326bc1f46" kindref="member">x</ref><sp/>=<sp/>x</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1aed2abe5d162c788f4e2162bd475170a2" kindref="member">y</ref><sp/>=<sp/>y</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">render(self):</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aetherion.render_texture_from_manager(self.<ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ae2048f78ddfc07b74ef10341e89016a0" kindref="member">renderer</ref>.renderer_ptr,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1ae11b424b8c546e57282ad14eda5e86a0" kindref="member">sprite_id</ref>,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1a52c5e6e741188aaedd06f3d326bc1f46" kindref="member">x</ref>,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite_1aed2abe5d162c788f4e2162bd475170a2" kindref="member">y</ref>)</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/renderer/sprites.py"/>
+  </compounddef>
+</doxygen>

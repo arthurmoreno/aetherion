@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxyfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="doxyfile.xsd" version="1.9.8" xml:lang="en-US">
   <option  id='DOXYFILE_ENCODING' default='yes' type='string'><value><![CDATA[UTF-8]]></value></option>
-  <option  id='PROJECT_NAME' default='no' type='string'><value><![CDATA["LifeSimCore C++ API Reference"]]></value></option>
+  <option  id='PROJECT_NAME' default='no' type='string'><value><![CDATA["Aetherion C++ API Reference"]]></value></option>
   <option  id='PROJECT_NUMBER' default='yes' type='string'><value><![CDATA[]]></value></option>
   <option  id='PROJECT_BRIEF' default='yes' type='string'><value><![CDATA[]]></value></option>
   <option  id='PROJECT_LOGO' default='yes' type='string'><value><![CDATA[]]></value></option>
@@ -219,7 +219,7 @@
   <option  id='ALPHABETICAL_INDEX' default='yes' type='bool'><value>YES</value></option>
   <option  id='IGNORE_PREFIX' default='yes' type='stringlist'>
   </option>
-  <option  id='GENERATE_HTML' default='no' type='bool'><value>NO</value></option>
+  <option  id='GENERATE_HTML' default='yes' type='bool'><value>YES</value></option>
   <option  id='HTML_OUTPUT' default='yes' type='string'><value><![CDATA[html]]></value></option>
   <option  id='HTML_FILE_EXTENSION' default='yes' type='string'><value><![CDATA[.html]]></value></option>
   <option  id='HTML_HEADER' default='yes' type='string'><value><![CDATA[]]></value></option>
@@ -319,7 +319,7 @@
   <option  id='MAN_SUBDIR' default='yes' type='string'><value><![CDATA[]]></value></option>
   <option  id='MAN_LINKS' default='yes' type='bool'><value>NO</value></option>
   <option  id='GENERATE_XML' default='no' type='bool'><value>YES</value></option>
-  <option  id='XML_OUTPUT' default='no' type='string'><value><![CDATA[docs/doxygen/xml]]></value></option>
+  <option  id='XML_OUTPUT' default='yes' type='string'><value><![CDATA[xml]]></value></option>
   <option  id='XML_PROGRAMLISTING' default='yes' type='bool'><value>YES</value></option>
   <option  id='XML_NS_MEMB_FILE_SCOPE' default='yes' type='bool'><value>NO</value></option>
   <option  id='GENERATE_DOCBOOK' default='yes' type='bool'><value>NO</value></option>

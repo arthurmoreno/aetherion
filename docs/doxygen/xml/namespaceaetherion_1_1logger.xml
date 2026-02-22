@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1logger" kind="namespace" language="Python">
+    <compoundname>aetherion::logger</compoundname>
+    <innerclass refid="classaetherion_1_1logger_1_1__CppLoggerHandler" prot="protected">aetherion::logger::_CppLoggerHandler</innerclass>
+    <innerclass refid="classaetherion_1_1logger_1_1__CppLoggerProtocol" prot="protected">aetherion::logger::_CppLoggerProtocol</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceaetherion_1_1logger_1a8d7647ba8ab7d0a825a217e5d99e4dd0" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str aetherion::logger.ENV</definition>
+        <argsstring></argsstring>
+        <name>ENV</name>
+        <qualifiedname>aetherion.logger.ENV</qualifiedname>
+        <initializer>=  os.getenv(&quot;ENV&quot;, &quot;production&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="29" column="1" bodyfile="src/aetherion/logger.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceaetherion_1_1logger_1afc3823370ba33e0c1ac5ef678bf66eba" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str aetherion::logger.RESET</definition>
+        <argsstring></argsstring>
+        <name>RESET</name>
+        <qualifiedname>aetherion.logger.RESET</qualifiedname>
+        <initializer>=  &quot;\033[0m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="33" column="1" bodyfile="src/aetherion/logger.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceaetherion_1_1logger_1a067d8953fe04f27af09b6ba0bcb9f69a" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str aetherion::logger.CYAN</definition>
+        <argsstring></argsstring>
+        <name>CYAN</name>
+        <qualifiedname>aetherion.logger.CYAN</qualifiedname>
+        <initializer>=  &quot;\033[36m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="34" column="1" bodyfile="src/aetherion/logger.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceaetherion_1_1logger_1a9de1179a3089f17fa6b9582332de3da2" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str aetherion::logger.GREEN</definition>
+        <argsstring></argsstring>
+        <name>GREEN</name>
+        <qualifiedname>aetherion.logger.GREEN</qualifiedname>
+        <initializer>=  &quot;\033[32m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="35" column="1" bodyfile="src/aetherion/logger.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceaetherion_1_1logger_1a7b507284092fcccc53a702c36321e4e0" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str aetherion::logger.YELLOW</definition>
+        <argsstring></argsstring>
+        <name>YELLOW</name>
+        <qualifiedname>aetherion.logger.YELLOW</qualifiedname>
+        <initializer>=  &quot;\033[33m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="36" column="1" bodyfile="src/aetherion/logger.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceaetherion_1_1logger_1a4925718363b6ddc62df2a244b7d47073" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str aetherion::logger.RED</definition>
+        <argsstring></argsstring>
+        <name>RED</name>
+        <qualifiedname>aetherion.logger.RED</qualifiedname>
+        <initializer>=  &quot;\033[31m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="37" column="1" bodyfile="src/aetherion/logger.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceaetherion_1_1logger_1a4cb79931e0966c6e3ed0eb00af558051" prot="public" static="no" mutable="no">
+        <type>str</type>
+        <definition>str aetherion::logger.WHITE</definition>
+        <argsstring></argsstring>
+        <name>WHITE</name>
+        <qualifiedname>aetherion.logger.WHITE</qualifiedname>
+        <initializer>=  &quot;\033[37m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="38" column="1" bodyfile="src/aetherion/logger.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceaetherion_1_1logger_1a35e7780ca5eecb39cc38f0b01ae9bc75" prot="public" static="no" mutable="no">
+        <type>BoundLogger</type>
+        <definition>BoundLogger aetherion::logger.logger</definition>
+        <argsstring></argsstring>
+        <name>logger</name>
+        <qualifiedname>aetherion.logger.logger</qualifiedname>
+        <initializer>=  <ref refid="namespaceaetherion_1_1logger_1a5f91582993b9c280ec711a4ff2ce5390" kindref="member">configure_logging</ref>(inherit=True)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="230" column="1" bodyfile="src/aetherion/logger.py" bodystart="230" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceaetherion_1_1logger_1adc8a73cc59283a058c7775546feaa0fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str</type>
+        <definition> str aetherion.logger.production_renderer</definition>
+        <argsstring>(BoundLogger _logger, str _method_name, Mapping[str, object] event_dict)</argsstring>
+        <name>production_renderer</name>
+        <qualifiedname>aetherion.logger.production_renderer</qualifiedname>
+        <param>
+          <type>BoundLogger</type>
+          <declname>_logger</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>_method_name</declname>
+        </param>
+        <param>
+          <type>Mapping</type>
+          <declname>event_dict</declname>
+          <array>[str, object]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="41" column="1" bodyfile="src/aetherion/logger.py" bodystart="41" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceaetherion_1_1logger_1a2407db5c365f01945bf27d4ff00731e2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>BoundLogger|None</type>
+        <definition> BoundLogger | None aetherion.logger._inherit_from_lifesim</definition>
+        <argsstring>(str|None _env, str _app_logger_name, int|None _level, bool|None _use_cpp_bridge)</argsstring>
+        <name>_inherit_from_lifesim</name>
+        <qualifiedname>aetherion.logger._inherit_from_lifesim</qualifiedname>
+        <param>
+          <type>str|None</type>
+          <declname>_env</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>_app_logger_name</declname>
+        </param>
+        <param>
+          <type>int|None</type>
+          <declname>_level</declname>
+        </param>
+        <param>
+          <type>bool|None</type>
+          <declname>_use_cpp_bridge</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Deprecated no-op: LifeSim logger inheritance removed.
+
+Always returns None so this module configures logging independently.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="148" column="1" bodyfile="src/aetherion/logger.py" bodystart="150" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceaetherion_1_1logger_1a5f91582993b9c280ec711a4ff2ce5390" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>BoundLogger</type>
+        <definition> BoundLogger aetherion.logger.configure_logging</definition>
+        <argsstring>(str|None env=None, *str app_logger_name=&quot;aetherion&quot;, int|None level=None, bool|None use_cpp_bridge=None, bool inherit=True)</argsstring>
+        <name>configure_logging</name>
+        <qualifiedname>aetherion.logger.configure_logging</qualifiedname>
+        <param>
+          <type>str|None</type>
+          <declname>env</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>*str</type>
+          <declname>app_logger_name</declname>
+          <defval>&quot;aetherion&quot;</defval>
+        </param>
+        <param>
+          <type>int|None</type>
+          <declname>level</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>bool|None</type>
+          <declname>use_cpp_bridge</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>inherit</declname>
+          <defval>True</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Configure logging for Aetherion.
+
+- If inherit=True and LifeSim&apos;s configure_logging is present, delegate to it.
+- Otherwise, apply a minimal structlog+stdlib setup (dev/prod) and optionally attach
+  a bridge to the C++ logger when env==&quot;cpp-dev&quot; or use_cpp_bridge=True.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="158" column="1" bodyfile="src/aetherion/logger.py" bodystart="165" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceaetherion_1_1logger_1a09c63a0471c2499a4f279891be4028dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>BoundLogger</type>
+        <definition> BoundLogger aetherion.logger.get_logger</definition>
+        <argsstring>(str|None name=None)</argsstring>
+        <name>get_logger</name>
+        <qualifiedname>aetherion.logger.get_logger</qualifiedname>
+        <param>
+          <type>str|None</type>
+          <declname>name</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Return a structlog BoundLogger for Aetherion or consumers.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="224" column="1" bodyfile="src/aetherion/logger.py" bodystart="224" bodyend="229"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Simple logging utilities for the Aetherion Python package.
+
+Goals
+- Play nicely when LifeSim (or any host app) already configures logging.
+- Offer a minimal standalone configuration for development/production.
+- Optionally bridge stdlib logs to the C++ logger (aetherion.Logger) in cpp-dev.
+
+Usage in library modules
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.info(&quot;Hello from Aetherion&quot;)
+
+Applications can call configure_logging() once at startup, or, if using LifeSim,
+import lifesim.logger.configure_logging which will also apply to Aetherion modules.
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/logger.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

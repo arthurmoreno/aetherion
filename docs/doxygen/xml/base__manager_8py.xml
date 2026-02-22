@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="base__manager_8py" kind="file" language="Python">
+    <compoundname>base_manager.py</compoundname>
+    <innerclass refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager" prot="public">aetherion::audio::base_manager::BaseAudioManager</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio">aetherion::audio</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio_1_1base__manager">aetherion::audio::base_manager</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sdl2.sdlmixer<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>mixer</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager" kindref="compound">BaseAudioManager</ref>:</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Base<sp/>class<sp/>for<sp/>audio<sp/>managers<sp/>with<sp/>common<sp/>SDL2<sp/>mixer<sp/>utilities.</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Provides<sp/>shared<sp/>functionality<sp/>for<sp/>error<sp/>handling,<sp/>path<sp/>conversion,</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>and<sp/>SDL2_mixer<sp/>primitive<sp/>operations.</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a1eaf3546a9f5dbf421ab18f6fe706def" kindref="member">_get_error</ref>()<sp/>-&gt;<sp/>str:</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Get<sp/>the<sp/>last<sp/>SDL2_mixer<sp/>error<sp/>message<sp/>as<sp/>a<sp/>string.</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>error<sp/>message<sp/>from<sp/>SDL2_mixer.</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_msg<sp/>=<sp/>mixer.Mix_GetError()<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>isinstance(error_msg,<sp/>bytes):</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>error_msg.decode(</highlight><highlight class="stringliteral">&quot;utf-8&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>str(error_msg)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a67f4563b7770ac5e7f35993054ab5eaf" kindref="member">_to_path_bytes</ref>(file_path:<sp/>str<sp/>|<sp/>bytes)<sp/>-&gt;<sp/>bytes:</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Convert<sp/>file<sp/>path<sp/>to<sp/>bytes<sp/>for<sp/>SDL2_mixer.</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>file_path:<sp/>Path<sp/>as<sp/>string<sp/>or<sp/>bytes.</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Path<sp/>encoded<sp/>as<sp/>bytes.</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>file_path<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>isinstance(file_path,<sp/>bytes)<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>file_path.encode(</highlight><highlight class="stringliteral">&quot;utf-8&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a657512e5ead7efd3d66807065199edf5" kindref="member">_to_path_str</ref>(file_path:<sp/>str<sp/>|<sp/>bytes)<sp/>-&gt;<sp/>str:</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Convert<sp/>file<sp/>path<sp/>to<sp/>string<sp/>for<sp/>logging.</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>file_path:<sp/>Path<sp/>as<sp/>string<sp/>or<sp/>bytes.</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Path<sp/>as<sp/>string.</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>file_path.decode(</highlight><highlight class="stringliteral">&quot;utf-8&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>isinstance(file_path,<sp/>bytes)<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>file_path</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a27023c5c2096376d25514e9be6978f1d" kindref="member">_clamp_volume</ref>(volume:<sp/>int)<sp/>-&gt;<sp/>int:</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Clamp<sp/>volume<sp/>to<sp/>SDL2_mixer<sp/>valid<sp/>range.</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="51"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="52"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>volume:<sp/>Volume<sp/>level<sp/>to<sp/>clamp.</highlight></codeline>
+<codeline lineno="53"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="54"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Volume<sp/>clamped<sp/>to<sp/>0-128<sp/>range.</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>max(0,<sp/>min(128,<sp/>volume))</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/audio/base_manager.py"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1scenes_1_1base_1_1Scene" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::scenes::base::Scene</compoundname>
+    <basecompoundref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene" prot="public" virt="non-virtual">aetherion.scenes.base.BaseScene</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Scene_1a30d02f900de450aaa932a105150ec857" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Scene.on_load</definition>
+        <argsstring>(self)</argsstring>
+        <name>on_load</name>
+        <qualifiedname>aetherion.scenes.base.Scene.on_load</qualifiedname>
+        <reimplements refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1a3d2471ddf27ddd3123d99c64a11f80b6">on_load</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Load assets &amp; prepare data (called once).</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="113" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="113" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Scene_1a64cc93dd4a20bf79645d99416d8f2762" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Scene.on_enter</definition>
+        <argsstring>(self)</argsstring>
+        <name>on_enter</name>
+        <qualifiedname>aetherion.scenes.base.Scene.on_enter</qualifiedname>
+        <reimplements refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1a378bef7ae8bfbd6fdb61adecde1ca82a">on_enter</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Called when this scene becomes active.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="116" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="116" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Scene_1a8d25bd146bb657570dcedf37d1973bd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Scene.update</definition>
+        <argsstring>(self, dt, shared_state)</argsstring>
+        <name>update</name>
+        <qualifiedname>aetherion.scenes.base.Scene.update</qualifiedname>
+        <reimplements refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1ab73f60f40e46e60c9378e9c2b9d09e8d">update</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dt</type>
+          <defname>dt</defname>
+        </param>
+        <param>
+          <type>shared_state</type>
+          <defname>shared_state</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Advance logic; dt is time since last frame.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="119" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="119" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Scene_1a2db1a917dd968f140bfbda2b6594821f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Scene.render</definition>
+        <argsstring>(self, renderer, shared_state)</argsstring>
+        <name>render</name>
+        <qualifiedname>aetherion.scenes.base.Scene.render</qualifiedname>
+        <reimplements refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1aed1783e4ffeead0de202c3fa8dde8c3e">render</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>renderer</type>
+          <defname>renderer</defname>
+        </param>
+        <param>
+          <type>shared_state</type>
+          <defname>shared_state</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Draw the current frame.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="122" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="122" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Scene_1aef0c135c604af3c73f6ae64d28541c2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Scene.on_exit</definition>
+        <argsstring>(self)</argsstring>
+        <name>on_exit</name>
+        <qualifiedname>aetherion.scenes.base.Scene.on_exit</qualifiedname>
+        <reimplements refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1a100c6460600838bcb8627b2ceb4af0d8">on_exit</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Called when the scene is popped or switched.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="125" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="125" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Scene_1a6597cae8b6f2c5f8c048e303c628be18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Scene.on_unload</definition>
+        <argsstring>(self)</argsstring>
+        <name>on_unload</name>
+        <qualifiedname>aetherion.scenes.base.Scene.on_unload</qualifiedname>
+        <reimplements refid="classaetherion_1_1scenes_1_1base_1_1BaseScene_1a6501b3c79c6a58e7bf479de7ad3b7561">on_unload</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Free resources (called once).</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="128" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="128" bodyend="131"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.scenes.base.Scene</label>
+        <link refid="classaetherion_1_1scenes_1_1base_1_1Scene"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.scenes.base.BaseScene</label>
+        <link refid="classaetherion_1_1scenes_1_1base_1_1BaseScene"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.scenes.base.Scene</label>
+        <link refid="classaetherion_1_1scenes_1_1base_1_1Scene"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>SceneGraph</label>
+      </node>
+      <node id="2">
+        <label>aetherion.scenes.base.BaseScene</label>
+        <link refid="classaetherion_1_1scenes_1_1base_1_1BaseScene"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>scene_graph</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/scenes/base.py" line="112" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="112" bodyend="131"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Scene_1a64cc93dd4a20bf79645d99416d8f2762" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Scene</scope><name>on_enter</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Scene_1aef0c135c604af3c73f6ae64d28541c2a" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Scene</scope><name>on_exit</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Scene_1a30d02f900de450aaa932a105150ec857" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Scene</scope><name>on_load</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Scene_1a6597cae8b6f2c5f8c048e303c628be18" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Scene</scope><name>on_unload</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Scene_1a2db1a917dd968f140bfbda2b6594821f" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Scene</scope><name>render</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Scene_1a8d25bd146bb657570dcedf37d1973bd0" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Scene</scope><name>update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

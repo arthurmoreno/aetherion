@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structHierarchy" kind="struct" language="C++" prot="public">
+    <compoundname>Hierarchy</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structHierarchy_1a33b32e5f036e027a21464f272c37b530" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity Hierarchy::parent</definition>
+        <argsstring></argsstring>
+        <name>parent</name>
+        <qualifiedname>Hierarchy::parent</qualifiedname>
+        <initializer>{entt::null}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneComponents.hpp" line="15" column="18" bodyfile="src/LowLevelRenderer/SceneComponents.hpp" bodystart="15" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="structHierarchy_1ab2e540f511370ad83ce15e43d79063de" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity Hierarchy::first_child</definition>
+        <argsstring></argsstring>
+        <name>first_child</name>
+        <qualifiedname>Hierarchy::first_child</qualifiedname>
+        <initializer>{entt::null}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneComponents.hpp" line="16" column="18" bodyfile="src/LowLevelRenderer/SceneComponents.hpp" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="variable" id="structHierarchy_1a07de3fa0ad1139681060a166d6ae16c6" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity Hierarchy::next_sibling</definition>
+        <argsstring></argsstring>
+        <name>next_sibling</name>
+        <qualifiedname>Hierarchy::next_sibling</qualifiedname>
+        <initializer>{entt::null}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneComponents.hpp" line="17" column="18" bodyfile="src/LowLevelRenderer/SceneComponents.hpp" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="structHierarchy_1ae655fe2e1f4ec397ad5cb813e354abd3" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity Hierarchy::prev_sibling</definition>
+        <argsstring></argsstring>
+        <name>prev_sibling</name>
+        <qualifiedname>Hierarchy::prev_sibling</qualifiedname>
+        <initializer>{entt::null}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneComponents.hpp" line="18" column="18" bodyfile="src/LowLevelRenderer/SceneComponents.hpp" bodystart="18" bodyend="18"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/LowLevelRenderer/SceneComponents.hpp" line="14" column="1" bodyfile="src/LowLevelRenderer/SceneComponents.hpp" bodystart="14" bodyend="19"/>
+    <listofallmembers>
+      <member refid="structHierarchy_1ab2e540f511370ad83ce15e43d79063de" prot="public" virt="non-virtual"><scope>Hierarchy</scope><name>first_child</name></member>
+      <member refid="structHierarchy_1a07de3fa0ad1139681060a166d6ae16c6" prot="public" virt="non-virtual"><scope>Hierarchy</scope><name>next_sibling</name></member>
+      <member refid="structHierarchy_1a33b32e5f036e027a21464f272c37b530" prot="public" virt="non-virtual"><scope>Hierarchy</scope><name>parent</name></member>
+      <member refid="structHierarchy_1ae655fe2e1f4ec397ad5cb813e354abd3" prot="public" virt="non-virtual"><scope>Hierarchy</scope><name>prev_sibling</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

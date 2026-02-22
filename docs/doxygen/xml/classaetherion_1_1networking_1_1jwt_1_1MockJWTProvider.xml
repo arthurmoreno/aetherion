@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::networking::jwt::MockJWTProvider</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1ac907b4ebd1a61aa981463035222faae0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.jwt.MockJWTProvider::secret_key</definition>
+        <argsstring></argsstring>
+        <name>secret_key</name>
+        <qualifiedname>aetherion.networking.jwt.MockJWTProvider.secret_key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/jwt.py" line="100" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="100" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1a621c950ffe3ed1e5c5e96c15f17ce152" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.jwt.MockJWTProvider.__init__</definition>
+        <argsstring>(self, str secret_key=&quot;dev-secret-key&quot;, str algorithm=&quot;HS256&quot;)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.networking.jwt.MockJWTProvider.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>secret_key</declname>
+          <defval>&quot;dev-secret-key&quot;</defval>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>algorithm</declname>
+          <defval>&quot;HS256&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/jwt.py" line="87" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="87" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1a1e4f7297744afa745e143e2c251cc802" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str</type>
+        <definition> str aetherion.networking.jwt.MockJWTProvider.create_mock_token</definition>
+        <argsstring>(self, str user_id, str role=&quot;user&quot;, int expires_in_hours=24)</argsstring>
+        <name>create_mock_token</name>
+        <qualifiedname>aetherion.networking.jwt.MockJWTProvider.create_mock_token</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>user_id</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>role</declname>
+          <defval>&quot;user&quot;</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>expires_in_hours</declname>
+          <defval>24</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Create a mock JWT token for testing.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/jwt.py" line="91" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="91" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1a95a6373d828623aa708676122a955358" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str</type>
+        <definition> str aetherion.networking.jwt.MockJWTProvider.get_guest_token</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_guest_token</name>
+        <qualifiedname>aetherion.networking.jwt.MockJWTProvider.get_guest_token</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get a guest token for minimal access.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/jwt.py" line="102" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="102" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1a181e6a47c27813f39cbc8743e80ffb68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str</type>
+        <definition> str aetherion.networking.jwt.MockJWTProvider.get_user_token</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_user_token</name>
+        <qualifiedname>aetherion.networking.jwt.MockJWTProvider.get_user_token</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get a standard user token.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/jwt.py" line="106" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="106" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1ace4b99253fe59970c2ec2fa6f3148838" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str</type>
+        <definition> str aetherion.networking.jwt.MockJWTProvider.get_admin_token</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_admin_token</name>
+        <qualifiedname>aetherion.networking.jwt.MockJWTProvider.get_admin_token</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get an admin token for full access.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/jwt.py" line="110" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="110" bodyend="113"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Provides mock JWT tokens for local development.</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/networking/jwt.py" line="84" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="84" bodyend="113"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1a621c950ffe3ed1e5c5e96c15f17ce152" prot="public" virt="non-virtual"><scope>aetherion::networking::jwt::MockJWTProvider</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1a1e4f7297744afa745e143e2c251cc802" prot="public" virt="non-virtual"><scope>aetherion::networking::jwt::MockJWTProvider</scope><name>create_mock_token</name></member>
+      <member refid="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1ace4b99253fe59970c2ec2fa6f3148838" prot="public" virt="non-virtual"><scope>aetherion::networking::jwt::MockJWTProvider</scope><name>get_admin_token</name></member>
+      <member refid="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1a95a6373d828623aa708676122a955358" prot="public" virt="non-virtual"><scope>aetherion::networking::jwt::MockJWTProvider</scope><name>get_guest_token</name></member>
+      <member refid="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1a181e6a47c27813f39cbc8743e80ffb68" prot="public" virt="non-virtual"><scope>aetherion::networking::jwt::MockJWTProvider</scope><name>get_user_token</name></member>
+      <member refid="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider_1ac907b4ebd1a61aa981463035222faae0" prot="public" virt="non-virtual"><scope>aetherion::networking::jwt::MockJWTProvider</scope><name>secret_key</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

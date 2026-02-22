@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="24" column="9" bodyfile="src/VoxelGrid.hpp" bodystart="24" bodyend="-1"/>
+        <location file="src/voxelgrid/GridData.hpp" line="9" column="9" bodyfile="src/voxelgrid/GridData.hpp" bodystart="9" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structVoxelGridCoordinates_1a732bbe1cd476efddb30dc15d11be2e21" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="24" column="11" bodyfile="src/VoxelGrid.hpp" bodystart="24" bodyend="-1"/>
+        <location file="src/voxelgrid/GridData.hpp" line="9" column="11" bodyfile="src/voxelgrid/GridData.hpp" bodystart="9" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structVoxelGridCoordinates_1a5d51822a25be643963c7ba2e2dc07c93" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -43,7 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="24" column="13" bodyfile="src/VoxelGrid.hpp" bodystart="24" bodyend="-1"/>
+        <location file="src/voxelgrid/GridData.hpp" line="9" column="13" bodyfile="src/voxelgrid/GridData.hpp" bodystart="9" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="27" column="5" bodyfile="src/VoxelGrid.hpp" bodystart="27" bodyend="27"/>
+        <location file="src/voxelgrid/GridData.hpp" line="12" column="5" bodyfile="src/voxelgrid/GridData.hpp" bodystart="12" bodyend="12"/>
       </memberdef>
       <memberdef kind="function" id="structVoxelGridCoordinates_1aa91ed6b5c05c79922dc29747cd85a48f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -85,7 +85,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="30" column="5" bodyfile="src/VoxelGrid.hpp" bodystart="30" bodyend="30"/>
+        <location file="src/voxelgrid/GridData.hpp" line="15" column="5" bodyfile="src/voxelgrid/GridData.hpp" bodystart="15" bodyend="15"/>
       </memberdef>
       <memberdef kind="function" id="structVoxelGridCoordinates_1a4188aed91d29e7c7e4595de411188378" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -103,7 +103,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="33" column="5" bodyfile="src/VoxelGrid.hpp" bodystart="33" bodyend="35"/>
+        <location file="src/voxelgrid/GridData.hpp" line="18" column="5" bodyfile="src/voxelgrid/GridData.hpp" bodystart="18" bodyend="20"/>
       </memberdef>
       <memberdef kind="function" id="structVoxelGridCoordinates_1a08d73ea46ccff1bf35d25024d24f5358" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -121,7 +121,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="38" column="10" bodyfile="src/VoxelGrid.hpp" bodystart="38" bodyend="40"/>
+        <location file="src/voxelgrid/GridData.hpp" line="23" column="10" bodyfile="src/voxelgrid/GridData.hpp" bodystart="23" bodyend="25"/>
       </memberdef>
       <memberdef kind="function" id="structVoxelGridCoordinates_1ac8c879aea615e8c29c19117a69edc62f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -144,14 +144,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/VoxelGrid.hpp" line="42" column="5"/>
+        <location file="src/voxelgrid/GridData.hpp" line="27" column="5"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/VoxelGrid.hpp" line="23" column="1" bodyfile="src/VoxelGrid.hpp" bodystart="23" bodyend="43"/>
+    <location file="src/voxelgrid/GridData.hpp" line="8" column="1" bodyfile="src/voxelgrid/GridData.hpp" bodystart="8" bodyend="28"/>
     <listofallmembers>
       <member refid="structVoxelGridCoordinates_1ac8c879aea615e8c29c19117a69edc62f" prot="public" virt="non-virtual"><scope>VoxelGridCoordinates</scope><name>MSGPACK_DEFINE</name></member>
       <member refid="structVoxelGridCoordinates_1a4188aed91d29e7c7e4595de411188378" prot="public" virt="non-virtual"><scope>VoxelGridCoordinates</scope><name>operator&lt;</name></member>

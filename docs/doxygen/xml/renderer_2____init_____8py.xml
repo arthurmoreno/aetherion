@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="renderer_2____init_____8py" kind="file" language="Python">
+    <compoundname>__init__.py</compoundname>
+    <innerclass refid="classaetherion_1_1renderer_1_1Renderer" prot="public">aetherion::renderer::Renderer</innerclass>
+    <innerclass refid="classaetherion_1_1renderer_1_1RendererOpenGL" prot="public">aetherion::renderer::RendererOpenGL</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer">aetherion::renderer</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ctypes</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sdl2</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>sdl2.render<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>SDL_Renderer</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>aetherion<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>BasicGameWindow,<sp/>GameWindow,<sp/>OpenGLGameWindow</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.fonts<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Font<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>Font</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.shapes<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Rectangle<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>Rectangle</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.sprites<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Sprite<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>Sprite</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.text<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Text<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>Text</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.utils<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>apply_lighting_to_sprite<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>apply_lighting_to_sprite</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.views<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>BaseView<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>BaseView</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="classaetherion_1_1renderer_1_1Renderer" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1Renderer" kindref="compound">Renderer</ref>:</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>_renderer:<sp/>SDL_Renderer</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>renderer_ptr:<sp/>int</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>game_window:<sp/>BasicGameWindow)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1Renderer_1ae6b723f340cbfdc38b97069e2f20f23d" kindref="member">_renderer</ref><ref refid="classaetherion_1_1renderer_1_1Renderer_1a75e0a32a8e5077828beb5aa3cba72e25" kindref="member">_renderer</ref><sp/>=<sp/>sdl2.SDL_CreateRenderer(game_window.window,<sp/>-1,<sp/>0)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1Renderer_1a6432f62fb9ce46da1a51896fd4a5b216" kindref="member">renderer_ptr</ref><ref refid="classaetherion_1_1renderer_1_1Renderer_1ae66de890242c272c3d553757cb1f9c93" kindref="member">renderer_ptr</ref><sp/>=<sp/>ctypes.cast(self.<ref refid="classaetherion_1_1renderer_1_1Renderer_1ae6b723f340cbfdc38b97069e2f20f23d" kindref="member">_renderer</ref><ref refid="classaetherion_1_1renderer_1_1Renderer_1a75e0a32a8e5077828beb5aa3cba72e25" kindref="member">_renderer</ref>,<sp/>ctypes.c_void_p).value</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="classaetherion_1_1renderer_1_1RendererOpenGL" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1RendererOpenGL" kindref="compound">RendererOpenGL</ref>:</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>_renderer:<sp/>SDL_Renderer</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>renderer_ptr:<sp/>int</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>game_window:<sp/>OpenGLGameWindow)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flags<sp/>=<sp/>sdl2.SDL_RENDERER_ACCELERATED<sp/>|<sp/>sdl2.SDL_RENDERER_PRESENTVSYNC</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1RendererOpenGL_1a982bfed147ddb80af408d198713f0b43" kindref="member">_renderer</ref><ref refid="classaetherion_1_1renderer_1_1RendererOpenGL_1aa42f1a815fb553157d572a0711e343f2" kindref="member">_renderer</ref><sp/>=<sp/>sdl2.SDL_CreateRenderer(game_window.window,<sp/>-1,<sp/>flags)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1RendererOpenGL_1aea605fe466861f42ded61d1584dbf6bf" kindref="member">renderer_ptr</ref><ref refid="classaetherion_1_1renderer_1_1RendererOpenGL_1af3519cdb377d6b86f1b2838c97dca787" kindref="member">renderer_ptr</ref><sp/>=<sp/>ctypes.cast(self.<ref refid="classaetherion_1_1renderer_1_1RendererOpenGL_1a982bfed147ddb80af408d198713f0b43" kindref="member">_renderer</ref><ref refid="classaetherion_1_1renderer_1_1RendererOpenGL_1aa42f1a815fb553157d572a0711e343f2" kindref="member">_renderer</ref>,<sp/>ctypes.c_void_p).value</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">singleton_instance<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">get_renderer(game_window:<sp/>GameWindow)<sp/>-&gt;<sp/>Renderer:</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">global</highlight><highlight class="normal"><sp/>singleton_instance</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>singleton_instance<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>isinstance(game_window,<sp/>BasicGameWindow):</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>singleton_instance<sp/>=<sp/><ref refid="classaetherion_1_1renderer_1_1Renderer" kindref="compound">Renderer</ref>(game_window)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>isinstance(game_window,<sp/>OpenGLGameWindow):</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>singleton_instance<sp/>=<sp/><ref refid="classaetherion_1_1renderer_1_1RendererOpenGL" kindref="compound">RendererOpenGL</ref>(game_window)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>TypeError(</highlight><highlight class="stringliteral">&quot;Unsupported<sp/>GameWindow<sp/>type<sp/>for<sp/>renderer<sp/>creation&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>singleton_instance</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/renderer/__init__.py"/>
+  </compounddef>
+</doxygen>

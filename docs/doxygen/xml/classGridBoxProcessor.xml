@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGridBoxProcessor" kind="class" language="C++" prot="public">
+    <compoundname>GridBoxProcessor</compoundname>
+    <innerclass refid="structGridBoxProcessor_1_1ThreadAccessors" prot="private">GridBoxProcessor::ThreadAccessors</innerclass>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classGridBoxProcessor_1a9a3ad58e00907d60bdbaf4c9d2d2531b" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; ThreadAccessors &gt;</type>
+        <definition>std::unique_ptr&lt;ThreadAccessors&gt; GridBoxProcessor::accessors_</definition>
+        <argsstring></argsstring>
+        <name>accessors_</name>
+        <qualifiedname>GridBoxProcessor::accessors_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="173" column="21" bodyfile="src/EcosystemEngine.hpp" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGridBoxProcessor_1a01cfdcf7f1cb6dae23b6c06f8365c405" prot="private" static="no" mutable="no">
+        <type>entt::registry *</type>
+        <definition>entt::registry* GridBoxProcessor::registry_</definition>
+        <argsstring></argsstring>
+        <name>registry_</name>
+        <qualifiedname>GridBoxProcessor::registry_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="174" column="20" bodyfile="src/EcosystemEngine.hpp" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGridBoxProcessor_1a849681c4fc01d62229148a28026f49f5" prot="private" static="no" mutable="no">
+        <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> *</type>
+        <definition>VoxelGrid* GridBoxProcessor::voxelGrid_</definition>
+        <argsstring></argsstring>
+        <name>voxelGrid_</name>
+        <qualifiedname>GridBoxProcessor::voxelGrid_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="175" column="15" bodyfile="src/EcosystemEngine.hpp" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGridBoxProcessor_1af2463d0defef05e085eda4b2d4bfd2bf" prot="private" static="no" mutable="no">
+        <type>entt::dispatcher *</type>
+        <definition>entt::dispatcher* GridBoxProcessor::dispatcher_</definition>
+        <argsstring></argsstring>
+        <name>dispatcher_</name>
+        <qualifiedname>GridBoxProcessor::dispatcher_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="176" column="22" bodyfile="src/EcosystemEngine.hpp" bodystart="176" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGridBoxProcessor_1adbcb3da2d646e1ca6dbf9eee8d18407e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GridBoxProcessor::initializeAccessors</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>initializeAccessors</name>
+        <qualifiedname>GridBoxProcessor::initializeAccessors</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="180" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="28" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridBoxProcessor_1a1b639e20ffa75cb5af2b8cbe9c82b658" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="structWaterFlow" kindref="compound">WaterFlow</ref> &gt;</type>
+        <definition>std::vector&lt; WaterFlow &gt; GridBoxProcessor::processBox</definition>
+        <argsstring>(const GridBox &amp;box, float sunIntensity)</argsstring>
+        <name>processBox</name>
+        <qualifiedname>GridBoxProcessor::processBox</qualifiedname>
+        <param>
+          <type>const <ref refid="structGridBox" kindref="compound">GridBox</ref> &amp;</type>
+          <declname>box</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sunIntensity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="183" column="17" bodyfile="src/EcosystemEngine.cpp" bodystart="51" bodyend="72"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classGridBoxProcessor_1a91646a426f9539c06f3bce6a1191aae7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GridBoxProcessor::processVoxelWater</definition>
+        <argsstring>(int x, int y, int z, std::vector&lt; WaterFlow &gt; &amp;flows)</argsstring>
+        <name>processVoxelWater</name>
+        <qualifiedname>GridBoxProcessor::processVoxelWater</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structWaterFlow" kindref="compound">WaterFlow</ref> &gt; &amp;</type>
+          <declname>flows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="186" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="74" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="classGridBoxProcessor_1a041e76d683a42f6b7cfcfd560cfa04fe" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GridBoxProcessor::processVoxelEvaporation</definition>
+        <argsstring>(int x, int y, int z, std::vector&lt; WaterFlow &gt; &amp;flows)</argsstring>
+        <name>processVoxelEvaporation</name>
+        <qualifiedname>GridBoxProcessor::processVoxelEvaporation</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="structWaterFlow" kindref="compound">WaterFlow</ref> &gt; &amp;</type>
+          <declname>flows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="187" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="99" bodyend="110"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="163" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="163" bodyend="188"/>
+    <listofallmembers>
+      <member refid="classGridBoxProcessor_1a9a3ad58e00907d60bdbaf4c9d2d2531b" prot="private" virt="non-virtual"><scope>GridBoxProcessor</scope><name>accessors_</name></member>
+      <member refid="classGridBoxProcessor_1af2463d0defef05e085eda4b2d4bfd2bf" prot="private" virt="non-virtual"><scope>GridBoxProcessor</scope><name>dispatcher_</name></member>
+      <member refid="classGridBoxProcessor_1adbcb3da2d646e1ca6dbf9eee8d18407e" prot="public" virt="non-virtual"><scope>GridBoxProcessor</scope><name>initializeAccessors</name></member>
+      <member refid="classGridBoxProcessor_1a1b639e20ffa75cb5af2b8cbe9c82b658" prot="public" virt="non-virtual"><scope>GridBoxProcessor</scope><name>processBox</name></member>
+      <member refid="classGridBoxProcessor_1a041e76d683a42f6b7cfcfd560cfa04fe" prot="private" virt="non-virtual"><scope>GridBoxProcessor</scope><name>processVoxelEvaporation</name></member>
+      <member refid="classGridBoxProcessor_1a91646a426f9539c06f3bce6a1191aae7" prot="private" virt="non-virtual"><scope>GridBoxProcessor</scope><name>processVoxelWater</name></member>
+      <member refid="classGridBoxProcessor_1a01cfdcf7f1cb6dae23b6c06f8365c405" prot="private" virt="non-virtual"><scope>GridBoxProcessor</scope><name>registry_</name></member>
+      <member refid="classGridBoxProcessor_1a849681c4fc01d62229148a28026f49f5" prot="private" virt="non-virtual"><scope>GridBoxProcessor</scope><name>voxelGrid_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

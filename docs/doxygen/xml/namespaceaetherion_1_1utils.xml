@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1utils" kind="namespace" language="Python">
+    <compoundname>aetherion::utils</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="utils_8py_1a7afa594cd45c4ebb1f6135e49cb19db7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.utils.is_running_pyinstaller_bundle</definition>
+        <argsstring>()</argsstring>
+        <name>is_running_pyinstaller_bundle</name>
+        <qualifiedname>aetherion.utils.is_running_pyinstaller_bundle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if the script is running as a PyInstaller bundle.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/utils.py" line="4" column="1" bodyfile="src/aetherion/utils.py" bodystart="4" bodyend="9"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/utils.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

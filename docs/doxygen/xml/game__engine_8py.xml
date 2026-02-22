@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="game__engine_8py" kind="file" language="Python">
+    <compoundname>game_engine.py</compoundname>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events">aetherion::events</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events_1_1handlers">aetherion::events::handlers</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events_1_1handlers_1_1game__engine">aetherion::events::handlers::game_engine</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>__future__<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>annotations</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>TYPE_CHECKING</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>aetherion<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>(</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEvent,</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType,</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>PhysicsSettings,</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>WorldInterfaceMetadata,</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1events_1_1handlers_1_1types" kindref="compound">aetherion.events.handlers.types</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>(</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEngineEventHandlersMap,</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1logger" kindref="compound">aetherion.logger</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>logger</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1networking_1_1admin__connection" kindref="compound">aetherion.networking.admin_connection</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ServerAdminConnection</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1paths" kindref="compound">aetherion.paths</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>resolve_path</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1world_1_1constants" kindref="compound">aetherion.world.constants</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>WorldInstanceTypes</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>TYPE_CHECKING:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1engine_1_1models" kindref="compound">aetherion.engine.models</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>GameEngineProtocol</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_world_connected(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>world_name<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;world_name&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>world_key<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;world_key&quot;</highlight><highlight class="normal">,<sp/>world_name.lower().replace(</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;_&quot;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>world_metadata:<sp/>WorldInterfaceMetadata<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/>game_engine.world_manager.worlds_metadata.get(world_key)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>world_metadata:</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(f</highlight><highlight class="stringliteral">&quot;World<sp/>metadata<sp/>for<sp/>&apos;{world_key}&apos;<sp/>not<sp/>found.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>RuntimeError(f</highlight><highlight class="stringliteral">&quot;World<sp/>metadata<sp/>for<sp/>&apos;{world_key}&apos;<sp/>not<sp/>found.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>world_metadata.type<sp/>==<sp/>WorldInstanceTypes.SYNCHRONOUS:</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>physics_settings:<sp/>PhysicsSettings<sp/>=<sp/><ref refid="classPhysicsSettings" kindref="compound">PhysicsSettings</ref>()</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>physics_settings.set_gravity(world_metadata.gravity)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>physics_settings.set_friction(world_metadata.friction)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>physics_settings.set_metabolism_cost_to_apply_force(world_metadata.metabolism_cost_to_apply_force)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>physics_settings.set_evaporation_coefficient(world_metadata.evaporation_coefficient)</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>physics_settings.set_heat_to_water_evaporation(world_metadata.heat_to_water_evaporation)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>physics_settings.set_water_minimum_units(world_metadata.water_minimum_units)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.shared_state.connected_world<sp/>=<sp/>world_key</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.info(f</highlight><highlight class="stringliteral">&quot;Connected<sp/>to<sp/>world:<sp/>{world_key}<sp/>with<sp/>physics<sp/>settings:<sp/>{physics_settings}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>world_metadata.type<sp/>==<sp/>WorldInstanceTypes.SERVER:</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>For<sp/>SERVER<sp/>worlds,<sp/>we<sp/>just<sp/>set<sp/>the<sp/>connected<sp/>world<sp/>without<sp/>physics<sp/>settings</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.server_admin_connection<sp/>=<sp/>ServerAdminConnection()</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.server_admin_connection.connect(connection_type=world_metadata.type)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.shared_state.connected_world<sp/>=<sp/>world_key</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">_pause_world(game_engine:<sp/>GameEngineProtocol,<sp/>world_key:<sp/>str)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Pause<sp/>a<sp/>world<sp/>using<sp/>the<sp/>WorldManager.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>game_engine.world_manager.pause_world(world_key)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_change_desired_fps(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>desired_fps<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;desired_fps&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>desired_fps<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.shared_state.desired_fps<sp/>=<sp/>desired_fps</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.info(f</highlight><highlight class="stringliteral">&quot;Desired<sp/>FPS<sp/>changed<sp/>to:<sp/>{desired_fps}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_world_disconnect_requested(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>world_key:<sp/>str<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/>game_engine.shared_state.connected_world</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>world_key<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_pause_world(game_engine,<sp/>world_key)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>game_engine.shared_state.connected_world<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>game_engine.shared_state.connected_beast<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>game_engine.player_connection<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>game_engine.world_interface<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>logger.info(f</highlight><highlight class="stringliteral">&quot;Disconnected<sp/>from<sp/>world:<sp/>{world_key}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_world_stop_requested(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>world_key:<sp/>str<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/>game_engine.shared_state.connected_world</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>world_key:</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(</highlight><highlight class="stringliteral">&quot;No<sp/>world<sp/>is<sp/>connected.<sp/>Cannot<sp/>stop<sp/>world.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>RuntimeError(</highlight><highlight class="stringliteral">&quot;No<sp/>world<sp/>is<sp/>connected.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>_pause_world(game_engine,<sp/>world_key)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_world_play_requested(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>world_key:<sp/>str<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/>game_engine.shared_state.connected_world</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>world_key:</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(</highlight><highlight class="stringliteral">&quot;No<sp/>world<sp/>is<sp/>connected.<sp/>Cannot<sp/>play<sp/>world.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>RuntimeError(</highlight><highlight class="stringliteral">&quot;No<sp/>world<sp/>is<sp/>connected.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>game_engine.world_manager.play_world(world_key)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_create_beast_requested(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>NotImplementedError(</highlight><highlight class="stringliteral">&quot;Creating<sp/>a<sp/>beast<sp/>is<sp/>not<sp/>implemented.<sp/>Implement<sp/>this<sp/>in<sp/>your<sp/>game-specific<sp/>code.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_connect_beast_requested(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>NotImplementedError(</highlight><highlight class="stringliteral">&quot;Beast<sp/>connection<sp/>handling<sp/>is<sp/>not<sp/>implemented.<sp/>Provide<sp/>a<sp/>game-specific<sp/>implementation.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_audio_sound_effect_play(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>sound_name<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;name&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>file_path<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;file_path&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>loops<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;loops&quot;</highlight><highlight class="normal">,<sp/>0)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>volume<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;volume&quot;</highlight><highlight class="normal">,<sp/>128)</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>sound_name<sp/></highlight><highlight class="keywordflow">or</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>file_path:</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(</highlight><highlight class="stringliteral">&quot;Missing<sp/>name<sp/>or<sp/>file_path<sp/>for<sp/>sound<sp/>effect.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>resolved_path<sp/>=<sp/>str(resolve_path(file_path))</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.sound_effect_manager.load_sound(sound_name,<sp/>resolved_path)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.sound_effect_manager.play_sound(sound_name,<sp/>loops=loops,<sp/>volume=volume)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>e:</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(f</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>play<sp/>sound<sp/>effect<sp/>{sound_name}:<sp/>{e}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_audio_music_play(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>file_path<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;file_path&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>loops<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;loops&quot;</highlight><highlight class="normal">,<sp/>-1)</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>fade_ms<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;fade_ms&quot;</highlight><highlight class="normal">,<sp/>0)</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>volume<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;volume&quot;</highlight><highlight class="normal">,<sp/>128)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>file_path:</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(</highlight><highlight class="stringliteral">&quot;Missing<sp/>file_path<sp/>for<sp/>music.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>resolved_path<sp/>=<sp/>str(resolve_path(file_path))</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.audio_manager.load_music(resolved_path)</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.audio_manager.set_music_volume(volume)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>fade_ms<sp/>&gt;<sp/>0:</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.audio_manager.fade_in_music(loops=loops,<sp/>fade_ms=fade_ms)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.audio_manager.play_music(loops=loops)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>e:</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(f</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>play<sp/>music<sp/>{file_path}:<sp/>{e}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_audio_music_stop(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>fade_ms<sp/>=<sp/>event.data.get(</highlight><highlight class="stringliteral">&quot;fade_ms&quot;</highlight><highlight class="normal">,<sp/>0)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>fade_ms<sp/>&gt;<sp/>0:</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.audio_manager.fade_out_music(fade_ms=fade_ms)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>game_engine.audio_manager.stop_music()</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_audio_music_pause(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>game_engine.audio_manager.pause_music()</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">on_audio_music_resume(game_engine:<sp/>GameEngineProtocol,<sp/>event:<sp/>GameEvent[GameEventType])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>game_engine.audio_manager.resume_music()</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal">gameengine_event_handlers:<sp/>GameEngineEventHandlersMap<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.CHANGE_DESIRED_FPS:<sp/>on_change_desired_fps,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.WORLD_CONNECTED:<sp/>on_world_connected,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.CREATE_BEAST_REQUESTED:<sp/>on_create_beast_requested,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.BEAST_CONNECT_REQUESTED:<sp/>on_connect_beast_requested,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.WORLD_DISCONNECT_REQUESTED:<sp/>on_world_disconnect_requested,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.WORLD_PLAY_REQUESTED:<sp/>on_world_play_requested,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.WORLD_STOP_REQUESTED:<sp/>on_world_stop_requested,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">audiomanager_event_handlers:<sp/>GameEngineEventHandlersMap<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.AUDIO_SOUND_EFFECT_PLAY:<sp/>on_audio_sound_effect_play,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.AUDIO_MUSIC_PLAY:<sp/>on_audio_music_play,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.AUDIO_MUSIC_STOP:<sp/>on_audio_music_stop,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.AUDIO_MUSIC_PAUSE:<sp/>on_audio_music_pause,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/>GameEventType.AUDIO_MUSIC_RESUME:<sp/>on_audio_music_resume,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/events/handlers/game_engine.py"/>
+  </compounddef>
+</doxygen>

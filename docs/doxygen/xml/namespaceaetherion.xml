@@ -2,6 +2,35 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
   <compounddef id="namespaceaetherion" kind="namespace" language="Python">
     <compoundname>aetherion</compoundname>
+    <innerclass refid="classaetherion_1_1EcosystemEngineException" prot="public">aetherion::EcosystemEngineException</innerclass>
+    <innerclass refid="classaetherion_1_1InvalidEntityException" prot="public">aetherion::InvalidEntityException</innerclass>
+    <innerclass refid="classaetherion_1_1InvalidTerrainMovementException" prot="public">aetherion::InvalidTerrainMovementException</innerclass>
+    <innerclass refid="classaetherion_1_1InvalidTerrainStateException" prot="public">aetherion::InvalidTerrainStateException</innerclass>
+    <innerclass refid="classaetherion_1_1MovementException" prot="public">aetherion::MovementException</innerclass>
+    <innerclass refid="classaetherion_1_1PhysicsException" prot="public">aetherion::PhysicsException</innerclass>
+    <innerclass refid="classaetherion_1_1TerrainLockException" prot="public">aetherion::TerrainLockException</innerclass>
+    <innerclass refid="classaetherion_1_1VaporMovementBlockedException" prot="public">aetherion::VaporMovementBlockedException</innerclass>
+    <innernamespace refid="namespaceaetherion_1_1animation">aetherion::animation</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio">aetherion::audio</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1camera">aetherion::camera</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1constants">aetherion::constants</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1engine">aetherion::engine</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1engine__config">aetherion::engine_config</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1entities">aetherion::entities</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events">aetherion::events</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1game__state">aetherion::game_state</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1input">aetherion::input</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1logger">aetherion::logger</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking">aetherion::networking</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1paths">aetherion::paths</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer">aetherion::renderer</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1resource__manager">aetherion::resource_manager</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1scenes">aetherion::scenes</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1scheduler">aetherion::scheduler</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1settings">aetherion::settings</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1utils">aetherion::utils</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1windowing">aetherion::windowing</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1world">aetherion::world</innernamespace>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

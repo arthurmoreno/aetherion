@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceCommandConstants_1_1Params" kind="namespace" language="C++">
+    <compoundname>CommandConstants::Params</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="CommandConstants_8hpp_1ad6f568b11b00b4617e8619e1387a13cb" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::Params::ENTITY_TYPE_ID</definition>
+        <argsstring></argsstring>
+        <name>ENTITY_TYPE_ID</name>
+        <qualifiedname>CommandConstants::Params::ENTITY_TYPE_ID</qualifiedname>
+        <initializer>= &quot;entity_type_id&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="23" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a7c18bfedec558816d85e94827563fae3" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::Params::START</definition>
+        <argsstring></argsstring>
+        <name>START</name>
+        <qualifiedname>CommandConstants::Params::START</qualifiedname>
+        <initializer>= &quot;start&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="24" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1ab65c0f603d2de502fac956fb1a65861b" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::Params::END</definition>
+        <argsstring></argsstring>
+        <name>END</name>
+        <qualifiedname>CommandConstants::Params::END</qualifiedname>
+        <initializer>= &quot;end&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="25" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1ac2c25bafa34db0c721906e831e44285a" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::Params::X</definition>
+        <argsstring></argsstring>
+        <name>X</name>
+        <qualifiedname>CommandConstants::Params::X</qualifiedname>
+        <initializer>= &quot;x&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="26" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a009d7b8177c99e40d5c344bbf3280ab2" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::Params::Y</definition>
+        <argsstring></argsstring>
+        <name>Y</name>
+        <qualifiedname>CommandConstants::Params::Y</qualifiedname>
+        <initializer>= &quot;y&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="27" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/WorldClientAPI/CommandConstants.hpp" line="22" column="1"/>
+  </compounddef>
+</doxygen>

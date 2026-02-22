@@ -1,0 +1,867 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="ReadonlyQueries_8cpp" kind="file" language="C++">
+    <compoundname>ReadonlyQueries.cpp</compoundname>
+    <includes refid="physics_2ReadonlyQueries_8hpp" local="yes">ReadonlyQueries.hpp</includes>
+    <includes local="no">entt/entt.hpp</includes>
+    <includes local="no">format</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">tuple</includes>
+    <includes refid="EntityTypeComponent_8hpp" local="yes">components/EntityTypeComponent.hpp</includes>
+    <includes refid="PhysicsComponents_8hpp" local="yes">components/PhysicsComponents.hpp</includes>
+    <includes refid="TerrainComponents_8hpp" local="yes">components/TerrainComponents.hpp</includes>
+    <includes refid="VoxelGrid_8hpp" local="yes">voxelgrid/VoxelGrid.hpp</includes>
+    <incdepgraph>
+      <node id="6">
+        <label>components/EntityTypeComponent.hpp</label>
+        <link refid="EntityTypeComponent_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>components/HealthComponents.hpp</label>
+        <link refid="HealthComponents_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>components/ItemsComponents.hpp</label>
+        <link refid="ItemsComponents_8hpp_source"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>components/LifecycleComponents.hpp</label>
+        <link refid="LifecycleComponents_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>components/MovingComponent.hpp</label>
+        <link refid="MovingComponent_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>components/PhysicsComponents.hpp</label>
+        <link refid="PhysicsComponents_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>components/PlantsComponents.hpp</label>
+        <link refid="PlantsComponents_8hpp_source"/>
+      </node>
+      <node id="10">
+        <label>components/TerrainComponents.hpp</label>
+        <link refid="TerrainComponents_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>ecosystem/EcosystemEvents.hpp</label>
+        <link refid="EcosystemEvents_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>physics/Collision.hpp</label>
+        <link refid="Collision_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>physics/PhysicalMath.hpp</label>
+        <link refid="PhysicalMath_8hpp_source"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>physics/PhysicsConstants.hpp</label>
+        <link refid="PhysicsConstants_8hpp_source"/>
+      </node>
+      <node id="46">
+        <label>physics/PhysicsManager.hpp</label>
+        <link refid="PhysicsManager_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/physics/ReadonlyQueries.cpp</label>
+        <link refid="ReadonlyQueries_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ReadonlyQueries.hpp</label>
+        <link refid="physics_2ReadonlyQueries_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>terrain/TerrainGridRepository.hpp</label>
+        <link refid="TerrainGridRepository_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>terrain/TerrainStorage.hpp</label>
+        <link refid="TerrainStorage_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>terrain/VoxelCoord.hpp</label>
+        <link refid="VoxelCoord_8hpp_source"/>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>voxelgrid/GridData.hpp</label>
+        <link refid="GridData_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>voxelgrid/VoxelGrid.hpp</label>
+        <link refid="VoxelGrid_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>voxelgrid/VoxelGridView.hpp</label>
+        <link refid="VoxelGridView_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>VoxelGridView_generated.h</label>
+      </node>
+      <node id="36">
+        <label>algorithm</label>
+      </node>
+      <node id="28">
+        <label>atomic</label>
+      </node>
+      <node id="7">
+        <label>cmath</label>
+      </node>
+      <node id="40">
+        <label>cstddef</label>
+      </node>
+      <node id="3">
+        <label>entt/entt.hpp</label>
+      </node>
+      <node id="15">
+        <label>flatbuffers/flatbuffers.h</label>
+      </node>
+      <node id="48">
+        <label>format</label>
+      </node>
+      <node id="19">
+        <label>functional</label>
+      </node>
+      <node id="8">
+        <label>iostream</label>
+      </node>
+      <node id="44">
+        <label>limits</label>
+      </node>
+      <node id="20">
+        <label>map</label>
+      </node>
+      <node id="21">
+        <label>memory</label>
+      </node>
+      <node id="22">
+        <label>msgpack.hpp</label>
+      </node>
+      <node id="23">
+        <label>mutex</label>
+      </node>
+      <node id="16">
+        <label>nanobind/nanobind.h</label>
+      </node>
+      <node id="17">
+        <label>openvdb/openvdb.h</label>
+      </node>
+      <node id="18">
+        <label>openvdb/tools/Interpolation.h</label>
+      </node>
+      <node id="29">
+        <label>optional</label>
+      </node>
+      <node id="24">
+        <label>shared_mutex</label>
+      </node>
+      <node id="25">
+        <label>sstream</label>
+      </node>
+      <node id="4">
+        <label>stdexcept</label>
+      </node>
+      <node id="47">
+        <label>string</label>
+      </node>
+      <node id="5">
+        <label>tuple</label>
+      </node>
+      <node id="30">
+        <label>unordered_map</label>
+      </node>
+      <node id="11">
+        <label>unordered_set</label>
+      </node>
+      <node id="12">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="ReadonlyQueries_8cpp_1a8f34a76d804aeff7d3f8a0be52e6f884" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int getDirectionFromVelocity</definition>
+        <argsstring>(float velocity)</argsstring>
+        <name>getDirectionFromVelocity</name>
+        <param>
+          <type>float</type>
+          <declname>velocity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ReadonlyQueries.cpp" line="25" column="5" bodyfile="src/physics/ReadonlyQueries.cpp" bodystart="25" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="ReadonlyQueries_8cpp_1a022ed08fe7569413bb0790bbb60766eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool isTerrainSoftEmpty</definition>
+        <argsstring>(EntityTypeComponent &amp;terrainType)</argsstring>
+        <name>isTerrainSoftEmpty</name>
+        <param>
+          <type><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref> &amp;</type>
+          <declname>terrainType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ReadonlyQueries.cpp" line="36" column="6" bodyfile="src/physics/ReadonlyQueries.cpp" bodystart="36" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="ReadonlyQueries_8cpp_1a73de214980ebfb49834f37f10d2993b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>DirectionEnum</type>
+        <definition>DirectionEnum getDirectionFromVelocities</definition>
+        <argsstring>(float velocityX, float velocityY, float velocityZ)</argsstring>
+        <name>getDirectionFromVelocities</name>
+        <param>
+          <type>float</type>
+          <declname>velocityX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>velocityY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>velocityZ</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ReadonlyQueries.cpp" line="42" column="15" bodyfile="src/physics/ReadonlyQueries.cpp" bodystart="42" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="ReadonlyQueries_8cpp_1a8a2f2f2fd0efd3e95feb157bb27a0f41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool checkIfCanJump</definition>
+        <argsstring>(const MoveSolidEntityEvent &amp;event)</argsstring>
+        <name>checkIfCanJump</name>
+        <param>
+          <type>const <ref refid="structMoveSolidEntityEvent" kindref="compound">MoveSolidEntityEvent</ref> &amp;</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ReadonlyQueries.cpp" line="61" column="6" bodyfile="src/physics/ReadonlyQueries.cpp" bodystart="61" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="ReadonlyQueries_8cpp_1a8b8fc38f1574b5b32da929d2aab1d770" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool checkIfCanFall</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, int i, int j, int k)</argsstring>
+        <name>checkIfCanFall</name>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ReadonlyQueries.cpp" line="67" column="6" bodyfile="src/physics/ReadonlyQueries.cpp" bodystart="67" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="ReadonlyQueries_8cpp_1a771cef4c963be49121ed8c6d2c40e196" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool checkIfTerrainCanFall</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, int i, int j, int k, MatterState matterState)</argsstring>
+        <name>checkIfTerrainCanFall</name>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>j</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>MatterState</type>
+          <declname>matterState</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ReadonlyQueries.cpp" line="86" column="6" bodyfile="src/physics/ReadonlyQueries.cpp" bodystart="86" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="ReadonlyQueries_8cpp_1a8a375122205463f460bbfd2e5046440d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool getTypeAndCheckSoftEmpty</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, int terrainId, int x, int y, int z)</argsstring>
+        <name>getTypeAndCheckSoftEmpty</name>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>terrainId</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ReadonlyQueries.cpp" line="104" column="6" bodyfile="src/physics/ReadonlyQueries.cpp" bodystart="104" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="ReadonlyQueries_8cpp_1a2d54cda6aaab97da4910a77662f032b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hasCollision</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::entity entity, int movingFromX, int movingFromY, int movingFromZ, int movingToX, int movingToY, int movingToZ, bool isTerrain)</argsstring>
+        <name>hasCollision</name>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>movingFromX</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>movingFromY</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>movingFromZ</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>movingToX</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>movingToY</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>movingToZ</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isTerrain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ReadonlyQueries.cpp" line="123" column="6" bodyfile="src/physics/ReadonlyQueries.cpp" bodystart="123" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="ReadonlyQueries_8cpp_1a2317a66ab63a3293c3292b9c99520ad0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::tuple&lt; int, int, int, float &gt;</type>
+        <definition>std::tuple&lt; int, int, int, float &gt; calculateMovementDestination</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, const Position &amp;position, Velocity &amp;velocity, const PhysicsStats &amp;physicsStats, float newVelocityX, float newVelocityY, float newVelocityZ)</argsstring>
+        <name>calculateMovementDestination</name>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structPosition" kindref="compound">Position</ref> &amp;</type>
+          <declname>position</declname>
+        </param>
+        <param>
+          <type><ref refid="structVelocity" kindref="compound">Velocity</ref> &amp;</type>
+          <declname>velocity</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structPhysicsStats" kindref="compound">PhysicsStats</ref> &amp;</type>
+          <declname>physicsStats</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>newVelocityX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>newVelocityY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>newVelocityZ</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ReadonlyQueries.cpp" line="167" column="12" bodyfile="src/physics/ReadonlyQueries.cpp" bodystart="167" bodyend="197"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=========================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>================<sp/>1.<sp/>READ-ONLY<sp/>QUERY<sp/>FUNCTIONS<sp/>================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=========================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>These<sp/>functions<sp/>perform<sp/>read-only<sp/>queries<sp/>on<sp/>game<sp/>state<sp/>without<sp/>making</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>any<sp/>modifications.<sp/>They<sp/>are<sp/>used<sp/>for<sp/>validation,<sp/>collision<sp/>detection,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>and<sp/>state<sp/>inspection.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=========================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ReadonlyQueries.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;entt/entt.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;format&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&quot;MoveEntityEvent.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&quot;PhysicsEngine.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/EntityTypeComponent.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/PhysicsComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/TerrainComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;voxelgrid/VoxelGrid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper<sp/>function<sp/>to<sp/>determine<sp/>direction</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getDirectionFromVelocity(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocity)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(velocity<sp/>&gt;<sp/>0.0f)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(velocity<sp/>&lt;<sp/>0.0f)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper:<sp/>Check<sp/>if<sp/>terrain<sp/>is<sp/>soft<sp/>empty</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isTerrainSoftEmpty(<ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref>&amp;<sp/>terrainType)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(terrainType.mainType<sp/>==<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(EntityEnum::TERRAIN)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>terrainType.subType0<sp/>==<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(TerrainEnum::EMPTY));</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper:<sp/>Get<sp/>DirectionEnum<sp/>from<sp/>velocities</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">DirectionEnum<sp/>getDirectionFromVelocities(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityX,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityY,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>velocityZ)<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>DirectionEnum<sp/>direction;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(velocityX<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>direction<sp/>=<sp/>DirectionEnum::RIGHT;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(velocityX<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>direction<sp/>=<sp/>DirectionEnum::LEFT;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(velocityY<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>direction<sp/>=<sp/>DirectionEnum::UP;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(velocityY<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>direction<sp/>=<sp/>DirectionEnum::DOWN;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(velocityZ<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>direction<sp/>=<sp/>DirectionEnum::UPWARD;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>direction<sp/>=<sp/>DirectionEnum::DOWNWARD;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>direction;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>checkIfCanJump(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structMoveSolidEntityEvent" kindref="compound">MoveSolidEntityEvent</ref>&amp;<sp/>event)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Implement<sp/>the<sp/>logic<sp/>to<sp/>determine<sp/>if<sp/>the<sp/>entity<sp/>can<sp/>jump</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Placeholder<sp/>implementation:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>checkIfCanFall(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>return<sp/>false;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingToEntityId<sp/>=<sp/>voxelGrid.getEntity(i,<sp/>j,<sp/>k<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>canFallOnterrain<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(voxelGrid.checkIfTerrainExists(i,<sp/>j,<sp/>k<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref><sp/>etc<sp/>=</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>voxelGrid.terrainGridRepository-&gt;getTerrainEntityType(i,<sp/>j,<sp/>k<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Any<sp/>terrain<sp/>that<sp/>is<sp/>different<sp/>than<sp/>water</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(etc.subType0<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canFallOnterrain<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canFallOnterrain<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(k<sp/>&gt;<sp/>0<sp/>and<sp/>movingToEntityId<sp/>==<sp/>-1<sp/>and<sp/>canFallOnterrain);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>checkIfTerrainCanFall(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k,<sp/>MatterState<sp/>matterState)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingToEntityId<sp/>=<sp/>voxelGrid.getEntity(i,<sp/>j,<sp/>k<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>canFallOnterrain<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(voxelGrid.checkIfTerrainExists(i,<sp/>j,<sp/>k<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref><sp/>etc<sp/>=</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>voxelGrid.terrainGridRepository-&gt;getTerrainEntityType(i,<sp/>j,<sp/>k<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Any<sp/>terrain<sp/>that<sp/>is<sp/>different<sp/>than<sp/>water</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(etc.subType0<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canFallOnterrain<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canFallOnterrain<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(k<sp/>&gt;<sp/>0<sp/>and<sp/>movingToEntityId<sp/>==<sp/>-1<sp/>and<sp/>canFallOnterrain);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper:<sp/>Get<sp/>type<sp/>and<sp/>check<sp/>if<sp/>soft<sp/>empty</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>getTypeAndCheckSoftEmpty(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>terrainId,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>z)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(terrainId<sp/>==<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(TerrainIdTypeEnum::NONE))<sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;<sp/><sp/></highlight><highlight class="comment">//<sp/>Means<sp/>terrain<sp/>voxel<sp/>is<sp/>empty.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(terrainId<sp/>==<sp/>-1)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;<sp/><sp/></highlight><highlight class="comment">//<sp/>Means<sp/>terrain<sp/>voxel<sp/>is<sp/>completely<sp/>empty<sp/>(no<sp/>entity).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref><sp/>terrainEntityType<sp/>=</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>voxelGrid.terrainGridRepository-&gt;getTerrainEntityType(x,<sp/>y,<sp/>z);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isTerrainNeighborSoftEmpty{isTerrainSoftEmpty(terrainEntityType)};</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>isTerrainNeighborSoftEmpty;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO:<sp/>This<sp/>is<sp/>not<sp/>being<sp/>handled.<sp/>It<sp/>should<sp/>be<sp/>handled<sp/>when<sp/>active<sp/>EnTT<sp/>terrains<sp/>start<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>be<sp/>used.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;[getTypeAndCheckSoftEmpty]:<sp/>terrainId<sp/>is<sp/>neither<sp/>-1<sp/>nor<sp/>-2.<sp/>Not<sp/>handled<sp/>yet.&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>hasCollision(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,<sp/>entt::entity<sp/>entity,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingFromX,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingFromY,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingFromZ,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingToX,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingToY,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingToZ,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isTerrain)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>collision<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>if<sp/>the<sp/>movement<sp/>is<sp/>within<sp/>bounds<sp/>for<sp/>x,<sp/>y,<sp/>z</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((0<sp/>&lt;=<sp/>movingToX<sp/>&amp;&amp;<sp/>movingToX<sp/>&lt;<sp/>voxelGrid.width)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0<sp/>&lt;=<sp/>movingToY<sp/>&amp;&amp;<sp/>movingToY<sp/>&lt;<sp/>voxelGrid.height)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0<sp/>&lt;=<sp/>movingToZ<sp/>&amp;&amp;<sp/>movingToZ<sp/>&lt;<sp/>voxelGrid.depth))<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingToEntityId<sp/>=<sp/>voxelGrid.getEntity(movingToX,<sp/>movingToY,<sp/>movingToZ);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>terrainExists<sp/>=<sp/>voxelGrid.checkIfTerrainExists(movingToX,<sp/>movingToY,<sp/>movingToZ);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>entityCollision<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(movingToEntityId<sp/>!=<sp/>-1)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entityCollision<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>terrainCollision<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(terrainExists)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref><sp/>etc<sp/>=<sp/>getEntityTypeComponent(</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>registry,<sp/>voxelGrid,<sp/>entity,<sp/>movingFromX,<sp/>movingFromY,<sp/>movingFromZ,<sp/>isTerrain);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref><sp/>terrainEtc<sp/>=<sp/>voxelGrid.terrainGridRepository-&gt;getTerrainEntityType(</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>movingToX,<sp/>movingToY,<sp/>movingToZ);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Any<sp/>terrain<sp/>that<sp/>is<sp/>different<sp/>than<sp/>water</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(etc.mainType<sp/>==<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(EntityEnum::TERRAIN))<sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>terrainCollision<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(terrainEtc.subType0<sp/>!=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(TerrainEnum::EMPTY)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>terrainEtc.subType0<sp/>!=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(TerrainEnum::WATER))<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>terrainCollision<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>if<sp/>there<sp/>is<sp/>an<sp/>entity<sp/>or<sp/>terrain<sp/>blocking<sp/>the<sp/>destination</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(entityCollision<sp/>||<sp/>terrainCollision)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>collision<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Out<sp/>of<sp/>bounds<sp/>collision<sp/>with<sp/>the<sp/>world<sp/>boundary</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>collision<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>collision;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper:<sp/>Calculate<sp/>movement<sp/>destination<sp/>with<sp/>special<sp/>collision<sp/>handling</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal">std::tuple&lt;int,<sp/>int,<sp/>int,<sp/>float&gt;<sp/>calculateMovementDestination(</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPosition" kindref="compound">Position</ref>&amp;<sp/>position,<sp/><ref refid="structVelocity" kindref="compound">Velocity</ref>&amp;<sp/>velocity,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPhysicsStats" kindref="compound">PhysicsStats</ref>&amp;<sp/>physicsStats,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVelocityX,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVelocityY,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVelocityZ)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>completionTime<sp/>=<sp/>calculateTimeToMove(newVelocityX,<sp/>newVelocityY,<sp/>newVelocityZ);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingToX<sp/>=<sp/>position.x<sp/>+<sp/>getDirectionFromVelocity(newVelocityX);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingToY<sp/>=<sp/>position.y<sp/>+<sp/>getDirectionFromVelocity(newVelocityY);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>movingToZ<sp/>=<sp/>position.z<sp/>+<sp/>getDirectionFromVelocity(newVelocityZ);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>specialCollision;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>newMovingToX,<sp/>newMovingToY,<sp/>newMovingToZ;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>std::tie(specialCollision,<sp/>newMovingToX,<sp/>newMovingToY,<sp/>newMovingToZ)<sp/>=</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hasSpecialCollision(registry,<sp/>voxelGrid,<sp/>position,<sp/>movingToX,<sp/>movingToY,<sp/>movingToZ);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(specialCollision)<sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>movingToX<sp/>=<sp/>newMovingToX;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>movingToY<sp/>=<sp/>newMovingToY;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>movingToZ<sp/>=<sp/>newMovingToZ;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newDirectionX<sp/>=<sp/>newMovingToX<sp/>-<sp/>position.x;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newDirectionY<sp/>=<sp/>newMovingToY<sp/>-<sp/>position.y;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newDirectionZ<sp/>=<sp/>newMovingToZ<sp/>-<sp/>position.z;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity.vx<sp/>=<sp/>newDirectionX<sp/>*<sp/>(physicsStats.minSpeed<sp/>/<sp/>2);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity.vy<sp/>=<sp/>newDirectionY<sp/>*<sp/>(physicsStats.minSpeed<sp/>/<sp/>2);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity.vz<sp/>=<sp/>newDirectionZ<sp/>*<sp/>(physicsStats.minSpeed<sp/>/<sp/>2);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>completionTime<sp/>=<sp/>calculateTimeToMove(velocity.vx,<sp/>velocity.vy,<sp/>velocity.vz);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{movingToX,<sp/>movingToY,<sp/>movingToZ,<sp/>completionTime};</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/physics/ReadonlyQueries.cpp"/>
+  </compounddef>
+</doxygen>

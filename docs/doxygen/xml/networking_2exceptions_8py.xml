@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="networking_2exceptions_8py" kind="file" language="Python">
+    <compoundname>exceptions.py</compoundname>
+    <innerclass refid="classaetherion_1_1networking_1_1exceptions_1_1AuthenticationError" prot="public">aetherion::networking::exceptions::AuthenticationError</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking">aetherion::networking</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking_1_1exceptions">aetherion::networking::exceptions</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="classaetherion_1_1networking_1_1exceptions_1_1AuthenticationError" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1networking_1_1exceptions_1_1AuthenticationError" kindref="compound">AuthenticationError</ref>(Exception):</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Raised<sp/>when<sp/>authentication<sp/>fails.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/networking/exceptions.py"/>
+  </compounddef>
+</doxygen>

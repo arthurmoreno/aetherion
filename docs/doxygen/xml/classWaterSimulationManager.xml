@@ -1,0 +1,600 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classWaterSimulationManager" kind="class" language="C++" prot="public">
+    <compoundname>WaterSimulationManager</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classWaterSimulationManager_1a3c9af0e94340b774e49ed5e5ac1cc2d2" prot="private" static="no" mutable="no">
+        <type>std::shared_mutex</type>
+        <definition>std::shared_mutex WaterSimulationManager::gridWriteMutex_</definition>
+        <argsstring></argsstring>
+        <name>gridWriteMutex_</name>
+        <qualifiedname>WaterSimulationManager::gridWriteMutex_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="193" column="23" bodyfile="src/EcosystemEngine.hpp" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1ae8b8735bacb0d5f479b411cb9ee2b882" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::unique_ptr&lt; <ref refid="classGridBoxProcessor" kindref="compound">GridBoxProcessor</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::unique_ptr&lt;GridBoxProcessor&gt; &gt; WaterSimulationManager::processors_</definition>
+        <argsstring></argsstring>
+        <name>processors_</name>
+        <qualifiedname>WaterSimulationManager::processors_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="194" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a36ca7d79fe34af0030a40bc6d7dc1056" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structGridBox" kindref="compound">GridBox</ref> &gt;</type>
+        <definition>std::vector&lt;GridBox&gt; WaterSimulationManager::gridBoxes_</definition>
+        <argsstring></argsstring>
+        <name>gridBoxes_</name>
+        <qualifiedname>WaterSimulationManager::gridBoxes_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="195" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a3f2861d02d506dbb93cc18f08991d2ff" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::thread &gt;</type>
+        <definition>std::vector&lt;std::thread&gt; WaterSimulationManager::workerThreads_</definition>
+        <argsstring></argsstring>
+        <name>workerThreads_</name>
+        <qualifiedname>WaterSimulationManager::workerThreads_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="196" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a926b45beba9828fede7aceb674d3b4f0" prot="private" static="no" mutable="no">
+        <type><ref refid="classRoundRobinScheduler" kindref="compound">RoundRobinScheduler</ref></type>
+        <definition>RoundRobinScheduler WaterSimulationManager::scheduler_</definition>
+        <argsstring></argsstring>
+        <name>scheduler_</name>
+        <qualifiedname>WaterSimulationManager::scheduler_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="197" column="25" bodyfile="src/EcosystemEngine.hpp" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a854277008c9ae4181150cd3cf6539721" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterSimulationManager::numThreads_</definition>
+        <argsstring></argsstring>
+        <name>numThreads_</name>
+        <qualifiedname>WaterSimulationManager::numThreads_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="198" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a2a3ca19e9d60e37a2a8dac9f9f7906f3" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; bool &gt;</type>
+        <definition>std::atomic&lt;bool&gt; WaterSimulationManager::stopWorkers_</definition>
+        <argsstring></argsstring>
+        <name>stopWorkers_</name>
+        <qualifiedname>WaterSimulationManager::stopWorkers_</qualifiedname>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="201" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="201" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1aeced01f32fa04299ed94a549ac5cdced" prot="private" static="no" mutable="no">
+        <type>std::condition_variable</type>
+        <definition>std::condition_variable WaterSimulationManager::taskAvailable_</definition>
+        <argsstring></argsstring>
+        <name>taskAvailable_</name>
+        <qualifiedname>WaterSimulationManager::taskAvailable_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="202" column="29" bodyfile="src/EcosystemEngine.hpp" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a2d2ea7393c8719eb09006f958f245f6b" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex WaterSimulationManager::taskMutex_</definition>
+        <argsstring></argsstring>
+        <name>taskMutex_</name>
+        <qualifiedname>WaterSimulationManager::taskMutex_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="203" column="16" bodyfile="src/EcosystemEngine.hpp" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a6f8ee0f872658391d1a30f8380872c60" prot="private" static="no" mutable="no">
+        <type>tbb::concurrent_queue&lt; std::vector&lt; <ref refid="structWaterFlow" kindref="compound">WaterFlow</ref> &gt; &gt;</type>
+        <definition>tbb::concurrent_queue&lt;std::vector&lt;WaterFlow&gt; &gt; WaterSimulationManager::resultQueue_</definition>
+        <argsstring></argsstring>
+        <name>resultQueue_</name>
+        <qualifiedname>WaterSimulationManager::resultQueue_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="206" column="27" bodyfile="src/EcosystemEngine.hpp" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a5a3d5a236eb1b495da4f394e1ad49590" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; int &gt;</type>
+        <definition>std::atomic&lt;int&gt; WaterSimulationManager::activeWorkers_</definition>
+        <argsstring></argsstring>
+        <name>activeWorkers_</name>
+        <qualifiedname>WaterSimulationManager::activeWorkers_</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="207" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="207" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a4850a6d4c0eb20407fbbd280f8e66ec0" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; int &gt;</type>
+        <definition>std::atomic&lt;int&gt; WaterSimulationManager::completedTasks_</definition>
+        <argsstring></argsstring>
+        <name>completedTasks_</name>
+        <qualifiedname>WaterSimulationManager::completedTasks_</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="208" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="208" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a591b27664752a1a960dd8f902969afc2" prot="private" static="no" mutable="no">
+        <type>tbb::concurrent_queue&lt; <ref refid="structThreadError" kindref="compound">ThreadError</ref> &gt;</type>
+        <definition>tbb::concurrent_queue&lt;ThreadError&gt; WaterSimulationManager::errorQueue_</definition>
+        <argsstring></argsstring>
+        <name>errorQueue_</name>
+        <qualifiedname>WaterSimulationManager::errorQueue_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="211" column="27" bodyfile="src/EcosystemEngine.hpp" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a64a0f9c3586b120945d121ee6ddf9195" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; bool &gt;</type>
+        <definition>std::atomic&lt;bool&gt; WaterSimulationManager::hasEncounteredCriticalError_</definition>
+        <argsstring></argsstring>
+        <name>hasEncounteredCriticalError_</name>
+        <qualifiedname>WaterSimulationManager::hasEncounteredCriticalError_</qualifiedname>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="212" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="212" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="variable" id="classWaterSimulationManager_1a339095e1036e6c17b75c8149ebaa33bc" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; bool &gt;</type>
+        <definition>std::atomic&lt;bool&gt; WaterSimulationManager::isShuttingDown_</definition>
+        <argsstring></argsstring>
+        <name>isShuttingDown_</name>
+        <qualifiedname>WaterSimulationManager::isShuttingDown_</qualifiedname>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="213" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="213" bodyend="213"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classWaterSimulationManager_1a44520d11f39c2e40b60be7e8129a5c9f" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int WaterSimulationManager::DEFAULT_MIN_BOX_SIZE</definition>
+        <argsstring></argsstring>
+        <name>DEFAULT_MIN_BOX_SIZE</name>
+        <qualifiedname>WaterSimulationManager::DEFAULT_MIN_BOX_SIZE</qualifiedname>
+        <initializer>= 32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="216" column="26" bodyfile="src/EcosystemEngine.hpp" bodystart="216" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classWaterSimulationManager_1aaeb4f2fe3a87706f83f40f4d202352e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>WaterSimulationManager::WaterSimulationManager</definition>
+        <argsstring>(int numThreads=std::thread::hardware_concurrency())</argsstring>
+        <name>WaterSimulationManager</name>
+        <qualifiedname>WaterSimulationManager::WaterSimulationManager</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>numThreads</declname>
+          <defval>std::thread::hardware_concurrency()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="219" column="5" bodyfile="src/EcosystemEngine.cpp" bodystart="114" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1a22d27db2cdfa337145d42140db7b7826" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>WaterSimulationManager::~WaterSimulationManager</definition>
+        <argsstring>()</argsstring>
+        <name>~WaterSimulationManager</name>
+        <qualifiedname>WaterSimulationManager::~WaterSimulationManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="220" column="5" bodyfile="src/EcosystemEngine.cpp" bodystart="120" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1a90c2f019d0af40a5940e1aff18e0f905" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WaterSimulationManager::initializeProcessors</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>initializeProcessors</name>
+        <qualifiedname>WaterSimulationManager::initializeProcessors</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="223" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="130" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1a9ab2442c93e657724cbe893608127307" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WaterSimulationManager::processWaterSimulation</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, float sunIntensity)</argsstring>
+        <name>processWaterSimulation</name>
+        <qualifiedname>WaterSimulationManager::processWaterSimulation</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sunIntensity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="227" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="358" bodyend="414"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1a8c78690591be8ee5834e8a3c17fec6e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WaterSimulationManager::populateSchedulerWithSubset</definition>
+        <argsstring>(float percentage=0.3f, float sunIntensity=1.0f)</argsstring>
+        <name>populateSchedulerWithSubset</name>
+        <qualifiedname>WaterSimulationManager::populateSchedulerWithSubset</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>percentage</declname>
+          <defval>0.3f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sunIntensity</declname>
+          <defval>1.0f</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="230" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="227" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1aa959d7fce681adaeec2318a213c0fb44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool WaterSimulationManager::hasErrors</definition>
+        <argsstring>()</argsstring>
+        <name>hasErrors</name>
+        <qualifiedname>WaterSimulationManager::hasErrors</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="233" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="416" bodyend="419"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1ae3bcd0cb8b905ffa5cec289c79393b9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="structThreadError" kindref="compound">ThreadError</ref> &gt;</type>
+        <definition>std::vector&lt; ThreadError &gt; WaterSimulationManager::getErrors</definition>
+        <argsstring>()</argsstring>
+        <name>getErrors</name>
+        <qualifiedname>WaterSimulationManager::getErrors</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="234" column="17" bodyfile="src/EcosystemEngine.cpp" bodystart="421" bodyend="428"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1ad4a737c5efcad66b43338385921e49b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WaterSimulationManager::initiateShutdown</definition>
+        <argsstring>()</argsstring>
+        <name>initiateShutdown</name>
+        <qualifiedname>WaterSimulationManager::initiateShutdown</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="237" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="430" bodyend="445"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1a0062a90430c331107df3e75a56b5dbc2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool WaterSimulationManager::hasEncounteredCriticalError</definition>
+        <argsstring>() const</argsstring>
+        <name>hasEncounteredCriticalError</name>
+        <qualifiedname>WaterSimulationManager::hasEncounteredCriticalError</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="238" column="10" bodyfile="src/EcosystemEngine.hpp" bodystart="238" bodyend="238"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classWaterSimulationManager_1a2d553009f9236dfccb2a990abe4de755" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WaterSimulationManager::startWorkerThreads</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid)</argsstring>
+        <name>startWorkerThreads</name>
+        <qualifiedname>WaterSimulationManager::startWorkerThreads</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="242" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="150" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1a7e0b3e9f7a3e57138406a3922645b73c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WaterSimulationManager::stopWorkerThreads</definition>
+        <argsstring>()</argsstring>
+        <name>stopWorkerThreads</name>
+        <qualifiedname>WaterSimulationManager::stopWorkerThreads</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="243" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="166" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1aeade5bac2b93cfc47fc135b2fc90e2c4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WaterSimulationManager::workerThreadFunction</definition>
+        <argsstring>(int threadId, entt::registry &amp;registry, VoxelGrid &amp;voxelGrid)</argsstring>
+        <name>workerThreadFunction</name>
+        <qualifiedname>WaterSimulationManager::workerThreadFunction</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>threadId</declname>
+        </param>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="244" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="179" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1ae1e2f3a26bded6956e0db0f4248a186d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="structGridBox" kindref="compound">GridBox</ref> &gt;</type>
+        <definition>std::vector&lt; GridBox &gt; WaterSimulationManager::partitionGridIntoBoxes</definition>
+        <argsstring>(const VoxelGrid &amp;voxelGrid, const GridBox &amp;minBoxDimensions)</argsstring>
+        <name>partitionGridIntoBoxes</name>
+        <qualifiedname>WaterSimulationManager::partitionGridIntoBoxes</qualifiedname>
+        <param>
+          <type>const <ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structGridBox" kindref="compound">GridBox</ref> &amp;</type>
+          <declname>minBoxDimensions</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="247" column="17" bodyfile="src/EcosystemEngine.cpp" bodystart="245" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1ae0a342ac7cab193fc3aa9e4e00c81361" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="structWaterFlow" kindref="compound">WaterFlow</ref> &gt;</type>
+        <definition>std::vector&lt; WaterFlow &gt; WaterSimulationManager::processBoxConcurrently</definition>
+        <argsstring>(int processorIndex, const GridBox &amp;box, float sunIntensity)</argsstring>
+        <name>processBoxConcurrently</name>
+        <qualifiedname>WaterSimulationManager::processBoxConcurrently</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>processorIndex</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structGridBox" kindref="compound">GridBox</ref> &amp;</type>
+          <declname>box</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sunIntensity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="256" column="17" bodyfile="src/EcosystemEngine.cpp" bodystart="292" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="classWaterSimulationManager_1ac0da77d3c4512f47657d468590ad165b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WaterSimulationManager::applyModificationsWithLock</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, const std::vector&lt; WaterFlow &gt; &amp;modifications)</argsstring>
+        <name>applyModificationsWithLock</name>
+        <qualifiedname>WaterSimulationManager::applyModificationsWithLock</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structWaterFlow" kindref="compound">WaterFlow</ref> &gt; &amp;</type>
+          <declname>modifications</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="260" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="304" bodyend="356"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classWaterSimulationManager_1a37398b6789d83bfd937795145ac70396" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structGridBox" kindref="compound">GridBox</ref></type>
+        <definition>static GridBox WaterSimulationManager::getRecommendedBoxDimensions</definition>
+        <argsstring>()</argsstring>
+        <name>getRecommendedBoxDimensions</name>
+        <qualifiedname>WaterSimulationManager::getRecommendedBoxDimensions</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="251" column="20" bodyfile="src/EcosystemEngine.hpp" bodystart="251" bodyend="253"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="191" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="191" bodyend="262"/>
+    <listofallmembers>
+      <member refid="classWaterSimulationManager_1a5a3d5a236eb1b495da4f394e1ad49590" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>activeWorkers_</name></member>
+      <member refid="classWaterSimulationManager_1ac0da77d3c4512f47657d468590ad165b" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>applyModificationsWithLock</name></member>
+      <member refid="classWaterSimulationManager_1a4850a6d4c0eb20407fbbd280f8e66ec0" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>completedTasks_</name></member>
+      <member refid="classWaterSimulationManager_1a44520d11f39c2e40b60be7e8129a5c9f" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>DEFAULT_MIN_BOX_SIZE</name></member>
+      <member refid="classWaterSimulationManager_1a591b27664752a1a960dd8f902969afc2" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>errorQueue_</name></member>
+      <member refid="classWaterSimulationManager_1ae3bcd0cb8b905ffa5cec289c79393b9b" prot="public" virt="non-virtual"><scope>WaterSimulationManager</scope><name>getErrors</name></member>
+      <member refid="classWaterSimulationManager_1a37398b6789d83bfd937795145ac70396" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>getRecommendedBoxDimensions</name></member>
+      <member refid="classWaterSimulationManager_1a36ca7d79fe34af0030a40bc6d7dc1056" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>gridBoxes_</name></member>
+      <member refid="classWaterSimulationManager_1a3c9af0e94340b774e49ed5e5ac1cc2d2" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>gridWriteMutex_</name></member>
+      <member refid="classWaterSimulationManager_1a0062a90430c331107df3e75a56b5dbc2" prot="public" virt="non-virtual"><scope>WaterSimulationManager</scope><name>hasEncounteredCriticalError</name></member>
+      <member refid="classWaterSimulationManager_1a64a0f9c3586b120945d121ee6ddf9195" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>hasEncounteredCriticalError_</name></member>
+      <member refid="classWaterSimulationManager_1aa959d7fce681adaeec2318a213c0fb44" prot="public" virt="non-virtual"><scope>WaterSimulationManager</scope><name>hasErrors</name></member>
+      <member refid="classWaterSimulationManager_1a90c2f019d0af40a5940e1aff18e0f905" prot="public" virt="non-virtual"><scope>WaterSimulationManager</scope><name>initializeProcessors</name></member>
+      <member refid="classWaterSimulationManager_1ad4a737c5efcad66b43338385921e49b4" prot="public" virt="non-virtual"><scope>WaterSimulationManager</scope><name>initiateShutdown</name></member>
+      <member refid="classWaterSimulationManager_1a339095e1036e6c17b75c8149ebaa33bc" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>isShuttingDown_</name></member>
+      <member refid="classWaterSimulationManager_1a854277008c9ae4181150cd3cf6539721" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>numThreads_</name></member>
+      <member refid="classWaterSimulationManager_1ae1e2f3a26bded6956e0db0f4248a186d" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>partitionGridIntoBoxes</name></member>
+      <member refid="classWaterSimulationManager_1a8c78690591be8ee5834e8a3c17fec6e3" prot="public" virt="non-virtual"><scope>WaterSimulationManager</scope><name>populateSchedulerWithSubset</name></member>
+      <member refid="classWaterSimulationManager_1ae0a342ac7cab193fc3aa9e4e00c81361" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>processBoxConcurrently</name></member>
+      <member refid="classWaterSimulationManager_1ae8b8735bacb0d5f479b411cb9ee2b882" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>processors_</name></member>
+      <member refid="classWaterSimulationManager_1a9ab2442c93e657724cbe893608127307" prot="public" virt="non-virtual"><scope>WaterSimulationManager</scope><name>processWaterSimulation</name></member>
+      <member refid="classWaterSimulationManager_1a6f8ee0f872658391d1a30f8380872c60" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>resultQueue_</name></member>
+      <member refid="classWaterSimulationManager_1a926b45beba9828fede7aceb674d3b4f0" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>scheduler_</name></member>
+      <member refid="classWaterSimulationManager_1a2d553009f9236dfccb2a990abe4de755" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>startWorkerThreads</name></member>
+      <member refid="classWaterSimulationManager_1a2a3ca19e9d60e37a2a8dac9f9f7906f3" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>stopWorkers_</name></member>
+      <member refid="classWaterSimulationManager_1a7e0b3e9f7a3e57138406a3922645b73c" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>stopWorkerThreads</name></member>
+      <member refid="classWaterSimulationManager_1aeced01f32fa04299ed94a549ac5cdced" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>taskAvailable_</name></member>
+      <member refid="classWaterSimulationManager_1a2d2ea7393c8719eb09006f958f245f6b" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>taskMutex_</name></member>
+      <member refid="classWaterSimulationManager_1aaeb4f2fe3a87706f83f40f4d202352e2" prot="public" virt="non-virtual"><scope>WaterSimulationManager</scope><name>WaterSimulationManager</name></member>
+      <member refid="classWaterSimulationManager_1aeade5bac2b93cfc47fc135b2fc90e2c4" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>workerThreadFunction</name></member>
+      <member refid="classWaterSimulationManager_1a3f2861d02d506dbb93cc18f08991d2ff" prot="private" virt="non-virtual"><scope>WaterSimulationManager</scope><name>workerThreads_</name></member>
+      <member refid="classWaterSimulationManager_1a22d27db2cdfa337145d42140db7b7826" prot="public" virt="non-virtual"><scope>WaterSimulationManager</scope><name>~WaterSimulationManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

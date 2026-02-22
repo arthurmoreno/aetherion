@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1scheduler_1_1Scheduler" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::scheduler::Scheduler</compoundname>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1scheduler_1_1Scheduler_1a338fc6b60ae7d74165c1e69cb7f3d61f" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.scheduler.Scheduler::_functions</definition>
+        <argsstring></argsstring>
+        <name>_functions</name>
+        <qualifiedname>aetherion.scheduler.Scheduler._functions</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scheduler.py" line="25" column="1" bodyfile="src/aetherion/scheduler.py" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1scheduler_1_1Scheduler_1a2a250c36882e8f58cb45edd0aa56f930" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scheduler.Scheduler.__init__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.scheduler.Scheduler.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scheduler.py" line="8" column="1" bodyfile="src/aetherion/scheduler.py" bodystart="8" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scheduler_1_1Scheduler_1a045ba2da54363d9f798ee32ff70a3e77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scheduler.Scheduler.schedule</definition>
+        <argsstring>(self, Callable func)</argsstring>
+        <name>schedule</name>
+        <qualifiedname>aetherion.scheduler.Scheduler.schedule</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Add a function to the scheduler.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scheduler.py" line="11" column="1" bodyfile="src/aetherion/scheduler.py" bodystart="11" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scheduler_1_1Scheduler_1a7674206138d2a244e5dbf002ed27980d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scheduler.Scheduler.unschedule</definition>
+        <argsstring>(self, Callable func)</argsstring>
+        <name>unschedule</name>
+        <qualifiedname>aetherion.scheduler.Scheduler.unschedule</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Remove a function from the scheduler.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scheduler.py" line="17" column="1" bodyfile="src/aetherion/scheduler.py" bodystart="17" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scheduler_1_1Scheduler_1ad091db20febe681cf4820ee2e19e3c5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1game__state_1_1state_1_1SharedState" kindref="compound">SharedState</ref></type>
+        <definition> SharedState aetherion.scheduler.Scheduler.execute_scheduled_funcs</definition>
+        <argsstring>(self, SharedState shared_state)</argsstring>
+        <name>execute_scheduled_funcs</name>
+        <qualifiedname>aetherion.scheduler.Scheduler.execute_scheduled_funcs</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1game__state_1_1state_1_1SharedState" kindref="compound">SharedState</ref></type>
+          <declname>shared_state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Execute all scheduled functions.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scheduler.py" line="23" column="1" bodyfile="src/aetherion/scheduler.py" bodystart="23" bodyend="37"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaetherion_1_1scheduler_1_1Scheduler_1a651e98f9c04eef128e9174615dec539a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str</type>
+        <definition> str aetherion.scheduler.Scheduler._get_callable_name</definition>
+        <argsstring>(self, Callable func)</argsstring>
+        <name>_get_callable_name</name>
+        <qualifiedname>aetherion.scheduler.Scheduler._get_callable_name</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Retrieve the name of the callable for logging purposes.
+Supports regular functions, partial functions, and other callables.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scheduler.py" line="38" column="1" bodyfile="src/aetherion/scheduler.py" bodystart="38" bodyend="55"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/scheduler.py" line="7" column="1" bodyfile="src/aetherion/scheduler.py" bodystart="7" bodyend="55"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1scheduler_1_1Scheduler_1a2a250c36882e8f58cb45edd0aa56f930" prot="public" virt="non-virtual"><scope>aetherion::scheduler::Scheduler</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1scheduler_1_1Scheduler_1a338fc6b60ae7d74165c1e69cb7f3d61f" prot="protected" virt="non-virtual"><scope>aetherion::scheduler::Scheduler</scope><name>_functions</name></member>
+      <member refid="classaetherion_1_1scheduler_1_1Scheduler_1a651e98f9c04eef128e9174615dec539a" prot="protected" virt="non-virtual"><scope>aetherion::scheduler::Scheduler</scope><name>_get_callable_name</name></member>
+      <member refid="classaetherion_1_1scheduler_1_1Scheduler_1ad091db20febe681cf4820ee2e19e3c5c" prot="public" virt="non-virtual"><scope>aetherion::scheduler::Scheduler</scope><name>execute_scheduled_funcs</name></member>
+      <member refid="classaetherion_1_1scheduler_1_1Scheduler_1a045ba2da54363d9f798ee32ff70a3e77" prot="public" virt="non-virtual"><scope>aetherion::scheduler::Scheduler</scope><name>schedule</name></member>
+      <member refid="classaetherion_1_1scheduler_1_1Scheduler_1a7674206138d2a244e5dbf002ed27980d" prot="public" virt="non-virtual"><scope>aetherion::scheduler::Scheduler</scope><name>unschedule</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

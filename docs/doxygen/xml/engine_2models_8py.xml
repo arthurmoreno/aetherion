@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="engine_2models_8py" kind="file" language="Python">
+    <compoundname>models.py</compoundname>
+    <innerclass refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" prot="public">aetherion::engine::models::GameEngineProtocol</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1engine">aetherion::engine</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1engine_1_1models">aetherion::engine::models</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Any,<sp/>Dict,<sp/>Optional,<sp/>Protocol</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref>(Protocol):</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Protocol<sp/>describing<sp/>the<sp/>minimal<sp/>GameEngine<sp/>surface<sp/>used<sp/>by<sp/>handlers.</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Attributes<sp/>are<sp/>intentionally<sp/>permissive<sp/>(Any)<sp/>to<sp/>avoid<sp/>tight<sp/>coupling<sp/>with</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>concrete<sp/>engine<sp/>classes.<sp/>Replace<sp/>with<sp/>concrete<sp/>types<sp/>from</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>`aetherion.engine`<sp/>if<sp/>stronger<sp/>typing<sp/>is<sp/>preferred.</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>event_bus:<sp/>Any</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Core<sp/>subsystems</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>world_manager:<sp/>Any</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>shared_state:<sp/>Any</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Optional<sp/>connection<sp/>objects</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>server_admin_connection:<sp/>Optional[Any]</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>player_connection:<sp/>Optional[Any]</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Current<sp/>player<sp/>and<sp/>world<sp/>interface</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>player:<sp/>Optional[Any]</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>world_interface:<sp/>Optional[Any]</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Metadata<sp/>and<sp/>managers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>beast_connection_metadata:<sp/>Dict[str,<sp/>Any]</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>sound_effect_manager:<sp/>Any</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>audio_manager:<sp/>Any</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Engine<sp/>helper<sp/>methods<sp/>used<sp/>by<sp/>handlers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">set_input_action_processor(self)<sp/>-&gt;<sp/>None:<sp/>...</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/engine/models.py"/>
+  </compounddef>
+</doxygen>

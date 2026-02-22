@@ -3,19 +3,19 @@
   <compounddef id="structCondenseWaterEntityEvent" kind="struct" language="C++" prot="public">
     <compoundname>CondenseWaterEntityEvent</compoundname>
     <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structCondenseWaterEntityEvent_1aa6e3ea5e334bc7d2d78cadd6b8d4ed9e" prot="public" static="no" mutable="no">
-        <type>entt::entity</type>
-        <definition>entt::entity CondenseWaterEntityEvent::entity</definition>
+      <memberdef kind="variable" id="structCondenseWaterEntityEvent_1a13334ddc6d741304544845042e5f3d97" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position CondenseWaterEntityEvent::vaporPos</definition>
         <argsstring></argsstring>
-        <name>entity</name>
-        <qualifiedname>CondenseWaterEntityEvent::entity</qualifiedname>
+        <name>vaporPos</name>
+        <qualifiedname>CondenseWaterEntityEvent::vaporPos</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="46" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="46" bodyend="-1"/>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="24" column="14" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structCondenseWaterEntityEvent_1a89138190ba441d1e1109c65a04f80dd3" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -29,23 +29,41 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="47" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="47" bodyend="-1"/>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="25" column="9" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structCondenseWaterEntityEvent_1a61fefae52e05cc157f4cc96858dc4642" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CondenseWaterEntityEvent::terrainBelowId</definition>
+        <argsstring></argsstring>
+        <name>terrainBelowId</name>
+        <qualifiedname>CondenseWaterEntityEvent::terrainBelowId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="26" column="9" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="26" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="structCondenseWaterEntityEvent_1a465633ab345fbe1af03c47a8e2eb9851" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structCondenseWaterEntityEvent_1a362230c7704a066b0c95a7c6d65cf093" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>CondenseWaterEntityEvent::CondenseWaterEntityEvent</definition>
-        <argsstring>(entt::entity entity, int condensationAmount)</argsstring>
+        <argsstring>(Position vaporPos, int condensationAmount, int terrainBelowId)</argsstring>
         <name>CondenseWaterEntityEvent</name>
         <qualifiedname>CondenseWaterEntityEvent::CondenseWaterEntityEvent</qualifiedname>
         <param>
-          <type>entt::entity</type>
-          <declname>entity</declname>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>vaporPos</declname>
         </param>
         <param>
           <type>int</type>
           <declname>condensationAmount</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>terrainBelowId</declname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -53,18 +71,32 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="49" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="49" bodyend="50"/>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="28" column="5" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="28" bodyend="31"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/EcosystemEngine.hpp" line="45" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="45" bodyend="51"/>
+    <collaborationgraph>
+      <node id="1">
+        <label>CondenseWaterEntityEvent</label>
+        <link refid="structCondenseWaterEntityEvent"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>vaporPos</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Position</label>
+        <link refid="structPosition"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/ecosystem/EcosystemEvents.hpp" line="23" column="1" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="23" bodyend="32"/>
     <listofallmembers>
       <member refid="structCondenseWaterEntityEvent_1a89138190ba441d1e1109c65a04f80dd3" prot="public" virt="non-virtual"><scope>CondenseWaterEntityEvent</scope><name>condensationAmount</name></member>
-      <member refid="structCondenseWaterEntityEvent_1a465633ab345fbe1af03c47a8e2eb9851" prot="public" virt="non-virtual"><scope>CondenseWaterEntityEvent</scope><name>CondenseWaterEntityEvent</name></member>
-      <member refid="structCondenseWaterEntityEvent_1aa6e3ea5e334bc7d2d78cadd6b8d4ed9e" prot="public" virt="non-virtual"><scope>CondenseWaterEntityEvent</scope><name>entity</name></member>
+      <member refid="structCondenseWaterEntityEvent_1a362230c7704a066b0c95a7c6d65cf093" prot="public" virt="non-virtual"><scope>CondenseWaterEntityEvent</scope><name>CondenseWaterEntityEvent</name></member>
+      <member refid="structCondenseWaterEntityEvent_1a61fefae52e05cc157f4cc96858dc4642" prot="public" virt="non-virtual"><scope>CondenseWaterEntityEvent</scope><name>terrainBelowId</name></member>
+      <member refid="structCondenseWaterEntityEvent_1a13334ddc6d741304544845042e5f3d97" prot="public" virt="non-virtual"><scope>CondenseWaterEntityEvent</scope><name>vaporPos</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

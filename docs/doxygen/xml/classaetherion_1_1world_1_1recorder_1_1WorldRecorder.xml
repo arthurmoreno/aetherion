@@ -1,0 +1,595 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::world::recorder::WorldRecorder</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ab97835b45fb91dab81a69b24811d4cd9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.recorder.WorldRecorder::is_recording</definition>
+        <argsstring></argsstring>
+        <name>is_recording</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.is_recording</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="64" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ae7034756c6a7da12097c20fbf27c545b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.recorder.WorldRecorder::is_replaying</definition>
+        <argsstring></argsstring>
+        <name>is_replaying</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.is_replaying</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="65" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ab629e5ab7a46052b21bde4b1bb6b36ed" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.recorder.WorldRecorder::current_snapshot_index</definition>
+        <argsstring></argsstring>
+        <name>current_snapshot_index</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.current_snapshot_index</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="76" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ad866e359bc0ae38e432a9d3fbc4e0f5e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.recorder.WorldRecorder::snapshots</definition>
+        <argsstring></argsstring>
+        <name>snapshots</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.snapshots</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="116" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a6fe18ef6ae14c738c429f1ee224bb31f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.recorder.WorldRecorder::recording_config</definition>
+        <argsstring></argsstring>
+        <name>recording_config</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.recording_config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="384" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="384" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a59a18a7addbdc5e3cf03a73aef85fcd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.recorder.WorldRecorder.__init__</definition>
+        <argsstring>(self, Optional[dict[str, Any]] recording_config=None)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Optional]</type>
+          <declname>recording_config</declname>
+          <array>[dict[str, Any]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initialize the WorldRecorder with optional configuration.
+
+Args:
+    recording_config: Configuration dictionary specifying what to record:
+        - &apos;record_entities&apos;: bool - Record entity states (default: True)
+        - &apos;record_terrain&apos;: bool - Record terrain voxel grid (default: True)
+        - &apos;record_physics&apos;: bool - Record physics state (default: True)
+        - &apos;record_ai_metadata&apos;: bool - Record AI metadata (default: False)
+        - &apos;max_snapshots&apos;: int - Maximum number of snapshots to store (default: 1000)
+        - &apos;compression&apos;: bool - Use compression for snapshots (default: True)
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="32" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="32" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ac9aee1e2700ffee555cd56c23b434c35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.recorder.WorldRecorder.start_recording</definition>
+        <argsstring>(self)</argsstring>
+        <name>start_recording</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.start_recording</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Start recording world states.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="62" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="62" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1aecbebb47ffa91c18fe6b432d730ebccf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.recorder.WorldRecorder.stop_recording</definition>
+        <argsstring>(self)</argsstring>
+        <name>stop_recording</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.stop_recording</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Stop recording world states.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="68" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="68" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1aa3f9b97d2d5a9bc8026a52aba18a66d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.recorder.WorldRecorder.clear_snapshots</definition>
+        <argsstring>(self)</argsstring>
+        <name>clear_snapshots</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.clear_snapshots</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Clear all recorded snapshots.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="73" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="73" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1af2e4b3d0c71ed3d335a3bdbd28aa92f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.recorder.WorldRecorder.record_snapshot</definition>
+        <argsstring>(self, WorldInterface world_interface, int tick)</argsstring>
+        <name>record_snapshot</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.record_snapshot</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref></type>
+          <declname>world_interface</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tick</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Record a snapshot of the current world state.
+
+Args:
+    world_interface: The WorldInterface instance to record from
+    tick: Current simulation tick
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="79" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="79" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a1bdda972e483a44d0fda849842001b98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Optional[dict[str, Any]]</type>
+        <definition> Optional[dict[str, Any]] aetherion.world.recorder.WorldRecorder.get_snapshot</definition>
+        <argsstring>(self, int index)</argsstring>
+        <name>get_snapshot</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.get_snapshot</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get a snapshot by index.
+
+Args:
+    index: Index of the snapshot to retrieve
+
+Returns:
+    The snapshot dictionary, or None if not found
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="334" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="334" bodyend="349"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ae41d3dcc69f32a90241e6a3215f71e45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Optional[dict[str, Any]]</type>
+        <definition> Optional[dict[str, Any]] aetherion.world.recorder.WorldRecorder.get_snapshot_by_tick</definition>
+        <argsstring>(self, int tick)</argsstring>
+        <name>get_snapshot_by_tick</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.get_snapshot_by_tick</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tick</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get a snapshot by tick number.
+
+Args:
+    tick: Tick number to find
+
+Returns:
+    The snapshot dictionary, or None if not found
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="350" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="350" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a3a8c0b1423eec27bfb4c532ebb0e3b2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.world.recorder.WorldRecorder.get_snapshot_count</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_snapshot_count</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.get_snapshot_count</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get the total number of recorded snapshots.
+
+Returns:
+    Number of snapshots
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="366" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="366" bodyend="373"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ae1853989bab3aa3d43c3e3a38ee6585b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.recorder.WorldRecorder.save_to_file</definition>
+        <argsstring>(self, str filepath)</argsstring>
+        <name>save_to_file</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.save_to_file</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>filepath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Save all recorded snapshots to a file.
+
+Args:
+    filepath: Path to save the snapshots
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="374" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="374" bodyend="389"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a6ce9cd0c585fc98a355c38ba7e5ac95c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.recorder.WorldRecorder.load_from_file</definition>
+        <argsstring>(self, str filepath)</argsstring>
+        <name>load_from_file</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder.load_from_file</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>filepath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Load recorded snapshots from a file.
+
+Args:
+    filepath: Path to load the snapshots from
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="390" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="390" bodyend="410"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a0795c9c888a9a21aa237243aa52839a4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, Any]</type>
+        <definition> dict[str, Any] aetherion.world.recorder.WorldRecorder._capture_entities</definition>
+        <argsstring>(self, World world)</argsstring>
+        <name>_capture_entities</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder._capture_entities</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classWorld" kindref="compound">World</ref></type>
+          <declname>world</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Capture entity states from the world.
+
+Args:
+    world: The World instance
+
+Returns:
+    Dictionary containing entity data
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="126" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="126" bodyend="178"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ae93f5d897bbcc6e9a0fabe8ba576d650" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, Any]</type>
+        <definition> dict[str, Any] aetherion.world.recorder.WorldRecorder._capture_terrain</definition>
+        <argsstring>(self, World world)</argsstring>
+        <name>_capture_terrain</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder._capture_terrain</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classWorld" kindref="compound">World</ref></type>
+          <declname>world</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Capture terrain state from the voxel grid.
+
+Args:
+    world: The World instance
+
+Returns:
+    Dictionary containing terrain data
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="179" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="179" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a86a386265cbc78b43d90c0f29174c852" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, Any]</type>
+        <definition> dict[str, Any] aetherion.world.recorder.WorldRecorder._capture_physics</definition>
+        <argsstring>(self, World world)</argsstring>
+        <name>_capture_physics</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder._capture_physics</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classWorld" kindref="compound">World</ref></type>
+          <declname>world</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Capture physics state from the world.
+
+Args:
+    world: The World instance
+
+Returns:
+    Dictionary containing physics data
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="219" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="219" bodyend="233"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a6122da0aea90acbe9dde057c18d66ff9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, Any]</type>
+        <definition> dict[str, Any] aetherion.world.recorder.WorldRecorder._capture_ai_metadata</definition>
+        <argsstring>(self, WorldInterface world_interface)</argsstring>
+        <name>_capture_ai_metadata</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder._capture_ai_metadata</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref></type>
+          <declname>world_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Capture AI metadata from the world interface.
+
+Args:
+    world_interface: The WorldInterface instance
+
+Returns:
+    Dictionary containing AI metadata
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="234" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="234" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1aa4bcedb011d608bf883a9954aed9be5e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, Any]</type>
+        <definition> dict[str, Any] aetherion.world.recorder.WorldRecorder._compress_snapshot</definition>
+        <argsstring>(self, dict[str, Any] snapshot)</argsstring>
+        <name>_compress_snapshot</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder._compress_snapshot</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>snapshot</declname>
+          <array>[str, Any]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Compress a snapshot using msgpack and lz4.
+
+Args:
+    snapshot: The snapshot to compress
+
+Returns:
+    Compressed snapshot dictionary
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="255" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="255" bodyend="286"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1aa07464880092f228798907b172978ed4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Any</type>
+        <definition> Any aetherion.world.recorder.WorldRecorder._make_serializable</definition>
+        <argsstring>(self, Any obj)</argsstring>
+        <name>_make_serializable</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder._make_serializable</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Convert numpy arrays and other non-serializable objects to serializable formats.
+
+Args:
+    obj: Object to make serializable
+
+Returns:
+    Serializable version of the object
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="287" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="287" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ad884ec5d8ff280549e946df8cbf5bedc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, Any]</type>
+        <definition> dict[str, Any] aetherion.world.recorder.WorldRecorder._decompress_snapshot</definition>
+        <argsstring>(self, dict[str, Any] snapshot)</argsstring>
+        <name>_decompress_snapshot</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorder._decompress_snapshot</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>snapshot</declname>
+          <array>[str, Any]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Decompress a compressed snapshot.
+
+Args:
+    snapshot: The compressed snapshot
+
+Returns:
+    Decompressed snapshot dictionary
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="307" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="307" bodyend="333"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Records and replays world simulation states.
+
+This class is responsible for capturing the world state at points in time
+and replaying those records for debugging or analysis.
+
+The state is a flexible structure capable of representing the whole world.
+Use numpy arrays for numerical checks and large datasets.
+
+For example, during initialization define which fields to record and how
+they should be transformed into the final state representation.
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/world/recorder.py" line="19" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="19" bodyend="410"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a59a18a7addbdc5e3cf03a73aef85fcd5" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a6122da0aea90acbe9dde057c18d66ff9" prot="protected" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>_capture_ai_metadata</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a0795c9c888a9a21aa237243aa52839a4" prot="protected" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>_capture_entities</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a86a386265cbc78b43d90c0f29174c852" prot="protected" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>_capture_physics</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ae93f5d897bbcc6e9a0fabe8ba576d650" prot="protected" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>_capture_terrain</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1aa4bcedb011d608bf883a9954aed9be5e" prot="protected" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>_compress_snapshot</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ad884ec5d8ff280549e946df8cbf5bedc" prot="protected" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>_decompress_snapshot</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1aa07464880092f228798907b172978ed4" prot="protected" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>_make_serializable</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1aa3f9b97d2d5a9bc8026a52aba18a66d4" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>clear_snapshots</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ab629e5ab7a46052b21bde4b1bb6b36ed" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>current_snapshot_index</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a1bdda972e483a44d0fda849842001b98" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>get_snapshot</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ae41d3dcc69f32a90241e6a3215f71e45" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>get_snapshot_by_tick</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a3a8c0b1423eec27bfb4c532ebb0e3b2f" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>get_snapshot_count</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ab97835b45fb91dab81a69b24811d4cd9" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>is_recording</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ae7034756c6a7da12097c20fbf27c545b" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>is_replaying</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a6ce9cd0c585fc98a355c38ba7e5ac95c" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>load_from_file</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1af2e4b3d0c71ed3d335a3bdbd28aa92f0" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>record_snapshot</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1a6fe18ef6ae14c738c429f1ee224bb31f" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>recording_config</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ae1853989bab3aa3d43c3e3a38ee6585b" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>save_to_file</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ad866e359bc0ae38e432a9d3fbc4e0f5e" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>snapshots</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1ac9aee1e2700ffee555cd56c23b434c35" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>start_recording</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder_1aecbebb47ffa91c18fe6b432d730ebccf" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorder</scope><name>stop_recording</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

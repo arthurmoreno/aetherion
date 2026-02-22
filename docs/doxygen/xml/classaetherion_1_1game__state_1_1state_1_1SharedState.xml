@@ -1,0 +1,457 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1game__state_1_1state_1_1SharedState" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::game_state::state::SharedState</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a651214db338bf029894f0f34a51fdebc" prot="public" static="yes" mutable="no">
+        <type></type>
+        <definition>aetherion.game_state.state.SharedState::model_config</definition>
+        <argsstring></argsstring>
+        <name>model_config</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.model_config</qualifiedname>
+        <initializer>=  ConfigDict(arbitrary_types_allowed=True)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="15" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a4a73a7e58e16cae3352e98b1d83e978c" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.game_state.state.SharedState::ready_to_render_imgui</definition>
+        <argsstring></argsstring>
+        <name>ready_to_render_imgui</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.ready_to_render_imgui</qualifiedname>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="17" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1ac83af8979372633e8ca9529b2e4ca65f" prot="public" static="yes" mutable="no">
+        <type><ref refid="classPerceptionResponseFlatB" kindref="compound">PerceptionResponseFlatB</ref></type>
+        <definition>PerceptionResponseFlatB aetherion.game_state.state.SharedState::response</definition>
+        <argsstring></argsstring>
+        <name>response</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.response</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="18" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a9bd01e028f0ba6ef3b8ef6be1dbcd654" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.game_state.state.SharedState::mouse_state</definition>
+        <argsstring></argsstring>
+        <name>mouse_state</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.mouse_state</qualifiedname>
+        <initializer>=  {&quot;x&quot;: 0, &quot;y&quot;: 0, &quot;left&quot;: False, &quot;right&quot;: False}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="19" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a1699557a25b9529f88fdc2d15cab925a" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.game_state.state.SharedState::fastforward_count</definition>
+        <argsstring></argsstring>
+        <name>fastforward_count</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.fastforward_count</qualifiedname>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="20" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1ab73982fa4d06c9563805d25409a7e02d" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.game_state.state.SharedState::selected_entity_just_set</definition>
+        <argsstring></argsstring>
+        <name>selected_entity_just_set</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.selected_entity_just_set</qualifiedname>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="21" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a6d9a1a87b024dd44eade403705f82bab" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.game_state.state.SharedState::selected_entity</definition>
+        <argsstring></argsstring>
+        <name>selected_entity</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.selected_entity</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="22" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1ab61f6c61e98e902b939a6a57f1bff2b6" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.game_state.state.SharedState::hovered_entity</definition>
+        <argsstring></argsstring>
+        <name>hovered_entity</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.hovered_entity</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="23" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1aa20ef61c2a0434ccbc9011050bf74af8" prot="public" static="yes" mutable="no">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+        <definition>EntityInterface aetherion.game_state.state.SharedState::selected_entity_interface</definition>
+        <argsstring></argsstring>
+        <name>selected_entity_interface</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.selected_entity_interface</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="24" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a6fd819d3ed8ba74ea9d128c93ff771a7" prot="public" static="yes" mutable="no">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+        <definition>EntityInterface aetherion.game_state.state.SharedState::hovered_entity_interface</definition>
+        <argsstring></argsstring>
+        <name>hovered_entity_interface</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.hovered_entity_interface</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="25" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a8a8e03c5e1bd68dbdb0e10547723ada1" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.game_state.state.SharedState::needs_render_imgui</definition>
+        <argsstring></argsstring>
+        <name>needs_render_imgui</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.needs_render_imgui</qualifiedname>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="27" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a940258bae6e93500f6ab8cf9c3a518d3" prot="public" static="yes" mutable="no">
+        <type>list</type>
+        <definition>list aetherion.game_state.state.SharedState::commands</definition>
+        <argsstring></argsstring>
+        <name>commands</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.commands</qualifiedname>
+        <initializer>=  []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="28" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a4af22e5fc71c76a36f64b3a90c144cff" prot="public" static="yes" mutable="no">
+        <type><ref refid="classGameClock" kindref="compound">GameClock</ref></type>
+        <definition>GameClock aetherion.game_state.state.SharedState::game_clock</definition>
+        <argsstring></argsstring>
+        <name>game_clock</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.game_clock</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="29" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1ace9d7fda2d3b18cb414d191cb082e397" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.game_state.state.SharedState::world_ticks</definition>
+        <argsstring></argsstring>
+        <name>world_ticks</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.world_ticks</qualifiedname>
+        <initializer>=  0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="30" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1aa4e0fc7d0d0a5cb305f47ce590ed3d2e" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.game_state.state.SharedState::water_camera_stats</definition>
+        <argsstring></argsstring>
+        <name>water_camera_stats</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.water_camera_stats</qualifiedname>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="32" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1aec7e891ca805338243932cd2bcc188c2" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.game_state.state.SharedState::terrain_gradient_camera_stats</definition>
+        <argsstring></argsstring>
+        <name>terrain_gradient_camera_stats</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.terrain_gradient_camera_stats</qualifiedname>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="33" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1ab10ce822661165751fccbb9a52c3bd08" prot="public" static="yes" mutable="no">
+        <type>float</type>
+        <definition>float aetherion.game_state.state.SharedState::desired_fps</definition>
+        <argsstring></argsstring>
+        <name>desired_fps</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.desired_fps</qualifiedname>
+        <initializer>=  30.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="35" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a8430f66bb52c001def61b8dd0acccda1" prot="public" static="yes" mutable="no">
+        <type>float</type>
+        <definition>float aetherion.game_state.state.SharedState::fps</definition>
+        <argsstring></argsstring>
+        <name>fps</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.fps</qualifiedname>
+        <initializer>=  0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="36" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1ace791c9d060b44721d7fa1457b80c9d2" prot="public" static="yes" mutable="no">
+        <type>list</type>
+        <definition>list aetherion.game_state.state.SharedState::console_logs</definition>
+        <argsstring></argsstring>
+        <name>console_logs</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.console_logs</qualifiedname>
+        <initializer>=  []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="37" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a2742673b2ea2fc968c3b08b6f1007d89" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.game_state.state.SharedState::statistics</definition>
+        <argsstring></argsstring>
+        <name>statistics</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.statistics</qualifiedname>
+        <initializer>=  {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="39" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a58ec691f8b9f56d902c22fe1610b003a" prot="public" static="yes" mutable="no">
+        <type>list</type>
+        <definition>list aetherion.game_state.state.SharedState::snapshots</definition>
+        <argsstring></argsstring>
+        <name>snapshots</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.snapshots</qualifiedname>
+        <initializer>=  []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="41" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a56c21b3f012f8e570a6dbfb12ca36b2a" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.game_state.state.SharedState::all_world_metadata</definition>
+        <argsstring></argsstring>
+        <name>all_world_metadata</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.all_world_metadata</qualifiedname>
+        <initializer>=  {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="43" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a0b0a0eea902c989c9d94ed6d07412bd7" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.state.SharedState::connected_world</definition>
+        <argsstring></argsstring>
+        <name>connected_world</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.connected_world</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="44" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1ade251e1ba2a245b9aee2f0b7445e4a0d" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.game_state.state.SharedState::all_beast_connection_metadata</definition>
+        <argsstring></argsstring>
+        <name>all_beast_connection_metadata</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.all_beast_connection_metadata</qualifiedname>
+        <initializer>=  {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="45" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1state_1_1SharedState_1a6d4f3b421cace283e2d86dd61af04eed" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.state.SharedState::connected_beast</definition>
+        <argsstring></argsstring>
+        <name>connected_beast</name>
+        <qualifiedname>aetherion.game_state.state.SharedState.connected_beast</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/state.py" line="46" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="46" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.game_state.state.SharedState</label>
+        <link refid="classaetherion_1_1game__state_1_1state_1_1SharedState"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.game_state.state.SharedState</label>
+        <link refid="classaetherion_1_1game__state_1_1state_1_1SharedState"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>response</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>hovered_entity_interface</edgelabel>
+          <edgelabel>selected_entity_interface</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>game_clock</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>EntityInterface</label>
+      </node>
+      <node id="5">
+        <label>GameClock</label>
+      </node>
+      <node id="3">
+        <label>PerceptionResponseFlatB</label>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/game_state/state.py" line="14" column="1" bodyfile="src/aetherion/game_state/state.py" bodystart="14" bodyend="47"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1ade251e1ba2a245b9aee2f0b7445e4a0d" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>all_beast_connection_metadata</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a56c21b3f012f8e570a6dbfb12ca36b2a" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>all_world_metadata</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a940258bae6e93500f6ab8cf9c3a518d3" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>commands</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a6d4f3b421cace283e2d86dd61af04eed" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>connected_beast</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a0b0a0eea902c989c9d94ed6d07412bd7" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>connected_world</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1ace791c9d060b44721d7fa1457b80c9d2" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>console_logs</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1ab10ce822661165751fccbb9a52c3bd08" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>desired_fps</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a1699557a25b9529f88fdc2d15cab925a" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>fastforward_count</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a8430f66bb52c001def61b8dd0acccda1" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>fps</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a4af22e5fc71c76a36f64b3a90c144cff" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>game_clock</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1ab61f6c61e98e902b939a6a57f1bff2b6" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>hovered_entity</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a6fd819d3ed8ba74ea9d128c93ff771a7" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>hovered_entity_interface</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a651214db338bf029894f0f34a51fdebc" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>model_config</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a9bd01e028f0ba6ef3b8ef6be1dbcd654" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>mouse_state</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a8a8e03c5e1bd68dbdb0e10547723ada1" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>needs_render_imgui</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a4a73a7e58e16cae3352e98b1d83e978c" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>ready_to_render_imgui</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1ac83af8979372633e8ca9529b2e4ca65f" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>response</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a6d9a1a87b024dd44eade403705f82bab" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>selected_entity</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1aa20ef61c2a0434ccbc9011050bf74af8" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>selected_entity_interface</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1ab73982fa4d06c9563805d25409a7e02d" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>selected_entity_just_set</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a58ec691f8b9f56d902c22fe1610b003a" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>snapshots</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1a2742673b2ea2fc968c3b08b6f1007d89" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>statistics</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1aec7e891ca805338243932cd2bcc188c2" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>terrain_gradient_camera_stats</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1aa4e0fc7d0d0a5cb305f47ce590ed3d2e" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>water_camera_stats</name></member>
+      <member refid="classaetherion_1_1game__state_1_1state_1_1SharedState_1ace9d7fda2d3b18cb414d191cb082e397" prot="public" virt="non-virtual"><scope>aetherion::game_state::state::SharedState</scope><name>world_ticks</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

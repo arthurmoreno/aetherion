@@ -1,0 +1,347 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::entities::views::terrains::TerrainView</compoundname>
+    <basecompoundref refid="classaetherion_1_1renderer_1_1views_1_1BaseView" prot="public" virt="non-virtual">aetherion.renderer.views.BaseView</basecompoundref>
+    <derivedcompoundref refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1EmptyView" prot="public" virt="non-virtual">aetherion.entities.views.terrains.EmptyView</derivedcompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1ae4054aca5db8225df73560e05f8024ab" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.entities.views.terrains.TerrainView::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.name</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="10" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a8cea88acfcc485d78acee7f0f993dbf0" prot="public" static="yes" mutable="no">
+        <type>Hashable</type>
+        <definition>Hashable aetherion.entities.views.terrains.TerrainView::sprite_variation_name</definition>
+        <argsstring></argsstring>
+        <name>sprite_variation_name</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.sprite_variation_name</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="11" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1ab393da0dbbeb8aa23e5be6516a0d1a50" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.entities.views.terrains.TerrainView::sprite_id</definition>
+        <argsstring></argsstring>
+        <name>sprite_id</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.sprite_id</qualifiedname>
+        <initializer>=  &quot;terrain_view&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="12" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1afb4cf377f975c292867d8fd64c85411c" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.entities.views.terrains.TerrainView::terrain_type</definition>
+        <argsstring></argsstring>
+        <name>terrain_type</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.terrain_type</qualifiedname>
+        <initializer>=  &quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="13" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a7ee3c941c00101427cb03492160fcf37" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.entities.views.terrains.TerrainView::batch</definition>
+        <argsstring></argsstring>
+        <name>batch</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.batch</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="29" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a22b7a15882b94c8868bf953702dea5f7" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.entities.views.terrains.TerrainView::group</definition>
+        <argsstring></argsstring>
+        <name>group</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.group</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="30" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a444fa2f90383049ed28824cae18e094f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.entities.views.terrains.TerrainView::renderer</definition>
+        <argsstring></argsstring>
+        <name>renderer</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.renderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="39" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a583dd1ed0b476485fd5d46c0af455e20" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.entities.views.terrains.TerrainView::sprite_variation_name</definition>
+        <argsstring></argsstring>
+        <name>sprite_variation_name</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.sprite_variation_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="51" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="51" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1ae93c0dbba7bdf954282dd8cfe321e4e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.entities.views.terrains.TerrainView.__init__</definition>
+        <argsstring>(self, Renderer renderer, ImageSet image_set, float sprite_scale=1.0, Any|None batch=None, Any|None group=None, *Any args, **Any kwargs)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1renderer_1_1Renderer" kindref="compound">Renderer</ref></type>
+          <declname>renderer</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1renderer_1_1image__set_1_1ImageSet" kindref="compound">ImageSet</ref></type>
+          <declname>image_set</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sprite_scale</declname>
+          <defval>1.0</defval>
+        </param>
+        <param>
+          <type>Any|None</type>
+          <declname>batch</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Any|None</type>
+          <declname>group</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>*Any</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>**Any</type>
+          <declname>kwargs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="15" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="24" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a44759a439be0af07f7dbdb74e82aff38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.entities.views.terrains.TerrainView.create_sprites</definition>
+        <argsstring>(self)</argsstring>
+        <name>create_sprites</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.create_sprites</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="36" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="36" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a7917c790026e919926f725e79fb0e020" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.entities.views.terrains.TerrainView.set_terrain_variation_sprite</definition>
+        <argsstring>(self, Hashable terrain_variation)</argsstring>
+        <name>set_terrain_variation_sprite</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.set_terrain_variation_sprite</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Hashable</type>
+          <declname>terrain_variation</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="50" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="50" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a5d0ca95cc4011afeffecf666756ce86a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite" kindref="compound">Sprite</ref>|None</type>
+        <definition> Sprite | None aetherion.entities.views.terrains.TerrainView.sprite</definition>
+        <argsstring>(self)</argsstring>
+        <name>sprite</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.sprite</qualifiedname>
+        <reimplements refid="classaetherion_1_1renderer_1_1views_1_1BaseView_1af58c727b35fb01aa1b15a202cf954494">sprite</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="54" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="54" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1ad484c967894903c74f4bdd17693e78b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.entities.views.terrains.TerrainView.set_sprite</definition>
+        <argsstring>(self, Sprite sprite)</argsstring>
+        <name>set_sprite</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.set_sprite</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite" kindref="compound">Sprite</ref></type>
+          <declname>sprite</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Replace the currently-selected variation&apos;s Sprite instance.
+
+If no variation is selected, this will set the sprite under the
+`None` key.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="59" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="59" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1ad56ebde8dab83f68d175439dc71d86ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str|None</type>
+        <definition> str | None aetherion.entities.views.terrains.TerrainView.to_raw</definition>
+        <argsstring>(self)</argsstring>
+        <name>to_raw</name>
+        <qualifiedname>aetherion.entities.views.terrains.TerrainView.to_raw</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="68" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="68" bodyend="71"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.entities.views.terrains.TerrainView</label>
+        <link refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aetherion.entities.views.terrains.EmptyView</label>
+        <link refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1EmptyView"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.renderer.views.BaseView</label>
+        <link refid="classaetherion_1_1renderer_1_1views_1_1BaseView"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.entities.views.terrains.TerrainView</label>
+        <link refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>sprite_variation_name</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aetherion.renderer.sprites.Sprite</label>
+        <link refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite"/>
+      </node>
+      <node id="2">
+        <label>aetherion.renderer.views.BaseView</label>
+        <link refid="classaetherion_1_1renderer_1_1views_1_1BaseView"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>sprite</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Hashable</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/entities/views/terrains.py" line="9" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="9" bodyend="71"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1ae93c0dbba7bdf954282dd8cfe321e4e2" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a7ee3c941c00101427cb03492160fcf37" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>batch</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a44759a439be0af07f7dbdb74e82aff38" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>create_sprites</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a22b7a15882b94c8868bf953702dea5f7" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>group</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1ae4054aca5db8225df73560e05f8024ab" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>name</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a444fa2f90383049ed28824cae18e094f" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>renderer</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1ad484c967894903c74f4bdd17693e78b9" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>set_sprite</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a7917c790026e919926f725e79fb0e020" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>set_terrain_variation_sprite</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a5d0ca95cc4011afeffecf666756ce86a" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>sprite</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1ab393da0dbbeb8aa23e5be6516a0d1a50" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>sprite_id</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a8cea88acfcc485d78acee7f0f993dbf0" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>sprite_variation_name</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a583dd1ed0b476485fd5d46c0af455e20" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>sprite_variation_name</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1afb4cf377f975c292867d8fd64c85411c" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>terrain_type</name></member>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1ad56ebde8dab83f68d175439dc71d86ec" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::TerrainView</scope><name>to_raw</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

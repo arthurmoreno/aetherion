@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1settings" kind="namespace" language="Python">
+    <compoundname>aetherion::settings</compoundname>
+    <innerclass refid="classaetherion_1_1settings_1_1BlockDimensions" prot="public">aetherion::settings::BlockDimensions</innerclass>
+    <innerclass refid="classaetherion_1_1settings_1_1PlayerBlockPosition" prot="public">aetherion::settings::PlayerBlockPosition</innerclass>
+    <innerclass refid="classaetherion_1_1settings_1_1ResolutionConfig" prot="public">aetherion::settings::ResolutionConfig</innerclass>
+    <innerclass refid="classaetherion_1_1settings_1_1ScreenParameters" prot="public">aetherion::settings::ScreenParameters</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/settings.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

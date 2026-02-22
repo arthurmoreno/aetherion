@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1settings_1_1ResolutionConfig" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::settings::ResolutionConfig</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">TypedDict</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ResolutionConfig_1ae4a88bbfa6dc243ee9785b7d6e7ae14e" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1settings_1_1BlockDimensions" kindref="compound">BlockDimensions</ref></type>
+        <definition>BlockDimensions aetherion.settings.ResolutionConfig::BLOCKS_IN_SCREEN</definition>
+        <argsstring></argsstring>
+        <name>BLOCKS_IN_SCREEN</name>
+        <qualifiedname>aetherion.settings.ResolutionConfig.BLOCKS_IN_SCREEN</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="18" column="1" bodyfile="src/aetherion/settings.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ResolutionConfig_1a89a6db2676ffc875943fd5f63f4f2918" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ResolutionConfig::SPRITE_SCALE</definition>
+        <argsstring></argsstring>
+        <name>SPRITE_SCALE</name>
+        <qualifiedname>aetherion.settings.ResolutionConfig.SPRITE_SCALE</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="19" column="1" bodyfile="src/aetherion/settings.py" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ResolutionConfig_1acbaf969c2441ebff3edf359086ebf785" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ResolutionConfig::RIGHT_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>RIGHT_OFFSET</name>
+        <qualifiedname>aetherion.settings.ResolutionConfig.RIGHT_OFFSET</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="20" column="1" bodyfile="src/aetherion/settings.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ResolutionConfig_1a893bf0a1e20d9615602cc314b0017283" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ResolutionConfig::UP_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>UP_OFFSET</name>
+        <qualifiedname>aetherion.settings.ResolutionConfig.UP_OFFSET</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="21" column="1" bodyfile="src/aetherion/settings.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ResolutionConfig_1a00a4bb449450be71df51a3cf6ab92cf7" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ResolutionConfig::GAME_SCREEN_WIDHT</definition>
+        <argsstring></argsstring>
+        <name>GAME_SCREEN_WIDHT</name>
+        <qualifiedname>aetherion.settings.ResolutionConfig.GAME_SCREEN_WIDHT</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="22" column="1" bodyfile="src/aetherion/settings.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ResolutionConfig_1ab1ca799346023f65c698f99da0e246f6" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ResolutionConfig::GAME_SCREEN_HEIGHT</definition>
+        <argsstring></argsstring>
+        <name>GAME_SCREEN_HEIGHT</name>
+        <qualifiedname>aetherion.settings.ResolutionConfig.GAME_SCREEN_HEIGHT</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="23" column="1" bodyfile="src/aetherion/settings.py" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ResolutionConfig_1a046bf4b53760d906c765b1c57943f67e" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ResolutionConfig::CAMERA_SCREEN_WIDTH_ADJUST_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>CAMERA_SCREEN_WIDTH_ADJUST_OFFSET</name>
+        <qualifiedname>aetherion.settings.ResolutionConfig.CAMERA_SCREEN_WIDTH_ADJUST_OFFSET</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="24" column="1" bodyfile="src/aetherion/settings.py" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ResolutionConfig_1aa0e190439535e11171b100d7875f60fa" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ResolutionConfig::CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET</name>
+        <qualifiedname>aetherion.settings.ResolutionConfig.CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="25" column="1" bodyfile="src/aetherion/settings.py" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.settings.ResolutionConfig</label>
+        <link refid="classaetherion_1_1settings_1_1ResolutionConfig"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.settings.ResolutionConfig</label>
+        <link refid="classaetherion_1_1settings_1_1ResolutionConfig"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>BLOCKS_IN_SCREEN</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aetherion.settings.BlockDimensions</label>
+        <link refid="classaetherion_1_1settings_1_1BlockDimensions"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/settings.py" line="17" column="1" bodyfile="src/aetherion/settings.py" bodystart="17" bodyend="27"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1settings_1_1ResolutionConfig_1ae4a88bbfa6dc243ee9785b7d6e7ae14e" prot="public" virt="non-virtual"><scope>aetherion::settings::ResolutionConfig</scope><name>BLOCKS_IN_SCREEN</name></member>
+      <member refid="classaetherion_1_1settings_1_1ResolutionConfig_1aa0e190439535e11171b100d7875f60fa" prot="public" virt="non-virtual"><scope>aetherion::settings::ResolutionConfig</scope><name>CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET</name></member>
+      <member refid="classaetherion_1_1settings_1_1ResolutionConfig_1a046bf4b53760d906c765b1c57943f67e" prot="public" virt="non-virtual"><scope>aetherion::settings::ResolutionConfig</scope><name>CAMERA_SCREEN_WIDTH_ADJUST_OFFSET</name></member>
+      <member refid="classaetherion_1_1settings_1_1ResolutionConfig_1ab1ca799346023f65c698f99da0e246f6" prot="public" virt="non-virtual"><scope>aetherion::settings::ResolutionConfig</scope><name>GAME_SCREEN_HEIGHT</name></member>
+      <member refid="classaetherion_1_1settings_1_1ResolutionConfig_1a00a4bb449450be71df51a3cf6ab92cf7" prot="public" virt="non-virtual"><scope>aetherion::settings::ResolutionConfig</scope><name>GAME_SCREEN_WIDHT</name></member>
+      <member refid="classaetherion_1_1settings_1_1ResolutionConfig_1acbaf969c2441ebff3edf359086ebf785" prot="public" virt="non-virtual"><scope>aetherion::settings::ResolutionConfig</scope><name>RIGHT_OFFSET</name></member>
+      <member refid="classaetherion_1_1settings_1_1ResolutionConfig_1a89a6db2676ffc875943fd5f63f4f2918" prot="public" virt="non-virtual"><scope>aetherion::settings::ResolutionConfig</scope><name>SPRITE_SCALE</name></member>
+      <member refid="classaetherion_1_1settings_1_1ResolutionConfig_1a893bf0a1e20d9615602cc314b0017283" prot="public" virt="non-virtual"><scope>aetherion::settings::ResolutionConfig</scope><name>UP_OFFSET</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

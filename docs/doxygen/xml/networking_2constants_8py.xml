@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="networking_2constants_8py" kind="file" language="Python">
+    <compoundname>constants.py</compoundname>
+    <innerclass refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel" prot="public">aetherion::networking::constants::PermissionLevel</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking">aetherion::networking</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1networking_1_1constants">aetherion::networking::constants</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>enum<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Enum</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel" kindref="compound">PermissionLevel</ref>(Enum):</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Permission<sp/>levels<sp/>for<sp/>different<sp/>types<sp/>of<sp/>actions.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>GUEST<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;guest&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>USER<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;user&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>ADMIN<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;admin&quot;</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/networking/constants.py"/>
+  </compounddef>
+</doxygen>

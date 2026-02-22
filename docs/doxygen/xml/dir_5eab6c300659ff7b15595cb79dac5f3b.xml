@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_5eab6c300659ff7b15595cb79dac5f3b" kind="dir">
+    <compoundname>src/aetherion/windowing</compoundname>
+    <innerfile refid="windowing_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="window_8py">window.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/windowing/"/>
+  </compounddef>
+</doxygen>

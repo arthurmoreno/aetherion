@@ -1,0 +1,448 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTerminalProgram" kind="class" language="C++" prot="public">
+    <compoundname>TerminalProgram</compoundname>
+    <basecompoundref refid="classBasicProgram" prot="public" virt="non-virtual">BasicProgram</basecompoundref>
+    <includes refid="TerminalProgram_8hpp" local="no">TerminalProgram.hpp</includes>
+    <innerclass refid="structTerminalProgram_1_1TerminalLine" prot="protected">TerminalProgram::TerminalLine</innerclass>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classTerminalProgram_1a4099bbb14da56861ca6e6246343cb2a7" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char TerminalProgram::inputBuf_[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>inputBuf_</name>
+        <qualifiedname>TerminalProgram::inputBuf_</qualifiedname>
+        <initializer>= &quot;&quot;</initializer>
+        <briefdescription>
+<para>Static buffer for command input. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="156" column="10" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerminalProgram_1a738f23f71b281b3ca825e2a3cac5921a" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; TerminalProgram::history_</definition>
+        <argsstring></argsstring>
+        <name>history_</name>
+        <qualifiedname>TerminalProgram::history_</qualifiedname>
+        <briefdescription>
+<para><ref refid="classCommand" kindref="compound">Command</ref> history. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="157" column="17" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerminalProgram_1a1a2a71c0a6c60c099a8d4cf77a57c7cf" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TerminalProgram::historyPos_</definition>
+        <argsstring></argsstring>
+        <name>historyPos_</name>
+        <qualifiedname>TerminalProgram::historyPos_</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+<para>Current position in history. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="158" column="9" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerminalProgram_1a998ad5c0b373c8fdf600e4997b04becc" prot="protected" static="no" mutable="no">
+        <type>std::deque&lt; <ref refid="structTerminalProgram_1_1TerminalLine" kindref="compound">TerminalLine</ref> &gt;</type>
+        <definition>std::deque&lt;TerminalLine&gt; TerminalProgram::terminalBuffer_</definition>
+        <argsstring></argsstring>
+        <name>terminalBuffer_</name>
+        <qualifiedname>TerminalProgram::terminalBuffer_</qualifiedname>
+        <briefdescription>
+<para>Terminal output buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="159" column="16" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerminalProgram_1ab75f2fc55fce53d50d2f65c683691174" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TerminalProgram::scrollToBottom_</definition>
+        <argsstring></argsstring>
+        <name>scrollToBottom_</name>
+        <qualifiedname>TerminalProgram::scrollToBottom_</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>Flag to trigger auto-scroll. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="160" column="10" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerminalProgram_1aca7224ef197dde9b9d02a4f79451e374" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TerminalProgram::reclaimFocus_</definition>
+        <argsstring></argsstring>
+        <name>reclaimFocus_</name>
+        <qualifiedname>TerminalProgram::reclaimFocus_</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>Flag to reclaim input focus. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="161" column="10" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="161" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="classTerminalProgram_1ac64e3a3ff397d8ef616a6554cadedba7" prot="protected" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr size_t</type>
+        <definition>constexpr size_t TerminalProgram::MAX_TERMINAL_LINES</definition>
+        <argsstring></argsstring>
+        <name>MAX_TERMINAL_LINES</name>
+        <qualifiedname>TerminalProgram::MAX_TERMINAL_LINES</qualifiedname>
+        <initializer>= 1000</initializer>
+        <briefdescription>
+<para>Maximum lines in terminal buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="162" column="29" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="162" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTerminalProgram_1a477b66ec4403efa5a77dc0c99cc97fe3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TerminalProgram::TerminalProgram</definition>
+        <argsstring>()</argsstring>
+        <name>TerminalProgram</name>
+        <qualifiedname>TerminalProgram::TerminalProgram</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="32" column="5" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="32" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgram_1ac3e4d63ea45087462e5149260bb7d38d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual TerminalProgram::~TerminalProgram</definition>
+        <argsstring>()=default</argsstring>
+        <name>~TerminalProgram</name>
+        <qualifiedname>TerminalProgram::~TerminalProgram</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="38" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgram_1a97d086fff593c6080b79637caca006eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void TerminalProgram::render</definition>
+        <argsstring>(GuiContext &amp;context)</argsstring>
+        <name>render</name>
+        <qualifiedname>TerminalProgram::render</qualifiedname>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Render the terminal program&apos;s GUI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Called once per frame if the program is active. Handles terminal rendering, input, and command execution.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shared context containing all GUI data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="48" column="18" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="48" bodyend="140"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classTerminalProgram_1aeed4b385ed86f7dd62a6520a45a9c43a" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void TerminalProgram::clearTerminal</definition>
+        <argsstring>()</argsstring>
+        <name>clearTerminal</name>
+        <qualifiedname>TerminalProgram::clearTerminal</qualifiedname>
+        <briefdescription>
+<para>Clear the terminal buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="167" column="18" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="167" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgram_1a3b50190273361a9d68f306f668e8a6cf" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void TerminalProgram::showHelp</definition>
+        <argsstring>()</argsstring>
+        <name>showHelp</name>
+        <qualifiedname>TerminalProgram::showHelp</qualifiedname>
+        <briefdescription>
+<para>Show help information. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Override this method to add custom commands to the help display. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="178" column="18" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="178" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgram_1a157589147d9b1dc5c32cc799a8250998" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void TerminalProgram::showHistory</definition>
+        <argsstring>()</argsstring>
+        <name>showHistory</name>
+        <qualifiedname>TerminalProgram::showHistory</qualifiedname>
+        <briefdescription>
+<para>Show command history. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="195" column="18" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="195" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgram_1af36cede51b83f8a5afbf1881fe1c7357" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void TerminalProgram::showCommandQueue</definition>
+        <argsstring>(const nb::list &amp;command_queue)</argsstring>
+        <name>showCommandQueue</name>
+        <qualifiedname>TerminalProgram::showCommandQueue</qualifiedname>
+        <param>
+          <type>const nb::list &amp;</type>
+          <declname>command_queue</declname>
+        </param>
+        <briefdescription>
+<para>Show command queue status. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="211" column="18" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="211" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgram_1a916f01d831f103a75c022472eb227a78" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerminalProgram::addOutput</definition>
+        <argsstring>(const std::string &amp;text, bool isCommand, bool isError)</argsstring>
+        <name>addOutput</name>
+        <qualifiedname>TerminalProgram::addOutput</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isCommand</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isError</declname>
+        </param>
+        <briefdescription>
+<para>Add a line to the terminal buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="260" column="10" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="260" bodyend="267"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgram_1ab34f1eba104e0d9d97a383bf9f774c3c" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool TerminalProgram::handleCustomCommand</definition>
+        <argsstring>(const std::string &amp;commandStr, GuiContext &amp;context)</argsstring>
+        <name>handleCustomCommand</name>
+        <qualifiedname>TerminalProgram::handleCustomCommand</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>commandStr</declname>
+        </param>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Handle custom commands. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Override this method to implement custom command handling. Return true if the command was handled, false to use default handling.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>commandStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The command string to handle </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shared GUI context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if command was handled, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="279" column="18" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="279" bodyend="281"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classTerminalProgram_1a3d77daf1729e2a88351db055dd181d6a" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int TerminalProgram::TextEditCallbackStub</definition>
+        <argsstring>(ImGuiInputTextCallbackData *data)</argsstring>
+        <name>TextEditCallbackStub</name>
+        <qualifiedname>TerminalProgram::TextEditCallbackStub</qualifiedname>
+        <param>
+          <type>ImGuiInputTextCallbackData *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>ImGui callback for input text (handles history navigation) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="287" column="16" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="287" bodyend="290"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classTerminalProgram_1a01b7ee55e6a6e4df915ab86f1c0dee98" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerminalProgram::textEditCallback</definition>
+        <argsstring>(ImGuiInputTextCallbackData *data)</argsstring>
+        <name>textEditCallback</name>
+        <qualifiedname>TerminalProgram::textEditCallback</qualifiedname>
+        <param>
+          <type>ImGuiInputTextCallbackData *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="292" column="9" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="292" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgram_1a59587925255dbfb31e20630855e7acd1" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerminalProgram::executeCommand</definition>
+        <argsstring>(GuiContext &amp;context)</argsstring>
+        <name>executeCommand</name>
+        <qualifiedname>TerminalProgram::executeCommand</qualifiedname>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Execute a command entered in the terminal. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="331" column="10" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="331" bodyend="464"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Base class for terminal-based programs in the GUI OS. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Extends <ref refid="classBasicProgram" kindref="compound">BasicProgram</ref> with terminal functionality including command history, output buffer management, and built-in command handling. Terminal programs provide a shell-like interface for debugging and system control.</para>
+<para>Design Philosophy:<itemizedlist>
+<listitem><para>Terminal programs share common shell-like interface elements</para>
+</listitem><listitem><para>Built-in commands (clear, help, history, queue) are standardized</para>
+</listitem><listitem><para>Custom commands can be implemented by derived classes</para>
+</listitem><listitem><para>Terminal rendering and input handling is unified </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>BasicProgram</label>
+        <link refid="classBasicProgram"/>
+      </node>
+      <node id="1">
+        <label>TerminalProgram</label>
+        <link refid="classTerminalProgram"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>BasicProgram</label>
+        <link refid="classBasicProgram"/>
+      </node>
+      <node id="1">
+        <label>TerminalProgram</label>
+        <link refid="classTerminalProgram"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="30" column="1" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="30" bodyend="465"/>
+    <listofallmembers>
+      <member refid="classTerminalProgram_1a916f01d831f103a75c022472eb227a78" prot="protected" virt="non-virtual"><scope>TerminalProgram</scope><name>addOutput</name></member>
+      <member refid="classTerminalProgram_1aeed4b385ed86f7dd62a6520a45a9c43a" prot="protected" virt="virtual"><scope>TerminalProgram</scope><name>clearTerminal</name></member>
+      <member refid="classTerminalProgram_1a59587925255dbfb31e20630855e7acd1" prot="private" virt="non-virtual"><scope>TerminalProgram</scope><name>executeCommand</name></member>
+      <member refid="classBasicProgram_1a2f0c761903eef20e843057c38117f316" prot="public" virt="pure-virtual"><scope>TerminalProgram</scope><name>getDisplayName</name></member>
+      <member refid="classBasicProgram_1a26a8591ac10151b13a2d964fe44100ea" prot="public" virt="pure-virtual"><scope>TerminalProgram</scope><name>getId</name></member>
+      <member refid="classTerminalProgram_1ab34f1eba104e0d9d97a383bf9f774c3c" prot="protected" virt="virtual"><scope>TerminalProgram</scope><name>handleCustomCommand</name></member>
+      <member refid="classTerminalProgram_1a738f23f71b281b3ca825e2a3cac5921a" prot="protected" virt="non-virtual"><scope>TerminalProgram</scope><name>history_</name></member>
+      <member refid="classTerminalProgram_1a1a2a71c0a6c60c099a8d4cf77a57c7cf" prot="protected" virt="non-virtual"><scope>TerminalProgram</scope><name>historyPos_</name></member>
+      <member refid="classTerminalProgram_1a4099bbb14da56861ca6e6246343cb2a7" prot="protected" virt="non-virtual"><scope>TerminalProgram</scope><name>inputBuf_</name></member>
+      <member refid="classBasicProgram_1a088f2f2d77597b4dcaeb8313703818c7" prot="public" virt="virtual"><scope>TerminalProgram</scope><name>isActive</name></member>
+      <member refid="classBasicProgram_1ae4ca127f42a532988559ac5bcedf48b9" prot="protected" virt="non-virtual"><scope>TerminalProgram</scope><name>isActive_</name></member>
+      <member refid="classTerminalProgram_1ac64e3a3ff397d8ef616a6554cadedba7" prot="protected" virt="non-virtual"><scope>TerminalProgram</scope><name>MAX_TERMINAL_LINES</name></member>
+      <member refid="classBasicProgram_1a3e56437001058497ed1335eb0c014462" prot="public" virt="virtual"><scope>TerminalProgram</scope><name>onActivate</name></member>
+      <member refid="classBasicProgram_1a02bb31892e0407f34232309b113e53b6" prot="public" virt="virtual"><scope>TerminalProgram</scope><name>onDeactivate</name></member>
+      <member refid="classTerminalProgram_1aca7224ef197dde9b9d02a4f79451e374" prot="protected" virt="non-virtual"><scope>TerminalProgram</scope><name>reclaimFocus_</name></member>
+      <member refid="classTerminalProgram_1a97d086fff593c6080b79637caca006eb" prot="public" virt="virtual"><scope>TerminalProgram</scope><name>render</name></member>
+      <member refid="classTerminalProgram_1ab75f2fc55fce53d50d2f65c683691174" prot="protected" virt="non-virtual"><scope>TerminalProgram</scope><name>scrollToBottom_</name></member>
+      <member refid="classBasicProgram_1aca42de4be8452dc77eb528a7726d4539" prot="public" virt="virtual"><scope>TerminalProgram</scope><name>setActive</name></member>
+      <member refid="classTerminalProgram_1af36cede51b83f8a5afbf1881fe1c7357" prot="protected" virt="virtual"><scope>TerminalProgram</scope><name>showCommandQueue</name></member>
+      <member refid="classTerminalProgram_1a3b50190273361a9d68f306f668e8a6cf" prot="protected" virt="virtual"><scope>TerminalProgram</scope><name>showHelp</name></member>
+      <member refid="classTerminalProgram_1a157589147d9b1dc5c32cc799a8250998" prot="protected" virt="virtual"><scope>TerminalProgram</scope><name>showHistory</name></member>
+      <member refid="classTerminalProgram_1a998ad5c0b373c8fdf600e4997b04becc" prot="protected" virt="non-virtual"><scope>TerminalProgram</scope><name>terminalBuffer_</name></member>
+      <member refid="classTerminalProgram_1a477b66ec4403efa5a77dc0c99cc97fe3" prot="public" virt="non-virtual"><scope>TerminalProgram</scope><name>TerminalProgram</name></member>
+      <member refid="classTerminalProgram_1a01b7ee55e6a6e4df915ab86f1c0dee98" prot="private" virt="non-virtual"><scope>TerminalProgram</scope><name>textEditCallback</name></member>
+      <member refid="classTerminalProgram_1a3d77daf1729e2a88351db055dd181d6a" prot="private" virt="non-virtual"><scope>TerminalProgram</scope><name>TextEditCallbackStub</name></member>
+      <member refid="classBasicProgram_1ac5391a87afbf596da74c74111ab2ae3b" prot="public" virt="virtual"><scope>TerminalProgram</scope><name>~BasicProgram</name></member>
+      <member refid="classTerminalProgram_1ac3e4d63ea45087462e5149260bb7d38d" prot="public" virt="virtual"><scope>TerminalProgram</scope><name>~TerminalProgram</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

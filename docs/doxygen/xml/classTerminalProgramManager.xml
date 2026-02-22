@@ -1,0 +1,238 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTerminalProgramManager" kind="class" language="C++" prot="public">
+    <compoundname>TerminalProgramManager</compoundname>
+    <basecompoundref refid="classProgramManager" prot="public" virt="non-virtual">ProgramManager&lt; TerminalProgram &gt;</basecompoundref>
+    <includes refid="TerminalProgramManager_8hpp" local="no">TerminalProgramManager.hpp</includes>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classTerminalProgramManager_1ad6cd0e83b90d44e9ff5fde05559f918a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classTerminalProgramManager" kindref="compound">TerminalProgramManager</ref> *</type>
+        <definition>static TerminalProgramManager * TerminalProgramManager::Instance</definition>
+        <argsstring>()</argsstring>
+        <name>Instance</name>
+        <qualifiedname>TerminalProgramManager::Instance</qualifiedname>
+        <briefdescription>
+<para>Get singleton instance. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgramManager.hpp" line="35" column="35" bodyfile="src/Gui/GuiCore/TerminalProgramManager.hpp" bodystart="35" bodyend="38"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTerminalProgramManager_1aa69118c5863629409716315373e3958b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerminalProgramManager::renderAllPrograms</definition>
+        <argsstring>(GuiContext &amp;context)</argsstring>
+        <name>renderAllPrograms</name>
+        <qualifiedname>TerminalProgramManager::renderAllPrograms</qualifiedname>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Render all active terminal programs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Iterates over all registered terminal programs and renders those that are active. Should be called once per frame. This is the terminal-specific functionality that extends the base <ref refid="classProgramManager" kindref="compound">ProgramManager</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shared GUI context for all programs </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgramManager.hpp" line="49" column="10" bodyfile="src/Gui/GuiCore/TerminalProgramManager.hpp" bodystart="49" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgramManager_1a96ff9f567d178f8c8bbf78c4fc2f577a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TerminalProgramManager::executeCommandInTerminal</definition>
+        <argsstring>(const std::string &amp;programId, const std::string &amp;command, GuiContext &amp;context)</argsstring>
+        <name>executeCommandInTerminal</name>
+        <qualifiedname>TerminalProgramManager::executeCommandInTerminal</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>programId</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>command</declname>
+        </param>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Execute a command in a specific terminal program. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Routes a command string to a specific terminal program for execution. This allows external systems to send commands to terminal programs.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>programId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The terminal program to execute the command in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The command string to execute </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shared GUI context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if command was routed successfully, false if program not found </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgramManager.hpp" line="68" column="10" bodyfile="src/Gui/GuiCore/TerminalProgramManager.hpp" bodystart="68" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgramManager_1a52fa9c6284bd2a442d3e42fe93fdc638" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="classTerminalProgram" kindref="compound">TerminalProgram</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; TerminalProgram &gt; TerminalProgramManager::getFocusedTerminal</definition>
+        <argsstring>()</argsstring>
+        <name>getFocusedTerminal</name>
+        <qualifiedname>TerminalProgramManager::getFocusedTerminal</qualifiedname>
+        <briefdescription>
+<para>Get the currently focused terminal program. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the terminal program that currently has focus, or nullptr if no terminal is focused. This can be used for global command routing.</para>
+<para><simplesect kind="return"><para>Shared pointer to focused terminal, or nullptr </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgramManager.hpp" line="96" column="21" bodyfile="src/Gui/GuiCore/TerminalProgramManager.hpp" bodystart="96" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalProgramManager_1ade7fec3cfcbec2ce1368c75ee4d4588b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt; std::string &gt; TerminalProgramManager::getActiveTerminalIds</definition>
+        <argsstring>() const</argsstring>
+        <name>getActiveTerminalIds</name>
+        <qualifiedname>TerminalProgramManager::getActiveTerminalIds</qualifiedname>
+        <briefdescription>
+<para>Get all active terminal program IDs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Convenience method specifically for terminal programs.</para>
+<para><simplesect kind="return"><para>Vector of active terminal program identifiers </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgramManager.hpp" line="114" column="17" bodyfile="src/Gui/GuiCore/TerminalProgramManager.hpp" bodystart="114" bodyend="114"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classTerminalProgramManager_1a1d4c89bd698211817139117ff4738a62" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TerminalProgramManager::TerminalProgramManager</definition>
+        <argsstring>()=default</argsstring>
+        <name>TerminalProgramManager</name>
+        <qualifiedname>TerminalProgramManager::TerminalProgramManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgramManager.hpp" line="117" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Manages the lifecycle of all terminal programs. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Acts as the program manager specifically for terminal-based programs, maintaining a registry of available terminal programs and handling their activation/deactivation. This is a singleton to provide global access throughout the system.</para>
+<para>Extends the generic <ref refid="classProgramManager" kindref="compound">ProgramManager</ref> with terminal-specific functionality:<itemizedlist>
+<listitem><para>Rendering all active terminal programs with <ref refid="structGuiContext" kindref="compound">GuiContext</ref></para>
+</listitem><listitem><para>Singleton access pattern for global terminal program management</para>
+</listitem><listitem><para>Specialized handling for terminal-based interfaces</para>
+</listitem></itemizedlist>
+</para>
+<para>Inherits from <ref refid="classProgramManager" kindref="compound">ProgramManager&lt;TerminalProgram&gt;</ref>:<itemizedlist>
+<listitem><para>Program registration and lifecycle management</para>
+</listitem><listitem><para>Activation/deactivation with callbacks</para>
+</listitem><listitem><para>Program lookup and enumeration</para>
+</listitem></itemizedlist>
+</para>
+<para>Design Philosophy:<itemizedlist>
+<listitem><para>Terminal programs are managed separately from GUI programs</para>
+</listitem><listitem><para>Allows for specialized terminal-specific features (e.g., command routing)</para>
+</listitem><listitem><para>Maintains separation of concerns between GUI and terminal interfaces </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ProgramManager&lt; TerminalProgram &gt;</label>
+        <link refid="classProgramManager"/>
+      </node>
+      <node id="1">
+        <label>TerminalProgramManager</label>
+        <link refid="classTerminalProgramManager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ProgramManager&lt; TerminalProgram &gt;</label>
+        <link refid="classProgramManager"/>
+      </node>
+      <node id="1">
+        <label>TerminalProgramManager</label>
+        <link refid="classTerminalProgramManager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/GuiCore/TerminalProgramManager.hpp" line="30" column="1" bodyfile="src/Gui/GuiCore/TerminalProgramManager.hpp" bodystart="30" bodyend="118"/>
+    <listofallmembers>
+      <member refid="classProgramManager_1a0226795a728fed180ace5dac95fb8e38" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>activateProgram</name></member>
+      <member refid="classProgramManager_1aa871ec380e70c17104b75bbcf54ac558" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>clearAllPrograms</name></member>
+      <member refid="classProgramManager_1a4165f303197c8a49f105bc13909ea3c1" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>deactivateProgram</name></member>
+      <member refid="classTerminalProgramManager_1a96ff9f567d178f8c8bbf78c4fc2f577a" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>executeCommandInTerminal</name></member>
+      <member refid="classProgramManager_1aeeab60f7661ea137f13a67bec98b60a9" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>getActiveProgramCount</name></member>
+      <member refid="classProgramManager_1ad129970d8ba9d98ae88cd8ec4754ddc9" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>getActiveProgramIds</name></member>
+      <member refid="classTerminalProgramManager_1ade7fec3cfcbec2ce1368c75ee4d4588b" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>getActiveTerminalIds</name></member>
+      <member refid="classProgramManager_1ab76866e37717c734df69130f410c03ec" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>getAllProgramIds</name></member>
+      <member refid="classTerminalProgramManager_1a52fa9c6284bd2a442d3e42fe93fdc638" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>getFocusedTerminal</name></member>
+      <member refid="classProgramManager_1af7ecb5f32823a65148843776ebba8e46" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>getProgram</name></member>
+      <member refid="classProgramManager_1a880dce7afcc201a6b4fa1fe5eb7bd9f7" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>getProgram</name></member>
+      <member refid="classProgramManager_1ab4dc12d18b0a4ff56e98a0ee47fc6cca" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>getProgramCount</name></member>
+      <member refid="classTerminalProgramManager_1ad6cd0e83b90d44e9ff5fde05559f918a" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>Instance</name></member>
+      <member refid="classProgramManager_1a622525f5df380373752da26eb2e0fd1e" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>isProgramActive</name></member>
+      <member refid="classProgramManager_1a4bb7c1de7d54d08df62b6c2152e51b90" prot="protected" virt="non-virtual"><scope>TerminalProgramManager</scope><name>programs_</name></member>
+      <member refid="classProgramManager_1af2e6ac155034f5335d34be1a6d0b0126" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>registerProgram</name></member>
+      <member refid="classTerminalProgramManager_1aa69118c5863629409716315373e3958b" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>renderAllPrograms</name></member>
+      <member refid="classTerminalProgramManager_1a1d4c89bd698211817139117ff4738a62" prot="private" virt="non-virtual"><scope>TerminalProgramManager</scope><name>TerminalProgramManager</name></member>
+      <member refid="classProgramManager_1a6fdb85ecf0a4268f74964be4fcc13fb3" prot="public" virt="non-virtual"><scope>TerminalProgramManager</scope><name>toggleProgram</name></member>
+      <member refid="classProgramManager_1a89847b458f1114e3c46c6a1368dbf471" prot="public" virt="virtual"><scope>TerminalProgramManager</scope><name>~ProgramManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1camera_1_1terrain" kind="namespace" language="Python">
+    <compoundname>aetherion::camera::terrain</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="terrain_8py_1a7360312417579458bde5adacaf342b31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.camera.terrain.should_draw_terrain</definition>
+        <argsstring>(EntityInterface terrain, CameraSettings camera_settings)</argsstring>
+        <name>should_draw_terrain</name>
+        <qualifiedname>aetherion.camera.terrain.should_draw_terrain</qualifiedname>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>terrain</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraSettings" kindref="compound">CameraSettings</ref></type>
+          <declname>camera_settings</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/terrain.py" line="15" column="1" bodyfile="src/aetherion/camera/terrain.py" bodystart="15" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="terrain_8py_1a013b650d303be5bc7b4552eabf3014e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.camera.terrain.emtpy_water_terrain</definition>
+        <argsstring>(EntityInterface terrain)</argsstring>
+        <name>emtpy_water_terrain</name>
+        <qualifiedname>aetherion.camera.terrain.emtpy_water_terrain</qualifiedname>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>terrain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/terrain.py" line="21" column="1" bodyfile="src/aetherion/camera/terrain.py" bodystart="21" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="terrain_8py_1a28c085ef9bd61bfcc9a410a39474de1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.camera.terrain.set_grass_terrain_view_sprite</definition>
+        <argsstring>(EntityInterface terrain, Any view_object)</argsstring>
+        <name>set_grass_terrain_view_sprite</name>
+        <qualifiedname>aetherion.camera.terrain.set_grass_terrain_view_sprite</qualifiedname>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>terrain</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>view_object</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/terrain.py" line="30" column="1" bodyfile="src/aetherion/camera/terrain.py" bodystart="30" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="terrain_8py_1ac3337a04283e4bb108207a681f6cf59d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.camera.terrain.set_water_terrain_view_sprite</definition>
+        <argsstring>(EntityInterface terrain, Any view_object)</argsstring>
+        <name>set_water_terrain_view_sprite</name>
+        <qualifiedname>aetherion.camera.terrain.set_water_terrain_view_sprite</qualifiedname>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>terrain</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>view_object</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/terrain.py" line="36" column="1" bodyfile="src/aetherion/camera/terrain.py" bodystart="36" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="terrain_8py_1a31252b867b87a1de2b83f41864c94cd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.camera.terrain.is_occluding_some_entity</definition>
+        <argsstring>(WorldView world_view, EntityInterface occluding_entity)</argsstring>
+        <name>is_occluding_some_entity</name>
+        <qualifiedname>aetherion.camera.terrain.is_occluding_some_entity</qualifiedname>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>occluding_entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if the occluding entity is blocking any other entity in the world.
+
+Args:
+    world_view: The world view containing all entities
+    occluding_entity: The entity to check for occlusion
+
+Returns:
+    True if the entity is occluding some other entity, False otherwise
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/terrain.py" line="51" column="1" bodyfile="src/aetherion/camera/terrain.py" bodystart="51" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="terrain_8py_1ad88ad615c386dec41c34fdb4bb6723dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.camera.terrain.draw_gradient_vector</definition>
+        <argsstring>(RenderQueue render_queue, int layer_index, str effect_group, Any gradient_view_object, bool terrain_gradient_camera_stats, EntityInterface terrain, float light_intensity, float oppacity, int screen_x, int screen_y)</argsstring>
+        <name>draw_gradient_vector</name>
+        <qualifiedname>aetherion.camera.terrain.draw_gradient_vector</qualifiedname>
+        <param>
+          <type><ref refid="classRenderQueue" kindref="compound">RenderQueue</ref></type>
+          <declname>render_queue</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>effect_group</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>gradient_view_object</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>terrain_gradient_camera_stats</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>terrain</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>light_intensity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>oppacity</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/terrain.py" line="98" column="1" bodyfile="src/aetherion/camera/terrain.py" bodystart="109" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="terrain_8py_1a5d3b58ba3634a3a9584b1a1d4c53d7e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.camera.terrain.draw_terrain</definition>
+        <argsstring>(EntityInterface terrain, Any view_object, CameraSettings camera_settings, Optional[int] selected_entity, WorldView world_view, Dict[str, Any] mouse_state, int screen_x, int screen_y, RenderQueue render_queue, int layer_index, str terrain_group_0, float initial_light_intensity, str gui_group, str terrain_group_1, str effect_group, float sun_light, EntityInterface player, Any gradient_view_object, bool terrain_gradient_camera_stats, Any water_view, Dict[str, Any] views, bool water_camera_stats, Optional[EntityInterface]|None entity_hovered)</argsstring>
+        <name>draw_terrain</name>
+        <qualifiedname>aetherion.camera.terrain.draw_terrain</qualifiedname>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>terrain</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>view_object</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraSettings" kindref="compound">CameraSettings</ref></type>
+          <declname>camera_settings</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>selected_entity</declname>
+          <array>[int]</array>
+        </param>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type>Dict</type>
+          <declname>mouse_state</declname>
+          <array>[str, Any]</array>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_y</declname>
+        </param>
+        <param>
+          <type><ref refid="classRenderQueue" kindref="compound">RenderQueue</ref></type>
+          <declname>render_queue</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>terrain_group_0</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>initial_light_intensity</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>gui_group</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>terrain_group_1</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>effect_group</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sun_light</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>gradient_view_object</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>terrain_gradient_camera_stats</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>water_view</declname>
+        </param>
+        <param>
+          <type>Dict</type>
+          <declname>views</declname>
+          <array>[str, Any]</array>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>water_camera_stats</declname>
+        </param>
+        <param>
+          <type>Optional|None</type>
+          <declname>entity_hovered</declname>
+          <array>[EntityInterface]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/terrain.py" line="139" column="1" bodyfile="src/aetherion/camera/terrain.py" bodystart="163" bodyend="289"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/camera/terrain.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

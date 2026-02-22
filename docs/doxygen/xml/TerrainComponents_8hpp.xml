@@ -8,6 +8,11 @@
     <includedby refid="EffectsSystem_8hpp" local="yes">src/EffectsSystem.hpp</includedby>
     <includedby refid="EntityInterface_8hpp" local="yes">src/EntityInterface.hpp</includedby>
     <includedby refid="PhysicsEngine_8hpp" local="yes">src/PhysicsEngine.hpp</includedby>
+    <includedby refid="EcosystemEvents_8hpp" local="yes">src/ecosystem/EcosystemEvents.hpp</includedby>
+    <includedby refid="ecosystem_2ReadonlyQueries_8hpp" local="yes">src/ecosystem/ReadonlyQueries.hpp</includedby>
+    <includedby refid="ReadonlyQueries_8cpp" local="yes">src/physics/ReadonlyQueries.cpp</includedby>
+    <includedby refid="physics_2ReadonlyQueries_8hpp" local="yes">src/physics/ReadonlyQueries.hpp</includedby>
+    <includedby refid="TerrainGridRepository_8hpp" local="yes">src/terrain/TerrainGridRepository.hpp</includedby>
     <incdepgraph>
       <node id="1">
         <label>src/components/TerrainComponents.hpp</label>
@@ -25,10 +30,16 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="9">
+      <node id="30">
         <label>src/CameraUtils.hpp</label>
         <link refid="CameraUtils_8hpp_source"/>
         <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>src/CombatSystem.hpp</label>
+        <link refid="CombatSystem_8hpp_source"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -38,40 +49,52 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
       </node>
-      <node id="7">
+      <node id="28">
         <label>src/EffectsSystem.hpp</label>
         <link refid="EffectsSystem_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="29">
         <label>src/EntityInterface.hpp</label>
         <link refid="EntityInterface_8hpp_source"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
       </node>
-      <node id="10">
+      <node id="31">
         <label>src/FlatbufferUtils.hpp</label>
         <link refid="FlatbufferUtils_8hpp_source"/>
-        <childnode refid="11" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
+      </node>
+      <node id="8">
+        <label>src/Gui/AllGuiPrograms.hpp</label>
+        <link refid="AllGuiPrograms_8hpp"/>
       </node>
       <node id="5">
         <label>src/Gui/Gui.hpp</label>
@@ -79,36 +102,198 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="14">
-        <label>src/HealthSystem.hpp</label>
-        <link refid="HealthSystem_8hpp_source"/>
-        <childnode refid="4" relation="include">
+      <node id="10">
+        <label>src/Gui/GuiCore/GuiProgram.hpp</label>
+        <link refid="GuiProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
         </childnode>
-      </node>
-      <node id="13">
-        <label>src/LifeEvents.hpp</label>
-        <link refid="LifeEvents_8hpp_source"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>src/Gui/GuiCore/GuiProgramManager.hpp</label>
+        <link refid="GuiProgramManager_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>src/Gui/GuiCore/TerminalProgram.hpp</label>
+        <link refid="TerminalProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>src/Gui/GuiCore/TerminalProgramManager.hpp</label>
+        <link refid="TerminalProgramManager_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>src/Gui/GuiPrograms/Debug/AIStatisticsProgram.hpp</label>
+        <link refid="AIStatisticsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="15">
+        <label>src/Gui/GuiPrograms/Debug/ConsoleProgram.hpp</label>
+        <link refid="ConsoleProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp</label>
+        <link refid="EditorDebuggerProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>src/Gui/GuiPrograms/Debug/EntitiesStatsProgram.hpp</label>
+        <link refid="EntitiesStatsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>src/Gui/GuiPrograms/Debug/EntityInterfaceProgram.hpp</label>
+        <link refid="EntityInterfaceProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>src/Gui/GuiPrograms/Debug/GadgetsProgram.hpp</label>
+        <link refid="GadgetsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>src/Gui/GuiPrograms/Debug/GeneralMetricsProgram.hpp</label>
+        <link refid="GeneralMetricsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>src/Gui/GuiPrograms/Debug/LifeMetricsProgram.hpp</label>
+        <link refid="LifeMetricsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>src/Gui/GuiPrograms/Debug/PhysicsMetricsProgram.hpp</label>
+        <link refid="PhysicsMetricsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>src/Gui/GuiPrograms/Game/EquipmentProgram.hpp</label>
+        <link refid="EquipmentProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>src/Gui/GuiPrograms/Game/InventoryProgram.hpp</label>
+        <link refid="InventoryProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/Gui/GuiPrograms/Game/PlayerStatsProgram.hpp</label>
+        <link refid="PlayerStatsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>src/Gui/GuiPrograms/Settings/CameraSettingsProgram.hpp</label>
+        <link refid="CameraSettingsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>src/Gui/GuiPrograms/Settings/PhysicsSettingsProgram.hpp</label>
+        <link refid="PhysicsSettingsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>src/Gui/GuiPrograms/Settings/SettingsProgram.hpp</label>
+        <link refid="SettingsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>src/HealthSystem.hpp</label>
+        <link refid="HealthSystem_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>src/ItemsEvents.hpp</label>
+        <link refid="ItemsEvents_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>src/LifeEvents.hpp</label>
+        <link refid="LifeEvents_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
         <label>src/MetabolismSystem.hpp</label>
         <link refid="MetabolismSystem_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="32">
         <label>src/PerceptionResponse.hpp</label>
         <link refid="PerceptionResponse_8hpp_source"/>
         <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -117,20 +302,42 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
+      <node id="47">
+        <label>src/WavePhysicsEngine.hpp</label>
+        <link refid="WavePhysicsEngine_8hpp_source"/>
+      </node>
       <node id="4">
         <label>src/World.hpp</label>
         <link refid="World_8hpp_source"/>
         <childnode refid="5" relation="include">
         </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-      </node>
-      <node id="12">
-        <label>src/WorldView.hpp</label>
-        <link refid="WorldView_8hpp_source"/>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+      </node>
+      <node id="33">
+        <label>src/WorldClientAPI/CommandHandlers.hpp</label>
+        <link refid="CommandHandlers_8hpp_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>src/WorldClientAPI/CommandValidator.hpp</label>
+        <link refid="CommandValidator_8hpp_source"/>
+      </node>
+      <node id="35">
+        <label>src/WorldClientAPI/ProcessOptionalQueries.hpp</label>
+        <link refid="ProcessOptionalQueries_8hpp_source"/>
+      </node>
+      <node id="36">
+        <label>src/WorldView.hpp</label>
+        <link refid="WorldView_8hpp_source"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
@@ -144,11 +351,133 @@
         <link refid="TerrainComponents_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>src/components/core/GuiContext.hpp</label>
+        <link refid="GuiContext_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>src/ecosystem/EcosystemEvents.hpp</label>
+        <link refid="EcosystemEvents_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>src/ecosystem/ReadonlyQueries.hpp</label>
+        <link refid="ecosystem_2ReadonlyQueries_8hpp_source"/>
+      </node>
+      <node id="49">
+        <label>src/physics/Collision.hpp</label>
+        <link refid="Collision_8hpp_source"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>src/physics/ComponentMutators.hpp</label>
+        <link refid="ComponentMutators_8hpp"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>src/physics/PhysicsMutators.hpp</label>
+        <link refid="PhysicsMutators_8hpp"/>
+      </node>
+      <node id="51">
+        <label>src/physics/PhysicsUtils.hpp</label>
+        <link refid="PhysicsUtils_8hpp_source"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>src/physics/ReadonlyQueries.hpp</label>
+        <link refid="physics_2ReadonlyQueries_8hpp_source"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>src/terrain/TerrainGridLock.hpp</label>
+        <link refid="TerrainGridLock_8hpp_source"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>src/terrain/TerrainGridRepository.hpp</label>
+        <link refid="TerrainGridRepository_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>src/voxelgrid/VoxelGrid.hpp</label>
+        <link refid="VoxelGrid_8hpp_source"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -190,6 +519,41 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/components/TerrainComponents.hpp" line="7" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="7" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="enum" id="TerrainComponents_8hpp_1a909ff8eaf62e63b38026330871adaaf4" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TerrainIdTypeEnum</name>
+        <enumvalue id="TerrainComponents_8hpp_1a909ff8eaf62e63b38026330871adaaf4ab50339a10e1de285ac99d4c3990b8693" prot="public">
+          <name>NONE</name>
+          <initializer>= -2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a909ff8eaf62e63b38026330871adaaf4aa83be25eb9c1cf7b6710776cc2b302c1" prot="public">
+          <name>ON_GRID_STORAGE</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="TerrainComponents_8hpp_1a909ff8eaf62e63b38026330871adaaf4a330868ad7123bb4e48e89b976cedfab8" prot="public">
+          <name>ON_ENTT</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/TerrainComponents.hpp" line="9" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="9" bodyend="9"/>
       </memberdef>
       <memberdef kind="enum" id="TerrainComponents_8hpp_1a9fd41fdb6952c796ee7b243f3f120b07" prot="public" static="no" strong="yes">
         <type></type>
@@ -288,7 +652,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/components/TerrainComponents.hpp" line="9" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="9" bodyend="21"/>
+        <location file="src/components/TerrainComponents.hpp" line="11" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="11" bodyend="23"/>
       </memberdef>
       <memberdef kind="enum" id="TerrainComponents_8hpp_1a313c65ef6998c725725b5107a1c1df3e" prot="public" static="no" strong="yes">
         <type></type>
@@ -323,7 +687,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/components/TerrainComponents.hpp" line="30" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="30" bodyend="30"/>
+        <location file="src/components/TerrainComponents.hpp" line="32" column="1" bodyfile="src/components/TerrainComponents.hpp" bodystart="32" bodyend="32"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -339,48 +703,50 @@
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>struct</highlight><highlight class="normal"><sp/>TerrainEnum<sp/>{<sp/>EMPTY<sp/>=<sp/>-1,<sp/>GRASS<sp/>=<sp/>0,<sp/>WATER<sp/>=<sp/>1<sp/>};</highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>struct</highlight><highlight class="normal"><sp/>TerrainVariantEnum<sp/>{</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>FULL<sp/>=<sp/>0,</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_EAST<sp/>=<sp/>1,</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_WEST<sp/>=<sp/>2,</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_SOUTH_EAST<sp/>=<sp/>3,</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_SOUTH_EAST_INV<sp/>=<sp/>4,</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_NORTH_EAST<sp/>=<sp/>5,</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_NORTH_EAST_INV<sp/>=<sp/>6,</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_SOUTH<sp/>=<sp/>7,</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_NORTH<sp/>=<sp/>8,</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_SOUTH_WEST<sp/>=<sp/>9,</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_NORTH_WEST<sp/>=<sp/>10</highlight></codeline>
-<codeline lineno="21"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23" refid="structMatterContainer" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref><sp/>{</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TerrainMatter;</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WaterVapor;</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WaterMatter;</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BioMassMatter;</highlight></codeline>
-<codeline lineno="28"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>struct</highlight><highlight class="normal"><sp/>TileEffectTypeEnum<sp/>{<sp/>EMPTY<sp/>=<sp/>-1,<sp/>BLOOD_DAMAGE<sp/>=<sp/>0,<sp/>GREEN_DAMAGE<sp/>=<sp/>1<sp/>};</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>struct</highlight><highlight class="normal"><sp/>TerrainIdTypeEnum<sp/>{<sp/>NONE<sp/>=<sp/>-2,<sp/>ON_GRID_STORAGE<sp/>=<sp/>-1,<sp/>ON_ENTT<sp/>=<sp/>0<sp/>};</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>struct</highlight><highlight class="normal"><sp/>TerrainVariantEnum<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>FULL<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_EAST<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_WEST<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_SOUTH_EAST<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_SOUTH_EAST_INV<sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_NORTH_EAST<sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_NORTH_EAST_INV<sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_SOUTH<sp/>=<sp/>7,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>RAMP_NORTH<sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_SOUTH_WEST<sp/>=<sp/>9,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>CORNER_NORTH_WEST<sp/>=<sp/>10</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="structMatterContainer" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref><sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TerrainMatter;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WaterVapor;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WaterMatter;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BioMassMatter;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32" refid="structTileEffectComponent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structTileEffectComponent" kindref="compound">TileEffectComponent</ref><sp/>{</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tileEffectType;</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>damageValue;</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>effectTotalTime;</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>effectRemainingTime;</highlight></codeline>
-<codeline lineno="37"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39" refid="structTileEffectsList" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structTileEffectsList" kindref="compound">TileEffectsList</ref><sp/>{</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;int&gt;<sp/>tileEffectsIDs;</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unordered_set&lt;int&gt;<sp/>unique_elements;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>addEffect(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tileEffectID)<sp/>{</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(unique_elements.insert(tileEffectID).second)<sp/>{</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tileEffectsIDs.push_back(tileEffectID);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="48"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>TERRAIN_COMPONENTS_HPP</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>struct</highlight><highlight class="normal"><sp/>TileEffectTypeEnum<sp/>{<sp/>EMPTY<sp/>=<sp/>-1,<sp/>BLOOD_DAMAGE<sp/>=<sp/>0,<sp/>GREEN_DAMAGE<sp/>=<sp/>1<sp/>};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="structTileEffectComponent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structTileEffectComponent" kindref="compound">TileEffectComponent</ref><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tileEffectType;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>damageValue;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>effectTotalTime;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>effectRemainingTime;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="structTileEffectsList" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structTileEffectsList" kindref="compound">TileEffectsList</ref><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;int&gt;<sp/>tileEffectsIDs;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unordered_set&lt;int&gt;<sp/>unique_elements;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>addEffect(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tileEffectID)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(unique_elements.insert(tileEffectID).second)<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tileEffectsIDs.push_back(tileEffectID);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>TERRAIN_COMPONENTS_HPP</highlight></codeline>
     </programlisting>
     <location file="src/components/TerrainComponents.hpp"/>
   </compounddef>

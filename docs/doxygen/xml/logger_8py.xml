@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="logger_8py" kind="file" language="Python">
+    <compoundname>logger.py</compoundname>
+    <innerclass refid="classaetherion_1_1logger_1_1__CppLoggerProtocol" prot="protected">aetherion::logger::_CppLoggerProtocol</innerclass>
+    <innerclass refid="classaetherion_1_1logger_1_1__CppLoggerHandler" prot="protected">aetherion::logger::_CppLoggerHandler</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1logger">aetherion::logger</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceaetherion_1_1logger" refkind="compound"><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="2"><highlight class="stringliteral">Simple<sp/>logging<sp/>utilities<sp/>for<sp/>the<sp/>Aetherion<sp/>Python<sp/>package.</highlight></codeline>
+<codeline lineno="3"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="4"><highlight class="stringliteral">Goals</highlight></codeline>
+<codeline lineno="5"><highlight class="stringliteral">-<sp/>Play<sp/>nicely<sp/>when<sp/>LifeSim<sp/>(or<sp/>any<sp/>host<sp/>app)<sp/>already<sp/>configures<sp/>logging.</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral">-<sp/>Offer<sp/>a<sp/>minimal<sp/>standalone<sp/>configuration<sp/>for<sp/>development/production.</highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral">-<sp/>Optionally<sp/>bridge<sp/>stdlib<sp/>logs<sp/>to<sp/>the<sp/>C++<sp/>logger<sp/>(aetherion.Logger)<sp/>in<sp/>cpp-dev.</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">Usage<sp/>in<sp/>library<sp/>modules</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>import<sp/>logging</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>logger<sp/>=<sp/>logging.getLogger(__name__)</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>logger.info(&quot;Hello<sp/>from<sp/>Aetherion&quot;)</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral">Applications<sp/>can<sp/>call<sp/>configure_logging()<sp/>once<sp/>at<sp/>startup,<sp/>or,<sp/>if<sp/>using<sp/>LifeSim,</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral">import<sp/>lifesim.logger.configure_logging<sp/>which<sp/>will<sp/>also<sp/>apply<sp/>to<sp/>Aetherion<sp/>modules.</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>__future__<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>annotations</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>logging</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>os</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>collections.abc<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Mapping</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Protocol,<sp/>cast,<sp/>override,<sp/>runtime_checkable</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>structlog</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>structlog.stdlib<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>BoundLogger</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Detect<sp/>environment:<sp/>default<sp/>to<sp/>production<sp/>if<sp/>not<sp/>set</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">ENV:<sp/>str<sp/>=<sp/>os.getenv(</highlight><highlight class="stringliteral">&quot;ENV&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;production&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---<sp/>Formatting<sp/>helpers<sp/>(compact<sp/>color<sp/>output)<sp/>---</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">RESET<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;\033[0m&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">CYAN<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;\033[36m&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">GREEN<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;\033[32m&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">YELLOW<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;\033[33m&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">RED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;\033[31m&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">WHITE<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;\033[37m&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">production_renderer(_logger:<sp/>BoundLogger,<sp/>_method_name:<sp/>str,<sp/>event_dict:<sp/>Mapping[str,<sp/>object])<sp/>-&gt;<sp/>str:</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>timestamp<sp/>=<sp/>str(event_dict.get(</highlight><highlight class="stringliteral">&quot;timestamp&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>log_level:<sp/>str<sp/>=<sp/>str(event_dict.get(</highlight><highlight class="stringliteral">&quot;log_level&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>level<sp/>=<sp/>log_level.upper()</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>event<sp/>=<sp/>str(event_dict.get(</highlight><highlight class="stringliteral">&quot;event&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>level<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;INFO&quot;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>level_color<sp/>=<sp/>GREEN</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>level<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;WARNING&quot;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>level_color<sp/>=<sp/>YELLOW</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>level<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;ERROR&quot;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>level_color<sp/>=<sp/>RED</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>level_color<sp/>=<sp/>WHITE</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>extra<sp/>=<sp/>{k:<sp/>v<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>k,<sp/>v<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>event_dict.items()<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>k<sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>(</highlight><highlight class="stringliteral">&quot;timestamp&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;log_level&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;event&quot;</highlight><highlight class="normal">)}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>extra_str<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">.join(f</highlight><highlight class="stringliteral">&quot;{k}={v}&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>k,<sp/>v<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>extra.items())</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>formatted<sp/>=<sp/>f</highlight><highlight class="stringliteral">&quot;{CYAN}[{timestamp}]{RESET}<sp/>{level_color}{level}:{RESET}<sp/>{event}&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>extra_str:</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>formatted<sp/>+=<sp/>f</highlight><highlight class="stringliteral">&quot;<sp/>{extra_str}&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>formatted</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---<sp/>C++<sp/>logger<sp/>protocol<sp/>(typed<sp/>interface)<sp/>---</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">@runtime_checkable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="classaetherion_1_1logger_1_1__CppLoggerProtocol" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1logger_1_1__CppLoggerProtocol" kindref="compound">_CppLoggerProtocol</ref>(Protocol):</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">initialize_spdlog(*,<sp/>logger_name:<sp/>str,<sp/>log_file:<sp/>str,<sp/>console_output:<sp/>bool)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">set_level(level:<sp/>int)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">critical(msg:<sp/>str)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">error(msg:<sp/>str)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">warn(msg:<sp/>str)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">info(msg:<sp/>str)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@staticmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">debug(msg:<sp/>str)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/>...</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">#<sp/>---<sp/>Bridge<sp/>handler<sp/>to<sp/>C++<sp/>logger<sp/>(optional)<sp/>---</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="classaetherion_1_1logger_1_1__CppLoggerHandler" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1logger_1_1__CppLoggerHandler" kindref="compound">_CppLoggerHandler</ref>(logging.Handler):</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Forward<sp/>stdlib<sp/>logging<sp/>records<sp/>to<sp/>aetherion.Logger<sp/>(C++),<sp/>if<sp/>available.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>_initialized:<sp/>bool<sp/>=<sp/></highlight><highlight class="keyword">False</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>logger_name:<sp/>str<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;aetherion&quot;</highlight><highlight class="normal">,<sp/>log_file:<sp/>str<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;aetherion.log&quot;</highlight><highlight class="normal">)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>super().__init__()</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.logger_name:<sp/>str<sp/>=<sp/>logger_name</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.log_file:<sp/>str<sp/>=<sp/>log_file</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">_ensure_cpp_logger(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>self.__class__._initialized:</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>aetherion<sp/><sp/></highlight><highlight class="comment">#<sp/>type:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_obj<sp/>=<sp/>cast(object,<sp/>aetherion.Logger)<sp/><sp/></highlight><highlight class="comment">#<sp/>type:<sp/>ignore[attr-defined]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_cls<sp/>=<sp/>cast(_CppLoggerProtocol,<sp/>logger_obj)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_cls.initialize_spdlog(</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_name=self.logger_name,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>log_file=self.log_file,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>console_output=</highlight><highlight class="keyword">True</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>level<sp/>=<sp/>getattr(aetherion,<sp/></highlight><highlight class="stringliteral">&quot;LogLevel_DEBUG&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>isinstance(level,<sp/>int):</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_cls.set_level(level)</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.__class__._initialized<sp/>=<sp/></highlight><highlight class="keyword">True</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception:</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.__class__._initialized<sp/>=<sp/></highlight><highlight class="keyword">False</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@override</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">emit(self,<sp/>record:<sp/>logging.LogRecord)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/><sp/></highlight><highlight class="comment">#<sp/>pragma:<sp/>no<sp/>cover</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>aetherion<sp/><sp/></highlight><highlight class="comment">#<sp/>type:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception:</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1logger_1_1__CppLoggerHandler_1a15da1e3e4f3f18118cce5da905a34773" kindref="member">_ensure_cpp_logger</ref>()</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msg<sp/>=<sp/>self.format(record)</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lvl<sp/>=<sp/>record.levelno</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_obj<sp/>=<sp/>cast(object,<sp/>aetherion.Logger)<sp/><sp/></highlight><highlight class="comment">#<sp/>type:<sp/>ignore[attr-defined]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_cls<sp/>=<sp/>cast(_CppLoggerProtocol,<sp/>logger_obj)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>lvl<sp/>&gt;=<sp/>logging.CRITICAL<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>hasattr(cast(object,<sp/>logger_cls),<sp/></highlight><highlight class="stringliteral">&quot;critical&quot;</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_cls.critical(msg)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>lvl<sp/>&gt;=<sp/>logging.ERROR<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>hasattr(cast(object,<sp/>logger_cls),<sp/></highlight><highlight class="stringliteral">&quot;error&quot;</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_cls.error(msg)</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>lvl<sp/>&gt;=<sp/>logging.WARNING<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>hasattr(cast(object,<sp/>logger_cls),<sp/></highlight><highlight class="stringliteral">&quot;warn&quot;</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_cls.warn(msg)</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">elif</highlight><highlight class="normal"><sp/>lvl<sp/>&gt;=<sp/>logging.INFO<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>hasattr(cast(object,<sp/>logger_cls),<sp/></highlight><highlight class="stringliteral">&quot;info&quot;</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_cls.info(msg)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>hasattr(cast(object,<sp/>logger_cls),<sp/></highlight><highlight class="stringliteral">&quot;debug&quot;</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_cls.debug(msg)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception:</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespaceaetherion_1_1logger_1a2407db5c365f01945bf27d4ff00731e2" kindref="member">_inherit_from_lifesim</ref>(</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>_env:<sp/>str<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,<sp/>_app_logger_name:<sp/>str,<sp/>_level:<sp/>int<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,<sp/>_use_cpp_bridge:<sp/>bool<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal">)<sp/>-&gt;<sp/>BoundLogger<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Deprecated<sp/>no-op:<sp/>LifeSim<sp/>logger<sp/>inheritance<sp/>removed.</highlight></codeline>
+<codeline lineno="152"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="153"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Always<sp/>returns<sp/>None<sp/>so<sp/>this<sp/>module<sp/>configures<sp/>logging<sp/>independently.</highlight></codeline>
+<codeline lineno="154"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespaceaetherion_1_1logger_1a5f91582993b9c280ec711a4ff2ce5390" kindref="member">configure_logging</ref>(</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>env:<sp/>str<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>*,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>app_logger_name:<sp/>str<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;aetherion&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>level:<sp/>int<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>use_cpp_bridge:<sp/>bool<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>inherit:<sp/>bool<sp/>=<sp/></highlight><highlight class="keyword">True</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">)<sp/>-&gt;<sp/>BoundLogger:</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Configure<sp/>logging<sp/>for<sp/>Aetherion.</highlight></codeline>
+<codeline lineno="167"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="168"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>-<sp/>If<sp/>inherit=True<sp/>and<sp/>LifeSim&apos;s<sp/>configure_logging<sp/>is<sp/>present,<sp/>delegate<sp/>to<sp/>it.</highlight></codeline>
+<codeline lineno="169"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>-<sp/>Otherwise,<sp/>apply<sp/>a<sp/>minimal<sp/>structlog+stdlib<sp/>setup<sp/>(dev/prod)<sp/>and<sp/>optionally<sp/>attach</highlight></codeline>
+<codeline lineno="170"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>bridge<sp/>to<sp/>the<sp/>C++<sp/>logger<sp/>when<sp/>env==&quot;cpp-dev&quot;<sp/>or<sp/>use_cpp_bridge=True.</highlight></codeline>
+<codeline lineno="171"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>current_env<sp/>=<sp/>env<sp/></highlight><highlight class="keywordflow">or</highlight><highlight class="normal"><sp/>ENV</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>inherit:</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>delegated<sp/>=<sp/><ref refid="namespaceaetherion_1_1logger_1a2407db5c365f01945bf27d4ff00731e2" kindref="member">_inherit_from_lifesim</ref>(current_env,<sp/>app_logger_name,<sp/>level,<sp/>use_cpp_bridge)</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>delegated<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>delegated</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/>base_level<sp/>=<sp/>level</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>base_level<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>base_level<sp/>=<sp/>logging.DEBUG<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>current_env<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;development&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>logging.INFO</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Start<sp/>clean<sp/>to<sp/>avoid<sp/>duplicate<sp/>handlers<sp/>in<sp/>REPL/dev<sp/>cycles</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/>root<sp/>=<sp/>logging.getLogger()</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>h<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>list(root.handlers):</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>root.removeHandler(h)</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/>logging.basicConfig(format=</highlight><highlight class="stringliteral">&quot;%(message)s&quot;</highlight><highlight class="normal">,<sp/>level=base_level,<sp/>force=</highlight><highlight class="keyword">True</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>current_env<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;development&quot;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>processors<sp/>=<sp/>[</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>structlog.stdlib.add_log_level,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>structlog.stdlib.PositionalArgumentsFormatter(),</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>structlog.processors.TimeStamper(fmt=</highlight><highlight class="stringliteral">&quot;iso&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>structlog.dev.ConsoleRenderer(),</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>]</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>processors<sp/>=<sp/>[</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>structlog.stdlib.add_log_level,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>structlog.stdlib.PositionalArgumentsFormatter(),</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>structlog.processors.TimeStamper(fmt=</highlight><highlight class="stringliteral">&quot;iso&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>production_renderer,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>]</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>structlog.configure(</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>processors=processors,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>context_class=dict,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger_factory=structlog.stdlib.LoggerFactory(),</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>wrapper_class=structlog.stdlib.BoundLogger,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cache_logger_on_first_use=</highlight><highlight class="keyword">True</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(use_cpp_bridge<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">True</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">or</highlight><highlight class="normal"><sp/>(use_cpp_bridge<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>current_env<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;cpp-dev&quot;</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cpp_handler<sp/>=<sp/><ref refid="classaetherion_1_1logger_1_1__CppLoggerHandler" kindref="compound">_CppLoggerHandler</ref>(logger_name=app_logger_name,<sp/>log_file=f</highlight><highlight class="stringliteral">&quot;{app_logger_name}.log&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cpp_handler.setLevel(base_level)</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>root.addHandler(cpp_handler)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>app_logger:<sp/>BoundLogger<sp/>=<sp/>cast(BoundLogger,<sp/>structlog.get_logger(app_logger_name))</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/>app_logger.info(</highlight><highlight class="stringliteral">&quot;Aetherion<sp/>logger<sp/>configured&quot;</highlight><highlight class="normal">,<sp/>environment=current_env)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>app_logger</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">get_logger(name:<sp/>str<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">)<sp/>-&gt;<sp/>BoundLogger:</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Return<sp/>a<sp/>structlog<sp/>BoundLogger<sp/>for<sp/>Aetherion<sp/>or<sp/>consumers.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cast(BoundLogger,<sp/>structlog.get_logger(name<sp/></highlight><highlight class="keywordflow">or</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;aetherion&quot;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Configure<sp/>on<sp/>import<sp/>with<sp/>defaults<sp/>(safe<sp/>in<sp/>both<sp/>app/lib<sp/>contexts)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal">logger<sp/>=<sp/><ref refid="namespaceaetherion_1_1logger_1a5f91582993b9c280ec711a4ff2ce5390" kindref="member">configure_logging</ref>(inherit=</highlight><highlight class="keyword">True</highlight><highlight class="normal">)</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/logger.py"/>
+  </compounddef>
+</doxygen>

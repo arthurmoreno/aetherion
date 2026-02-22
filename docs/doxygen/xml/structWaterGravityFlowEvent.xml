@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structWaterGravityFlowEvent" kind="struct" language="C++" prot="public">
+    <compoundname>WaterGravityFlowEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structWaterGravityFlowEvent_1a0a5d01c007e7b07a46b079f8f3a2bf32" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position WaterGravityFlowEvent::source</definition>
+        <argsstring></argsstring>
+        <name>source</name>
+        <qualifiedname>WaterGravityFlowEvent::source</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="68" column="14" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterGravityFlowEvent_1ac84f7b51d7e73455b4e10a216abba502" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position WaterGravityFlowEvent::target</definition>
+        <argsstring></argsstring>
+        <name>target</name>
+        <qualifiedname>WaterGravityFlowEvent::target</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="69" column="14" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterGravityFlowEvent_1adbd727b3029697ac37353dab38b5d907" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterGravityFlowEvent::amount</definition>
+        <argsstring></argsstring>
+        <name>amount</name>
+        <qualifiedname>WaterGravityFlowEvent::amount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="70" column="9" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterGravityFlowEvent_1a866ca630ac22d7c70d0154dda3b46516" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterGravityFlowEvent::targetTerrainId</definition>
+        <argsstring></argsstring>
+        <name>targetTerrainId</name>
+        <qualifiedname>WaterGravityFlowEvent::targetTerrainId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="71" column="9" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterGravityFlowEvent_1a3b16d65a17035014f090c41fa438b841" prot="public" static="no" mutable="no">
+        <type><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref></type>
+        <definition>EntityTypeComponent WaterGravityFlowEvent::sourceType</definition>
+        <argsstring></argsstring>
+        <name>sourceType</name>
+        <qualifiedname>WaterGravityFlowEvent::sourceType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="72" column="25" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterGravityFlowEvent_1ac8c25ef316c8c1eac60972f6aefc2b96" prot="public" static="no" mutable="no">
+        <type><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref></type>
+        <definition>EntityTypeComponent WaterGravityFlowEvent::targetType</definition>
+        <argsstring></argsstring>
+        <name>targetType</name>
+        <qualifiedname>WaterGravityFlowEvent::targetType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="73" column="25" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterGravityFlowEvent_1a53fc1f7221f673436c3273b9f08a1d56" prot="public" static="no" mutable="no">
+        <type><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref></type>
+        <definition>MatterContainer WaterGravityFlowEvent::sourceMatter</definition>
+        <argsstring></argsstring>
+        <name>sourceMatter</name>
+        <qualifiedname>WaterGravityFlowEvent::sourceMatter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="74" column="21" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterGravityFlowEvent_1a242fa59136d622eba9331263fc35c1c4" prot="public" static="no" mutable="no">
+        <type><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref></type>
+        <definition>MatterContainer WaterGravityFlowEvent::targetMatter</definition>
+        <argsstring></argsstring>
+        <name>targetMatter</name>
+        <qualifiedname>WaterGravityFlowEvent::targetMatter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="75" column="21" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structWaterGravityFlowEvent_1af338dc7abc257c63f5c7880ceacaeab4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>WaterGravityFlowEvent::WaterGravityFlowEvent</definition>
+        <argsstring>(Position source, Position target, int amount, int targetTerrainId, EntityTypeComponent sourceType, EntityTypeComponent targetType, MatterContainer sourceMatter, MatterContainer targetMatter)</argsstring>
+        <name>WaterGravityFlowEvent</name>
+        <qualifiedname>WaterGravityFlowEvent::WaterGravityFlowEvent</qualifiedname>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>targetTerrainId</declname>
+        </param>
+        <param>
+          <type><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref></type>
+          <declname>sourceType</declname>
+        </param>
+        <param>
+          <type><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref></type>
+          <declname>targetType</declname>
+        </param>
+        <param>
+          <type><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref></type>
+          <declname>sourceMatter</declname>
+        </param>
+        <param>
+          <type><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref></type>
+          <declname>targetMatter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="77" column="5" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="77" bodyend="87"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>EntityTypeComponent</label>
+        <link refid="structEntityTypeComponent"/>
+      </node>
+      <node id="4">
+        <label>MatterContainer</label>
+        <link refid="structMatterContainer"/>
+      </node>
+      <node id="2">
+        <label>Position</label>
+        <link refid="structPosition"/>
+      </node>
+      <node id="1">
+        <label>WaterGravityFlowEvent</label>
+        <link refid="structWaterGravityFlowEvent"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>source</edgelabel>
+          <edgelabel>target</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>sourceType</edgelabel>
+          <edgelabel>targetType</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>sourceMatter</edgelabel>
+          <edgelabel>targetMatter</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/ecosystem/EcosystemEvents.hpp" line="67" column="1" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="67" bodyend="88"/>
+    <listofallmembers>
+      <member refid="structWaterGravityFlowEvent_1adbd727b3029697ac37353dab38b5d907" prot="public" virt="non-virtual"><scope>WaterGravityFlowEvent</scope><name>amount</name></member>
+      <member refid="structWaterGravityFlowEvent_1a0a5d01c007e7b07a46b079f8f3a2bf32" prot="public" virt="non-virtual"><scope>WaterGravityFlowEvent</scope><name>source</name></member>
+      <member refid="structWaterGravityFlowEvent_1a53fc1f7221f673436c3273b9f08a1d56" prot="public" virt="non-virtual"><scope>WaterGravityFlowEvent</scope><name>sourceMatter</name></member>
+      <member refid="structWaterGravityFlowEvent_1a3b16d65a17035014f090c41fa438b841" prot="public" virt="non-virtual"><scope>WaterGravityFlowEvent</scope><name>sourceType</name></member>
+      <member refid="structWaterGravityFlowEvent_1ac84f7b51d7e73455b4e10a216abba502" prot="public" virt="non-virtual"><scope>WaterGravityFlowEvent</scope><name>target</name></member>
+      <member refid="structWaterGravityFlowEvent_1a242fa59136d622eba9331263fc35c1c4" prot="public" virt="non-virtual"><scope>WaterGravityFlowEvent</scope><name>targetMatter</name></member>
+      <member refid="structWaterGravityFlowEvent_1a866ca630ac22d7c70d0154dda3b46516" prot="public" virt="non-virtual"><scope>WaterGravityFlowEvent</scope><name>targetTerrainId</name></member>
+      <member refid="structWaterGravityFlowEvent_1ac8c25ef316c8c1eac60972f6aefc2b96" prot="public" virt="non-virtual"><scope>WaterGravityFlowEvent</scope><name>targetType</name></member>
+      <member refid="structWaterGravityFlowEvent_1af338dc7abc257c63f5c7880ceacaeab4" prot="public" virt="non-virtual"><scope>WaterGravityFlowEvent</scope><name>WaterGravityFlowEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -3,13 +3,20 @@
   <compounddef id="LifeEvents_8hpp" kind="file" language="C++">
     <compoundname>LifeEvents.hpp</compoundname>
     <includes local="no">nanobind/nanobind.h</includes>
+    <includes local="no">chrono</includes>
     <includes local="no">entt/entt.hpp</includes>
+    <includes local="no">mutex</includes>
+    <includes local="no">string</includes>
     <includes local="no">tuple</includes>
+    <includes local="no">unordered_map</includes>
+    <includes local="no">unordered_set</includes>
     <includes local="no">vector</includes>
     <includes refid="EntityInterface_8hpp" local="yes">EntityInterface.hpp</includes>
+    <includes refid="GameDBHandler_8hpp" local="yes">GameDBHandler.hpp</includes>
     <includes refid="ItemConfigurationManager_8hpp" local="yes">ItemConfigurationManager.hpp</includes>
-    <includes refid="VoxelGrid_8hpp" local="yes">VoxelGrid.hpp</includes>
     <includes refid="ItemsComponents_8hpp" local="yes">components/ItemsComponents.hpp</includes>
+    <includes refid="LifecycleComponents_8hpp" local="yes">components/LifecycleComponents.hpp</includes>
+    <includes refid="VoxelGrid_8hpp" local="yes">voxelgrid/VoxelGrid.hpp</includes>
     <includedby refid="EcosystemEngine_8hpp" local="yes">src/EcosystemEngine.hpp</includedby>
     <includedby refid="EffectsSystem_8hpp" local="yes">src/EffectsSystem.hpp</includedby>
     <includedby refid="HealthSystem_8hpp" local="yes">src/HealthSystem.hpp</includedby>
@@ -17,28 +24,26 @@
     <includedby refid="MetabolismSystem_8hpp" local="yes">src/MetabolismSystem.hpp</includedby>
     <includedby refid="World_8hpp" local="yes">src/World.hpp</includedby>
     <incdepgraph>
-      <node id="6">
+      <node id="11">
         <label>EntityInterface.hpp</label>
         <link refid="EntityInterface_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="3" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
         </childnode>
@@ -48,45 +53,85 @@
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
         <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-      </node>
-      <node id="37">
-        <label>ItemConfiguration.hpp</label>
-        <link refid="ItemConfiguration_8hpp_source"/>
-        <childnode refid="3" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-      </node>
-      <node id="33">
-        <label>ItemConfigurationManager.hpp</label>
-        <link refid="ItemConfigurationManager_8hpp_source"/>
         <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+      </node>
+      <node id="38">
+        <label>GameDB.hpp</label>
+        <link refid="GameDB_8hpp_source"/>
+        <childnode refid="39" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>GameDBHandler.hpp</label>
+        <link refid="GameDBHandler_8hpp_source"/>
         <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>ItemConfiguration.hpp</label>
+        <link refid="ItemConfiguration_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>ItemConfigurationManager.hpp</label>
+        <link refid="ItemConfigurationManager_8hpp_source"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -102,230 +147,404 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="39" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
         </childnode>
       </node>
-      <node id="39">
-        <label>VoxelGrid.hpp</label>
-        <link refid="VoxelGrid_8hpp_source"/>
-        <childnode refid="40" relation="include">
-        </childnode>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="40">
+        <label>Logger.hpp</label>
+        <link refid="Logger_8hpp_source"/>
         <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="42" relation="include">
         </childnode>
-        <childnode refid="43" relation="include">
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>components/ConsoleLogsComponent.hpp</label>
+        <link refid="ConsoleLogsComponent_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="44" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="45" relation="include">
         </childnode>
       </node>
-      <node id="11">
-        <label>components/ConsoleLogsComponent.hpp</label>
-        <link refid="ConsoleLogsComponent_8hpp_source"/>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
+      <node id="22">
+        <label>components/DnaComponents.hpp</label>
+        <link refid="DnaComponents_8hpp_source"/>
+        <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>components/DnaComponents.hpp</label>
-        <link refid="DnaComponents_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="19">
+      <node id="23">
         <label>components/EntityTypeComponent.hpp</label>
         <link refid="EntityTypeComponent_8hpp_source"/>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-      </node>
-      <node id="22">
-        <label>components/HealthComponents.hpp</label>
-        <link refid="HealthComponents_8hpp_source"/>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-      </node>
-      <node id="23">
-        <label>components/ItemsComponents.hpp</label>
-        <link refid="ItemsComponents_8hpp_source"/>
         <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
         <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
         </childnode>
       </node>
       <node id="26">
-        <label>components/MetabolismComponents.hpp</label>
-        <link refid="MetabolismComponents_8hpp_source"/>
+        <label>components/HealthComponents.hpp</label>
+        <link refid="HealthComponents_8hpp_source"/>
         <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
       </node>
       <node id="27">
-        <label>components/MovingComponent.hpp</label>
-        <link refid="MovingComponent_8hpp_source"/>
+        <label>components/ItemsComponents.hpp</label>
+        <link refid="ItemsComponents_8hpp_source"/>
         <childnode refid="28" relation="include">
         </childnode>
-      </node>
-      <node id="29">
-        <label>components/PerceptionComponent.hpp</label>
-        <link refid="PerceptionComponent_8hpp_source"/>
-        <childnode refid="21" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
-      </node>
-      <node id="28">
-        <label>components/PhysicsComponents.hpp</label>
-        <link refid="PhysicsComponents_8hpp_source"/>
+        <childnode refid="25" relation="include">
+        </childnode>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>components/LifecycleComponents.hpp</label>
+        <link refid="LifecycleComponents_8hpp_source"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="30">
+        <label>components/MetabolismComponents.hpp</label>
+        <link refid="MetabolismComponents_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>components/MovingComponent.hpp</label>
+        <link refid="MovingComponent_8hpp_source"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>components/PerceptionComponent.hpp</label>
+        <link refid="PerceptionComponent_8hpp_source"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>components/PhysicsComponents.hpp</label>
+        <link refid="PhysicsComponents_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
         <label>components/PlantsComponents.hpp</label>
         <link refid="PlantsComponents_8hpp_source"/>
       </node>
-      <node id="31">
+      <node id="35">
         <label>components/TerrainComponents.hpp</label>
         <link refid="TerrainComponents_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>components/TimeSeriesComponent.hpp</label>
+        <link refid="TimeSeriesComponent_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>ecosystem/EcosystemEvents.hpp</label>
+        <link refid="EcosystemEvents_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
         <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>terrain/TerrainGridRepository.hpp</label>
+        <link refid="TerrainGridRepository_8hpp_source"/>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>terrain/TerrainStorage.hpp</label>
+        <link refid="TerrainStorage_8hpp_source"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>terrain/VoxelCoord.hpp</label>
+        <link refid="VoxelCoord_8hpp_source"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>voxelgrid/GridData.hpp</label>
+        <link refid="GridData_8hpp_source"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>voxelgrid/VoxelGrid.hpp</label>
+        <link refid="VoxelGrid_8hpp_source"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
       </node>
-      <node id="45">
+      <node id="64">
+        <label>voxelgrid/VoxelGridView.hpp</label>
+        <link refid="VoxelGridView_8hpp_source"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
         <label>VoxelGridView_generated.h</label>
       </node>
-      <node id="24">
+      <node id="28">
         <label>algorithm</label>
       </node>
-      <node id="7">
-        <label>bitset</label>
+      <node id="57">
+        <label>atomic</label>
       </node>
       <node id="12">
-        <label>chrono</label>
-      </node>
-      <node id="20">
-        <label>cmath</label>
-      </node>
-      <node id="13">
-        <label>ctime</label>
+        <label>bitset</label>
       </node>
       <node id="3">
+        <label>chrono</label>
+      </node>
+      <node id="24">
+        <label>cmath</label>
+      </node>
+      <node id="62">
+        <label>cstddef</label>
+      </node>
+      <node id="13">
+        <label>cstdint</label>
+      </node>
+      <node id="18">
+        <label>ctime</label>
+      </node>
+      <node id="4">
         <label>entt/entt.hpp</label>
       </node>
-      <node id="40">
+      <node id="49">
         <label>flatbuffers/flatbuffers.h</label>
       </node>
-      <node id="43">
+      <node id="52">
         <label>functional</label>
       </node>
-      <node id="14">
+      <node id="19">
         <label>iomanip</label>
       </node>
-      <node id="21">
+      <node id="25">
         <label>iostream</label>
       </node>
-      <node id="15">
+      <node id="20">
         <label>map</label>
       </node>
-      <node id="34">
+      <node id="37">
         <label>memory</label>
       </node>
-      <node id="44">
+      <node id="53">
         <label>msgpack.hpp</label>
       </node>
-      <node id="35">
+      <node id="5">
         <label>mutex</label>
       </node>
       <node id="2">
         <label>nanobind/nanobind.h</label>
       </node>
-      <node id="41">
+      <node id="50">
         <label>openvdb/openvdb.h</label>
       </node>
-      <node id="42">
+      <node id="51">
         <label>openvdb/tools/Interpolation.h</label>
       </node>
-      <node id="16">
+      <node id="58">
+        <label>optional</label>
+      </node>
+      <node id="54">
+        <label>shared_mutex</label>
+      </node>
+      <node id="41">
+        <label>spdlog/sinks/stdout_color_sinks.h</label>
+      </node>
+      <node id="42">
+        <label>spdlog/spdlog.h</label>
+      </node>
+      <node id="39">
+        <label>sqlite3.h</label>
+      </node>
+      <node id="21">
         <label>sstream</label>
       </node>
-      <node id="25">
+      <node id="29">
         <label>stdexcept</label>
       </node>
-      <node id="17">
+      <node id="6">
         <label>string</label>
       </node>
-      <node id="4">
+      <node id="7">
         <label>tuple</label>
       </node>
-      <node id="8">
+      <node id="14">
         <label>type_traits</label>
       </node>
-      <node id="36">
+      <node id="8">
         <label>unordered_map</label>
       </node>
-      <node id="32">
+      <node id="9">
         <label>unordered_set</label>
       </node>
-      <node id="9">
+      <node id="15">
         <label>utility</label>
       </node>
-      <node id="38">
+      <node id="46">
         <label>variant</label>
       </node>
-      <node id="5">
+      <node id="10">
         <label>vector</label>
       </node>
-      <node id="10">
+      <node id="16">
         <label>ylt/struct_pack.hpp</label>
       </node>
     </incdepgraph>
@@ -337,12 +556,18 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
       </node>
-      <node id="7">
+      <node id="28">
         <label>src/EffectsSystem.hpp</label>
         <link refid="EffectsSystem_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
+      </node>
+      <node id="8">
+        <label>src/Gui/AllGuiPrograms.hpp</label>
+        <link refid="AllGuiPrograms_8hpp"/>
       </node>
       <node id="5">
         <label>src/Gui/Gui.hpp</label>
@@ -350,7 +575,159 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="10">
+        <label>src/Gui/GuiCore/GuiProgram.hpp</label>
+        <link refid="GuiProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>src/Gui/GuiCore/GuiProgramManager.hpp</label>
+        <link refid="GuiProgramManager_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>src/Gui/GuiCore/TerminalProgram.hpp</label>
+        <link refid="TerminalProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>src/Gui/GuiCore/TerminalProgramManager.hpp</label>
+        <link refid="TerminalProgramManager_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>src/Gui/GuiPrograms/Debug/AIStatisticsProgram.hpp</label>
+        <link refid="AIStatisticsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>src/Gui/GuiPrograms/Debug/ConsoleProgram.hpp</label>
+        <link refid="ConsoleProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>src/Gui/GuiPrograms/Debug/EditorDebuggerProgram.hpp</label>
+        <link refid="EditorDebuggerProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>src/Gui/GuiPrograms/Debug/EntitiesStatsProgram.hpp</label>
+        <link refid="EntitiesStatsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>src/Gui/GuiPrograms/Debug/EntityInterfaceProgram.hpp</label>
+        <link refid="EntityInterfaceProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>src/Gui/GuiPrograms/Debug/GadgetsProgram.hpp</label>
+        <link refid="GadgetsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>src/Gui/GuiPrograms/Debug/GeneralMetricsProgram.hpp</label>
+        <link refid="GeneralMetricsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>src/Gui/GuiPrograms/Debug/LifeMetricsProgram.hpp</label>
+        <link refid="LifeMetricsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>src/Gui/GuiPrograms/Debug/PhysicsMetricsProgram.hpp</label>
+        <link refid="PhysicsMetricsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>src/Gui/GuiPrograms/Game/EquipmentProgram.hpp</label>
+        <link refid="EquipmentProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>src/Gui/GuiPrograms/Game/InventoryProgram.hpp</label>
+        <link refid="InventoryProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/Gui/GuiPrograms/Game/PlayerStatsProgram.hpp</label>
+        <link refid="PlayerStatsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>src/Gui/GuiPrograms/Settings/CameraSettingsProgram.hpp</label>
+        <link refid="CameraSettingsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>src/Gui/GuiPrograms/Settings/PhysicsSettingsProgram.hpp</label>
+        <link refid="PhysicsSettingsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>src/Gui/GuiPrograms/Settings/SettingsProgram.hpp</label>
+        <link refid="SettingsProgram_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
         <label>src/HealthSystem.hpp</label>
         <link refid="HealthSystem_8hpp_source"/>
         <childnode refid="4" relation="include">
@@ -361,16 +738,16 @@
         <link refid="LifeEvents_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="30">
         <label>src/MetabolismSystem.hpp</label>
         <link refid="MetabolismSystem_8hpp_source"/>
         <childnode refid="4" relation="include">
@@ -387,16 +764,105 @@
         <link refid="World_8hpp_source"/>
         <childnode refid="5" relation="include">
         </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
       <node id="6">
         <label>src/aetherion.hpp</label>
         <link refid="aetherion_8hpp_source"/>
       </node>
+      <node id="9">
+        <label>src/components/core/GuiContext.hpp</label>
+        <link refid="GuiContext_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
     </invincdepgraph>
-    <innerclass refid="structKillEntityEvent" prot="public">KillEntityEvent</innerclass>
     <innerclass refid="classLifeEngine" prot="public">LifeEngine</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="LifeEvents_8hpp_1a3d8256794847a1931d63517790276c82" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string LIFE_KILL_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>LIFE_KILL_ENTITY</name>
+        <initializer>= &quot;life_kill_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="25" column="26" bodyfile="src/LifeEvents.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="LifeEvents_8hpp_1aaf52271aa68c1655948c8f697fc54966" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string LIFE_SOFT_KILL_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>LIFE_SOFT_KILL_ENTITY</name>
+        <initializer>= &quot;life_soft_kill_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="26" column="26" bodyfile="src/LifeEvents.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="LifeEvents_8hpp_1aaaff1a94beecb2a9190521191a6bd100" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string LIFE_HARD_KILL_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>LIFE_HARD_KILL_ENTITY</name>
+        <initializer>= &quot;life_hard_kill_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="27" column="26" bodyfile="src/LifeEvents.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="LifeEvents_8hpp_1a0680bd639cb6704fe3deeeeecf593fd2" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string LIFE_REMOVE_VELOCITY</definition>
+        <argsstring></argsstring>
+        <name>LIFE_REMOVE_VELOCITY</name>
+        <initializer>= &quot;life_remove_velocity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="28" column="26" bodyfile="src/LifeEvents.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="LifeEvents_8hpp_1a45bb79d26a947ee8118195017fcb7bb3" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string LIFE_REMOVE_MOVING_COMPONENT</definition>
+        <argsstring></argsstring>
+        <name>LIFE_REMOVE_MOVING_COMPONENT</name>
+        <initializer>= &quot;life_remove_moving_component&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LifeEvents.hpp" line="29" column="26" bodyfile="src/LifeEvents.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -407,49 +873,67 @@
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;nanobind/nanobind.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;entt/entt.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;EntityInterface.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ItemConfigurationManager.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;VoxelGrid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/ItemsComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;chrono&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;entt/entt.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mutex&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unordered_map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unordered_set&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">nb<sp/>=<sp/>nanobind;</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight></codeline>
-<codeline lineno="17" refid="structKillEntityEvent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structKillEntityEvent" kindref="compound">KillEntityEvent</ref><sp/>{</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::entity<sp/>entity;</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>softKill{};</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structKillEntityEvent" kindref="compound">KillEntityEvent</ref>(entt::entity<sp/>entity)<sp/>:<sp/>entity(entity)<sp/>{<sp/>softKill<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structKillEntityEvent" kindref="compound">KillEntityEvent</ref>(entt::entity<sp/>entity,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>softKill)<sp/>:<sp/>entity(entity),<sp/>softKill(softKill)<sp/>{}</highlight></codeline>
-<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight></codeline>
-<codeline lineno="26" refid="classLifeEngine" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classLifeEngine" kindref="compound">LifeEngine</ref><sp/>{</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::tuple&lt;entt::entity,<sp/>bool&gt;&gt;<sp/>entitiesToDelete;</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classLifeEngine" kindref="compound">LifeEngine</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classLifeEngine" kindref="compound">LifeEngine</ref>(entt::registry&amp;<sp/>reg,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>*<sp/>voxelGrid)<sp/>:<sp/>registry(reg),<sp/>voxelGrid(voxelGrid)<sp/>{}</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Handle<sp/>entity<sp/>movement<sp/>event</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>onKillEntity(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structKillEntityEvent" kindref="compound">KillEntityEvent</ref>&amp;<sp/>event);</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Register<sp/>the<sp/>event<sp/>handler</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>registerEventHandlers(entt::dispatcher&amp;<sp/>dispatcher);</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>removeEntityFromGrid(entt::entity<sp/>entity);</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::registry&amp;<sp/>registry;</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>*<sp/>voxelGrid;</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>dropItems(entt::entity<sp/>entity);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>LIFE_EVENTS_HPP</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;EntityInterface.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;GameDBHandler.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ItemConfigurationManager.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/ItemsComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/LifecycleComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;voxelgrid/VoxelGrid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">nb<sp/>=<sp/>nanobind;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Life<sp/>event<sp/>time<sp/>series<sp/>metric<sp/>names</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>LIFE_KILL_ENTITY<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;life_kill_entity&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>LIFE_SOFT_KILL_ENTITY<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;life_soft_kill_entity&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>LIFE_HARD_KILL_ENTITY<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;life_hard_kill_entity&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>LIFE_REMOVE_VELOCITY<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;life_remove_velocity&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>LIFE_REMOVE_MOVING_COMPONENT<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;life_remove_moving_component&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="classLifeEngine" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classLifeEngine" kindref="compound">LifeEngine</ref><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::tuple&lt;entt::entity,<sp/>bool&gt;&gt;<sp/>entitiesToDelete;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::tuple&lt;entt::entity,<sp/>bool&gt;&gt;<sp/>entitiesToRemoveVelocity;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::tuple&lt;entt::entity,<sp/>bool&gt;&gt;<sp/>entitiesToRemoveMovingComponent;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unordered_set&lt;entt::entity&gt;<sp/>entitiesScheduledForDeletion;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classLifeEngine" kindref="compound">LifeEngine</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classLifeEngine" kindref="compound">LifeEngine</ref>(entt::registry&amp;<sp/>reg,<sp/>entt::dispatcher&amp;<sp/>disp,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>*<sp/>voxelGrid)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>registry(reg),<sp/>dispatcher(disp),<sp/>voxelGrid(voxelGrid)<sp/>{}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Handle<sp/>entity<sp/>movement<sp/>event</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>onKillEntity(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structKillEntityEvent" kindref="compound">KillEntityEvent</ref>&amp;<sp/>event);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>onTerrainRemoveVelocityEvent(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structTerrainRemoveVelocityEvent" kindref="compound">TerrainRemoveVelocityEvent</ref>&amp;<sp/>event);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>onTerrainRemoveMovingComponentEvent(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structTerrainRemoveMovingComponentEvent" kindref="compound">TerrainRemoveMovingComponentEvent</ref>&amp;<sp/>event);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Register<sp/>the<sp/>event<sp/>handler</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>registerEventHandlers(entt::dispatcher&amp;<sp/>dispatcher);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Metrics<sp/>flush<sp/>to<sp/>game<sp/>DB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>flushLifeMetrics(<ref refid="classGameDBHandler" kindref="compound">GameDBHandler</ref>*<sp/>dbHandler);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Increment<sp/>a<sp/>named<sp/>metric</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>incLifeMetric(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>metricName);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::registry&amp;<sp/>registry;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>entt::dispatcher&amp;<sp/>dispatcher;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>*<sp/>voxelGrid;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Monitoring<sp/>counters<sp/>for<sp/>life<sp/>events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unordered_map&lt;std::string,<sp/>uint64_t&gt;<sp/>lifeMetrics_;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>std::mutex<sp/>metricsMutex_;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>LIFE_EVENTS_HPP</highlight></codeline>
     </programlisting>
     <location file="src/LifeEvents.hpp"/>
   </compounddef>

@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classRoundRobinScheduler" kind="class" language="C++" prot="public">
+    <compoundname>RoundRobinScheduler</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRoundRobinScheduler_1a2897ac72c7c7671621a4f116c701a572" prot="private" static="no" mutable="no">
+        <type>std::priority_queue&lt; <ref refid="structGridBoxTask" kindref="compound">GridBoxTask</ref> &gt;</type>
+        <definition>std::priority_queue&lt;GridBoxTask&gt; RoundRobinScheduler::taskQueue_</definition>
+        <argsstring></argsstring>
+        <name>taskQueue_</name>
+        <qualifiedname>RoundRobinScheduler::taskQueue_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="102" column="25" bodyfile="src/EcosystemEngine.hpp" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRoundRobinScheduler_1a772ba07cfa5c5781076f784cb0ce69cc" prot="private" static="no" mutable="yes">
+        <type>std::mutex</type>
+        <definition>std::mutex RoundRobinScheduler::queueMutex_</definition>
+        <argsstring></argsstring>
+        <name>queueMutex_</name>
+        <qualifiedname>RoundRobinScheduler::queueMutex_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="103" column="24" bodyfile="src/EcosystemEngine.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRoundRobinScheduler_1a31c2a4be1e4dda50de3864e3f60c7986" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; int &gt;</type>
+        <definition>std::atomic&lt;int&gt; RoundRobinScheduler::nextPriority_</definition>
+        <argsstring></argsstring>
+        <name>nextPriority_</name>
+        <qualifiedname>RoundRobinScheduler::nextPriority_</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="104" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="104" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRoundRobinScheduler_1abc898a8be7909884450303bbb70102ca" prot="private" static="no" mutable="no">
+        <type>std::random_device</type>
+        <definition>std::random_device RoundRobinScheduler::rd_</definition>
+        <argsstring></argsstring>
+        <name>rd_</name>
+        <qualifiedname>RoundRobinScheduler::rd_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="105" column="24" bodyfile="src/EcosystemEngine.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRoundRobinScheduler_1aa780a77ba0c24b0f6c4ed7e46493cfcc" prot="private" static="no" mutable="no">
+        <type>std::mt19937</type>
+        <definition>std::mt19937 RoundRobinScheduler::gen_</definition>
+        <argsstring></argsstring>
+        <name>gen_</name>
+        <qualifiedname>RoundRobinScheduler::gen_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="106" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRoundRobinScheduler_1afba1394f9a7d1ebd44a54354c56d050d" prot="private" static="no" mutable="no">
+        <type>std::uniform_int_distribution&lt; int &gt;</type>
+        <definition>std::uniform_int_distribution&lt;int&gt; RoundRobinScheduler::randomDist_</definition>
+        <argsstring></argsstring>
+        <name>randomDist_</name>
+        <qualifiedname>RoundRobinScheduler::randomDist_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="107" column="35" bodyfile="src/EcosystemEngine.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classRoundRobinScheduler_1a886ba18bf010116be92eadf78400c664" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int RoundRobinScheduler::MAX_PRIORITY</definition>
+        <argsstring></argsstring>
+        <name>MAX_PRIORITY</name>
+        <qualifiedname>RoundRobinScheduler::MAX_PRIORITY</qualifiedname>
+        <initializer>= 1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="110" column="26" bodyfile="src/EcosystemEngine.hpp" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRoundRobinScheduler_1a61abefc67d8973eaf1c727ff89db0f78" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int RoundRobinScheduler::AGE_BONUS</definition>
+        <argsstring></argsstring>
+        <name>AGE_BONUS</name>
+        <qualifiedname>RoundRobinScheduler::AGE_BONUS</qualifiedname>
+        <initializer>= 10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="111" column="26" bodyfile="src/EcosystemEngine.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRoundRobinScheduler_1a9e0479aeb872e259dfdc8d0680ab8804" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RoundRobinScheduler::RoundRobinScheduler</definition>
+        <argsstring>()</argsstring>
+        <name>RoundRobinScheduler</name>
+        <qualifiedname>RoundRobinScheduler::RoundRobinScheduler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="114" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="114" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classRoundRobinScheduler_1af71d5a4a853a059bbe58dbd7e0fb34e7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoundRobinScheduler::addTask</definition>
+        <argsstring>(size_t boxIndex, float sunIntensity)</argsstring>
+        <name>addTask</name>
+        <qualifiedname>RoundRobinScheduler::addTask</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>boxIndex</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sunIntensity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="116" column="10" bodyfile="src/EcosystemEngine.hpp" bodystart="116" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classRoundRobinScheduler_1af593d71a4167bad9cd2f545ae087b1d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool RoundRobinScheduler::getNextTask</definition>
+        <argsstring>(size_t &amp;boxIndex, float &amp;sunIntensity)</argsstring>
+        <name>getNextTask</name>
+        <qualifiedname>RoundRobinScheduler::getNextTask</qualifiedname>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>boxIndex</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>sunIntensity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="124" column="10" bodyfile="src/EcosystemEngine.hpp" bodystart="124" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classRoundRobinScheduler_1adfc2299a0588a5bdd6ea14e6232aab04" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoundRobinScheduler::ageAllTasks</definition>
+        <argsstring>()</argsstring>
+        <name>ageAllTasks</name>
+        <qualifiedname>RoundRobinScheduler::ageAllTasks</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="136" column="10" bodyfile="src/EcosystemEngine.hpp" bodystart="136" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="classRoundRobinScheduler_1a0be47d6bcd3156443c78361080d0377d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t RoundRobinScheduler::size</definition>
+        <argsstring>() const</argsstring>
+        <name>size</name>
+        <qualifiedname>RoundRobinScheduler::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="151" column="12" bodyfile="src/EcosystemEngine.hpp" bodystart="151" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="classRoundRobinScheduler_1aaf4894b316f9f7ea02fee860e124e6f2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool RoundRobinScheduler::empty</definition>
+        <argsstring>() const</argsstring>
+        <name>empty</name>
+        <qualifiedname>RoundRobinScheduler::empty</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="156" column="10" bodyfile="src/EcosystemEngine.hpp" bodystart="156" bodyend="159"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="100" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="100" bodyend="160"/>
+    <listofallmembers>
+      <member refid="classRoundRobinScheduler_1af71d5a4a853a059bbe58dbd7e0fb34e7" prot="public" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>addTask</name></member>
+      <member refid="classRoundRobinScheduler_1a61abefc67d8973eaf1c727ff89db0f78" prot="private" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>AGE_BONUS</name></member>
+      <member refid="classRoundRobinScheduler_1adfc2299a0588a5bdd6ea14e6232aab04" prot="public" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>ageAllTasks</name></member>
+      <member refid="classRoundRobinScheduler_1aaf4894b316f9f7ea02fee860e124e6f2" prot="public" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>empty</name></member>
+      <member refid="classRoundRobinScheduler_1aa780a77ba0c24b0f6c4ed7e46493cfcc" prot="private" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>gen_</name></member>
+      <member refid="classRoundRobinScheduler_1af593d71a4167bad9cd2f545ae087b1d2" prot="public" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>getNextTask</name></member>
+      <member refid="classRoundRobinScheduler_1a886ba18bf010116be92eadf78400c664" prot="private" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>MAX_PRIORITY</name></member>
+      <member refid="classRoundRobinScheduler_1a31c2a4be1e4dda50de3864e3f60c7986" prot="private" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>nextPriority_</name></member>
+      <member refid="classRoundRobinScheduler_1a772ba07cfa5c5781076f784cb0ce69cc" prot="private" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>queueMutex_</name></member>
+      <member refid="classRoundRobinScheduler_1afba1394f9a7d1ebd44a54354c56d050d" prot="private" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>randomDist_</name></member>
+      <member refid="classRoundRobinScheduler_1abc898a8be7909884450303bbb70102ca" prot="private" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>rd_</name></member>
+      <member refid="classRoundRobinScheduler_1a9e0479aeb872e259dfdc8d0680ab8804" prot="public" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>RoundRobinScheduler</name></member>
+      <member refid="classRoundRobinScheduler_1a0be47d6bcd3156443c78361080d0377d" prot="public" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>size</name></member>
+      <member refid="classRoundRobinScheduler_1a2897ac72c7c7671621a4f116c701a572" prot="private" virt="non-virtual"><scope>RoundRobinScheduler</scope><name>taskQueue_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

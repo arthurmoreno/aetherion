@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1events_1_1GameEvent" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::events::GameEvent</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">Generic</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">E</basecompoundref>
+    <innerclass refid="classaetherion_1_1events_1_1GameEvent_1_1Config" prot="public">aetherion::events::GameEvent::Config</innerclass>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEvent_1ac4488281d5cb0d22163beb709c4a7eb9" prot="public" static="yes" mutable="no">
+        <type>E</type>
+        <definition>E aetherion.events.GameEvent::event_type</definition>
+        <argsstring></argsstring>
+        <name>event_type</name>
+        <qualifiedname>aetherion.events.GameEvent.event_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="91" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEvent_1ab639aad6f47767e62c7bd499228826f3" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.events.GameEvent::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <qualifiedname>aetherion.events.GameEvent.data</qualifiedname>
+        <initializer>=  Field(default_factory=dict)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="92" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEvent_1aa93611b75d7e0417b72b5536ce5602aa" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEvent::source</definition>
+        <argsstring></argsstring>
+        <name>source</name>
+        <qualifiedname>aetherion.events.GameEvent.source</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="93" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEvent_1af189b2a7ecd2e7357bc80d5f510f0a4e" prot="public" static="yes" mutable="no">
+        <type>float</type>
+        <definition>float aetherion.events.GameEvent::timestamp</definition>
+        <argsstring></argsstring>
+        <name>timestamp</name>
+        <qualifiedname>aetherion.events.GameEvent.timestamp</qualifiedname>
+        <initializer>=  Field(default_factory=lambda: time.time())</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="94" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="94" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Represents an event that flows through event bus systems.
+
+Encapsulates game event information including type, data, source, and timestamp.
+Used by both ObserverEventBus and DrainableTopicBus systems.
+
+Attributes:
+    event_type: Enum value identifying the event type
+    data: Optional event-specific data dictionary
+    source: Optional source identifier for debugging
+    timestamp: Auto-generated if not provided
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>E</label>
+      </node>
+      <node id="1">
+        <label>aetherion.events.GameEvent</label>
+        <link refid="classaetherion_1_1events_1_1GameEvent"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+      <node id="3">
+        <label>Generic</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>E</label>
+      </node>
+      <node id="1">
+        <label>aetherion.events.GameEvent</label>
+        <link refid="classaetherion_1_1events_1_1GameEvent"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+      <node id="3">
+        <label>Generic</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/events/__init__.py" line="77" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="77" bodyend="101"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1events_1_1GameEvent_1ab639aad6f47767e62c7bd499228826f3" prot="public" virt="non-virtual"><scope>aetherion::events::GameEvent</scope><name>data</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEvent_1ac4488281d5cb0d22163beb709c4a7eb9" prot="public" virt="non-virtual"><scope>aetherion::events::GameEvent</scope><name>event_type</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEvent_1aa93611b75d7e0417b72b5536ce5602aa" prot="public" virt="non-virtual"><scope>aetherion::events::GameEvent</scope><name>source</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEvent_1af189b2a7ecd2e7357bc80d5f510f0a4e" prot="public" virt="non-virtual"><scope>aetherion::events::GameEvent</scope><name>timestamp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

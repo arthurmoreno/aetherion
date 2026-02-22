@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="md_src_2Gui_2TerminalPrograms_2ARCHITECTURE" kind="page">
+    <compoundname>md_src_2Gui_2TerminalPrograms_2ARCHITECTURE</compoundname>
+    <title>Terminal Programs Architecture</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md_src_2Gui_2TerminalPrograms_2ARCHITECTURE_1autotoc_md0"/> </para>
+<sect1 id="md_src_2Gui_2TerminalPrograms_2ARCHITECTURE_1autotoc_md1">
+<title>Class Hierarchy</title>
+<para><programlisting><codeline><highlight class="normal">TerminalCommand<sp/>(abstract<sp/>base<sp/>class)</highlight></codeline>
+<codeline><highlight class="normal">│</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>ClearCommand</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>HelpCommand</highlight></codeline>
+<codeline><highlight class="normal">├──<sp/>HistoryCommand</highlight></codeline>
+<codeline><highlight class="normal">└──<sp/>QueueCommand</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="md_src_2Gui_2TerminalPrograms_2ARCHITECTURE_1autotoc_md2">
+<title>Component Interaction</title>
+<para><programlisting><codeline><highlight class="normal">┌─────────────────────────────────────────────────────────────┐</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConsoleProgram<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>(Manages<sp/>UI,<sp/>input<sp/>handling,<sp/>and<sp/>terminal<sp/>display)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>┌───────────────────────────────────────────────────┐<sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>│<sp/>Command<sp/>Registry<sp/>(std::map)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│<sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>│<sp/><sp/>-<sp/>&quot;clear&quot;<sp/><sp/><sp/>-&gt;<sp/>ClearCommand<sp/>instance<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│<sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>│<sp/><sp/>-<sp/>&quot;help&quot;<sp/><sp/><sp/><sp/>-&gt;<sp/>HelpCommand<sp/>instance<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│<sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>│<sp/><sp/>-<sp/>&quot;history&quot;<sp/>-&gt;<sp/>HistoryCommand<sp/>instance<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│<sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>│<sp/><sp/>-<sp/>&quot;queue&quot;<sp/><sp/><sp/>-&gt;<sp/>QueueCommand<sp/>instance<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│<sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>└───────────────────────────────────────────────────┘<sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>When<sp/>user<sp/>types<sp/>command:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>1.<sp/>Parse<sp/>input<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>2.<sp/>Lookup<sp/>in<sp/>registry<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>3.<sp/>Call<sp/>command-&gt;execute(context,<sp/>buffer,<sp/>scroll)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">└─────────────────────────────────────────────────────────────┘</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│<sp/>delegates<sp/>to</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>▼</highlight></codeline>
+<codeline><highlight class="normal">┌─────────────────────────────────────────────────────────────┐</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TerminalCommand<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Abstract<sp/>Base<sp/>Class)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>+<sp/>execute(context,<sp/>buffer,<sp/>scroll)<sp/>:<sp/>void<sp/>[virtual]<sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>+<sp/>getName()<sp/>:<sp/>string<sp/>[virtual]<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>+<sp/>getDescription()<sp/>:<sp/>string<sp/>[virtual]<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal">│<sp/><sp/>#<sp/>addOutput(buffer,<sp/>text,<sp/>isCmd,<sp/>isErr)<sp/>:<sp/>void<sp/>[protected]│</highlight></codeline>
+<codeline><highlight class="normal">└─────────────────────────────────────────────────────────────┘</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│<sp/>inherited<sp/>by</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>┌───────────────┼───────────────┬──────────────┐</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>▼<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>▼<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>▼<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>▼</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>┌──────────┐<sp/><sp/><sp/><sp/>┌──────────┐<sp/><sp/><sp/>┌──────────┐<sp/><sp/><sp/>┌──────────┐</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│<sp/><sp/>Clear<sp/><sp/><sp/>│<sp/><sp/><sp/><sp/>│<sp/><sp/><sp/>Help<sp/><sp/><sp/>│<sp/><sp/><sp/>│<sp/>History<sp/><sp/>│<sp/><sp/><sp/>│<sp/><sp/>Queue<sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│<sp/>Command<sp/><sp/>│<sp/><sp/><sp/><sp/>│<sp/>Command<sp/><sp/>│<sp/><sp/><sp/>│<sp/>Command<sp/><sp/>│<sp/><sp/><sp/>│<sp/>Command<sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>└──────────┘<sp/><sp/><sp/><sp/>└──────────┘<sp/><sp/><sp/>└──────────┘<sp/><sp/><sp/>└──────────┘</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="md_src_2Gui_2TerminalPrograms_2ARCHITECTURE_1autotoc_md3">
+<title>Data Flow</title>
+<para><programlisting><codeline><highlight class="normal">User<sp/>Input</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>▼</highlight></codeline>
+<codeline><highlight class="normal">ConsoleProgram::executeCommand()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>├─&gt;<sp/>Parse<sp/>command<sp/>string</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>├─&gt;<sp/>Add<sp/>to<sp/>history</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>├─&gt;<sp/>Look<sp/>up<sp/>in<sp/>commands_<sp/>map</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>└─&gt;<sp/>If<sp/>found:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>▼</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TerminalCommand::execute()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>├─&gt;<sp/>Perform<sp/>command-specific<sp/>logic</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>└─&gt;<sp/>addOutput()<sp/>to<sp/>terminal<sp/>buffer</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>▼</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Terminal<sp/>buffer<sp/>updated</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>▼</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConsoleProgram<sp/>renders<sp/>updated<sp/>buffer</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="md_src_2Gui_2TerminalPrograms_2ARCHITECTURE_1autotoc_md4">
+<title>File Dependencies</title>
+<para><programlisting><codeline><highlight class="normal">ConsoleProgram.hpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>├─&gt;<sp/>includes<sp/>TerminalCommand.hpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>├─&gt;<sp/>includes<sp/>ClearCommand.hpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>├─&gt;<sp/>includes<sp/>HelpCommand.hpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>├─&gt;<sp/>includes<sp/>HistoryCommand.hpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>└─&gt;<sp/>includes<sp/>QueueCommand.hpp</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">TerminalCommand.hpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>└─&gt;<sp/>Forward<sp/>declares:<sp/>TerminalLine,<sp/>GuiContext</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Each<sp/>Command.hpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>│</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>├─&gt;<sp/>includes<sp/>TerminalCommand.hpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>└─&gt;<sp/>potentially<sp/>includes<sp/>GuiStateManager.hpp<sp/>(for<sp/>context)</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="md_src_2Gui_2TerminalPrograms_2ARCHITECTURE_1autotoc_md5">
+<title>Memory Management</title>
+<para>All commands are managed using <computeroutput>std::shared_ptr</computeroutput>:<itemizedlist>
+<listitem><para>Created in <computeroutput>ConsoleProgram::initializeCommands()</computeroutput></para>
+</listitem><listitem><para>Stored in both:<orderedlist>
+<listitem><para><computeroutput>std::map&lt;string, shared_ptr&lt;<ref refid="classTerminalCommand" kindref="compound">TerminalCommand</ref>&gt;&gt;</computeroutput> - for fast lookup</para>
+</listitem><listitem><para><computeroutput>std::vector&lt;shared_ptr&lt;<ref refid="classTerminalCommand" kindref="compound">TerminalCommand</ref>&gt;&gt;</computeroutput> - for ordered iteration</para>
+</listitem></orderedlist>
+</para>
+</listitem><listitem><para>Automatically destroyed when <ref refid="classConsoleProgram" kindref="compound">ConsoleProgram</ref> is destroyed</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="md_src_2Gui_2TerminalPrograms_2ARCHITECTURE_1autotoc_md6">
+<title>Thread Safety</title>
+<para>Current implementation is <bold>not thread-safe</bold> (assumes single-threaded GUI context):<itemizedlist>
+<listitem><para>Terminal buffer access is not synchronized</para>
+</listitem><listitem><para><ref refid="classCommand" kindref="compound">Command</ref> execution is synchronous</para>
+</listitem><listitem><para>All operations happen on the main/GUI thread</para>
+</listitem></itemizedlist>
+</para>
+<para>If multi-threading is needed in the future:<itemizedlist>
+<listitem><para>Add mutex protection for terminal buffer</para>
+</listitem><listitem><para>Consider making command execution async</para>
+</listitem><listitem><para>Use thread-safe command queue </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="src/Gui/TerminalPrograms/ARCHITECTURE.md"/>
+  </compounddef>
+</doxygen>

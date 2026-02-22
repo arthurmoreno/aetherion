@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1resource__manager" kind="namespace" language="Python">
+    <compoundname>aetherion::resource_manager</compoundname>
+    <innerclass refid="classaetherion_1_1resource__manager_1_1ResourceManager" prot="public">aetherion::resource_manager::ResourceManager</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceaetherion_1_1resource__manager_1a05269e75e75c95957c503ea9b3a5bedf" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion::resource_manager.manager</definition>
+        <argsstring></argsstring>
+        <name>manager</name>
+        <qualifiedname>aetherion.resource_manager.manager</qualifiedname>
+        <initializer>=  <ref refid="classaetherion_1_1resource__manager_1_1ResourceManager" kindref="compound">ResourceManager</ref>()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/resource_manager.py" line="56" column="1" bodyfile="src/aetherion/resource_manager.py" bodystart="56" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>ResourceManager: a simple registry for Python resources (e.g., Sprite objects, images, fonts)
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/resource_manager.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

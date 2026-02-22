@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1events_1_1TopicReader" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::events::TopicReader</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Generic</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">E</basecompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1TopicReader_1ae4d61b67fb25a13fa0ff753c47db1d06" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.events.TopicReader::_lock</definition>
+        <argsstring></argsstring>
+        <name>_lock</name>
+        <qualifiedname>aetherion.events.TopicReader._lock</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="305" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1TopicReader_1a6d3b602552eff9cf43a42979b04325a8" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.events.TopicReader::_bus</definition>
+        <argsstring></argsstring>
+        <name>_bus</name>
+        <qualifiedname>aetherion.events.TopicReader._bus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="307" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1TopicReader_1a38d48a4e3a5528855a1e3237ff73e414" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.events.TopicReader::_queue</definition>
+        <argsstring></argsstring>
+        <name>_queue</name>
+        <qualifiedname>aetherion.events.TopicReader._queue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="351" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="351" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1TopicReader_1a557e83d3cc8460a485062e1e2ee0ea3a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.events.TopicReader::topics</definition>
+        <argsstring></argsstring>
+        <name>topics</name>
+        <qualifiedname>aetherion.events.TopicReader.topics</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="306" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="306" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1events_1_1TopicReader_1a5d8b4b4231cb565e0b3a92f9974acdb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.events.TopicReader.__init__</definition>
+        <argsstring>(self, PubSubTopicBroker[E] bus, list[str]|None topics=None)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.events.TopicReader.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1PubSubTopicBroker" kindref="compound">PubSubTopicBroker</ref></type>
+          <declname>bus</declname>
+          <array>[E]</array>
+        </param>
+        <param>
+          <type>list|None</type>
+          <declname>topics</declname>
+          <array>[str]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="303" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="303" bodyend="309"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1TopicReader_1a66015b62053c74a99cd29b44d3875f6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.TopicReader.enqueue</definition>
+        <argsstring>(self, GameEvent[E] event)</argsstring>
+        <name>enqueue</name>
+        <qualifiedname>aetherion.events.TopicReader.enqueue</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[E]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Internal method called by PubSubEventBus to add events to this consumer&apos;s queue.
+
+Args:
+    event: The GameEvent to add to the queue
+
+Note:
+    This method is typically called automatically by the bus. Thread-safe operation.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="310" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="310" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1TopicReader_1a0884ea1415162bbd0472a1fb807fa336" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>list[<ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref>[E]]</type>
+        <definition> list[GameEvent[E]] aetherion.events.TopicReader.drain</definition>
+        <argsstring>(self)</argsstring>
+        <name>drain</name>
+        <qualifiedname>aetherion.events.TopicReader.drain</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Retrieve and remove all queued events.
+
+Returns:
+    List of GameEvent objects in the order they were received.
+    Empty list if no events are queued.
+
+Note:
+    This operation clears the consumer&apos;s queue. Events are returned in FIFO order.
+    Thread-safe operation.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="322" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="322" bodyend="337"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1TopicReader_1a7668873f3e5638aa11d8b4573a42171b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>list[<ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref>[E]]</type>
+        <definition> list[GameEvent[E]] aetherion.events.TopicReader.peek</definition>
+        <argsstring>(self, int n=10)</argsstring>
+        <name>peek</name>
+        <qualifiedname>aetherion.events.TopicReader.peek</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+          <defval>10</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Inspect queued events without removing them.
+
+Args:
+    n: Maximum number of events to return (default: 10)
+
+Returns:
+    List of up to n GameEvent objects from the front of the queue.
+
+Note:
+    Events remain in the queue after peeking. Thread-safe operation.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="338" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="338" bodyend="352"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1TopicReader_1ab975f4b31371ab7acdbcefcf8bc2ba2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.TopicReader.close</definition>
+        <argsstring>(self)</argsstring>
+        <name>close</name>
+        <qualifiedname>aetherion.events.TopicReader.close</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Unregister this consumer from the bus and clean up resources.
+
+Note:
+    After calling close(), this consumer will no longer receive events.
+    Any events still in the queue remain accessible until drained.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="353" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="353" bodyend="361"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1TopicReader_1abe2c995a20b83997ac85c5cc283d4711" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.events.TopicReader.__enter__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__enter__</name>
+        <qualifiedname>aetherion.events.TopicReader.__enter__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Context manager entry - returns self for use in &apos;with&apos; statements.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="362" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="362" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1TopicReader_1a75fbfce18b913ae9b3ac63bca6e07285" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.TopicReader.__exit__</definition>
+        <argsstring>(self, type[BaseException]|None exc_type, BaseException|None exc_value, object tb)</argsstring>
+        <name>__exit__</name>
+        <qualifiedname>aetherion.events.TopicReader.__exit__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>type|None</type>
+          <declname>exc_type</declname>
+          <array>[BaseException]</array>
+        </param>
+        <param>
+          <type>BaseException|None</type>
+          <declname>exc_value</declname>
+        </param>
+        <param>
+          <type>object</type>
+          <declname>tb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Context manager exit - automatically calls close() for cleanup.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="366" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="366" bodyend="369"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Pull-based event consumer for PubSubTopicBroker with topic filtering.
+
+Maintains individual event queue and retrieves events via drain() method.
+Supports topic filtering and provides thread-safe operations.
+
+Key features:
+    - Independent queuing: Own event buffer per consumer
+    - Topic filtering: Subscribe to specific topics or all topics
+    - Thread-safe: Protected operations with locks
+    - Context manager: Automatic cleanup support
+    - Non-blocking: peek() for inspection without consumption
+
+Args:
+    bus: PubSubTopicBroker instance to consume from
+    topics: Optional topic filter list (None = all topics)
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>E</label>
+      </node>
+      <node id="1">
+        <label>aetherion.events.TopicReader</label>
+        <link refid="classaetherion_1_1events_1_1TopicReader"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Generic</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>E</label>
+      </node>
+      <node id="1">
+        <label>aetherion.events.TopicReader</label>
+        <link refid="classaetherion_1_1events_1_1TopicReader"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Generic</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/events/__init__.py" line="285" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="285" bodyend="369"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1abe2c995a20b83997ac85c5cc283d4711" prot="public" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>__enter__</name></member>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1a75fbfce18b913ae9b3ac63bca6e07285" prot="public" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>__exit__</name></member>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1a5d8b4b4231cb565e0b3a92f9974acdb2" prot="public" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1a6d3b602552eff9cf43a42979b04325a8" prot="protected" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>_bus</name></member>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1ae4d61b67fb25a13fa0ff753c47db1d06" prot="protected" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>_lock</name></member>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1a38d48a4e3a5528855a1e3237ff73e414" prot="protected" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>_queue</name></member>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1ab975f4b31371ab7acdbcefcf8bc2ba2e" prot="public" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>close</name></member>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1a0884ea1415162bbd0472a1fb807fa336" prot="public" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>drain</name></member>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1a66015b62053c74a99cd29b44d3875f6b" prot="public" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>enqueue</name></member>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1a7668873f3e5638aa11d8b4573a42171b" prot="public" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>peek</name></member>
+      <member refid="classaetherion_1_1events_1_1TopicReader_1a557e83d3cc8460a485062e1e2ee0ea3a" prot="public" virt="non-virtual"><scope>aetherion::events::TopicReader</scope><name>topics</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

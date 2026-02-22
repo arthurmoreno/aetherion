@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="fonts_8py" kind="file" language="Python">
+    <compoundname>fonts.py</compoundname>
+    <innerclass refid="classaetherion_1_1renderer_1_1fonts_1_1Font" prot="public">aetherion::renderer::fonts::Font</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer">aetherion::renderer</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1fonts">aetherion::renderer::fonts</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sdl2</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="classaetherion_1_1renderer_1_1fonts_1_1Font" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1fonts_1_1Font" kindref="compound">Font</ref>:</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>font_path,<sp/>font_size):</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1fonts_1_1Font_1aa078215ea92f60e9aad242bb316b723b" kindref="member">font_path</ref><sp/>=<sp/>font_path</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1fonts_1_1Font_1a2ea96666356b203abeec519aefd3341e" kindref="member">font_size</ref><sp/>=<sp/>font_size</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1fonts_1_1Font_1ae0a53734def88cc1793667dc5c8a3084" kindref="member">_font</ref><sp/>=<sp/>sdl2.sdlttf.TTF_OpenFont(font_path,<sp/>font_size)</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/renderer/fonts.py"/>
+  </compounddef>
+</doxygen>

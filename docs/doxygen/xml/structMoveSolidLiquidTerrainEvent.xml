@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structMoveSolidLiquidTerrainEvent" kind="struct" language="C++" prot="public">
+    <compoundname>MoveSolidLiquidTerrainEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMoveSolidLiquidTerrainEvent_1a615ff75e9eb26c25dfa297dfe40635db" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity MoveSolidLiquidTerrainEvent::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>MoveSolidLiquidTerrainEvent::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="15" column="18" bodyfile="src/MoveEntityEvent.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveSolidLiquidTerrainEvent_1a885406b771fc40c93704ab2d5326cb6e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MoveSolidLiquidTerrainEvent::forceX</definition>
+        <argsstring></argsstring>
+        <name>forceX</name>
+        <qualifiedname>MoveSolidLiquidTerrainEvent::forceX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="16" column="11" bodyfile="src/MoveEntityEvent.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveSolidLiquidTerrainEvent_1a6ff2e11b3bd712c0f08f86c96a1df139" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MoveSolidLiquidTerrainEvent::forceY</definition>
+        <argsstring></argsstring>
+        <name>forceY</name>
+        <qualifiedname>MoveSolidLiquidTerrainEvent::forceY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="16" column="18" bodyfile="src/MoveEntityEvent.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMoveSolidLiquidTerrainEvent_1a9d34a6527d7fb7d4c3ca563c84b987da" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MoveSolidLiquidTerrainEvent::forceZ</definition>
+        <argsstring></argsstring>
+        <name>forceZ</name>
+        <qualifiedname>MoveSolidLiquidTerrainEvent::forceZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="16" column="25" bodyfile="src/MoveEntityEvent.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMoveSolidLiquidTerrainEvent_1a326985bc9507a062c5dedc848b1ca097" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MoveSolidLiquidTerrainEvent::MoveSolidLiquidTerrainEvent</definition>
+        <argsstring>(entt::entity entity, float forceX, float forceY, float forceZ)</argsstring>
+        <name>MoveSolidLiquidTerrainEvent</name>
+        <qualifiedname>MoveSolidLiquidTerrainEvent::MoveSolidLiquidTerrainEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>forceX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>forceY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>forceZ</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MoveEntityEvent.hpp" line="18" column="5" bodyfile="src/MoveEntityEvent.hpp" bodystart="18" bodyend="19"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/MoveEntityEvent.hpp" line="14" column="1" bodyfile="src/MoveEntityEvent.hpp" bodystart="14" bodyend="20"/>
+    <listofallmembers>
+      <member refid="structMoveSolidLiquidTerrainEvent_1a615ff75e9eb26c25dfa297dfe40635db" prot="public" virt="non-virtual"><scope>MoveSolidLiquidTerrainEvent</scope><name>entity</name></member>
+      <member refid="structMoveSolidLiquidTerrainEvent_1a885406b771fc40c93704ab2d5326cb6e" prot="public" virt="non-virtual"><scope>MoveSolidLiquidTerrainEvent</scope><name>forceX</name></member>
+      <member refid="structMoveSolidLiquidTerrainEvent_1a6ff2e11b3bd712c0f08f86c96a1df139" prot="public" virt="non-virtual"><scope>MoveSolidLiquidTerrainEvent</scope><name>forceY</name></member>
+      <member refid="structMoveSolidLiquidTerrainEvent_1a9d34a6527d7fb7d4c3ca563c84b987da" prot="public" virt="non-virtual"><scope>MoveSolidLiquidTerrainEvent</scope><name>forceZ</name></member>
+      <member refid="structMoveSolidLiquidTerrainEvent_1a326985bc9507a062c5dedc848b1ca097" prot="public" virt="non-virtual"><scope>MoveSolidLiquidTerrainEvent</scope><name>MoveSolidLiquidTerrainEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

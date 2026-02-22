@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTerminalCommand" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>TerminalCommand</compoundname>
+    <derivedcompoundref refid="classClearCommand" prot="public" virt="non-virtual">ClearCommand</derivedcompoundref>
+    <derivedcompoundref refid="classHelpCommand" prot="public" virt="non-virtual">HelpCommand</derivedcompoundref>
+    <derivedcompoundref refid="classHistoryCommand" prot="public" virt="non-virtual">HistoryCommand</derivedcompoundref>
+    <derivedcompoundref refid="classQueueCommand" prot="public" virt="non-virtual">QueueCommand</derivedcompoundref>
+    <includes refid="TerminalCommand_8hpp" local="no">TerminalCommand.hpp</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTerminalCommand_1a4d3dc5f2ec037ae6eb7142a7b862e900" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual TerminalCommand::~TerminalCommand</definition>
+        <argsstring>()=default</argsstring>
+        <name>~TerminalCommand</name>
+        <qualifiedname>TerminalCommand::~TerminalCommand</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/TerminalCommand.hpp" line="31" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalCommand_1a8db344419dde80954a49c1dcd0d829b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void TerminalCommand::execute</definition>
+        <argsstring>(GuiContext &amp;context, std::deque&lt; TerminalLine &gt; &amp;terminalBuffer, bool &amp;scrollToBottom)=0</argsstring>
+        <name>execute</name>
+        <qualifiedname>TerminalCommand::execute</qualifiedname>
+        <reimplementedby refid="classClearCommand_1a0a6c06b3442c21b34866b8fa30e643ff">execute</reimplementedby>
+        <reimplementedby refid="classHelpCommand_1aa9250790ba2b17170a9661c76aceb180">execute</reimplementedby>
+        <reimplementedby refid="classHistoryCommand_1a3040fee1b03faa98f6db0f2ec6d76722">execute</reimplementedby>
+        <reimplementedby refid="classQueueCommand_1a9b28c7eb523bc38eaa9fce3bcaf5f4b2">execute</reimplementedby>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>std::deque&lt; <ref refid="structTerminalLine" kindref="compound">TerminalLine</ref> &gt; &amp;</type>
+          <declname>terminalBuffer</declname>
+        </param>
+        <param>
+          <type>bool &amp;</type>
+          <declname>scrollToBottom</declname>
+        </param>
+        <briefdescription>
+<para>Execute the terminal command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GUI context for accessing command queue </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terminalBuffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terminal output buffer to write to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>scrollToBottom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to trigger auto-scroll </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/TerminalCommand.hpp" line="39" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalCommand_1a7163905f3b608f3a7bd2076c9b45fde7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string TerminalCommand::getName</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getName</name>
+        <qualifiedname>TerminalCommand::getName</qualifiedname>
+        <reimplementedby refid="classClearCommand_1a6fa0a9276ccbe430e9d9d72ce751c45e">getName</reimplementedby>
+        <reimplementedby refid="classHelpCommand_1ad7b1ec70f8f31646035b4bbb4ef94899">getName</reimplementedby>
+        <reimplementedby refid="classHistoryCommand_1a8334db6e45ef2aff5c6aab7e199f0e96">getName</reimplementedby>
+        <reimplementedby refid="classQueueCommand_1ab4174a875e34f260fe31f0ac9343f4dc">getName</reimplementedby>
+        <briefdescription>
+<para>Get the command name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/TerminalCommand.hpp" line="45" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerminalCommand_1a534632bd9b96f4d09df488f28b6cb5dd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string TerminalCommand::getDescription</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getDescription</name>
+        <qualifiedname>TerminalCommand::getDescription</qualifiedname>
+        <reimplementedby refid="classClearCommand_1ab06756efe5a274e3877609823c11fd29">getDescription</reimplementedby>
+        <reimplementedby refid="classHelpCommand_1a236f111255786e8949a0bea269c48677">getDescription</reimplementedby>
+        <reimplementedby refid="classHistoryCommand_1abcd0ec4cd00950437d9a4e804e2d60a8">getDescription</reimplementedby>
+        <reimplementedby refid="classQueueCommand_1a6ce09938f2e1a5d2c314f18fbeb667c8">getDescription</reimplementedby>
+        <briefdescription>
+<para>Get the command description. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/TerminalCommand.hpp" line="50" column="25"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classTerminalCommand_1a8975332a523175e1d4983db065de5ea0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerminalCommand::addOutput</definition>
+        <argsstring>(std::deque&lt; TerminalLine &gt; &amp;terminalBuffer, const std::string &amp;text, bool isCommand=false, bool isError=false)</argsstring>
+        <name>addOutput</name>
+        <qualifiedname>TerminalCommand::addOutput</qualifiedname>
+        <param>
+          <type>std::deque&lt; <ref refid="structTerminalLine" kindref="compound">TerminalLine</ref> &gt; &amp;</type>
+          <declname>terminalBuffer</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isCommand</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isError</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Add a line to the terminal buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/TerminalCommand.hpp" line="56" column="10" bodyfile="src/Gui/TerminalPrograms/TerminalCommand.cpp" bodystart="3" bodyend="12"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Base class for terminal commands. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>All built-in terminal commands should inherit from this class and implement the <ref refid="classTerminalCommand_1a8db344419dde80954a49c1dcd0d829b7" kindref="member">execute()</ref> method. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ClearCommand</label>
+        <link refid="classClearCommand"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>HelpCommand</label>
+        <link refid="classHelpCommand"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>HistoryCommand</label>
+        <link refid="classHistoryCommand"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>QueueCommand</label>
+        <link refid="classQueueCommand"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>TerminalCommand</label>
+        <link refid="classTerminalCommand"/>
+      </node>
+    </inheritancegraph>
+    <location file="src/Gui/TerminalPrograms/TerminalCommand.hpp" line="29" column="1" bodyfile="src/Gui/TerminalPrograms/TerminalCommand.hpp" bodystart="29" bodyend="58"/>
+    <listofallmembers>
+      <member refid="classTerminalCommand_1a8975332a523175e1d4983db065de5ea0" prot="protected" virt="non-virtual"><scope>TerminalCommand</scope><name>addOutput</name></member>
+      <member refid="classTerminalCommand_1a8db344419dde80954a49c1dcd0d829b7" prot="public" virt="pure-virtual"><scope>TerminalCommand</scope><name>execute</name></member>
+      <member refid="classTerminalCommand_1a534632bd9b96f4d09df488f28b6cb5dd" prot="public" virt="pure-virtual"><scope>TerminalCommand</scope><name>getDescription</name></member>
+      <member refid="classTerminalCommand_1a7163905f3b608f3a7bd2076c9b45fde7" prot="public" virt="pure-virtual"><scope>TerminalCommand</scope><name>getName</name></member>
+      <member refid="classTerminalCommand_1a4d3dc5f2ec037ae6eb7142a7b862e900" prot="public" virt="virtual"><scope>TerminalCommand</scope><name>~TerminalCommand</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

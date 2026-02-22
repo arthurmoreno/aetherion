@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="126" column="14" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="126" bodyend="-1"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="155" column="14" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="155" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRenderRectTask_1a6bbaf3924e244db4739676fd77cd2991" prot="private" static="no" mutable="no">
         <type>SDL_Color</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="127" column="15" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="127" bodyend="-1"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="156" column="15" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="156" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="109" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="109" bodyend="110"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="138" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="138" bodyend="139"/>
       </memberdef>
       <memberdef kind="function" id="classRenderRectTask_1a45e32291900d153eaf50f4480fa8a715" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -85,7 +85,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="112" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="112" bodyend="123"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="141" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="141" bodyend="152"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -116,7 +116,7 @@
         <link refid="classRenderTaskBase"/>
       </node>
     </collaborationgraph>
-    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="107" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="107" bodyend="128"/>
+    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="136" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="136" bodyend="157"/>
     <listofallmembers>
       <member refid="classRenderRectTask_1a6bbaf3924e244db4739676fd77cd2991" prot="private" virt="non-virtual"><scope>RenderRectTask</scope><name>color_</name></member>
       <member refid="classRenderTaskBase_1a083109259e992a8b0b759fdbcdc24cf8" prot="public" virt="virtual"><scope>RenderRectTask</scope><name>getZLayer</name></member>

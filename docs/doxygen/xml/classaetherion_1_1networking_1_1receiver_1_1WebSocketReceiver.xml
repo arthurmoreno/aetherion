@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::networking::receiver::WebSocketReceiver</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a49170101b8637819f7d4315b8f19c97c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.receiver.WebSocketReceiver::error_queue</definition>
+        <argsstring></argsstring>
+        <name>error_queue</name>
+        <qualifiedname>aetherion.networking.receiver.WebSocketReceiver.error_queue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/receiver.py" line="55" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a4ebbceff8a3f04823c963f8134f89903" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.receiver.WebSocketReceiver::control_queue</definition>
+        <argsstring></argsstring>
+        <name>control_queue</name>
+        <qualifiedname>aetherion.networking.receiver.WebSocketReceiver.control_queue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/receiver.py" line="57" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a0106a5eb9042d9c21d1b7622e1048b6a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.receiver.WebSocketReceiver::state_queue</definition>
+        <argsstring></argsstring>
+        <name>state_queue</name>
+        <qualifiedname>aetherion.networking.receiver.WebSocketReceiver.state_queue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/receiver.py" line="64" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="64" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a73f7052a46246b5310934097a240b7ff" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.receiver.WebSocketReceiver::_thread</definition>
+        <argsstring></argsstring>
+        <name>_thread</name>
+        <qualifiedname>aetherion.networking.receiver.WebSocketReceiver._thread</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/receiver.py" line="67" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="67" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a59befdcd7cff0dd02f89b2c9bc547dd2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.receiver.WebSocketReceiver.__init__</definition>
+        <argsstring>(self, ClientConnection websocket, Queue[bytes] state_queue, Queue[dict[str, str]] control_queue, Queue[dict[str, str]] error_queue, str name=&quot;ws-recv&quot;)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.networking.receiver.WebSocketReceiver.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ClientConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <param>
+          <type>Queue</type>
+          <declname>state_queue</declname>
+          <array>[bytes]</array>
+        </param>
+        <param>
+          <type>Queue]</type>
+          <declname>control_queue</declname>
+          <array>[dict[str, str]</array>
+        </param>
+        <param>
+          <type>Queue]</type>
+          <declname>error_queue</declname>
+          <array>[dict[str, str]</array>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+          <defval>&quot;ws-recv&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/receiver.py" line="19" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="26" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a920bff434f8a9d2712589c1efaea6557" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.receiver.WebSocketReceiver.start</definition>
+        <argsstring>(self)</argsstring>
+        <name>start</name>
+        <qualifiedname>aetherion.networking.receiver.WebSocketReceiver.start</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/receiver.py" line="35" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="35" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a704c648a88eaf444aeba0019114e67b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.receiver.WebSocketReceiver.stop</definition>
+        <argsstring>(self, bool join=False, float|None timeout=None)</argsstring>
+        <name>stop</name>
+        <qualifiedname>aetherion.networking.receiver.WebSocketReceiver.stop</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>join</declname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>float|None</type>
+          <declname>timeout</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/receiver.py" line="70" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="70" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1ad19a674bffab4259704c5b960f034aed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.networking.receiver.WebSocketReceiver.is_alive</definition>
+        <argsstring>(self)</argsstring>
+        <name>is_alive</name>
+        <qualifiedname>aetherion.networking.receiver.WebSocketReceiver.is_alive</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/receiver.py" line="75" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="75" bodyend="77"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a7a57c61ced78936a0ac7e1c04b70f936" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.receiver.WebSocketReceiver._put_latest</definition>
+        <argsstring>(queue.Queue[bytes]|queue.Queue[dict[str, str]] q, bytes|dict[str, str] item)</argsstring>
+        <name>_put_latest</name>
+        <qualifiedname>aetherion.networking.receiver.WebSocketReceiver._put_latest</qualifiedname>
+        <param>
+          <type>queue.Queue|queue.Queue]</type>
+          <declname>q</declname>
+          <array>[bytes][dict[str, str]</array>
+        </param>
+        <param>
+          <type>bytes|dict</type>
+          <declname>item</declname>
+          <array>[str, str]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/receiver.py" line="79" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="79" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a36053b6c5a61d8f9ef4ace6a92e75309" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.receiver.WebSocketReceiver._drain_queue</definition>
+        <argsstring>(queue.Queue[bytes]|queue.Queue[dict[str, str]] q)</argsstring>
+        <name>_drain_queue</name>
+        <qualifiedname>aetherion.networking.receiver.WebSocketReceiver._drain_queue</qualifiedname>
+        <param>
+          <type>queue.Queue|queue.Queue]</type>
+          <declname>q</declname>
+          <array>[bytes][dict[str, str]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/receiver.py" line="90" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="90" bodyend="96"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Owns the single recv() loop and fans out messages to queues.
+
+- Control-plane messages (msgpack dict with a &apos;type&apos;) go to control/error queues.
+- Binary state buffers are pushed to state_queue, keeping only the latest.
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/networking/receiver.py" line="12" column="1" bodyfile="src/aetherion/networking/receiver.py" bodystart="12" bodyend="96"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a59befdcd7cff0dd02f89b2c9bc547dd2" prot="public" virt="non-virtual"><scope>aetherion::networking::receiver::WebSocketReceiver</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a36053b6c5a61d8f9ef4ace6a92e75309" prot="protected" virt="non-virtual"><scope>aetherion::networking::receiver::WebSocketReceiver</scope><name>_drain_queue</name></member>
+      <member refid="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a7a57c61ced78936a0ac7e1c04b70f936" prot="protected" virt="non-virtual"><scope>aetherion::networking::receiver::WebSocketReceiver</scope><name>_put_latest</name></member>
+      <member refid="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a73f7052a46246b5310934097a240b7ff" prot="protected" virt="non-virtual"><scope>aetherion::networking::receiver::WebSocketReceiver</scope><name>_thread</name></member>
+      <member refid="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a4ebbceff8a3f04823c963f8134f89903" prot="public" virt="non-virtual"><scope>aetherion::networking::receiver::WebSocketReceiver</scope><name>control_queue</name></member>
+      <member refid="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a49170101b8637819f7d4315b8f19c97c" prot="public" virt="non-virtual"><scope>aetherion::networking::receiver::WebSocketReceiver</scope><name>error_queue</name></member>
+      <member refid="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1ad19a674bffab4259704c5b960f034aed" prot="public" virt="non-virtual"><scope>aetherion::networking::receiver::WebSocketReceiver</scope><name>is_alive</name></member>
+      <member refid="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a920bff434f8a9d2712589c1efaea6557" prot="public" virt="non-virtual"><scope>aetherion::networking::receiver::WebSocketReceiver</scope><name>start</name></member>
+      <member refid="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a0106a5eb9042d9c21d1b7622e1048b6a" prot="public" virt="non-virtual"><scope>aetherion::networking::receiver::WebSocketReceiver</scope><name>state_queue</name></member>
+      <member refid="classaetherion_1_1networking_1_1receiver_1_1WebSocketReceiver_1a704c648a88eaf444aeba0019114e67b4" prot="public" virt="non-virtual"><scope>aetherion::networking::receiver::WebSocketReceiver</scope><name>stop</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

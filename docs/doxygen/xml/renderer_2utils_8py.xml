@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="renderer_2utils_8py" kind="file" language="Python">
+    <compoundname>utils.py</compoundname>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer">aetherion::renderer</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1utils">aetherion::renderer::utils</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">#<sp/>Function<sp/>to<sp/>apply<sp/>a<sp/>lighting<sp/>effect<sp/>by<sp/>adjusting<sp/>sprite<sp/>color</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">apply_lighting_to_sprite(sprite,<sp/>intensity):</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Apply<sp/>a<sp/>lighting<sp/>effect<sp/>by<sp/>adjusting<sp/>the<sp/>color<sp/>of<sp/>the<sp/>sprite.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/>intensity<sp/>=<sp/>max(0.0,<sp/>min(1.0,<sp/>intensity))</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>light_color<sp/>=<sp/>int(255<sp/>*<sp/>intensity)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>sprite.color<sp/>=<sp/>(light_color,<sp/>light_color,<sp/>light_color)<sp/><sp/></highlight><highlight class="comment">#<sp/>Apply<sp/>grayscale<sp/>lighting</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/renderer/utils.py"/>
+  </compounddef>
+</doxygen>

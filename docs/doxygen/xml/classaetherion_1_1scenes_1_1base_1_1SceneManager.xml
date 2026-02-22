@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1scenes_1_1base_1_1SceneManager" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::scenes::base::SceneManager</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a89efe1e1e971fcbe03f8cbdb008309e0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.scenes.base.SceneManager::current</definition>
+        <argsstring></argsstring>
+        <name>current</name>
+        <qualifiedname>aetherion.scenes.base.SceneManager.current</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="158" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="158" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a763f4eb2f03eec69dff18e95ef6a5ad0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.SceneManager.__init__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.scenes.base.SceneManager.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="135" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="135" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1SceneManager_1ae16998d6a5eb6db5001932a4b6ea679f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene" kindref="compound">BaseScene</ref></type>
+        <definition> BaseScene aetherion.scenes.base.SceneManager.register</definition>
+        <argsstring>(self, str name, BaseScene scene)</argsstring>
+        <name>register</name>
+        <qualifiedname>aetherion.scenes.base.SceneManager.register</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene" kindref="compound">BaseScene</ref></type>
+          <declname>scene</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Register a scene instance under a name.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="139" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="139" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a02c48176b9bbdacad1438244cc0d666a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene" kindref="compound">BaseScene</ref></type>
+        <definition> BaseScene aetherion.scenes.base.SceneManager.get_scene</definition>
+        <argsstring>(self, str scene_name)</argsstring>
+        <name>get_scene</name>
+        <qualifiedname>aetherion.scenes.base.SceneManager.get_scene</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>scene_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="151" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="151" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a4df6fe42238b044a4200b5ce041ca9da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.SceneManager.change</definition>
+        <argsstring>(self, name)</argsstring>
+        <name>change</name>
+        <qualifiedname>aetherion.scenes.base.SceneManager.change</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>name</type>
+          <defname>name</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Switch to a registered scene by name.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="154" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="154" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a177f2a986f0397686d892781f0f2444d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.SceneManager.update</definition>
+        <argsstring>(self, dt, shared_state, player_connection=None)</argsstring>
+        <name>update</name>
+        <qualifiedname>aetherion.scenes.base.SceneManager.update</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dt</type>
+          <defname>dt</defname>
+        </param>
+        <param>
+          <type>shared_state</type>
+          <defname>shared_state</defname>
+        </param>
+        <param>
+          <type>player_connection</type>
+          <defname>player_connection</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Update the current scene; handle automatic transitions.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="165" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="165" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a8f7a6205d9f6eddc70320b1b00a6fa7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.SceneManager.render</definition>
+        <argsstring>(self, renderer, shared_state, player_connection=None)</argsstring>
+        <name>render</name>
+        <qualifiedname>aetherion.scenes.base.SceneManager.render</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>renderer</type>
+          <defname>renderer</defname>
+        </param>
+        <param>
+          <type>shared_state</type>
+          <defname>shared_state</defname>
+        </param>
+        <param>
+          <type>player_connection</type>
+          <defname>player_connection</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Render the current scene.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="173" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="173" bodyend="179"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Manages scene registration and lifecycle transitions.</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/scenes/base.py" line="132" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="132" bodyend="179"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a763f4eb2f03eec69dff18e95ef6a5ad0" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::SceneManager</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a4df6fe42238b044a4200b5ce041ca9da" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::SceneManager</scope><name>change</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a89efe1e1e971fcbe03f8cbdb008309e0" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::SceneManager</scope><name>current</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a02c48176b9bbdacad1438244cc0d666a" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::SceneManager</scope><name>get_scene</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1ae16998d6a5eb6db5001932a4b6ea679f" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::SceneManager</scope><name>register</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a8f7a6205d9f6eddc70320b1b00a6fa7c" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::SceneManager</scope><name>render</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1SceneManager_1a177f2a986f0397686d892781f0f2444d" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::SceneManager</scope><name>update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

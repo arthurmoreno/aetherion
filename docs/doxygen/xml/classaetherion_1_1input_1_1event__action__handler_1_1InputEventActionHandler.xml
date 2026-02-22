@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::input::event_action_handler::InputEventActionHandler</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler_1aea0b18f9b1c94c8591feb6db887ecb81" prot="public" static="yes" mutable="no">
+        <type>Callable</type>
+        <definition>Callable aetherion.input.event_action_handler.InputEventActionHandler::handler</definition>
+        <argsstring></argsstring>
+        <name>handler</name>
+        <qualifiedname>aetherion.input.event_action_handler.InputEventActionHandler.handler</qualifiedname>
+        <initializer>[[], None]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/event_action_handler.py" line="12" column="1" bodyfile="src/aetherion/input/event_action_handler.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler_1a5a4ddcca92d84e5fcf8a268b07759407" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.input.event_action_handler.InputEventActionHandler::kwargs</definition>
+        <argsstring></argsstring>
+        <name>kwargs</name>
+        <qualifiedname>aetherion.input.event_action_handler.InputEventActionHandler.kwargs</qualifiedname>
+        <initializer>=  {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/event_action_handler.py" line="13" column="1" bodyfile="src/aetherion/input/event_action_handler.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler_1a47aced42ff73cc251a96fb413d1df6c8" prot="public" static="yes" mutable="no">
+        <type>set</type>
+        <definition>set aetherion.input.event_action_handler.InputEventActionHandler::processor_kwargs</definition>
+        <argsstring></argsstring>
+        <name>processor_kwargs</name>
+        <qualifiedname>aetherion.input.event_action_handler.InputEventActionHandler.processor_kwargs</qualifiedname>
+        <initializer>=  set()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/event_action_handler.py" line="14" column="1" bodyfile="src/aetherion/input/event_action_handler.py" bodystart="14" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>A class to handle input events.
+This class is used to map input events to specific actions.
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.input.event_action_handler.InputEventActionHandler</label>
+        <link refid="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.input.event_action_handler.InputEventActionHandler</label>
+        <link refid="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>handler</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+      <node id="3">
+        <label>Callable</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/input/event_action_handler.py" line="6" column="1" bodyfile="src/aetherion/input/event_action_handler.py" bodystart="6" bodyend="15"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler_1aea0b18f9b1c94c8591feb6db887ecb81" prot="public" virt="non-virtual"><scope>aetherion::input::event_action_handler::InputEventActionHandler</scope><name>handler</name></member>
+      <member refid="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler_1a5a4ddcca92d84e5fcf8a268b07759407" prot="public" virt="non-virtual"><scope>aetherion::input::event_action_handler::InputEventActionHandler</scope><name>kwargs</name></member>
+      <member refid="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler_1a47aced42ff73cc251a96fb413d1df6c8" prot="public" virt="non-virtual"><scope>aetherion::input::event_action_handler::InputEventActionHandler</scope><name>processor_kwargs</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

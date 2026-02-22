@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="94" column="17" bodyfile="src/GameDB.hpp" bodystart="94" bodyend="-1"/>
+        <location file="src/GameDB.hpp" line="99" column="17" bodyfile="src/GameDB.hpp" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classGameDB_1ab100eab9366d46931d424f11f1bdc531" prot="private" static="no" mutable="no">
         <type>sqlite3 *</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="95" column="13" bodyfile="src/GameDB.hpp" bodystart="95" bodyend="-1"/>
+        <location file="src/GameDB.hpp" line="100" column="13" bodyfile="src/GameDB.hpp" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classGameDB_1a41c98e5f0e227f0f4b46de76ff920f18" prot="private" static="no" mutable="no">
         <type>entt::registry</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="98" column="20" bodyfile="src/GameDB.hpp" bodystart="98" bodyend="-1"/>
+        <location file="src/GameDB.hpp" line="103" column="20" bodyfile="src/GameDB.hpp" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classGameDB_1a44ad6e51525f1f764f1ab59eb1a07ee3" prot="private" static="no" mutable="no">
         <type>bool</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="101" column="10" bodyfile="src/GameDB.hpp" bodystart="101" bodyend="-1"/>
+        <location file="src/GameDB.hpp" line="106" column="10" bodyfile="src/GameDB.hpp" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classGameDB_1a79cb4a499c1a9194dd973950ab391491" prot="private" static="no" mutable="no">
         <type>entt::entity</type>
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="104" column="18" bodyfile="src/GameDB.hpp" bodystart="104" bodyend="-1"/>
+        <location file="src/GameDB.hpp" line="109" column="18" bodyfile="src/GameDB.hpp" bodystart="109" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -103,7 +103,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="27" column="5" bodyfile="src/GameDB.cpp" bodystart="6" bodyend="26"/>
+        <location file="src/GameDB.hpp" line="27" column="5" bodyfile="src/GameDB.cpp" bodystart="6" bodyend="29"/>
       </memberdef>
       <memberdef kind="function" id="classGameDB_1ad90edc7c3be5a43a795a5e78fd606a6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="32" column="5" bodyfile="src/GameDB.cpp" bodystart="28" bodyend="38"/>
+        <location file="src/GameDB.hpp" line="32" column="5" bodyfile="src/GameDB.cpp" bodystart="31" bodyend="41"/>
       </memberdef>
       <memberdef kind="function" id="classGameDB_1a0e1c7896ed8be7abc1ce3e8e3c060ca3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -173,7 +173,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="42" column="10" bodyfile="src/GameDB.cpp" bodystart="40" bodyend="76"/>
+        <location file="src/GameDB.hpp" line="42" column="10" bodyfile="src/GameDB.cpp" bodystart="89" bodyend="125"/>
       </memberdef>
       <memberdef kind="function" id="classGameDB_1ad4f05a22d39f95c6f6f0ddecd9270521" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::pair&lt; uint64_t, double &gt; &gt;</type>
@@ -228,7 +228,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="52" column="17" bodyfile="src/GameDB.cpp" bodystart="78" bodyend="137"/>
+        <location file="src/GameDB.hpp" line="52" column="17" bodyfile="src/GameDB.cpp" bodystart="127" bodyend="223"/>
       </memberdef>
       <memberdef kind="function" id="classGameDB_1a18d9067896097b66c217097b70b7d59b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -259,7 +259,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="62" column="10" bodyfile="src/GameDB.cpp" bodystart="139" bodyend="148"/>
+        <location file="src/GameDB.hpp" line="62" column="10" bodyfile="src/GameDB.cpp" bodystart="225" bodyend="234"/>
       </memberdef>
       <memberdef kind="function" id="classGameDB_1a1968d50e61b6d2482c3fda6bb2ff0ed7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -277,7 +277,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="69" column="10" bodyfile="src/GameDB.cpp" bodystart="150" bodyend="171"/>
+        <location file="src/GameDB.hpp" line="69" column="10" bodyfile="src/GameDB.cpp" bodystart="236" bodyend="257"/>
       </memberdef>
       <memberdef kind="function" id="classGameDB_1a768a47e110f402d164e8a26d95e7c7c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -295,7 +295,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="76" column="10" bodyfile="src/GameDB.cpp" bodystart="173" bodyend="208"/>
+        <location file="src/GameDB.hpp" line="76" column="10" bodyfile="src/GameDB.cpp" bodystart="259" bodyend="294"/>
       </memberdef>
       <memberdef kind="function" id="classGameDB_1a3a10acac94fc83808f483ace09609192" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -313,7 +313,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="83" column="10" bodyfile="src/GameDB.cpp" bodystart="210" bodyend="271"/>
+        <location file="src/GameDB.hpp" line="83" column="10" bodyfile="src/GameDB.cpp" bodystart="296" bodyend="357"/>
       </memberdef>
       <memberdef kind="function" id="classGameDB_1a44e41f333b536904e2b0008f54da38da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -331,7 +331,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/GameDB.hpp" line="90" column="10" bodyfile="src/GameDB.cpp" bodystart="273" bodyend="314"/>
+        <location file="src/GameDB.hpp" line="90" column="10" bodyfile="src/GameDB.cpp" bodystart="359" bodyend="400"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classGameDB_1a0948a17c7431309728e1bee50123aeed" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GameDB::validateTimeSeriesSchema</definition>
+        <argsstring>()</argsstring>
+        <name>validateTimeSeriesSchema</name>
+        <qualifiedname>GameDB::validateTimeSeriesSchema</qualifiedname>
+        <briefdescription>
+<para>Validate and fix time_series table schema. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/GameDB.hpp" line="96" column="10" bodyfile="src/GameDB.cpp" bodystart="43" bodyend="87"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -340,7 +357,7 @@
     <detaileddescription>
 <para>Provides persistent storage using SQLite and in-memory cache using EnTT </para>
     </detaileddescription>
-    <location file="src/GameDB.hpp" line="20" column="1" bodyfile="src/GameDB.hpp" bodystart="20" bodyend="105"/>
+    <location file="src/GameDB.hpp" line="20" column="1" bodyfile="src/GameDB.hpp" bodystart="20" bodyend="110"/>
     <listofallmembers>
       <member refid="classGameDB_1a1968d50e61b6d2482c3fda6bb2ff0ed7" prot="public" virt="non-virtual"><scope>GameDB</scope><name>createTables</name></member>
       <member refid="classGameDB_1a18d9067896097b66c217097b70b7d59b" prot="public" virt="non-virtual"><scope>GameDB</scope><name>executeSQL</name></member>
@@ -355,6 +372,7 @@
       <member refid="classGameDB_1ab6047aa43f4497333dcdc15f1efb2460" prot="private" virt="non-virtual"><scope>GameDB</scope><name>sqlitePath</name></member>
       <member refid="classGameDB_1a3a10acac94fc83808f483ace09609192" prot="public" virt="non-virtual"><scope>GameDB</scope><name>syncToDatabase</name></member>
       <member refid="classGameDB_1a79cb4a499c1a9194dd973950ab391491" prot="private" virt="non-virtual"><scope>GameDB</scope><name>timeSeriesEntity</name></member>
+      <member refid="classGameDB_1a0948a17c7431309728e1bee50123aeed" prot="private" virt="non-virtual"><scope>GameDB</scope><name>validateTimeSeriesSchema</name></member>
       <member refid="classGameDB_1ad90edc7c3be5a43a795a5e78fd606a6d" prot="public" virt="non-virtual"><scope>GameDB</scope><name>~GameDB</name></member>
     </listofallmembers>
   </compounddef>

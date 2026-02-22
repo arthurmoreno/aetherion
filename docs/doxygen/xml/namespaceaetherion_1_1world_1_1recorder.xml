@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1world_1_1recorder" kind="namespace" language="Python">
+    <compoundname>aetherion::world::recorder</compoundname>
+    <innerclass refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder" prot="public">aetherion::world::recorder::WorldRecorder</innerclass>
+    <innerclass refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager" prot="public">aetherion::world::recorder::WorldRecorderManager</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>World state recording and replay functionality.
+
+This module provides the WorldRecorder class for capturing and managing
+simulation state snapshots for debugging and analysis purposes.
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/world/recorder.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

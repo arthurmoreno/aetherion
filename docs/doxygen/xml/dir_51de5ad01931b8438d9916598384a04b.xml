@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_51de5ad01931b8438d9916598384a04b" kind="dir">
+    <compoundname>src/aetherion/events/handlers</compoundname>
+    <innerfile refid="events_2handlers_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="game__engine_8py">game_engine.py</innerfile>
+    <innerfile refid="types_8py">types.py</innerfile>
+    <innerfile refid="world__manager_8py">world_manager.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/events/handlers/"/>
+  </compounddef>
+</doxygen>

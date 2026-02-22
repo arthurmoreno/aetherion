@@ -72,15 +72,51 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="6">
+        <label>src/Gui/AllGuiPrograms.hpp</label>
+        <link refid="AllGuiPrograms_8hpp"/>
+      </node>
       <node id="2">
         <label>src/Gui/Gui.hpp</label>
         <link refid="Gui_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
+      <node id="5">
+        <label>src/Gui/GuiPrograms/Debug/ConsoleProgram.hpp</label>
+        <link refid="ConsoleProgram_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/Gui/GuiPrograms/Debug/GadgetsProgram.hpp</label>
+        <link refid="GadgetsProgram_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/Gui/GuiPrograms/Game/EquipmentProgram.hpp</label>
+        <link refid="EquipmentProgram_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>src/Gui/GuiPrograms/Game/InventoryProgram.hpp</label>
+        <link refid="InventoryProgram_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
       <node id="4">
         <label>src/Gui/GuiStateManager.hpp</label>
         <link refid="GuiStateManager_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
@@ -155,7 +191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/Gui/ItemWindow.hpp" line="37" column="6" bodyfile="src/Gui/ItemWindow.cpp" bodystart="10" bodyend="153" declfile="src/Gui/ItemWindow.hpp" declline="37" declcolumn="6"/>
+        <location file="src/Gui/ItemWindow.hpp" line="37" column="6" bodyfile="src/Gui/ItemWindow.cpp" bodystart="12" bodyend="154" declfile="src/Gui/ItemWindow.hpp" declline="37" declcolumn="6"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

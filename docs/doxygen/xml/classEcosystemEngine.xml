@@ -3,47 +3,19 @@
   <compounddef id="classEcosystemEngine" kind="class" language="C++" prot="public">
     <compoundname>EcosystemEngine</compoundname>
     <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="classEcosystemEngine_1aa765091ecf8066d1c76b81c7f7fefde4" prot="public" static="no" mutable="no">
-        <type>std::vector&lt; <ref refid="structEvaporateWaterEntityEvent" kindref="compound">EvaporateWaterEntityEvent</ref> &gt;</type>
-        <definition>std::vector&lt;EvaporateWaterEntityEvent&gt; EcosystemEngine::pendingEvaporateWater</definition>
+      <memberdef kind="variable" id="classEcosystemEngine_1a6d55a17bf5f28a9a855d40e5574eca97" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classWaterSimulationManager" kindref="compound">WaterSimulationManager</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;WaterSimulationManager&gt; EcosystemEngine::waterSimManager_</definition>
         <argsstring></argsstring>
-        <name>pendingEvaporateWater</name>
-        <qualifiedname>EcosystemEngine::pendingEvaporateWater</qualifiedname>
+        <name>waterSimManager_</name>
+        <qualifiedname>EcosystemEngine::waterSimManager_</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="71" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="71" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classEcosystemEngine_1a5180118ffbdd9beb4a8fbac5318b16b2" prot="public" static="no" mutable="no">
-        <type>std::vector&lt; <ref refid="structCondenseWaterEntityEvent" kindref="compound">CondenseWaterEntityEvent</ref> &gt;</type>
-        <definition>std::vector&lt;CondenseWaterEntityEvent&gt; EcosystemEngine::pendingCondenseWater</definition>
-        <argsstring></argsstring>
-        <name>pendingCondenseWater</name>
-        <qualifiedname>EcosystemEngine::pendingCondenseWater</qualifiedname>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="72" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="72" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classEcosystemEngine_1af62470af88dce4170d49e7d7071d1a13" prot="public" static="no" mutable="no">
-        <type>std::vector&lt; <ref refid="structWaterFallEntityEvent" kindref="compound">WaterFallEntityEvent</ref> &gt;</type>
-        <definition>std::vector&lt;WaterFallEntityEvent&gt; EcosystemEngine::pendingWaterFall</definition>
-        <argsstring></argsstring>
-        <name>pendingWaterFall</name>
-        <qualifiedname>EcosystemEngine::pendingWaterFall</qualifiedname>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="73" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="73" bodyend="-1"/>
+        <location file="src/EcosystemEngine.hpp" line="285" column="21" bodyfile="src/EcosystemEngine.hpp" bodystart="285" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEcosystemEngine_1a4203f72a3b976c699f61714034a03e10" prot="public" static="no" mutable="no">
         <type>entt::entity</type>
@@ -57,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="75" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="75" bodyend="-1"/>
+        <location file="src/EcosystemEngine.hpp" line="287" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="287" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEcosystemEngine_1a072b6e39e59e9e3a7d7db7cc18237750" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -72,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="77" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="77" bodyend="-1"/>
+        <location file="src/EcosystemEngine.hpp" line="289" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="289" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-attrib">
@@ -88,7 +60,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="108" column="16" bodyfile="src/EcosystemEngine.hpp" bodystart="108" bodyend="-1"/>
+        <location file="src/EcosystemEngine.hpp" line="322" column="16" bodyfile="src/EcosystemEngine.hpp" bodystart="322" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEcosystemEngine_1a1aea9afae2832a1475dea1d3d7ea283b" prot="private" static="no" mutable="no">
         <type>bool</type>
@@ -103,14 +75,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="109" column="10" bodyfile="src/EcosystemEngine.hpp" bodystart="109" bodyend="-1"/>
+        <location file="src/EcosystemEngine.hpp" line="323" column="10" bodyfile="src/EcosystemEngine.hpp" bodystart="323" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="classEcosystemEngine_1a40ad1dd73a393f6aa024eb4bb95b5ab8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classEcosystemEngine_1a43844dc6db4648993b919188df1c34db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>EcosystemEngine::EcosystemEngine</definition>
-        <argsstring>()=default</argsstring>
+        <argsstring>()</argsstring>
         <name>EcosystemEngine</name>
         <qualifiedname>EcosystemEngine::EcosystemEngine</qualifiedname>
         <briefdescription>
@@ -119,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="79" column="5"/>
+        <location file="src/EcosystemEngine.hpp" line="291" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="291" bodyend="293"/>
       </memberdef>
       <memberdef kind="function" id="classEcosystemEngine_1af9fadc16d5c391ba27c4fc0942b89583" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -149,7 +121,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="83" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1106" bodyend="1112"/>
+        <location file="src/EcosystemEngine.hpp" line="297" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1559" bodyend="1565"/>
       </memberdef>
       <memberdef kind="function" id="classEcosystemEngine_1a30afdf70ffa81f23dd117c7ae917a804" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -179,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="85" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1114" bodyend="1127"/>
+        <location file="src/EcosystemEngine.hpp" line="299" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1569" bodyend="1625"/>
       </memberdef>
       <memberdef kind="function" id="classEcosystemEngine_1a72241972e12c3f4855b0493a74c8e86c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -209,14 +181,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="87" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="958" bodyend="1022"/>
+        <location file="src/EcosystemEngine.hpp" line="301" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1491" bodyend="1555"/>
       </memberdef>
-      <memberdef kind="function" id="classEcosystemEngine_1ac512fc69e3423c1305cef96ab9cfc37b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classEcosystemEngine_1ad529ce19ebeb2108d0518166ac6b4ee4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void EcosystemEngine::processEvaporateWaterEvents</definition>
-        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, std::vector&lt; EvaporateWaterEntityEvent &gt; &amp;pendingEvaporateWater)</argsstring>
-        <name>processEvaporateWaterEvents</name>
-        <qualifiedname>EcosystemEngine::processEvaporateWaterEvents</qualifiedname>
+        <definition>void EcosystemEngine::processParallelWaterSimulation</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid)</argsstring>
+        <name>processParallelWaterSimulation</name>
+        <qualifiedname>EcosystemEngine::processParallelWaterSimulation</qualifiedname>
         <param>
           <type>entt::registry &amp;</type>
           <declname>registry</declname>
@@ -225,69 +197,13 @@
           <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
           <declname>voxelGrid</declname>
         </param>
-        <param>
-          <type>std::vector&lt; <ref refid="structEvaporateWaterEntityEvent" kindref="compound">EvaporateWaterEntityEvent</ref> &gt; &amp;</type>
-          <declname>pendingEvaporateWater</declname>
-        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="90" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1131" bodyend="1177"/>
-      </memberdef>
-      <memberdef kind="function" id="classEcosystemEngine_1accf703ae16c70213a1f69e8f18d1c8ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void EcosystemEngine::processCondenseWaterEvents</definition>
-        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, std::vector&lt; CondenseWaterEntityEvent &gt; &amp;pendingCondenseWater)</argsstring>
-        <name>processCondenseWaterEvents</name>
-        <qualifiedname>EcosystemEngine::processCondenseWaterEvents</qualifiedname>
-        <param>
-          <type>entt::registry &amp;</type>
-          <declname>registry</declname>
-        </param>
-        <param>
-          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
-          <declname>voxelGrid</declname>
-        </param>
-        <param>
-          <type>std::vector&lt; <ref refid="structCondenseWaterEntityEvent" kindref="compound">CondenseWaterEntityEvent</ref> &gt; &amp;</type>
-          <declname>pendingCondenseWater</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="92" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1179" bodyend="1261"/>
-      </memberdef>
-      <memberdef kind="function" id="classEcosystemEngine_1af08866db8c9d568d6deff77dc862cbfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void EcosystemEngine::processWaterFallEvents</definition>
-        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, std::vector&lt; WaterFallEntityEvent &gt; &amp;pendingWaterFall)</argsstring>
-        <name>processWaterFallEvents</name>
-        <qualifiedname>EcosystemEngine::processWaterFallEvents</qualifiedname>
-        <param>
-          <type>entt::registry &amp;</type>
-          <declname>registry</declname>
-        </param>
-        <param>
-          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
-          <declname>voxelGrid</declname>
-        </param>
-        <param>
-          <type>std::vector&lt; <ref refid="structWaterFallEntityEvent" kindref="compound">WaterFallEntityEvent</ref> &gt; &amp;</type>
-          <declname>pendingWaterFall</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="94" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1263" bodyend="1341"/>
+        <location file="src/EcosystemEngine.hpp" line="305" column="10"/>
       </memberdef>
       <memberdef kind="function" id="classEcosystemEngine_1a871adc8f1b42349ff0b4b6b12b590b78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -305,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="98" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1343" bodyend="1345"/>
+        <location file="src/EcosystemEngine.hpp" line="312" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1635" bodyend="1637"/>
       </memberdef>
       <memberdef kind="function" id="classEcosystemEngine_1a43418c468a384ff4fce41661b2617c5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -323,7 +239,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="99" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1348" bodyend="1350"/>
+        <location file="src/EcosystemEngine.hpp" line="313" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1640" bodyend="1642"/>
       </memberdef>
       <memberdef kind="function" id="classEcosystemEngine_1aaa537271991c07562715cde46470fa09" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -337,32 +253,28 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="101" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1129" bodyend="1129"/>
+        <location file="src/EcosystemEngine.hpp" line="315" column="10" bodyfile="src/EcosystemEngine.cpp" bodystart="1627" bodyend="1627"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/EcosystemEngine.hpp" line="69" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="69" bodyend="110"/>
+    <location file="src/EcosystemEngine.hpp" line="282" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="282" bodyend="324"/>
     <listofallmembers>
       <member refid="classEcosystemEngine_1a072b6e39e59e9e3a7d7db7cc18237750" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>countCreatedEvaporatedWater</name></member>
-      <member refid="classEcosystemEngine_1a40ad1dd73a393f6aa024eb4bb95b5ab8" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>EcosystemEngine</name></member>
+      <member refid="classEcosystemEngine_1a43844dc6db4648993b919188df1c34db" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>EcosystemEngine</name></member>
       <member refid="classEcosystemEngine_1a51da41ce47d1d48d558021fece0755fa" prot="private" virt="non-virtual"><scope>EcosystemEngine</scope><name>ecosystemMutex</name></member>
       <member refid="classEcosystemEngine_1a4203f72a3b976c699f61714034a03e10" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>entityBeingDebugged</name></member>
       <member refid="classEcosystemEngine_1aaa537271991c07562715cde46470fa09" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>isProcessingComplete</name></member>
       <member refid="classEcosystemEngine_1a72241972e12c3f4855b0493a74c8e86c" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>loopTiles</name></member>
       <member refid="classEcosystemEngine_1a871adc8f1b42349ff0b4b6b12b590b78" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>onSetEcoEntityToDebug</name></member>
-      <member refid="classEcosystemEngine_1a5180118ffbdd9beb4a8fbac5318b16b2" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>pendingCondenseWater</name></member>
-      <member refid="classEcosystemEngine_1aa765091ecf8066d1c76b81c7f7fefde4" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>pendingEvaporateWater</name></member>
-      <member refid="classEcosystemEngine_1af62470af88dce4170d49e7d7071d1a13" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>pendingWaterFall</name></member>
-      <member refid="classEcosystemEngine_1accf703ae16c70213a1f69e8f18d1c8ed" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processCondenseWaterEvents</name></member>
       <member refid="classEcosystemEngine_1af9fadc16d5c391ba27c4fc0942b89583" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processEcosystem</name></member>
       <member refid="classEcosystemEngine_1a30afdf70ffa81f23dd117c7ae917a804" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processEcosystemAsync</name></member>
-      <member refid="classEcosystemEngine_1ac512fc69e3423c1305cef96ab9cfc37b" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processEvaporateWaterEvents</name></member>
       <member refid="classEcosystemEngine_1a1aea9afae2832a1475dea1d3d7ea283b" prot="private" virt="non-virtual"><scope>EcosystemEngine</scope><name>processingComplete</name></member>
-      <member refid="classEcosystemEngine_1af08866db8c9d568d6deff77dc862cbfe" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processWaterFallEvents</name></member>
+      <member refid="classEcosystemEngine_1ad529ce19ebeb2108d0518166ac6b4ee4" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>processParallelWaterSimulation</name></member>
       <member refid="classEcosystemEngine_1a43418c468a384ff4fce41661b2617c5c" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>registerEventHandlers</name></member>
+      <member refid="classEcosystemEngine_1a6d55a17bf5f28a9a855d40e5574eca97" prot="public" virt="non-virtual"><scope>EcosystemEngine</scope><name>waterSimManager_</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

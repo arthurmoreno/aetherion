@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTerminalProgram_1_1TerminalLine" kind="struct" language="C++" prot="protected">
+    <compoundname>TerminalProgram::TerminalLine</compoundname>
+    <includes refid="TerminalProgram_8hpp" local="no">TerminalProgram.hpp</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTerminalProgram_1_1TerminalLine_1a3cef26a20c8b12b09254f2ab37d1c765" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string TerminalProgram::TerminalLine::text</definition>
+        <argsstring></argsstring>
+        <name>text</name>
+        <qualifiedname>TerminalProgram::TerminalLine::text</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="147" column="21" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerminalProgram_1_1TerminalLine_1a6daed9b33a42d2cb805f3d9a7e221671" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TerminalProgram::TerminalLine::isCommand</definition>
+        <argsstring></argsstring>
+        <name>isCommand</name>
+        <qualifiedname>TerminalProgram::TerminalLine::isCommand</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="148" column="14" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerminalProgram_1_1TerminalLine_1af9e5c8b19631ba19e1f1a62e9ee1e3e4" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TerminalProgram::TerminalLine::isError</definition>
+        <argsstring></argsstring>
+        <name>isError</name>
+        <qualifiedname>TerminalProgram::TerminalLine::isError</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="149" column="14" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="149" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structTerminalProgram_1_1TerminalLine_1a50557e1837f694828de675a0a3df0a4a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TerminalProgram::TerminalLine::TerminalLine</definition>
+        <argsstring>(const std::string &amp;t, bool cmd=false, bool err=false)</argsstring>
+        <name>TerminalLine</name>
+        <qualifiedname>TerminalProgram::TerminalLine::TerminalLine</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>cmd</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>err</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="151" column="9" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="151" bodyend="152"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Terminal line structure. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Gui/GuiCore/TerminalProgram.hpp" line="146" column="5" bodyfile="src/Gui/GuiCore/TerminalProgram.hpp" bodystart="146" bodyend="153"/>
+    <listofallmembers>
+      <member refid="structTerminalProgram_1_1TerminalLine_1a6daed9b33a42d2cb805f3d9a7e221671" prot="public" virt="non-virtual"><scope>TerminalProgram::TerminalLine</scope><name>isCommand</name></member>
+      <member refid="structTerminalProgram_1_1TerminalLine_1af9e5c8b19631ba19e1f1a62e9ee1e3e4" prot="public" virt="non-virtual"><scope>TerminalProgram::TerminalLine</scope><name>isError</name></member>
+      <member refid="structTerminalProgram_1_1TerminalLine_1a50557e1837f694828de675a0a3df0a4a" prot="public" virt="non-virtual"><scope>TerminalProgram::TerminalLine</scope><name>TerminalLine</name></member>
+      <member refid="structTerminalProgram_1_1TerminalLine_1a3cef26a20c8b12b09254f2ab37d1c765" prot="public" virt="non-virtual"><scope>TerminalProgram::TerminalLine</scope><name>text</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

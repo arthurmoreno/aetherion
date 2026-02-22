@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1entities_1_1beasts_1_1BeastEnum" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::entities::beasts::BeastEnum</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">IntEnum</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1beasts_1_1BeastEnum_1acd396c0ca018cc5d23645c764cab2a11" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.entities.beasts.BeastEnum::PLAYER</definition>
+        <argsstring></argsstring>
+        <name>PLAYER</name>
+        <qualifiedname>aetherion.entities.beasts.BeastEnum.PLAYER</qualifiedname>
+        <initializer>=  1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/beasts.py" line="9" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1beasts_1_1BeastEnum_1ad6ff3abf4c8122a6d574c32301f9f999" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.entities.beasts.BeastEnum::SQUIRREL</definition>
+        <argsstring></argsstring>
+        <name>SQUIRREL</name>
+        <qualifiedname>aetherion.entities.beasts.BeastEnum.SQUIRREL</qualifiedname>
+        <initializer>=  2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/beasts.py" line="10" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1beasts_1_1BeastEnum_1a0ee9f58755d85202c894f28c0223700a" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.entities.beasts.BeastEnum::AEOLUS</definition>
+        <argsstring></argsstring>
+        <name>AEOLUS</name>
+        <qualifiedname>aetherion.entities.beasts.BeastEnum.AEOLUS</qualifiedname>
+        <initializer>=  3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/beasts.py" line="11" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="11" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.entities.beasts.BeastEnum</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastEnum"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IntEnum</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.entities.beasts.BeastEnum</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastEnum"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IntEnum</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/entities/beasts.py" line="8" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="8" bodyend="13"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1entities_1_1beasts_1_1BeastEnum_1a0ee9f58755d85202c894f28c0223700a" prot="public" virt="non-virtual"><scope>aetherion::entities::beasts::BeastEnum</scope><name>AEOLUS</name></member>
+      <member refid="classaetherion_1_1entities_1_1beasts_1_1BeastEnum_1acd396c0ca018cc5d23645c764cab2a11" prot="public" virt="non-virtual"><scope>aetherion::entities::beasts::BeastEnum</scope><name>PLAYER</name></member>
+      <member refid="classaetherion_1_1entities_1_1beasts_1_1BeastEnum_1ad6ff3abf4c8122a6d574c32301f9f999" prot="public" virt="non-virtual"><scope>aetherion::entities::beasts::BeastEnum</scope><name>SQUIRREL</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

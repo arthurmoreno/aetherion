@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="entities_2items_2models_8py" kind="file" language="Python">
+    <compoundname>models.py</compoundname>
+    <innerclass refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration" prot="public">aetherion::entities::items::models::ItemConfiguration</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1entities">aetherion::entities</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1entities_1_1items">aetherion::entities::items</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1entities_1_1items_1_1models">aetherion::entities::items::models</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Any</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>pydantic<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>BaseModel,<sp/>ConfigDict,<sp/>Field</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>aetherion<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>VecStr</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1entities_1_1base" kindref="compound">aetherion.entities.base</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Classification</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration" kindref="compound">ItemConfiguration</ref>(BaseModel):</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>model_config<sp/>=<sp/>ConfigDict(arbitrary_types_allowed=</highlight><highlight class="keyword">True</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>id:<sp/>Classification</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>in_game_textures:<sp/>VecStr<sp/>=<sp/>Field(default_factory=VecStr)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>inventory_textures:<sp/>VecStr<sp/>=<sp/>Field(default_factory=VecStr)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>default_values:<sp/>dict[str,<sp/>Any]<sp/>=<sp/>Field(default_factory=dict)</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/entities/items/models.py"/>
+  </compounddef>
+</doxygen>

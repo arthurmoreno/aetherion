@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1events_1_1PubSubTopicBroker" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::events::PubSubTopicBroker</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Generic</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">E</basecompoundref>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1PubSubTopicBroker_1a731a7be119e72d0cc61a7cc1d29b5fab" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.events.PubSubTopicBroker::_lock</definition>
+        <argsstring></argsstring>
+        <name>_lock</name>
+        <qualifiedname>aetherion.events.PubSubTopicBroker._lock</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="239" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1PubSubTopicBroker_1ae771ae89b11a5ad09b3caee23684fb5e" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.events.PubSubTopicBroker::_consumers</definition>
+        <argsstring></argsstring>
+        <name>_consumers</name>
+        <qualifiedname>aetherion.events.PubSubTopicBroker._consumers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="280" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="280" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1events_1_1PubSubTopicBroker_1ab6ee5ff779b18852d6d8985064f88655" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.events.PubSubTopicBroker.__init__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.events.PubSubTopicBroker.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="237" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="237" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1PubSubTopicBroker_1a451c64e1ca163bd275439596b9c2137d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.PubSubTopicBroker.register_consumer</definition>
+        <argsstring>(self, &quot;TopicReader[E]&quot; consumer)</argsstring>
+        <name>register_consumer</name>
+        <qualifiedname>aetherion.events.PubSubTopicBroker.register_consumer</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>&quot;TopicReader&quot;</type>
+          <declname>consumer</declname>
+          <array>[E]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Register a consumer to receive published events.
+
+Args:
+    consumer: The Consumer instance to register
+
+Note:
+    Duplicate registration attempts are ignored. Thread-safe operation.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="241" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="241" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1PubSubTopicBroker_1a30a4c90f01e9ca50606f526ad52cafec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.PubSubTopicBroker.unregister_consumer</definition>
+        <argsstring>(self, &quot;TopicReader[E]&quot; consumer)</argsstring>
+        <name>unregister_consumer</name>
+        <qualifiedname>aetherion.events.PubSubTopicBroker.unregister_consumer</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>&quot;TopicReader&quot;</type>
+          <declname>consumer</declname>
+          <array>[E]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Remove a consumer from receiving published events.
+
+Args:
+    consumer: The Consumer instance to unregister
+
+Note:
+    Silently ignores attempts to unregister non-existent consumers. Thread-safe operation.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="254" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="254" bodyend="266"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1events_1_1PubSubTopicBroker_1aec9a8c9b557ac2a27357c92ffe9a9b27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.PubSubTopicBroker.publish_event</definition>
+        <argsstring>(self, str topic, GameEvent[E] event)</argsstring>
+        <name>publish_event</name>
+        <qualifiedname>aetherion.events.PubSubTopicBroker.publish_event</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>topic</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[E]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Publish an event to a topic, delivering it to all relevant consumers.
+
+Args:
+    topic: The topic string to publish to (e.g., &quot;world_events&quot;, &quot;player_actions&quot;)
+    event: The GameEvent to publish
+
+Note:
+    Events are delivered to consumers that either subscribe to the specific topic
+    or subscribe to all topics (topics=None). Thread-safe operation.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="267" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="267" bodyend="284"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Pull-based publish-subscribe event system with topic-based routing.
+
+Events are published to topics and consumers pull events at their own pace.
+Decouples producers from consumers with individual event queues per consumer.
+
+Key features:
+    - Pull-based: Consumers retrieve events when ready
+    - Topic-based: String topic routing with filtering
+    - Thread-safe: Concurrent access support
+    - Buffered: Individual consumer event queues
+
+Use cases: Multi-threaded systems, audit logging, analytics, distributed communication.
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>E</label>
+      </node>
+      <node id="1">
+        <label>aetherion.events.PubSubTopicBroker</label>
+        <link refid="classaetherion_1_1events_1_1PubSubTopicBroker"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Generic</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>E</label>
+      </node>
+      <node id="1">
+        <label>aetherion.events.PubSubTopicBroker</label>
+        <link refid="classaetherion_1_1events_1_1PubSubTopicBroker"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Generic</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/events/__init__.py" line="222" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="222" bodyend="284"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1events_1_1PubSubTopicBroker_1ab6ee5ff779b18852d6d8985064f88655" prot="public" virt="non-virtual"><scope>aetherion::events::PubSubTopicBroker</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1events_1_1PubSubTopicBroker_1ae771ae89b11a5ad09b3caee23684fb5e" prot="protected" virt="non-virtual"><scope>aetherion::events::PubSubTopicBroker</scope><name>_consumers</name></member>
+      <member refid="classaetherion_1_1events_1_1PubSubTopicBroker_1a731a7be119e72d0cc61a7cc1d29b5fab" prot="protected" virt="non-virtual"><scope>aetherion::events::PubSubTopicBroker</scope><name>_lock</name></member>
+      <member refid="classaetherion_1_1events_1_1PubSubTopicBroker_1aec9a8c9b557ac2a27357c92ffe9a9b27" prot="public" virt="non-virtual"><scope>aetherion::events::PubSubTopicBroker</scope><name>publish_event</name></member>
+      <member refid="classaetherion_1_1events_1_1PubSubTopicBroker_1a451c64e1ca163bd275439596b9c2137d" prot="public" virt="non-virtual"><scope>aetherion::events::PubSubTopicBroker</scope><name>register_consumer</name></member>
+      <member refid="classaetherion_1_1events_1_1PubSubTopicBroker_1a30a4c90f01e9ca50606f526ad52cafec" prot="public" virt="non-virtual"><scope>aetherion::events::PubSubTopicBroker</scope><name>unregister_consumer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

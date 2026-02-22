@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGetLifeStatisticsHandler" kind="class" language="C++" prot="public">
+    <compoundname>GetLifeStatisticsHandler</compoundname>
+    <basecompoundref refid="classICommandHandler" prot="public" virt="non-virtual">ICommandHandler</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGetLifeStatisticsHandler_1a80924cccaa172fa8b5da14a0474a5293" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool GetLifeStatisticsHandler::validate</definition>
+        <argsstring>(const QueryCommand &amp;cmd, std::string &amp;errorMsg) const override</argsstring>
+        <name>validate</name>
+        <qualifiedname>GetLifeStatisticsHandler::validate</qualifiedname>
+        <reimplements refid="classICommandHandler_1a9e3dab195963e1d3ec7c62343c01f71b">validate</reimplements>
+        <param>
+          <type>const <ref refid="structQueryCommand" kindref="compound">QueryCommand</ref> &amp;</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>errorMsg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="65" column="10" bodyfile="src/WorldClientAPI/CommandHandlers.cpp" bodystart="226" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="classGetLifeStatisticsHandler_1afdce98748bfb2a9bb9cdd02b0df4568d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void GetLifeStatisticsHandler::execute</definition>
+        <argsstring>(const QueryCommand &amp;cmd, PerceptionResponse &amp;response, entt::registry &amp;registry, GameDBHandler *dbHandler) override</argsstring>
+        <name>execute</name>
+        <qualifiedname>GetLifeStatisticsHandler::execute</qualifiedname>
+        <reimplements refid="classICommandHandler_1a4995cb32f3816435e273e45b4e985da1">execute</reimplements>
+        <param>
+          <type>const <ref refid="structQueryCommand" kindref="compound">QueryCommand</ref> &amp;</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="structPerceptionResponse" kindref="compound">PerceptionResponse</ref> &amp;</type>
+          <declname>response</declname>
+        </param>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classGameDBHandler" kindref="compound">GameDBHandler</ref> *</type>
+          <declname>dbHandler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="66" column="10" bodyfile="src/WorldClientAPI/CommandHandlers.cpp" bodystart="195" bodyend="224"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classGetLifeStatisticsHandler_1a5341583ffbb36cdab9aa5b63ac3a6ba7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GetLifeStatisticsHandler::addTimeSeriesDataToResponse</definition>
+        <argsstring>(std::shared_ptr&lt; MapOfMapsOfDoubleResponse &gt; response, const std::string &amp;seriesName, uint64_t start, uint64_t end, GameDBHandler *dbHandler)</argsstring>
+        <name>addTimeSeriesDataToResponse</name>
+        <qualifiedname>GetLifeStatisticsHandler::addTimeSeriesDataToResponse</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classMapOfMapsOfDoubleResponse" kindref="compound">MapOfMapsOfDoubleResponse</ref> &gt;</type>
+          <declname>response</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>seriesName</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>end</declname>
+        </param>
+        <param>
+          <type><ref refid="classGameDBHandler" kindref="compound">GameDBHandler</ref> *</type>
+          <declname>dbHandler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="71" column="10" bodyfile="src/WorldClientAPI/CommandHandlers.cpp" bodystart="231" bodyend="254"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>GetLifeStatisticsHandler</label>
+        <link refid="classGetLifeStatisticsHandler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ICommandHandler</label>
+        <link refid="classICommandHandler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>GetLifeStatisticsHandler</label>
+        <link refid="classGetLifeStatisticsHandler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ICommandHandler</label>
+        <link refid="classICommandHandler"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/WorldClientAPI/CommandHandlers.hpp" line="63" column="1" bodyfile="src/WorldClientAPI/CommandHandlers.hpp" bodystart="63" bodyend="74"/>
+    <listofallmembers>
+      <member refid="classGetLifeStatisticsHandler_1a5341583ffbb36cdab9aa5b63ac3a6ba7" prot="private" virt="non-virtual"><scope>GetLifeStatisticsHandler</scope><name>addTimeSeriesDataToResponse</name></member>
+      <member refid="classGetLifeStatisticsHandler_1afdce98748bfb2a9bb9cdd02b0df4568d" prot="public" virt="virtual"><scope>GetLifeStatisticsHandler</scope><name>execute</name></member>
+      <member refid="classGetLifeStatisticsHandler_1a80924cccaa172fa8b5da14a0474a5293" prot="public" virt="virtual"><scope>GetLifeStatisticsHandler</scope><name>validate</name></member>
+      <member refid="classICommandHandler_1a2c2d11b6bd94d4bd721935b793fcd33d" prot="public" virt="virtual"><scope>GetLifeStatisticsHandler</scope><name>~ICommandHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

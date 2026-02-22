@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classHistoryCommand" kind="class" language="C++" prot="public">
+    <compoundname>HistoryCommand</compoundname>
+    <basecompoundref refid="classTerminalCommand" prot="public" virt="non-virtual">TerminalCommand</basecompoundref>
+    <includes refid="HistoryCommand_8hpp" local="no">HistoryCommand.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classHistoryCommand_1adc3e98a0451c59ceca97252f350bff8b" prot="private" static="no" mutable="no">
+        <type>const std::vector&lt; std::string &gt; *</type>
+        <definition>const std::vector&lt;std::string&gt;* HistoryCommand::history_</definition>
+        <argsstring></argsstring>
+        <name>history_</name>
+        <qualifiedname>HistoryCommand::history_</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/HistoryCommand.hpp" line="25" column="23" bodyfile="src/Gui/TerminalPrograms/HistoryCommand.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classHistoryCommand_1aea0d0c111235fc99f96bd4d4816d2b4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HistoryCommand::setHistory</definition>
+        <argsstring>(const std::vector&lt; std::string &gt; *history)</argsstring>
+        <name>setHistory</name>
+        <qualifiedname>HistoryCommand::setHistory</qualifiedname>
+        <param>
+          <type>const std::vector&lt; std::string &gt; *</type>
+          <declname>history</declname>
+        </param>
+        <briefdescription>
+<para>Set the command history reference. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/HistoryCommand.hpp" line="15" column="10" bodyfile="src/Gui/TerminalPrograms/HistoryCommand.hpp" bodystart="15" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classHistoryCommand_1a3040fee1b03faa98f6db0f2ec6d76722" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void HistoryCommand::execute</definition>
+        <argsstring>(GuiContext &amp;context, std::deque&lt; TerminalLine &gt; &amp;terminalBuffer, bool &amp;scrollToBottom) override</argsstring>
+        <name>execute</name>
+        <qualifiedname>HistoryCommand::execute</qualifiedname>
+        <reimplements refid="classTerminalCommand_1a8db344419dde80954a49c1dcd0d829b7">execute</reimplements>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>std::deque&lt; <ref refid="structTerminalLine" kindref="compound">TerminalLine</ref> &gt; &amp;</type>
+          <declname>terminalBuffer</declname>
+        </param>
+        <param>
+          <type>bool &amp;</type>
+          <declname>scrollToBottom</declname>
+        </param>
+        <briefdescription>
+<para>Execute the terminal command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GUI context for accessing command queue </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terminalBuffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terminal output buffer to write to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>scrollToBottom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to trigger auto-scroll </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/HistoryCommand.hpp" line="17" column="10" bodyfile="src/Gui/TerminalPrograms/HistoryCommand.cpp" bodystart="3" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classHistoryCommand_1a8334db6e45ef2aff5c6aab7e199f0e96" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string HistoryCommand::getName</definition>
+        <argsstring>() const override</argsstring>
+        <name>getName</name>
+        <qualifiedname>HistoryCommand::getName</qualifiedname>
+        <reimplements refid="classTerminalCommand_1a7163905f3b608f3a7bd2076c9b45fde7">getName</reimplements>
+        <briefdescription>
+<para>Get the command name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/HistoryCommand.hpp" line="20" column="17" bodyfile="src/Gui/TerminalPrograms/HistoryCommand.hpp" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classHistoryCommand_1abcd0ec4cd00950437d9a4e804e2d60a8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string HistoryCommand::getDescription</definition>
+        <argsstring>() const override</argsstring>
+        <name>getDescription</name>
+        <qualifiedname>HistoryCommand::getDescription</qualifiedname>
+        <reimplements refid="classTerminalCommand_1a534632bd9b96f4d09df488f28b6cb5dd">getDescription</reimplements>
+        <briefdescription>
+<para>Get the command description. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/HistoryCommand.hpp" line="22" column="17" bodyfile="src/Gui/TerminalPrograms/HistoryCommand.hpp" bodystart="22" bodyend="22"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>History command - Shows command history. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>HistoryCommand</label>
+        <link refid="classHistoryCommand"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TerminalCommand</label>
+        <link refid="classTerminalCommand"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>HistoryCommand</label>
+        <link refid="classHistoryCommand"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TerminalCommand</label>
+        <link refid="classTerminalCommand"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/TerminalPrograms/HistoryCommand.hpp" line="10" column="1" bodyfile="src/Gui/TerminalPrograms/HistoryCommand.hpp" bodystart="10" bodyend="26"/>
+    <listofallmembers>
+      <member refid="classTerminalCommand_1a8975332a523175e1d4983db065de5ea0" prot="protected" virt="non-virtual"><scope>HistoryCommand</scope><name>addOutput</name></member>
+      <member refid="classHistoryCommand_1a3040fee1b03faa98f6db0f2ec6d76722" prot="public" virt="virtual"><scope>HistoryCommand</scope><name>execute</name></member>
+      <member refid="classHistoryCommand_1abcd0ec4cd00950437d9a4e804e2d60a8" prot="public" virt="virtual"><scope>HistoryCommand</scope><name>getDescription</name></member>
+      <member refid="classHistoryCommand_1a8334db6e45ef2aff5c6aab7e199f0e96" prot="public" virt="virtual"><scope>HistoryCommand</scope><name>getName</name></member>
+      <member refid="classHistoryCommand_1adc3e98a0451c59ceca97252f350bff8b" prot="private" virt="non-virtual"><scope>HistoryCommand</scope><name>history_</name></member>
+      <member refid="classHistoryCommand_1aea0d0c111235fc99f96bd4d4816d2b4b" prot="public" virt="non-virtual"><scope>HistoryCommand</scope><name>setHistory</name></member>
+      <member refid="classTerminalCommand_1a4d3dc5f2ec037ae6eb7142a7b862e900" prot="public" virt="virtual"><scope>HistoryCommand</scope><name>~TerminalCommand</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

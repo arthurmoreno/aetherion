@@ -1,0 +1,471 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classCommand" kind="class" language="C++" prot="public">
+    <compoundname>Command</compoundname>
+    <derivedcompoundref refid="classActivateProgramCommand" prot="public" virt="non-virtual">ActivateProgramCommand</derivedcompoundref>
+    <derivedcompoundref refid="classDropToWorldCommand" prot="public" virt="non-virtual">DropToWorldCommand</derivedcompoundref>
+    <derivedcompoundref refid="classEditorCommand" prot="public" virt="non-virtual">EditorCommand</derivedcompoundref>
+    <includes refid="Command_8hpp" local="no">Command.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classCommand_1a1bafdce51c59a9756d2c06df849e0765" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Command::type_</definition>
+        <argsstring></argsstring>
+        <name>type_</name>
+        <qualifiedname>Command::type_</qualifiedname>
+        <briefdescription>
+<para><ref refid="classCommand" kindref="compound">Command</ref> type identifier. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="178" column="17" bodyfile="src/components/core/Command.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCommand_1a3c4b1450e24dfe07fa1f51df9f50d405" prot="private" static="no" mutable="no">
+        <type>nb::dict</type>
+        <definition>nb::dict Command::params_</definition>
+        <argsstring></argsstring>
+        <name>params_</name>
+        <qualifiedname>Command::params_</qualifiedname>
+        <briefdescription>
+<para><ref refid="classCommand" kindref="compound">Command</ref> parameters as nanobind dict. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="179" column="14" bodyfile="src/components/core/Command.hpp" bodystart="179" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCommand_1acdb72f0ee5f0764e60ad9082b959378e" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Command::Command</definition>
+        <argsstring>(std::string type)</argsstring>
+        <name>Command</name>
+        <qualifiedname>Command::Command</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="classCommand" kindref="compound">Command</ref> object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The command type/name (required) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="39" column="14" bodyfile="src/components/core/Command.hpp" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1a18df2d81039392daeb0b78c346a70537" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Command::Command</definition>
+        <argsstring>()</argsstring>
+        <name>Command</name>
+        <qualifiedname>Command::Command</qualifiedname>
+        <briefdescription>
+<para>Default constructor for deserialization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="44" column="5" bodyfile="src/components/core/Command.hpp" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1a4d6ff191612150537c80be35c3723ede" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string &amp; Command::getType</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getType</name>
+        <qualifiedname>Command::getType</qualifiedname>
+        <briefdescription>
+<para>Get the command type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="53" column="24" bodyfile="src/components/core/Command.hpp" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1a2b9ab954dd0c2a74a3de0d639d809992" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Command::setType</definition>
+        <argsstring>(std::string type)</argsstring>
+        <name>setType</name>
+        <qualifiedname>Command::setType</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Set the command type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="58" column="10" bodyfile="src/components/core/Command.hpp" bodystart="58" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1a215d61cf963288837686682582e3e1d4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::object</type>
+        <definition>nb::object Command::operator[]</definition>
+        <argsstring>(const char *key)</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>Command::operator[]</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Access parameter by key (dict-like access) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parameter key </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Reference to the parameter value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="69" column="16" bodyfile="src/components/core/Command.hpp" bodystart="69" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1a659f475ce80308da5364343ff7d37530" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>nb::object</type>
+        <definition>nb::object Command::operator[]</definition>
+        <argsstring>(const char *key) const</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>Command::operator[]</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Access parameter by key (const version) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="74" column="16" bodyfile="src/components/core/Command.hpp" bodystart="74" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1a7c1e80c1ac7db650ca299cd65fc9aed4" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Command::hasParam</definition>
+        <argsstring>(std::string_view key) const noexcept</argsstring>
+        <name>hasParam</name>
+        <qualifiedname>Command::hasParam</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Check if a parameter exists. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="79" column="11" bodyfile="src/components/core/Command.hpp" bodystart="79" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1ac50b1a39dc2cbde56d52943642119f5b" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>nb::dict &amp;</type>
+        <definition>nb::dict &amp; Command::getParams</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>getParams</name>
+        <qualifiedname>Command::getParams</qualifiedname>
+        <briefdescription>
+<para>Get all parameters as dict. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="86" column="15" bodyfile="src/components/core/Command.hpp" bodystart="86" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1a25d005a766c0ee7fd04ca0f6bb85b0e9" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const nb::dict &amp;</type>
+        <definition>const nb::dict &amp; Command::getParams</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getParams</name>
+        <qualifiedname>Command::getParams</qualifiedname>
+        <briefdescription>
+<para>Get all parameters as dict (const) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="91" column="21" bodyfile="src/components/core/Command.hpp" bodystart="91" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1af3ab8e53caa0dd5474d197a2987de61a" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Command::clearParams</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>clearParams</name>
+        <qualifiedname>Command::clearParams</qualifiedname>
+        <briefdescription>
+<para>Clear all parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="96" column="10" bodyfile="src/components/core/Command.hpp" bodystart="96" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1ae75fad398a4ca611a0efed0391af5ea5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Command::setParam</definition>
+        <argsstring>(std::string_view key, T &amp;&amp;value)</argsstring>
+        <name>setParam</name>
+        <qualifiedname>Command::setParam</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>T &amp;&amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Set a parameter value (convenience method) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="106" column="10" bodyfile="src/components/core/Command.hpp" bodystart="106" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1a5d7bcd96898d4d97bd4004334b1f6701" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T Command::getParam</definition>
+        <argsstring>(std::string_view key) const</argsstring>
+        <name>getParam</name>
+        <qualifiedname>Command::getParam</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Get a parameter value with type checking. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected type of the parameter </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The parameter value </para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>std::runtime_error</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>or nb::cast_error if parameter doesn&apos;t exist or type mismatch </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="117" column="8" bodyfile="src/components/core/Command.hpp" bodystart="117" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1a2792a08722070da3190ef66afa896d2f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T Command::getParamOr</definition>
+        <argsstring>(std::string_view key, T defaultValue) const</argsstring>
+        <name>getParamOr</name>
+        <qualifiedname>Command::getParamOr</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>defaultValue</declname>
+        </param>
+        <briefdescription>
+<para>Get a parameter value with default fallback. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected type of the parameter </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>defaultValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to return if parameter doesn&apos;t exist </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The parameter value or default </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="132" column="8" bodyfile="src/components/core/Command.hpp" bodystart="132" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1a83fcdc0142087736a7c3d29e60a3f3d8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Command::validate</definition>
+        <argsstring>(const std::vector&lt; std::string &gt; &amp;requiredParams) const</argsstring>
+        <name>validate</name>
+        <qualifiedname>Command::validate</qualifiedname>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>requiredParams</declname>
+        </param>
+        <briefdescription>
+<para>Validate that command has required parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>requiredParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of required parameter names </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>std::runtime_error</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if any required parameter is missing </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="152" column="10" bodyfile="src/components/core/Command.hpp" bodystart="152" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommand_1aef403b3bf130d7dd2821fe4318d48256" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Command::toString</definition>
+        <argsstring>() const</argsstring>
+        <name>toString</name>
+        <qualifiedname>Command::toString</qualifiedname>
+        <briefdescription>
+<para>Get string representation for debugging. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="168" column="18" bodyfile="src/components/core/Command.hpp" bodystart="168" bodyend="175"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Base <ref refid="classCommand" kindref="compound">Command</ref> class with flexible dict-based parameters. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class uses nanobind::dict for maximum flexibility and seamless Python interop. Parameters can be of any type that nanobind supports.</para>
+<para>Usage Example (C++): <programlisting><codeline><highlight class="normal"><ref refid="classCommand" kindref="compound">Command</ref><sp/>cmd(</highlight><highlight class="stringliteral">&quot;drop_to_world&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal">cmd[</highlight><highlight class="stringliteral">&quot;item_index&quot;</highlight><highlight class="normal">]<sp/>=<sp/>5;</highlight></codeline>
+<codeline><highlight class="normal">cmd[</highlight><highlight class="stringliteral">&quot;world_x&quot;</highlight><highlight class="normal">]<sp/>=<sp/>100.0f;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index<sp/>=<sp/>nb::cast&lt;int&gt;(cmd[</highlight><highlight class="stringliteral">&quot;item_index&quot;</highlight><highlight class="normal">]);</highlight></codeline>
+</programlisting></para>
+<para>Usage Example (Python): <programlisting><codeline><highlight class="normal">cmd<sp/>=<sp/><ref refid="classCommand_1a18df2d81039392daeb0b78c346a70537" kindref="member">Command</ref>(</highlight><highlight class="stringliteral">&quot;drop_to_world&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal">cmd[&quot;item_index&quot;]<sp/>=<sp/>5</highlight></codeline>
+<codeline><highlight class="normal">cmd[&quot;world_x&quot;]<sp/>=<sp/>100.0</highlight></codeline>
+<codeline><highlight class="normal">index<sp/>=<sp/>cmd[&quot;item_index&quot;]</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ActivateProgramCommand</label>
+        <link refid="classActivateProgramCommand"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Command</label>
+        <link refid="classCommand"/>
+      </node>
+      <node id="3">
+        <label>DropToWorldCommand</label>
+        <link refid="classDropToWorldCommand"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>EditorCommand</label>
+        <link refid="classEditorCommand"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="src/components/core/Command.hpp" line="33" column="1" bodyfile="src/components/core/Command.hpp" bodystart="33" bodyend="180"/>
+    <listofallmembers>
+      <member refid="classCommand_1af3ab8e53caa0dd5474d197a2987de61a" prot="public" virt="non-virtual"><scope>Command</scope><name>clearParams</name></member>
+      <member refid="classCommand_1acdb72f0ee5f0764e60ad9082b959378e" prot="public" virt="non-virtual"><scope>Command</scope><name>Command</name></member>
+      <member refid="classCommand_1a18df2d81039392daeb0b78c346a70537" prot="public" virt="non-virtual"><scope>Command</scope><name>Command</name></member>
+      <member refid="classCommand_1a5d7bcd96898d4d97bd4004334b1f6701" prot="public" virt="non-virtual"><scope>Command</scope><name>getParam</name></member>
+      <member refid="classCommand_1a2792a08722070da3190ef66afa896d2f" prot="public" virt="non-virtual"><scope>Command</scope><name>getParamOr</name></member>
+      <member refid="classCommand_1ac50b1a39dc2cbde56d52943642119f5b" prot="public" virt="non-virtual"><scope>Command</scope><name>getParams</name></member>
+      <member refid="classCommand_1a25d005a766c0ee7fd04ca0f6bb85b0e9" prot="public" virt="non-virtual"><scope>Command</scope><name>getParams</name></member>
+      <member refid="classCommand_1a4d6ff191612150537c80be35c3723ede" prot="public" virt="non-virtual"><scope>Command</scope><name>getType</name></member>
+      <member refid="classCommand_1a7c1e80c1ac7db650ca299cd65fc9aed4" prot="public" virt="non-virtual"><scope>Command</scope><name>hasParam</name></member>
+      <member refid="classCommand_1a215d61cf963288837686682582e3e1d4" prot="public" virt="non-virtual"><scope>Command</scope><name>operator[]</name></member>
+      <member refid="classCommand_1a659f475ce80308da5364343ff7d37530" prot="public" virt="non-virtual"><scope>Command</scope><name>operator[]</name></member>
+      <member refid="classCommand_1a3c4b1450e24dfe07fa1f51df9f50d405" prot="private" virt="non-virtual"><scope>Command</scope><name>params_</name></member>
+      <member refid="classCommand_1ae75fad398a4ca611a0efed0391af5ea5" prot="public" virt="non-virtual"><scope>Command</scope><name>setParam</name></member>
+      <member refid="classCommand_1a2b9ab954dd0c2a74a3de0d639d809992" prot="public" virt="non-virtual"><scope>Command</scope><name>setType</name></member>
+      <member refid="classCommand_1aef403b3bf130d7dd2821fe4318d48256" prot="public" virt="non-virtual"><scope>Command</scope><name>toString</name></member>
+      <member refid="classCommand_1a1bafdce51c59a9756d2c06df849e0765" prot="private" virt="non-virtual"><scope>Command</scope><name>type_</name></member>
+      <member refid="classCommand_1a83fcdc0142087736a7c3d29e60a3f3d8" prot="public" virt="non-virtual"><scope>Command</scope><name>validate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

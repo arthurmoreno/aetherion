@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTerrainGridLock" kind="class" language="C++" prot="public">
+    <compoundname>TerrainGridLock</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classTerrainGridLock_1a930a7fd02eb171ecb15df52286eb7fb2" prot="private" static="no" mutable="no">
+        <type><ref refid="classTerrainGridRepository" kindref="compound">TerrainGridRepository</ref> *</type>
+        <definition>TerrainGridRepository* TerrainGridLock::repo_</definition>
+        <argsstring></argsstring>
+        <name>repo_</name>
+        <qualifiedname>TerrainGridLock::repo_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridLock.hpp" line="17" column="27" bodyfile="src/terrain/TerrainGridLock.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTerrainGridLock_1ad9f102e4eddd3d2c5e202dcbf9a47d27" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TerrainGridLock::TerrainGridLock</definition>
+        <argsstring>(TerrainGridRepository *repo)</argsstring>
+        <name>TerrainGridLock</name>
+        <qualifiedname>TerrainGridLock::TerrainGridLock</qualifiedname>
+        <param>
+          <type><ref refid="classTerrainGridRepository" kindref="compound">TerrainGridRepository</ref> *</type>
+          <declname>repo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridLock.hpp" line="20" column="14" bodyfile="src/terrain/TerrainGridLock.hpp" bodystart="20" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridLock_1ace751ee4273e8bd503627ac4bc19b9a4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TerrainGridLock::~TerrainGridLock</definition>
+        <argsstring>()</argsstring>
+        <name>~TerrainGridLock</name>
+        <qualifiedname>TerrainGridLock::~TerrainGridLock</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridLock.hpp" line="26" column="5" bodyfile="src/terrain/TerrainGridLock.hpp" bodystart="26" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridLock_1a98082a20d56d8b499a305dbabec2d1b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TerrainGridLock::TerrainGridLock</definition>
+        <argsstring>(const TerrainGridLock &amp;)=delete</argsstring>
+        <name>TerrainGridLock</name>
+        <qualifiedname>TerrainGridLock::TerrainGridLock</qualifiedname>
+        <param>
+          <type>const <ref refid="classTerrainGridLock" kindref="compound">TerrainGridLock</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridLock.hpp" line="33" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridLock_1afd4b4ca4a8d65875884bb384b65fbed3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classTerrainGridLock" kindref="compound">TerrainGridLock</ref> &amp;</type>
+        <definition>TerrainGridLock &amp; TerrainGridLock::operator=</definition>
+        <argsstring>(const TerrainGridLock &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>TerrainGridLock::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classTerrainGridLock" kindref="compound">TerrainGridLock</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridLock.hpp" line="34" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridLock_1af7bb4db9b3f1c9048010a2e556c0415b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TerrainGridLock::TerrainGridLock</definition>
+        <argsstring>(TerrainGridLock &amp;&amp;)=delete</argsstring>
+        <name>TerrainGridLock</name>
+        <qualifiedname>TerrainGridLock::TerrainGridLock</qualifiedname>
+        <param>
+          <type><ref refid="classTerrainGridLock" kindref="compound">TerrainGridLock</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridLock.hpp" line="35" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridLock_1a303d9ab77b12a92d9db9ac4d98db44ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classTerrainGridLock" kindref="compound">TerrainGridLock</ref> &amp;</type>
+        <definition>TerrainGridLock &amp; TerrainGridLock::operator=</definition>
+        <argsstring>(TerrainGridLock &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>TerrainGridLock::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classTerrainGridLock" kindref="compound">TerrainGridLock</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridLock.hpp" line="36" column="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/terrain/TerrainGridLock.hpp" line="15" column="1" bodyfile="src/terrain/TerrainGridLock.hpp" bodystart="15" bodyend="37"/>
+    <listofallmembers>
+      <member refid="classTerrainGridLock_1afd4b4ca4a8d65875884bb384b65fbed3" prot="public" virt="non-virtual"><scope>TerrainGridLock</scope><name>operator=</name></member>
+      <member refid="classTerrainGridLock_1a303d9ab77b12a92d9db9ac4d98db44ec" prot="public" virt="non-virtual"><scope>TerrainGridLock</scope><name>operator=</name></member>
+      <member refid="classTerrainGridLock_1a930a7fd02eb171ecb15df52286eb7fb2" prot="private" virt="non-virtual"><scope>TerrainGridLock</scope><name>repo_</name></member>
+      <member refid="classTerrainGridLock_1ad9f102e4eddd3d2c5e202dcbf9a47d27" prot="public" virt="non-virtual"><scope>TerrainGridLock</scope><name>TerrainGridLock</name></member>
+      <member refid="classTerrainGridLock_1a98082a20d56d8b499a305dbabec2d1b3" prot="public" virt="non-virtual"><scope>TerrainGridLock</scope><name>TerrainGridLock</name></member>
+      <member refid="classTerrainGridLock_1af7bb4db9b3f1c9048010a2e556c0415b" prot="public" virt="non-virtual"><scope>TerrainGridLock</scope><name>TerrainGridLock</name></member>
+      <member refid="classTerrainGridLock_1ace751ee4273e8bd503627ac4bc19b9a4" prot="public" virt="non-virtual"><scope>TerrainGridLock</scope><name>~TerrainGridLock</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

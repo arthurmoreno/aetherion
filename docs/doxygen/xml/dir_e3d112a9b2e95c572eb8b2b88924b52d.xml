@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_e3d112a9b2e95c572eb8b2b88924b52d" kind="dir">
+    <compoundname>src/aetherion/game_state</compoundname>
+    <innerfile refid="game__state_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="connections_8py">connections.py</innerfile>
+    <innerfile refid="state_8py">state.py</innerfile>
+    <innerfile refid="world__interface_8py">world_interface.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/game_state/"/>
+  </compounddef>
+</doxygen>

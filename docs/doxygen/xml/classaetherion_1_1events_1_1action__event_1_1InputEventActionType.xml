@@ -1,0 +1,486 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::events::action_event::InputEventActionType</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">StrEnum</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a268a7d7c86cbe02a7fdc809f435a003c" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_LEFT</definition>
+        <argsstring></argsstring>
+        <name>WALK_LEFT</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_LEFT</qualifiedname>
+        <initializer>=  &quot;WALK_LEFT&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="5" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a7cebd6b14f4a57a554a8852991f7e3a9" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_RIGHT</definition>
+        <argsstring></argsstring>
+        <name>WALK_RIGHT</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_RIGHT</qualifiedname>
+        <initializer>=  &quot;WALK_RIGHT&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="6" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1aeab6f5bedd041bd48d28dbadba9b477c" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_UP</definition>
+        <argsstring></argsstring>
+        <name>WALK_UP</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_UP</qualifiedname>
+        <initializer>=  &quot;WALK_UP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="7" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a66a058d2838be8bdbb67ba5b22655dcf" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_DOWN</definition>
+        <argsstring></argsstring>
+        <name>WALK_DOWN</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_DOWN</qualifiedname>
+        <initializer>=  &quot;WALK_DOWN&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="8" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a3d9f44d827b842ee02295d8cf0b58500" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_LEFT_UP</definition>
+        <argsstring></argsstring>
+        <name>WALK_LEFT_UP</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_LEFT_UP</qualifiedname>
+        <initializer>=  &quot;WALK_LEFT_UP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="10" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a14d757af006de4d0aa119221ef3f95d3" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_LEFT_DOWN</definition>
+        <argsstring></argsstring>
+        <name>WALK_LEFT_DOWN</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_LEFT_DOWN</qualifiedname>
+        <initializer>=  &quot;WALK_LEFT_DOWN&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="11" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a5a92646eae2411a78e5b29a7c768f947" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_RIGHT_UP</definition>
+        <argsstring></argsstring>
+        <name>WALK_RIGHT_UP</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_RIGHT_UP</qualifiedname>
+        <initializer>=  &quot;WALK_RIGHT_UP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="12" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a55f62664bcb215cc810ca1b761e3305c" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_RIGHT_DOWN</definition>
+        <argsstring></argsstring>
+        <name>WALK_RIGHT_DOWN</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_RIGHT_DOWN</qualifiedname>
+        <initializer>=  &quot;WALK_RIGHT_DOWN&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="13" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a9e65077ca5351e36042afc12c4cdc489" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_LEFT_JUMP</definition>
+        <argsstring></argsstring>
+        <name>WALK_LEFT_JUMP</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_LEFT_JUMP</qualifiedname>
+        <initializer>=  &quot;WALK_LEFT_JUMP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="15" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a632e4ad3d465c0c0be868aa3e3081ac2" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_RIGHT_JUMP</definition>
+        <argsstring></argsstring>
+        <name>WALK_RIGHT_JUMP</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_RIGHT_JUMP</qualifiedname>
+        <initializer>=  &quot;WALK_RIGHT_JUMP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="16" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a217312d2bb55787db2a068e8d57ef334" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_UP_JUMP</definition>
+        <argsstring></argsstring>
+        <name>WALK_UP_JUMP</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_UP_JUMP</qualifiedname>
+        <initializer>=  &quot;WALK_UP_JUMP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="17" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a84bcb338e68a71e00af7840047376305" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::WALK_DOWN_JUMP</definition>
+        <argsstring></argsstring>
+        <name>WALK_DOWN_JUMP</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.WALK_DOWN_JUMP</qualifiedname>
+        <initializer>=  &quot;WALK_DOWN_JUMP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="18" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a1a9261836fa54452af2ad3def3e47e1c" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::JUMP</definition>
+        <argsstring></argsstring>
+        <name>JUMP</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.JUMP</qualifiedname>
+        <initializer>=  &quot;JUMP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="20" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a587a23a063289fb95ed8d4029c1b877e" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::TAKE_ITEM</definition>
+        <argsstring></argsstring>
+        <name>TAKE_ITEM</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.TAKE_ITEM</qualifiedname>
+        <initializer>=  &quot;TAKE_ITEM&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="21" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1ac73ba59ff3555e75331766eb055a7d13" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::USE_ITEM_0</definition>
+        <argsstring></argsstring>
+        <name>USE_ITEM_0</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.USE_ITEM_0</qualifiedname>
+        <initializer>=  &quot;USE_ITEM_0&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="22" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a2e12267db959de763205efceffefe4ca" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::USE_ITEM_1</definition>
+        <argsstring></argsstring>
+        <name>USE_ITEM_1</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.USE_ITEM_1</qualifiedname>
+        <initializer>=  &quot;USE_ITEM_1&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="23" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a7814e633dbc69d8208218db04c769838" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::USE_ITEM_2</definition>
+        <argsstring></argsstring>
+        <name>USE_ITEM_2</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.USE_ITEM_2</qualifiedname>
+        <initializer>=  &quot;USE_ITEM_2&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="24" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a355e7f6f5691cb410487615b3f54bc50" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::USE_ITEM_3</definition>
+        <argsstring></argsstring>
+        <name>USE_ITEM_3</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.USE_ITEM_3</qualifiedname>
+        <initializer>=  &quot;USE_ITEM_3&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="25" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a8d00c971cdc0060cf2e34b8a7249374a" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::USE_ITEM_4</definition>
+        <argsstring></argsstring>
+        <name>USE_ITEM_4</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.USE_ITEM_4</qualifiedname>
+        <initializer>=  &quot;USE_ITEM_4&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="26" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a21ba1d2ff904dea39d84e03ec4439488" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::USE_ITEM_5</definition>
+        <argsstring></argsstring>
+        <name>USE_ITEM_5</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.USE_ITEM_5</qualifiedname>
+        <initializer>=  &quot;USE_ITEM_5&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="27" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a0fccb2625a799c6c4e2d6696c6fc6224" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::USE_ITEM_6</definition>
+        <argsstring></argsstring>
+        <name>USE_ITEM_6</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.USE_ITEM_6</qualifiedname>
+        <initializer>=  &quot;USE_ITEM_6&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="28" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a0759d2a8ff451386b2fcd4c718d5c02b" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::USE_ITEM_7</definition>
+        <argsstring></argsstring>
+        <name>USE_ITEM_7</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.USE_ITEM_7</qualifiedname>
+        <initializer>=  &quot;USE_ITEM_7&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="29" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1af9cd51e8b39c2ce15f6b5435f872def9" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::USE_ITEM_8</definition>
+        <argsstring></argsstring>
+        <name>USE_ITEM_8</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.USE_ITEM_8</qualifiedname>
+        <initializer>=  &quot;USE_ITEM_8&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="30" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a5651338cefe108cf35737d4dd45cc0b3" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::USE_ITEM_9</definition>
+        <argsstring></argsstring>
+        <name>USE_ITEM_9</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.USE_ITEM_9</qualifiedname>
+        <initializer>=  &quot;USE_ITEM_9&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="31" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1adb181fd446e9e0a991e0681a7dd2bf45" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::MOUSE_LEFT_BUTTON_DOWN</definition>
+        <argsstring></argsstring>
+        <name>MOUSE_LEFT_BUTTON_DOWN</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.MOUSE_LEFT_BUTTON_DOWN</qualifiedname>
+        <initializer>=  &quot;MOUSE_LEFT_BUTTON_DOWN&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="33" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a2378e835892433716565be894d5b9df0" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::MOUSE_LEFT_BUTTON_UP</definition>
+        <argsstring></argsstring>
+        <name>MOUSE_LEFT_BUTTON_UP</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.MOUSE_LEFT_BUTTON_UP</qualifiedname>
+        <initializer>=  &quot;MOUSE_LEFT_BUTTON_UP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="34" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1ae327b1a927ab631517b1c01ccf13f080" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::MOUSE_RIGHT_BUTTON_DOWN</definition>
+        <argsstring></argsstring>
+        <name>MOUSE_RIGHT_BUTTON_DOWN</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.MOUSE_RIGHT_BUTTON_DOWN</qualifiedname>
+        <initializer>=  &quot;MOUSE_RIGHT_BUTTON_DOWN&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="35" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1ada7a513c3cbc2dfce5030db5acbe4542" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.action_event.InputEventActionType::MOUSE_RIGHT_BUTTON_UP</definition>
+        <argsstring></argsstring>
+        <name>MOUSE_RIGHT_BUTTON_UP</name>
+        <qualifiedname>aetherion.events.action_event.InputEventActionType.MOUSE_RIGHT_BUTTON_UP</qualifiedname>
+        <initializer>=  &quot;MOUSE_RIGHT_BUTTON_UP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/action_event.py" line="36" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.events.action_event.InputEventActionType</label>
+        <link refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>StrEnum</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.events.action_event.InputEventActionType</label>
+        <link refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>StrEnum</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/events/action_event.py" line="4" column="1" bodyfile="src/aetherion/events/action_event.py" bodystart="4" bodyend="37"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a1a9261836fa54452af2ad3def3e47e1c" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>JUMP</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1adb181fd446e9e0a991e0681a7dd2bf45" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>MOUSE_LEFT_BUTTON_DOWN</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a2378e835892433716565be894d5b9df0" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>MOUSE_LEFT_BUTTON_UP</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1ae327b1a927ab631517b1c01ccf13f080" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>MOUSE_RIGHT_BUTTON_DOWN</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1ada7a513c3cbc2dfce5030db5acbe4542" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>MOUSE_RIGHT_BUTTON_UP</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a587a23a063289fb95ed8d4029c1b877e" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>TAKE_ITEM</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1ac73ba59ff3555e75331766eb055a7d13" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>USE_ITEM_0</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a2e12267db959de763205efceffefe4ca" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>USE_ITEM_1</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a7814e633dbc69d8208218db04c769838" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>USE_ITEM_2</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a355e7f6f5691cb410487615b3f54bc50" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>USE_ITEM_3</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a8d00c971cdc0060cf2e34b8a7249374a" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>USE_ITEM_4</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a21ba1d2ff904dea39d84e03ec4439488" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>USE_ITEM_5</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a0fccb2625a799c6c4e2d6696c6fc6224" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>USE_ITEM_6</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a0759d2a8ff451386b2fcd4c718d5c02b" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>USE_ITEM_7</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1af9cd51e8b39c2ce15f6b5435f872def9" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>USE_ITEM_8</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a5651338cefe108cf35737d4dd45cc0b3" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>USE_ITEM_9</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a66a058d2838be8bdbb67ba5b22655dcf" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_DOWN</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a84bcb338e68a71e00af7840047376305" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_DOWN_JUMP</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a268a7d7c86cbe02a7fdc809f435a003c" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_LEFT</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a14d757af006de4d0aa119221ef3f95d3" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_LEFT_DOWN</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a9e65077ca5351e36042afc12c4cdc489" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_LEFT_JUMP</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a3d9f44d827b842ee02295d8cf0b58500" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_LEFT_UP</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a7cebd6b14f4a57a554a8852991f7e3a9" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_RIGHT</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a55f62664bcb215cc810ca1b761e3305c" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_RIGHT_DOWN</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a632e4ad3d465c0c0be868aa3e3081ac2" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_RIGHT_JUMP</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a5a92646eae2411a78e5b29a7c768f947" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_RIGHT_UP</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1aeab6f5bedd041bd48d28dbadba9b477c" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_UP</name></member>
+      <member refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType_1a217312d2bb55787db2a068e8d57ef334" prot="public" virt="non-virtual"><scope>aetherion::events::action_event::InputEventActionType</scope><name>WALK_UP_JUMP</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structNodePython" kind="struct" language="C++" prot="public">
+    <compoundname>NodePython</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structNodePython_1a9d71551ffeeb5b331d807aaa74cc19cd" prot="public" static="no" mutable="no">
+        <type>nb::object</type>
+        <definition>nb::object NodePython::instance</definition>
+        <argsstring></argsstring>
+        <name>instance</name>
+        <qualifiedname>NodePython::instance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneComponents.hpp" line="22" column="16" bodyfile="src/LowLevelRenderer/SceneComponents.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/LowLevelRenderer/SceneComponents.hpp" line="21" column="1" bodyfile="src/LowLevelRenderer/SceneComponents.hpp" bodystart="21" bodyend="23"/>
+    <listofallmembers>
+      <member refid="structNodePython_1a9d71551ffeeb5b331d807aaa74cc19cd" prot="public" virt="non-virtual"><scope>NodePython</scope><name>instance</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

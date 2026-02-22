@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1networking_1_1jwt" kind="namespace" language="Python">
+    <compoundname>aetherion::networking::jwt</compoundname>
+    <innerclass refid="classaetherion_1_1networking_1_1jwt_1_1JWTAuthenticator" prot="public">aetherion::networking::jwt::JWTAuthenticator</innerclass>
+    <innerclass refid="classaetherion_1_1networking_1_1jwt_1_1MockJWTProvider" prot="public">aetherion::networking::jwt::MockJWTProvider</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/networking/jwt.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

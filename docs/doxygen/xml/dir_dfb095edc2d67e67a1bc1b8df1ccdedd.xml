@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_dfb095edc2d67e67a1bc1b8df1ccdedd" kind="dir">
+    <compoundname>src/terrain</compoundname>
+    <innerfile refid="TerrainGridLock_8hpp">TerrainGridLock.hpp</innerfile>
+    <innerfile refid="TerrainGridRepository_8cpp">TerrainGridRepository.cpp</innerfile>
+    <innerfile refid="TerrainGridRepository_8hpp">TerrainGridRepository.hpp</innerfile>
+    <innerfile refid="TerrainStorage_8cpp">TerrainStorage.cpp</innerfile>
+    <innerfile refid="TerrainStorage_8hpp">TerrainStorage.hpp</innerfile>
+    <innerfile refid="VoxelCoord_8hpp">VoxelCoord.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/terrain/"/>
+  </compounddef>
+</doxygen>

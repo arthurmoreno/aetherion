@@ -1,0 +1,386 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1renderer_1_1text_1_1Text" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::renderer::text::Text</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1text_1_1Text_1addb1e919a85e93a13c8683b1e397216f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.text.Text::renderer</definition>
+        <argsstring></argsstring>
+        <name>renderer</name>
+        <qualifiedname>aetherion.renderer.text.Text.renderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="27" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1text_1_1Text_1a72bf7c84d7c05afc0a9aea200ab41a8d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.text.Text::font</definition>
+        <argsstring></argsstring>
+        <name>font</name>
+        <qualifiedname>aetherion.renderer.text.Text.font</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="28" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1text_1_1Text_1a14b5062af05b9a2ac42aab2ad9e02712" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.text.Text::color</definition>
+        <argsstring></argsstring>
+        <name>color</name>
+        <qualifiedname>aetherion.renderer.text.Text.color</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="29" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1text_1_1Text_1a4157245758b91ee1ac3dcea68ae90b5d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.text.Text::text</definition>
+        <argsstring></argsstring>
+        <name>text</name>
+        <qualifiedname>aetherion.renderer.text.Text.text</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="30" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1text_1_1Text_1a9cb6b27877667189f3b0b3371c08b040" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.text.Text::text_color</definition>
+        <argsstring></argsstring>
+        <name>text_color</name>
+        <qualifiedname>aetherion.renderer.text.Text.text_color</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="33" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1text_1_1Text_1a268979d8505a41873ca00f13e6830d78" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.text.Text::text_texture</definition>
+        <argsstring></argsstring>
+        <name>text_texture</name>
+        <qualifiedname>aetherion.renderer.text.Text.text_texture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="54" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1text_1_1Text_1ad96482072aba89e316f7461e73f0cb4d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.text.Text::text_width</definition>
+        <argsstring></argsstring>
+        <name>text_width</name>
+        <qualifiedname>aetherion.renderer.text.Text.text_width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="61" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1text_1_1Text_1acac92e22b1fede792343154010fcb35e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.text.Text::text_height</definition>
+        <argsstring></argsstring>
+        <name>text_height</name>
+        <qualifiedname>aetherion.renderer.text.Text.text_height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="62" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1text_1_1Text_1a4944f2635539cdf7cd5152bbc7b8289c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.text.Text::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>aetherion.renderer.text.Text.x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="73" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1text_1_1Text_1afa6a63734a3245ae217758e099ac6812" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.text.Text::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>aetherion.renderer.text.Text.y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="74" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="74" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1text_1_1Text_1ae82d5c22b22ab2b79227550763e99eef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.text.Text.__init__</definition>
+        <argsstring>(self, str text, renderer, bytes font_path=b&quot;assets/Toriko.ttf&quot;, int font_size=32, tuple[int, int, int] color=(255, 255, 255))</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.renderer.text.Text.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>renderer</type>
+          <defname>renderer</defname>
+        </param>
+        <param>
+          <type>bytes</type>
+          <declname>font_path</declname>
+          <defval>b&quot;assets/Toriko.ttf&quot;</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>font_size</declname>
+          <defval>32</defval>
+        </param>
+        <param>
+          <type>tuple</type>
+          <declname>color</declname>
+          <array>[int, int, int]</array>
+          <defval>(255, 255, 255)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initializes a Text object.
+
+Args:
+    text (str): The text to render.
+    renderer: The renderer object responsible for drawing.
+    font_path (bytes, optional): Path to the TTF font file. Defaults to b&quot;assets/Toriko.ttf&quot;.
+    font_size (int, optional): Size of the font. Defaults to 32.
+    color (tuple, optional): The color of the text in RGB format. Defaults to white.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="9" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="16" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1text_1_1Text_1a0320f21954d4ef5d3e903094c263f8fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.text.Text.set_position</definition>
+        <argsstring>(self, int x, int y)</argsstring>
+        <name>set_position</name>
+        <qualifiedname>aetherion.renderer.text.Text.set_position</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Sets the position where the text will be rendered.
+
+Args:
+    x (int): The x-coordinate for the text.
+    y (int): The y-coordinate for the text.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="65" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="65" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1text_1_1Text_1af4c84ccac61904efd8614ecf75aaf3d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.text.Text.set_text</definition>
+        <argsstring>(self, str new_text)</argsstring>
+        <name>set_text</name>
+        <qualifiedname>aetherion.renderer.text.Text.set_text</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>new_text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Updates the text content and re-renders the texture.
+
+Args:
+    new_text (str): The new text to display.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="76" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="76" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1text_1_1Text_1ab321363eab971d8a8adfde2b61fa743c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.text.Text.set_color</definition>
+        <argsstring>(self, tuple[int, int, int] color)</argsstring>
+        <name>set_color</name>
+        <qualifiedname>aetherion.renderer.text.Text.set_color</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>tuple</type>
+          <declname>color</declname>
+          <array>[int, int, int]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Sets the color of the text and re-renders the texture.
+
+Args:
+    color (tuple): The new color in RGB format.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="86" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="86" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1text_1_1Text_1a976c3cfb900e7e9216ed3627169d71db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.text.Text.render</definition>
+        <argsstring>(self, int x, int y)</argsstring>
+        <name>render</name>
+        <qualifiedname>aetherion.renderer.text.Text.render</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Renders the text at the specified position.
+
+Args:
+    x (int): The x-coordinate for the text.
+    y (int): The y-coordinate for the text.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="97" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="97" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1text_1_1Text_1aa8af218a0fab467568b4219635d99597" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.text.Text.destroy</definition>
+        <argsstring>(self)</argsstring>
+        <name>destroy</name>
+        <qualifiedname>aetherion.renderer.text.Text.destroy</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Cleans up the text texture and font resources.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="115" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="115" bodyend="125"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1text_1_1Text_1a6a3cea7199cc5ba04f2e1bdc79cfd33c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.text.Text._render_text</definition>
+        <argsstring>(self)</argsstring>
+        <name>_render_text</name>
+        <qualifiedname>aetherion.renderer.text.Text._render_text</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Renders the text to an SDL_Texture.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/text.py" line="43" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="43" bodyend="64"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/renderer/text.py" line="8" column="1" bodyfile="src/aetherion/renderer/text.py" bodystart="8" bodyend="125"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1ae82d5c22b22ab2b79227550763e99eef" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1a6a3cea7199cc5ba04f2e1bdc79cfd33c" prot="protected" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>_render_text</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1a14b5062af05b9a2ac42aab2ad9e02712" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>color</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1aa8af218a0fab467568b4219635d99597" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>destroy</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1a72bf7c84d7c05afc0a9aea200ab41a8d" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>font</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1a976c3cfb900e7e9216ed3627169d71db" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>render</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1addb1e919a85e93a13c8683b1e397216f" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>renderer</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1ab321363eab971d8a8adfde2b61fa743c" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>set_color</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1a0320f21954d4ef5d3e903094c263f8fc" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>set_position</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1af4c84ccac61904efd8614ecf75aaf3d1" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>set_text</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1a4157245758b91ee1ac3dcea68ae90b5d" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>text</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1a9cb6b27877667189f3b0b3371c08b040" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>text_color</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1acac92e22b1fede792343154010fcb35e" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>text_height</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1a268979d8505a41873ca00f13e6830d78" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>text_texture</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1ad96482072aba89e316f7461e73f0cb4d" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>text_width</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1a4944f2635539cdf7cd5152bbc7b8289c" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>x</name></member>
+      <member refid="classaetherion_1_1renderer_1_1text_1_1Text_1afa6a63734a3245ae217758e099ac6812" prot="public" virt="non-virtual"><scope>aetherion::renderer::text::Text</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

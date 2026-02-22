@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::input::action_processor::InputActionProcessor</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor_1a7351c4ed8d798f7c3409dbb0f1f08838" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.input.action_processor.InputActionProcessor.__init__</definition>
+        <argsstring>(self, PubSubTopicBroker[InputEventActionType] pubsub_broker, dict[InputEventActionType, InputEventActionHandler] command_specs)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.input.action_processor.InputActionProcessor.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1PubSubTopicBroker" kindref="compound">PubSubTopicBroker</ref></type>
+          <declname>pubsub_broker</declname>
+          <array>[InputEventActionType]</array>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>command_specs</declname>
+          <array>[InputEventActionType, InputEventActionHandler]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>:param input_queue: A queue containing commands (each is an InputEventActionType).
+:param command_specs: A dict that maps each InputEventActionType to a spec,
+The &quot;kwargs&quot; dict can be empty if no arguments are needed for a certain command.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/action_processor.py" line="11" column="1" bodyfile="src/aetherion/input/action_processor.py" bodystart="15" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor_1a4e5e95e9c90bf2002fd082d9ed0f4d83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.input.action_processor.InputActionProcessor.process_inputs</definition>
+        <argsstring>(self, SharedState shared_state)</argsstring>
+        <name>process_inputs</name>
+        <qualifiedname>aetherion.input.action_processor.InputActionProcessor.process_inputs</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1game__state_1_1state_1_1SharedState" kindref="compound">SharedState</ref></type>
+          <declname>shared_state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Dequeue and process all pending commands, looking up their
+handler and default kwargs in &apos;command_specs&apos;.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/action_processor.py" line="25" column="1" bodyfile="src/aetherion/input/action_processor.py" bodystart="25" bodyend="49"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/input/action_processor.py" line="9" column="1" bodyfile="src/aetherion/input/action_processor.py" bodystart="9" bodyend="49"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor_1a7351c4ed8d798f7c3409dbb0f1f08838" prot="public" virt="non-virtual"><scope>aetherion::input::action_processor::InputActionProcessor</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor_1a4e5e95e9c90bf2002fd082d9ed0f4d83" prot="public" virt="non-virtual"><scope>aetherion::input::action_processor::InputActionProcessor</scope><name>process_inputs</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

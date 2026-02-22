@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1logger_1_1__CppLoggerHandler" kind="class" language="Python" prot="protected">
+    <compoundname>aetherion::logger::_CppLoggerHandler</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">logging.Handler</basecompoundref>
+    <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1logger_1_1__CppLoggerHandler_1a3ba56659c5738452e59e059bb5b782ea" prot="protected" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.logger._CppLoggerHandler::_initialized</definition>
+        <argsstring></argsstring>
+        <name>_initialized</name>
+        <qualifiedname>aetherion.logger._CppLoggerHandler._initialized</qualifiedname>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="94" column="1" bodyfile="src/aetherion/logger.py" bodystart="94" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1logger_1_1__CppLoggerHandler_1a84322321f47cf2a4bdf9073628614f92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.logger._CppLoggerHandler.__init__</definition>
+        <argsstring>(self, str logger_name=&quot;aetherion&quot;, str log_file=&quot;aetherion.log&quot;)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.logger._CppLoggerHandler.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>logger_name</declname>
+          <defval>&quot;aetherion&quot;</defval>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>log_file</declname>
+          <defval>&quot;aetherion.log&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="96" column="1" bodyfile="src/aetherion/logger.py" bodystart="96" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1logger_1_1__CppLoggerHandler_1acf726e98103de71ca28398e3f4de6710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.logger._CppLoggerHandler.emit</definition>
+        <argsstring>(self, logging.LogRecord record)</argsstring>
+        <name>emit</name>
+        <qualifiedname>aetherion.logger._CppLoggerHandler.emit</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>logging.LogRecord</type>
+          <declname>record</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="122" column="1" bodyfile="src/aetherion/logger.py" bodystart="122" bodyend="147"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaetherion_1_1logger_1_1__CppLoggerHandler_1a15da1e3e4f3f18118cce5da905a34773" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.logger._CppLoggerHandler._ensure_cpp_logger</definition>
+        <argsstring>(self)</argsstring>
+        <name>_ensure_cpp_logger</name>
+        <qualifiedname>aetherion.logger._CppLoggerHandler._ensure_cpp_logger</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="101" column="1" bodyfile="src/aetherion/logger.py" bodystart="101" bodyend="120"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Forward stdlib logging records to aetherion.Logger (C++), if available.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.logger._CppLoggerHandler</label>
+        <link refid="classaetherion_1_1logger_1_1__CppLoggerHandler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>logging::Handler</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.logger._CppLoggerHandler</label>
+        <link refid="classaetherion_1_1logger_1_1__CppLoggerHandler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>logging::Handler</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/logger.py" line="91" column="1" bodyfile="src/aetherion/logger.py" bodystart="91" bodyend="147"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerHandler_1a84322321f47cf2a4bdf9073628614f92" prot="public" virt="non-virtual"><scope>aetherion::logger::_CppLoggerHandler</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerHandler_1a15da1e3e4f3f18118cce5da905a34773" prot="protected" virt="non-virtual"><scope>aetherion::logger::_CppLoggerHandler</scope><name>_ensure_cpp_logger</name></member>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerHandler_1a3ba56659c5738452e59e059bb5b782ea" prot="protected" virt="non-virtual"><scope>aetherion::logger::_CppLoggerHandler</scope><name>_initialized</name></member>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerHandler_1acf726e98103de71ca28398e3f4de6710" prot="public" virt="non-virtual"><scope>aetherion::logger::_CppLoggerHandler</scope><name>emit</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

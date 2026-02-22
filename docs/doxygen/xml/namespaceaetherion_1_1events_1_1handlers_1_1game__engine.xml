@@ -1,0 +1,358 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1events_1_1handlers_1_1game__engine" kind="namespace" language="Python">
+    <compoundname>aetherion::events::handlers::game_engine</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="game__engine_8py_1a1a0f1604cde6a3f40a82d21d1d4fc684" prot="public" static="no" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion::events::handlers::game_engine.gameengine_event_handlers</definition>
+        <argsstring></argsstring>
+        <name>gameengine_event_handlers</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.gameengine_event_handlers</qualifiedname>
+        <initializer>=  {
+    GameEventType.CHANGE_DESIRED_FPS: on_change_desired_fps,
+    GameEventType.WORLD_CONNECTED: on_world_connected,
+    GameEventType.CREATE_BEAST_REQUESTED: on_create_beast_requested,
+    GameEventType.BEAST_CONNECT_REQUESTED: on_connect_beast_requested,
+    GameEventType.WORLD_DISCONNECT_REQUESTED: on_world_disconnect_requested,
+    GameEventType.WORLD_PLAY_REQUESTED: on_world_play_requested,
+    GameEventType.WORLD_STOP_REQUESTED: on_world_stop_requested,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="155" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="game__engine_8py_1a76aa9bdef247372f42259ce0ffd18e5a" prot="public" static="no" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion::events::handlers::game_engine.audiomanager_event_handlers</definition>
+        <argsstring></argsstring>
+        <name>audiomanager_event_handlers</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.audiomanager_event_handlers</qualifiedname>
+        <initializer>=  {
+    GameEventType.AUDIO_SOUND_EFFECT_PLAY: on_audio_sound_effect_play,
+    GameEventType.AUDIO_MUSIC_PLAY: on_audio_music_play,
+    GameEventType.AUDIO_MUSIC_STOP: on_audio_music_stop,
+    GameEventType.AUDIO_MUSIC_PAUSE: on_audio_music_pause,
+    GameEventType.AUDIO_MUSIC_RESUME: on_audio_music_resume,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="166" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="166" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="game__engine_8py_1ad133c50174d4fb3e7ca9398c282559a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_world_connected</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_world_connected</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_world_connected</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="23" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="23" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1a394ab573e8136da05172a5a8c8da67c6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine._pause_world</definition>
+        <argsstring>(GameEngineProtocol game_engine, str world_key)</argsstring>
+        <name>_pause_world</name>
+        <qualifiedname>aetherion.events.handlers.game_engine._pause_world</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>world_key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Pause a world using the WorldManager.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="49" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="49" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1affed6361db91e9b65113e014e95e107e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_change_desired_fps</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_change_desired_fps</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_change_desired_fps</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="54" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="54" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1a4ca30e6a93997d8975c76936fcb0c2bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_world_disconnect_requested</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_world_disconnect_requested</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_world_disconnect_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="61" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="61" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1a090ade79130838538cf8ad9caede25d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_world_stop_requested</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_world_stop_requested</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_world_stop_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="73" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="73" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1aeb0aba7f5f7312095bc09e609e3f788c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_world_play_requested</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_world_play_requested</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_world_play_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="82" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="82" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1a077172855a8feef2288f66a2cfaac03c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_create_beast_requested</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_create_beast_requested</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_create_beast_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="91" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="91" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1ab08d7fe14b922cebf20ace1e0b45915c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_connect_beast_requested</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_connect_beast_requested</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_connect_beast_requested</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="95" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="95" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1afb0c5b1181d251821c3f2a859e6a575c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_audio_sound_effect_play</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_audio_sound_effect_play</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_audio_sound_effect_play</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="99" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="99" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1a5a8e8ee25897564470b037942991af06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_audio_music_play</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_audio_music_play</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_audio_music_play</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="117" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="117" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1a1bcc68a047728d306cd5d4310d3b1a5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_audio_music_stop</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_audio_music_stop</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_audio_music_stop</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="139" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="139" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1af282ef4d4df4619149f8e711efb39147" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_audio_music_pause</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_audio_music_pause</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_audio_music_pause</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="147" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="147" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="game__engine_8py_1a8021558a8b7760742a1d2e87873c9ec0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.events.handlers.game_engine.on_audio_music_resume</definition>
+        <argsstring>(GameEngineProtocol game_engine, GameEvent[GameEventType] event)</argsstring>
+        <name>on_audio_music_resume</name>
+        <qualifiedname>aetherion.events.handlers.game_engine.on_audio_music_resume</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref></type>
+          <declname>game_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref></type>
+          <declname>event</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/game_engine.py" line="151" column="1" bodyfile="src/aetherion/events/handlers/game_engine.py" bodystart="151" bodyend="154"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/events/handlers/game_engine.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

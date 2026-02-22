@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1world_1_1state__manager" kind="namespace" language="Python">
+    <compoundname>aetherion::world::state_manager</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="state__manager_8py_1a617aba491162126b96953e1054b1dc81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity" kindref="compound">BeastEntity</ref></type>
+        <definition> BeastEntity aetherion.world.state_manager.look_for_player</definition>
+        <argsstring>(world, player)</argsstring>
+        <name>look_for_player</name>
+        <qualifiedname>aetherion.world.state_manager.look_for_player</qualifiedname>
+        <param>
+          <type>world</type>
+          <defname>world</defname>
+        </param>
+        <param>
+          <type>player</type>
+          <defname>player</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/state_manager.py" line="7" column="1" bodyfile="src/aetherion/world/state_manager.py" bodystart="7" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="state__manager_8py_1a369f07b1e66f7ceebcfc262e213eff41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.state_manager.create_perceptions_linear</definition>
+        <argsstring>(entity_id, optional_queries, World world, BeastEntity player)</argsstring>
+        <name>create_perceptions_linear</name>
+        <qualifiedname>aetherion.world.state_manager.create_perceptions_linear</qualifiedname>
+        <param>
+          <type>entity_id</type>
+          <defname>entity_id</defname>
+        </param>
+        <param>
+          <type>optional_queries</type>
+          <defname>optional_queries</defname>
+        </param>
+        <param>
+          <type><ref refid="classWorld" kindref="compound">World</ref></type>
+          <declname>world</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity" kindref="compound">BeastEntity</ref></type>
+          <declname>player</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/state_manager.py" line="15" column="1" bodyfile="src/aetherion/world/state_manager.py" bodystart="15" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="state__manager_8py_1a09b5b9e6561e67b2448872307c85de7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.state_manager.create_perception_multithread</definition>
+        <argsstring>(World world, entities_ids_with_queries, entities_ids_connection_names)</argsstring>
+        <name>create_perception_multithread</name>
+        <qualifiedname>aetherion.world.state_manager.create_perception_multithread</qualifiedname>
+        <param>
+          <type><ref refid="classWorld" kindref="compound">World</ref></type>
+          <declname>world</declname>
+        </param>
+        <param>
+          <type>entities_ids_with_queries</type>
+          <defname>entities_ids_with_queries</defname>
+        </param>
+        <param>
+          <type>entities_ids_connection_names</type>
+          <defname>entities_ids_connection_names</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/state_manager.py" line="39" column="1" bodyfile="src/aetherion/world/state_manager.py" bodystart="39" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="state__manager_8py_1a3db66b7be7a7c13517d11ee1b3adfe3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.state_manager.update_world</definition>
+        <argsstring>(world_interface, BeastEntity player, optional_queries)</argsstring>
+        <name>update_world</name>
+        <qualifiedname>aetherion.world.state_manager.update_world</qualifiedname>
+        <param>
+          <type>world_interface</type>
+          <defname>world_interface</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity" kindref="compound">BeastEntity</ref></type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>optional_queries</type>
+          <defname>optional_queries</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>To update the world and get creatures perceptions.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/state_manager.py" line="71" column="1" bodyfile="src/aetherion/world/state_manager.py" bodystart="71" bodyend="83"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/world/state_manager.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>
