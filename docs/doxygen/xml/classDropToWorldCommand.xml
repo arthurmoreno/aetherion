@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classDropToWorldCommand" kind="class" language="C++" prot="public">
+    <compoundname>DropToWorldCommand</compoundname>
+    <basecompoundref refid="classCommand" prot="public" virt="non-virtual">Command</basecompoundref>
+    <includes refid="Command_8hpp" local="no">Command.hpp</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classDropToWorldCommand_1ae3f40892be2a0866be35f7259e3745df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DropToWorldCommand::DropToWorldCommand</definition>
+        <argsstring>(int itemIndex, std::string srcWindow, float x, float y)</argsstring>
+        <name>DropToWorldCommand</name>
+        <qualifiedname>DropToWorldCommand::DropToWorldCommand</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>itemIndex</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>srcWindow</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="203" column="5" bodyfile="src/components/core/Command.hpp" bodystart="203" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="classDropToWorldCommand_1aed0fb9426f9d2f8a19d8d37a17981252" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int DropToWorldCommand::getItemIndex</definition>
+        <argsstring>() const</argsstring>
+        <name>getItemIndex</name>
+        <qualifiedname>DropToWorldCommand::getItemIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="211" column="10" bodyfile="src/components/core/Command.hpp" bodystart="211" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="classDropToWorldCommand_1aca19ec9b2b80576b452f3bc4c9a2aed3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string DropToWorldCommand::getSrcWindow</definition>
+        <argsstring>() const</argsstring>
+        <name>getSrcWindow</name>
+        <qualifiedname>DropToWorldCommand::getSrcWindow</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="212" column="18" bodyfile="src/components/core/Command.hpp" bodystart="212" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="classDropToWorldCommand_1a27bf23ea5307bcf293996322d18ed92d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float DropToWorldCommand::getWorldX</definition>
+        <argsstring>() const</argsstring>
+        <name>getWorldX</name>
+        <qualifiedname>DropToWorldCommand::getWorldX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="213" column="12" bodyfile="src/components/core/Command.hpp" bodystart="213" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="classDropToWorldCommand_1a757da628abb1ea952a8ad9e1bd72f344" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float DropToWorldCommand::getWorldY</definition>
+        <argsstring>() const</argsstring>
+        <name>getWorldY</name>
+        <qualifiedname>DropToWorldCommand::getWorldY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="214" column="12" bodyfile="src/components/core/Command.hpp" bodystart="214" bodyend="214"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="classCommand" kindref="compound">Command</ref> for dropping items to world. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Command</label>
+        <link refid="classCommand"/>
+      </node>
+      <node id="1">
+        <label>DropToWorldCommand</label>
+        <link refid="classDropToWorldCommand"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Command</label>
+        <link refid="classCommand"/>
+      </node>
+      <node id="1">
+        <label>DropToWorldCommand</label>
+        <link refid="classDropToWorldCommand"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/components/core/Command.hpp" line="201" column="1" bodyfile="src/components/core/Command.hpp" bodystart="201" bodyend="215"/>
+    <listofallmembers>
+      <member refid="classCommand_1af3ab8e53caa0dd5474d197a2987de61a" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>clearParams</name></member>
+      <member refid="classCommand_1acdb72f0ee5f0764e60ad9082b959378e" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>Command</name></member>
+      <member refid="classCommand_1a18df2d81039392daeb0b78c346a70537" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>Command</name></member>
+      <member refid="classDropToWorldCommand_1ae3f40892be2a0866be35f7259e3745df" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>DropToWorldCommand</name></member>
+      <member refid="classDropToWorldCommand_1aed0fb9426f9d2f8a19d8d37a17981252" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>getItemIndex</name></member>
+      <member refid="classCommand_1a5d7bcd96898d4d97bd4004334b1f6701" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>getParam</name></member>
+      <member refid="classCommand_1a2792a08722070da3190ef66afa896d2f" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>getParamOr</name></member>
+      <member refid="classCommand_1ac50b1a39dc2cbde56d52943642119f5b" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>getParams</name></member>
+      <member refid="classCommand_1a25d005a766c0ee7fd04ca0f6bb85b0e9" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>getParams</name></member>
+      <member refid="classDropToWorldCommand_1aca19ec9b2b80576b452f3bc4c9a2aed3" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>getSrcWindow</name></member>
+      <member refid="classCommand_1a4d6ff191612150537c80be35c3723ede" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>getType</name></member>
+      <member refid="classDropToWorldCommand_1a27bf23ea5307bcf293996322d18ed92d" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>getWorldX</name></member>
+      <member refid="classDropToWorldCommand_1a757da628abb1ea952a8ad9e1bd72f344" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>getWorldY</name></member>
+      <member refid="classCommand_1a7c1e80c1ac7db650ca299cd65fc9aed4" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>hasParam</name></member>
+      <member refid="classCommand_1a215d61cf963288837686682582e3e1d4" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>operator[]</name></member>
+      <member refid="classCommand_1a659f475ce80308da5364343ff7d37530" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>operator[]</name></member>
+      <member refid="classCommand_1ae75fad398a4ca611a0efed0391af5ea5" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>setParam</name></member>
+      <member refid="classCommand_1a2b9ab954dd0c2a74a3de0d639d809992" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>setType</name></member>
+      <member refid="classCommand_1aef403b3bf130d7dd2821fe4318d48256" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>toString</name></member>
+      <member refid="classCommand_1a83fcdc0142087736a7c3d29e60a3f3d8" prot="public" virt="non-virtual"><scope>DropToWorldCommand</scope><name>validate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,281 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::networking::websocket_server::AuthenticatedWebSocketServer</compoundname>
+    <basecompoundref refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer" prot="public" virt="non-virtual">aetherion.networking.websocket_server.WebSocketGameServer</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1aaa69bf020f322b258fb5dd504df9da29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.AuthenticatedWebSocketServer.__init__</definition>
+        <argsstring>(self, WorldInterface world_interface, str host=&quot;localhost&quot;, int port=8765, str jwt_secret=&quot;dev-secret-key&quot;, int fps=FPS)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.networking.websocket_server.AuthenticatedWebSocketServer.__init__</qualifiedname>
+        <reimplements refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a7d65b045f338da6e1cb2ef19a1f0e559">__init__</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref></type>
+          <declname>world_interface</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>host</declname>
+          <defval>&quot;localhost&quot;</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>port</declname>
+          <defval>8765</defval>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>jwt_secret</declname>
+          <defval>&quot;dev-secret-key&quot;</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fps</declname>
+          <defval>FPS</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="402" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="409" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1a84210c030f08eae24160ce2cd0b975be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.AuthenticatedWebSocketServer.send_error_response</definition>
+        <argsstring>(self, Any websocket, str error_message, str error_type=&quot;authentication_error&quot;)</argsstring>
+        <name>send_error_response</name>
+        <qualifiedname>aetherion.networking.websocket_server.AuthenticatedWebSocketServer.send_error_response</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>websocket</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>error_message</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>error_type</declname>
+          <defval>&quot;authentication_error&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="416" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="418" bodyend="422"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1a3f0044fea9458cf2bbad2aec7e37989b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, str|int|float]|None</type>
+        <definition> dict[str, str | int | float] | None aetherion.networking.websocket_server.AuthenticatedWebSocketServer.authenticate_request</definition>
+        <argsstring>(self, dict[str, Any] request_message, Any websocket)</argsstring>
+        <name>authenticate_request</name>
+        <qualifiedname>aetherion.networking.websocket_server.AuthenticatedWebSocketServer.authenticate_request</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>request_message</declname>
+          <array>[str, Any]</array>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="423" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="425" bodyend="438"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1aefefe24c302f98a9665b70319e60f8eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.networking.websocket_server.AuthenticatedWebSocketServer.check_action_authorization</definition>
+        <argsstring>(self, str action_name, dict[str, str|int|float] user_claims, Any websocket)</argsstring>
+        <name>check_action_authorization</name>
+        <qualifiedname>aetherion.networking.websocket_server.AuthenticatedWebSocketServer.check_action_authorization</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>action_name</declname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>user_claims</declname>
+          <array>[str, str|int|float]</array>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="439" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="441" bodyend="452"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1ae7ae712551105e383f9ba4afc477f92c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.AuthenticatedWebSocketServer.process_authenticated_message</definition>
+        <argsstring>(self, dict[str, Any] request_message, Any websocket)</argsstring>
+        <name>process_authenticated_message</name>
+        <qualifiedname>aetherion.networking.websocket_server.AuthenticatedWebSocketServer.process_authenticated_message</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>request_message</declname>
+          <array>[str, Any]</array>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="453" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="453" bodyend="472"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1a6103ffc460ac89e77154883d2bbd20c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.AuthenticatedWebSocketServer.process_message</definition>
+        <argsstring>(self, dict[str, Any] request_message, Any websocket)</argsstring>
+        <name>process_message</name>
+        <qualifiedname>aetherion.networking.websocket_server.AuthenticatedWebSocketServer.process_message</qualifiedname>
+        <reimplements refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a3de599cd1718bf9d1b422b5a179ad774">process_message</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>request_message</declname>
+          <array>[str, Any]</array>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="473" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="473" bodyend="475"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1af3f57989afbef3ff351bdd07fc2567f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.AuthenticatedWebSocketServer.remove_client</definition>
+        <argsstring>(self, Any websocket)</argsstring>
+        <name>remove_client</name>
+        <qualifiedname>aetherion.networking.websocket_server.AuthenticatedWebSocketServer.remove_client</qualifiedname>
+        <reimplements refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1ac247c584db067ff83eea2b4053e3115b">remove_client</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="476" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="476" bodyend="479"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1a0033b32155fc0abc663205d263646b3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, str|int|float]|None</type>
+        <definition> dict[str, str | int | float] | None aetherion.networking.websocket_server.AuthenticatedWebSocketServer.get_authenticated_user</definition>
+        <argsstring>(self, Any websocket)</argsstring>
+        <name>get_authenticated_user</name>
+        <qualifiedname>aetherion.networking.websocket_server.AuthenticatedWebSocketServer.get_authenticated_user</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="480" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="480" bodyend="482"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Extended WebSocket server with JWT authentication.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.networking.websocket_server.AuthenticatedWebSocketServer</label>
+        <link refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.networking.websocket_server.WebSocketGameServer</label>
+        <link refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.networking.websocket_server.AuthenticatedWebSocketServer</label>
+        <link refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.networking.websocket_server.WebSocketGameServer</label>
+        <link refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/networking/websocket_server.py" line="399" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="399" bodyend="482"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1aaa69bf020f322b258fb5dd504df9da29" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::AuthenticatedWebSocketServer</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1a3f0044fea9458cf2bbad2aec7e37989b" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::AuthenticatedWebSocketServer</scope><name>authenticate_request</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1aefefe24c302f98a9665b70319e60f8eb" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::AuthenticatedWebSocketServer</scope><name>check_action_authorization</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1a0033b32155fc0abc663205d263646b3c" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::AuthenticatedWebSocketServer</scope><name>get_authenticated_user</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1ae7ae712551105e383f9ba4afc477f92c" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::AuthenticatedWebSocketServer</scope><name>process_authenticated_message</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1a6103ffc460ac89e77154883d2bbd20c5" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::AuthenticatedWebSocketServer</scope><name>process_message</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1af3f57989afbef3ff351bdd07fc2567f9" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::AuthenticatedWebSocketServer</scope><name>remove_client</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1a84210c030f08eae24160ce2cd0b975be" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::AuthenticatedWebSocketServer</scope><name>send_error_response</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="types_8py" kind="file" language="Python">
+    <compoundname>types.py</compoundname>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events">aetherion::events</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events_1_1handlers">aetherion::events::handlers</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events_1_1handlers_1_1types">aetherion::events::handlers::types</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>__future__<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>annotations</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Callable,<sp/>TypeAlias</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1audio_1_1models" kindref="compound">aetherion.audio.models</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>AudioManagerProtocol</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1engine_1_1models" kindref="compound">aetherion.engine.models</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>GameEngineProtocol</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1events" kindref="compound">aetherion.events</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>GameEvent,<sp/>GameEventType</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1world_1_1models" kindref="compound">aetherion.world.models</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>WorldManagerProtocol</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal">GameEngineEventHandler:<sp/>TypeAlias<sp/>=<sp/>Callable[[GameEngineProtocol,<sp/>GameEvent[GameEventType]],<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">GameEngineEventHandlersMap:<sp/>TypeAlias<sp/>=<sp/>dict[GameEventType,<sp/>GameEngineEventHandler<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">AudioManagerEventHandler:<sp/>TypeAlias<sp/>=<sp/>Callable[[AudioManagerProtocol,<sp/>GameEvent[GameEventType]],<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">AudioManagerEventHandlersMap:<sp/>TypeAlias<sp/>=<sp/>dict[GameEventType,<sp/>AudioManagerEventHandler<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">WorldEventHandler:<sp/>TypeAlias<sp/>=<sp/>Callable[[WorldManagerProtocol,<sp/>GameEvent[GameEventType]],<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">WorldEventHandlersMap:<sp/>TypeAlias<sp/>=<sp/>dict[GameEventType,<sp/>WorldEventHandler<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">__all__<sp/>=<sp/>[</highlight><highlight class="stringliteral">&quot;WorldEventHandler&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;WorldEventHandlersMap&quot;</highlight><highlight class="normal">]</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/events/handlers/types.py"/>
+  </compounddef>
+</doxygen>

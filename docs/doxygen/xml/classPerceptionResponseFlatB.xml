@@ -15,7 +15,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PerceptionResponse.hpp" line="92" column="42" bodyfile="src/PerceptionResponse.hpp" bodystart="92" bodyend="-1"/>
+        <location file="src/PerceptionResponse.hpp" line="96" column="42" bodyfile="src/PerceptionResponse.hpp" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPerceptionResponseFlatB_1a1d38b1eeb1a1a7d38986b849bc270ae5" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; char &gt;</type>
+        <definition>std::vector&lt;char&gt; PerceptionResponseFlatB::serialized_buffer</definition>
+        <argsstring></argsstring>
+        <name>serialized_buffer</name>
+        <qualifiedname>PerceptionResponseFlatB::serialized_buffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/PerceptionResponse.hpp" line="98" column="17" bodyfile="src/PerceptionResponse.hpp" bodystart="98" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -35,7 +49,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PerceptionResponse.hpp" line="19" column="5" bodyfile="src/PerceptionResponse.hpp" bodystart="19" bodyend="20"/>
+        <location file="src/PerceptionResponse.hpp" line="20" column="5" bodyfile="src/PerceptionResponse.hpp" bodystart="20" bodyend="21"/>
       </memberdef>
       <memberdef kind="function" id="classPerceptionResponseFlatB_1a492e77d8ab2c997e8597ef499f7b9c6d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -53,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PerceptionResponse.hpp" line="23" column="5" bodyfile="src/PerceptionResponse.hpp" bodystart="23" bodyend="34"/>
+        <location file="src/PerceptionResponse.hpp" line="24" column="5" bodyfile="src/PerceptionResponse.hpp" bodystart="24" bodyend="38"/>
       </memberdef>
       <memberdef kind="function" id="classPerceptionResponseFlatB_1a7f787a19cf7b352dc394ad051d7b67b9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classWorldViewFlatB" kindref="compound">WorldViewFlatB</ref></type>
@@ -67,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PerceptionResponse.hpp" line="37" column="20" bodyfile="src/PerceptionResponse.hpp" bodystart="37" bodyend="40"/>
+        <location file="src/PerceptionResponse.hpp" line="41" column="20" bodyfile="src/PerceptionResponse.hpp" bodystart="41" bodyend="44"/>
       </memberdef>
       <memberdef kind="function" id="classPerceptionResponseFlatB_1a819662def2e5a1e55fe82090f01e29fb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>nb::object</type>
@@ -81,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PerceptionResponse.hpp" line="43" column="16" bodyfile="src/PerceptionResponse.hpp" bodystart="43" bodyend="57"/>
+        <location file="src/PerceptionResponse.hpp" line="47" column="16" bodyfile="src/PerceptionResponse.hpp" bodystart="47" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="classPerceptionResponseFlatB_1ac036811f9e37599829277f9eac032e09" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>nb::object</type>
@@ -99,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PerceptionResponse.hpp" line="60" column="16" bodyfile="src/PerceptionResponse.hpp" bodystart="60" bodyend="69"/>
+        <location file="src/PerceptionResponse.hpp" line="64" column="16" bodyfile="src/PerceptionResponse.hpp" bodystart="64" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="classPerceptionResponseFlatB_1a29df88b502c0114f85bfbe31ed7d92c3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>nb::object</type>
@@ -117,7 +131,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PerceptionResponse.hpp" line="72" column="16" bodyfile="src/PerceptionResponse.hpp" bodystart="72" bodyend="79"/>
+        <location file="src/PerceptionResponse.hpp" line="76" column="16" bodyfile="src/PerceptionResponse.hpp" bodystart="76" bodyend="83"/>
       </memberdef>
       <memberdef kind="function" id="classPerceptionResponseFlatB_1ac6ba9d71ad7bb38bd816063e3fdfdc0e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>uint64_t</type>
@@ -131,14 +145,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PerceptionResponse.hpp" line="81" column="14" bodyfile="src/PerceptionResponse.hpp" bodystart="81" bodyend="89"/>
+        <location file="src/PerceptionResponse.hpp" line="85" column="14" bodyfile="src/PerceptionResponse.hpp" bodystart="85" bodyend="93"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/PerceptionResponse.hpp" line="16" column="1" bodyfile="src/PerceptionResponse.hpp" bodystart="16" bodyend="93"/>
+    <location file="src/PerceptionResponse.hpp" line="17" column="1" bodyfile="src/PerceptionResponse.hpp" bodystart="17" bodyend="99"/>
     <listofallmembers>
       <member refid="classPerceptionResponseFlatB_1a5ffe285bf4f66f93b3c4ab1ff3241f87" prot="private" virt="non-virtual"><scope>PerceptionResponseFlatB</scope><name>fbPerceptionResponse</name></member>
       <member refid="classPerceptionResponseFlatB_1a819662def2e5a1e55fe82090f01e29fb" prot="public" virt="non-virtual"><scope>PerceptionResponseFlatB</scope><name>getEntity</name></member>
@@ -148,6 +162,7 @@
       <member refid="classPerceptionResponseFlatB_1a7f787a19cf7b352dc394ad051d7b67b9" prot="public" virt="non-virtual"><scope>PerceptionResponseFlatB</scope><name>getWorldView</name></member>
       <member refid="classPerceptionResponseFlatB_1af0e6b56cd6facad26899c93b48e74ede" prot="public" virt="non-virtual"><scope>PerceptionResponseFlatB</scope><name>PerceptionResponseFlatB</name></member>
       <member refid="classPerceptionResponseFlatB_1a492e77d8ab2c997e8597ef499f7b9c6d" prot="public" virt="non-virtual"><scope>PerceptionResponseFlatB</scope><name>PerceptionResponseFlatB</name></member>
+      <member refid="classPerceptionResponseFlatB_1a1d38b1eeb1a1a7d38986b849bc270ae5" prot="private" virt="non-virtual"><scope>PerceptionResponseFlatB</scope><name>serialized_buffer</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

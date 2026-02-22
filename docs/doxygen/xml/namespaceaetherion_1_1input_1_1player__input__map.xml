@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1input_1_1player__input__map" kind="namespace" language="Python">
+    <compoundname>aetherion::input::player_input_map</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="player__input__map_8py_1a828c7a3a02940f8b9df88256bbf36415" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[<ref refid="classaetherion_1_1events_1_1action__event_1_1InputEventActionType" kindref="compound">InputEventActionType</ref>, <ref refid="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler" kindref="compound">InputEventActionHandler</ref>]</type>
+        <definition> dict[InputEventActionType, InputEventActionHandler] aetherion.input.player_input_map.create_player_input_map</definition>
+        <argsstring>(BeastConnection player_connection)</argsstring>
+        <name>create_player_input_map</name>
+        <qualifiedname>aetherion.input.player_input_map.create_player_input_map</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection" kindref="compound">BeastConnection</ref></type>
+          <declname>player_connection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/player_input_map.py" line="6" column="1" bodyfile="src/aetherion/input/player_input_map.py" bodystart="6" bodyend="85"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/input/player_input_map.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

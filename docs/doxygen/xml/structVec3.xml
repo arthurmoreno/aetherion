@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structVec3" kind="struct" language="C++" prot="public">
+    <compoundname>Vec3</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structVec3_1a2814580e9b9372738c0a61197ea46b51" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Vec3::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>Vec3::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="5" column="11" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVec3_1abc1d241232cb04aa98217a942402ae68" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Vec3::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>Vec3::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="5" column="13" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVec3_1a64f3f00cd2dd9076999eeb2f05210388" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Vec3::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>Vec3::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="5" column="15" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="5" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structVec3_1aae7a1ffaa1108a30c281da216d1cd312" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Vec3::Vec3</definition>
+        <argsstring>()</argsstring>
+        <name>Vec3</name>
+        <qualifiedname>Vec3::Vec3</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="6" column="5" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="6" bodyend="6"/>
+      </memberdef>
+      <memberdef kind="function" id="structVec3_1a842ccdcdb2b4c7ca7cef20e6e786a231" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Vec3::Vec3</definition>
+        <argsstring>(float x, float y, float z)</argsstring>
+        <name>Vec3</name>
+        <qualifiedname>Vec3::Vec3</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="7" column="5" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="7" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="function" id="structVec3_1ab0d4a419f44b59597674e0271efccdbe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structVec3" kindref="compound">Vec3</ref></type>
+        <definition>Vec3 Vec3::operator+</definition>
+        <argsstring>(const Vec3 &amp;other) const</argsstring>
+        <name>operator+</name>
+        <qualifiedname>Vec3::operator+</qualifiedname>
+        <param>
+          <type>const <ref refid="structVec3" kindref="compound">Vec3</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="8" column="10" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="8" bodyend="8"/>
+      </memberdef>
+      <memberdef kind="function" id="structVec3_1a6f462663ff836de8638c27185eb41b98" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structVec3" kindref="compound">Vec3</ref></type>
+        <definition>Vec3 Vec3::operator-</definition>
+        <argsstring>(const Vec3 &amp;other) const</argsstring>
+        <name>operator-</name>
+        <qualifiedname>Vec3::operator-</qualifiedname>
+        <param>
+          <type>const <ref refid="structVec3" kindref="compound">Vec3</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="9" column="10" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="9" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="structVec3_1aeeee9d24b297e8bc535ce972c3143cb6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structVec3" kindref="compound">Vec3</ref></type>
+        <definition>Vec3 Vec3::operator*</definition>
+        <argsstring>(float scalar) const</argsstring>
+        <name>operator*</name>
+        <qualifiedname>Vec3::operator*</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>scalar</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="10" column="10" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="10" bodyend="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="4" column="1" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="4" bodyend="11"/>
+    <listofallmembers>
+      <member refid="structVec3_1aeeee9d24b297e8bc535ce972c3143cb6" prot="public" virt="non-virtual"><scope>Vec3</scope><name>operator*</name></member>
+      <member refid="structVec3_1ab0d4a419f44b59597674e0271efccdbe" prot="public" virt="non-virtual"><scope>Vec3</scope><name>operator+</name></member>
+      <member refid="structVec3_1a6f462663ff836de8638c27185eb41b98" prot="public" virt="non-virtual"><scope>Vec3</scope><name>operator-</name></member>
+      <member refid="structVec3_1aae7a1ffaa1108a30c281da216d1cd312" prot="public" virt="non-virtual"><scope>Vec3</scope><name>Vec3</name></member>
+      <member refid="structVec3_1a842ccdcdb2b4c7ca7cef20e6e786a231" prot="public" virt="non-virtual"><scope>Vec3</scope><name>Vec3</name></member>
+      <member refid="structVec3_1a2814580e9b9372738c0a61197ea46b51" prot="public" virt="non-virtual"><scope>Vec3</scope><name>x</name></member>
+      <member refid="structVec3_1abc1d241232cb04aa98217a942402ae68" prot="public" virt="non-virtual"><scope>Vec3</scope><name>y</name></member>
+      <member refid="structVec3_1a64f3f00cd2dd9076999eeb2f05210388" prot="public" virt="non-virtual"><scope>Vec3</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

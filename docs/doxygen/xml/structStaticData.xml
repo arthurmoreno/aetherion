@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structStaticData" kind="struct" language="C++" prot="public">
+    <compoundname>StaticData</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structStaticData_1a4d3f37d2aa8753b9b341001394a5cbf2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StaticData::mainType</definition>
+        <argsstring></argsstring>
+        <name>mainType</name>
+        <qualifiedname>StaticData::mainType</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="31" column="9" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1a17c9b63613e46011ca02baac2f497d64" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StaticData::subType0</definition>
+        <argsstring></argsstring>
+        <name>subType0</name>
+        <qualifiedname>StaticData::subType0</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="32" column="9" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="32" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1ab9cbc46d67fe4daa66636fdbd1e0315a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StaticData::subType1</definition>
+        <argsstring></argsstring>
+        <name>subType1</name>
+        <qualifiedname>StaticData::subType1</qualifiedname>
+        <initializer>{-1}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="33" column="9" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="33" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1af53ee3bf1b13d675a7200a3b9e95706b" prot="public" static="no" mutable="no">
+        <type><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref></type>
+        <definition>MatterContainer StaticData::matter</definition>
+        <argsstring></argsstring>
+        <name>matter</name>
+        <qualifiedname>StaticData::matter</qualifiedname>
+        <initializer>{0, 0, 0, 0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="34" column="21" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1a4558f2c26ac619121c610d0717efd706" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StaticData::mass</definition>
+        <argsstring></argsstring>
+        <name>mass</name>
+        <qualifiedname>StaticData::mass</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="35" column="9" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1af63b0547f97d18cf37f378983991c100" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StaticData::maxSpeed</definition>
+        <argsstring></argsstring>
+        <name>maxSpeed</name>
+        <qualifiedname>StaticData::maxSpeed</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="36" column="9" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1a20671276f1c62e7768260e968a1dd9c4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StaticData::minSpeed</definition>
+        <argsstring></argsstring>
+        <name>minSpeed</name>
+        <qualifiedname>StaticData::minSpeed</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="37" column="9" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1a17915e11dbc7bc5b24cf7d089c2cf174" prot="public" static="no" mutable="no">
+        <type>DirectionEnum</type>
+        <definition>DirectionEnum StaticData::direction</definition>
+        <argsstring></argsstring>
+        <name>direction</name>
+        <qualifiedname>StaticData::direction</qualifiedname>
+        <initializer>{DirectionEnum::UP}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="38" column="19" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1aad6b9bfacb54ad7953f77849d30e7eeb" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool StaticData::canStackEntities</definition>
+        <argsstring></argsstring>
+        <name>canStackEntities</name>
+        <qualifiedname>StaticData::canStackEntities</qualifiedname>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="39" column="10" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1ad10148f2ccc58d4fd03bd7ab48cd7395" prot="public" static="no" mutable="no">
+        <type>MatterState</type>
+        <definition>MatterState StaticData::matterState</definition>
+        <argsstring></argsstring>
+        <name>matterState</name>
+        <qualifiedname>StaticData::matterState</qualifiedname>
+        <initializer>{MatterState::SOLID}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="40" column="17" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1a0735e3abd7aedc1da55e2df39ed72ea6" prot="public" static="no" mutable="no">
+        <type><ref refid="structGradientVector" kindref="compound">GradientVector</ref></type>
+        <definition>GradientVector StaticData::gradient</definition>
+        <argsstring></argsstring>
+        <name>gradient</name>
+        <qualifiedname>StaticData::gradient</qualifiedname>
+        <initializer>{0.f, 0.f, 0.f}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="41" column="20" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="variable" id="structStaticData_1aaa9a0d0385b13ba6dc488709505b3642" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StaticData::maxLoadCapacity</definition>
+        <argsstring></argsstring>
+        <name>maxLoadCapacity</name>
+        <qualifiedname>StaticData::maxLoadCapacity</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="42" column="9" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="42" bodyend="42"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>GradientVector</label>
+        <link refid="structGradientVector"/>
+      </node>
+      <node id="2">
+        <label>MatterContainer</label>
+        <link refid="structMatterContainer"/>
+      </node>
+      <node id="1">
+        <label>StaticData</label>
+        <link refid="structStaticData"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>matter</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>gradient</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/terrain/TerrainGridRepository.hpp" line="30" column="1" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="30" bodyend="43"/>
+    <listofallmembers>
+      <member refid="structStaticData_1aad6b9bfacb54ad7953f77849d30e7eeb" prot="public" virt="non-virtual"><scope>StaticData</scope><name>canStackEntities</name></member>
+      <member refid="structStaticData_1a17915e11dbc7bc5b24cf7d089c2cf174" prot="public" virt="non-virtual"><scope>StaticData</scope><name>direction</name></member>
+      <member refid="structStaticData_1a0735e3abd7aedc1da55e2df39ed72ea6" prot="public" virt="non-virtual"><scope>StaticData</scope><name>gradient</name></member>
+      <member refid="structStaticData_1a4d3f37d2aa8753b9b341001394a5cbf2" prot="public" virt="non-virtual"><scope>StaticData</scope><name>mainType</name></member>
+      <member refid="structStaticData_1a4558f2c26ac619121c610d0717efd706" prot="public" virt="non-virtual"><scope>StaticData</scope><name>mass</name></member>
+      <member refid="structStaticData_1af53ee3bf1b13d675a7200a3b9e95706b" prot="public" virt="non-virtual"><scope>StaticData</scope><name>matter</name></member>
+      <member refid="structStaticData_1ad10148f2ccc58d4fd03bd7ab48cd7395" prot="public" virt="non-virtual"><scope>StaticData</scope><name>matterState</name></member>
+      <member refid="structStaticData_1aaa9a0d0385b13ba6dc488709505b3642" prot="public" virt="non-virtual"><scope>StaticData</scope><name>maxLoadCapacity</name></member>
+      <member refid="structStaticData_1af63b0547f97d18cf37f378983991c100" prot="public" virt="non-virtual"><scope>StaticData</scope><name>maxSpeed</name></member>
+      <member refid="structStaticData_1a20671276f1c62e7768260e968a1dd9c4" prot="public" virt="non-virtual"><scope>StaticData</scope><name>minSpeed</name></member>
+      <member refid="structStaticData_1a17c9b63613e46011ca02baac2f497d64" prot="public" virt="non-virtual"><scope>StaticData</scope><name>subType0</name></member>
+      <member refid="structStaticData_1ab9cbc46d67fe4daa66636fdbd1e0315a" prot="public" virt="non-virtual"><scope>StaticData</scope><name>subType1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

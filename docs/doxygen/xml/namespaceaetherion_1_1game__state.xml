@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1game__state" kind="namespace" language="Python">
+    <compoundname>aetherion::game_state</compoundname>
+    <innernamespace refid="namespaceaetherion_1_1game__state_1_1connections">aetherion::game_state::connections</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1game__state_1_1state">aetherion::game_state::state</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1game__state_1_1world__interface">aetherion::game_state::world_interface</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/game_state/connections.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

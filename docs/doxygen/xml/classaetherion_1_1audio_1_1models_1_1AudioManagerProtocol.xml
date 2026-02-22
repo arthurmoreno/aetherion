@@ -1,0 +1,452 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::audio::models::AudioManagerProtocol</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Protocol</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1ab08a63e5e1bc65b8dc66ce7c66f0da2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.load_music</definition>
+        <argsstring>(self, str|bytes file_path)</argsstring>
+        <name>load_music</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.load_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|bytes</type>
+          <declname>file_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="12" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="12" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a6f072ea911e6cc6dcaa53b393f4a8069" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.play_music</definition>
+        <argsstring>(self, int loops=-1)</argsstring>
+        <name>play_music</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.play_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>loops</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="13" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="13" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1ac83e11a0935de692210bb06a5690d530" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.pause_music</definition>
+        <argsstring>(self)</argsstring>
+        <name>pause_music</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.pause_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="14" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="14" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a137a996c65e11d24e4b7b57ae1e17c85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.resume_music</definition>
+        <argsstring>(self)</argsstring>
+        <name>resume_music</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.resume_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="15" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="15" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1afc27a91b772edcb49de72978e7cfe03f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.stop_music</definition>
+        <argsstring>(self)</argsstring>
+        <name>stop_music</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.stop_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="16" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a0648f75ce439f45852774febec3aa29a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.fade_in_music</definition>
+        <argsstring>(self, int loops=-1, int fade_ms=1000)</argsstring>
+        <name>fade_in_music</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.fade_in_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>loops</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fade_ms</declname>
+          <defval>1000</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="17" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a78bf4be7bcf4377b41b36fd78d34cfe4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.fade_out_music</definition>
+        <argsstring>(self, int fade_ms=1000)</argsstring>
+        <name>fade_out_music</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.fade_out_music</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fade_ms</declname>
+          <defval>1000</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="18" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1af5eba5d78a8fe8cb4e543a29baf8a242" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.set_music_volume</definition>
+        <argsstring>(self, int volume)</argsstring>
+        <name>set_music_volume</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.set_music_volume</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>volume</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="19" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="19" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1aedeb098609f032fd531d96d3a65b147b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.audio.models.AudioManagerProtocol.get_music_volume</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_music_volume</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.get_music_volume</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="20" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1ad1acc01b83da885dcc7fe52599c8592b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.audio.models.AudioManagerProtocol.is_music_playing</definition>
+        <argsstring>(self)</argsstring>
+        <name>is_music_playing</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.is_music_playing</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="21" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a8fd66a7ff35670df131e97e5fda04d19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.audio.models.AudioManagerProtocol.is_music_paused</definition>
+        <argsstring>(self)</argsstring>
+        <name>is_music_paused</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.is_music_paused</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="22" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="22" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a962754baef4efe781d47bfbf5b416ebe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.load_ambient</definition>
+        <argsstring>(self, str name, str|bytes file_path)</argsstring>
+        <name>load_ambient</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.load_ambient</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>str|bytes</type>
+          <declname>file_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="24" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="24" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a4eae6f311262c0dd07d3ce607fd37dc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.audio.models.AudioManagerProtocol.play_ambient</definition>
+        <argsstring>(self, str name, int loops=-1, int volume=128)</argsstring>
+        <name>play_ambient</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.play_ambient</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>loops</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>volume</declname>
+          <defval>128</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="25" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="25" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1af3f3f66a99d280ddf2bf379fc3a5af20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.stop_ambient</definition>
+        <argsstring>(self, str name)</argsstring>
+        <name>stop_ambient</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.stop_ambient</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="26" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a687dcb2ad9b7ba3ac331fa45436665c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.stop_all_ambient</definition>
+        <argsstring>(self)</argsstring>
+        <name>stop_all_ambient</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.stop_all_ambient</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="27" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="27" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1ae5333c38cfdf46dffd5602af2908d6f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.fade_ambient</definition>
+        <argsstring>(self, str name, int fade_ms)</argsstring>
+        <name>fade_ambient</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.fade_ambient</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fade_ms</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="28" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="28" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a644f98c839a01b788ad7825bafe5be0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.set_ambient_volume</definition>
+        <argsstring>(self, int volume)</argsstring>
+        <name>set_ambient_volume</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.set_ambient_volume</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>volume</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="29" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="29" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1ac5fd32b9c3cb53809360709c7ecdb9e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.audio.models.AudioManagerProtocol.cleanup</definition>
+        <argsstring>(self)</argsstring>
+        <name>cleanup</name>
+        <qualifiedname>aetherion.audio.models.AudioManagerProtocol.cleanup</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/models.py" line="31" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="31" bodyend="32"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Protocol describing the public surface of an audio manager used by the engine.
+
+This mirrors the primary methods provided by `MusicAndAmbienceManager` so
+other engine components can accept a typed audio manager without depending
+on the concrete implementation.
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.audio.models.AudioManagerProtocol</label>
+        <link refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Protocol</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.audio.models.AudioManagerProtocol</label>
+        <link refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Protocol</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/audio/models.py" line="4" column="1" bodyfile="src/aetherion/audio/models.py" bodystart="4" bodyend="32"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1ac5fd32b9c3cb53809360709c7ecdb9e3" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>cleanup</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1ae5333c38cfdf46dffd5602af2908d6f6" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>fade_ambient</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a0648f75ce439f45852774febec3aa29a" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>fade_in_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a78bf4be7bcf4377b41b36fd78d34cfe4" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>fade_out_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1aedeb098609f032fd531d96d3a65b147b" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>get_music_volume</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a8fd66a7ff35670df131e97e5fda04d19" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>is_music_paused</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1ad1acc01b83da885dcc7fe52599c8592b" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>is_music_playing</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a962754baef4efe781d47bfbf5b416ebe" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>load_ambient</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1ab08a63e5e1bc65b8dc66ce7c66f0da2f" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>load_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1ac83e11a0935de692210bb06a5690d530" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>pause_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a4eae6f311262c0dd07d3ce607fd37dc3" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>play_ambient</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a6f072ea911e6cc6dcaa53b393f4a8069" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>play_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a137a996c65e11d24e4b7b57ae1e17c85" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>resume_music</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a644f98c839a01b788ad7825bafe5be0a" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>set_ambient_volume</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1af5eba5d78a8fe8cb4e543a29baf8a242" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>set_music_volume</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1a687dcb2ad9b7ba3ac331fa45436665c1" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>stop_all_ambient</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1af3f3f66a99d280ddf2bf379fc3a5af20" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>stop_ambient</name></member>
+      <member refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol_1afc27a91b772edcb49de72978e7cfe03f" prot="public" virt="non-virtual"><scope>aetherion::audio::models::AudioManagerProtocol</scope><name>stop_music</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

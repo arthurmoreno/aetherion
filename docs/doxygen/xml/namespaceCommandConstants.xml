@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceCommandConstants" kind="namespace" language="C++">
+    <compoundname>CommandConstants</compoundname>
+    <innernamespace refid="namespaceCommandConstants_1_1Params">CommandConstants::Params</innernamespace>
+    <innernamespace refid="namespaceCommandConstants_1_1TimeSeriesNames">CommandConstants::TimeSeriesNames</innernamespace>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a043cd77bc2272b8c1056fba592b5a7e3" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::QUERY_ENTITIES_DATA</definition>
+        <argsstring></argsstring>
+        <name>QUERY_ENTITIES_DATA</name>
+        <qualifiedname>CommandConstants::QUERY_ENTITIES_DATA</qualifiedname>
+        <initializer>= &quot;query_entities_data&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="9" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a49724b73dc8d7af64f94d0d7d0854a89" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::GET_AI_STATISTICS</definition>
+        <argsstring></argsstring>
+        <name>GET_AI_STATISTICS</name>
+        <qualifiedname>CommandConstants::GET_AI_STATISTICS</qualifiedname>
+        <initializer>= &quot;get_ai_statistics&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="10" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a316f532f95efac9f928e12248f0e78d8" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::GET_PHYSICS_STATISTICS</definition>
+        <argsstring></argsstring>
+        <name>GET_PHYSICS_STATISTICS</name>
+        <qualifiedname>CommandConstants::GET_PHYSICS_STATISTICS</qualifiedname>
+        <initializer>= &quot;get_physics_statistics&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="11" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1aa8753832bcf1254e74ea595d5151c1c6" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::GET_LIFE_STATISTICS</definition>
+        <argsstring></argsstring>
+        <name>GET_LIFE_STATISTICS</name>
+        <qualifiedname>CommandConstants::GET_LIFE_STATISTICS</qualifiedname>
+        <initializer>= &quot;get_life_statistics&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="12" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a31e475e19b967ba43480eba8ca13d63e" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::MOVE</definition>
+        <argsstring></argsstring>
+        <name>MOVE</name>
+        <qualifiedname>CommandConstants::MOVE</qualifiedname>
+        <initializer>= &quot;move&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="13" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1aabc110d1d842274e108a88892caae5ff" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int CommandConstants::QUERY_ENTITIES_DATA_RESPONSE_ID</definition>
+        <argsstring></argsstring>
+        <name>QUERY_ENTITIES_DATA_RESPONSE_ID</name>
+        <qualifiedname>CommandConstants::QUERY_ENTITIES_DATA_RESPONSE_ID</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="16" column="15" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a1906a6bf4d2cd0b3b8c75c4437ab929a" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int CommandConstants::GET_AI_STATISTICS_RESPONSE_ID</definition>
+        <argsstring></argsstring>
+        <name>GET_AI_STATISTICS_RESPONSE_ID</name>
+        <qualifiedname>CommandConstants::GET_AI_STATISTICS_RESPONSE_ID</qualifiedname>
+        <initializer>= 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="17" column="15" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a9c41cbf80e1e85721f729033e2f1c5d5" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int CommandConstants::GET_PHYSICS_STATISTICS_RESPONSE_ID</definition>
+        <argsstring></argsstring>
+        <name>GET_PHYSICS_STATISTICS_RESPONSE_ID</name>
+        <qualifiedname>CommandConstants::GET_PHYSICS_STATISTICS_RESPONSE_ID</qualifiedname>
+        <initializer>= 3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="18" column="15" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a3a0555cadb02b8f3f96b25d7eba487cc" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int CommandConstants::GET_LIFE_STATISTICS_RESPONSE_ID</definition>
+        <argsstring></argsstring>
+        <name>GET_LIFE_STATISTICS_RESPONSE_ID</name>
+        <qualifiedname>CommandConstants::GET_LIFE_STATISTICS_RESPONSE_ID</qualifiedname>
+        <initializer>= 4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="19" column="15" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/WorldClientAPI/CommandConstants.hpp" line="6" column="1"/>
+  </compounddef>
+</doxygen>

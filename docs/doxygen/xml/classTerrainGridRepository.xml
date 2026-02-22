@@ -1,0 +1,2292 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTerrainGridRepository" kind="class" language="C++" prot="public">
+    <compoundname>TerrainGridRepository</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classTerrainGridRepository_1a657492f69c8bf57e4b425edbb1b4c8ad" prot="private" static="no" mutable="yes">
+        <type>std::shared_mutex</type>
+        <definition>std::shared_mutex TerrainGridRepository::terrainGridMutex</definition>
+        <argsstring></argsstring>
+        <name>terrainGridMutex</name>
+        <qualifiedname>TerrainGridRepository::terrainGridMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="254" column="31" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainGridRepository_1afb9661b1a33cc8ee3b3213dc37000baa" prot="private" static="no" mutable="yes">
+        <type>std::atomic&lt; bool &gt;</type>
+        <definition>std::atomic&lt;bool&gt; TerrainGridRepository::terrainGridLocked_</definition>
+        <argsstring></argsstring>
+        <name>terrainGridLocked_</name>
+        <qualifiedname>TerrainGridRepository::terrainGridLocked_</qualifiedname>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="256" column="25" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="256" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainGridRepository_1ac7ea60ae2dd21e50e5b59fa409b45fa4" prot="private" static="no" mutable="yes">
+        <type>std::shared_mutex</type>
+        <definition>std::shared_mutex TerrainGridRepository::trackingMapsMutex_</definition>
+        <argsstring></argsstring>
+        <name>trackingMapsMutex_</name>
+        <qualifiedname>TerrainGridRepository::trackingMapsMutex_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="260" column="31" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainGridRepository_1a7d9faf0514d57ad350bc70f612542007" prot="private" static="no" mutable="no">
+        <type>entt::registry &amp;</type>
+        <definition>entt::registry&amp; TerrainGridRepository::registry_</definition>
+        <argsstring></argsstring>
+        <name>registry_</name>
+        <qualifiedname>TerrainGridRepository::registry_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="262" column="20" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainGridRepository_1a57f6fe8c899aab7def68b08a04e0722d" prot="private" static="no" mutable="no">
+        <type><ref refid="classTerrainStorage" kindref="compound">TerrainStorage</ref> &amp;</type>
+        <definition>TerrainStorage&amp; TerrainGridRepository::storage_</definition>
+        <argsstring></argsstring>
+        <name>storage_</name>
+        <qualifiedname>TerrainGridRepository::storage_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="263" column="20" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainGridRepository_1ab54cc8073fbc41f8447d62da1f61c20e" prot="private" static="no" mutable="no">
+        <type>std::unordered_map&lt; <ref refid="structVoxelCoord" kindref="compound">VoxelCoord</ref>, entt::entity, <ref refid="structVoxelCoordHash" kindref="compound">VoxelCoordHash</ref> &gt;</type>
+        <definition>std::unordered_map&lt;VoxelCoord, entt::entity, VoxelCoordHash&gt; TerrainGridRepository::byCoord_</definition>
+        <argsstring></argsstring>
+        <name>byCoord_</name>
+        <qualifiedname>TerrainGridRepository::byCoord_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="264" column="24" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTerrainGridRepository_1aa8f4bd7741ec000f3e5bd5d27948c2d9" prot="private" static="no" mutable="no">
+        <type>std::unordered_map&lt; entt::entity, <ref refid="structVoxelCoord" kindref="compound">VoxelCoord</ref> &gt;</type>
+        <definition>std::unordered_map&lt;entt::entity, VoxelCoord&gt; TerrainGridRepository::byEntity_</definition>
+        <argsstring></argsstring>
+        <name>byEntity_</name>
+        <qualifiedname>TerrainGridRepository::byEntity_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="265" column="24" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="265" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTerrainGridRepository_1ad28459c29c467997c9afc65c4d5a4573" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TerrainGridRepository::TerrainGridRepository</definition>
+        <argsstring>(entt::registry &amp;registry, TerrainStorage &amp;storage)</argsstring>
+        <name>TerrainGridRepository</name>
+        <qualifiedname>TerrainGridRepository::TerrainGridRepository</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classTerrainStorage" kindref="compound">TerrainStorage</ref> &amp;</type>
+          <declname>storage</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="68" column="5" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="24" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a0e1ee1d0710e9b809145c5b2e9ea1c1c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structTerrainInfo" kindref="compound">TerrainInfo</ref></type>
+        <definition>TerrainInfo TerrainGridRepository::readTerrainInfo</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>readTerrainInfo</name>
+        <qualifiedname>TerrainGridRepository::readTerrainInfo</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="71" column="17" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="428" bodyend="468"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a9717c427f4e9c7523028ea214d15c06c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::tick</definition>
+        <argsstring>(int dtTicks=1)</argsstring>
+        <name>tick</name>
+        <qualifiedname>TerrainGridRepository::tick</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>dtTicks</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="74" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a744dd078bdfabb1e1d176787bd739b07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setTerrainId</definition>
+        <argsstring>(int x, int y, int z, int terrainID, bool takeLock=true)</argsstring>
+        <name>setTerrainId</name>
+        <qualifiedname>TerrainGridRepository::setTerrainId</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>terrainID</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="76" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="219" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a2424b279ca4544e5c19d8e5384158a39" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TerrainGridRepository::isTerrainIdOnEnttRegistry</definition>
+        <argsstring>(int terrainID) const</argsstring>
+        <name>isTerrainIdOnEnttRegistry</name>
+        <qualifiedname>TerrainGridRepository::isTerrainIdOnEnttRegistry</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>terrainID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="78" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ac3a7552193bbc2040674466fdf3d554d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::optional&lt; int &gt;</type>
+        <definition>std::optional&lt; int &gt; TerrainGridRepository::getTerrainIdIfExists</definition>
+        <argsstring>(int x, int y, int z, bool takeLock=true) const</argsstring>
+        <name>getTerrainIdIfExists</name>
+        <qualifiedname>TerrainGridRepository::getTerrainIdIfExists</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="82" column="19" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="173" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a3cc4e97d53881a752f992148622b73e1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref></type>
+        <definition>EntityTypeComponent TerrainGridRepository::getTerrainEntityType</definition>
+        <argsstring>(int x, int y, int z, bool takeLock=true) const</argsstring>
+        <name>getTerrainEntityType</name>
+        <qualifiedname>TerrainGridRepository::getTerrainEntityType</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="85" column="25" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="404" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1acf561cc51e188cf8e78f5e98f6cc92e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setTerrainEntityType</definition>
+        <argsstring>(int x, int y, int z, EntityTypeComponent etc, bool takeLock=true)</argsstring>
+        <name>setTerrainEntityType</name>
+        <qualifiedname>TerrainGridRepository::setTerrainEntityType</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref></type>
+          <declname>etc</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="86" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="417" bodyend="426"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a125a314f454468902571f4bab52bb3c8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getTerrainMainType</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainMainType</name>
+        <qualifiedname>TerrainGridRepository::getTerrainMainType</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="88" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="472" bodyend="474"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a64f7e0a2728367fdc99e9bae8759154b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setTerrainMainType</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setTerrainMainType</name>
+        <qualifiedname>TerrainGridRepository::setTerrainMainType</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="89" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="475" bodyend="477"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a985e45f6da1cd622eb5120ca47729a94" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getTerrainSubType0</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainSubType0</name>
+        <qualifiedname>TerrainGridRepository::getTerrainSubType0</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="91" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="478" bodyend="480"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a9c7ed7fc0e65591e0c6ffbbfa97659f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setTerrainSubType0</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setTerrainSubType0</name>
+        <qualifiedname>TerrainGridRepository::setTerrainSubType0</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="92" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="481" bodyend="483"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1aa4ef40c1d76b81eda9ec047b5afabedf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getTerrainSubType1</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainSubType1</name>
+        <qualifiedname>TerrainGridRepository::getTerrainSubType1</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="94" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="484" bodyend="486"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a696ab5a4e55d110ec10e46057aecafdc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setTerrainSubType1</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setTerrainSubType1</name>
+        <qualifiedname>TerrainGridRepository::setTerrainSubType1</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="95" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="487" bodyend="489"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a8c80b83766f69d0d97476c0a27cca928" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structStructuralIntegrityComponent" kindref="compound">StructuralIntegrityComponent</ref></type>
+        <definition>StructuralIntegrityComponent TerrainGridRepository::getTerrainStructuralIntegrity</definition>
+        <argsstring>(int x, int y, int z, bool takeLock=true) const</argsstring>
+        <name>getTerrainStructuralIntegrity</name>
+        <qualifiedname>TerrainGridRepository::getTerrainStructuralIntegrity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="98" column="34" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="838" bodyend="842"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a95e5d47c4795a945faa92b6646a6adaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setTerrainStructuralIntegrity</definition>
+        <argsstring>(int x, int y, int z, const StructuralIntegrityComponent &amp;sic, bool takeLock=true)</argsstring>
+        <name>setTerrainStructuralIntegrity</name>
+        <qualifiedname>TerrainGridRepository::setTerrainStructuralIntegrity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structStructuralIntegrityComponent" kindref="compound">StructuralIntegrityComponent</ref> &amp;</type>
+          <declname>sic</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="100" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="844" bodyend="848"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1aaefe80de3bfcb7123b0840fcf5c72131" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref></type>
+        <definition>MatterContainer TerrainGridRepository::getTerrainMatterContainer</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainMatterContainer</name>
+        <qualifiedname>TerrainGridRepository::getTerrainMatterContainer</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="104" column="21" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="491" bodyend="500"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a2530f6fefb284e0ed0be346edf5b3ca0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setTerrainMatterContainer</definition>
+        <argsstring>(int x, int y, int z, const MatterContainer &amp;mc)</argsstring>
+        <name>setTerrainMatterContainer</name>
+        <qualifiedname>TerrainGridRepository::setTerrainMatterContainer</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMatterContainer" kindref="compound">MatterContainer</ref> &amp;</type>
+          <declname>mc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="105" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="502" bodyend="510"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a5f3182494d0ac45a619690a70c6b767a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getTerrainMatter</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getTerrainMatter</name>
+        <qualifiedname>TerrainGridRepository::getTerrainMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="107" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="512" bodyend="514"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ad5a9b213559a1c76a4816b057602e48c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setTerrainMatter</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setTerrainMatter</name>
+        <qualifiedname>TerrainGridRepository::setTerrainMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="108" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="515" bodyend="517"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a9b3f22a463c2564853ae7cdae17f0886" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getWaterMatter</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getWaterMatter</name>
+        <qualifiedname>TerrainGridRepository::getWaterMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="109" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="518" bodyend="520"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a505ce0409196d46c0c923adfeb17141a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setWaterMatter</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setWaterMatter</name>
+        <qualifiedname>TerrainGridRepository::setWaterMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="110" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="521" bodyend="523"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a1f424fd07b4eb0cf16c15287b79765b5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getVaporMatter</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getVaporMatter</name>
+        <qualifiedname>TerrainGridRepository::getVaporMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="111" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="524" bodyend="526"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1aa436ed07e2dc96ce3598f7b2c9922b2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setVaporMatter</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setVaporMatter</name>
+        <qualifiedname>TerrainGridRepository::setVaporMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="112" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="527" bodyend="529"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a4c0acf6a35a7b2a872f59fb5b72099ff" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getBiomassMatter</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getBiomassMatter</name>
+        <qualifiedname>TerrainGridRepository::getBiomassMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="113" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="530" bodyend="532"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a60d3187b1d70deb01c70a03d0dc71bec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setBiomassMatter</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setBiomassMatter</name>
+        <qualifiedname>TerrainGridRepository::setBiomassMatter</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="114" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="533" bodyend="535"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a6dd346b9d7c583913379658a42600a5e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structPhysicsStats" kindref="compound">PhysicsStats</ref></type>
+        <definition>PhysicsStats TerrainGridRepository::getPhysicsStats</definition>
+        <argsstring>(int x, int y, int z, bool takeLock=true) const</argsstring>
+        <name>getPhysicsStats</name>
+        <qualifiedname>TerrainGridRepository::getPhysicsStats</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="117" column="18" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="556" bodyend="570"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1acbeedb092815e678bf9cbed55c822bad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setPhysicsStats</definition>
+        <argsstring>(int x, int y, int z, const PhysicsStats &amp;ps, bool takeLock=true)</argsstring>
+        <name>setPhysicsStats</name>
+        <qualifiedname>TerrainGridRepository::setPhysicsStats</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structPhysicsStats" kindref="compound">PhysicsStats</ref> &amp;</type>
+          <declname>ps</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="118" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="625" bodyend="636"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ac20e382841abc3b07992d16cb6ba0f95" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structTerrainPhysicsSnapshot" kindref="compound">TerrainPhysicsSnapshot</ref></type>
+        <definition>TerrainPhysicsSnapshot TerrainGridRepository::getPhysicsSnapshot</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getPhysicsSnapshot</name>
+        <qualifiedname>TerrainGridRepository::getPhysicsSnapshot</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="120" column="28" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="572" bodyend="623"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1accdbfec3ec40c747a0a57605678b9361" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getMass</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getMass</name>
+        <qualifiedname>TerrainGridRepository::getMass</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="122" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="537" bodyend="539"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a397fb46491c65a3c9111d652cfa25d6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setMass</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setMass</name>
+        <qualifiedname>TerrainGridRepository::setMass</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="123" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="540" bodyend="542"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a2f7c4b1612f4be443f05b5a3ee4615ed" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getMaxSpeed</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getMaxSpeed</name>
+        <qualifiedname>TerrainGridRepository::getMaxSpeed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="124" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="543" bodyend="545"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a29b24bb7bcef86a89b0b972e7b87802c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setMaxSpeed</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setMaxSpeed</name>
+        <qualifiedname>TerrainGridRepository::setMaxSpeed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="125" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="546" bodyend="548"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a5d160ca0c40e4c001ef4eb7e3ed4edd0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getMinSpeed</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getMinSpeed</name>
+        <qualifiedname>TerrainGridRepository::getMinSpeed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="126" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="549" bodyend="551"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ace007106503980157a0093c7df33a23e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setMinSpeed</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setMinSpeed</name>
+        <qualifiedname>TerrainGridRepository::setMinSpeed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="127" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="552" bodyend="554"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a47f082914a466cb4c9100e34f08a9934" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position TerrainGridRepository::getPosition</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getPosition</name>
+        <qualifiedname>TerrainGridRepository::getPosition</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="130" column="14" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="645" bodyend="654"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1abe79cf4f45edbd2d36c633bf5e1e2c7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setPosition</definition>
+        <argsstring>(int x, int y, int z, const Position &amp;pos)</argsstring>
+        <name>setPosition</name>
+        <qualifiedname>TerrainGridRepository::setPosition</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structPosition" kindref="compound">Position</ref> &amp;</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="131" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="656" bodyend="659"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ab74163f26fa4a1e578b961e98e56eacc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>DirectionEnum</type>
+        <definition>DirectionEnum TerrainGridRepository::getDirection</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getDirection</name>
+        <qualifiedname>TerrainGridRepository::getDirection</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="133" column="19" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="638" bodyend="640"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a413692ac3e411a4adf8e5937570bbe40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setDirection</definition>
+        <argsstring>(int x, int y, int z, DirectionEnum dir)</argsstring>
+        <name>setDirection</name>
+        <qualifiedname>TerrainGridRepository::setDirection</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>DirectionEnum</type>
+          <declname>dir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="134" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="641" bodyend="643"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a612cb41091a8aa1d45f2d4ad8ec7ee17" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TerrainGridRepository::getCanStackEntities</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getCanStackEntities</name>
+        <qualifiedname>TerrainGridRepository::getCanStackEntities</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="135" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="660" bodyend="662"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ae84b13d053fd3275626e12e4cd419388" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setCanStackEntities</definition>
+        <argsstring>(int x, int y, int z, bool v)</argsstring>
+        <name>setCanStackEntities</name>
+        <qualifiedname>TerrainGridRepository::setCanStackEntities</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="136" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="663" bodyend="665"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a5d7a1a58f85106b362ba3d571df94c94" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>MatterState</type>
+        <definition>MatterState TerrainGridRepository::getMatterState</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getMatterState</name>
+        <qualifiedname>TerrainGridRepository::getMatterState</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="137" column="17" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="666" bodyend="668"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ae9b984c55266e89f763842f74a7e2f18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setMatterState</definition>
+        <argsstring>(int x, int y, int z, MatterState s)</argsstring>
+        <name>setMatterState</name>
+        <qualifiedname>TerrainGridRepository::setMatterState</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>MatterState</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="138" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="669" bodyend="671"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1aa1dce214ed501dd64d5aba63b6f34078" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structGradientVector" kindref="compound">GradientVector</ref></type>
+        <definition>GradientVector TerrainGridRepository::getGradient</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getGradient</name>
+        <qualifiedname>TerrainGridRepository::getGradient</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="139" column="20" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="672" bodyend="674"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a7abeba9aa3baf39f08189717ffc515a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setGradient</definition>
+        <argsstring>(int x, int y, int z, const GradientVector &amp;g)</argsstring>
+        <name>setGradient</name>
+        <qualifiedname>TerrainGridRepository::setGradient</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structGradientVector" kindref="compound">GradientVector</ref> &amp;</type>
+          <declname>g</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="140" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="675" bodyend="677"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a688306f678c022b65a07baddc2f63748" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TerrainGridRepository::getMaxLoadCapacity</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getMaxLoadCapacity</name>
+        <qualifiedname>TerrainGridRepository::getMaxLoadCapacity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="141" column="9" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="678" bodyend="680"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a6b70ccd02960676770a3f85fe0117352" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setMaxLoadCapacity</definition>
+        <argsstring>(int x, int y, int z, int v)</argsstring>
+        <name>setMaxLoadCapacity</name>
+        <qualifiedname>TerrainGridRepository::setMaxLoadCapacity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="142" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="681" bodyend="683"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1af713152110c5deb006eadb84a404a67a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structVelocity" kindref="compound">Velocity</ref></type>
+        <definition>Velocity TerrainGridRepository::getVelocity</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getVelocity</name>
+        <qualifiedname>TerrainGridRepository::getVelocity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="146" column="14" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="686" bodyend="691"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a0767166932a00a6fd8c04cc0c6810cfa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setVelocity</definition>
+        <argsstring>(int x, int y, int z, const Velocity &amp;vel)</argsstring>
+        <name>setVelocity</name>
+        <qualifiedname>TerrainGridRepository::setVelocity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structVelocity" kindref="compound">Velocity</ref> &amp;</type>
+          <declname>vel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="148" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="693" bodyend="700"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a9692e85d888fab7a84ed7184867d2399" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::setTerrainFromEntt</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>setTerrainFromEntt</name>
+        <qualifiedname>TerrainGridRepository::setTerrainFromEntt</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="154" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="715" bodyend="797"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a5ed2b8b879408f952c5c7c56a4f3767c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TerrainGridRepository::checkIfTerrainExists</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>checkIfTerrainExists</name>
+        <qualifiedname>TerrainGridRepository::checkIfTerrainExists</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="155" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="799" bodyend="808"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ab9f526d505125ad8a8c253c2f2fad24e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TerrainGridRepository::checkIfTerrainHasEntity</definition>
+        <argsstring>(int x, int y, int z, bool takeLock=true) const</argsstring>
+        <name>checkIfTerrainHasEntity</name>
+        <qualifiedname>TerrainGridRepository::checkIfTerrainHasEntity</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="156" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="186" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1aac67b74dc180b16d2beed9c5b2483911" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::deleteTerrain</definition>
+        <argsstring>(entt::dispatcher &amp;dispatcher, int x, int y, int z, bool takeLock=true)</argsstring>
+        <name>deleteTerrain</name>
+        <qualifiedname>TerrainGridRepository::deleteTerrain</qualifiedname>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="159" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="811" bodyend="836"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a54eb8db9a86f28759b486043e0aa0117" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::softDeactivateEntity</definition>
+        <argsstring>(entt::dispatcher &amp;dispatcher, entt::entity e, bool takeLock=true)</argsstring>
+        <name>softDeactivateEntity</name>
+        <qualifiedname>TerrainGridRepository::softDeactivateEntity</qualifiedname>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="165" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="888" bodyend="963"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a3de0756f45febb291f589e3965c156e1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TerrainGridRepository::hasMovingComponent</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>hasMovingComponent</name>
+        <qualifiedname>TerrainGridRepository::hasMovingComponent</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="168" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="850" bodyend="874"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a126fa1748ea80a1db8cd60f883e2d361" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Callback</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void TerrainGridRepository::iterateWaterMatter</definition>
+        <argsstring>(Callback callback) const</argsstring>
+        <name>iterateWaterMatter</name>
+        <qualifiedname>TerrainGridRepository::iterateWaterMatter</qualifiedname>
+        <param>
+          <type>Callback</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="173" column="10" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="282" bodyend="288"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a3cc5521c49af9062a35468e398da1f83" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Callback</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void TerrainGridRepository::iterateVaporMatter</definition>
+        <argsstring>(Callback callback) const</argsstring>
+        <name>iterateVaporMatter</name>
+        <qualifiedname>TerrainGridRepository::iterateVaporMatter</qualifiedname>
+        <param>
+          <type>Callback</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="176" column="10" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="291" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ae822ce70c0d54506636302ea93b89480" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Callback</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void TerrainGridRepository::iterateBiomassMatter</definition>
+        <argsstring>(Callback callback) const</argsstring>
+        <name>iterateBiomassMatter</name>
+        <qualifiedname>TerrainGridRepository::iterateBiomassMatter</qualifiedname>
+        <param>
+          <type>Callback</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="179" column="10" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="300" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a90f170f1deed4ad649dc6df78fc3b0e3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Callback</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void TerrainGridRepository::iterateActiveVoxels</definition>
+        <argsstring>(Callback callback) const</argsstring>
+        <name>iterateActiveVoxels</name>
+        <qualifiedname>TerrainGridRepository::iterateActiveVoxels</qualifiedname>
+        <param>
+          <type>Callback</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="183" column="10" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="309" bodyend="315"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1afcb11a6b9412d53ad6310ebc433e3562" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t TerrainGridRepository::sumTotalWater</definition>
+        <argsstring>() const</argsstring>
+        <name>sumTotalWater</name>
+        <qualifiedname>TerrainGridRepository::sumTotalWater</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="186" column="13" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="965" bodyend="965"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a60e817a63e477fcc6df3eb6d88375b5c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position TerrainGridRepository::getPositionOfEntt</definition>
+        <argsstring>(entt::entity terrain_entity) const</argsstring>
+        <name>getPositionOfEntt</name>
+        <qualifiedname>TerrainGridRepository::getPositionOfEntt</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>terrain_entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="188" column="14" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="42" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a172e6d415cbd2085f58f17eed558e652" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::moveTerrain</definition>
+        <argsstring>(MovingComponent &amp;movingComponent)</argsstring>
+        <name>moveTerrain</name>
+        <qualifiedname>TerrainGridRepository::moveTerrain</qualifiedname>
+        <param>
+          <type><ref refid="structMovingComponent" kindref="compound">MovingComponent</ref> &amp;</type>
+          <declname>movingComponent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="189" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="56" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ac22abe124e16f9735cf97801d9b6550a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::lockTerrainGrid</definition>
+        <argsstring>()</argsstring>
+        <name>lockTerrainGrid</name>
+        <qualifiedname>TerrainGridRepository::lockTerrainGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="192" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="877" bodyend="880"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1acadb2570b92a56075ed6c6fa58d5205f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::unlockTerrainGrid</definition>
+        <argsstring>()</argsstring>
+        <name>unlockTerrainGrid</name>
+        <qualifiedname>TerrainGridRepository::unlockTerrainGrid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="193" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="883" bodyend="886"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a85ed3cd04cbe505d51311e880dbc2d54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>entt::entity</type>
+        <definition>entt::entity TerrainGridRepository::ensureActive</definition>
+        <argsstring>(int x, int y, int z)</argsstring>
+        <name>ensureActive</name>
+        <qualifiedname>TerrainGridRepository::ensureActive</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="195" column="18" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="362" bodyend="401"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ad0f000dd55297ba7e1a1c4c99bc012f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::addToTrackingMaps</definition>
+        <argsstring>(const VoxelCoord &amp;key, entt::entity e, bool takeTrackingLock=true, bool respectTerrainGridLock=true)</argsstring>
+        <name>addToTrackingMaps</name>
+        <qualifiedname>TerrainGridRepository::addToTrackingMaps</qualifiedname>
+        <param>
+          <type>const <ref refid="structVoxelCoord" kindref="compound">VoxelCoord</ref> &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeTrackingLock</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>respectTerrainGridLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="203" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="229" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a3ad5797485773a194ea1c945fa89bf52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::removeFromTrackingMaps</definition>
+        <argsstring>(const VoxelCoord &amp;key, entt::entity e, bool takeTrackingLock=true, bool respectTerrainGridLock=true)</argsstring>
+        <name>removeFromTrackingMaps</name>
+        <qualifiedname>TerrainGridRepository::removeFromTrackingMaps</qualifiedname>
+        <param>
+          <type>const <ref refid="structVoxelCoord" kindref="compound">VoxelCoord</ref> &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeTrackingLock</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>respectTerrainGridLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="205" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="239" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ad94c19b89f07ae9c7a650548c788c3d8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>auto TerrainGridRepository::withTrackingMapsLock</definition>
+        <argsstring>(Func &amp;&amp;func, bool takeTrackingLock=true, bool respectTerrainGridLock=true) -&gt; decltype(func())</argsstring>
+        <name>withTrackingMapsLock</name>
+        <qualifiedname>TerrainGridRepository::withTrackingMapsLock</qualifiedname>
+        <param>
+          <type>Func &amp;&amp;</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeTrackingLock</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>respectTerrainGridLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="209" column="10" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="209" bodyend="221"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1ae41c542f20b31e47f3e4c697ae912d05" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TerrainGridRepository::isTerrainGridLocked</definition>
+        <argsstring>() const</argsstring>
+        <name>isTerrainGridLocked</name>
+        <qualifiedname>TerrainGridRepository::isTerrainGridLocked</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="223" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="17" bodyend="17"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classTerrainGridRepository_1a6028e89012d0f1f6449b91f3dd3e9542" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>auto TerrainGridRepository::withSharedLock</definition>
+        <argsstring>(Func &amp;&amp;func, bool takeLock=true) const -&gt; decltype(func())</argsstring>
+        <name>withSharedLock</name>
+        <qualifiedname>TerrainGridRepository::withSharedLock</qualifiedname>
+        <param>
+          <type>Func &amp;&amp;</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="230" column="10" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="230" bodyend="239"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a985496dcc564b2c7c05d7fe34d2425cb" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>auto TerrainGridRepository::withUniqueLock</definition>
+        <argsstring>(Func &amp;&amp;func, bool takeLock=true) -&gt; decltype(func())</argsstring>
+        <name>withUniqueLock</name>
+        <qualifiedname>TerrainGridRepository::withUniqueLock</qualifiedname>
+        <param>
+          <type>Func &amp;&amp;</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="242" column="10" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="242" bodyend="251"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1aae1fc83d52576a512d09f2dc29b4c13b" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>entt::entity</type>
+        <definition>entt::entity TerrainGridRepository::getEntityAt</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>getEntityAt</name>
+        <qualifiedname>TerrainGridRepository::getEntityAt</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="267" column="18" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="35" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a9fabae116930a82cacf643aa67fc71f9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::markActive</definition>
+        <argsstring>(int x, int y, int z, entt::entity e, bool takeLock=true)</argsstring>
+        <name>markActive</name>
+        <qualifiedname>TerrainGridRepository::markActive</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="268" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="195" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a793d3d61e1c6d60ff8a6909946829151" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::clearActive</definition>
+        <argsstring>(int x, int y, int z, bool takeLock=true)</argsstring>
+        <name>clearActive</name>
+        <qualifiedname>TerrainGridRepository::clearActive</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>takeLock</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="269" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="206" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a9e5deda197f9ff904af2fa5d70fc355e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::onConstructVelocity</definition>
+        <argsstring>(entt::registry &amp;reg, entt::entity e)</argsstring>
+        <name>onConstructVelocity</name>
+        <qualifiedname>TerrainGridRepository::onConstructVelocity</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="272" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="250" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a65e4c22a2c5b669a543135ab76106e4d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::onConstructMoving</definition>
+        <argsstring>(entt::registry &amp;reg, entt::entity e)</argsstring>
+        <name>onConstructMoving</name>
+        <qualifiedname>TerrainGridRepository::onConstructMoving</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="273" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="272" bodyend="291"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1af3f9510e18da66ff724c4f7581c1442d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::onDestroyVelocity</definition>
+        <argsstring>(entt::registry &amp;reg, entt::entity e)</argsstring>
+        <name>onDestroyVelocity</name>
+        <qualifiedname>TerrainGridRepository::onDestroyVelocity</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="274" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="293" bodyend="318"/>
+      </memberdef>
+      <memberdef kind="function" id="classTerrainGridRepository_1a3965869195aab62d8b15440788eac720" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TerrainGridRepository::onDestroyMoving</definition>
+        <argsstring>(entt::registry &amp;reg, entt::entity e)</argsstring>
+        <name>onDestroyMoving</name>
+        <qualifiedname>TerrainGridRepository::onDestroyMoving</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="275" column="10" bodyfile="src/terrain/TerrainGridRepository.cpp" bodystart="320" bodyend="360"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/terrain/TerrainGridRepository.hpp" line="66" column="1" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="66" bodyend="276"/>
+    <listofallmembers>
+      <member refid="classTerrainGridRepository_1ad0f000dd55297ba7e1a1c4c99bc012f6" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>addToTrackingMaps</name></member>
+      <member refid="classTerrainGridRepository_1ab54cc8073fbc41f8447d62da1f61c20e" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>byCoord_</name></member>
+      <member refid="classTerrainGridRepository_1aa8f4bd7741ec000f3e5bd5d27948c2d9" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>byEntity_</name></member>
+      <member refid="classTerrainGridRepository_1a5ed2b8b879408f952c5c7c56a4f3767c" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>checkIfTerrainExists</name></member>
+      <member refid="classTerrainGridRepository_1ab9f526d505125ad8a8c253c2f2fad24e" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>checkIfTerrainHasEntity</name></member>
+      <member refid="classTerrainGridRepository_1a793d3d61e1c6d60ff8a6909946829151" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>clearActive</name></member>
+      <member refid="classTerrainGridRepository_1aac67b74dc180b16d2beed9c5b2483911" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>deleteTerrain</name></member>
+      <member refid="classTerrainGridRepository_1a85ed3cd04cbe505d51311e880dbc2d54" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>ensureActive</name></member>
+      <member refid="classTerrainGridRepository_1a4c0acf6a35a7b2a872f59fb5b72099ff" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getBiomassMatter</name></member>
+      <member refid="classTerrainGridRepository_1a612cb41091a8aa1d45f2d4ad8ec7ee17" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getCanStackEntities</name></member>
+      <member refid="classTerrainGridRepository_1ab74163f26fa4a1e578b961e98e56eacc" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getDirection</name></member>
+      <member refid="classTerrainGridRepository_1aae1fc83d52576a512d09f2dc29b4c13b" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getEntityAt</name></member>
+      <member refid="classTerrainGridRepository_1aa1dce214ed501dd64d5aba63b6f34078" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getGradient</name></member>
+      <member refid="classTerrainGridRepository_1accdbfec3ec40c747a0a57605678b9361" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getMass</name></member>
+      <member refid="classTerrainGridRepository_1a5d7a1a58f85106b362ba3d571df94c94" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getMatterState</name></member>
+      <member refid="classTerrainGridRepository_1a688306f678c022b65a07baddc2f63748" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getMaxLoadCapacity</name></member>
+      <member refid="classTerrainGridRepository_1a2f7c4b1612f4be443f05b5a3ee4615ed" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getMaxSpeed</name></member>
+      <member refid="classTerrainGridRepository_1a5d160ca0c40e4c001ef4eb7e3ed4edd0" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getMinSpeed</name></member>
+      <member refid="classTerrainGridRepository_1ac20e382841abc3b07992d16cb6ba0f95" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getPhysicsSnapshot</name></member>
+      <member refid="classTerrainGridRepository_1a6dd346b9d7c583913379658a42600a5e" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getPhysicsStats</name></member>
+      <member refid="classTerrainGridRepository_1a47f082914a466cb4c9100e34f08a9934" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getPosition</name></member>
+      <member refid="classTerrainGridRepository_1a60e817a63e477fcc6df3eb6d88375b5c" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getPositionOfEntt</name></member>
+      <member refid="classTerrainGridRepository_1a3cc4e97d53881a752f992148622b73e1" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getTerrainEntityType</name></member>
+      <member refid="classTerrainGridRepository_1ac3a7552193bbc2040674466fdf3d554d" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getTerrainIdIfExists</name></member>
+      <member refid="classTerrainGridRepository_1a125a314f454468902571f4bab52bb3c8" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getTerrainMainType</name></member>
+      <member refid="classTerrainGridRepository_1a5f3182494d0ac45a619690a70c6b767a" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getTerrainMatter</name></member>
+      <member refid="classTerrainGridRepository_1aaefe80de3bfcb7123b0840fcf5c72131" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getTerrainMatterContainer</name></member>
+      <member refid="classTerrainGridRepository_1a8c80b83766f69d0d97476c0a27cca928" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getTerrainStructuralIntegrity</name></member>
+      <member refid="classTerrainGridRepository_1a985e45f6da1cd622eb5120ca47729a94" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getTerrainSubType0</name></member>
+      <member refid="classTerrainGridRepository_1aa4ef40c1d76b81eda9ec047b5afabedf" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getTerrainSubType1</name></member>
+      <member refid="classTerrainGridRepository_1a1f424fd07b4eb0cf16c15287b79765b5" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getVaporMatter</name></member>
+      <member refid="classTerrainGridRepository_1af713152110c5deb006eadb84a404a67a" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getVelocity</name></member>
+      <member refid="classTerrainGridRepository_1a9b3f22a463c2564853ae7cdae17f0886" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>getWaterMatter</name></member>
+      <member refid="classTerrainGridRepository_1a3de0756f45febb291f589e3965c156e1" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>hasMovingComponent</name></member>
+      <member refid="classTerrainGridRepository_1ae41c542f20b31e47f3e4c697ae912d05" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>isTerrainGridLocked</name></member>
+      <member refid="classTerrainGridRepository_1a2424b279ca4544e5c19d8e5384158a39" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>isTerrainIdOnEnttRegistry</name></member>
+      <member refid="classTerrainGridRepository_1a90f170f1deed4ad649dc6df78fc3b0e3" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>iterateActiveVoxels</name></member>
+      <member refid="classTerrainGridRepository_1ae822ce70c0d54506636302ea93b89480" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>iterateBiomassMatter</name></member>
+      <member refid="classTerrainGridRepository_1a3cc5521c49af9062a35468e398da1f83" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>iterateVaporMatter</name></member>
+      <member refid="classTerrainGridRepository_1a126fa1748ea80a1db8cd60f883e2d361" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>iterateWaterMatter</name></member>
+      <member refid="classTerrainGridRepository_1ac22abe124e16f9735cf97801d9b6550a" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>lockTerrainGrid</name></member>
+      <member refid="classTerrainGridRepository_1a9fabae116930a82cacf643aa67fc71f9" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>markActive</name></member>
+      <member refid="classTerrainGridRepository_1a172e6d415cbd2085f58f17eed558e652" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>moveTerrain</name></member>
+      <member refid="classTerrainGridRepository_1a65e4c22a2c5b669a543135ab76106e4d" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>onConstructMoving</name></member>
+      <member refid="classTerrainGridRepository_1a9e5deda197f9ff904af2fa5d70fc355e" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>onConstructVelocity</name></member>
+      <member refid="classTerrainGridRepository_1a3965869195aab62d8b15440788eac720" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>onDestroyMoving</name></member>
+      <member refid="classTerrainGridRepository_1af3f9510e18da66ff724c4f7581c1442d" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>onDestroyVelocity</name></member>
+      <member refid="classTerrainGridRepository_1a0e1ee1d0710e9b809145c5b2e9ea1c1c" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>readTerrainInfo</name></member>
+      <member refid="classTerrainGridRepository_1a7d9faf0514d57ad350bc70f612542007" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>registry_</name></member>
+      <member refid="classTerrainGridRepository_1a3ad5797485773a194ea1c945fa89bf52" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>removeFromTrackingMaps</name></member>
+      <member refid="classTerrainGridRepository_1a60d3187b1d70deb01c70a03d0dc71bec" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setBiomassMatter</name></member>
+      <member refid="classTerrainGridRepository_1ae84b13d053fd3275626e12e4cd419388" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setCanStackEntities</name></member>
+      <member refid="classTerrainGridRepository_1a413692ac3e411a4adf8e5937570bbe40" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setDirection</name></member>
+      <member refid="classTerrainGridRepository_1a7abeba9aa3baf39f08189717ffc515a8" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setGradient</name></member>
+      <member refid="classTerrainGridRepository_1a397fb46491c65a3c9111d652cfa25d6b" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setMass</name></member>
+      <member refid="classTerrainGridRepository_1ae9b984c55266e89f763842f74a7e2f18" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setMatterState</name></member>
+      <member refid="classTerrainGridRepository_1a6b70ccd02960676770a3f85fe0117352" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setMaxLoadCapacity</name></member>
+      <member refid="classTerrainGridRepository_1a29b24bb7bcef86a89b0b972e7b87802c" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setMaxSpeed</name></member>
+      <member refid="classTerrainGridRepository_1ace007106503980157a0093c7df33a23e" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setMinSpeed</name></member>
+      <member refid="classTerrainGridRepository_1acbeedb092815e678bf9cbed55c822bad" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setPhysicsStats</name></member>
+      <member refid="classTerrainGridRepository_1abe79cf4f45edbd2d36c633bf5e1e2c7e" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setPosition</name></member>
+      <member refid="classTerrainGridRepository_1acf561cc51e188cf8e78f5e98f6cc92e0" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setTerrainEntityType</name></member>
+      <member refid="classTerrainGridRepository_1a9692e85d888fab7a84ed7184867d2399" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setTerrainFromEntt</name></member>
+      <member refid="classTerrainGridRepository_1a744dd078bdfabb1e1d176787bd739b07" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setTerrainId</name></member>
+      <member refid="classTerrainGridRepository_1a64f7e0a2728367fdc99e9bae8759154b" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setTerrainMainType</name></member>
+      <member refid="classTerrainGridRepository_1ad5a9b213559a1c76a4816b057602e48c" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setTerrainMatter</name></member>
+      <member refid="classTerrainGridRepository_1a2530f6fefb284e0ed0be346edf5b3ca0" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setTerrainMatterContainer</name></member>
+      <member refid="classTerrainGridRepository_1a95e5d47c4795a945faa92b6646a6adaf" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setTerrainStructuralIntegrity</name></member>
+      <member refid="classTerrainGridRepository_1a9c7ed7fc0e65591e0c6ffbbfa97659f8" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setTerrainSubType0</name></member>
+      <member refid="classTerrainGridRepository_1a696ab5a4e55d110ec10e46057aecafdc" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setTerrainSubType1</name></member>
+      <member refid="classTerrainGridRepository_1aa436ed07e2dc96ce3598f7b2c9922b2e" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setVaporMatter</name></member>
+      <member refid="classTerrainGridRepository_1a0767166932a00a6fd8c04cc0c6810cfa" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setVelocity</name></member>
+      <member refid="classTerrainGridRepository_1a505ce0409196d46c0c923adfeb17141a" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>setWaterMatter</name></member>
+      <member refid="classTerrainGridRepository_1a54eb8db9a86f28759b486043e0aa0117" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>softDeactivateEntity</name></member>
+      <member refid="classTerrainGridRepository_1a57f6fe8c899aab7def68b08a04e0722d" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>storage_</name></member>
+      <member refid="classTerrainGridRepository_1afcb11a6b9412d53ad6310ebc433e3562" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>sumTotalWater</name></member>
+      <member refid="classTerrainGridRepository_1afb9661b1a33cc8ee3b3213dc37000baa" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>terrainGridLocked_</name></member>
+      <member refid="classTerrainGridRepository_1a657492f69c8bf57e4b425edbb1b4c8ad" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>terrainGridMutex</name></member>
+      <member refid="classTerrainGridRepository_1ad28459c29c467997c9afc65c4d5a4573" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>TerrainGridRepository</name></member>
+      <member refid="classTerrainGridRepository_1a9717c427f4e9c7523028ea214d15c06c" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>tick</name></member>
+      <member refid="classTerrainGridRepository_1ac7ea60ae2dd21e50e5b59fa409b45fa4" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>trackingMapsMutex_</name></member>
+      <member refid="classTerrainGridRepository_1acadb2570b92a56075ed6c6fa58d5205f" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>unlockTerrainGrid</name></member>
+      <member refid="classTerrainGridRepository_1a6028e89012d0f1f6449b91f3dd3e9542" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>withSharedLock</name></member>
+      <member refid="classTerrainGridRepository_1ad94c19b89f07ae9c7a650548c788c3d8" prot="public" virt="non-virtual"><scope>TerrainGridRepository</scope><name>withTrackingMapsLock</name></member>
+      <member refid="classTerrainGridRepository_1a985496dcc564b2c7c05d7fe34d2425cb" prot="private" virt="non-virtual"><scope>TerrainGridRepository</scope><name>withUniqueLock</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

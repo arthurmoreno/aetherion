@@ -1,0 +1,527 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::networking::websocket_server::WebSocketGameServer</compoundname>
+    <derivedcompoundref refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer" prot="public" virt="non-virtual">aetherion.networking.websocket_server.AuthenticatedWebSocketServer</derivedcompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a380c7d49acff05ba57385e848bbb2b2b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.websocket_server.WebSocketGameServer::fps</definition>
+        <argsstring></argsstring>
+        <name>fps</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.fps</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="234" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a40efb7dd57ab6e3d7d17a9262e603bf3" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.websocket_server.WebSocketGameServer::handle_client</definition>
+        <argsstring></argsstring>
+        <name>handle_client</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.handle_client</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="395" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a69434b79f19aadadc348ce8dad775214" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.websocket_server.WebSocketGameServer::host</definition>
+        <argsstring></argsstring>
+        <name>host</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.host</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="395" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a48f01e657438980b2a191b85454242de" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.websocket_server.WebSocketGameServer::port</definition>
+        <argsstring></argsstring>
+        <name>port</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.port</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="395" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="395" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a7d65b045f338da6e1cb2ef19a1f0e559" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.__init__</definition>
+        <argsstring>(self, WorldInterface world_interface, str host=&quot;localhost&quot;, int port=8765, int fps=FPS)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.__init__</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1aaa69bf020f322b258fb5dd504df9da29">__init__</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref></type>
+          <declname>world_interface</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>host</declname>
+          <defval>&quot;localhost&quot;</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>port</declname>
+          <defval>8765</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fps</declname>
+          <defval>FPS</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="47" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="49" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1acb9c6d63e0fd1ac7d270e5dd97e6a7a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+        <definition> EntityInterface aetherion.networking.websocket_server.WebSocketGameServer.get_entity_from_request</definition>
+        <argsstring>(self, dict[str, Any] request_message)</argsstring>
+        <name>get_entity_from_request</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.get_entity_from_request</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>request_message</declname>
+          <array>[str, Any]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="62" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="62" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a3f5d23386e418a282d1b028d48c8eb0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.websocket_server.WebSocketGameServer.process_action</definition>
+        <argsstring>(self, dict[str, Any] request_message, ServerConnection websocket)</argsstring>
+        <name>process_action</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.process_action</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>request_message</declname>
+          <array>[str, Any]</array>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="73" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="73" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a5183d81586dfd2c7ee6fd31646437bf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.add_client</definition>
+        <argsstring>(self, ServerConnection websocket)</argsstring>
+        <name>add_client</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.add_client</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="134" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="134" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1ac247c584db067ff83eea2b4053e3115b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.remove_client</definition>
+        <argsstring>(self, ServerConnection websocket)</argsstring>
+        <name>remove_client</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.remove_client</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1af3f57989afbef3ff351bdd07fc2567f9">remove_client</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="140" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="140" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a271fc753d8086df16e91b574066098a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.add_client_entity</definition>
+        <argsstring>(self, ServerConnection websocket, int entity_id)</argsstring>
+        <name>add_client_entity</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.add_client_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>entity_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="146" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="146" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a02ebb2185f0654df693d8fe4e7815c5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.remove_client_entity</definition>
+        <argsstring>(self, ServerConnection websocket, int entity_id)</argsstring>
+        <name>remove_client_entity</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.remove_client_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>entity_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="153" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="153" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a9836623b5c41b5c23792db6f233472a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>list[int]</type>
+        <definition> list[int] aetherion.networking.websocket_server.WebSocketGameServer.get_client_entities</definition>
+        <argsstring>(self, ServerConnection websocket)</argsstring>
+        <name>get_client_entities</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.get_client_entities</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="165" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="165" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1aa0cced2bb26b52f295f9b9e0fc9c7748" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.process_ping_request</definition>
+        <argsstring>(self, ServerConnection websocket)</argsstring>
+        <name>process_ping_request</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.process_ping_request</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="168" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="168" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1ab9e65eddd11b47c723d67b8cf76f2ae4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.process_state_request</definition>
+        <argsstring>(self, ServerConnection websocket)</argsstring>
+        <name>process_state_request</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.process_state_request</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="171" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="171" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a8f9ad1ce2594360775dcafc3ee4b8d8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.process_ai_metadata_request</definition>
+        <argsstring>(self, ServerConnection websocket)</argsstring>
+        <name>process_ai_metadata_request</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.process_ai_metadata_request</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="177" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="177" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a675f9dfeced9bf74fbd72ef43651f8d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.process_subscribe_entities</definition>
+        <argsstring>(self, dict[str, Any] request_message, ServerConnection websocket)</argsstring>
+        <name>process_subscribe_entities</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.process_subscribe_entities</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>request_message</declname>
+          <array>[str, Any]</array>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="183" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="183" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a3de599cd1718bf9d1b422b5a179ad774" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.process_message</definition>
+        <argsstring>(self, dict[str, Any] request_message, ServerConnection websocket)</argsstring>
+        <name>process_message</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.process_message</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer_1a6103ffc460ac89e77154883d2bbd20c5">process_message</reimplementedby>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>request_message</declname>
+          <array>[str, Any]</array>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="311" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="311" bodyend="361"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1ada8f970dab4ad2b307b33e05f8a8b7e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.handle_client</definition>
+        <argsstring>(self, ServerConnection websocket)</argsstring>
+        <name>handle_client</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.handle_client</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="362" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="362" bodyend="392"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1abb1676cc29ab5a0065285fbf66e018f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer.start</definition>
+        <argsstring>(self)</argsstring>
+        <name>start</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer.start</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="393" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="393" bodyend="398"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1aede0b64fd228f4edb9c9590d677f33c8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer._subscribe_state</definition>
+        <argsstring>(self, ServerConnection websocket, dict[str, Any]|None request_message=None)</argsstring>
+        <name>_subscribe_state</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer._subscribe_state</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <param>
+          <type>dict|None</type>
+          <declname>request_message</declname>
+          <array>[str, Any]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="207" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="209" bodyend="296"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a420ce7887958d91863fe253d027e6668" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.websocket_server.WebSocketGameServer._unsubscribe_state</definition>
+        <argsstring>(self, ServerConnection websocket)</argsstring>
+        <name>_unsubscribe_state</name>
+        <qualifiedname>aetherion.networking.websocket_server.WebSocketGameServer._unsubscribe_state</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>ServerConnection</type>
+          <declname>websocket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="297" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="297" bodyend="309"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.networking.websocket_server.WebSocketGameServer</label>
+        <link refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer"/>
+      </node>
+      <node id="2">
+        <label>aetherion.networking.websocket_server.AuthenticatedWebSocketServer</label>
+        <link refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="src/aetherion/networking/websocket_server.py" line="46" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="46" bodyend="398"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a7d65b045f338da6e1cb2ef19a1f0e559" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1aede0b64fd228f4edb9c9590d677f33c8" prot="protected" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>_subscribe_state</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a420ce7887958d91863fe253d027e6668" prot="protected" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>_unsubscribe_state</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a5183d81586dfd2c7ee6fd31646437bf1" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>add_client</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a271fc753d8086df16e91b574066098a1" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>add_client_entity</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a380c7d49acff05ba57385e848bbb2b2b" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>fps</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a9836623b5c41b5c23792db6f233472a1" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>get_client_entities</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1acb9c6d63e0fd1ac7d270e5dd97e6a7a2" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>get_entity_from_request</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a40efb7dd57ab6e3d7d17a9262e603bf3" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>handle_client</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1ada8f970dab4ad2b307b33e05f8a8b7e0" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>handle_client</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a69434b79f19aadadc348ce8dad775214" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>host</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a48f01e657438980b2a191b85454242de" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>port</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a3f5d23386e418a282d1b028d48c8eb0f" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>process_action</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a8f9ad1ce2594360775dcafc3ee4b8d8f" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>process_ai_metadata_request</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a3de599cd1718bf9d1b422b5a179ad774" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>process_message</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1aa0cced2bb26b52f295f9b9e0fc9c7748" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>process_ping_request</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1ab9e65eddd11b47c723d67b8cf76f2ae4" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>process_state_request</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a675f9dfeced9bf74fbd72ef43651f8d6" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>process_subscribe_entities</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1ac247c584db067ff83eea2b4053e3115b" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>remove_client</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1a02ebb2185f0654df693d8fe4e7815c5f" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>remove_client_entity</name></member>
+      <member refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer_1abb1676cc29ab5a0065285fbf66e018f5" prot="public" virt="non-virtual"><scope>aetherion::networking::websocket_server::WebSocketGameServer</scope><name>start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

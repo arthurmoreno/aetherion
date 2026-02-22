@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1renderer_1_1utils" kind="namespace" language="Python">
+    <compoundname>aetherion::renderer::utils</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="renderer_2utils_8py_1abc53a13c9a2ab16d8d47b3813326c297" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.utils.apply_lighting_to_sprite</definition>
+        <argsstring>(sprite, intensity)</argsstring>
+        <name>apply_lighting_to_sprite</name>
+        <qualifiedname>aetherion.renderer.utils.apply_lighting_to_sprite</qualifiedname>
+        <param>
+          <type>sprite</type>
+          <defname>sprite</defname>
+        </param>
+        <param>
+          <type>intensity</type>
+          <defname>intensity</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Apply a lighting effect by adjusting the color of the sprite.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/utils.py" line="2" column="1" bodyfile="src/aetherion/renderer/utils.py" bodystart="2" bodyend="7"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/renderer/utils.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

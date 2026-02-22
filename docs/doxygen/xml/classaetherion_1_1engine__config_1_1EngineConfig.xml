@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1engine__config_1_1EngineConfig" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::engine_config::EngineConfig</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1engine__config_1_1EngineConfig_1adbea8ff935da44590da5191a3ddeb1b3" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.engine_config.EngineConfig::screen_width</definition>
+        <argsstring></argsstring>
+        <name>screen_width</name>
+        <qualifiedname>aetherion.engine_config.EngineConfig.screen_width</qualifiedname>
+        <initializer>=  1280</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine_config.py" line="15" column="1" bodyfile="src/aetherion/engine_config.py" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine__config_1_1EngineConfig_1ad5b4b7f52f528873f0fe246974ce76d9" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.engine_config.EngineConfig::screen_height</definition>
+        <argsstring></argsstring>
+        <name>screen_height</name>
+        <qualifiedname>aetherion.engine_config.EngineConfig.screen_height</qualifiedname>
+        <initializer>=  720</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine_config.py" line="16" column="1" bodyfile="src/aetherion/engine_config.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine__config_1_1EngineConfig_1ac361f765ec9d73cf7296f8b7e4a5675e" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.engine_config.EngineConfig::fps</definition>
+        <argsstring></argsstring>
+        <name>fps</name>
+        <qualifiedname>aetherion.engine_config.EngineConfig.fps</qualifiedname>
+        <initializer>=  60</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine_config.py" line="17" column="1" bodyfile="src/aetherion/engine_config.py" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine__config_1_1EngineConfig_1a319ab3f5b58851912a7787ebf9e62ddc" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.engine_config.EngineConfig::window_title</definition>
+        <argsstring></argsstring>
+        <name>window_title</name>
+        <qualifiedname>aetherion.engine_config.EngineConfig.window_title</qualifiedname>
+        <initializer>=  &quot;Aetherion Engine&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine_config.py" line="18" column="1" bodyfile="src/aetherion/engine_config.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine__config_1_1EngineConfig_1abfb08154c08f7471817bdf471e8418bf" prot="public" static="yes" mutable="no">
+        <type>type</type>
+        <definition>type aetherion.engine_config.EngineConfig::user_input_controller_class</definition>
+        <argsstring></argsstring>
+        <name>user_input_controller_class</name>
+        <qualifiedname>aetherion.engine_config.EngineConfig.user_input_controller_class</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine_config.py" line="20" column="1" bodyfile="src/aetherion/engine_config.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine__config_1_1EngineConfig_1a00991f0566b76e15c70f8d300e783402" prot="public" static="yes" mutable="no">
+        <type>Callable</type>
+        <definition>Callable aetherion.engine_config.EngineConfig::player_input_map_factory</definition>
+        <argsstring></argsstring>
+        <name>player_input_map_factory</name>
+        <qualifiedname>aetherion.engine_config.EngineConfig.player_input_map_factory</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine_config.py" line="21" column="1" bodyfile="src/aetherion/engine_config.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine__config_1_1EngineConfig_1ab5447e6443c797bdf671665f49c9c486" prot="public" static="yes" mutable="no">
+        <type>Callable</type>
+        <definition>Callable aetherion.engine_config.EngineConfig::ai_manager_factory</definition>
+        <argsstring></argsstring>
+        <name>ai_manager_factory</name>
+        <qualifiedname>aetherion.engine_config.EngineConfig.ai_manager_factory</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine_config.py" line="22" column="1" bodyfile="src/aetherion/engine_config.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine__config_1_1EngineConfig_1a0cc1e15bc06bf8a9a062d920bb9296cf" prot="public" static="yes" mutable="no">
+        <type>WorldEventHandlersMap</type>
+        <definition>WorldEventHandlersMap aetherion.engine_config.EngineConfig::worldmanager_event_handlers</definition>
+        <argsstring></argsstring>
+        <name>worldmanager_event_handlers</name>
+        <qualifiedname>aetherion.engine_config.EngineConfig.worldmanager_event_handlers</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine_config.py" line="23" column="1" bodyfile="src/aetherion/engine_config.py" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Encapsulate startup configuration for the game engine.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.engine_config.EngineConfig</label>
+        <link refid="classaetherion_1_1engine__config_1_1EngineConfig"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.engine_config.EngineConfig</label>
+        <link refid="classaetherion_1_1engine__config_1_1EngineConfig"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>ai_manager_factory</edgelabel>
+          <edgelabel>player_input_map_factory</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>worldmanager_event_handlers</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>WorldEventHandlersMap</label>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+      <node id="3">
+        <label>Callable</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/engine_config.py" line="12" column="1" bodyfile="src/aetherion/engine_config.py" bodystart="12" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1engine__config_1_1EngineConfig_1ab5447e6443c797bdf671665f49c9c486" prot="public" virt="non-virtual"><scope>aetherion::engine_config::EngineConfig</scope><name>ai_manager_factory</name></member>
+      <member refid="classaetherion_1_1engine__config_1_1EngineConfig_1ac361f765ec9d73cf7296f8b7e4a5675e" prot="public" virt="non-virtual"><scope>aetherion::engine_config::EngineConfig</scope><name>fps</name></member>
+      <member refid="classaetherion_1_1engine__config_1_1EngineConfig_1a00991f0566b76e15c70f8d300e783402" prot="public" virt="non-virtual"><scope>aetherion::engine_config::EngineConfig</scope><name>player_input_map_factory</name></member>
+      <member refid="classaetherion_1_1engine__config_1_1EngineConfig_1ad5b4b7f52f528873f0fe246974ce76d9" prot="public" virt="non-virtual"><scope>aetherion::engine_config::EngineConfig</scope><name>screen_height</name></member>
+      <member refid="classaetherion_1_1engine__config_1_1EngineConfig_1adbea8ff935da44590da5191a3ddeb1b3" prot="public" virt="non-virtual"><scope>aetherion::engine_config::EngineConfig</scope><name>screen_width</name></member>
+      <member refid="classaetherion_1_1engine__config_1_1EngineConfig_1abfb08154c08f7471817bdf471e8418bf" prot="public" virt="non-virtual"><scope>aetherion::engine_config::EngineConfig</scope><name>user_input_controller_class</name></member>
+      <member refid="classaetherion_1_1engine__config_1_1EngineConfig_1a319ab3f5b58851912a7787ebf9e62ddc" prot="public" virt="non-virtual"><scope>aetherion::engine_config::EngineConfig</scope><name>window_title</name></member>
+      <member refid="classaetherion_1_1engine__config_1_1EngineConfig_1a0cc1e15bc06bf8a9a062d920bb9296cf" prot="public" virt="non-virtual"><scope>aetherion::engine_config::EngineConfig</scope><name>worldmanager_event_handlers</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

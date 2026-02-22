@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::game_state::connections::AccountConnectionMetadata</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1a9d7a786580c824521348b111382c8157" prot="public" static="yes" mutable="no">
+        <type></type>
+        <definition>aetherion.game_state.connections.AccountConnectionMetadata::model_config</definition>
+        <argsstring></argsstring>
+        <name>model_config</name>
+        <qualifiedname>aetherion.game_state.connections.AccountConnectionMetadata.model_config</qualifiedname>
+        <initializer>=  ConfigDict(arbitrary_types_allowed=True)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/connections.py" line="9" column="1" bodyfile="src/aetherion/game_state/connections.py" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1a4985c6a1502c514162c52967418b007a" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.connections.AccountConnectionMetadata::account_id</definition>
+        <argsstring></argsstring>
+        <name>account_id</name>
+        <qualifiedname>aetherion.game_state.connections.AccountConnectionMetadata.account_id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/connections.py" line="11" column="1" bodyfile="src/aetherion/game_state/connections.py" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1a65f0a16cd38c8083914776a6afbe0ddb" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.connections.AccountConnectionMetadata::key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <qualifiedname>aetherion.game_state.connections.AccountConnectionMetadata.key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/connections.py" line="12" column="1" bodyfile="src/aetherion/game_state/connections.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1ab859a9b239f396a287b51428c0b43e56" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.connections.AccountConnectionMetadata::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>aetherion.game_state.connections.AccountConnectionMetadata.name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/connections.py" line="13" column="1" bodyfile="src/aetherion/game_state/connections.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1abfef1782d3aacd2fc4f30f10a4b5c5bd" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.connections.AccountConnectionMetadata::description</definition>
+        <argsstring></argsstring>
+        <name>description</name>
+        <qualifiedname>aetherion.game_state.connections.AccountConnectionMetadata.description</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/connections.py" line="14" column="1" bodyfile="src/aetherion/game_state/connections.py" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1a0235c80d0afaaee92d98d8bc32e82c8f" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.game_state.connections.AccountConnectionMetadata::status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <qualifiedname>aetherion.game_state.connections.AccountConnectionMetadata.status</qualifiedname>
+        <initializer>=  &quot;unavailable&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/connections.py" line="15" column="1" bodyfile="src/aetherion/game_state/connections.py" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1a189895c8e2cb7e135ad712f4f45e09eb" prot="public" static="yes" mutable="no">
+        <type>Any</type>
+        <definition>Any aetherion.game_state.connections.AccountConnectionMetadata::account_jwt</definition>
+        <argsstring></argsstring>
+        <name>account_jwt</name>
+        <qualifiedname>aetherion.game_state.connections.AccountConnectionMetadata.account_jwt</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/game_state/connections.py" line="18" column="1" bodyfile="src/aetherion/game_state/connections.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.game_state.connections.AccountConnectionMetadata</label>
+        <link refid="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.game_state.connections.AccountConnectionMetadata</label>
+        <link refid="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>account_jwt</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+      <node id="3">
+        <label>Any</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/game_state/connections.py" line="8" column="1" bodyfile="src/aetherion/game_state/connections.py" bodystart="8" bodyend="20"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1a4985c6a1502c514162c52967418b007a" prot="public" virt="non-virtual"><scope>aetherion::game_state::connections::AccountConnectionMetadata</scope><name>account_id</name></member>
+      <member refid="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1a189895c8e2cb7e135ad712f4f45e09eb" prot="public" virt="non-virtual"><scope>aetherion::game_state::connections::AccountConnectionMetadata</scope><name>account_jwt</name></member>
+      <member refid="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1abfef1782d3aacd2fc4f30f10a4b5c5bd" prot="public" virt="non-virtual"><scope>aetherion::game_state::connections::AccountConnectionMetadata</scope><name>description</name></member>
+      <member refid="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1a65f0a16cd38c8083914776a6afbe0ddb" prot="public" virt="non-virtual"><scope>aetherion::game_state::connections::AccountConnectionMetadata</scope><name>key</name></member>
+      <member refid="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1a9d7a786580c824521348b111382c8157" prot="public" virt="non-virtual"><scope>aetherion::game_state::connections::AccountConnectionMetadata</scope><name>model_config</name></member>
+      <member refid="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1ab859a9b239f396a287b51428c0b43e56" prot="public" virt="non-virtual"><scope>aetherion::game_state::connections::AccountConnectionMetadata</scope><name>name</name></member>
+      <member refid="classaetherion_1_1game__state_1_1connections_1_1AccountConnectionMetadata_1a0235c80d0afaaee92d98d8bc32e82c8f" prot="public" virt="non-virtual"><scope>aetherion::game_state::connections::AccountConnectionMetadata</scope><name>status</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

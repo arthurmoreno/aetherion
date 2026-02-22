@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1world_1_1constants" kind="namespace" language="Python">
+    <compoundname>aetherion::world::constants</compoundname>
+    <innerclass refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" prot="public">aetherion::world::constants::WorldInstanceTypes</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="world_2constants_8py_1ac6585e4dc2ef10010d86efd58a51724b" prot="public" static="no" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion::world::constants.TERRAIN_VARIATION_TYPE_MAP</definition>
+        <argsstring></argsstring>
+        <name>TERRAIN_VARIATION_TYPE_MAP</name>
+        <qualifiedname>aetherion.world.constants.TERRAIN_VARIATION_TYPE_MAP</qualifiedname>
+        <initializer>=  {
+    TerrainVariantEnum.FULL.value: &quot;full&quot;,
+    TerrainVariantEnum.RAMP_EAST.value: &quot;ramp_east&quot;,
+    TerrainVariantEnum.RAMP_WEST.value: &quot;ramp_west&quot;,
+    TerrainVariantEnum.CORNER_SOUTH_EAST.value: &quot;corner_south_east&quot;,
+    TerrainVariantEnum.CORNER_SOUTH_EAST_INV.value: &quot;corner_south_east_inverted&quot;,
+    TerrainVariantEnum.CORNER_NORTH_EAST.value: &quot;corner_north_east&quot;,
+    TerrainVariantEnum.CORNER_NORTH_EAST_INV.value: &quot;corner_north_east_inverted&quot;,
+    TerrainVariantEnum.RAMP_SOUTH.value: &quot;ramp_south&quot;,
+    TerrainVariantEnum.RAMP_NORTH.value: &quot;ramp_north&quot;,
+    TerrainVariantEnum.CORNER_SOUTH_WEST.value: &quot;corner_south_west&quot;,
+    TerrainVariantEnum.CORNER_NORTH_WEST.value: &quot;corner_north_west&quot;,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/constants.py" line="12" column="1" bodyfile="src/aetherion/world/constants.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/world/constants.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

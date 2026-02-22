@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1renderer_1_1fonts_1_1Font" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::renderer::fonts::Font</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1fonts_1_1Font_1aa078215ea92f60e9aad242bb316b723b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.fonts.Font::font_path</definition>
+        <argsstring></argsstring>
+        <name>font_path</name>
+        <qualifiedname>aetherion.renderer.fonts.Font.font_path</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/fonts.py" line="6" column="1" bodyfile="src/aetherion/renderer/fonts.py" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1fonts_1_1Font_1a2ea96666356b203abeec519aefd3341e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.fonts.Font::font_size</definition>
+        <argsstring></argsstring>
+        <name>font_size</name>
+        <qualifiedname>aetherion.renderer.fonts.Font.font_size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/fonts.py" line="7" column="1" bodyfile="src/aetherion/renderer/fonts.py" bodystart="7" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1fonts_1_1Font_1ae0a53734def88cc1793667dc5c8a3084" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.fonts.Font::_font</definition>
+        <argsstring></argsstring>
+        <name>_font</name>
+        <qualifiedname>aetherion.renderer.fonts.Font._font</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/fonts.py" line="8" column="1" bodyfile="src/aetherion/renderer/fonts.py" bodystart="8" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1fonts_1_1Font_1a0accef5992ee83b1cd4d2a5714b573b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.fonts.Font.__init__</definition>
+        <argsstring>(self, font_path, font_size)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.renderer.fonts.Font.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>font_path</type>
+          <defname>font_path</defname>
+        </param>
+        <param>
+          <type>font_size</type>
+          <defname>font_size</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/fonts.py" line="5" column="1" bodyfile="src/aetherion/renderer/fonts.py" bodystart="5" bodyend="9"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/renderer/fonts.py" line="4" column="1" bodyfile="src/aetherion/renderer/fonts.py" bodystart="4" bodyend="9"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1renderer_1_1fonts_1_1Font_1a0accef5992ee83b1cd4d2a5714b573b9" prot="public" virt="non-virtual"><scope>aetherion::renderer::fonts::Font</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1renderer_1_1fonts_1_1Font_1ae0a53734def88cc1793667dc5c8a3084" prot="protected" virt="non-virtual"><scope>aetherion::renderer::fonts::Font</scope><name>_font</name></member>
+      <member refid="classaetherion_1_1renderer_1_1fonts_1_1Font_1aa078215ea92f60e9aad242bb316b723b" prot="public" virt="non-virtual"><scope>aetherion::renderer::fonts::Font</scope><name>font_path</name></member>
+      <member refid="classaetherion_1_1renderer_1_1fonts_1_1Font_1a2ea96666356b203abeec519aefd3341e" prot="public" virt="non-virtual"><scope>aetherion::renderer::fonts::Font</scope><name>font_size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

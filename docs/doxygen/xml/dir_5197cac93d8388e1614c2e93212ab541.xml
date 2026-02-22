@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_5197cac93d8388e1614c2e93212ab541" kind="dir">
+    <compoundname>src/aetherion/networking</compoundname>
+    <innerfile refid="networking_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="admin__connection_8py">admin_connection.py</innerfile>
+    <innerfile refid="ai__manager_8py">ai_manager.py</innerfile>
+    <innerfile refid="connection_8py">connection.py</innerfile>
+    <innerfile refid="networking_2constants_8py">constants.py</innerfile>
+    <innerfile refid="networking_2exceptions_8py">exceptions.py</innerfile>
+    <innerfile refid="jwt_8py">jwt.py</innerfile>
+    <innerfile refid="receiver_8py">receiver.py</innerfile>
+    <innerfile refid="websocket__server_8py">websocket_server.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/networking/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structDeleteOrConvertTerrainEvent" kind="struct" language="C++" prot="public">
+    <compoundname>DeleteOrConvertTerrainEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structDeleteOrConvertTerrainEvent_1a0cb90444f9d27112a5842dcc83ee96ab" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity DeleteOrConvertTerrainEvent::terrain</definition>
+        <argsstring></argsstring>
+        <name>terrain</name>
+        <qualifiedname>DeleteOrConvertTerrainEvent::terrain</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="187" column="18" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="187" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structDeleteOrConvertTerrainEvent_1a11f7915fe2bd3d97420814a520640a29" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DeleteOrConvertTerrainEvent::DeleteOrConvertTerrainEvent</definition>
+        <argsstring>(entt::entity terrain)</argsstring>
+        <name>DeleteOrConvertTerrainEvent</name>
+        <qualifiedname>DeleteOrConvertTerrainEvent::DeleteOrConvertTerrainEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>terrain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="189" column="5" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="189" bodyend="189"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ecosystem/EcosystemEvents.hpp" line="186" column="1" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="186" bodyend="190"/>
+    <listofallmembers>
+      <member refid="structDeleteOrConvertTerrainEvent_1a11f7915fe2bd3d97420814a520640a29" prot="public" virt="non-virtual"><scope>DeleteOrConvertTerrainEvent</scope><name>DeleteOrConvertTerrainEvent</name></member>
+      <member refid="structDeleteOrConvertTerrainEvent_1a0cb90444f9d27112a5842dcc83ee96ab" prot="public" virt="non-virtual"><scope>DeleteOrConvertTerrainEvent</scope><name>terrain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

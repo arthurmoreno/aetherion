@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structWaveEmitterComponent" kind="struct" language="C++" prot="public">
+    <compoundname>WaveEmitterComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structWaveEmitterComponent_1ad027ff5c82cd0d7629c3952f3ae5556e" prot="public" static="no" mutable="no">
+        <type>WaveType</type>
+        <definition>WaveType WaveEmitterComponent::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>WaveEmitterComponent::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="55" column="14" bodyfile="src/WavePhysicsEngine.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveEmitterComponent_1a0d268e64ae722f9fc811056c18a58dee" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveEmitterComponent::initialAmplitude</definition>
+        <argsstring></argsstring>
+        <name>initialAmplitude</name>
+        <qualifiedname>WaveEmitterComponent::initialAmplitude</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="56" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveEmitterComponent_1ac3ca0bde73fa91576578dd5143757370" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveEmitterComponent::frequency</definition>
+        <argsstring></argsstring>
+        <name>frequency</name>
+        <qualifiedname>WaveEmitterComponent::frequency</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="57" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveEmitterComponent_1ab3f60ef0be06f3079bf07b31451d1eeb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveEmitterComponent::speed</definition>
+        <argsstring></argsstring>
+        <name>speed</name>
+        <qualifiedname>WaveEmitterComponent::speed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="58" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveEmitterComponent_1ac2d30cbca1293d8ef5fa89ada69cb57d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveEmitterComponent::attenuationPerUnit</definition>
+        <argsstring></argsstring>
+        <name>attenuationPerUnit</name>
+        <qualifiedname>WaveEmitterComponent::attenuationPerUnit</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="59" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveEmitterComponent_1a122d19bb7c9068d321848c173e32cc4f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t WaveEmitterComponent::maxLifetimeTicks</definition>
+        <argsstring></argsstring>
+        <name>maxLifetimeTicks</name>
+        <qualifiedname>WaveEmitterComponent::maxLifetimeTicks</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="60" column="14" bodyfile="src/WavePhysicsEngine.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveEmitterComponent_1a263d017157e11bf0f0c94156a2bbac8b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool WaveEmitterComponent::isActive</definition>
+        <argsstring></argsstring>
+        <name>isActive</name>
+        <qualifiedname>WaveEmitterComponent::isActive</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="61" column="10" bodyfile="src/WavePhysicsEngine.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structWaveEmitterComponent_1ad36ecb1bc54e14435a0f912e243a33f8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>WaveEmitterComponent::WaveEmitterComponent</definition>
+        <argsstring>()</argsstring>
+        <name>WaveEmitterComponent</name>
+        <qualifiedname>WaveEmitterComponent::WaveEmitterComponent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="63" column="5" bodyfile="src/WavePhysicsEngine.hpp" bodystart="63" bodyend="70"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/WavePhysicsEngine.hpp" line="54" column="1" bodyfile="src/WavePhysicsEngine.hpp" bodystart="54" bodyend="71"/>
+    <listofallmembers>
+      <member refid="structWaveEmitterComponent_1ac2d30cbca1293d8ef5fa89ada69cb57d" prot="public" virt="non-virtual"><scope>WaveEmitterComponent</scope><name>attenuationPerUnit</name></member>
+      <member refid="structWaveEmitterComponent_1ac3ca0bde73fa91576578dd5143757370" prot="public" virt="non-virtual"><scope>WaveEmitterComponent</scope><name>frequency</name></member>
+      <member refid="structWaveEmitterComponent_1a0d268e64ae722f9fc811056c18a58dee" prot="public" virt="non-virtual"><scope>WaveEmitterComponent</scope><name>initialAmplitude</name></member>
+      <member refid="structWaveEmitterComponent_1a263d017157e11bf0f0c94156a2bbac8b" prot="public" virt="non-virtual"><scope>WaveEmitterComponent</scope><name>isActive</name></member>
+      <member refid="structWaveEmitterComponent_1a122d19bb7c9068d321848c173e32cc4f" prot="public" virt="non-virtual"><scope>WaveEmitterComponent</scope><name>maxLifetimeTicks</name></member>
+      <member refid="structWaveEmitterComponent_1ab3f60ef0be06f3079bf07b31451d1eeb" prot="public" virt="non-virtual"><scope>WaveEmitterComponent</scope><name>speed</name></member>
+      <member refid="structWaveEmitterComponent_1ad027ff5c82cd0d7629c3952f3ae5556e" prot="public" virt="non-virtual"><scope>WaveEmitterComponent</scope><name>type</name></member>
+      <member refid="structWaveEmitterComponent_1ad36ecb1bc54e14435a0f912e243a33f8" prot="public" virt="non-virtual"><scope>WaveEmitterComponent</scope><name>WaveEmitterComponent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_091fee004c4edda6bc8bbc564a062c9b" kind="dir">
+    <compoundname>src/Gui/GuiPrograms/Debug</compoundname>
+    <innerfile refid="AIStatisticsProgram_8hpp">AIStatisticsProgram.hpp</innerfile>
+    <innerfile refid="ConsoleProgram_8hpp">ConsoleProgram.hpp</innerfile>
+    <innerfile refid="EditorDebuggerProgram_8hpp">EditorDebuggerProgram.hpp</innerfile>
+    <innerfile refid="EntitiesStatsProgram_8hpp">EntitiesStatsProgram.hpp</innerfile>
+    <innerfile refid="EntityInterfaceProgram_8hpp">EntityInterfaceProgram.hpp</innerfile>
+    <innerfile refid="GadgetsProgram_8hpp">GadgetsProgram.hpp</innerfile>
+    <innerfile refid="GeneralMetricsProgram_8hpp">GeneralMetricsProgram.hpp</innerfile>
+    <innerfile refid="LifeMetricsProgram_8hpp">LifeMetricsProgram.hpp</innerfile>
+    <innerfile refid="PhysicsMetricsProgram_8hpp">PhysicsMetricsProgram.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Gui/GuiPrograms/Debug/"/>
+  </compounddef>
+</doxygen>

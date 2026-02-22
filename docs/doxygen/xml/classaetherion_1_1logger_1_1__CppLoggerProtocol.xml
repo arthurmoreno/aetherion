@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1logger_1_1__CppLoggerProtocol" kind="class" language="Python" prot="protected">
+    <compoundname>aetherion::logger::_CppLoggerProtocol</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Protocol</basecompoundref>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a8802961aa0dd8879250b7dbc4a24909a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.logger._CppLoggerProtocol.initialize_spdlog</definition>
+        <argsstring>(*str logger_name, str log_file, bool console_output)</argsstring>
+        <name>initialize_spdlog</name>
+        <qualifiedname>aetherion.logger._CppLoggerProtocol.initialize_spdlog</qualifiedname>
+        <param>
+          <type>*str</type>
+          <declname>logger_name</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>log_file</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>console_output</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="69" column="1" bodyfile="src/aetherion/logger.py" bodystart="69" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a7795f46086f4f48b6f155f019651ad06" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.logger._CppLoggerProtocol.set_level</definition>
+        <argsstring>(int level)</argsstring>
+        <name>set_level</name>
+        <qualifiedname>aetherion.logger._CppLoggerProtocol.set_level</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>level</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="72" column="1" bodyfile="src/aetherion/logger.py" bodystart="72" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a2250fd01a6f66ce207be85106b9cb71f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.logger._CppLoggerProtocol.critical</definition>
+        <argsstring>(str msg)</argsstring>
+        <name>critical</name>
+        <qualifiedname>aetherion.logger._CppLoggerProtocol.critical</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="75" column="1" bodyfile="src/aetherion/logger.py" bodystart="75" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1logger_1_1__CppLoggerProtocol_1adc21a2907562fb3580ce116ea07779f7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.logger._CppLoggerProtocol.error</definition>
+        <argsstring>(str msg)</argsstring>
+        <name>error</name>
+        <qualifiedname>aetherion.logger._CppLoggerProtocol.error</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="78" column="1" bodyfile="src/aetherion/logger.py" bodystart="78" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a4a18d5d747aecde9e113556fff0e2b6e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.logger._CppLoggerProtocol.warn</definition>
+        <argsstring>(str msg)</argsstring>
+        <name>warn</name>
+        <qualifiedname>aetherion.logger._CppLoggerProtocol.warn</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="81" column="1" bodyfile="src/aetherion/logger.py" bodystart="81" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a1f022b998aec3937e033f0f386176971" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.logger._CppLoggerProtocol.info</definition>
+        <argsstring>(str msg)</argsstring>
+        <name>info</name>
+        <qualifiedname>aetherion.logger._CppLoggerProtocol.info</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="84" column="1" bodyfile="src/aetherion/logger.py" bodystart="84" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a61dcdc8e33e3f6eef0a57d29f3d6b7ef" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.logger._CppLoggerProtocol.debug</definition>
+        <argsstring>(str msg)</argsstring>
+        <name>debug</name>
+        <qualifiedname>aetherion.logger._CppLoggerProtocol.debug</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/logger.py" line="87" column="1" bodyfile="src/aetherion/logger.py" bodystart="87" bodyend="90"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.logger._CppLoggerProtocol</label>
+        <link refid="classaetherion_1_1logger_1_1__CppLoggerProtocol"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Protocol</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.logger._CppLoggerProtocol</label>
+        <link refid="classaetherion_1_1logger_1_1__CppLoggerProtocol"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Protocol</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/logger.py" line="67" column="1" bodyfile="src/aetherion/logger.py" bodystart="67" bodyend="90"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a2250fd01a6f66ce207be85106b9cb71f" prot="public" virt="non-virtual"><scope>aetherion::logger::_CppLoggerProtocol</scope><name>critical</name></member>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a61dcdc8e33e3f6eef0a57d29f3d6b7ef" prot="public" virt="non-virtual"><scope>aetherion::logger::_CppLoggerProtocol</scope><name>debug</name></member>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerProtocol_1adc21a2907562fb3580ce116ea07779f7" prot="public" virt="non-virtual"><scope>aetherion::logger::_CppLoggerProtocol</scope><name>error</name></member>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a1f022b998aec3937e033f0f386176971" prot="public" virt="non-virtual"><scope>aetherion::logger::_CppLoggerProtocol</scope><name>info</name></member>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a8802961aa0dd8879250b7dbc4a24909a" prot="public" virt="non-virtual"><scope>aetherion::logger::_CppLoggerProtocol</scope><name>initialize_spdlog</name></member>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a7795f46086f4f48b6f155f019651ad06" prot="public" virt="non-virtual"><scope>aetherion::logger::_CppLoggerProtocol</scope><name>set_level</name></member>
+      <member refid="classaetherion_1_1logger_1_1__CppLoggerProtocol_1a4a18d5d747aecde9e113556fff0e2b6e" prot="public" virt="non-virtual"><scope>aetherion::logger::_CppLoggerProtocol</scope><name>warn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

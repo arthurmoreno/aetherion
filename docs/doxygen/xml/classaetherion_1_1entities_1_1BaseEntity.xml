@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1entities_1_1BaseEntity" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::entities::BaseEntity</compoundname>
+    <derivedcompoundref refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity" prot="public" virt="non-virtual">aetherion.entities.beasts.BeastEntity</derivedcompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1BaseEntity_1a0dc4c6d0fa13297553f73a69536526cd" prot="public" static="yes" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position aetherion.entities.BaseEntity::position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <qualifiedname>aetherion.entities.BaseEntity.position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="21" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1BaseEntity_1a64dc99eee7fd24ce747290b8cf2dadce" prot="public" static="yes" mutable="no">
+        <type><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref></type>
+        <definition>EntityTypeComponent aetherion.entities.BaseEntity::entity_type</definition>
+        <argsstring></argsstring>
+        <name>entity_type</name>
+        <qualifiedname>aetherion.entities.BaseEntity.entity_type</qualifiedname>
+        <initializer> | None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="22" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1BaseEntity_1a7b4d74af82aa0169916e179e8e12bd28" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.entities.BaseEntity::entity_id</definition>
+        <argsstring></argsstring>
+        <name>entity_id</name>
+        <qualifiedname>aetherion.entities.BaseEntity.entity_id</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="23" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1BaseEntity_1a237576f1a167190e3a5b122f60a2f0cd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.entities.BaseEntity::position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <qualifiedname>aetherion.entities.BaseEntity.position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="28" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1BaseEntity_1a1abbd63abf9060083f35e8d67f6713f3" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.entities.BaseEntity::entity_type</definition>
+        <argsstring></argsstring>
+        <name>entity_type</name>
+        <qualifiedname>aetherion.entities.BaseEntity.entity_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="33" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1BaseEntity_1a41758358fe557eb13e3f3415eee79155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.entities.BaseEntity.__init__</definition>
+        <argsstring>(self, int x=-1, int y=-1, int z=-1, DirectionEnum direction=DirectionEnum.DOWN)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.entities.BaseEntity.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+          <defval>-1</defval>
+        </param>
+        <param>
+          <type>DirectionEnum</type>
+          <declname>direction</declname>
+          <defval>DirectionEnum.DOWN</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="25" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="25" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1BaseEntity_1add751ea3a67e56da5f06e21364dabb22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.entities.BaseEntity.behavior</definition>
+        <argsstring>(self)</argsstring>
+        <name>behavior</name>
+        <qualifiedname>aetherion.entities.BaseEntity.behavior</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Default behavior method. Subclasses should override to implement specific logic.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="35" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="35" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1BaseEntity_1afb3a09afe54ce120936062a82b408297" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Self</type>
+        <definition> Self aetherion.entities.BaseEntity.from_entity_interface</definition>
+        <argsstring>(cls, EntityInterface entity_interface)</argsstring>
+        <name>from_entity_interface</name>
+        <qualifiedname>aetherion.entities.BaseEntity.from_entity_interface</qualifiedname>
+        <param>
+          <type>cls</type>
+          <defname>cls</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Create an instance from a generic entity interface, copying over core components.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="42" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="42" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1BaseEntity_1abeb4bbdf4fb46e267632e3a5b9755429" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.entities.BaseEntity.x</definition>
+        <argsstring>(self)</argsstring>
+        <name>x</name>
+        <qualifiedname>aetherion.entities.BaseEntity.x</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="52" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="52" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1BaseEntity_1a45ad500e3f0b2e78faeda9194fad5d88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.entities.BaseEntity.y</definition>
+        <argsstring>(self)</argsstring>
+        <name>y</name>
+        <qualifiedname>aetherion.entities.BaseEntity.y</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="56" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="56" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1BaseEntity_1a7df9e41af03a67fcfaee035ef0a2f270" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.entities.BaseEntity.z</definition>
+        <argsstring>(self)</argsstring>
+        <name>z</name>
+        <qualifiedname>aetherion.entities.BaseEntity.z</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/__init__.py" line="60" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="60" bodyend="62"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Base class for all entities in the simulation. Defines common attributes and logic:
+  - position (aetherion.Position)
+  - velocity (aetherion.Velocity)
+  - behavior() method stub
+  - from_entity_interface() constructor
+  - x, y, z convenience properties
+Subclasses should override class-level `grid_type` and initialize their own `entity_type`,
+and any additional components (e.g., structural_integrity, matter_container, physics_stats).
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.entities.BaseEntity</label>
+        <link refid="classaetherion_1_1entities_1_1BaseEntity"/>
+      </node>
+      <node id="2">
+        <label>aetherion.entities.beasts.BeastEntity</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.entities.BaseEntity</label>
+        <link refid="classaetherion_1_1entities_1_1BaseEntity"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>position</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>entity_type</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>EntityTypeComponent</label>
+      </node>
+      <node id="2">
+        <label>Position</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/entities/__init__.py" line="6" column="1" bodyfile="src/aetherion/entities/__init__.py" bodystart="6" bodyend="62"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1a41758358fe557eb13e3f3415eee79155" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1add751ea3a67e56da5f06e21364dabb22" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>behavior</name></member>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1a7b4d74af82aa0169916e179e8e12bd28" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>entity_id</name></member>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1a64dc99eee7fd24ce747290b8cf2dadce" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>entity_type</name></member>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1a1abbd63abf9060083f35e8d67f6713f3" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>entity_type</name></member>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1afb3a09afe54ce120936062a82b408297" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>from_entity_interface</name></member>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1a0dc4c6d0fa13297553f73a69536526cd" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>position</name></member>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1a237576f1a167190e3a5b122f60a2f0cd" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>position</name></member>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1abeb4bbdf4fb46e267632e3a5b9755429" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>x</name></member>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1a45ad500e3f0b2e78faeda9194fad5d88" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>y</name></member>
+      <member refid="classaetherion_1_1entities_1_1BaseEntity_1a7df9e41af03a67fcfaee035ef0a2f270" prot="public" virt="non-virtual"><scope>aetherion::entities::BaseEntity</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

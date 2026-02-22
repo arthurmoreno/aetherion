@@ -1,0 +1,391 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classProgramManager" kind="class" language="C++" prot="public">
+    <compoundname>ProgramManager</compoundname>
+    <includes refid="ProgramManager_8hpp" local="no">ProgramManager.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classProgramManager_1a4bb7c1de7d54d08df62b6c2152e51b90" prot="protected" static="no" mutable="no">
+        <type>std::unordered_map&lt; std::string, std::shared_ptr&lt; T &gt; &gt;</type>
+        <definition>std::unordered_map&lt;std::string, std::shared_ptr&lt;T&gt; &gt; ProgramManager&lt; T &gt;::programs_</definition>
+        <argsstring></argsstring>
+        <name>programs_</name>
+        <qualifiedname>ProgramManager::programs_</qualifiedname>
+        <briefdescription>
+<para>Program registry. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="218" column="24" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="218" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classProgramManager_1a89847b458f1114e3c46c6a1368dbf471" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual ProgramManager&lt; T &gt;::~ProgramManager</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ProgramManager</name>
+        <qualifiedname>ProgramManager::~ProgramManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="30" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1af2e6ac155034f5335d34be1a6d0b0126" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ProgramManager&lt; T &gt;::registerProgram</definition>
+        <argsstring>(std::shared_ptr&lt; T &gt; program)</argsstring>
+        <name>registerProgram</name>
+        <qualifiedname>ProgramManager::registerProgram</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; T &gt;</type>
+          <declname>program</declname>
+        </param>
+        <briefdescription>
+<para>Register a program. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Programs must be registered before they can be activated. Typically called during initialization.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>program</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shared pointer to program instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="40" column="10" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="40" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1a0226795a728fed180ace5dac95fb8e38" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ProgramManager&lt; T &gt;::activateProgram</definition>
+        <argsstring>(const std::string &amp;programId)</argsstring>
+        <name>activateProgram</name>
+        <qualifiedname>ProgramManager::activateProgram</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>programId</declname>
+        </param>
+        <briefdescription>
+<para>Activate a program by ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the program&apos;s active state and calls its onActivate() callback. If the program is already active, this is a no-op.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>programId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Program identifier </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if program was activated, false if not found </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="57" column="10" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="57" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1a4165f303197c8a49f105bc13909ea3c1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ProgramManager&lt; T &gt;::deactivateProgram</definition>
+        <argsstring>(const std::string &amp;programId)</argsstring>
+        <name>deactivateProgram</name>
+        <qualifiedname>ProgramManager::deactivateProgram</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>programId</declname>
+        </param>
+        <briefdescription>
+<para>Deactivate a program by ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the program&apos;s active state to false and calls its onDeactivate() callback.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>programId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Program identifier </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if program was deactivated, false if not found </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="80" column="10" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="80" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1a6fdb85ecf0a4268f74964be4fcc13fb3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ProgramManager&lt; T &gt;::toggleProgram</definition>
+        <argsstring>(const std::string &amp;programId)</argsstring>
+        <name>toggleProgram</name>
+        <qualifiedname>ProgramManager::toggleProgram</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>programId</declname>
+        </param>
+        <briefdescription>
+<para>Toggle a program&apos;s active state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>programId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Program identifier </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if program state was toggled, false if not found </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="99" column="10" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="99" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1ab76866e37717c734df69130f410c03ec" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt; std::string &gt; ProgramManager&lt; T &gt;::getAllProgramIds</definition>
+        <argsstring>() const</argsstring>
+        <name>getAllProgramIds</name>
+        <qualifiedname>ProgramManager::getAllProgramIds</qualifiedname>
+        <briefdescription>
+<para>Get list of all program IDs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Vector of program identifiers </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="116" column="17" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="116" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1ad129970d8ba9d98ae88cd8ec4754ddc9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt; std::string &gt; ProgramManager&lt; T &gt;::getActiveProgramIds</definition>
+        <argsstring>() const</argsstring>
+        <name>getActiveProgramIds</name>
+        <qualifiedname>ProgramManager::getActiveProgramIds</qualifiedname>
+        <briefdescription>
+<para>Get list of all active program IDs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Vector of active program identifiers </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="130" column="17" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="130" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1a622525f5df380373752da26eb2e0fd1e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ProgramManager&lt; T &gt;::isProgramActive</definition>
+        <argsstring>(const std::string &amp;programId) const</argsstring>
+        <name>isProgramActive</name>
+        <qualifiedname>ProgramManager::isProgramActive</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>programId</declname>
+        </param>
+        <briefdescription>
+<para>Check if a program is active. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>programId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Program identifier </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if program exists and is active </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="146" column="10" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="146" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1af7ecb5f32823a65148843776ebba8e46" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; T &gt;</type>
+        <definition>std::shared_ptr&lt; T &gt; ProgramManager&lt; T &gt;::getProgram</definition>
+        <argsstring>(const std::string &amp;programId)</argsstring>
+        <name>getProgram</name>
+        <qualifiedname>ProgramManager::getProgram</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>programId</declname>
+        </param>
+        <briefdescription>
+<para>Get a program by ID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>programId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Program identifier </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Shared pointer to program, or nullptr if not found </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="159" column="21" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="159" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1a880dce7afcc201a6b4fa1fe5eb7bd9f7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; const T &gt;</type>
+        <definition>std::shared_ptr&lt; const T &gt; ProgramManager&lt; T &gt;::getProgram</definition>
+        <argsstring>(const std::string &amp;programId) const</argsstring>
+        <name>getProgram</name>
+        <qualifiedname>ProgramManager::getProgram</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>programId</declname>
+        </param>
+        <briefdescription>
+<para>Get a program by ID (const version) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>programId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Program identifier </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Shared pointer to program, or nullptr if not found </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="172" column="21" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="172" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1ab4dc12d18b0a4ff56e98a0ee47fc6cca" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t ProgramManager&lt; T &gt;::getProgramCount</definition>
+        <argsstring>() const</argsstring>
+        <name>getProgramCount</name>
+        <qualifiedname>ProgramManager::getProgramCount</qualifiedname>
+        <briefdescription>
+<para>Get count of registered programs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Number of registered programs </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="184" column="12" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="184" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1aeeab60f7661ea137f13a67bec98b60a9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t ProgramManager&lt; T &gt;::getActiveProgramCount</definition>
+        <argsstring>() const</argsstring>
+        <name>getActiveProgramCount</name>
+        <qualifiedname>ProgramManager::getActiveProgramCount</qualifiedname>
+        <briefdescription>
+<para>Get count of active programs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Number of active programs </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="191" column="12" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="191" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="classProgramManager_1aa871ec380e70c17104b75bbcf54ac558" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ProgramManager&lt; T &gt;::clearAllPrograms</definition>
+        <argsstring>()</argsstring>
+        <name>clearAllPrograms</name>
+        <qualifiedname>ProgramManager::clearAllPrograms</qualifiedname>
+        <briefdescription>
+<para>Clear all registered programs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Deactivates and removes all programs. Use with caution. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiCore/ProgramManager.hpp" line="206" column="10" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="206" bodyend="215"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Generic program manager base class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Provides common program management functionality for any type of program that derives from <ref refid="classBasicProgram" kindref="compound">BasicProgram</ref>. This templated base class handles:<itemizedlist>
+<listitem><para>Program registration and lifecycle</para>
+</listitem><listitem><para>Activation/deactivation with callbacks</para>
+</listitem><listitem><para>Program lookup and enumeration</para>
+</listitem><listitem><para>State queries</para>
+</listitem></itemizedlist>
+</para>
+<para>Derived managers can add specific functionality (e.g., rendering for GUI, execution for terminal programs) while reusing the core management logic.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Program type (must derive from <ref refid="classBasicProgram" kindref="compound">BasicProgram</ref>) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="src/Gui/GuiCore/ProgramManager.hpp" line="26" column="1" bodyfile="src/Gui/GuiCore/ProgramManager.hpp" bodystart="26" bodyend="219"/>
+    <listofallmembers>
+      <member refid="classProgramManager_1a0226795a728fed180ace5dac95fb8e38" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>activateProgram</name></member>
+      <member refid="classProgramManager_1aa871ec380e70c17104b75bbcf54ac558" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>clearAllPrograms</name></member>
+      <member refid="classProgramManager_1a4165f303197c8a49f105bc13909ea3c1" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>deactivateProgram</name></member>
+      <member refid="classProgramManager_1aeeab60f7661ea137f13a67bec98b60a9" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>getActiveProgramCount</name></member>
+      <member refid="classProgramManager_1ad129970d8ba9d98ae88cd8ec4754ddc9" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>getActiveProgramIds</name></member>
+      <member refid="classProgramManager_1ab76866e37717c734df69130f410c03ec" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>getAllProgramIds</name></member>
+      <member refid="classProgramManager_1af7ecb5f32823a65148843776ebba8e46" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>getProgram</name></member>
+      <member refid="classProgramManager_1a880dce7afcc201a6b4fa1fe5eb7bd9f7" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>getProgram</name></member>
+      <member refid="classProgramManager_1ab4dc12d18b0a4ff56e98a0ee47fc6cca" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>getProgramCount</name></member>
+      <member refid="classProgramManager_1a622525f5df380373752da26eb2e0fd1e" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>isProgramActive</name></member>
+      <member refid="classProgramManager_1a4bb7c1de7d54d08df62b6c2152e51b90" prot="protected" virt="non-virtual"><scope>ProgramManager</scope><name>programs_</name></member>
+      <member refid="classProgramManager_1af2e6ac155034f5335d34be1a6d0b0126" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>registerProgram</name></member>
+      <member refid="classProgramManager_1a6fdb85ecf0a4268f74964be4fcc13fb3" prot="public" virt="non-virtual"><scope>ProgramManager</scope><name>toggleProgram</name></member>
+      <member refid="classProgramManager_1a89847b458f1114e3c46c6a1368dbf471" prot="public" virt="virtual"><scope>ProgramManager</scope><name>~ProgramManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

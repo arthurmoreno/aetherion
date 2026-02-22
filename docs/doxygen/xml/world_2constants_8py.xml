@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="world_2constants_8py" kind="file" language="Python">
+    <compoundname>constants.py</compoundname>
+    <innerclass refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" prot="public">aetherion::world::constants::WorldInstanceTypes</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1world">aetherion::world</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1world_1_1constants">aetherion::world::constants</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>enum<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>IntEnum</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>aetherion<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>TerrainVariantEnum</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" kindref="compound">WorldInstanceTypes</ref>(IntEnum):</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>SYNCHRONOUS<sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>PIPE_PROCESS<sp/>=<sp/>2</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>SERVER<sp/>=<sp/>3</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">TERRAIN_VARIATION_TYPE_MAP<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.FULL.value:<sp/></highlight><highlight class="stringliteral">&quot;full&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.RAMP_EAST.value:<sp/></highlight><highlight class="stringliteral">&quot;ramp_east&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.RAMP_WEST.value:<sp/></highlight><highlight class="stringliteral">&quot;ramp_west&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.CORNER_SOUTH_EAST.value:<sp/></highlight><highlight class="stringliteral">&quot;corner_south_east&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.CORNER_SOUTH_EAST_INV.value:<sp/></highlight><highlight class="stringliteral">&quot;corner_south_east_inverted&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.CORNER_NORTH_EAST.value:<sp/></highlight><highlight class="stringliteral">&quot;corner_north_east&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.CORNER_NORTH_EAST_INV.value:<sp/></highlight><highlight class="stringliteral">&quot;corner_north_east_inverted&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.RAMP_SOUTH.value:<sp/></highlight><highlight class="stringliteral">&quot;ramp_south&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.RAMP_NORTH.value:<sp/></highlight><highlight class="stringliteral">&quot;ramp_north&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.CORNER_SOUTH_WEST.value:<sp/></highlight><highlight class="stringliteral">&quot;corner_south_west&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>TerrainVariantEnum.CORNER_NORTH_WEST.value:<sp/></highlight><highlight class="stringliteral">&quot;corner_north_west&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/world/constants.py"/>
+  </compounddef>
+</doxygen>

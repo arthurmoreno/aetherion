@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1EcosystemEngineException" kind="class" language="C++" prot="public">
+    <compoundname>aetherion::EcosystemEngineException</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::runtime_error</basecompoundref>
+    <includes refid="WorldExceptions_8hpp" local="no">WorldExceptions.hpp</includes>
+    <briefdescription>
+<para>Base exception class for all ecosystem engine errors. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This serves as the parent class for ecosystem-related exceptions, including water simulation, vapor processing, and ecosystem dynamics. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion::EcosystemEngineException</label>
+        <link refid="classaetherion_1_1EcosystemEngineException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::runtime_error</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion::EcosystemEngineException</label>
+        <link refid="classaetherion_1_1EcosystemEngineException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::runtime_error</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/WorldExceptions.hpp" line="14" column="1" bodyfile="src/WorldExceptions.hpp" bodystart="14" bodyend="17"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

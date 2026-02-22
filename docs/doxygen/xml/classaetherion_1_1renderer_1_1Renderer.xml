@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1renderer_1_1Renderer" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::renderer::Renderer</compoundname>
+    <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1Renderer_1ae6b723f340cbfdc38b97069e2f20f23d" prot="protected" static="yes" mutable="no">
+        <type>SDL_Renderer</type>
+        <definition>SDL_Renderer aetherion.renderer.Renderer::_renderer</definition>
+        <argsstring></argsstring>
+        <name>_renderer</name>
+        <qualifiedname>aetherion.renderer.Renderer._renderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="17" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="17" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1Renderer_1a6432f62fb9ce46da1a51896fd4a5b216" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.renderer.Renderer::renderer_ptr</definition>
+        <argsstring></argsstring>
+        <name>renderer_ptr</name>
+        <qualifiedname>aetherion.renderer.Renderer.renderer_ptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="18" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1Renderer_1a75e0a32a8e5077828beb5aa3cba72e25" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.Renderer::_renderer</definition>
+        <argsstring></argsstring>
+        <name>_renderer</name>
+        <qualifiedname>aetherion.renderer.Renderer._renderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="21" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1Renderer_1ae66de890242c272c3d553757cb1f9c93" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.Renderer::renderer_ptr</definition>
+        <argsstring></argsstring>
+        <name>renderer_ptr</name>
+        <qualifiedname>aetherion.renderer.Renderer.renderer_ptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="22" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1Renderer_1acd06fe2965a33046d784d1a42f47a159" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.renderer.Renderer.__init__</definition>
+        <argsstring>(self, BasicGameWindow game_window)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.renderer.Renderer.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow" kindref="compound">BasicGameWindow</ref></type>
+          <declname>game_window</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="20" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="20" bodyend="24"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.renderer.Renderer</label>
+        <link refid="classaetherion_1_1renderer_1_1Renderer"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>_renderer</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>SDL_Renderer</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/renderer/__init__.py" line="16" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="16" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1renderer_1_1Renderer_1acd06fe2965a33046d784d1a42f47a159" prot="public" virt="non-virtual"><scope>aetherion::renderer::Renderer</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1renderer_1_1Renderer_1ae6b723f340cbfdc38b97069e2f20f23d" prot="protected" virt="non-virtual"><scope>aetherion::renderer::Renderer</scope><name>_renderer</name></member>
+      <member refid="classaetherion_1_1renderer_1_1Renderer_1a75e0a32a8e5077828beb5aa3cba72e25" prot="protected" virt="non-virtual"><scope>aetherion::renderer::Renderer</scope><name>_renderer</name></member>
+      <member refid="classaetherion_1_1renderer_1_1Renderer_1a6432f62fb9ce46da1a51896fd4a5b216" prot="public" virt="non-virtual"><scope>aetherion::renderer::Renderer</scope><name>renderer_ptr</name></member>
+      <member refid="classaetherion_1_1renderer_1_1Renderer_1ae66de890242c272c3d553757cb1f9c93" prot="public" virt="non-virtual"><scope>aetherion::renderer::Renderer</scope><name>renderer_ptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

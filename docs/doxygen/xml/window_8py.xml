@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="window_8py" kind="file" language="Python">
+    <compoundname>window.py</compoundname>
+    <innerclass refid="classaetherion_1_1windowing_1_1window_1_1GameWindow" prot="public">aetherion::windowing::window::GameWindow</innerclass>
+    <innerclass refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow" prot="public">aetherion::windowing::window::BasicGameWindow</innerclass>
+    <innerclass refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow" prot="public">aetherion::windowing::window::OpenGLGameWindow</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1windowing">aetherion::windowing</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1windowing_1_1window">aetherion::windowing::window</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>abc<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ABC,<sp/>abstractmethod</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sdl2</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>sdl2<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>(</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_GL_BLUE_SIZE,</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_GL_DEPTH_SIZE,</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_GL_DOUBLEBUFFER,</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_GL_GREEN_SIZE,</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_GL_RED_SIZE,</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_GL_CreateContext,</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_GL_DeleteContext,</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_GL_SetAttribute,</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_GL_SwapWindow,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>SDL_Window,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="classaetherion_1_1windowing_1_1window_1_1GameWindow" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow" kindref="compound">GameWindow</ref>(ABC):</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Interface<sp/>for<sp/>SDL<sp/>windows.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>window:<sp/>SDL_Window</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>width:<sp/>int</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>height:<sp/>int</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>title:<sp/>str</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>flags:<sp/>int</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">show(self)<sp/>-&gt;<sp/>None:<sp/>...</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">hide(self)<sp/>-&gt;<sp/>None:<sp/>...</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">refresh_size(self)<sp/>-&gt;<sp/>None:<sp/>...</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">get_size(self)<sp/>-&gt;<sp/>tuple[int,<sp/>int]:<sp/>...</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">@abstractmethod</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">close(self)<sp/>-&gt;<sp/>None:<sp/>...</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a393566aae5916928cde4be661d5d7eda" kindref="member">swap_buffers</ref>(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Optional:<sp/>swap<sp/>buffers<sp/>for<sp/>OpenGL<sp/>windows.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Basic<sp/>SDL<sp/>window<sp/>(no<sp/>OpenGL<sp/>context)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow" kindref="compound">BasicGameWindow</ref>(<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow" kindref="compound">GameWindow</ref>):</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>title:<sp/>str,<sp/>width:<sp/>int,<sp/>height:<sp/>int,<sp/>flags:<sp/>int<sp/>=<sp/>0):</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.window:<sp/>SDL_Window<sp/>=<sp/>sdl2.SDL_CreateWindow(</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>title.encode(</highlight><highlight class="stringliteral">&quot;utf-8&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_WINDOWPOS_CENTERED,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_WINDOWPOS_CENTERED,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>width,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>height,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flags,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>self.window:</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>RuntimeError(f</highlight><highlight class="stringliteral">&quot;SDL_CreateWindow<sp/>failed:<sp/>{sdl2.SDL_GetError().decode()}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.width:<sp/>int<sp/>=<sp/>width</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.height:<sp/>int<sp/>=<sp/>height</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.title:<sp/>str<sp/>=<sp/>title</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.flags:<sp/>int<sp/>=<sp/>flags</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">show(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_ShowWindow(self.window)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">hide(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_HideWindow(self.window)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">refresh_size(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>w,<sp/>h<sp/>=<sp/>self.window.size</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.width,<sp/>self.height<sp/>=<sp/>int(w),<sp/>int(h)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">get_size(self)<sp/>-&gt;<sp/>tuple[int,<sp/>int]:</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>self.window.size</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">close(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.window.close()</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">#<sp/>SDL<sp/>window<sp/>with<sp/>its<sp/>own<sp/>OpenGL<sp/>context</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow" kindref="compound">OpenGLGameWindow</ref>(<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow" kindref="compound">GameWindow</ref>):</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>title:<sp/>str,<sp/>width:<sp/>int,<sp/>height:<sp/>int,<sp/>flags:<sp/>int<sp/>=<sp/>0):</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Set<sp/>GL<sp/>attributes<sp/>before<sp/>creating<sp/>window</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SDL_GL_SetAttribute(SDL_GL_RED_SIZE,<sp/>8)</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,<sp/>8)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,<sp/>8)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,<sp/>24)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,<sp/>1)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a148e018c99e840170028d8d5e5d3a5d6" kindref="member">window</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" kindref="member">window</ref>:<sp/>SDL_Window<sp/>=<sp/>sdl2.SDL_CreateWindow(</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>title.encode(</highlight><highlight class="stringliteral">&quot;utf-8&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_WINDOWPOS_CENTERED,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_WINDOWPOS_CENTERED,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>width,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>height,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_WINDOW_OPENGL<sp/>|<sp/>flags,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a148e018c99e840170028d8d5e5d3a5d6" kindref="member">window</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" kindref="member">window</ref>:</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>RuntimeError(f</highlight><highlight class="stringliteral">&quot;SDL_CreateWindow<sp/>failed:<sp/>{sdl2.SDL_GetError().decode()}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a5a251b13579a378968657cef1d0d3a5b" kindref="member">width</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a1b1059f5ec8d677ef90a241a61ed39d9" kindref="member">width</ref>:<sp/>int<sp/>=<sp/>width</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1af58f4a2f11caa56f73d5bbc8a9e0411e" kindref="member">height</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a497890b3dda5fa864a67eb5e5e23b4a9" kindref="member">height</ref>:<sp/>int<sp/>=<sp/>height</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1aa522a8bf9817b497051fb415e55bc153" kindref="member">title</ref>:<sp/>str<sp/>=<sp/>title</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a3ac1bace0c4d4569cfa8a2c8cc82b495" kindref="member">flags</ref>:<sp/>int<sp/>=<sp/>flags</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Create<sp/>GL<sp/>context</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a9d02f3d7958c60fa2e9c9745d66809f5" kindref="member">gl_context</ref><sp/>=<sp/>SDL_GL_CreateContext(self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a148e018c99e840170028d8d5e5d3a5d6" kindref="member">window</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" kindref="member">window</ref>)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a9d02f3d7958c60fa2e9c9745d66809f5" kindref="member">gl_context</ref>:</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>RuntimeError(f</highlight><highlight class="stringliteral">&quot;SDL_GL_CreateContext<sp/>failed:<sp/>{sdl2.SDL_GetError().decode()}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">show(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_ShowWindow(self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a148e018c99e840170028d8d5e5d3a5d6" kindref="member">window</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" kindref="member">window</ref>)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">hide(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_HideWindow(self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a148e018c99e840170028d8d5e5d3a5d6" kindref="member">window</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" kindref="member">window</ref>)</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">refresh_size(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>w,<sp/>h<sp/>=<sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a148e018c99e840170028d8d5e5d3a5d6" kindref="member">window</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" kindref="member">window</ref>.size</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a5a251b13579a378968657cef1d0d3a5b" kindref="member">width</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a1b1059f5ec8d677ef90a241a61ed39d9" kindref="member">width</ref>,<sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1af58f4a2f11caa56f73d5bbc8a9e0411e" kindref="member">height</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a497890b3dda5fa864a67eb5e5e23b4a9" kindref="member">height</ref><sp/>=<sp/>int(w),<sp/>int(h)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">get_size(self)<sp/>-&gt;<sp/>tuple[int,<sp/>int]:</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a148e018c99e840170028d8d5e5d3a5d6" kindref="member">window</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" kindref="member">window</ref>.size</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a402477a3290365e3af75e84f5538fdf4" kindref="member">swap_buffers</ref>(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SDL_GL_SwapWindow(self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a148e018c99e840170028d8d5e5d3a5d6" kindref="member">window</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" kindref="member">window</ref>)</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">close(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>hasattr(self,<sp/></highlight><highlight class="stringliteral">&quot;gl_context&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a9d02f3d7958c60fa2e9c9745d66809f5" kindref="member">gl_context</ref>:</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SDL_GL_DeleteContext(self.<ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a9d02f3d7958c60fa2e9c9745d66809f5" kindref="member">gl_context</ref>)</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a9d02f3d7958c60fa2e9c9745d66809f5" kindref="member">gl_context</ref><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a148e018c99e840170028d8d5e5d3a5d6" kindref="member">window</ref><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow_1a688cec245137ffedd0df2cf4b8911ca0" kindref="member">window</ref>.close()</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/windowing/window.py"/>
+  </compounddef>
+</doxygen>

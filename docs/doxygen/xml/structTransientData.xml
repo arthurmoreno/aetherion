@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTransientData" kind="struct" language="C++" prot="public">
+    <compoundname>TransientData</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTransientData_1a130a79178410cb6565d754cee9aa2d98" prot="public" static="no" mutable="no">
+        <type><ref refid="structVelocity" kindref="compound">Velocity</ref></type>
+        <definition>Velocity TransientData::velocity</definition>
+        <argsstring></argsstring>
+        <name>velocity</name>
+        <qualifiedname>TransientData::velocity</qualifiedname>
+        <initializer>{0.f, 0.f, 0.f}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="47" column="14" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTransientData_1ae3cad8d27c9af88f2ca862d1154a239f" prot="public" static="no" mutable="no">
+        <type><ref refid="structMovingComponent" kindref="compound">MovingComponent</ref></type>
+        <definition>MovingComponent TransientData::moving</definition>
+        <argsstring></argsstring>
+        <name>moving</name>
+        <qualifiedname>TransientData::moving</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainGridRepository.hpp" line="48" column="21" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="48" bodyend="48"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>MovingComponent</label>
+        <link refid="structMovingComponent"/>
+      </node>
+      <node id="1">
+        <label>TransientData</label>
+        <link refid="structTransientData"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>velocity</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>moving</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Velocity</label>
+        <link refid="structVelocity"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/terrain/TerrainGridRepository.hpp" line="46" column="1" bodyfile="src/terrain/TerrainGridRepository.hpp" bodystart="46" bodyend="49"/>
+    <listofallmembers>
+      <member refid="structTransientData_1ae3cad8d27c9af88f2ca862d1154a239f" prot="public" virt="non-virtual"><scope>TransientData</scope><name>moving</name></member>
+      <member refid="structTransientData_1a130a79178410cb6565d754cee9aa2d98" prot="public" virt="non-virtual"><scope>TransientData</scope><name>velocity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

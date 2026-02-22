@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="63" column="9" bodyfile="src/EntityInterface.hpp" bodystart="63" bodyend="-1"/>
+        <location file="src/EntityInterface.hpp" line="69" column="9" bodyfile="src/EntityInterface.hpp" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEntityInterface_1ad90cd9d61cd9c5eefe86040084ca4610" prot="public" static="no" mutable="no">
         <type>std::bitset&lt; COMPONENT_COUNT &gt;</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="64" column="17" bodyfile="src/EntityInterface.hpp" bodystart="64" bodyend="-1"/>
+        <location file="src/EntityInterface.hpp" line="70" column="17" bodyfile="src/EntityInterface.hpp" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEntityInterface_1acebff8b4d3ffe5b671a58c3f06080db9" prot="public" static="no" mutable="no">
         <type>ComponentTypes</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="67" column="20" bodyfile="src/EntityInterface.hpp" bodystart="67" bodyend="-1"/>
+        <location file="src/EntityInterface.hpp" line="73" column="20" bodyfile="src/EntityInterface.hpp" bodystart="73" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -64,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="70" column="10" bodyfile="src/EntityInterface.hpp" bodystart="70" bodyend="70"/>
+        <location file="src/EntityInterface.hpp" line="76" column="10" bodyfile="src/EntityInterface.hpp" bodystart="76" bodyend="76"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1aa0b3b5cd26ece87ca632ade806a063fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -82,7 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="73" column="10" bodyfile="src/EntityInterface.hpp" bodystart="73" bodyend="73"/>
+        <location file="src/EntityInterface.hpp" line="79" column="10" bodyfile="src/EntityInterface.hpp" bodystart="79" bodyend="79"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1a5049dcdffde6775d181f60248a8e8dc5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -100,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="76" column="10" bodyfile="src/EntityInterface.hpp" bodystart="76" bodyend="76"/>
+        <location file="src/EntityInterface.hpp" line="82" column="10" bodyfile="src/EntityInterface.hpp" bodystart="82" bodyend="82"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1a5276f59993b2195ef55fb33fbf74af48" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="79" column="9" bodyfile="src/EntityInterface.hpp" bodystart="79" bodyend="79"/>
+        <location file="src/EntityInterface.hpp" line="85" column="9" bodyfile="src/EntityInterface.hpp" bodystart="85" bodyend="85"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1ad9923de2c6ebceb1d4d7f0a16ee3a7c1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="80" column="10" bodyfile="src/EntityInterface.hpp" bodystart="80" bodyend="80"/>
+        <location file="src/EntityInterface.hpp" line="86" column="10" bodyfile="src/EntityInterface.hpp" bodystart="86" bodyend="86"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1af0b3c1fd78fa9c67024df2854370a913" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -151,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="84" column="15" bodyfile="src/EntityInterface.hpp" bodystart="84" bodyend="86"/>
+        <location file="src/EntityInterface.hpp" line="90" column="15" bodyfile="src/EntityInterface.hpp" bodystart="90" bodyend="92"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1a89e3aa8347ead1b0a69a187294d11907" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -170,7 +170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="89" column="21" bodyfile="src/EntityInterface.hpp" bodystart="89" bodyend="91"/>
+        <location file="src/EntityInterface.hpp" line="95" column="21" bodyfile="src/EntityInterface.hpp" bodystart="95" bodyend="97"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1adf76092d1c6102e58d9fb0981278c1db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -193,7 +193,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="94" column="10" bodyfile="src/EntityInterface.hpp" bodystart="94" bodyend="97"/>
+        <location file="src/EntityInterface.hpp" line="100" column="10" bodyfile="src/EntityInterface.hpp" bodystart="100" bodyend="103"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1a956eb6d4fbce590f29c9f3fd9aa68f7c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>std::vector&lt; char &gt;</type>
@@ -207,7 +207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="100" column="17" bodyfile="src/EntityInterface.hpp" bodystart="100" bodyend="108"/>
+        <location file="src/EntityInterface.hpp" line="106" column="17" bodyfile="src/EntityInterface.hpp" bodystart="106" bodyend="115"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1a29e30836ea07297bd1ecd35306c16e33" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>nb::bytes</type>
@@ -221,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="137" column="15" bodyfile="src/EntityInterface.hpp" bodystart="137" bodyend="140"/>
+        <location file="src/EntityInterface.hpp" line="145" column="15" bodyfile="src/EntityInterface.hpp" bodystart="145" bodyend="148"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-static-func">
@@ -245,7 +245,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="111" column="28" bodyfile="src/EntityInterface.hpp" bodystart="111" bodyend="134"/>
+        <location file="src/EntityInterface.hpp" line="118" column="28" bodyfile="src/EntityInterface.hpp" bodystart="118" bodyend="141"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1a29ce6b5473b7e4ea7d1e1fbe9a8c465e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
@@ -263,7 +263,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="142" column="28" bodyfile="src/EntityInterface.hpp" bodystart="142" bodyend="151"/>
+        <location file="src/EntityInterface.hpp" line="150" column="28" bodyfile="src/EntityInterface.hpp" bodystart="150" bodyend="159"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-static-func">
@@ -284,7 +284,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="156" column="36" bodyfile="src/EntityInterface.hpp" bodystart="156" bodyend="159"/>
+        <location file="src/EntityInterface.hpp" line="165" column="36" bodyfile="src/EntityInterface.hpp" bodystart="165" bodyend="168"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1a3445603833ac42b394c58ed9568303f1" prot="private" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -314,7 +314,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="162" column="36" bodyfile="src/EntityInterface.hpp" bodystart="162" bodyend="173"/>
+        <location file="src/EntityInterface.hpp" line="171" column="36" bodyfile="src/EntityInterface.hpp" bodystart="171" bodyend="182"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-func">
@@ -334,7 +334,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="176" column="10" bodyfile="src/EntityInterface.hpp" bodystart="176" bodyend="179"/>
+        <location file="src/EntityInterface.hpp" line="185" column="10" bodyfile="src/EntityInterface.hpp" bodystart="185" bodyend="188"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1a595023367521aed5fb0ba3bdbcd50730" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -362,7 +362,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="182" column="10" bodyfile="src/EntityInterface.hpp" bodystart="182" bodyend="184"/>
+        <location file="src/EntityInterface.hpp" line="191" column="10" bodyfile="src/EntityInterface.hpp" bodystart="191" bodyend="193"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1a2b2aff59b43c20ee8e1104e5e5e487db" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -385,7 +385,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="187" column="10" bodyfile="src/EntityInterface.hpp" bodystart="187" bodyend="191"/>
+        <location file="src/EntityInterface.hpp" line="196" column="10" bodyfile="src/EntityInterface.hpp" bodystart="196" bodyend="200"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1af9739e3873c9193e82d4c2337cdc3663" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -411,7 +411,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="194" column="10" bodyfile="src/EntityInterface.hpp" bodystart="194" bodyend="197"/>
+        <location file="src/EntityInterface.hpp" line="203" column="10" bodyfile="src/EntityInterface.hpp" bodystart="203" bodyend="206"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1a29e58e56506ac667ccea99f2c6808182" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -447,7 +447,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="200" column="10" bodyfile="src/EntityInterface.hpp" bodystart="200" bodyend="203"/>
+        <location file="src/EntityInterface.hpp" line="209" column="10" bodyfile="src/EntityInterface.hpp" bodystart="209" bodyend="212"/>
       </memberdef>
       <memberdef kind="function" id="classEntityInterface_1ad0c9844e52934517d6c126b6138453bb" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -478,14 +478,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EntityInterface.hpp" line="206" column="10" bodyfile="src/EntityInterface.hpp" bodystart="206" bodyend="217"/>
+        <location file="src/EntityInterface.hpp" line="215" column="10" bodyfile="src/EntityInterface.hpp" bodystart="215" bodyend="226"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/EntityInterface.hpp" line="61" column="1" bodyfile="src/EntityInterface.hpp" bodystart="61" bodyend="218"/>
+    <location file="src/EntityInterface.hpp" line="67" column="1" bodyfile="src/EntityInterface.hpp" bodystart="67" bodyend="227"/>
     <listofallmembers>
       <member refid="classEntityInterface_1a1ae3c0cfee45f00e1fb8156355ad7504" prot="public" virt="non-virtual"><scope>EntityInterface</scope><name>addComponent</name></member>
       <member refid="classEntityInterface_1aadea43359bf0481e98c63a5677b50f3e" prot="private" virt="non-virtual"><scope>EntityInterface</scope><name>componentFlag</name></member>

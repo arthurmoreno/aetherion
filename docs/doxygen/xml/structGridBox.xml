@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structGridBox" kind="struct" language="C++" prot="public">
+    <compoundname>GridBox</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structGridBox_1a2f25a9e576375c89cd65863e956789c4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GridBox::minX</definition>
+        <argsstring></argsstring>
+        <name>minX</name>
+        <qualifiedname>GridBox::minX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="37" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBox_1a9357173511f662520b3c6b1ea3bbae86" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GridBox::minY</definition>
+        <argsstring></argsstring>
+        <name>minY</name>
+        <qualifiedname>GridBox::minY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="37" column="14" bodyfile="src/EcosystemEngine.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBox_1a368581a38af6533f2b52e7311b5b1e27" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GridBox::minZ</definition>
+        <argsstring></argsstring>
+        <name>minZ</name>
+        <qualifiedname>GridBox::minZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="37" column="19" bodyfile="src/EcosystemEngine.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBox_1ae72d3ed08152604b785c53645e5390b0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GridBox::maxX</definition>
+        <argsstring></argsstring>
+        <name>maxX</name>
+        <qualifiedname>GridBox::maxX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="38" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBox_1a6f7b1ac0f72b6273aa2aeefcc96c0b4b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GridBox::maxY</definition>
+        <argsstring></argsstring>
+        <name>maxY</name>
+        <qualifiedname>GridBox::maxY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="38" column="14" bodyfile="src/EcosystemEngine.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGridBox_1a89bb96060bec3864729b49ee8e6c3777" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int GridBox::maxZ</definition>
+        <argsstring></argsstring>
+        <name>maxZ</name>
+        <qualifiedname>GridBox::maxZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="38" column="19" bodyfile="src/EcosystemEngine.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structGridBox_1ae231493e46dbaa97be28790f98485a5f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GridBox::GridBox</definition>
+        <argsstring>(int minX, int minY, int minZ, int maxX, int maxY, int maxZ)</argsstring>
+        <name>GridBox</name>
+        <qualifiedname>GridBox::GridBox</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>minX</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>minY</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>minZ</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>maxX</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>maxY</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>maxZ</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="40" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="40" bodyend="41"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="36" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="36" bodyend="42"/>
+    <listofallmembers>
+      <member refid="structGridBox_1ae231493e46dbaa97be28790f98485a5f" prot="public" virt="non-virtual"><scope>GridBox</scope><name>GridBox</name></member>
+      <member refid="structGridBox_1ae72d3ed08152604b785c53645e5390b0" prot="public" virt="non-virtual"><scope>GridBox</scope><name>maxX</name></member>
+      <member refid="structGridBox_1a6f7b1ac0f72b6273aa2aeefcc96c0b4b" prot="public" virt="non-virtual"><scope>GridBox</scope><name>maxY</name></member>
+      <member refid="structGridBox_1a89bb96060bec3864729b49ee8e6c3777" prot="public" virt="non-virtual"><scope>GridBox</scope><name>maxZ</name></member>
+      <member refid="structGridBox_1a2f25a9e576375c89cd65863e956789c4" prot="public" virt="non-virtual"><scope>GridBox</scope><name>minX</name></member>
+      <member refid="structGridBox_1a9357173511f662520b3c6b1ea3bbae86" prot="public" virt="non-virtual"><scope>GridBox</scope><name>minY</name></member>
+      <member refid="structGridBox_1a368581a38af6533f2b52e7311b5b1e27" prot="public" virt="non-virtual"><scope>GridBox</scope><name>minZ</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

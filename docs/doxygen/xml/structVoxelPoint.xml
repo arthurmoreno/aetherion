@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structVoxelPoint" kind="struct" language="C++" prot="public">
+    <compoundname>VoxelPoint</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structVoxelPoint_1a40aa1604e6319243d96c201aef0bde35" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float VoxelPoint::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>VoxelPoint::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="872" column="11" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="872" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVoxelPoint_1a239fbae8e9d7b20c2d7df9585a8da503" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float VoxelPoint::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>VoxelPoint::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="872" column="13" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="872" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVoxelPoint_1ad67e3ec8cbe01c58a7a9be7e184997d3" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float VoxelPoint::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>VoxelPoint::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="872" column="15" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="872" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVoxelPoint_1a8ce1f84dd02c44faeeefd9c507e410cd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VoxelPoint::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <qualifiedname>VoxelPoint::value</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="873" column="9" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="873" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVoxelPoint_1a48a1d48a1b57ce00204ad0222ec2b630" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float VoxelPoint::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <qualifiedname>VoxelPoint::depth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="874" column="11" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="874" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Gui/Windows/3DVoxelViewportWindows.cpp" line="871" column="1" bodyfile="src/Gui/Windows/3DVoxelViewportWindows.cpp" bodystart="871" bodyend="875"/>
+    <listofallmembers>
+      <member refid="structVoxelPoint_1a48a1d48a1b57ce00204ad0222ec2b630" prot="public" virt="non-virtual"><scope>VoxelPoint</scope><name>depth</name></member>
+      <member refid="structVoxelPoint_1a8ce1f84dd02c44faeeefd9c507e410cd" prot="public" virt="non-virtual"><scope>VoxelPoint</scope><name>value</name></member>
+      <member refid="structVoxelPoint_1a40aa1604e6319243d96c201aef0bde35" prot="public" virt="non-virtual"><scope>VoxelPoint</scope><name>x</name></member>
+      <member refid="structVoxelPoint_1a239fbae8e9d7b20c2d7df9585a8da503" prot="public" virt="non-virtual"><scope>VoxelPoint</scope><name>y</name></member>
+      <member refid="structVoxelPoint_1ad67e3ec8cbe01c58a7a9be7e184997d3" prot="public" virt="non-virtual"><scope>VoxelPoint</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

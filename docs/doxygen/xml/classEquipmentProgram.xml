@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classEquipmentProgram" kind="class" language="C++" prot="public">
+    <compoundname>EquipmentProgram</compoundname>
+    <basecompoundref refid="classGuiProgram" prot="public" virt="non-virtual">GuiProgram</basecompoundref>
+    <includes refid="EquipmentProgram_8hpp" local="no">EquipmentProgram.hpp</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEquipmentProgram_1a744edb64dbb0b7469df45cff70293be7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void EquipmentProgram::render</definition>
+        <argsstring>(GuiContext &amp;context) override</argsstring>
+        <name>render</name>
+        <qualifiedname>EquipmentProgram::render</qualifiedname>
+        <reimplements refid="classGuiProgram_1af29b808428011e8e7a97a2341a867cb2">render</reimplements>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+<para>Render the program&apos;s GUI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Called once per frame if the program is active. The program should render its ImGui window(s) and append any generated commands to context.commands.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shared context containing all GUI data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Game/EquipmentProgram.hpp" line="25" column="10" bodyfile="src/Gui/GuiPrograms/Game/EquipmentProgram.hpp" bodystart="25" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classEquipmentProgram_1a3c5a384bc86455fd3df633f5b4427dde" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string EquipmentProgram::getId</definition>
+        <argsstring>() const override</argsstring>
+        <name>getId</name>
+        <qualifiedname>EquipmentProgram::getId</qualifiedname>
+        <reimplements refid="classBasicProgram_1a26a8591ac10151b13a2d964fe44100ea">getId</reimplements>
+        <briefdescription>
+<para>Get the program&apos;s unique identifier. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Used for program activation/deactivation and inter-program communication. Should be lowercase with underscores (e.g., &quot;physics_settings&quot;).</para>
+<para><simplesect kind="return"><para>Program ID string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Game/EquipmentProgram.hpp" line="37" column="17" bodyfile="src/Gui/GuiPrograms/Game/EquipmentProgram.hpp" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classEquipmentProgram_1a4958ad63bb919b7ec20ae2c0282d535f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string EquipmentProgram::getDisplayName</definition>
+        <argsstring>() const override</argsstring>
+        <name>getDisplayName</name>
+        <qualifiedname>EquipmentProgram::getDisplayName</qualifiedname>
+        <reimplements refid="classBasicProgram_1a2f0c761903eef20e843057c38117f316">getDisplayName</reimplements>
+        <briefdescription>
+<para>Get program&apos;s display name for UI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Human-readable name shown in menus and window titles.</para>
+<para><simplesect kind="return"><para>Display name string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/GuiPrograms/Game/EquipmentProgram.hpp" line="38" column="17" bodyfile="src/Gui/GuiPrograms/Game/EquipmentProgram.hpp" bodystart="38" bodyend="38"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Player equipment management program. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Displays equipped items (armor, weapons, accessories) with equip/unequip functionality. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>BasicProgram</label>
+        <link refid="classBasicProgram"/>
+      </node>
+      <node id="1">
+        <label>EquipmentProgram</label>
+        <link refid="classEquipmentProgram"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>GuiProgram</label>
+        <link refid="classGuiProgram"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>BasicProgram</label>
+        <link refid="classBasicProgram"/>
+      </node>
+      <node id="1">
+        <label>EquipmentProgram</label>
+        <link refid="classEquipmentProgram"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>GuiProgram</label>
+        <link refid="classGuiProgram"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/GuiPrograms/Game/EquipmentProgram.hpp" line="23" column="1" bodyfile="src/Gui/GuiPrograms/Game/EquipmentProgram.hpp" bodystart="23" bodyend="39"/>
+    <listofallmembers>
+      <member refid="classEquipmentProgram_1a4958ad63bb919b7ec20ae2c0282d535f" prot="public" virt="virtual"><scope>EquipmentProgram</scope><name>getDisplayName</name></member>
+      <member refid="classEquipmentProgram_1a3c5a384bc86455fd3df633f5b4427dde" prot="public" virt="virtual"><scope>EquipmentProgram</scope><name>getId</name></member>
+      <member refid="classBasicProgram_1a088f2f2d77597b4dcaeb8313703818c7" prot="public" virt="virtual"><scope>EquipmentProgram</scope><name>isActive</name></member>
+      <member refid="classBasicProgram_1ae4ca127f42a532988559ac5bcedf48b9" prot="protected" virt="non-virtual"><scope>EquipmentProgram</scope><name>isActive_</name></member>
+      <member refid="classBasicProgram_1a3e56437001058497ed1335eb0c014462" prot="public" virt="virtual"><scope>EquipmentProgram</scope><name>onActivate</name></member>
+      <member refid="classBasicProgram_1a02bb31892e0407f34232309b113e53b6" prot="public" virt="virtual"><scope>EquipmentProgram</scope><name>onDeactivate</name></member>
+      <member refid="classEquipmentProgram_1a744edb64dbb0b7469df45cff70293be7" prot="public" virt="virtual"><scope>EquipmentProgram</scope><name>render</name></member>
+      <member refid="classBasicProgram_1aca42de4be8452dc77eb528a7726d4539" prot="public" virt="virtual"><scope>EquipmentProgram</scope><name>setActive</name></member>
+      <member refid="classBasicProgram_1ac5391a87afbf596da74c74111ab2ae3b" prot="public" virt="virtual"><scope>EquipmentProgram</scope><name>~BasicProgram</name></member>
+      <member refid="classGuiProgram_1af255777992774b2e7e81a6e75c9c36a1" prot="public" virt="virtual"><scope>EquipmentProgram</scope><name>~GuiProgram</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

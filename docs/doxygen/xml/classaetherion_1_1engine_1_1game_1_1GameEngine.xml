@@ -1,0 +1,1287 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1engine_1_1game_1_1GameEngine" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::engine::game::GameEngine</compoundname>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a4ec749f8153c67881094817788cdd416" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow" kindref="compound">GameWindow</ref></type>
+        <definition>GameWindow aetherion.engine.game.GameEngine::game_window</definition>
+        <argsstring></argsstring>
+        <name>game_window</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.game_window</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="87" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a65508a3bf0a1be4ab930f252b1d26ba6" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1renderer_1_1Renderer" kindref="compound">Renderer</ref></type>
+        <definition>Renderer aetherion.engine.game.GameEngine::renderer</definition>
+        <argsstring></argsstring>
+        <name>renderer</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.renderer</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="88" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a3c374cc91aeeda81f1058ad0fb5a4cf8" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1scheduler_1_1Scheduler" kindref="compound">Scheduler</ref></type>
+        <definition>Scheduler aetherion.engine.game.GameEngine::scheduler</definition>
+        <argsstring></argsstring>
+        <name>scheduler</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.scheduler</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="89" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a65f1aa32cc776f3c01a8cc0d5599f3d9" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1game__state_1_1state_1_1SharedState" kindref="compound">SharedState</ref></type>
+        <definition>SharedState aetherion.engine.game.GameEngine::shared_state</definition>
+        <argsstring></argsstring>
+        <name>shared_state</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.shared_state</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="90" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1ab448609849c2500c8794cb90ec37eec0" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1scenes_1_1base_1_1SceneManager" kindref="compound">SceneManager</ref></type>
+        <definition>SceneManager aetherion.engine.game.GameEngine::scene_manager</definition>
+        <argsstring></argsstring>
+        <name>scene_manager</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.scene_manager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="91" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a0e193c0c132c7879696d70cf3deee121" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1world_1_1manager_1_1WorldManager" kindref="compound">WorldManager</ref></type>
+        <definition>WorldManager aetherion.engine.game.GameEngine::world_manager</definition>
+        <argsstring></argsstring>
+        <name>world_manager</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.world_manager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="92" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1ad0db9b9530e572560e6c6bfb9fce212b" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.engine.game.GameEngine::running</definition>
+        <argsstring></argsstring>
+        <name>running</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.running</qualifiedname>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="93" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a3ab81acc0d8a3e29c80ac05377332efc" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" kindref="compound">WorldInstanceTypes</ref></type>
+        <definition>WorldInstanceTypes aetherion.engine.game.GameEngine::world_type</definition>
+        <argsstring></argsstring>
+        <name>world_type</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.world_type</qualifiedname>
+        <initializer>=  WorldInstanceTypes.SYNCHRONOUS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="97" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a4896bc122dc5c44086628f21d5731956" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref></type>
+        <definition>WorldInterface aetherion.engine.game.GameEngine::world_interface</definition>
+        <argsstring></argsstring>
+        <name>world_interface</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.world_interface</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="98" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1ab0423dbf34b632e4fcfde3bfa4d8c5d9" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity" kindref="compound">BeastEntity</ref></type>
+        <definition>BeastEntity aetherion.engine.game.GameEngine::player</definition>
+        <argsstring></argsstring>
+        <name>player</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.player</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="100" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a292f20f410b19524e87978c39ccec160" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection" kindref="compound">ServerAdminConnection</ref></type>
+        <definition>ServerAdminConnection aetherion.engine.game.GameEngine::server_admin_connection</definition>
+        <argsstring></argsstring>
+        <name>server_admin_connection</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.server_admin_connection</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="101" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a8dabd8798c2294566a6d2ddaa6fa2ebb" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection" kindref="compound">BeastConnection</ref></type>
+        <definition>BeastConnection aetherion.engine.game.GameEngine::player_connection</definition>
+        <argsstring></argsstring>
+        <name>player_connection</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.player_connection</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="102" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1aea9bafbd8229187cbcd0467570b4f84e" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.engine.game.GameEngine::views</definition>
+        <argsstring></argsstring>
+        <name>views</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.views</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="103" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a490f5d318c5fc6f82f3a4faeaeec5abc" prot="public" static="yes" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::user_input_controller</definition>
+        <argsstring></argsstring>
+        <name>user_input_controller</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.user_input_controller</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="104" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a08924198892b392a09afeeac240418a3" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1events_1_1EventBus" kindref="compound">EventBus</ref></type>
+        <definition>EventBus aetherion.engine.game.GameEngine::event_bus</definition>
+        <argsstring></argsstring>
+        <name>event_bus</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.event_bus</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="105" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a60d3e971160f4182345ed0598111320f" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor" kindref="compound">InputActionProcessor</ref></type>
+        <definition>InputActionProcessor aetherion.engine.game.GameEngine::input_action_processor</definition>
+        <argsstring></argsstring>
+        <name>input_action_processor</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.input_action_processor</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="106" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1aaf8e5b0c1425a99455873d3799bf4c0a" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.engine.game.GameEngine::window_ptr</definition>
+        <argsstring></argsstring>
+        <name>window_ptr</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.window_ptr</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="108" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="108" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a3d85895c5d90bde1a65df4a265160f32" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::event_bus</definition>
+        <argsstring></argsstring>
+        <name>event_bus</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.event_bus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="134" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1aed269541ad98424036df210bf17185f1" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::scene_manager</definition>
+        <argsstring></argsstring>
+        <name>scene_manager</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.scene_manager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="136" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a2e15fd8a7f2ba16e51ba4f36c408e865" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::world_manager</definition>
+        <argsstring></argsstring>
+        <name>world_manager</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.world_manager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="138" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a6f54da7cb50824e6ad66b0e1b3fee154" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::views</definition>
+        <argsstring></argsstring>
+        <name>views</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.views</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="146" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a8b537be527a6c3ca0c85802f30c031f9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::shared_state</definition>
+        <argsstring></argsstring>
+        <name>shared_state</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.shared_state</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="147" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1aa4486eba1dd88cfcb5f3f8a9918cba9c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::world_type</definition>
+        <argsstring></argsstring>
+        <name>world_type</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.world_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="154" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a94348f6d42a282db159c7c894c982093" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::window_ptr</definition>
+        <argsstring></argsstring>
+        <name>window_ptr</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.window_ptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="173" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a5cda89ae786ea900ddf94a1b6045a493" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::game_window</definition>
+        <argsstring></argsstring>
+        <name>game_window</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.game_window</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="183" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a31d6c9219201d62910aa9a5919ba2d72" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::renderer</definition>
+        <argsstring></argsstring>
+        <name>renderer</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.renderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="196" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1ac8abc7446a61104cf619b2ad266858ca" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::scheduler</definition>
+        <argsstring></argsstring>
+        <name>scheduler</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.scheduler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="199" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a88aa5e64685e809f1b8e7e8a22cdf0fd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::player_connection</definition>
+        <argsstring></argsstring>
+        <name>player_connection</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.player_connection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="206" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1aac02fe6cd5f162d884484a41f3e54ee8" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::pubsub_broker</definition>
+        <argsstring></argsstring>
+        <name>pubsub_broker</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.pubsub_broker</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="217" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a02cb07b8c157307d09fe5f0aacf52d43" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::input_action_processor</definition>
+        <argsstring></argsstring>
+        <name>input_action_processor</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.input_action_processor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="239" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a67afb0e2e0d655b4c79783e63a10798a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::running</definition>
+        <argsstring></argsstring>
+        <name>running</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.running</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="281" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a8a06238d4e33672793ec0820a112174c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine::renderer_ptr</definition>
+        <argsstring></argsstring>
+        <name>renderer_ptr</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.renderer_ptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="317" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="317" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a9d915e3dbf2fff5375f08f294a73dd60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine.__init__</definition>
+        <argsstring>(self, EngineConfig config, dict[str, dict[int|Classification|str, BaseView]]|None views=None)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1engine__config_1_1EngineConfig" kindref="compound">EngineConfig</ref></type>
+          <declname>config</declname>
+        </param>
+        <param>
+          <type>dict]|None</type>
+          <declname>views</declname>
+          <array>[str, dict[int|Classification|str, BaseView]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initialize the game engine with provided configuration and optional views.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="110" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="114" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a5356938876f78ad69a03db0ddf718144" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.game.GameEngine.register_world_factory</definition>
+        <argsstring>(self, str name, Callable[[], World] factory)</argsstring>
+        <name>register_world_factory</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.register_world_factory</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <defname>factory</defname>
+          <array>[[]</array>
+        </param>
+        <param>
+          <type><ref refid="classWorld" kindref="compound">World</ref>]</type>
+          <declname>factory</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Register a world factory under a name.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="149" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="149" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a039051dad8e567b799807ba938cdcdaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine.set_world_type</definition>
+        <argsstring>(self, WorldInstanceTypes world_type=WorldInstanceTypes.SYNCHRONOUS)</argsstring>
+        <name>set_world_type</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.set_world_type</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" kindref="compound">WorldInstanceTypes</ref></type>
+          <declname>world_type</declname>
+          <defval>WorldInstanceTypes.SYNCHRONOUS</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="153" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="153" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a58605ad261f3b44cb00df9ade0992dac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine.init_engine_components</definition>
+        <argsstring>(self)</argsstring>
+        <name>init_engine_components</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.init_engine_components</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="156" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="156" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a767556a4fa86e75126c09b2a2701ab32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.engine.game.GameEngine.renderer_ptr</definition>
+        <argsstring>(self)</argsstring>
+        <name>renderer_ptr</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.renderer_ptr</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Return the renderer pointer.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="162" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="162" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a7957c13786eb41034196e8c66333578a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.game.GameEngine.set_window_ptr</definition>
+        <argsstring>(self)</argsstring>
+        <name>set_window_ptr</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.set_window_ptr</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Set the window pointer for the game window.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="168" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="168" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a29205b2c405fd64e83329bfbd535de08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine.init_window</definition>
+        <argsstring>(self, bool opengl=True)</argsstring>
+        <name>init_window</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.init_window</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>opengl</declname>
+          <defval>True</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="175" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="175" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a399df241c83426e85611f48aab02ae5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.game.GameEngine.init_renderer</definition>
+        <argsstring>(self)</argsstring>
+        <name>init_renderer</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.init_renderer</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initialize the renderer based on the game window type.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="190" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="190" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1af25ee749bb362e627c9ed659e78712ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine.init_scheduler</definition>
+        <argsstring>(self)</argsstring>
+        <name>init_scheduler</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.init_scheduler</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="198" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="198" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1afa5d32701e53b695f636e5360138f6a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.game.GameEngine.set_views</definition>
+        <argsstring>(self, dict[str, dict[int|Classification|str, BaseView]]|None views=None)</argsstring>
+        <name>set_views</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.set_views</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict]|None</type>
+          <declname>views</declname>
+          <array>[str, dict[int|Classification|str, BaseView]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initialize views for the game engine.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="201" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="201" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1aa2d8f4b52030c52028b178d8a5d7cf96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.game.GameEngine.set_player_connection</definition>
+        <argsstring>(self, BeastConnection player_connection)</argsstring>
+        <name>set_player_connection</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.set_player_connection</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection" kindref="compound">BeastConnection</ref></type>
+          <declname>player_connection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="205" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="205" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a1db19a89894de26a621ca6301f062813" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.game.GameEngine.set_input_controller</definition>
+        <argsstring>(self, user_input_controller)</argsstring>
+        <name>set_input_controller</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.set_input_controller</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>user_input_controller</type>
+          <defname>user_input_controller</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="208" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="208" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a3a2693b18f7300803198fa77f907aedd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.game.GameEngine.add_scene</definition>
+        <argsstring>(self, str scene_name, type[BaseScene] scene_class, **dict[str, object] kwargs)</argsstring>
+        <name>add_scene</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.add_scene</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>scene_name</declname>
+        </param>
+        <param>
+          <type>type</type>
+          <declname>scene_class</declname>
+          <array>[BaseScene]</array>
+        </param>
+        <param>
+          <type>**dict</type>
+          <declname>kwargs</declname>
+          <array>[str, object]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Add a scene to the scene manager.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="211" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="211" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a4b4258a9e7d6e408c2c2d82a63738a42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.game.GameEngine.register_inventory_empty_sprite</definition>
+        <argsstring>(self, Sprite empty_slot_sprite)</argsstring>
+        <name>register_inventory_empty_sprite</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.register_inventory_empty_sprite</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite" kindref="compound">Sprite</ref></type>
+          <declname>empty_slot_sprite</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Register a sprite to be used as an empty inventory slot.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="221" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="221" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a55f054e080e7e28a1410a55d4d68c1ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1scenes_1_1base_1_1BaseScene" kindref="compound">BaseScene</ref></type>
+        <definition> BaseScene aetherion.engine.game.GameEngine.get_scene</definition>
+        <argsstring>(self, str scene_name)</argsstring>
+        <name>get_scene</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.get_scene</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>scene_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="225" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="225" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a6f5476433fb221e7b04389600b71d0a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine.change_scene</definition>
+        <argsstring>(self, str scene_name)</argsstring>
+        <name>change_scene</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.change_scene</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>scene_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Change to a registered scene by name.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="228" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="228" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a6facf583ad792739d298b2b1c474165b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine.set_input_action_processor</definition>
+        <argsstring>(self)</argsstring>
+        <name>set_input_action_processor</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.set_input_action_processor</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="232" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="232" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1ac6c778f4a35281611f9ae65f6bae382b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine.process_input_queue</definition>
+        <argsstring>(self, SharedState shared_state)</argsstring>
+        <name>process_input_queue</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.process_input_queue</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1game__state_1_1state_1_1SharedState" kindref="compound">SharedState</ref></type>
+          <declname>shared_state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="241" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="241" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a002d692782a731f213be1f7a2b433bdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.engine.game.GameEngine.terminate</definition>
+        <argsstring>(self)</argsstring>
+        <name>terminate</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.terminate</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="247" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="247" bodyend="252"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a8c187af89bd5fc187958c4a19f14380c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.engine.game.GameEngine.check_if_imgui_wants_capture_keyboard</definition>
+        <argsstring>(self, bool ready_to_render_imgui)</argsstring>
+        <name>check_if_imgui_wants_capture_keyboard</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.check_if_imgui_wants_capture_keyboard</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>ready_to_render_imgui</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if ImGui wants to capture keyboard input.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="253" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="253" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a9004342ef72ec09cfdda7eb73f8d31bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.game.GameEngine.clear_screen</definition>
+        <argsstring>(self)</argsstring>
+        <name>clear_screen</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.clear_screen</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="259" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="259" bodyend="263"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a4b8a03670773351a6dac350b2fea9e88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1game__state_1_1state_1_1SharedState" kindref="compound">SharedState</ref></type>
+        <definition> SharedState aetherion.engine.game.GameEngine.handle_input_events</definition>
+        <argsstring>(self, SDL_Event event, SharedState shared_state)</argsstring>
+        <name>handle_input_events</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.handle_input_events</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>SDL_Event</type>
+          <declname>event</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1game__state_1_1state_1_1SharedState" kindref="compound">SharedState</ref></type>
+          <declname>shared_state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="264" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="264" bodyend="305"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1a5cf051093a0f36442415e06c8080506c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.engine.game.GameEngine.run</definition>
+        <argsstring>(self)</argsstring>
+        <name>run</name>
+        <qualifiedname>aetherion.engine.game.GameEngine.run</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="312" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="312" bodyend="435"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaetherion_1_1engine_1_1game_1_1GameEngine_1af962300291467d43fb9ba7f30ef6d74f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.engine.game.GameEngine._should_poll_world</definition>
+        <argsstring>(self)</argsstring>
+        <name>_should_poll_world</name>
+        <qualifiedname>aetherion.engine.game.GameEngine._should_poll_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/engine/game.py" line="306" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="306" bodyend="311"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="33">
+        <label>E</label>
+      </node>
+      <node id="3">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.engine.game.GameEngine</label>
+        <link refid="classaetherion_1_1engine_1_1game_1_1GameEngine"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>game_window</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>renderer</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>scheduler</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>shared_state</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>scene_manager</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>world_manager</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>world_type</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>world_interface</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>player</edgelabel>
+        </childnode>
+        <childnode refid="29" relation="usage">
+          <edgelabel>server_admin_connection</edgelabel>
+        </childnode>
+        <childnode refid="30" relation="usage">
+          <edgelabel>player_connection</edgelabel>
+        </childnode>
+        <childnode refid="31" relation="usage">
+          <edgelabel>event_bus</edgelabel>
+        </childnode>
+        <childnode refid="34" relation="usage">
+          <edgelabel>input_action_processor</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>EntityInterface</label>
+      </node>
+      <node id="27">
+        <label>EntityTypeComponent</label>
+      </node>
+      <node id="12">
+        <label>GameClock</label>
+      </node>
+      <node id="10">
+        <label>PerceptionResponseFlatB</label>
+      </node>
+      <node id="26">
+        <label>Position</label>
+      </node>
+      <node id="18">
+        <label>World</label>
+      </node>
+      <node id="25">
+        <label>aetherion.entities.BaseEntity</label>
+        <link refid="classaetherion_1_1entities_1_1BaseEntity"/>
+        <childnode refid="26" relation="usage">
+          <edgelabel>position</edgelabel>
+        </childnode>
+        <childnode refid="27" relation="usage">
+          <edgelabel>entity_type</edgelabel>
+        </childnode>
+      </node>
+      <node id="24">
+        <label>aetherion.entities.beasts.BeastEntity</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity"/>
+        <childnode refid="25" relation="public-inheritance">
+        </childnode>
+        <childnode refid="28" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>aetherion.entities.beasts.BeastPhysicalSys</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys"/>
+      </node>
+      <node id="31">
+        <label>aetherion.events.EventBus</label>
+        <link refid="classaetherion_1_1events_1_1EventBus"/>
+        <childnode refid="32" relation="public-inheritance">
+        </childnode>
+        <childnode refid="33" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>aetherion.game_state.state.SharedState</label>
+        <link refid="classaetherion_1_1game__state_1_1state_1_1SharedState"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>response</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>hovered_entity_interface</edgelabel>
+          <edgelabel>selected_entity_interface</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>game_clock</edgelabel>
+        </childnode>
+      </node>
+      <node id="34">
+        <label>aetherion.input.action_processor.InputActionProcessor</label>
+        <link refid="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor"/>
+      </node>
+      <node id="29">
+        <label>aetherion.networking.admin_connection.ServerAdminConnection</label>
+        <link refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection"/>
+      </node>
+      <node id="30">
+        <label>aetherion.networking.connection.BeastConnection</label>
+        <link refid="classaetherion_1_1networking_1_1connection_1_1BeastConnection"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>aetherion.networking.websocket_server.AuthenticatedWebSocketServer</label>
+        <link refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer"/>
+        <childnode refid="20" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>aetherion.networking.websocket_server.WebSocketGameServer</label>
+        <link refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer"/>
+      </node>
+      <node id="5">
+        <label>aetherion.renderer.Renderer</label>
+        <link refid="classaetherion_1_1renderer_1_1Renderer"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>_renderer</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>aetherion.scenes.base.SceneManager</label>
+        <link refid="classaetherion_1_1scenes_1_1base_1_1SceneManager"/>
+      </node>
+      <node id="7">
+        <label>aetherion.scheduler.Scheduler</label>
+        <link refid="classaetherion_1_1scheduler_1_1Scheduler"/>
+      </node>
+      <node id="2">
+        <label>aetherion.windowing.window.GameWindow</label>
+        <link refid="classaetherion_1_1windowing_1_1window_1_1GameWindow"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>window</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>aetherion.world.constants.WorldInstanceTypes</label>
+        <link refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes"/>
+        <childnode refid="16" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>aetherion.world.interface.WorldInterface</label>
+        <link refid="classaetherion_1_1world_1_1interface_1_1WorldInterface"/>
+        <childnode refid="18" relation="usage">
+          <edgelabel>world</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>server</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>server_task</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>_executor</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>_start_world</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>aetherion.world.manager.WorldManager</label>
+        <link refid="classaetherion_1_1world_1_1manager_1_1WorldManager"/>
+      </node>
+      <node id="21">
+        <label>asyncio</label>
+      </node>
+      <node id="23">
+        <label>Callable</label>
+      </node>
+      <node id="22">
+        <label>ThreadPoolExecutor</label>
+      </node>
+      <node id="16">
+        <label>IntEnum</label>
+      </node>
+      <node id="9">
+        <label>BaseModel</label>
+      </node>
+      <node id="4">
+        <label>SDL_Window</label>
+      </node>
+      <node id="6">
+        <label>SDL_Renderer</label>
+      </node>
+      <node id="32">
+        <label>Generic</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/engine/game.py" line="86" column="1" bodyfile="src/aetherion/engine/game.py" bodystart="86" bodyend="435"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a9d915e3dbf2fff5375f08f294a73dd60" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1af962300291467d43fb9ba7f30ef6d74f" prot="protected" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>_should_poll_world</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a3a2693b18f7300803198fa77f907aedd" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>add_scene</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a6f5476433fb221e7b04389600b71d0a3" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>change_scene</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a8c187af89bd5fc187958c4a19f14380c" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>check_if_imgui_wants_capture_keyboard</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a9004342ef72ec09cfdda7eb73f8d31bb" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>clear_screen</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a08924198892b392a09afeeac240418a3" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>event_bus</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a3d85895c5d90bde1a65df4a265160f32" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>event_bus</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a4ec749f8153c67881094817788cdd416" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>game_window</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a5cda89ae786ea900ddf94a1b6045a493" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>game_window</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a55f054e080e7e28a1410a55d4d68c1ec" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>get_scene</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a4b8a03670773351a6dac350b2fea9e88" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>handle_input_events</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a58605ad261f3b44cb00df9ade0992dac" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>init_engine_components</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a399df241c83426e85611f48aab02ae5c" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>init_renderer</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1af25ee749bb362e627c9ed659e78712ab" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>init_scheduler</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a29205b2c405fd64e83329bfbd535de08" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>init_window</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a60d3e971160f4182345ed0598111320f" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>input_action_processor</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a02cb07b8c157307d09fe5f0aacf52d43" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>input_action_processor</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1ab0423dbf34b632e4fcfde3bfa4d8c5d9" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>player</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a8dabd8798c2294566a6d2ddaa6fa2ebb" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>player_connection</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a88aa5e64685e809f1b8e7e8a22cdf0fd" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>player_connection</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1ac6c778f4a35281611f9ae65f6bae382b" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>process_input_queue</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1aac02fe6cd5f162d884484a41f3e54ee8" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>pubsub_broker</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a4b4258a9e7d6e408c2c2d82a63738a42" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>register_inventory_empty_sprite</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a5356938876f78ad69a03db0ddf718144" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>register_world_factory</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a65508a3bf0a1be4ab930f252b1d26ba6" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>renderer</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a31d6c9219201d62910aa9a5919ba2d72" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>renderer</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a8a06238d4e33672793ec0820a112174c" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>renderer_ptr</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a767556a4fa86e75126c09b2a2701ab32" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>renderer_ptr</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a5cf051093a0f36442415e06c8080506c" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>run</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1ad0db9b9530e572560e6c6bfb9fce212b" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>running</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a67afb0e2e0d655b4c79783e63a10798a" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>running</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1ab448609849c2500c8794cb90ec37eec0" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>scene_manager</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1aed269541ad98424036df210bf17185f1" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>scene_manager</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a3c374cc91aeeda81f1058ad0fb5a4cf8" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>scheduler</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1ac8abc7446a61104cf619b2ad266858ca" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>scheduler</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a292f20f410b19524e87978c39ccec160" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>server_admin_connection</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a6facf583ad792739d298b2b1c474165b" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>set_input_action_processor</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a1db19a89894de26a621ca6301f062813" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>set_input_controller</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1aa2d8f4b52030c52028b178d8a5d7cf96" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>set_player_connection</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1afa5d32701e53b695f636e5360138f6a5" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>set_views</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a7957c13786eb41034196e8c66333578a" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>set_window_ptr</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a039051dad8e567b799807ba938cdcdaa" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>set_world_type</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a65f1aa32cc776f3c01a8cc0d5599f3d9" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>shared_state</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a8b537be527a6c3ca0c85802f30c031f9" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>shared_state</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a002d692782a731f213be1f7a2b433bdd" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>terminate</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a490f5d318c5fc6f82f3a4faeaeec5abc" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>user_input_controller</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1aea9bafbd8229187cbcd0467570b4f84e" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>views</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a6f54da7cb50824e6ad66b0e1b3fee154" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>views</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1aaf8e5b0c1425a99455873d3799bf4c0a" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>window_ptr</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a94348f6d42a282db159c7c894c982093" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>window_ptr</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a4896bc122dc5c44086628f21d5731956" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>world_interface</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a0e193c0c132c7879696d70cf3deee121" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>world_manager</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a2e15fd8a7f2ba16e51ba4f36c408e865" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>world_manager</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1a3ab81acc0d8a3e29c80ac05377332efc" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>world_type</name></member>
+      <member refid="classaetherion_1_1engine_1_1game_1_1GameEngine_1aa4486eba1dd88cfcb5f3f8a9918cba9c" prot="public" virt="non-virtual"><scope>aetherion::engine::game::GameEngine</scope><name>world_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

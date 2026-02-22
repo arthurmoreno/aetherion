@@ -1,0 +1,389 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="events_2____init_____8py" kind="file" language="Python">
+    <compoundname>__init__.py</compoundname>
+    <innerclass refid="classaetherion_1_1events_1_1GameEventType" prot="public">aetherion::events::GameEventType</innerclass>
+    <innerclass refid="classaetherion_1_1events_1_1GameEvent" prot="public">aetherion::events::GameEvent</innerclass>
+    <innerclass refid="classaetherion_1_1events_1_1GameEvent_1_1Config" prot="public">aetherion::events::GameEvent::Config</innerclass>
+    <innerclass refid="classaetherion_1_1events_1_1EventBus" prot="public">aetherion::events::EventBus</innerclass>
+    <innerclass refid="classaetherion_1_1events_1_1PubSubTopicBroker" prot="public">aetherion::events::PubSubTopicBroker</innerclass>
+    <innerclass refid="classaetherion_1_1events_1_1TopicReader" prot="public">aetherion::events::TopicReader</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events">aetherion::events</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">import</highlight><highlight class="normal"><sp/>collections</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>threading</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>time</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>collections<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>defaultdict,<sp/>deque</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>enum<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>StrEnum</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Any,<sp/>Callable,<sp/>Generic,<sp/>TypeVar</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>pydantic<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>BaseModel,<sp/>Field</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1logger" kindref="compound">aetherion.logger</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>get_logger</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">logger<sp/>=<sp/>get_logger(__name__)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="classaetherion_1_1events_1_1GameEventType" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1GameEventType" kindref="compound">GameEventType</ref>(StrEnum):</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Enumeration<sp/>of<sp/>all<sp/>game<sp/>level<sp/>events.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Game<sp/>Engine<sp/>Events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>CHANGE_DESIRED_FPS<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;change_desired_fps&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>World<sp/>Management<sp/>Events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_CREATE_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_create_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_CREATED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_created&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_LOAD_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_load_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_LOADED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_loaded&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_SAVE_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_save_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_SAVED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_saved&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_CONNECT_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_connect_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_CONNECTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_connected&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_DISCONNECT_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_disconnect_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_DISCONNECTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_disconnected&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_STOP_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_stop_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_PLAY_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_play_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_STEP_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_step_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>World<sp/>Recorder<sp/>Events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_RECORDER_START_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_recorder_start_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_RECORDER_STOP_AND_SAVE_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_recorder_stop_and_save_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>World<sp/>Snapshot<sp/>Events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_SNAPSHOT_TAKE_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_snapshot_take_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>WORLD_SNAPSHOT_DELETE_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;world_snapshot_delete_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Scene<sp/>Management<sp/>Events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>SCENE_CHANGE_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;scene_change_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>SCENE_CHANGED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;scene_changed&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Game<sp/>State<sp/>Events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>GAME_PAUSE_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;game_pause_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>GAME_RESUME_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;game_resume_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>GAME_STATE_CHANGED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;game_state_changed&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Beast<sp/>Events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>CREATE_BEAST_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;create_beast_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>BEAST_CONNECT_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;beast_connect_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>BEAST_CONNECTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;beast_connected&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>BEAST_DISCONNECT_REQUESTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;beast_disconnect_requested&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>BEAST_DISCONNECTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;beast_disconnected&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Player<sp/>Connection<sp/>Events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>PLAYER_CONNECTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;player_connected&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>PLAYER_DISCONNECTED<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;player_disconnected&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Audio<sp/>Events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>AUDIO_SOUND_EFFECT_PLAY<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;AUDIO_SOUND_EFFECT_PLAY&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>AUDIO_MUSIC_PLAY<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;AUDIO_MUSIC_PLAY&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>AUDIO_MUSIC_STOP<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;AUDIO_MUSIC_STOP&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>AUDIO_MUSIC_PAUSE<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;AUDIO_MUSIC_PAUSE&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>AUDIO_MUSIC_RESUME<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;AUDIO_MUSIC_RESUME&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal">E<sp/>=<sp/>TypeVar(</highlight><highlight class="stringliteral">&quot;E&quot;</highlight><highlight class="normal">,<sp/>bound=StrEnum)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="classaetherion_1_1events_1_1GameEvent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref>(BaseModel,<sp/>Generic[E]):</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="79"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Represents<sp/>an<sp/>event<sp/>that<sp/>flows<sp/>through<sp/>event<sp/>bus<sp/>systems.</highlight></codeline>
+<codeline lineno="80"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="81"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Encapsulates<sp/>game<sp/>event<sp/>information<sp/>including<sp/>type,<sp/>data,<sp/>source,<sp/>and<sp/>timestamp.</highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Used<sp/>by<sp/>both<sp/>ObserverEventBus<sp/>and<sp/>DrainableTopicBus<sp/>systems.</highlight></codeline>
+<codeline lineno="83"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="84"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Attributes:</highlight></codeline>
+<codeline lineno="85"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event_type:<sp/>Enum<sp/>value<sp/>identifying<sp/>the<sp/>event<sp/>type</highlight></codeline>
+<codeline lineno="86"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data:<sp/>Optional<sp/>event-specific<sp/>data<sp/>dictionary</highlight></codeline>
+<codeline lineno="87"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>source:<sp/>Optional<sp/>source<sp/>identifier<sp/>for<sp/>debugging</highlight></codeline>
+<codeline lineno="88"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>timestamp:<sp/>Auto-generated<sp/>if<sp/>not<sp/>provided</highlight></codeline>
+<codeline lineno="89"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>event_type:<sp/>E</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>data:<sp/>dict[str,<sp/>Any]<sp/>=<sp/>Field(default_factory=dict)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>source:<sp/>str<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>timestamp:<sp/>float<sp/>=<sp/>Field(default_factory=</highlight><highlight class="keyword">lambda</highlight><highlight class="normal">:<sp/>time.time())</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="classaetherion_1_1events_1_1GameEvent_1_1Config" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1GameEvent_1_1Config" kindref="compound">Config</ref>:</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Keep<sp/>the<sp/>enum<sp/>members<sp/>as<sp/>their<sp/>actual<sp/>Enum<sp/>type<sp/>(not<sp/>auto-coerced<sp/>to<sp/>value)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>use_enum_values:<sp/>bool<sp/>=<sp/></highlight><highlight class="keyword">False</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>frozen:<sp/>bool<sp/>=<sp/></highlight><highlight class="keyword">True</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">#<sp/>optional:<sp/>make<sp/>events<sp/>immutable<sp/>if<sp/>that<sp/>fits<sp/>your<sp/>semantics</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="classaetherion_1_1events_1_1EventBus" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1EventBus" kindref="compound">EventBus</ref>(Generic[E]):</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Push-based<sp/>event<sp/>system<sp/>using<sp/>observer<sp/>pattern<sp/>with<sp/>callback<sp/>registration.</highlight></codeline>
+<codeline lineno="104"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="105"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Events<sp/>are<sp/>queued<sp/>and<sp/>dispatched<sp/>to<sp/>registered<sp/>callbacks<sp/>synchronously.</highlight></codeline>
+<codeline lineno="106"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Ideal<sp/>for<sp/>real-time<sp/>game<sp/>systems<sp/>requiring<sp/>immediate<sp/>event<sp/>response.</highlight></codeline>
+<codeline lineno="107"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="108"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Key<sp/>features:</highlight></codeline>
+<codeline lineno="109"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Push-based:<sp/>Immediate<sp/>callback<sp/>execution</highlight></codeline>
+<codeline lineno="110"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Type-safe:<sp/>Enum-based<sp/>event<sp/>types</highlight></codeline>
+<codeline lineno="111"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Queued<sp/>processing:<sp/>Batch<sp/>event<sp/>handling</highlight></codeline>
+<codeline lineno="112"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Error-resilient:<sp/>Callback<sp/>exceptions<sp/>don&apos;t<sp/>block<sp/>others</highlight></codeline>
+<codeline lineno="113"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="114"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Note:<sp/>Not<sp/>thread-safe.<sp/>Use<sp/>in<sp/>single-threaded<sp/>game<sp/>loops.</highlight></codeline>
+<codeline lineno="115"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self._listeners:<sp/>dict[E,<sp/>list[Callable[[GameEvent[E]],<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">]]]<sp/>=<sp/>defaultdict(list)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self._event_queue:<sp/>deque[GameEvent[E]]<sp/>=<sp/>deque()</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Subscription<sp/>management</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1EventBus_1add1220f28ca431398870b45c71fda806" kindref="member">subscribe</ref>(self,<sp/>event_type:<sp/>E,<sp/>callback:<sp/>Callable[[GameEvent[E]],<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Register<sp/>a<sp/>callback<sp/>to<sp/>be<sp/>invoked<sp/>when<sp/>the<sp/>specified<sp/>event<sp/>type<sp/>occurs.</highlight></codeline>
+<codeline lineno="126"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="127"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="128"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event_type:<sp/>The<sp/>type<sp/>of<sp/>event<sp/>to<sp/>listen<sp/>for<sp/>(e.g.,<sp/>GameEventType.WORLD_CREATED)</highlight></codeline>
+<codeline lineno="129"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>callback:<sp/>Function<sp/>to<sp/>call<sp/>when<sp/>the<sp/>event<sp/>occurs.<sp/>Must<sp/>accept<sp/>a<sp/>GameEvent<sp/>parameter.</highlight></codeline>
+<codeline lineno="130"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="131"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="132"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Duplicate<sp/>callbacks<sp/>for<sp/>the<sp/>same<sp/>event<sp/>type<sp/>are<sp/>automatically<sp/>prevented.</highlight></codeline>
+<codeline lineno="133"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>callback<sp/>will<sp/>be<sp/>executed<sp/>synchronously<sp/>when<sp/>the<sp/>event<sp/>is<sp/>processed.</highlight></codeline>
+<codeline lineno="134"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>callback<sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>self._listeners[event_type]:</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self._listeners[event_type].append(callback)</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1EventBus_1af6b89cb15a4b6e10f0b6881c61d16dff" kindref="member">unsubscribe</ref>(self,<sp/>event_type:<sp/>E,<sp/>callback:<sp/>Callable[[GameEvent[E]],<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Remove<sp/>a<sp/>callback<sp/>from<sp/>event<sp/>type<sp/>notifications.</highlight></codeline>
+<codeline lineno="140"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="141"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="142"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event_type:<sp/>The<sp/>event<sp/>type<sp/>to<sp/>stop<sp/>listening<sp/>to</highlight></codeline>
+<codeline lineno="143"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>callback:<sp/>The<sp/>specific<sp/>callback<sp/>function<sp/>to<sp/>remove</highlight></codeline>
+<codeline lineno="144"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="145"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="146"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Silently<sp/>ignores<sp/>attempts<sp/>to<sp/>remove<sp/>non-existent<sp/>callbacks.</highlight></codeline>
+<codeline lineno="147"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self._listeners[event_type].remove(callback)</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>(KeyError,<sp/>ValueError):</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Event<sp/>emission</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1EventBus_1a0dc947424d7276f0b073d3c367f7bad6" kindref="member">emit</ref>(self,<sp/>event_type:<sp/>E,<sp/>data:<sp/>dict[str,<sp/>Any]<sp/>=<sp/>{},<sp/>source:<sp/>str<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">)<sp/>-&gt;<sp/>GameEvent[E]:</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Create<sp/>an<sp/>event<sp/>and<sp/>queue<sp/>it<sp/>for<sp/>later<sp/>processing<sp/>via<sp/>process_events().</highlight></codeline>
+<codeline lineno="158"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="159"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="160"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event_type:<sp/>The<sp/>type<sp/>of<sp/>event<sp/>to<sp/>emit<sp/>(e.g.,<sp/>GameEventType.WORLD_CREATED)</highlight></codeline>
+<codeline lineno="161"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data:<sp/>Optional<sp/>dictionary<sp/>containing<sp/>event-specific<sp/>data</highlight></codeline>
+<codeline lineno="162"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>source:<sp/>Optional<sp/>identifier<sp/>of<sp/>the<sp/>event<sp/>source<sp/>for<sp/>debugging/tracing</highlight></codeline>
+<codeline lineno="163"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="164"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="165"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>created<sp/>GameEvent<sp/>instance<sp/>(with<sp/>auto-generated<sp/>timestamp)</highlight></codeline>
+<codeline lineno="166"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="167"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="168"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Events<sp/>are<sp/>queued,<sp/>not<sp/>immediately<sp/>dispatched.<sp/>Call<sp/>process_events()<sp/>to<sp/>deliver</highlight></codeline>
+<codeline lineno="169"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>them<sp/>to<sp/>subscribers.<sp/>For<sp/>immediate<sp/>delivery,<sp/>use<sp/>emit_immediate()<sp/>instead.</highlight></codeline>
+<codeline lineno="170"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event:<sp/>GameEvent[E]<sp/>=<sp/><ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref>(event_type=event_type,<sp/>data=data,<sp/>source=source)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self._event_queue.append(event)</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>event</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1EventBus_1aa595731c3a72ded70585dd142cbf10a4" kindref="member">emit_immediate</ref>(self,<sp/>event:<sp/>GameEvent[E])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Dispatch<sp/>an<sp/>event<sp/>to<sp/>all<sp/>registered<sp/>listeners<sp/>immediately.</highlight></codeline>
+<codeline lineno="177"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="178"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="179"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event:<sp/>The<sp/>GameEvent<sp/>to<sp/>dispatch</highlight></codeline>
+<codeline lineno="180"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="181"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="182"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Callbacks<sp/>are<sp/>executed<sp/>synchronously<sp/>in<sp/>registration<sp/>order.<sp/>If<sp/>a<sp/>callback</highlight></codeline>
+<codeline lineno="183"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>raises<sp/>an<sp/>exception,<sp/>it&apos;s<sp/>logged<sp/>but<sp/>doesn&apos;t<sp/>prevent<sp/>other<sp/>callbacks<sp/>from<sp/>running.</highlight></codeline>
+<codeline lineno="184"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>callback<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>list(self._listeners.get(event.event_type,<sp/>[])):</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>callback(event)</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>exc:<sp/><sp/></highlight><highlight class="comment">#<sp/>pragma:<sp/>no<sp/>cover<sp/>-<sp/>defensive</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(f</highlight><highlight class="stringliteral">&quot;Error<sp/>in<sp/>event<sp/>callback:<sp/>{exc}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Event<sp/>processing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1EventBus_1a12169f7c0a8a33dc4a30bf36f401830b" kindref="member">process_events</ref>(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Dispatch<sp/>all<sp/>queued<sp/>events<sp/>to<sp/>their<sp/>registered<sp/>listeners<sp/>in<sp/>FIFO<sp/>order.</highlight></codeline>
+<codeline lineno="196"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="197"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>is<sp/>typically<sp/>called<sp/>once<sp/>per<sp/>game<sp/>loop<sp/>iteration<sp/>to<sp/>process<sp/>all<sp/>events</highlight></codeline>
+<codeline lineno="198"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>that<sp/>were<sp/>emitted<sp/>since<sp/>the<sp/>last<sp/>call.<sp/>Events<sp/>are<sp/>processed<sp/>in<sp/>the<sp/>order</highlight></codeline>
+<codeline lineno="199"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>they<sp/>were<sp/>emitted<sp/>(first-in,<sp/>first-out).</highlight></codeline>
+<codeline lineno="200"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="201"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="202"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>After<sp/>processing,<sp/>the<sp/>event<sp/>queue<sp/>is<sp/>empty.<sp/>If<sp/>a<sp/>callback<sp/>during<sp/>processing</highlight></codeline>
+<codeline lineno="203"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>emits<sp/>new<sp/>events,<sp/>they<sp/>will<sp/>be<sp/>queued<sp/>for<sp/>the<sp/>next<sp/>process_events()<sp/>call.</highlight></codeline>
+<codeline lineno="204"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>self._event_queue:</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event:<sp/>GameEvent[E]<sp/>=<sp/>self._event_queue.popleft()</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1EventBus_1aa595731c3a72ded70585dd142cbf10a4" kindref="member">emit_immediate</ref>(event)</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1EventBus_1a1900700863e32018b4de0ad9befbdadc" kindref="member">clear</ref>(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Remove<sp/>all<sp/>pending<sp/>events<sp/>from<sp/>the<sp/>queue<sp/>without<sp/>dispatching<sp/>them.</highlight></codeline>
+<codeline lineno="211"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="212"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Useful<sp/>for<sp/>resetting<sp/>the<sp/>event<sp/>system<sp/>state,<sp/>such<sp/>as<sp/>when<sp/>transitioning</highlight></codeline>
+<codeline lineno="213"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>between<sp/>game<sp/>scenes<sp/>or<sp/>during<sp/>error<sp/>recovery.</highlight></codeline>
+<codeline lineno="214"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self._event_queue.<ref refid="classaetherion_1_1events_1_1EventBus_1a1900700863e32018b4de0ad9befbdadc" kindref="member">clear</ref>()</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Global<sp/>bus<sp/>instance<sp/>used<sp/>by<sp/>the<sp/>engine</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal">event_bus<sp/>=<sp/><ref refid="classaetherion_1_1events_1_1EventBus" kindref="compound">EventBus</ref>()</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222" refid="classaetherion_1_1events_1_1PubSubTopicBroker" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1PubSubTopicBroker" kindref="compound">PubSubTopicBroker</ref>(Generic[E]):</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Pull-based<sp/>publish-subscribe<sp/>event<sp/>system<sp/>with<sp/>topic-based<sp/>routing.</highlight></codeline>
+<codeline lineno="224"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="225"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Events<sp/>are<sp/>published<sp/>to<sp/>topics<sp/>and<sp/>consumers<sp/>pull<sp/>events<sp/>at<sp/>their<sp/>own<sp/>pace.</highlight></codeline>
+<codeline lineno="226"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Decouples<sp/>producers<sp/>from<sp/>consumers<sp/>with<sp/>individual<sp/>event<sp/>queues<sp/>per<sp/>consumer.</highlight></codeline>
+<codeline lineno="227"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="228"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Key<sp/>features:</highlight></codeline>
+<codeline lineno="229"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Pull-based:<sp/>Consumers<sp/>retrieve<sp/>events<sp/>when<sp/>ready</highlight></codeline>
+<codeline lineno="230"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Topic-based:<sp/>String<sp/>topic<sp/>routing<sp/>with<sp/>filtering</highlight></codeline>
+<codeline lineno="231"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Thread-safe:<sp/>Concurrent<sp/>access<sp/>support</highlight></codeline>
+<codeline lineno="232"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Buffered:<sp/>Individual<sp/>consumer<sp/>event<sp/>queues</highlight></codeline>
+<codeline lineno="233"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="234"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Use<sp/>cases:<sp/>Multi-threaded<sp/>systems,<sp/>audit<sp/>logging,<sp/>analytics,<sp/>distributed<sp/>communication.</highlight></codeline>
+<codeline lineno="235"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self):</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1ae771ae89b11a5ad09b3caee23684fb5e" kindref="member">_consumers</ref>:<sp/>list[</highlight><highlight class="stringliteral">&quot;TopicReader[E]&quot;</highlight><highlight class="normal">]<sp/>=<sp/>[]</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1a731a7be119e72d0cc61a7cc1d29b5fab" kindref="member">_lock</ref><sp/>=<sp/>threading.RLock()</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1a451c64e1ca163bd275439596b9c2137d" kindref="member">register_consumer</ref>(self,<sp/>consumer:<sp/></highlight><highlight class="stringliteral">&quot;TopicReader[E]&quot;</highlight><highlight class="normal">)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Register<sp/>a<sp/>consumer<sp/>to<sp/>receive<sp/>published<sp/>events.</highlight></codeline>
+<codeline lineno="243"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="244"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="245"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>consumer:<sp/>The<sp/>Consumer<sp/>instance<sp/>to<sp/>register</highlight></codeline>
+<codeline lineno="246"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="247"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="248"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Duplicate<sp/>registration<sp/>attempts<sp/>are<sp/>ignored.<sp/>Thread-safe<sp/>operation.</highlight></codeline>
+<codeline lineno="249"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1a731a7be119e72d0cc61a7cc1d29b5fab" kindref="member">_lock</ref>:</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>consumer<sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1ae771ae89b11a5ad09b3caee23684fb5e" kindref="member">_consumers</ref>:</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1ae771ae89b11a5ad09b3caee23684fb5e" kindref="member">_consumers</ref>.append(consumer)</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1a30a4c90f01e9ca50606f526ad52cafec" kindref="member">unregister_consumer</ref>(self,<sp/>consumer:<sp/></highlight><highlight class="stringliteral">&quot;TopicReader[E]&quot;</highlight><highlight class="normal">)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Remove<sp/>a<sp/>consumer<sp/>from<sp/>receiving<sp/>published<sp/>events.</highlight></codeline>
+<codeline lineno="256"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="257"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="258"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>consumer:<sp/>The<sp/>Consumer<sp/>instance<sp/>to<sp/>unregister</highlight></codeline>
+<codeline lineno="259"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="260"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="261"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Silently<sp/>ignores<sp/>attempts<sp/>to<sp/>unregister<sp/>non-existent<sp/>consumers.<sp/>Thread-safe<sp/>operation.</highlight></codeline>
+<codeline lineno="262"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1a731a7be119e72d0cc61a7cc1d29b5fab" kindref="member">_lock</ref>:</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>consumer<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1ae771ae89b11a5ad09b3caee23684fb5e" kindref="member">_consumers</ref>:</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1ae771ae89b11a5ad09b3caee23684fb5e" kindref="member">_consumers</ref>.remove(consumer)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1aec9a8c9b557ac2a27357c92ffe9a9b27" kindref="member">publish_event</ref>(self,<sp/>topic:<sp/>str,<sp/>event:<sp/>GameEvent[E])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Publish<sp/>an<sp/>event<sp/>to<sp/>a<sp/>topic,<sp/>delivering<sp/>it<sp/>to<sp/>all<sp/>relevant<sp/>consumers.</highlight></codeline>
+<codeline lineno="269"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="270"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="271"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>topic:<sp/>The<sp/>topic<sp/>string<sp/>to<sp/>publish<sp/>to<sp/>(e.g.,<sp/>&quot;world_events&quot;,<sp/>&quot;player_actions&quot;)</highlight></codeline>
+<codeline lineno="272"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event:<sp/>The<sp/>GameEvent<sp/>to<sp/>publish</highlight></codeline>
+<codeline lineno="273"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="274"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="275"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Events<sp/>are<sp/>delivered<sp/>to<sp/>consumers<sp/>that<sp/>either<sp/>subscribe<sp/>to<sp/>the<sp/>specific<sp/>topic</highlight></codeline>
+<codeline lineno="276"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>or<sp/>subscribe<sp/>to<sp/>all<sp/>topics<sp/>(topics=None).<sp/>Thread-safe<sp/>operation.</highlight></codeline>
+<codeline lineno="277"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1a731a7be119e72d0cc61a7cc1d29b5fab" kindref="member">_lock</ref>:</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Fan-out<sp/>to<sp/>all<sp/>consumers<sp/>(each<sp/>enqueues<sp/>independently)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>c<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>list(self.<ref refid="classaetherion_1_1events_1_1PubSubTopicBroker_1ae771ae89b11a5ad09b3caee23684fb5e" kindref="member">_consumers</ref>):</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>c.topics<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">or</highlight><highlight class="normal"><sp/>topic<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>c.topics:</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c.enqueue(event)</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285" refid="classaetherion_1_1events_1_1TopicReader" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1TopicReader" kindref="compound">TopicReader</ref>(Generic[E]):</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Pull-based<sp/>event<sp/>consumer<sp/>for<sp/>PubSubTopicBroker<sp/>with<sp/>topic<sp/>filtering.</highlight></codeline>
+<codeline lineno="287"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="288"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Maintains<sp/>individual<sp/>event<sp/>queue<sp/>and<sp/>retrieves<sp/>events<sp/>via<sp/>drain()<sp/>method.</highlight></codeline>
+<codeline lineno="289"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Supports<sp/>topic<sp/>filtering<sp/>and<sp/>provides<sp/>thread-safe<sp/>operations.</highlight></codeline>
+<codeline lineno="290"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="291"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Key<sp/>features:</highlight></codeline>
+<codeline lineno="292"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Independent<sp/>queuing:<sp/>Own<sp/>event<sp/>buffer<sp/>per<sp/>consumer</highlight></codeline>
+<codeline lineno="293"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Topic<sp/>filtering:<sp/>Subscribe<sp/>to<sp/>specific<sp/>topics<sp/>or<sp/>all<sp/>topics</highlight></codeline>
+<codeline lineno="294"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Thread-safe:<sp/>Protected<sp/>operations<sp/>with<sp/>locks</highlight></codeline>
+<codeline lineno="295"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Context<sp/>manager:<sp/>Automatic<sp/>cleanup<sp/>support</highlight></codeline>
+<codeline lineno="296"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Non-blocking:<sp/>peek()<sp/>for<sp/>inspection<sp/>without<sp/>consumption</highlight></codeline>
+<codeline lineno="297"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="298"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="299"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bus:<sp/>PubSubTopicBroker<sp/>instance<sp/>to<sp/>consume<sp/>from</highlight></codeline>
+<codeline lineno="300"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>topics:<sp/>Optional<sp/>topic<sp/>filter<sp/>list<sp/>(None<sp/>=<sp/>all<sp/>topics)</highlight></codeline>
+<codeline lineno="301"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>bus:<sp/>PubSubTopicBroker[E],<sp/>topics:<sp/>list[str]<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1a38d48a4e3a5528855a1e3237ff73e414" kindref="member">_queue</ref>:<sp/>collections.deque[GameEvent[E]]<sp/>=<sp/>collections.deque()</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1ae4d61b67fb25a13fa0ff753c47db1d06" kindref="member">_lock</ref><sp/>=<sp/>threading.RLock()</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1a557e83d3cc8460a485062e1e2ee0ea3a" kindref="member">topics</ref><sp/>=<sp/>set(topics)<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>topics<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1a6d3b602552eff9cf43a42979b04325a8" kindref="member">_bus</ref><sp/>=<sp/>bus</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1a6d3b602552eff9cf43a42979b04325a8" kindref="member">_bus</ref>.register_consumer(self)</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1TopicReader_1a66015b62053c74a99cd29b44d3875f6b" kindref="member">enqueue</ref>(self,<sp/>event:<sp/>GameEvent[E])<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Internal<sp/>method<sp/>called<sp/>by<sp/>PubSubEventBus<sp/>to<sp/>add<sp/>events<sp/>to<sp/>this<sp/>consumer&apos;s<sp/>queue.</highlight></codeline>
+<codeline lineno="312"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="313"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="314"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event:<sp/>The<sp/>GameEvent<sp/>to<sp/>add<sp/>to<sp/>the<sp/>queue</highlight></codeline>
+<codeline lineno="315"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="316"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="317"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>method<sp/>is<sp/>typically<sp/>called<sp/>automatically<sp/>by<sp/>the<sp/>bus.<sp/>Thread-safe<sp/>operation.</highlight></codeline>
+<codeline lineno="318"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1ae4d61b67fb25a13fa0ff753c47db1d06" kindref="member">_lock</ref>:</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1a38d48a4e3a5528855a1e3237ff73e414" kindref="member">_queue</ref>.append(event)</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1TopicReader_1a0884ea1415162bbd0472a1fb807fa336" kindref="member">drain</ref>(self)<sp/>-&gt;<sp/>list[GameEvent[E]]:</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Retrieve<sp/>and<sp/>remove<sp/>all<sp/>queued<sp/>events.</highlight></codeline>
+<codeline lineno="324"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="325"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="326"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>List<sp/>of<sp/>GameEvent<sp/>objects<sp/>in<sp/>the<sp/>order<sp/>they<sp/>were<sp/>received.</highlight></codeline>
+<codeline lineno="327"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Empty<sp/>list<sp/>if<sp/>no<sp/>events<sp/>are<sp/>queued.</highlight></codeline>
+<codeline lineno="328"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="329"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="330"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>operation<sp/>clears<sp/>the<sp/>consumer&apos;s<sp/>queue.<sp/>Events<sp/>are<sp/>returned<sp/>in<sp/>FIFO<sp/>order.</highlight></codeline>
+<codeline lineno="331"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Thread-safe<sp/>operation.</highlight></codeline>
+<codeline lineno="332"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1ae4d61b67fb25a13fa0ff753c47db1d06" kindref="member">_lock</ref>:</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>items:<sp/>list[GameEvent[E]]<sp/>=<sp/>list(self.<ref refid="classaetherion_1_1events_1_1TopicReader_1a38d48a4e3a5528855a1e3237ff73e414" kindref="member">_queue</ref>)</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1a38d48a4e3a5528855a1e3237ff73e414" kindref="member">_queue</ref>.clear()</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>items</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1TopicReader_1a7668873f3e5638aa11d8b4573a42171b" kindref="member">peek</ref>(self,<sp/>n:<sp/>int<sp/>=<sp/>10)<sp/>-&gt;<sp/>list[GameEvent[E]]:</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Inspect<sp/>queued<sp/>events<sp/>without<sp/>removing<sp/>them.</highlight></codeline>
+<codeline lineno="340"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="341"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="342"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>n:<sp/>Maximum<sp/>number<sp/>of<sp/>events<sp/>to<sp/>return<sp/>(default:<sp/>10)</highlight></codeline>
+<codeline lineno="343"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="344"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="345"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>List<sp/>of<sp/>up<sp/>to<sp/>n<sp/>GameEvent<sp/>objects<sp/>from<sp/>the<sp/>front<sp/>of<sp/>the<sp/>queue.</highlight></codeline>
+<codeline lineno="346"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="347"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="348"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Events<sp/>remain<sp/>in<sp/>the<sp/>queue<sp/>after<sp/>peeking.<sp/>Thread-safe<sp/>operation.</highlight></codeline>
+<codeline lineno="349"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1ae4d61b67fb25a13fa0ff753c47db1d06" kindref="member">_lock</ref>:</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>list(self.<ref refid="classaetherion_1_1events_1_1TopicReader_1a38d48a4e3a5528855a1e3237ff73e414" kindref="member">_queue</ref>)[:n]</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1TopicReader_1ab975f4b31371ab7acdbcefcf8bc2ba2e" kindref="member">close</ref>(self)<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Unregister<sp/>this<sp/>consumer<sp/>from<sp/>the<sp/>bus<sp/>and<sp/>clean<sp/>up<sp/>resources.</highlight></codeline>
+<codeline lineno="355"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="356"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:</highlight></codeline>
+<codeline lineno="357"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>After<sp/>calling<sp/>close(),<sp/>this<sp/>consumer<sp/>will<sp/>no<sp/>longer<sp/>receive<sp/>events.</highlight></codeline>
+<codeline lineno="358"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Any<sp/>events<sp/>still<sp/>in<sp/>the<sp/>queue<sp/>remain<sp/>accessible<sp/>until<sp/>drained.</highlight></codeline>
+<codeline lineno="359"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1a6d3b602552eff9cf43a42979b04325a8" kindref="member">_bus</ref>.unregister_consumer(self)</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1TopicReader_1abe2c995a20b83997ac85c5cc283d4711" kindref="member">__enter__</ref>(self):</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Context<sp/>manager<sp/>entry<sp/>-<sp/>returns<sp/>self<sp/>for<sp/>use<sp/>in<sp/>&apos;with&apos;<sp/>statements.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>self</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1events_1_1TopicReader_1a75fbfce18b913ae9b3ac63bca6e07285" kindref="member">__exit__</ref>(self,<sp/>exc_type:<sp/>type[BaseException]<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,<sp/>exc_value:<sp/>BaseException<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,<sp/>tb:<sp/>object)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Context<sp/>manager<sp/>exit<sp/>-<sp/>automatically<sp/>calls<sp/>close()<sp/>for<sp/>cleanup.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1events_1_1TopicReader_1ab975f4b31371ab7acdbcefcf8bc2ba2e" kindref="member">close</ref>()</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/events/__init__.py"/>
+  </compounddef>
+</doxygen>

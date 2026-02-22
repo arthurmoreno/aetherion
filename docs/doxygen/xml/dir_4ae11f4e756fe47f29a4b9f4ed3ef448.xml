@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_4ae11f4e756fe47f29a4b9f4ed3ef448" kind="dir">
+    <compoundname>src/aetherion/world</compoundname>
+    <innerfile refid="world_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="world_2constants_8py">constants.py</innerfile>
+    <innerfile refid="world_2exceptions_8py">exceptions.py</innerfile>
+    <innerfile refid="interface_8py">interface.py</innerfile>
+    <innerfile refid="manager_8py">manager.py</innerfile>
+    <innerfile refid="world_2models_8py">models.py</innerfile>
+    <innerfile refid="recorder_8py">recorder.py</innerfile>
+    <innerfile refid="state__manager_8py">state_manager.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/world/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_1f56ed80aa7442d2b5757f0b3544ec7a" kind="dir">
+    <compoundname>src/aetherion/input</compoundname>
+    <innerfile refid="input_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="action__processor_8py">action_processor.py</innerfile>
+    <innerfile refid="event__action__handler_8py">event_action_handler.py</innerfile>
+    <innerfile refid="player__input__map_8py">player_input_map.py</innerfile>
+    <innerfile refid="user__input__controller_8py">user_input_controller.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/input/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1scenes_1_1base" kind="namespace" language="Python">
+    <compoundname>aetherion::scenes::base</compoundname>
+    <innerclass refid="classaetherion_1_1scenes_1_1base_1_1BaseScene" prot="public">aetherion::scenes::base::BaseScene</innerclass>
+    <innerclass refid="classaetherion_1_1scenes_1_1base_1_1Node" prot="public">aetherion::scenes::base::Node</innerclass>
+    <innerclass refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec" prot="public">aetherion::scenes::base::NodeSpec</innerclass>
+    <innerclass refid="classaetherion_1_1scenes_1_1base_1_1Scene" prot="public">aetherion::scenes::base::Scene</innerclass>
+    <innerclass refid="classaetherion_1_1scenes_1_1base_1_1SceneManager" prot="public">aetherion::scenes::base::SceneManager</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="scenes_2base_8py_1a3acdde455fd721c81658651a83f841e6" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion::scenes::base.scene_manager</definition>
+        <argsstring></argsstring>
+        <name>scene_manager</name>
+        <qualifiedname>aetherion.scenes.base.scene_manager</qualifiedname>
+        <initializer>=  <ref refid="classaetherion_1_1scenes_1_1base_1_1SceneManager" kindref="compound">SceneManager</ref>()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="180" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="180" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/scenes/base.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

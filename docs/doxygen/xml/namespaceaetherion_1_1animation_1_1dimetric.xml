@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1animation_1_1dimetric" kind="namespace" language="Python">
+    <compoundname>aetherion::animation::dimetric</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="animation_2dimetric_8py_1ad3735eaf6a747582e5b8375264f1ff59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>list[int]</type>
+        <definition> list[int] aetherion.animation.dimetric.repartition_animation</definition>
+        <argsstring>(list[int] array, int size)</argsstring>
+        <name>repartition_animation</name>
+        <qualifiedname>aetherion.animation.dimetric.repartition_animation</qualifiedname>
+        <param>
+          <type>list</type>
+          <declname>array</declname>
+          <array>[int]</array>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/animation/dimetric.py" line="7" column="1" bodyfile="src/aetherion/animation/dimetric.py" bodystart="7" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="animation_2dimetric_8py_1a99ade758fef2fcc884aba1f44e06bc37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.animation.dimetric.calc_pixel_offset_linear</definition>
+        <argsstring>(int completion_time, int time_remaining, int tile_size_on_screen)</argsstring>
+        <name>calc_pixel_offset_linear</name>
+        <qualifiedname>aetherion.animation.dimetric.calc_pixel_offset_linear</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>completion_time</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>time_remaining</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tile_size_on_screen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/animation/dimetric.py" line="19" column="1" bodyfile="src/aetherion/animation/dimetric.py" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="animation_2dimetric_8py_1a31bfd5d438673a1ee452ff7906ed5712" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.animation.dimetric.calc_pixel_offset_inverted_quadratic</definition>
+        <argsstring>(int completion_time, int time_remaining, int tile_size_on_screen)</argsstring>
+        <name>calc_pixel_offset_inverted_quadratic</name>
+        <qualifiedname>aetherion.animation.dimetric.calc_pixel_offset_inverted_quadratic</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>completion_time</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>time_remaining</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tile_size_on_screen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Calculate the pixel offset with quadratic easing.
+
+:param completion_time: Total time steps to complete the movement.
+:param time_remaining: Time steps remaining.
+:return: The calculated pixel offset.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/animation/dimetric.py" line="23" column="1" bodyfile="src/aetherion/animation/dimetric.py" bodystart="23" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="animation_2dimetric_8py_1a1f9419610cb18d617e60229ad82edfba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.animation.dimetric.calc_pixel_offset_quadratic</definition>
+        <argsstring>(int completion_time, int time_remaining, int tile_size_on_screen)</argsstring>
+        <name>calc_pixel_offset_quadratic</name>
+        <qualifiedname>aetherion.animation.dimetric.calc_pixel_offset_quadratic</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>completion_time</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>time_remaining</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tile_size_on_screen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Calculate the pixel offset with smooth quadratic easing.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/animation/dimetric.py" line="37" column="1" bodyfile="src/aetherion/animation/dimetric.py" bodystart="37" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="animation_2dimetric_8py_1acd9adfe727ae20c0d3c13b6dd74dfa75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.animation.dimetric.calc_pixel_offset_logarithmic</definition>
+        <argsstring>(int completion_time, int time_remaining, int tile_size_on_screen)</argsstring>
+        <name>calc_pixel_offset_logarithmic</name>
+        <qualifiedname>aetherion.animation.dimetric.calc_pixel_offset_logarithmic</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>completion_time</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>time_remaining</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tile_size_on_screen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Logarithmic easing-out function for pixel offset.
+
+:param completion_time: Total time steps to complete the movement.
+:param time_remaining: Time steps remaining.
+:return: The calculated pixel offset.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/animation/dimetric.py" line="45" column="1" bodyfile="src/aetherion/animation/dimetric.py" bodystart="45" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="animation_2dimetric_8py_1ab4d73556fb39a7038cd23a7bd1f99d83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>tuple[int, int]</type>
+        <definition> tuple[int, int] aetherion.animation.dimetric.entity_animation_handler</definition>
+        <argsstring>(Any event, Any entity, Any entity_view, int screen_x, int screen_y, int tile_size_on_screen)</argsstring>
+        <name>entity_animation_handler</name>
+        <qualifiedname>aetherion.animation.dimetric.entity_animation_handler</qualifiedname>
+        <param>
+          <type>Any</type>
+          <declname>event</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>entity_view</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tile_size_on_screen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/animation/dimetric.py" line="63" column="1" bodyfile="src/aetherion/animation/dimetric.py" bodystart="70" bodyend="132"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/animation/dimetric.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

@@ -17,9 +17,9 @@
         </inbodydescription>
         <location file="src/components/ConsoleLogsComponent.hpp" line="13" column="14" bodyfile="src/components/ConsoleLogsComponent.hpp" bodystart="13" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structConsoleLogsComponent_1af51dd3ecae21df77db3b159963e89e3e" prot="public" static="no" mutable="no">
-        <type>size_t</type>
-        <definition>size_t ConsoleLogsComponent::max_size</definition>
+      <memberdef kind="variable" id="structConsoleLogsComponent_1ad8f6d872116b9da1ffc83ab9402e4257" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ConsoleLogsComponent::max_size</definition>
         <argsstring></argsstring>
         <name>max_size</name>
         <qualifiedname>ConsoleLogsComponent::max_size</qualifiedname>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/components/ConsoleLogsComponent.hpp" line="14" column="12" bodyfile="src/components/ConsoleLogsComponent.hpp" bodystart="14" bodyend="-1"/>
+        <location file="src/components/ConsoleLogsComponent.hpp" line="14" column="14" bodyfile="src/components/ConsoleLogsComponent.hpp" bodystart="14" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -90,7 +90,7 @@
       <member refid="structConsoleLogsComponent_1a3a10b15276cfb8c265695ae7ffbce635" prot="public" virt="non-virtual"><scope>ConsoleLogsComponent</scope><name>current_time_string</name></member>
       <member refid="structConsoleLogsComponent_1a0c230ce63b7bb7937878511ad459fe39" prot="public" virt="non-virtual"><scope>ConsoleLogsComponent</scope><name>get_logs</name></member>
       <member refid="structConsoleLogsComponent_1a0384812057051e771fae27e175207743" prot="public" virt="non-virtual"><scope>ConsoleLogsComponent</scope><name>log_buffer</name></member>
-      <member refid="structConsoleLogsComponent_1af51dd3ecae21df77db3b159963e89e3e" prot="public" virt="non-virtual"><scope>ConsoleLogsComponent</scope><name>max_size</name></member>
+      <member refid="structConsoleLogsComponent_1ad8f6d872116b9da1ffc83ab9402e4257" prot="public" virt="non-virtual"><scope>ConsoleLogsComponent</scope><name>max_size</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

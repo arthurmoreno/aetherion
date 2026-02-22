@@ -1,0 +1,586 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="ComponentMutators_8hpp" kind="file" language="C++">
+    <compoundname>ComponentMutators.hpp</compoundname>
+    <includes local="no">entt/entt.hpp</includes>
+    <includes refid="EntityTypeComponent_8hpp" local="yes">components/EntityTypeComponent.hpp</includes>
+    <includes refid="PhysicsComponents_8hpp" local="yes">components/PhysicsComponents.hpp</includes>
+    <includes refid="VoxelGrid_8hpp" local="yes">voxelgrid/VoxelGrid.hpp</includes>
+    <includedby refid="ComponentMutators_8cpp" local="yes">src/physics/ComponentMutators.cpp</includedby>
+    <includedby refid="PhysicsMutators_8hpp" local="yes">src/physics/PhysicsMutators.hpp</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>components/EntityTypeComponent.hpp</label>
+        <link refid="EntityTypeComponent_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>components/HealthComponents.hpp</label>
+        <link refid="HealthComponents_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>components/ItemsComponents.hpp</label>
+        <link refid="ItemsComponents_8hpp_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>components/LifecycleComponents.hpp</label>
+        <link refid="LifecycleComponents_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>components/MovingComponent.hpp</label>
+        <link refid="MovingComponent_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>components/PhysicsComponents.hpp</label>
+        <link refid="PhysicsComponents_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>components/PlantsComponents.hpp</label>
+        <link refid="PlantsComponents_8hpp_source"/>
+      </node>
+      <node id="28">
+        <label>components/TerrainComponents.hpp</label>
+        <link refid="TerrainComponents_8hpp_source"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>ecosystem/EcosystemEvents.hpp</label>
+        <link refid="EcosystemEvents_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/physics/ComponentMutators.hpp</label>
+        <link refid="ComponentMutators_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>terrain/TerrainGridRepository.hpp</label>
+        <link refid="TerrainGridRepository_8hpp_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>terrain/TerrainStorage.hpp</label>
+        <link refid="TerrainStorage_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>terrain/VoxelCoord.hpp</label>
+        <link refid="VoxelCoord_8hpp_source"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>voxelgrid/GridData.hpp</label>
+        <link refid="GridData_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>voxelgrid/VoxelGrid.hpp</label>
+        <link refid="VoxelGrid_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>voxelgrid/VoxelGridView.hpp</label>
+        <link refid="VoxelGridView_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>VoxelGridView_generated.h</label>
+      </node>
+      <node id="33">
+        <label>algorithm</label>
+      </node>
+      <node id="23">
+        <label>atomic</label>
+      </node>
+      <node id="4">
+        <label>cmath</label>
+      </node>
+      <node id="38">
+        <label>cstddef</label>
+      </node>
+      <node id="2">
+        <label>entt/entt.hpp</label>
+      </node>
+      <node id="8">
+        <label>flatbuffers/flatbuffers.h</label>
+      </node>
+      <node id="12">
+        <label>functional</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="13">
+        <label>map</label>
+      </node>
+      <node id="14">
+        <label>memory</label>
+      </node>
+      <node id="15">
+        <label>msgpack.hpp</label>
+      </node>
+      <node id="16">
+        <label>mutex</label>
+      </node>
+      <node id="9">
+        <label>nanobind/nanobind.h</label>
+      </node>
+      <node id="10">
+        <label>openvdb/openvdb.h</label>
+      </node>
+      <node id="11">
+        <label>openvdb/tools/Interpolation.h</label>
+      </node>
+      <node id="24">
+        <label>optional</label>
+      </node>
+      <node id="17">
+        <label>shared_mutex</label>
+      </node>
+      <node id="18">
+        <label>sstream</label>
+      </node>
+      <node id="34">
+        <label>stdexcept</label>
+      </node>
+      <node id="19">
+        <label>tuple</label>
+      </node>
+      <node id="25">
+        <label>unordered_map</label>
+      </node>
+      <node id="29">
+        <label>unordered_set</label>
+      </node>
+      <node id="20">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>src/physics/ComponentMutators.hpp</label>
+        <link refid="ComponentMutators_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/physics/PhysicsMutators.hpp</label>
+        <link refid="PhysicsMutators_8hpp"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="ComponentMutators_8hpp_1ab6290724d61c0f0765d7e4786a9e885c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void updateEntityVelocity</definition>
+        <argsstring>(Velocity &amp;velocity, float newVx, float newVy, float newVz)</argsstring>
+        <name>updateEntityVelocity</name>
+        <param>
+          <type><ref refid="structVelocity" kindref="compound">Velocity</ref> &amp;</type>
+          <declname>velocity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>newVx</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>newVy</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>newVz</declname>
+        </param>
+        <briefdescription>
+<para>Directly modifies the fields of a <ref refid="structVelocity" kindref="compound">Velocity</ref> component. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>velocity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to the <ref refid="structVelocity" kindref="compound">Velocity</ref> component to modify. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newVx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The new velocity on the X-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newVy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The new velocity on the Y-axis. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newVz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The new velocity on the Z-axis. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ComponentMutators.hpp" line="45" column="6" bodyfile="src/physics/ComponentMutators.cpp" bodystart="14" bodyend="18" declfile="src/physics/ComponentMutators.hpp" declline="45" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ComponentMutators_8hpp_1abd6effd7dfb86a0c6120c12614659f56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ensurePositionComponentForTerrain</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;voxelGrid, entt::entity entity, bool isTerrain)</argsstring>
+        <name>ensurePositionComponentForTerrain</name>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>voxelGrid</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isTerrain</declname>
+        </param>
+        <briefdescription>
+<para>Ensures a terrain entity has a <ref refid="structPosition" kindref="compound">Position</ref> component, adding one if it&apos;s missing. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is a safety check for terrain entities (e.g., vapor) that might be processed by physics before being fully initialized. It fetches the position from the <ref refid="classTerrainGridRepository" kindref="compound">TerrainGridRepository</ref>. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>registry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The entt::registry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>voxelGrid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> for accessing the terrain repository. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>entity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The entity to check. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>isTerrain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag indicating if the entity is a terrain entity. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>std::runtime_error</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if the entity is missing a position and it cannot be found in the repository. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ComponentMutators.hpp" line="59" column="6" bodyfile="src/physics/ComponentMutators.cpp" bodystart="20" bodyend="47" declfile="src/physics/ComponentMutators.hpp" declline="59" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ComponentMutators_8hpp_1ab84cfcc07a1cfa8eeb4501e7ad202cb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void convertIntoSoftEmpty</definition>
+        <argsstring>(entt::registry &amp;registry, entt::entity &amp;terrain)</argsstring>
+        <name>convertIntoSoftEmpty</name>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type>entt::entity &amp;</type>
+          <declname>terrain</declname>
+        </param>
+        <briefdescription>
+<para>Converts an entity into a &quot;soft empty&quot; terrain block. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Used when an entity cannot be immediately destroyed because there are ongoing tile effects; converts the entity&apos;s components so it behaves as an empty tile while effects finish processing. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>registry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The entt::registry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terrain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The terrain entity to convert. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ComponentMutators.hpp" line="70" column="6" bodyfile="src/physics/ComponentMutators.cpp" bodystart="49" bodyend="74" declfile="src/physics/ComponentMutators.hpp" declline="70" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ComponentMutators_8hpp_1aa5c258753ad29e6120f312840e859504" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setEmptyWaterComponentsEnTT</definition>
+        <argsstring>(entt::registry &amp;registry, entt::entity &amp;terrain, MatterState matterState)</argsstring>
+        <name>setEmptyWaterComponentsEnTT</name>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type>entt::entity &amp;</type>
+          <declname>terrain</declname>
+        </param>
+        <param>
+          <type>MatterState</type>
+          <declname>matterState</declname>
+        </param>
+        <briefdescription>
+<para>Sets or overwrites components of an entity in the ECS to represent an empty water tile. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>registry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The entt::registry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terrain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The entity to modify. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>matterState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The matter state (e.g., LIQUID) to assign to the entity. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/physics/ComponentMutators.hpp" line="78" column="6" bodyfile="src/physics/ComponentMutators.cpp" bodystart="76" bodyend="115" declfile="src/physics/ComponentMutators.hpp" declline="78" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Focused, in-place ECS component mutators. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This module groups small functions that perform direct, in-place updates to <computeroutput>entt</computeroutput> components (for example: <computeroutput><ref refid="structPosition" kindref="compound">Position</ref></computeroutput>, <computeroutput><ref refid="structVelocity" kindref="compound">Velocity</ref></computeroutput>, <computeroutput><ref refid="structEntityTypeComponent" kindref="compound">EntityTypeComponent</ref></computeroutput>, <computeroutput><ref refid="structStructuralIntegrityComponent" kindref="compound">StructuralIntegrityComponent</ref></computeroutput>, and <computeroutput><ref refid="structMatterContainer" kindref="compound">MatterContainer</ref></computeroutput>) for a single entity.</para>
+<para>Characteristics that set these functions apart:<itemizedlist>
+<listitem><para>They operate only on ECS component storage and do not modify <computeroutput><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref></computeroutput> / <computeroutput><ref refid="classTerrainGridRepository" kindref="compound">TerrainGridRepository</ref></computeroutput> storage directly.</para>
+</listitem><listitem><para>They avoid taking global locks or performing long-running work; callers (higher-level orchestrators or event handlers) are responsible for synchronization (e.g., <computeroutput><ref refid="classTerrainGridLock" kindref="compound">TerrainGridLock</ref></computeroutput>).</para>
+</listitem><listitem><para>Implementations live in <computeroutput>ComponentMutators.cpp</computeroutput> to keep linkage consistent and prevent ODR/static linkage mismatches.</para>
+</listitem></itemizedlist>
+</para>
+<para>Good candidates for this module:<itemizedlist>
+<listitem><para>Small helpers that add/modify/remove components from a single entity.</para>
+</listitem><listitem><para>Conversions that change an entity&apos;s component set or normalize fields.</para>
+</listitem><listitem><para>Functions that are cheap and side-effect-local to an entity&apos;s components.</para>
+</listitem></itemizedlist>
+</para>
+<para>Not suitable for this module:<itemizedlist>
+<listitem><para>Creating or destroying entities, or multi-tile/VoxelGrid repository writes.</para>
+</listitem><listitem><para>Operations that must acquire <computeroutput><ref refid="classTerrainGridLock" kindref="compound">TerrainGridLock</ref></computeroutput> or perform bulk updates. </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>COMPONENT_MUTATORS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>COMPONENT_MUTATORS_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;entt/entt.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/EntityTypeComponent.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;components/PhysicsComponents.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;voxelgrid/VoxelGrid.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Direct<sp/>component<sp/>mutators<sp/>(definitions<sp/>in<sp/>ComponentMutators.cpp)</highlight></codeline>
+<codeline lineno="45"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="ComponentMutators_8hpp_1ab6290724d61c0f0765d7e4786a9e885c" kindref="member">updateEntityVelocity</ref>(<ref refid="structVelocity" kindref="compound">Velocity</ref>&amp;<sp/>velocity,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVy,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newVz);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="ComponentMutators_8hpp_1abd6effd7dfb86a0c6120c12614659f56" kindref="member">ensurePositionComponentForTerrain</ref>(entt::registry&amp;<sp/>registry,<sp/><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref>&amp;<sp/>voxelGrid,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>entt::entity<sp/>entity,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isTerrain);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="ComponentMutators_8hpp_1ab84cfcc07a1cfa8eeb4501e7ad202cb6" kindref="member">convertIntoSoftEmpty</ref>(entt::registry&amp;<sp/>registry,<sp/>entt::entity&amp;<sp/>terrain);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="ComponentMutators_8hpp_1aa5c258753ad29e6120f312840e859504" kindref="member">setEmptyWaterComponentsEnTT</ref>(entt::registry&amp;<sp/>registry,<sp/>entt::entity&amp;<sp/>terrain,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MatterState<sp/>matterState);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>COMPONENT_MUTATORS_HPP</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/physics/ComponentMutators.hpp"/>
+  </compounddef>
+</doxygen>

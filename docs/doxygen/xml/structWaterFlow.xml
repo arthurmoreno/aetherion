@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structWaterFlow" kind="struct" language="C++" prot="public">
+    <compoundname>WaterFlow</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structWaterFlow_1a5a83b914936011560aff0cbae689f93d" prot="public" static="no" mutable="no">
+        <type>WaterFlowType</type>
+        <definition>WaterFlowType WaterFlow::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>WaterFlow::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="47" column="19" bodyfile="src/EcosystemEngine.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterFlow_1a47d2f18f6302b7208048dab8b7492ad7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterFlow::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>WaterFlow::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="48" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterFlow_1aa53adccb90901c0435afc47c780e10c0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterFlow::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>WaterFlow::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="48" column="11" bodyfile="src/EcosystemEngine.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterFlow_1a3ce9429ccf877bcdd96a8dca962d41c2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterFlow::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>WaterFlow::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="48" column="13" bodyfile="src/EcosystemEngine.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterFlow_1a21a30f237e7602dfd9a329d76b34ffe6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterFlow::amount</definition>
+        <argsstring></argsstring>
+        <name>amount</name>
+        <qualifiedname>WaterFlow::amount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="49" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterFlow_1a66b39aa0705047a4552fbd32e0b5af8f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterFlow::targetX</definition>
+        <argsstring></argsstring>
+        <name>targetX</name>
+        <qualifiedname>WaterFlow::targetX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="50" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterFlow_1a48891ec6150693902865f72c2c904482" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterFlow::targetY</definition>
+        <argsstring></argsstring>
+        <name>targetY</name>
+        <qualifiedname>WaterFlow::targetY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="50" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterFlow_1a6b94e4efee813805dd9751a69958e826" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WaterFlow::targetZ</definition>
+        <argsstring></argsstring>
+        <name>targetZ</name>
+        <qualifiedname>WaterFlow::targetZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="50" column="25" bodyfile="src/EcosystemEngine.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structWaterFlow_1a9a306dd5052a29de358e74a4960d4fc7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>WaterFlow::WaterFlow</definition>
+        <argsstring>(WaterFlowType type, int x, int y, int z, int amount)</argsstring>
+        <name>WaterFlow</name>
+        <qualifiedname>WaterFlow::WaterFlow</qualifiedname>
+        <param>
+          <type>WaterFlowType</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="52" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="52" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="structWaterFlow_1a06212ea69c1bf3530534c1d26deb56e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>WaterFlow::WaterFlow</definition>
+        <argsstring>(WaterFlowType type, int x, int y, int z, int amount, int targetX, int targetY, int targetZ)</argsstring>
+        <name>WaterFlow</name>
+        <qualifiedname>WaterFlow::WaterFlow</qualifiedname>
+        <param>
+          <type>WaterFlowType</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>targetX</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>targetY</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>targetZ</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="55" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="55" bodyend="64"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="46" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="46" bodyend="65"/>
+    <listofallmembers>
+      <member refid="structWaterFlow_1a21a30f237e7602dfd9a329d76b34ffe6" prot="public" virt="non-virtual"><scope>WaterFlow</scope><name>amount</name></member>
+      <member refid="structWaterFlow_1a66b39aa0705047a4552fbd32e0b5af8f" prot="public" virt="non-virtual"><scope>WaterFlow</scope><name>targetX</name></member>
+      <member refid="structWaterFlow_1a48891ec6150693902865f72c2c904482" prot="public" virt="non-virtual"><scope>WaterFlow</scope><name>targetY</name></member>
+      <member refid="structWaterFlow_1a6b94e4efee813805dd9751a69958e826" prot="public" virt="non-virtual"><scope>WaterFlow</scope><name>targetZ</name></member>
+      <member refid="structWaterFlow_1a5a83b914936011560aff0cbae689f93d" prot="public" virt="non-virtual"><scope>WaterFlow</scope><name>type</name></member>
+      <member refid="structWaterFlow_1a9a306dd5052a29de358e74a4960d4fc7" prot="public" virt="non-virtual"><scope>WaterFlow</scope><name>WaterFlow</name></member>
+      <member refid="structWaterFlow_1a06212ea69c1bf3530534c1d26deb56e5" prot="public" virt="non-virtual"><scope>WaterFlow</scope><name>WaterFlow</name></member>
+      <member refid="structWaterFlow_1a47d2f18f6302b7208048dab8b7492ad7" prot="public" virt="non-virtual"><scope>WaterFlow</scope><name>x</name></member>
+      <member refid="structWaterFlow_1aa53adccb90901c0435afc47c780e10c0" prot="public" virt="non-virtual"><scope>WaterFlow</scope><name>y</name></member>
+      <member refid="structWaterFlow_1a3ce9429ccf877bcdd96a8dca962d41c2" prot="public" virt="non-virtual"><scope>WaterFlow</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

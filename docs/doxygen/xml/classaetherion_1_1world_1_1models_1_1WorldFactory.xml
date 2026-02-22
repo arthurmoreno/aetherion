@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1world_1_1models_1_1WorldFactory" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::world::models::WorldFactory</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">ABC</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1world_1_1models_1_1WorldFactory_1a9567d29b442b3c3b2815735a55bd4757" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.models.WorldFactory.__init__</definition>
+        <argsstring>(self, int width=3, int height=3, int depth=3)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.world.models.WorldFactory.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+          <defval>3</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+          <defval>3</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>depth</declname>
+          <defval>3</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="14" column="1" bodyfile="src/aetherion/world/models.py" bodystart="14" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1models_1_1WorldFactory_1aaf6ae5e8c1b68127b7b92ce2881aef57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classWorld" kindref="compound">World</ref></type>
+        <definition> World aetherion.world.models.WorldFactory.create_world</definition>
+        <argsstring>(self)</argsstring>
+        <name>create_world</name>
+        <qualifiedname>aetherion.world.models.WorldFactory.create_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Creates a new world instance.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="19" column="1" bodyfile="src/aetherion/world/models.py" bodystart="19" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1models_1_1WorldFactory_1a62728227fcd307b6e5b4ced890512747" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classWorld" kindref="compound">World</ref></type>
+        <definition> World aetherion.world.models.WorldFactory.generate_world</definition>
+        <argsstring>(self)</argsstring>
+        <name>generate_world</name>
+        <qualifiedname>aetherion.world.models.WorldFactory.generate_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Constructs, populates, and returns a fully-initialized World.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="30" column="1" bodyfile="src/aetherion/world/models.py" bodystart="30" bodyend="34"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Interface for anything that can build a World instance.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.world.models.WorldFactory</label>
+        <link refid="classaetherion_1_1world_1_1models_1_1WorldFactory"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.world.models.WorldFactory</label>
+        <link refid="classaetherion_1_1world_1_1models_1_1WorldFactory"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/world/models.py" line="11" column="1" bodyfile="src/aetherion/world/models.py" bodystart="11" bodyend="34"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1world_1_1models_1_1WorldFactory_1a9567d29b442b3c3b2815735a55bd4757" prot="public" virt="non-virtual"><scope>aetherion::world::models::WorldFactory</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1world_1_1models_1_1WorldFactory_1aaf6ae5e8c1b68127b7b92ce2881aef57" prot="public" virt="non-virtual"><scope>aetherion::world::models::WorldFactory</scope><name>create_world</name></member>
+      <member refid="classaetherion_1_1world_1_1models_1_1WorldFactory_1a62728227fcd307b6e5b4ced890512747" prot="public" virt="non-virtual"><scope>aetherion::world::models::WorldFactory</scope><name>generate_world</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

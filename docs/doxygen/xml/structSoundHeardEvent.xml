@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structSoundHeardEvent" kind="struct" language="C++" prot="public">
+    <compoundname>SoundHeardEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structSoundHeardEvent_1a996d4127f10b823b502dae4dbd87dad5" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity SoundHeardEvent::listener</definition>
+        <argsstring></argsstring>
+        <name>listener</name>
+        <qualifiedname>SoundHeardEvent::listener</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="83" column="18" bodyfile="src/WavePhysicsEngine.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSoundHeardEvent_1a8a3d33fa8d9fd7cb4258a536eafb14bd" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t SoundHeardEvent::source</definition>
+        <argsstring></argsstring>
+        <name>source</name>
+        <qualifiedname>SoundHeardEvent::source</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="84" column="13" bodyfile="src/WavePhysicsEngine.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSoundHeardEvent_1a75a5a12f2ce9fcce35d36830cddf032b" prot="public" static="no" mutable="no">
+        <type>WaveType</type>
+        <definition>WaveType SoundHeardEvent::waveType</definition>
+        <argsstring></argsstring>
+        <name>waveType</name>
+        <qualifiedname>SoundHeardEvent::waveType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="85" column="14" bodyfile="src/WavePhysicsEngine.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSoundHeardEvent_1a416feea5a6b8288e40c7ee44abbe4ba0" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float SoundHeardEvent::frequency</definition>
+        <argsstring></argsstring>
+        <name>frequency</name>
+        <qualifiedname>SoundHeardEvent::frequency</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="86" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSoundHeardEvent_1a0f9420d30f6f154e65b54671059bdfea" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float SoundHeardEvent::amplitude</definition>
+        <argsstring></argsstring>
+        <name>amplitude</name>
+        <qualifiedname>SoundHeardEvent::amplitude</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="87" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structSoundHeardEvent_1a3692dddb9298bc30f0fef23c932c2f85" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SoundHeardEvent::SoundHeardEvent</definition>
+        <argsstring>(entt::entity listener, int32_t source, WaveType waveType, float frequency, float amplitude)</argsstring>
+        <name>SoundHeardEvent</name>
+        <qualifiedname>SoundHeardEvent::SoundHeardEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>listener</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>WaveType</type>
+          <declname>waveType</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>frequency</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>amplitude</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="89" column="5" bodyfile="src/WavePhysicsEngine.hpp" bodystart="89" bodyend="95"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/WavePhysicsEngine.hpp" line="82" column="1" bodyfile="src/WavePhysicsEngine.hpp" bodystart="82" bodyend="96"/>
+    <listofallmembers>
+      <member refid="structSoundHeardEvent_1a0f9420d30f6f154e65b54671059bdfea" prot="public" virt="non-virtual"><scope>SoundHeardEvent</scope><name>amplitude</name></member>
+      <member refid="structSoundHeardEvent_1a416feea5a6b8288e40c7ee44abbe4ba0" prot="public" virt="non-virtual"><scope>SoundHeardEvent</scope><name>frequency</name></member>
+      <member refid="structSoundHeardEvent_1a996d4127f10b823b502dae4dbd87dad5" prot="public" virt="non-virtual"><scope>SoundHeardEvent</scope><name>listener</name></member>
+      <member refid="structSoundHeardEvent_1a3692dddb9298bc30f0fef23c932c2f85" prot="public" virt="non-virtual"><scope>SoundHeardEvent</scope><name>SoundHeardEvent</name></member>
+      <member refid="structSoundHeardEvent_1a8a3d33fa8d9fd7cb4258a536eafb14bd" prot="public" virt="non-virtual"><scope>SoundHeardEvent</scope><name>source</name></member>
+      <member refid="structSoundHeardEvent_1a75a5a12f2ce9fcce35d36830cddf032b" prot="public" virt="non-virtual"><scope>SoundHeardEvent</scope><name>waveType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/Gui/Gui.hpp" line="39" column="21" bodyfile="src/Gui/Gui.hpp" bodystart="39" bodyend="-1"/>
+        <location file="src/Gui/Gui.hpp" line="43" column="21" bodyfile="src/Gui/Gui.hpp" bodystart="43" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -36,7 +36,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/Gui/Gui.hpp" line="26" column="14" bodyfile="src/Gui/Gui.hpp" bodystart="26" bodyend="27"/>
+        <location file="src/Gui/Gui.hpp" line="30" column="14" bodyfile="src/Gui/Gui.hpp" bodystart="30" bodyend="31"/>
       </memberdef>
       <memberdef kind="function" id="structBoolHandle_1a113a5a1b54b9b0739dd3ee37ce62ca11" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool *</type>
@@ -50,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/Gui/Gui.hpp" line="30" column="10" bodyfile="src/Gui/Gui.hpp" bodystart="30" bodyend="30"/>
+        <location file="src/Gui/Gui.hpp" line="34" column="10" bodyfile="src/Gui/Gui.hpp" bodystart="34" bodyend="34"/>
       </memberdef>
       <memberdef kind="function" id="structBoolHandle_1a2d5135f93d4e5dfbc01ba660f01f6dbb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -64,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/Gui/Gui.hpp" line="33" column="10" bodyfile="src/Gui/Gui.hpp" bodystart="33" bodyend="33"/>
+        <location file="src/Gui/Gui.hpp" line="37" column="10" bodyfile="src/Gui/Gui.hpp" bodystart="37" bodyend="37"/>
       </memberdef>
       <memberdef kind="function" id="structBoolHandle_1ac9ba48eb5d40afcb283fb2cf2b1f468d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -82,14 +82,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/Gui/Gui.hpp" line="36" column="10" bodyfile="src/Gui/Gui.hpp" bodystart="36" bodyend="36"/>
+        <location file="src/Gui/Gui.hpp" line="40" column="10" bodyfile="src/Gui/Gui.hpp" bodystart="40" bodyend="40"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/Gui/Gui.hpp" line="24" column="1" bodyfile="src/Gui/Gui.hpp" bodystart="24" bodyend="40"/>
+    <location file="src/Gui/Gui.hpp" line="28" column="1" bodyfile="src/Gui/Gui.hpp" bodystart="28" bodyend="44"/>
     <listofallmembers>
       <member refid="structBoolHandle_1a97a36bf33a73112dca85655502a1b6fe" prot="public" virt="non-virtual"><scope>BoolHandle</scope><name>BoolHandle</name></member>
       <member refid="structBoolHandle_1a113a5a1b54b9b0739dd3ee37ce62ca11" prot="public" virt="non-virtual"><scope>BoolHandle</scope><name>get</name></member>

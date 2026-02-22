@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1settings_1_1ScreenParameters" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::settings::ScreenParameters</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">TypedDict</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1afbc5a3d04d6361021bf8e3a3aaaaf667" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1settings_1_1BlockDimensions" kindref="compound">BlockDimensions</ref></type>
+        <definition>BlockDimensions aetherion.settings.ScreenParameters::BLOCKS_IN_SCREEN</definition>
+        <argsstring></argsstring>
+        <name>BLOCKS_IN_SCREEN</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.BLOCKS_IN_SCREEN</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="29" column="1" bodyfile="src/aetherion/settings.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1a4a4809b492e20dcc7136fdd0e6deb350" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1settings_1_1PlayerBlockPosition" kindref="compound">PlayerBlockPosition</ref></type>
+        <definition>PlayerBlockPosition aetherion.settings.ScreenParameters::PLAYER_BLOCK_POSITION</definition>
+        <argsstring></argsstring>
+        <name>PLAYER_BLOCK_POSITION</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.PLAYER_BLOCK_POSITION</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="30" column="1" bodyfile="src/aetherion/settings.py" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1a5d792b9ed29e230a1f5a9c5613b2dc02" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::LAYERS_TO_DRAW</definition>
+        <argsstring></argsstring>
+        <name>LAYERS_TO_DRAW</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.LAYERS_TO_DRAW</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="31" column="1" bodyfile="src/aetherion/settings.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1ab91fe06a40a7a8ab0552226d10b76c71" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::LAYERS_BELLOW_PLAYER</definition>
+        <argsstring></argsstring>
+        <name>LAYERS_BELLOW_PLAYER</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.LAYERS_BELLOW_PLAYER</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="32" column="1" bodyfile="src/aetherion/settings.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1ab2a0da6281b8e80e0f23222033df8ab4" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::SPRITE_SIZE</definition>
+        <argsstring></argsstring>
+        <name>SPRITE_SIZE</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.SPRITE_SIZE</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="33" column="1" bodyfile="src/aetherion/settings.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1aa80a98f7eb8f1cc2e05dee00d786234f" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::SPRITE_SCALE</definition>
+        <argsstring></argsstring>
+        <name>SPRITE_SCALE</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.SPRITE_SCALE</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="34" column="1" bodyfile="src/aetherion/settings.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1a86a0fdaf7096cd0bf81dd74636d0a907" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::TILE_SIZE_ON_SCREEN</definition>
+        <argsstring></argsstring>
+        <name>TILE_SIZE_ON_SCREEN</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.TILE_SIZE_ON_SCREEN</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="35" column="1" bodyfile="src/aetherion/settings.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1ae48ea6d822fc166503bf8a61b0576af6" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::RIGHT_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>RIGHT_OFFSET</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.RIGHT_OFFSET</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="36" column="1" bodyfile="src/aetherion/settings.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1a78a656fb4855572b84ad54400974ca83" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::UP_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>UP_OFFSET</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.UP_OFFSET</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="37" column="1" bodyfile="src/aetherion/settings.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1a4931b64987e903c1dc9a58e7a7242a49" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::GAME_SCREEN_WIDHT</definition>
+        <argsstring></argsstring>
+        <name>GAME_SCREEN_WIDHT</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.GAME_SCREEN_WIDHT</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="38" column="1" bodyfile="src/aetherion/settings.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1a3a2757ca08b65cccc381f3453ecc9fbd" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::GAME_SCREEN_HEIGHT</definition>
+        <argsstring></argsstring>
+        <name>GAME_SCREEN_HEIGHT</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.GAME_SCREEN_HEIGHT</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="39" column="1" bodyfile="src/aetherion/settings.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1abfabf93efe2803f9deae96b27be3e10d" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::CAMERA_SCREEN_WIDTH_ADJUST_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>CAMERA_SCREEN_WIDTH_ADJUST_OFFSET</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.CAMERA_SCREEN_WIDTH_ADJUST_OFFSET</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="40" column="1" bodyfile="src/aetherion/settings.py" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1settings_1_1ScreenParameters_1a5b65dc87a6360bc153536abf7422d4a1" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.settings.ScreenParameters::CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET</definition>
+        <argsstring></argsstring>
+        <name>CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET</name>
+        <qualifiedname>aetherion.settings.ScreenParameters.CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/settings.py" line="41" column="1" bodyfile="src/aetherion/settings.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.settings.ScreenParameters</label>
+        <link refid="classaetherion_1_1settings_1_1ScreenParameters"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.settings.ScreenParameters</label>
+        <link refid="classaetherion_1_1settings_1_1ScreenParameters"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>BLOCKS_IN_SCREEN</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>PLAYER_BLOCK_POSITION</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aetherion.settings.BlockDimensions</label>
+        <link refid="classaetherion_1_1settings_1_1BlockDimensions"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aetherion.settings.PlayerBlockPosition</label>
+        <link refid="classaetherion_1_1settings_1_1PlayerBlockPosition"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/settings.py" line="28" column="1" bodyfile="src/aetherion/settings.py" bodystart="28" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1afbc5a3d04d6361021bf8e3a3aaaaf667" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>BLOCKS_IN_SCREEN</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1a5b65dc87a6360bc153536abf7422d4a1" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>CAMERA_SCREEN_HEIGHT_ADJUST_OFFSET</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1abfabf93efe2803f9deae96b27be3e10d" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>CAMERA_SCREEN_WIDTH_ADJUST_OFFSET</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1a3a2757ca08b65cccc381f3453ecc9fbd" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>GAME_SCREEN_HEIGHT</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1a4931b64987e903c1dc9a58e7a7242a49" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>GAME_SCREEN_WIDHT</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1ab91fe06a40a7a8ab0552226d10b76c71" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>LAYERS_BELLOW_PLAYER</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1a5d792b9ed29e230a1f5a9c5613b2dc02" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>LAYERS_TO_DRAW</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1a4a4809b492e20dcc7136fdd0e6deb350" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>PLAYER_BLOCK_POSITION</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1ae48ea6d822fc166503bf8a61b0576af6" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>RIGHT_OFFSET</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1aa80a98f7eb8f1cc2e05dee00d786234f" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>SPRITE_SCALE</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1ab2a0da6281b8e80e0f23222033df8ab4" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>SPRITE_SIZE</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1a86a0fdaf7096cd0bf81dd74636d0a907" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>TILE_SIZE_ON_SCREEN</name></member>
+      <member refid="classaetherion_1_1settings_1_1ScreenParameters_1a78a656fb4855572b84ad54400974ca83" prot="public" virt="non-virtual"><scope>aetherion::settings::ScreenParameters</scope><name>UP_OFFSET</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

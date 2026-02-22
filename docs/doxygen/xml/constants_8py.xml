@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="constants_8py" kind="file" language="Python">
+    <compoundname>constants.py</compoundname>
+    <innerclass refid="classaetherion_1_1constants_1_1WorldInstanceTypes" prot="public">aetherion::constants::WorldInstanceTypes</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1constants">aetherion::constants</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>enum<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>IntEnum</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="classaetherion_1_1constants_1_1WorldInstanceTypes" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1constants_1_1WorldInstanceTypes" kindref="compound">WorldInstanceTypes</ref>(IntEnum):</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>SYNCHRONOUS<sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>PIPE_PROCESS<sp/>=<sp/>2</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>SERVER<sp/>=<sp/>3</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/constants.py"/>
+  </compounddef>
+</doxygen>

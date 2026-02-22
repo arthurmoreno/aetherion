@@ -1,0 +1,599 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1events_1_1GameEventType" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::events::GameEventType</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">StrEnum</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a1da88fe7a4280eb08923200778c8c4bb" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::CHANGE_DESIRED_FPS</definition>
+        <argsstring></argsstring>
+        <name>CHANGE_DESIRED_FPS</name>
+        <qualifiedname>aetherion.events.GameEventType.CHANGE_DESIRED_FPS</qualifiedname>
+        <initializer>=  &quot;change_desired_fps&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="19" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1afb09e8a035842cb1f0b5f02496f7d541" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_CREATE_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_CREATE_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_CREATE_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_create_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="22" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a04e9a2599d5264c3b5200bbdf121a73b" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_CREATED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_CREATED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_CREATED</qualifiedname>
+        <initializer>=  &quot;world_created&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="23" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a094d0bbae85076c15a6ac10fbc2f3d53" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_LOAD_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_LOAD_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_LOAD_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_load_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="24" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1ad86329af67f14b7b7b00a799fd523815" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_LOADED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_LOADED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_LOADED</qualifiedname>
+        <initializer>=  &quot;world_loaded&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="25" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a3364bfe59419dda2023ba85d0cc89017" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_SAVE_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_SAVE_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_SAVE_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_save_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="26" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a14772ac0640e7c0a4dedcb770e46878a" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_SAVED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_SAVED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_SAVED</qualifiedname>
+        <initializer>=  &quot;world_saved&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="27" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1afa2e533125c3af7f4acca5684a355cc3" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_CONNECT_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_CONNECT_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_CONNECT_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_connect_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="29" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a07ab8baae6954726be0fade506b014c5" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_CONNECTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_CONNECTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_CONNECTED</qualifiedname>
+        <initializer>=  &quot;world_connected&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="30" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a6bcc6ebce2cf13b325481c1bfdd3f3db" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_DISCONNECT_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_DISCONNECT_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_DISCONNECT_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_disconnect_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="31" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a1f212c57720ee23e1a131c14b86ced3f" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_DISCONNECTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_DISCONNECTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_DISCONNECTED</qualifiedname>
+        <initializer>=  &quot;world_disconnected&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="32" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a8abe069492f8ba514acbffe135a4541e" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_STOP_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_STOP_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_STOP_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_stop_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="34" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a73c87de1b225460c550fd326aed685d8" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_PLAY_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_PLAY_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_PLAY_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_play_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="35" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a024bd09d57f1ce48e8c8c10d3037df4f" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_STEP_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_STEP_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_STEP_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_step_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="36" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1ac1a61ab075662cf627319bc58b93fb12" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_RECORDER_START_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_RECORDER_START_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_RECORDER_START_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_recorder_start_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="39" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a3078987bf0b57b4f3d2d1007c1d49350" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_RECORDER_STOP_AND_SAVE_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_RECORDER_STOP_AND_SAVE_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_RECORDER_STOP_AND_SAVE_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_recorder_stop_and_save_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="40" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1ab6c4fa0bf4842e2dc51cd3f61643eaa4" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_SNAPSHOT_TAKE_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_SNAPSHOT_TAKE_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_SNAPSHOT_TAKE_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_snapshot_take_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="43" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a60d06318d160828d74ce986af4faf0a2" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::WORLD_SNAPSHOT_DELETE_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>WORLD_SNAPSHOT_DELETE_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.WORLD_SNAPSHOT_DELETE_REQUESTED</qualifiedname>
+        <initializer>=  &quot;world_snapshot_delete_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="44" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1ac1a0b159d036a798459d3fc084dee453" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::SCENE_CHANGE_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>SCENE_CHANGE_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.SCENE_CHANGE_REQUESTED</qualifiedname>
+        <initializer>=  &quot;scene_change_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="47" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a14419668e5b25c6eca140ba9607b4072" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::SCENE_CHANGED</definition>
+        <argsstring></argsstring>
+        <name>SCENE_CHANGED</name>
+        <qualifiedname>aetherion.events.GameEventType.SCENE_CHANGED</qualifiedname>
+        <initializer>=  &quot;scene_changed&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="48" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a3414ec01c26ba6accb989fb46b4d8e1b" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::GAME_PAUSE_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>GAME_PAUSE_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.GAME_PAUSE_REQUESTED</qualifiedname>
+        <initializer>=  &quot;game_pause_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="51" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a48f0a1f91f5a00dd3338bb919db1a6fe" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::GAME_RESUME_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>GAME_RESUME_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.GAME_RESUME_REQUESTED</qualifiedname>
+        <initializer>=  &quot;game_resume_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="52" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a98a8fedd7e4d3f0238b752ed7a197fa7" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::GAME_STATE_CHANGED</definition>
+        <argsstring></argsstring>
+        <name>GAME_STATE_CHANGED</name>
+        <qualifiedname>aetherion.events.GameEventType.GAME_STATE_CHANGED</qualifiedname>
+        <initializer>=  &quot;game_state_changed&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="53" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1aab5c0b3bafd157c68234aedf9410aef4" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::CREATE_BEAST_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>CREATE_BEAST_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.CREATE_BEAST_REQUESTED</qualifiedname>
+        <initializer>=  &quot;create_beast_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="56" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a418b43d7eef9c68f520b6d22b00bb20b" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::BEAST_CONNECT_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>BEAST_CONNECT_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.BEAST_CONNECT_REQUESTED</qualifiedname>
+        <initializer>=  &quot;beast_connect_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="57" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1ae01d0f7b1175b8b4468054dc45b98f8b" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::BEAST_CONNECTED</definition>
+        <argsstring></argsstring>
+        <name>BEAST_CONNECTED</name>
+        <qualifiedname>aetherion.events.GameEventType.BEAST_CONNECTED</qualifiedname>
+        <initializer>=  &quot;beast_connected&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="58" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a41418ff6f1639cb981ec8f9bc5612fe2" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::BEAST_DISCONNECT_REQUESTED</definition>
+        <argsstring></argsstring>
+        <name>BEAST_DISCONNECT_REQUESTED</name>
+        <qualifiedname>aetherion.events.GameEventType.BEAST_DISCONNECT_REQUESTED</qualifiedname>
+        <initializer>=  &quot;beast_disconnect_requested&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="59" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a5331ac447f5575a47e270f42cc5e8412" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::BEAST_DISCONNECTED</definition>
+        <argsstring></argsstring>
+        <name>BEAST_DISCONNECTED</name>
+        <qualifiedname>aetherion.events.GameEventType.BEAST_DISCONNECTED</qualifiedname>
+        <initializer>=  &quot;beast_disconnected&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="60" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a57dcc8648ea9a7d8d8254ad30c624198" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::PLAYER_CONNECTED</definition>
+        <argsstring></argsstring>
+        <name>PLAYER_CONNECTED</name>
+        <qualifiedname>aetherion.events.GameEventType.PLAYER_CONNECTED</qualifiedname>
+        <initializer>=  &quot;player_connected&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="63" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1aeebda1ceeed685a50181a84c3fadc900" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::PLAYER_DISCONNECTED</definition>
+        <argsstring></argsstring>
+        <name>PLAYER_DISCONNECTED</name>
+        <qualifiedname>aetherion.events.GameEventType.PLAYER_DISCONNECTED</qualifiedname>
+        <initializer>=  &quot;player_disconnected&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="64" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1ad3af1f1d2e4b3233e0940f392bc0252b" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::AUDIO_SOUND_EFFECT_PLAY</definition>
+        <argsstring></argsstring>
+        <name>AUDIO_SOUND_EFFECT_PLAY</name>
+        <qualifiedname>aetherion.events.GameEventType.AUDIO_SOUND_EFFECT_PLAY</qualifiedname>
+        <initializer>=  &quot;AUDIO_SOUND_EFFECT_PLAY&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="67" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a72f24bf9a4a398b8cc04bfd336056687" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::AUDIO_MUSIC_PLAY</definition>
+        <argsstring></argsstring>
+        <name>AUDIO_MUSIC_PLAY</name>
+        <qualifiedname>aetherion.events.GameEventType.AUDIO_MUSIC_PLAY</qualifiedname>
+        <initializer>=  &quot;AUDIO_MUSIC_PLAY&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="68" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1abd070ef8331fa346cfec2dd5fffd150e" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::AUDIO_MUSIC_STOP</definition>
+        <argsstring></argsstring>
+        <name>AUDIO_MUSIC_STOP</name>
+        <qualifiedname>aetherion.events.GameEventType.AUDIO_MUSIC_STOP</qualifiedname>
+        <initializer>=  &quot;AUDIO_MUSIC_STOP&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="69" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a269761f615faadcce0cbaf93c50ba23c" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::AUDIO_MUSIC_PAUSE</definition>
+        <argsstring></argsstring>
+        <name>AUDIO_MUSIC_PAUSE</name>
+        <qualifiedname>aetherion.events.GameEventType.AUDIO_MUSIC_PAUSE</qualifiedname>
+        <initializer>=  &quot;AUDIO_MUSIC_PAUSE&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="70" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1events_1_1GameEventType_1a0fcf638eed2d3e46e1a0bb677a028229" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.events.GameEventType::AUDIO_MUSIC_RESUME</definition>
+        <argsstring></argsstring>
+        <name>AUDIO_MUSIC_RESUME</name>
+        <qualifiedname>aetherion.events.GameEventType.AUDIO_MUSIC_RESUME</qualifiedname>
+        <initializer>=  &quot;AUDIO_MUSIC_RESUME&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="71" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="71" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Enumeration of all game level events.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.events.GameEventType</label>
+        <link refid="classaetherion_1_1events_1_1GameEventType"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>StrEnum</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.events.GameEventType</label>
+        <link refid="classaetherion_1_1events_1_1GameEventType"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>StrEnum</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/events/__init__.py" line="15" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="15" bodyend="73"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a269761f615faadcce0cbaf93c50ba23c" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>AUDIO_MUSIC_PAUSE</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a72f24bf9a4a398b8cc04bfd336056687" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>AUDIO_MUSIC_PLAY</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a0fcf638eed2d3e46e1a0bb677a028229" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>AUDIO_MUSIC_RESUME</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1abd070ef8331fa346cfec2dd5fffd150e" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>AUDIO_MUSIC_STOP</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1ad3af1f1d2e4b3233e0940f392bc0252b" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>AUDIO_SOUND_EFFECT_PLAY</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a418b43d7eef9c68f520b6d22b00bb20b" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>BEAST_CONNECT_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1ae01d0f7b1175b8b4468054dc45b98f8b" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>BEAST_CONNECTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a41418ff6f1639cb981ec8f9bc5612fe2" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>BEAST_DISCONNECT_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a5331ac447f5575a47e270f42cc5e8412" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>BEAST_DISCONNECTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a1da88fe7a4280eb08923200778c8c4bb" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>CHANGE_DESIRED_FPS</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1aab5c0b3bafd157c68234aedf9410aef4" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>CREATE_BEAST_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a3414ec01c26ba6accb989fb46b4d8e1b" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>GAME_PAUSE_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a48f0a1f91f5a00dd3338bb919db1a6fe" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>GAME_RESUME_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a98a8fedd7e4d3f0238b752ed7a197fa7" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>GAME_STATE_CHANGED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a57dcc8648ea9a7d8d8254ad30c624198" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>PLAYER_CONNECTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1aeebda1ceeed685a50181a84c3fadc900" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>PLAYER_DISCONNECTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1ac1a0b159d036a798459d3fc084dee453" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>SCENE_CHANGE_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a14419668e5b25c6eca140ba9607b4072" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>SCENE_CHANGED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1afa2e533125c3af7f4acca5684a355cc3" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_CONNECT_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a07ab8baae6954726be0fade506b014c5" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_CONNECTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1afb09e8a035842cb1f0b5f02496f7d541" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_CREATE_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a04e9a2599d5264c3b5200bbdf121a73b" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_CREATED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a6bcc6ebce2cf13b325481c1bfdd3f3db" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_DISCONNECT_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a1f212c57720ee23e1a131c14b86ced3f" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_DISCONNECTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a094d0bbae85076c15a6ac10fbc2f3d53" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_LOAD_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1ad86329af67f14b7b7b00a799fd523815" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_LOADED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a73c87de1b225460c550fd326aed685d8" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_PLAY_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1ac1a61ab075662cf627319bc58b93fb12" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_RECORDER_START_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a3078987bf0b57b4f3d2d1007c1d49350" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_RECORDER_STOP_AND_SAVE_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a3364bfe59419dda2023ba85d0cc89017" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_SAVE_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a14772ac0640e7c0a4dedcb770e46878a" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_SAVED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a60d06318d160828d74ce986af4faf0a2" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_SNAPSHOT_DELETE_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1ab6c4fa0bf4842e2dc51cd3f61643eaa4" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_SNAPSHOT_TAKE_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a024bd09d57f1ce48e8c8c10d3037df4f" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_STEP_REQUESTED</name></member>
+      <member refid="classaetherion_1_1events_1_1GameEventType_1a8abe069492f8ba514acbffe135a4541e" prot="public" virt="non-virtual"><scope>aetherion::events::GameEventType</scope><name>WORLD_STOP_REQUESTED</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

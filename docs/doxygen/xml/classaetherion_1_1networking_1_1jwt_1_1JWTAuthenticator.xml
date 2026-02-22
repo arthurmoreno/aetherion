@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1networking_1_1jwt_1_1JWTAuthenticator" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::networking::jwt::JWTAuthenticator</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1jwt_1_1JWTAuthenticator_1ae47cb5dc0a3e761e7a4aa48f623c9456" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.jwt.JWTAuthenticator.__init__</definition>
+        <argsstring>(self, str secret_key=&quot;dev-secret-key&quot;, str algorithm=&quot;HS256&quot;)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.networking.jwt.JWTAuthenticator.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>secret_key</declname>
+          <defval>&quot;dev-secret-key&quot;</defval>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>algorithm</declname>
+          <defval>&quot;HS256&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/jwt.py" line="15" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="15" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1jwt_1_1JWTAuthenticator_1ae4b9e6b801ddfd382ebeafe5e4df0722" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, str|int|float]</type>
+        <definition> dict[str, str | int | float] aetherion.networking.jwt.JWTAuthenticator.validate_token</definition>
+        <argsstring>(self, str token)</argsstring>
+        <name>validate_token</name>
+        <qualifiedname>aetherion.networking.jwt.JWTAuthenticator.validate_token</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>token</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Validate JWT token and return user claims.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/jwt.py" line="19" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="19" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1jwt_1_1JWTAuthenticator_1a615d56f5e80b8125f9086910ab9c4743" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel" kindref="compound">PermissionLevel</ref></type>
+        <definition> PermissionLevel aetherion.networking.jwt.JWTAuthenticator.get_user_permission_level</definition>
+        <argsstring>(self, dict[str, str|int|float] user_claims)</argsstring>
+        <name>get_user_permission_level</name>
+        <qualifiedname>aetherion.networking.jwt.JWTAuthenticator.get_user_permission_level</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>user_claims</declname>
+          <array>[str, str|int|float]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Extract user permission level from claims.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/jwt.py" line="35" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="35" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1jwt_1_1JWTAuthenticator_1a9f15f8e6de1b7c716df7669abc755e46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.networking.jwt.JWTAuthenticator.check_action_permission</definition>
+        <argsstring>(self, str action_name, PermissionLevel permission_level)</argsstring>
+        <name>check_action_permission</name>
+        <qualifiedname>aetherion.networking.jwt.JWTAuthenticator.check_action_permission</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>action_name</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel" kindref="compound">PermissionLevel</ref></type>
+          <declname>permission_level</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if the user has permission to perform the given action.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/jwt.py" line="49" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="49" bodyend="83"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Handles JWT token validation and user authentication.</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/networking/jwt.py" line="12" column="1" bodyfile="src/aetherion/networking/jwt.py" bodystart="12" bodyend="83"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1networking_1_1jwt_1_1JWTAuthenticator_1ae47cb5dc0a3e761e7a4aa48f623c9456" prot="public" virt="non-virtual"><scope>aetherion::networking::jwt::JWTAuthenticator</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1networking_1_1jwt_1_1JWTAuthenticator_1a9f15f8e6de1b7c716df7669abc755e46" prot="public" virt="non-virtual"><scope>aetherion::networking::jwt::JWTAuthenticator</scope><name>check_action_permission</name></member>
+      <member refid="classaetherion_1_1networking_1_1jwt_1_1JWTAuthenticator_1a615d56f5e80b8125f9086910ab9c4743" prot="public" virt="non-virtual"><scope>aetherion::networking::jwt::JWTAuthenticator</scope><name>get_user_permission_level</name></member>
+      <member refid="classaetherion_1_1networking_1_1jwt_1_1JWTAuthenticator_1ae4b9e6b801ddfd382ebeafe5e4df0722" prot="public" virt="non-virtual"><scope>aetherion::networking::jwt::JWTAuthenticator</scope><name>validate_token</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

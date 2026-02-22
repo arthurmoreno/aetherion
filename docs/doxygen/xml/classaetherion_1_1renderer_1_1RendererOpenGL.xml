@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1renderer_1_1RendererOpenGL" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::renderer::RendererOpenGL</compoundname>
+    <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1RendererOpenGL_1a982bfed147ddb80af408d198713f0b43" prot="protected" static="yes" mutable="no">
+        <type>SDL_Renderer</type>
+        <definition>SDL_Renderer aetherion.renderer.RendererOpenGL::_renderer</definition>
+        <argsstring></argsstring>
+        <name>_renderer</name>
+        <qualifiedname>aetherion.renderer.RendererOpenGL._renderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="26" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="26" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1RendererOpenGL_1aea605fe466861f42ded61d1584dbf6bf" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.renderer.RendererOpenGL::renderer_ptr</definition>
+        <argsstring></argsstring>
+        <name>renderer_ptr</name>
+        <qualifiedname>aetherion.renderer.RendererOpenGL.renderer_ptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="27" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1RendererOpenGL_1aa42f1a815fb553157d572a0711e343f2" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.RendererOpenGL::_renderer</definition>
+        <argsstring></argsstring>
+        <name>_renderer</name>
+        <qualifiedname>aetherion.renderer.RendererOpenGL._renderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="31" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1RendererOpenGL_1af3519cdb377d6b86f1b2838c97dca787" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.RendererOpenGL::renderer_ptr</definition>
+        <argsstring></argsstring>
+        <name>renderer_ptr</name>
+        <qualifiedname>aetherion.renderer.RendererOpenGL.renderer_ptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="32" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1RendererOpenGL_1a6d76048aa1f141e54bd6de910ad16e9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.renderer.RendererOpenGL.__init__</definition>
+        <argsstring>(self, OpenGLGameWindow game_window)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.renderer.RendererOpenGL.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow" kindref="compound">OpenGLGameWindow</ref></type>
+          <declname>game_window</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/__init__.py" line="29" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="29" bodyend="34"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.renderer.RendererOpenGL</label>
+        <link refid="classaetherion_1_1renderer_1_1RendererOpenGL"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>_renderer</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>SDL_Renderer</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/renderer/__init__.py" line="25" column="1" bodyfile="src/aetherion/renderer/__init__.py" bodystart="25" bodyend="34"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1renderer_1_1RendererOpenGL_1a6d76048aa1f141e54bd6de910ad16e9a" prot="public" virt="non-virtual"><scope>aetherion::renderer::RendererOpenGL</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1renderer_1_1RendererOpenGL_1a982bfed147ddb80af408d198713f0b43" prot="protected" virt="non-virtual"><scope>aetherion::renderer::RendererOpenGL</scope><name>_renderer</name></member>
+      <member refid="classaetherion_1_1renderer_1_1RendererOpenGL_1aa42f1a815fb553157d572a0711e343f2" prot="protected" virt="non-virtual"><scope>aetherion::renderer::RendererOpenGL</scope><name>_renderer</name></member>
+      <member refid="classaetherion_1_1renderer_1_1RendererOpenGL_1aea605fe466861f42ded61d1584dbf6bf" prot="public" virt="non-virtual"><scope>aetherion::renderer::RendererOpenGL</scope><name>renderer_ptr</name></member>
+      <member refid="classaetherion_1_1renderer_1_1RendererOpenGL_1af3519cdb377d6b86f1b2838c97dca787" prot="public" virt="non-virtual"><scope>aetherion::renderer::RendererOpenGL</scope><name>renderer_ptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

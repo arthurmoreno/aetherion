@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classEditorCommand" kind="class" language="C++" prot="public">
+    <compoundname>EditorCommand</compoundname>
+    <basecompoundref refid="classCommand" prot="public" virt="non-virtual">Command</basecompoundref>
+    <includes refid="Command_8hpp" local="no">Command.hpp</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classEditorCommand_1a8f70585e05c425eec833348c066402b4" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>Action</name>
+        <qualifiedname>EditorCommand::Action</qualifiedname>
+        <enumvalue id="classEditorCommand_1a8f70585e05c425eec833348c066402b4ade3c731be5633838089a07179d301d7b" prot="public">
+          <name>Play</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classEditorCommand_1a8f70585e05c425eec833348c066402b4a11a755d598c0c417f9a36758c3da7481" prot="public">
+          <name>Stop</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classEditorCommand_1a8f70585e05c425eec833348c066402b4a48c7c41b72e1d678923ce3571aa65b2d" prot="public">
+          <name>Step</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classEditorCommand_1a8f70585e05c425eec833348c066402b4a93af3049c9f1ac4d7963d9af34ff8c0a" prot="public">
+          <name>ExitToEditor</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="222" column="5" bodyfile="src/components/core/Command.hpp" bodystart="222" bodyend="222"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEditorCommand_1a3c8c57874630fb9ff5df070446a617d5" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EditorCommand::EditorCommand</definition>
+        <argsstring>(Action action)</argsstring>
+        <name>EditorCommand</name>
+        <qualifiedname>EditorCommand::EditorCommand</qualifiedname>
+        <param>
+          <type>Action</type>
+          <declname>action</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="224" column="14" bodyfile="src/components/core/Command.hpp" bodystart="224" bodyend="224"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classEditorCommand_1a86a661bbc87cf631a4fdb0c206f5cc91" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>constexpr std::string_view</type>
+        <definition>static constexpr std::string_view EditorCommand::actionToString</definition>
+        <argsstring>(Action action) noexcept</argsstring>
+        <name>actionToString</name>
+        <qualifiedname>EditorCommand::actionToString</qualifiedname>
+        <param>
+          <type>Action</type>
+          <declname>action</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/components/core/Command.hpp" line="226" column="40" bodyfile="src/components/core/Command.hpp" bodystart="226" bodyend="238"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="classCommand" kindref="compound">Command</ref> for editor actions. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Command</label>
+        <link refid="classCommand"/>
+      </node>
+      <node id="1">
+        <label>EditorCommand</label>
+        <link refid="classEditorCommand"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Command</label>
+        <link refid="classCommand"/>
+      </node>
+      <node id="1">
+        <label>EditorCommand</label>
+        <link refid="classEditorCommand"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/components/core/Command.hpp" line="220" column="1" bodyfile="src/components/core/Command.hpp" bodystart="220" bodyend="239"/>
+    <listofallmembers>
+      <member refid="classEditorCommand_1a8f70585e05c425eec833348c066402b4" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>Action</name></member>
+      <member refid="classEditorCommand_1a86a661bbc87cf631a4fdb0c206f5cc91" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>actionToString</name></member>
+      <member refid="classCommand_1af3ab8e53caa0dd5474d197a2987de61a" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>clearParams</name></member>
+      <member refid="classCommand_1acdb72f0ee5f0764e60ad9082b959378e" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>Command</name></member>
+      <member refid="classCommand_1a18df2d81039392daeb0b78c346a70537" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>Command</name></member>
+      <member refid="classEditorCommand_1a3c8c57874630fb9ff5df070446a617d5" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>EditorCommand</name></member>
+      <member refid="classCommand_1a5d7bcd96898d4d97bd4004334b1f6701" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>getParam</name></member>
+      <member refid="classCommand_1a2792a08722070da3190ef66afa896d2f" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>getParamOr</name></member>
+      <member refid="classCommand_1ac50b1a39dc2cbde56d52943642119f5b" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>getParams</name></member>
+      <member refid="classCommand_1a25d005a766c0ee7fd04ca0f6bb85b0e9" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>getParams</name></member>
+      <member refid="classCommand_1a4d6ff191612150537c80be35c3723ede" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>getType</name></member>
+      <member refid="classCommand_1a7c1e80c1ac7db650ca299cd65fc9aed4" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>hasParam</name></member>
+      <member refid="classCommand_1a215d61cf963288837686682582e3e1d4" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>operator[]</name></member>
+      <member refid="classCommand_1a659f475ce80308da5364343ff7d37530" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>operator[]</name></member>
+      <member refid="classCommand_1ae75fad398a4ca611a0efed0391af5ea5" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>setParam</name></member>
+      <member refid="classCommand_1a2b9ab954dd0c2a74a3de0d639d809992" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>setType</name></member>
+      <member refid="classCommand_1aef403b3bf130d7dd2821fe4318d48256" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>toString</name></member>
+      <member refid="classCommand_1a83fcdc0142087736a7c3d29e60a3f3d8" prot="public" virt="non-virtual"><scope>EditorCommand</scope><name>validate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

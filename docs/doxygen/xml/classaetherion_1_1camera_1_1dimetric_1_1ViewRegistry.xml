@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::camera::dimetric::ViewRegistry</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">TypedDict</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry_1a735fa46a4132f914ff28d7be9ae44f26" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.camera.dimetric.ViewRegistry::terrains</definition>
+        <argsstring></argsstring>
+        <name>terrains</name>
+        <qualifiedname>aetherion.camera.dimetric.ViewRegistry.terrains</qualifiedname>
+        <initializer>[int, Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="37" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry_1a90c9fbe4979a416a15437b0ae9dbd08b" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.camera.dimetric.ViewRegistry::entities</definition>
+        <argsstring></argsstring>
+        <name>entities</name>
+        <qualifiedname>aetherion.camera.dimetric.ViewRegistry.entities</qualifiedname>
+        <initializer>[<ref refid="classaetherion_1_1entities_1_1base_1_1Classification" kindref="compound">Classification</ref>, Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="38" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry_1a300ca7c29e4a67a2b665dfa8545d604d" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.camera.dimetric.ViewRegistry::items</definition>
+        <argsstring></argsstring>
+        <name>items</name>
+        <qualifiedname>aetherion.camera.dimetric.ViewRegistry.items</qualifiedname>
+        <initializer>[int, Any]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="39" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry_1a0d2132e6e78dc9ad5eae5f163a5f7f64" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1camera_1_1dimetric_1_1CameraUIViews" kindref="compound">CameraUIViews</ref></type>
+        <definition>CameraUIViews aetherion.camera.dimetric.ViewRegistry::camera_ui</definition>
+        <argsstring></argsstring>
+        <name>camera_ui</name>
+        <qualifiedname>aetherion.camera.dimetric.ViewRegistry.camera_ui</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="40" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="40" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.camera.dimetric.ViewRegistry</label>
+        <link refid="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.camera.dimetric.ViewRegistry</label>
+        <link refid="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>camera_ui</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aetherion.camera.dimetric.CameraUIViews</label>
+        <link refid="classaetherion_1_1camera_1_1dimetric_1_1CameraUIViews"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>gradient_arrow</edgelabel>
+          <edgelabel>lifebar</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Any</label>
+      </node>
+      <node id="2">
+        <label>TypedDict</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/camera/dimetric.py" line="36" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="36" bodyend="48"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry_1a0d2132e6e78dc9ad5eae5f163a5f7f64" prot="public" virt="non-virtual"><scope>aetherion::camera::dimetric::ViewRegistry</scope><name>camera_ui</name></member>
+      <member refid="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry_1a90c9fbe4979a416a15437b0ae9dbd08b" prot="public" virt="non-virtual"><scope>aetherion::camera::dimetric::ViewRegistry</scope><name>entities</name></member>
+      <member refid="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry_1a300ca7c29e4a67a2b665dfa8545d604d" prot="public" virt="non-virtual"><scope>aetherion::camera::dimetric::ViewRegistry</scope><name>items</name></member>
+      <member refid="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry_1a735fa46a4132f914ff28d7be9ae44f26" prot="public" virt="non-virtual"><scope>aetherion::camera::dimetric::ViewRegistry</scope><name>terrains</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

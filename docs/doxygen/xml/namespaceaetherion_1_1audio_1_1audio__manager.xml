@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1audio_1_1audio__manager" kind="namespace" language="Python">
+    <compoundname>aetherion::audio::audio_manager</compoundname>
+    <innerclass refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager" prot="public">aetherion::audio::audio_manager::MusicAndAmbienceManager</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceaetherion_1_1audio_1_1audio__manager_1af8b143869c8c38f55e50db44e0820dbf" prot="private" static="no" mutable="no">
+        <type>list</type>
+        <definition>list aetherion::audio::audio_manager.__all__</definition>
+        <argsstring></argsstring>
+        <name>__all__</name>
+        <qualifiedname>aetherion.audio.audio_manager.__all__</qualifiedname>
+        <initializer>=  [
+    &quot;MusicAndAmbienceManager&quot;,
+    &quot;get_audio_status&quot;,
+]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="340" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceaetherion_1_1audio_1_1audio__manager_1a3c59a5dbb4a547df2c4701a3da72a7e8" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion::audio::audio_manager.AudioManager</definition>
+        <argsstring></argsstring>
+        <name>AudioManager</name>
+        <qualifiedname>aetherion.audio.audio_manager.AudioManager</qualifiedname>
+        <initializer>=  <ref refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager" kindref="compound">MusicAndAmbienceManager</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="346" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="346" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceaetherion_1_1audio_1_1audio__manager_1ac8462e48d31593d231c1c80dfd151b6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, int|bool]</type>
+        <definition> dict[str, int | bool] aetherion.audio.audio_manager.get_audio_status</definition>
+        <argsstring>()</argsstring>
+        <name>get_audio_status</name>
+        <qualifiedname>aetherion.audio.audio_manager.get_audio_status</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get diagnostic information about the audio system.
+
+Returns:
+    Dictionary containing audio system status including:
+    - num_channels: Number of allocated mixing channels
+    - music_playing: Whether music is currently playing
+    - music_paused: Whether music is currently paused
+    - music_volume: Current music volume (0-128)
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/audio_manager.py" line="322" column="1" bodyfile="src/aetherion/audio/audio_manager.py" bodystart="322" bodyend="339"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Audio module for SDL2-based music and sound effects management.
+
+This module provides classes and functions for initializing SDL2 audio,
+managing background music playback, and handling sound effects using SDL2_mixer.
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/audio/audio_manager.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

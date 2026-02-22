@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structVaporMergeUpEvent" kind="struct" language="C++" prot="public">
+    <compoundname>VaporMergeUpEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structVaporMergeUpEvent_1ab87cce84881bf0d49af7af0c334f4ddc" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position VaporMergeUpEvent::source</definition>
+        <argsstring></argsstring>
+        <name>source</name>
+        <qualifiedname>VaporMergeUpEvent::source</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="138" column="14" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVaporMergeUpEvent_1a6df6fbfec0fa5eac8dbc8bb6d34949d1" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position VaporMergeUpEvent::target</definition>
+        <argsstring></argsstring>
+        <name>target</name>
+        <qualifiedname>VaporMergeUpEvent::target</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="139" column="14" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVaporMergeUpEvent_1add918028b6d13bea3fd8c5775668a5e7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VaporMergeUpEvent::amount</definition>
+        <argsstring></argsstring>
+        <name>amount</name>
+        <qualifiedname>VaporMergeUpEvent::amount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="140" column="9" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVaporMergeUpEvent_1ae0ca98fd81a7e02abc43fde63a4058d9" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity VaporMergeUpEvent::sourceEntity</definition>
+        <argsstring></argsstring>
+        <name>sourceEntity</name>
+        <qualifiedname>VaporMergeUpEvent::sourceEntity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="141" column="18" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="141" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structVaporMergeUpEvent_1aea7ea8943f4022adb9165bb80f74a28a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VaporMergeUpEvent::VaporMergeUpEvent</definition>
+        <argsstring>(Position source, Position target, int amount, entt::entity sourceEntity)</argsstring>
+        <name>VaporMergeUpEvent</name>
+        <qualifiedname>VaporMergeUpEvent::VaporMergeUpEvent</qualifiedname>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>sourceEntity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="143" column="5" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="143" bodyend="144"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>Position</label>
+        <link refid="structPosition"/>
+      </node>
+      <node id="1">
+        <label>VaporMergeUpEvent</label>
+        <link refid="structVaporMergeUpEvent"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>source</edgelabel>
+          <edgelabel>target</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/ecosystem/EcosystemEvents.hpp" line="137" column="1" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="137" bodyend="145"/>
+    <listofallmembers>
+      <member refid="structVaporMergeUpEvent_1add918028b6d13bea3fd8c5775668a5e7" prot="public" virt="non-virtual"><scope>VaporMergeUpEvent</scope><name>amount</name></member>
+      <member refid="structVaporMergeUpEvent_1ab87cce84881bf0d49af7af0c334f4ddc" prot="public" virt="non-virtual"><scope>VaporMergeUpEvent</scope><name>source</name></member>
+      <member refid="structVaporMergeUpEvent_1ae0ca98fd81a7e02abc43fde63a4058d9" prot="public" virt="non-virtual"><scope>VaporMergeUpEvent</scope><name>sourceEntity</name></member>
+      <member refid="structVaporMergeUpEvent_1a6df6fbfec0fa5eac8dbc8bb6d34949d1" prot="public" virt="non-virtual"><scope>VaporMergeUpEvent</scope><name>target</name></member>
+      <member refid="structVaporMergeUpEvent_1aea7ea8943f4022adb9165bb80f74a28a" prot="public" virt="non-virtual"><scope>VaporMergeUpEvent</scope><name>VaporMergeUpEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

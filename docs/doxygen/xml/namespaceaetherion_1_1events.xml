@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1events" kind="namespace" language="Python">
+    <compoundname>aetherion::events</compoundname>
+    <innerclass refid="classaetherion_1_1events_1_1EventBus" prot="public">aetherion::events::EventBus</innerclass>
+    <innerclass refid="classaetherion_1_1events_1_1GameEvent" prot="public">aetherion::events::GameEvent</innerclass>
+    <innerclass refid="classaetherion_1_1events_1_1GameEventType" prot="public">aetherion::events::GameEventType</innerclass>
+    <innerclass refid="classaetherion_1_1events_1_1PubSubTopicBroker" prot="public">aetherion::events::PubSubTopicBroker</innerclass>
+    <innerclass refid="classaetherion_1_1events_1_1TopicReader" prot="public">aetherion::events::TopicReader</innerclass>
+    <innernamespace refid="namespaceaetherion_1_1events_1_1action__event">aetherion::events::action_event</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events_1_1handlers">aetherion::events::handlers</innernamespace>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="events_2____init_____8py_1a6297645025a470f9db17c77ff0fb9725" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion::events.logger</definition>
+        <argsstring></argsstring>
+        <name>logger</name>
+        <qualifiedname>aetherion.events.logger</qualifiedname>
+        <initializer>=  get_logger(__name__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="12" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="events_2____init_____8py_1a2d58723291995d5f2dba7c861c51a35b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion::events.E</definition>
+        <argsstring></argsstring>
+        <name>E</name>
+        <qualifiedname>aetherion.events.E</qualifiedname>
+        <initializer>=  TypeVar(&quot;E&quot;, bound=StrEnum)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="74" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="events_2____init_____8py_1abcec767f371a4aafd2ca73b9706c1584" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion::events.event_bus</definition>
+        <argsstring></argsstring>
+        <name>event_bus</name>
+        <qualifiedname>aetherion.events.event_bus</qualifiedname>
+        <initializer>=  <ref refid="classaetherion_1_1events_1_1EventBus" kindref="compound">EventBus</ref>()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/__init__.py" line="219" column="1" bodyfile="src/aetherion/events/__init__.py" bodystart="219" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/events/__init__.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

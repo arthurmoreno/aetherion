@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::entities::items::models::ItemConfiguration</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration_1ac18752dc7e32ea630ad4a4845dbe1f41" prot="public" static="yes" mutable="no">
+        <type></type>
+        <definition>aetherion.entities.items.models.ItemConfiguration::model_config</definition>
+        <argsstring></argsstring>
+        <name>model_config</name>
+        <qualifiedname>aetherion.entities.items.models.ItemConfiguration.model_config</qualifiedname>
+        <initializer>=  ConfigDict(arbitrary_types_allowed=True)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/items/models.py" line="10" column="1" bodyfile="src/aetherion/entities/items/models.py" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration_1a890e78a7bbfb8518f1bd82767c09b8bd" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1entities_1_1base_1_1Classification" kindref="compound">Classification</ref></type>
+        <definition>Classification aetherion.entities.items.models.ItemConfiguration::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <qualifiedname>aetherion.entities.items.models.ItemConfiguration.id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/items/models.py" line="12" column="1" bodyfile="src/aetherion/entities/items/models.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration_1a9e015da38951be382062f3f009584891" prot="public" static="yes" mutable="no">
+        <type>VecStr</type>
+        <definition>VecStr aetherion.entities.items.models.ItemConfiguration::in_game_textures</definition>
+        <argsstring></argsstring>
+        <name>in_game_textures</name>
+        <qualifiedname>aetherion.entities.items.models.ItemConfiguration.in_game_textures</qualifiedname>
+        <initializer>=  Field(default_factory=VecStr)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/items/models.py" line="13" column="1" bodyfile="src/aetherion/entities/items/models.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration_1a6b9c2a03d07c00d1d7461b50f64ba0bf" prot="public" static="yes" mutable="no">
+        <type>VecStr</type>
+        <definition>VecStr aetherion.entities.items.models.ItemConfiguration::inventory_textures</definition>
+        <argsstring></argsstring>
+        <name>inventory_textures</name>
+        <qualifiedname>aetherion.entities.items.models.ItemConfiguration.inventory_textures</qualifiedname>
+        <initializer>=  Field(default_factory=VecStr)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/items/models.py" line="14" column="1" bodyfile="src/aetherion/entities/items/models.py" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration_1ada84cfd960fbfc977a9a2843139a52c9" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.entities.items.models.ItemConfiguration::default_values</definition>
+        <argsstring></argsstring>
+        <name>default_values</name>
+        <qualifiedname>aetherion.entities.items.models.ItemConfiguration.default_values</qualifiedname>
+        <initializer>=  Field(default_factory=dict)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/items/models.py" line="15" column="1" bodyfile="src/aetherion/entities/items/models.py" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.entities.items.models.ItemConfiguration</label>
+        <link refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.entities.items.models.ItemConfiguration</label>
+        <link refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>id</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>in_game_textures</edgelabel>
+          <edgelabel>inventory_textures</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>VecStr</label>
+      </node>
+      <node id="3">
+        <label>aetherion.entities.base.Classification</label>
+        <link refid="classaetherion_1_1entities_1_1base_1_1Classification"/>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/entities/items/models.py" line="9" column="1" bodyfile="src/aetherion/entities/items/models.py" bodystart="9" bodyend="16"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration_1ada84cfd960fbfc977a9a2843139a52c9" prot="public" virt="non-virtual"><scope>aetherion::entities::items::models::ItemConfiguration</scope><name>default_values</name></member>
+      <member refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration_1a890e78a7bbfb8518f1bd82767c09b8bd" prot="public" virt="non-virtual"><scope>aetherion::entities::items::models::ItemConfiguration</scope><name>id</name></member>
+      <member refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration_1a9e015da38951be382062f3f009584891" prot="public" virt="non-virtual"><scope>aetherion::entities::items::models::ItemConfiguration</scope><name>in_game_textures</name></member>
+      <member refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration_1a6b9c2a03d07c00d1d7461b50f64ba0bf" prot="public" virt="non-virtual"><scope>aetherion::entities::items::models::ItemConfiguration</scope><name>inventory_textures</name></member>
+      <member refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration_1ac18752dc7e32ea630ad4a4845dbe1f41" prot="public" virt="non-virtual"><scope>aetherion::entities::items::models::ItemConfiguration</scope><name>model_config</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

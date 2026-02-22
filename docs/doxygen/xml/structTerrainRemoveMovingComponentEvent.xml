@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTerrainRemoveMovingComponentEvent" kind="struct" language="C++" prot="public">
+    <compoundname>TerrainRemoveMovingComponentEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTerrainRemoveMovingComponentEvent_1a48c920ce3c1e64178fc2e3149c82f2cd" prot="public" static="no" mutable="no">
+        <type>entt::entity</type>
+        <definition>entt::entity TerrainRemoveMovingComponentEvent::entity</definition>
+        <argsstring></argsstring>
+        <name>entity</name>
+        <qualifiedname>TerrainRemoveMovingComponentEvent::entity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="114" column="18" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structTerrainRemoveMovingComponentEvent_1ac6f77d7f5388b5bdc828a4f5271009d8" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TerrainRemoveMovingComponentEvent::TerrainRemoveMovingComponentEvent</definition>
+        <argsstring>(entt::entity entity)</argsstring>
+        <name>TerrainRemoveMovingComponentEvent</name>
+        <qualifiedname>TerrainRemoveMovingComponentEvent::TerrainRemoveMovingComponentEvent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="116" column="14" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="116" bodyend="116"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ecosystem/EcosystemEvents.hpp" line="113" column="1" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="113" bodyend="117"/>
+    <listofallmembers>
+      <member refid="structTerrainRemoveMovingComponentEvent_1a48c920ce3c1e64178fc2e3149c82f2cd" prot="public" virt="non-virtual"><scope>TerrainRemoveMovingComponentEvent</scope><name>entity</name></member>
+      <member refid="structTerrainRemoveMovingComponentEvent_1ac6f77d7f5388b5bdc828a4f5271009d8" prot="public" virt="non-virtual"><scope>TerrainRemoveMovingComponentEvent</scope><name>TerrainRemoveMovingComponentEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

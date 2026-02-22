@@ -1,0 +1,425 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::camera::mouse::EntityMouseSelection</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a29367703f6420f10fd7a2146aba9ed60" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::offset_x</definition>
+        <argsstring></argsstring>
+        <name>offset_x</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.offset_x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="82" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1ad47ba9927b0551cc845b427ff3c0868e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::offset_y</definition>
+        <argsstring></argsstring>
+        <name>offset_y</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.offset_y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="83" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a0a47a3144d0fa608abbb474e4652f358" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::layer_index</definition>
+        <argsstring></argsstring>
+        <name>layer_index</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.layer_index</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="85" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a253f13d6f33f091bdbf75f289f0ce90f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::camera_settings</definition>
+        <argsstring></argsstring>
+        <name>camera_settings</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.camera_settings</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="87" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a1a4e8a9f4d9106c5a6bd6a9caed526b4" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::selected_square_drawn</definition>
+        <argsstring></argsstring>
+        <name>selected_square_drawn</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.selected_square_drawn</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="90" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1ae003fbd35d2715b9341a361e251d0f65" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::entity_x</definition>
+        <argsstring></argsstring>
+        <name>entity_x</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.entity_x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="97" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a82476f71a05544fcf2dbc3179e93ff13" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::entity_y</definition>
+        <argsstring></argsstring>
+        <name>entity_y</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.entity_y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="97" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a9ff0ca17429bed536ec9e2a257f93749" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::entity_z</definition>
+        <argsstring></argsstring>
+        <name>entity_z</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.entity_z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="97" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a11be1286a9f0009786a1f80d6c9d461e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::current_entity_selected</definition>
+        <argsstring></argsstring>
+        <name>current_entity_selected</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.current_entity_selected</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="100" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a76d7015e27da4ac1ffed76879b43f3c2" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::mouse_x</definition>
+        <argsstring></argsstring>
+        <name>mouse_x</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.mouse_x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="111" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1ab3346ec9eff8086074115d270799e345" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::mouse_y</definition>
+        <argsstring></argsstring>
+        <name>mouse_y</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.mouse_y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="112" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a67a7981366a7e7f511b242d68eea2b7f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::screen_x</definition>
+        <argsstring></argsstring>
+        <name>screen_x</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.screen_x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="144" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a854f5d34dfb7240b0ac2c35d1612a262" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.camera.mouse.EntityMouseSelection::screen_y</definition>
+        <argsstring></argsstring>
+        <name>screen_y</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.screen_y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="145" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="145" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a47c9d74ca659ef0e3d760410bff778cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.camera.mouse.EntityMouseSelection.__init__</definition>
+        <argsstring>(self, int screen_x, int screen_y, EntityInterface entity, int|None lock_on_target, int layer_index, MouseState mouse_state, CameraSettings camera_settings)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_y</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>int|None</type>
+          <declname>lock_on_target</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type>MouseState</type>
+          <declname>mouse_state</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraSettings" kindref="compound">CameraSettings</ref></type>
+          <declname>camera_settings</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="48" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="57" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a1b9b461aed6cdcaa11225bcd9e59bf04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.camera.mouse.EntityMouseSelection.draw_lock_on_target</definition>
+        <argsstring>(self, RenderQueue render_queue, str terrain_group_0)</argsstring>
+        <name>draw_lock_on_target</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.draw_lock_on_target</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classRenderQueue" kindref="compound">RenderQueue</ref></type>
+          <declname>render_queue</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>terrain_group_0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="79" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="79" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a070deb8bc02828e2c4b436b6535180c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.camera.mouse.EntityMouseSelection.is_mouse_coordinates_invalid</definition>
+        <argsstring>(self)</argsstring>
+        <name>is_mouse_coordinates_invalid</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.is_mouse_coordinates_invalid</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="92" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="92" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1aa57ef4888024ff93db5d72ea200ab21d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.camera.mouse.EntityMouseSelection.set_entity_coordinates</definition>
+        <argsstring>(self)</argsstring>
+        <name>set_entity_coordinates</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.set_entity_coordinates</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="95" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="95" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a0244d95785387edd09c87c737a2b71af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.camera.mouse.EntityMouseSelection.set_selection_and_draw_hovered</definition>
+        <argsstring>(self, RenderQueue render_queue, int layer_index, str terrain_group_0)</argsstring>
+        <name>set_selection_and_draw_hovered</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.set_selection_and_draw_hovered</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classRenderQueue" kindref="compound">RenderQueue</ref></type>
+          <declname>render_queue</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>terrain_group_0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="99" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="99" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1ab04371681e919253936361f2c986f02d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.camera.mouse.EntityMouseSelection.check_voxel_botton_selection</definition>
+        <argsstring>(self, WorldView world_view, RenderQueue render_queue, int layer_index, str terrain_group_0)</argsstring>
+        <name>check_voxel_botton_selection</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.check_voxel_botton_selection</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type><ref refid="classRenderQueue" kindref="compound">RenderQueue</ref></type>
+          <declname>render_queue</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>terrain_group_0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="106" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="108" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1ab3c5323596533995b60f72fe348a8a61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.camera.mouse.EntityMouseSelection.check_voxel_top_selection</definition>
+        <argsstring>(self, WorldView world_view, RenderQueue render_queue, int layer_index, str terrain_group_0)</argsstring>
+        <name>check_voxel_top_selection</name>
+        <qualifiedname>aetherion.camera.mouse.EntityMouseSelection.check_voxel_top_selection</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type><ref refid="classRenderQueue" kindref="compound">RenderQueue</ref></type>
+          <declname>render_queue</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>terrain_group_0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/mouse.py" line="134" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="136" bodyend="157"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/camera/mouse.py" line="47" column="1" bodyfile="src/aetherion/camera/mouse.py" bodystart="47" bodyend="157"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a47c9d74ca659ef0e3d760410bff778cb" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a253f13d6f33f091bdbf75f289f0ce90f" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>camera_settings</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1ab04371681e919253936361f2c986f02d" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>check_voxel_botton_selection</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1ab3c5323596533995b60f72fe348a8a61" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>check_voxel_top_selection</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a11be1286a9f0009786a1f80d6c9d461e" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>current_entity_selected</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a1b9b461aed6cdcaa11225bcd9e59bf04" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>draw_lock_on_target</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1ae003fbd35d2715b9341a361e251d0f65" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>entity_x</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a82476f71a05544fcf2dbc3179e93ff13" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>entity_y</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a9ff0ca17429bed536ec9e2a257f93749" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>entity_z</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a070deb8bc02828e2c4b436b6535180c0" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>is_mouse_coordinates_invalid</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a0a47a3144d0fa608abbb474e4652f358" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>layer_index</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a76d7015e27da4ac1ffed76879b43f3c2" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>mouse_x</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1ab3346ec9eff8086074115d270799e345" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>mouse_y</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a29367703f6420f10fd7a2146aba9ed60" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>offset_x</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1ad47ba9927b0551cc845b427ff3c0868e" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>offset_y</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a67a7981366a7e7f511b242d68eea2b7f" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>screen_x</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a854f5d34dfb7240b0ac2c35d1612a262" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>screen_y</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a1a4e8a9f4d9106c5a6bd6a9caed526b4" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>selected_square_drawn</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1aa57ef4888024ff93db5d72ea200ab21d" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>set_entity_coordinates</name></member>
+      <member refid="classaetherion_1_1camera_1_1mouse_1_1EntityMouseSelection_1a0244d95785387edd09c87c737a2b71af" prot="public" virt="non-virtual"><scope>aetherion::camera::mouse::EntityMouseSelection</scope><name>set_selection_and_draw_hovered</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

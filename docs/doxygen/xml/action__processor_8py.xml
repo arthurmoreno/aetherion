@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="action__processor_8py" kind="file" language="Python">
+    <compoundname>action_processor.py</compoundname>
+    <innerclass refid="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor" prot="public">aetherion::input::action_processor::InputActionProcessor</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1input">aetherion::input</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1input_1_1action__processor">aetherion::input::action_processor</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Any,<sp/>Callable</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>aetherion<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>PubSubTopicBroker,<sp/>TopicReader</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1events_1_1action__event" kindref="compound">aetherion.events.action_event</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>InputEventActionType</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1game__state_1_1state" kindref="compound">aetherion.game_state.state</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>SharedState</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1input_1_1event__action__handler" kindref="compound">aetherion.input.event_action_handler</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>InputEventActionHandler</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor" kindref="compound">InputActionProcessor</ref>:</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>TODO:<sp/>Receive<sp/>logger</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor_1a7351c4ed8d798f7c3409dbb0f1f08838" kindref="member">__init__</ref>(</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self,</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pubsub_broker:<sp/>PubSubTopicBroker[InputEventActionType],</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>command_specs:<sp/>dict[InputEventActionType,<sp/>InputEventActionHandler],</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:param<sp/>input_queue:<sp/>A<sp/>queue<sp/>containing<sp/>commands<sp/>(each<sp/>is<sp/>an<sp/>InputEventActionType).</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:param<sp/>command_specs:<sp/>A<sp/>dict<sp/>that<sp/>maps<sp/>each<sp/>InputEventActionType<sp/>to<sp/>a<sp/>spec,</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>&quot;kwargs&quot;<sp/>dict<sp/>can<sp/>be<sp/>empty<sp/>if<sp/>no<sp/>arguments<sp/>are<sp/>needed<sp/>for<sp/>a<sp/>certain<sp/>command.</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.topic_name:<sp/>str<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;input_action_queue&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.topic_reader:<sp/>TopicReader[InputEventActionType]<sp/>=<sp/><ref refid="classaetherion_1_1events_1_1TopicReader" kindref="compound">TopicReader</ref>(bus=pubsub_broker,<sp/>topics=[self.topic_name])</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.command_specs:<sp/>dict[InputEventActionType,<sp/>InputEventActionHandler]<sp/>=<sp/>command_specs</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1input_1_1action__processor_1_1InputActionProcessor_1a4e5e95e9c90bf2002fd082d9ed0f4d83" kindref="member">process_inputs</ref>(self,<sp/>shared_state:<sp/>SharedState)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dequeue<sp/>and<sp/>process<sp/>all<sp/>pending<sp/>commands,<sp/>looking<sp/>up<sp/>their</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>handler<sp/>and<sp/>default<sp/>kwargs<sp/>in<sp/>&apos;command_specs&apos;.</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>event<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>self.topic_reader.drain():</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cmd_type:<sp/>InputEventActionType<sp/>=<sp/>event.event_type</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>spec:<sp/>InputEventActionHandler<sp/>|<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/>=<sp/>self.command_specs.get(cmd_type)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>spec:</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>logger.warning(f&quot;[Processor]<sp/>No<sp/>spec<sp/>found<sp/>for<sp/>command:<sp/>{cmd_type.value}&quot;)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>handler:<sp/>Callable[[],<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">]<sp/>=<sp/>spec.handler</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kwargs:<sp/>dict[str,<sp/>Any]<sp/>=<sp/>{}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kwargs_set:<sp/>set[str]<sp/>=<sp/>spec.processor_kwargs</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;shared_state&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>kwargs_set:</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kwargs[</highlight><highlight class="stringliteral">&quot;shared_state&quot;</highlight><highlight class="normal">]<sp/>=<sp/>shared_state</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fixed_kwargs<sp/>=<sp/>spec.kwargs</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kwargs<sp/>=<sp/>{**kwargs,<sp/>**fixed_kwargs}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>logger.info(f&quot;[Processor]<sp/>Processing<sp/>command:<sp/>{cmd_type.value}<sp/>with<sp/>kwargs:<sp/>{kwargs}&quot;)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>handler(**kwargs)<sp/><sp/></highlight><highlight class="comment">#<sp/>Call<sp/>the<sp/>handler<sp/>with<sp/>the<sp/>stored<sp/>kwargs</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/input/action_processor.py"/>
+  </compounddef>
+</doxygen>

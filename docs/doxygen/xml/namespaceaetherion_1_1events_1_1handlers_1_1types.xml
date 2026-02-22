@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1events_1_1handlers_1_1types" kind="namespace" language="Python">
+    <compoundname>aetherion::events::handlers::types</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="types_8py_1a3e0118976b663aac8be54e789a25e6f1" prot="public" static="no" mutable="no">
+        <type>TypeAlias</type>
+        <definition>TypeAlias aetherion::events::handlers::types.GameEngineEventHandler</definition>
+        <argsstring></argsstring>
+        <name>GameEngineEventHandler</name>
+        <qualifiedname>aetherion.events.handlers.types.GameEngineEventHandler</qualifiedname>
+        <initializer>=  Callable[[<ref refid="classaetherion_1_1engine_1_1models_1_1GameEngineProtocol" kindref="compound">GameEngineProtocol</ref>, <ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref>[<ref refid="classaetherion_1_1events_1_1GameEventType" kindref="compound">GameEventType</ref>]], None]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/types.py" line="10" column="1" bodyfile="src/aetherion/events/handlers/types.py" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="types_8py_1a9b238376bf2c2fd9fcffd490899b2304" prot="public" static="no" mutable="no">
+        <type>TypeAlias</type>
+        <definition>TypeAlias aetherion::events::handlers::types.GameEngineEventHandlersMap</definition>
+        <argsstring></argsstring>
+        <name>GameEngineEventHandlersMap</name>
+        <qualifiedname>aetherion.events.handlers.types.GameEngineEventHandlersMap</qualifiedname>
+        <initializer>=  dict[<ref refid="classaetherion_1_1events_1_1GameEventType" kindref="compound">GameEventType</ref>, GameEngineEventHandler | None]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/types.py" line="11" column="1" bodyfile="src/aetherion/events/handlers/types.py" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="types_8py_1a00538eb0ac6a8612910b9c945f12b732" prot="public" static="no" mutable="no">
+        <type>TypeAlias</type>
+        <definition>TypeAlias aetherion::events::handlers::types.AudioManagerEventHandler</definition>
+        <argsstring></argsstring>
+        <name>AudioManagerEventHandler</name>
+        <qualifiedname>aetherion.events.handlers.types.AudioManagerEventHandler</qualifiedname>
+        <initializer>=  Callable[[<ref refid="classaetherion_1_1audio_1_1models_1_1AudioManagerProtocol" kindref="compound">AudioManagerProtocol</ref>, <ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref>[<ref refid="classaetherion_1_1events_1_1GameEventType" kindref="compound">GameEventType</ref>]], None]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/types.py" line="13" column="1" bodyfile="src/aetherion/events/handlers/types.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="types_8py_1a1985681d23d76be4976c8fa26bb97c53" prot="public" static="no" mutable="no">
+        <type>TypeAlias</type>
+        <definition>TypeAlias aetherion::events::handlers::types.AudioManagerEventHandlersMap</definition>
+        <argsstring></argsstring>
+        <name>AudioManagerEventHandlersMap</name>
+        <qualifiedname>aetherion.events.handlers.types.AudioManagerEventHandlersMap</qualifiedname>
+        <initializer>=  dict[<ref refid="classaetherion_1_1events_1_1GameEventType" kindref="compound">GameEventType</ref>, AudioManagerEventHandler | None]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/types.py" line="14" column="1" bodyfile="src/aetherion/events/handlers/types.py" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="types_8py_1a3372dff8e1ed08e4cbb927853db466b3" prot="public" static="no" mutable="no">
+        <type>TypeAlias</type>
+        <definition>TypeAlias aetherion::events::handlers::types.WorldEventHandler</definition>
+        <argsstring></argsstring>
+        <name>WorldEventHandler</name>
+        <qualifiedname>aetherion.events.handlers.types.WorldEventHandler</qualifiedname>
+        <initializer>=  Callable[[<ref refid="classaetherion_1_1world_1_1models_1_1WorldManagerProtocol" kindref="compound">WorldManagerProtocol</ref>, <ref refid="classaetherion_1_1events_1_1GameEvent" kindref="compound">GameEvent</ref>[<ref refid="classaetherion_1_1events_1_1GameEventType" kindref="compound">GameEventType</ref>]], None]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/types.py" line="16" column="1" bodyfile="src/aetherion/events/handlers/types.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="types_8py_1a5f97dd982c23e51484c64a77473a6375" prot="public" static="no" mutable="no">
+        <type>TypeAlias</type>
+        <definition>TypeAlias aetherion::events::handlers::types.WorldEventHandlersMap</definition>
+        <argsstring></argsstring>
+        <name>WorldEventHandlersMap</name>
+        <qualifiedname>aetherion.events.handlers.types.WorldEventHandlersMap</qualifiedname>
+        <initializer>=  dict[<ref refid="classaetherion_1_1events_1_1GameEventType" kindref="compound">GameEventType</ref>, WorldEventHandler | None]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/types.py" line="17" column="1" bodyfile="src/aetherion/events/handlers/types.py" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="types_8py_1ae1ee88a8a4267dd2651d47cff225154d" prot="private" static="no" mutable="no">
+        <type>list</type>
+        <definition>list aetherion::events::handlers::types.__all__</definition>
+        <argsstring></argsstring>
+        <name>__all__</name>
+        <qualifiedname>aetherion.events.handlers.types.__all__</qualifiedname>
+        <initializer>=  [&quot;WorldEventHandler&quot;, &quot;WorldEventHandlersMap&quot;]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/events/handlers/types.py" line="20" column="1" bodyfile="src/aetherion/events/handlers/types.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/events/handlers/types.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

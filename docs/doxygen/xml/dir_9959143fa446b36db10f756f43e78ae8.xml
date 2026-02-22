@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_9959143fa446b36db10f756f43e78ae8" kind="dir">
+    <compoundname>src/ecosystem</compoundname>
+    <innerfile refid="EcosystemEvents_8hpp">EcosystemEvents.hpp</innerfile>
+    <innerfile refid="ecosystem_2ReadonlyQueries_8hpp">ReadonlyQueries.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ecosystem/"/>
+  </compounddef>
+</doxygen>

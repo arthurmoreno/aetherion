@@ -15,7 +15,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="54" column="18" bodyfile="src/EcosystemEngine.hpp" bodystart="54" bodyend="-1"/>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="35" column="18" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaterFallEntityEvent_1a351ff741226bc60126c126834532dee2" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position WaterFallEntityEvent::sourcePos</definition>
+        <argsstring></argsstring>
+        <name>sourcePos</name>
+        <qualifiedname>WaterFallEntityEvent::sourcePos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="36" column="14" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structWaterFallEntityEvent_1a3a672b865f3f3a149e71fcb41a9c659a" prot="public" static="no" mutable="no">
         <type><ref refid="structPosition" kindref="compound">Position</ref></type>
@@ -29,7 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="55" column="14" bodyfile="src/EcosystemEngine.hpp" bodystart="55" bodyend="-1"/>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="37" column="14" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structWaterFallEntityEvent_1a5d993f8c94a834dd9a27eb2bd2bdcb55" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -43,19 +57,23 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="56" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="56" bodyend="-1"/>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="38" column="9" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="38" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
-      <memberdef kind="function" id="structWaterFallEntityEvent_1ac8c59470fc1d5f83d0045f4d427d1258" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structWaterFallEntityEvent_1ae383e0ec549e64bde52277d39bfe7852" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>WaterFallEntityEvent::WaterFallEntityEvent</definition>
-        <argsstring>(entt::entity entity, Position position, int fallingAmount)</argsstring>
+        <argsstring>(entt::entity entity, Position sourcePos, Position position, int fallingAmount)</argsstring>
         <name>WaterFallEntityEvent</name>
         <qualifiedname>WaterFallEntityEvent::WaterFallEntityEvent</qualifiedname>
         <param>
           <type>entt::entity</type>
           <declname>entity</declname>
+        </param>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>sourcePos</declname>
         </param>
         <param>
           <type><ref refid="structPosition" kindref="compound">Position</ref></type>
@@ -71,7 +89,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/EcosystemEngine.hpp" line="58" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="58" bodyend="59"/>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="40" column="5" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="40" bodyend="41"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -88,15 +106,17 @@
         <link refid="structWaterFallEntityEvent"/>
         <childnode refid="2" relation="usage">
           <edgelabel>position</edgelabel>
+          <edgelabel>sourcePos</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="src/EcosystemEngine.hpp" line="53" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="53" bodyend="60"/>
+    <location file="src/ecosystem/EcosystemEvents.hpp" line="34" column="1" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="34" bodyend="42"/>
     <listofallmembers>
       <member refid="structWaterFallEntityEvent_1a7d842045dc921c3bbe19727132a15d91" prot="public" virt="non-virtual"><scope>WaterFallEntityEvent</scope><name>entity</name></member>
       <member refid="structWaterFallEntityEvent_1a5d993f8c94a834dd9a27eb2bd2bdcb55" prot="public" virt="non-virtual"><scope>WaterFallEntityEvent</scope><name>fallingAmount</name></member>
       <member refid="structWaterFallEntityEvent_1a3a672b865f3f3a149e71fcb41a9c659a" prot="public" virt="non-virtual"><scope>WaterFallEntityEvent</scope><name>position</name></member>
-      <member refid="structWaterFallEntityEvent_1ac8c59470fc1d5f83d0045f4d427d1258" prot="public" virt="non-virtual"><scope>WaterFallEntityEvent</scope><name>WaterFallEntityEvent</name></member>
+      <member refid="structWaterFallEntityEvent_1a351ff741226bc60126c126834532dee2" prot="public" virt="non-virtual"><scope>WaterFallEntityEvent</scope><name>sourcePos</name></member>
+      <member refid="structWaterFallEntityEvent_1ae383e0ec549e64bde52277d39bfe7852" prot="public" virt="non-virtual"><scope>WaterFallEntityEvent</scope><name>WaterFallEntityEvent</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

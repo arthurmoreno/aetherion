@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::windowing::window::BasicGameWindow</compoundname>
+    <basecompoundref refid="classaetherion_1_1windowing_1_1window_1_1GameWindow" prot="public" virt="non-virtual">aetherion.windowing.window.GameWindow</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1a3a3f52050ff7851afcc9981e4b264a67" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.windowing.window.BasicGameWindow::window</definition>
+        <argsstring></argsstring>
+        <name>window</name>
+        <qualifiedname>aetherion.windowing.window.BasicGameWindow.window</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="66" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1a8bbb52bee6b5c7fcd1e203652ecba9e9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.windowing.window.BasicGameWindow::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <qualifiedname>aetherion.windowing.window.BasicGameWindow.width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="73" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1a8b04cb631ad61faea50be09f0a758a26" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.windowing.window.BasicGameWindow::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <qualifiedname>aetherion.windowing.window.BasicGameWindow.height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="73" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="73" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1af64f5301bb3633573f4544d93ad00446" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.windowing.window.BasicGameWindow.__init__</definition>
+        <argsstring>(self, str title, int width, int height, int flags=0)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.windowing.window.BasicGameWindow.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>title</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="49" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="49" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1aff73f557e907583f992e8ea99a41ee4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.windowing.window.BasicGameWindow.show</definition>
+        <argsstring>(self)</argsstring>
+        <name>show</name>
+        <qualifiedname>aetherion.windowing.window.BasicGameWindow.show</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1ae84b012e42b45f50523e43f2eaff3fe6">show</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="65" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="65" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1ae2d45b7066263c9d932bb6dcac50f9ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.windowing.window.BasicGameWindow.hide</definition>
+        <argsstring>(self)</argsstring>
+        <name>hide</name>
+        <qualifiedname>aetherion.windowing.window.BasicGameWindow.hide</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1ac63d2d92e397ea54e3ee7c2d90aaa8d4">hide</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="68" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="68" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1a3df2138f880d027ca37f7bb218697ebc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.windowing.window.BasicGameWindow.refresh_size</definition>
+        <argsstring>(self)</argsstring>
+        <name>refresh_size</name>
+        <qualifiedname>aetherion.windowing.window.BasicGameWindow.refresh_size</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a0c9b49a1a3ef391e7ed9288e1aa2e718">refresh_size</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="71" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="71" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1ab8f65bf889a46072a3ab4a882bf59744" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>tuple[int, int]</type>
+        <definition> tuple[int, int] aetherion.windowing.window.BasicGameWindow.get_size</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_size</name>
+        <qualifiedname>aetherion.windowing.window.BasicGameWindow.get_size</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a056fda569189168377bf8e481d4f2150">get_size</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="75" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="75" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1a28170ade1532b63ac3a7bd7b3587048d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.windowing.window.BasicGameWindow.close</definition>
+        <argsstring>(self)</argsstring>
+        <name>close</name>
+        <qualifiedname>aetherion.windowing.window.BasicGameWindow.close</qualifiedname>
+        <reimplements refid="classaetherion_1_1windowing_1_1window_1_1GameWindow_1a5af6cba4e624d19ae73d52ba4c28ba27">close</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/windowing/window.py" line="78" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="78" bodyend="82"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.windowing.window.BasicGameWindow</label>
+        <link refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.windowing.window.GameWindow</label>
+        <link refid="classaetherion_1_1windowing_1_1window_1_1GameWindow"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.windowing.window.BasicGameWindow</label>
+        <link refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.windowing.window.GameWindow</label>
+        <link refid="classaetherion_1_1windowing_1_1window_1_1GameWindow"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>window</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>SDL_Window</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/windowing/window.py" line="48" column="1" bodyfile="src/aetherion/windowing/window.py" bodystart="48" bodyend="82"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1af64f5301bb3633573f4544d93ad00446" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::BasicGameWindow</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1a28170ade1532b63ac3a7bd7b3587048d" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::BasicGameWindow</scope><name>close</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1ab8f65bf889a46072a3ab4a882bf59744" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::BasicGameWindow</scope><name>get_size</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1a8b04cb631ad61faea50be09f0a758a26" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::BasicGameWindow</scope><name>height</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1ae2d45b7066263c9d932bb6dcac50f9ee" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::BasicGameWindow</scope><name>hide</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1a3df2138f880d027ca37f7bb218697ebc" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::BasicGameWindow</scope><name>refresh_size</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1aff73f557e907583f992e8ea99a41ee4b" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::BasicGameWindow</scope><name>show</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1a8bbb52bee6b5c7fcd1e203652ecba9e9" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::BasicGameWindow</scope><name>width</name></member>
+      <member refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow_1a3a3f52050ff7851afcc9981e4b264a67" prot="public" virt="non-virtual"><scope>aetherion::windowing::window::BasicGameWindow</scope><name>window</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

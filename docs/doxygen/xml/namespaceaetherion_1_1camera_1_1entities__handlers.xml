@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1camera_1_1entities__handlers" kind="namespace" language="Python">
+    <compoundname>aetherion::camera::entities_handlers</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="entities__handlers_8py_1a9d89187b08939a96e785c55865ba2aac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>|None</type>
+        <definition> EntityInterface | None aetherion.camera.entities_handlers.default_terrain_handler</definition>
+        <argsstring>(CameraModel camera_model, CameraSettings camera_settings, EntityInterface terrain, BaseView view_object, Optional[int] selected_entity, WorldView world_view, Any mouse_state, int screen_x, int screen_y, int layer_index, EntityInterface|None entity_hovered, float sun_light, EntityInterface player, Any gradient_view_object, Any water_view)</argsstring>
+        <name>default_terrain_handler</name>
+        <qualifiedname>aetherion.camera.entities_handlers.default_terrain_handler</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraModel" kindref="compound">CameraModel</ref></type>
+          <declname>camera_model</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraSettings" kindref="compound">CameraSettings</ref></type>
+          <declname>camera_settings</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>terrain</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1renderer_1_1views_1_1BaseView" kindref="compound">BaseView</ref></type>
+          <declname>view_object</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>selected_entity</declname>
+          <array>[int]</array>
+        </param>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>mouse_state</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>|None</type>
+          <declname>entity_hovered</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sun_light</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>gradient_view_object</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>water_view</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/entities_handlers.py" line="13" column="1" bodyfile="src/aetherion/camera/entities_handlers.py" bodystart="29" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="entities__handlers_8py_1ab34b4fda7a359074ea545ed966bbcb0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>tuple[int, int]</type>
+        <definition> tuple[int, int] aetherion.camera.entities_handlers.entity_beast_handler</definition>
+        <argsstring>(CameraModel camera_model, CameraSettings camera_settings, WorldView world_view, EntityInterface entity, BaseView view_object, int screen_x, int screen_y, int layer_index, Any mouse_state, Optional[int] selected_entity, EntityInterface|None entity_hovered, float sun_light)</argsstring>
+        <name>entity_beast_handler</name>
+        <qualifiedname>aetherion.camera.entities_handlers.entity_beast_handler</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraModel" kindref="compound">CameraModel</ref></type>
+          <declname>camera_model</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraSettings" kindref="compound">CameraSettings</ref></type>
+          <declname>camera_settings</declname>
+        </param>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1renderer_1_1views_1_1BaseView" kindref="compound">BaseView</ref></type>
+          <declname>view_object</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>mouse_state</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>selected_entity</declname>
+          <array>[int]</array>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>|None</type>
+          <declname>entity_hovered</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sun_light</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/entities_handlers.py" line="57" column="1" bodyfile="src/aetherion/camera/entities_handlers.py" bodystart="70" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="entities__handlers_8py_1a8d70f5b1b158843b41d5697db4165b07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>tuple[int, int]</type>
+        <definition> tuple[int, int] aetherion.camera.entities_handlers.entity_plant_handler</definition>
+        <argsstring>(CameraModel camera_model, CameraSettings camera_settings, WorldView world_view, EntityInterface entity, BaseView view_object, int screen_x, int screen_y, int layer_index, Any mouse_state, Optional[int] selected_entity, EntityInterface|None entity_hovered, float sun_light)</argsstring>
+        <name>entity_plant_handler</name>
+        <qualifiedname>aetherion.camera.entities_handlers.entity_plant_handler</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraModel" kindref="compound">CameraModel</ref></type>
+          <declname>camera_model</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraSettings" kindref="compound">CameraSettings</ref></type>
+          <declname>camera_settings</declname>
+        </param>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1renderer_1_1views_1_1BaseView" kindref="compound">BaseView</ref></type>
+          <declname>view_object</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>mouse_state</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>selected_entity</declname>
+          <array>[int]</array>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>|None</type>
+          <declname>entity_hovered</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sun_light</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/entities_handlers.py" line="120" column="1" bodyfile="src/aetherion/camera/entities_handlers.py" bodystart="133" bodyend="173"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/camera/entities_handlers.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

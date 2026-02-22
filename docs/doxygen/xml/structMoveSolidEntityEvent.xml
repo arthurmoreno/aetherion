@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/MoveEntityEvent.hpp" line="20" column="18" bodyfile="src/MoveEntityEvent.hpp" bodystart="20" bodyend="-1"/>
+        <location file="src/MoveEntityEvent.hpp" line="7" column="18" bodyfile="src/MoveEntityEvent.hpp" bodystart="7" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMoveSolidEntityEvent_1a16e884976e94c5f40fab7ba16ffe2379" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/MoveEntityEvent.hpp" line="21" column="11" bodyfile="src/MoveEntityEvent.hpp" bodystart="21" bodyend="-1"/>
+        <location file="src/MoveEntityEvent.hpp" line="8" column="11" bodyfile="src/MoveEntityEvent.hpp" bodystart="8" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMoveSolidEntityEvent_1a8c322ca7326262ca3db7e361f50a31cf" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -43,7 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/MoveEntityEvent.hpp" line="21" column="18" bodyfile="src/MoveEntityEvent.hpp" bodystart="21" bodyend="-1"/>
+        <location file="src/MoveEntityEvent.hpp" line="8" column="18" bodyfile="src/MoveEntityEvent.hpp" bodystart="8" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMoveSolidEntityEvent_1ab881a149827ebca342014b27a15b8410" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/MoveEntityEvent.hpp" line="21" column="25" bodyfile="src/MoveEntityEvent.hpp" bodystart="21" bodyend="-1"/>
+        <location file="src/MoveEntityEvent.hpp" line="8" column="25" bodyfile="src/MoveEntityEvent.hpp" bodystart="8" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -89,14 +89,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/MoveEntityEvent.hpp" line="23" column="5" bodyfile="src/MoveEntityEvent.hpp" bodystart="23" bodyend="24"/>
+        <location file="src/MoveEntityEvent.hpp" line="10" column="5" bodyfile="src/MoveEntityEvent.hpp" bodystart="10" bodyend="11"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/MoveEntityEvent.hpp" line="19" column="1" bodyfile="src/MoveEntityEvent.hpp" bodystart="19" bodyend="25"/>
+    <location file="src/MoveEntityEvent.hpp" line="6" column="1" bodyfile="src/MoveEntityEvent.hpp" bodystart="6" bodyend="12"/>
     <listofallmembers>
       <member refid="structMoveSolidEntityEvent_1a607600d0e531acfc7c5bcfbd538e73cd" prot="public" virt="non-virtual"><scope>MoveSolidEntityEvent</scope><name>entity</name></member>
       <member refid="structMoveSolidEntityEvent_1a16e884976e94c5f40fab7ba16ffe2379" prot="public" virt="non-virtual"><scope>MoveSolidEntityEvent</scope><name>forceX</name></member>

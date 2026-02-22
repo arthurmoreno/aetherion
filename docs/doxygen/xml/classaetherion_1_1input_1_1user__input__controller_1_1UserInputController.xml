@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::input::user_input_controller::UserInputController</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a328d87796afdda2d9867ff0ac3c3e2d5" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController::keys_down</definition>
+        <argsstring></argsstring>
+        <name>keys_down</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.keys_down</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="46" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ad25494f288cbaebfd0dadd42399ac6b9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController::world</definition>
+        <argsstring></argsstring>
+        <name>world</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.world</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="55" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a8f2ab06da8bd00b6b515dceb851067c3" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController::tracked_keys</definition>
+        <argsstring></argsstring>
+        <name>tracked_keys</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.tracked_keys</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="56" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ae6e1fa7d421987b2cfc70b777190647b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController::steps_to_advance</definition>
+        <argsstring></argsstring>
+        <name>steps_to_advance</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.steps_to_advance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="64" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a89b297b91bbd194781255f17aece1c0a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController::last_mouse_state</definition>
+        <argsstring></argsstring>
+        <name>last_mouse_state</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.last_mouse_state</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="70" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a54cce84790312f4b39d06151eddaba7c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController::mouse_topic_name</definition>
+        <argsstring></argsstring>
+        <name>mouse_topic_name</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.mouse_topic_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="95" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ad41f6cdae174a9853aae9fe8ef7faf3f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController::topic_name</definition>
+        <argsstring></argsstring>
+        <name>topic_name</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.topic_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="138" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="138" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1abcc7bb93b4078e575b9af701d5066f12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.input.user_input_controller.UserInputController.__init__</definition>
+        <argsstring>(self, PubSubTopicBroker[InputEventActionType] pubsub_broker, EventBus[GameEventType] event_bus)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1PubSubTopicBroker" kindref="compound">PubSubTopicBroker</ref></type>
+          <declname>pubsub_broker</declname>
+          <array>[InputEventActionType]</array>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1EventBus" kindref="compound">EventBus</ref></type>
+          <declname>event_bus</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="36" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="38" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a5689fb47f7844533bf9f1bc4045e6c34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController.start</definition>
+        <argsstring>(self)</argsstring>
+        <name>start</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.start</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="66" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="66" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a38ce0f21ead97512c9a7eeacdbe66c92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController.reset_mouse_state</definition>
+        <argsstring>(self)</argsstring>
+        <name>reset_mouse_state</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.reset_mouse_state</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="69" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="69" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ad3c18eba3ffa7e85eb85cc079bba8866" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.input.user_input_controller.UserInputController.check_mouse_state</definition>
+        <argsstring>(self, sdl2.SDL_Event event)</argsstring>
+        <name>check_mouse_state</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.check_mouse_state</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>sdl2.SDL_Event</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="72" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="72" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ab382015416942ce8b0938428a090d4ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController.set_steps_to_advance</definition>
+        <argsstring>(self)</argsstring>
+        <name>set_steps_to_advance</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.set_steps_to_advance</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="117" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="117" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a334972684a3c84df4bbbea25b05b0b5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[str, int|bool]</type>
+        <definition> dict[str, int | bool] aetherion.input.user_input_controller.UserInputController.get_mouse_state</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_mouse_state</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.get_mouse_state</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="120" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="120" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ab4b8e00ab622a75d5670019cc25ffd8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController.check_key_state</definition>
+        <argsstring>(self, sdl2.SDL_Event event)</argsstring>
+        <name>check_key_state</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.check_key_state</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>sdl2.SDL_Event</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="123" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="123" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a7348343e17acbd46d74d3f1b9cc3c67e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.input.user_input_controller.UserInputController.process_key_state</definition>
+        <argsstring>(self, dict[str, bool] imgui_debug_settings={})</argsstring>
+        <name>process_key_state</name>
+        <qualifiedname>aetherion.input.user_input_controller.UserInputController.process_key_state</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>imgui_debug_settings</declname>
+          <array>[str, bool]</array>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/input/user_input_controller.py" line="180" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="180" bodyend="269"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/input/user_input_controller.py" line="35" column="1" bodyfile="src/aetherion/input/user_input_controller.py" bodystart="35" bodyend="269"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1abcc7bb93b4078e575b9af701d5066f12" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ab4b8e00ab622a75d5670019cc25ffd8a" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>check_key_state</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ad3c18eba3ffa7e85eb85cc079bba8866" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>check_mouse_state</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a334972684a3c84df4bbbea25b05b0b5a" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>get_mouse_state</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a328d87796afdda2d9867ff0ac3c3e2d5" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>keys_down</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a89b297b91bbd194781255f17aece1c0a" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>last_mouse_state</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a54cce84790312f4b39d06151eddaba7c" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>mouse_topic_name</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a7348343e17acbd46d74d3f1b9cc3c67e" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>process_key_state</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a38ce0f21ead97512c9a7eeacdbe66c92" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>reset_mouse_state</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ab382015416942ce8b0938428a090d4ee" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>set_steps_to_advance</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a5689fb47f7844533bf9f1bc4045e6c34" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>start</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ae6e1fa7d421987b2cfc70b777190647b" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>steps_to_advance</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ad41f6cdae174a9853aae9fe8ef7faf3f" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>topic_name</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1a8f2ab06da8bd00b6b515dceb851067c3" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>tracked_keys</name></member>
+      <member refid="classaetherion_1_1input_1_1user__input__controller_1_1UserInputController_1ad25494f288cbaebfd0dadd42399ac6b9" prot="public" virt="non-virtual"><scope>aetherion::input::user_input_controller::UserInputController</scope><name>world</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

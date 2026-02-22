@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::networking::admin_connection::ServerAdminConnection</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a43019fc1ca8a5c150e5fc792378ce2e6" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.admin_connection.ServerAdminConnection::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>aetherion.networking.admin_connection.ServerAdminConnection.name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/admin_connection.py" line="15" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1aab0a47b6c1c1e77717ed1636bd04383e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.admin_connection.ServerAdminConnection::websocket</definition>
+        <argsstring></argsstring>
+        <name>websocket</name>
+        <qualifiedname>aetherion.networking.admin_connection.ServerAdminConnection.websocket</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/admin_connection.py" line="16" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a6b2e12a6a43a391ee5d4e4b9a059b899" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.admin_connection.ServerAdminConnection::connected</definition>
+        <argsstring></argsstring>
+        <name>connected</name>
+        <qualifiedname>aetherion.networking.admin_connection.ServerAdminConnection.connected</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/admin_connection.py" line="17" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a38c1ce74b6e1def0f072ce5486953745" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.admin_connection.ServerAdminConnection::connection_type</definition>
+        <argsstring></argsstring>
+        <name>connection_type</name>
+        <qualifiedname>aetherion.networking.admin_connection.ServerAdminConnection.connection_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/admin_connection.py" line="18" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1af28e121675aa2b32bc2e0970c60a5dbd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.admin_connection.ServerAdminConnection::ai_metadata</definition>
+        <argsstring></argsstring>
+        <name>ai_metadata</name>
+        <qualifiedname>aetherion.networking.admin_connection.ServerAdminConnection.ai_metadata</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/admin_connection.py" line="20" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a0d23b467b042cfb655291861c59e956e" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.networking.admin_connection.ServerAdminConnection::_server_online</definition>
+        <argsstring></argsstring>
+        <name>_server_online</name>
+        <qualifiedname>aetherion.networking.admin_connection.ServerAdminConnection._server_online</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/admin_connection.py" line="19" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="19" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1aa41cbbf0c1f7318f8601a1c7e7b174ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.admin_connection.ServerAdminConnection.__init__</definition>
+        <argsstring>(self, str|None name=None, str model_name=&quot;gpt2&quot;, *args, **kwargs)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.networking.admin_connection.ServerAdminConnection.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>name</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>model_name</declname>
+          <defval>&quot;gpt2&quot;</defval>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>**</type>
+          <declname>kwargs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/admin_connection.py" line="14" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="14" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a437c0510a962fedc846dc5e1c65503a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.networking.admin_connection.ServerAdminConnection.connect</definition>
+        <argsstring>(self, WorldInstanceTypes|None connection_type=None, world_instance=None, pipe=None)</argsstring>
+        <name>connect</name>
+        <qualifiedname>aetherion.networking.admin_connection.ServerAdminConnection.connect</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" kindref="compound">WorldInstanceTypes</ref>|None</type>
+          <declname>connection_type</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>world_instance</type>
+          <defname>world_instance</defname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>pipe</type>
+          <defname>pipe</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/admin_connection.py" line="24" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="24" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a3ddd90e8d3fdd2750cecef75dc491395" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.networking.admin_connection.ServerAdminConnection.server_online</definition>
+        <argsstring>(self)</argsstring>
+        <name>server_online</name>
+        <qualifiedname>aetherion.networking.admin_connection.ServerAdminConnection.server_online</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/admin_connection.py" line="42" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="42" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1ae79640dbec337633effee2d24de1f026" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.admin_connection.ServerAdminConnection.create_entity</definition>
+        <argsstring>(self)</argsstring>
+        <name>create_entity</name>
+        <qualifiedname>aetherion.networking.admin_connection.ServerAdminConnection.create_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/admin_connection.py" line="64" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="64" bodyend="88"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Handles server AI process management using WebSocket communication.</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/networking/admin_connection.py" line="11" column="1" bodyfile="src/aetherion/networking/admin_connection.py" bodystart="11" bodyend="88"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1aa41cbbf0c1f7318f8601a1c7e7b174ef" prot="public" virt="non-virtual"><scope>aetherion::networking::admin_connection::ServerAdminConnection</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a0d23b467b042cfb655291861c59e956e" prot="protected" virt="non-virtual"><scope>aetherion::networking::admin_connection::ServerAdminConnection</scope><name>_server_online</name></member>
+      <member refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1af28e121675aa2b32bc2e0970c60a5dbd" prot="public" virt="non-virtual"><scope>aetherion::networking::admin_connection::ServerAdminConnection</scope><name>ai_metadata</name></member>
+      <member refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a437c0510a962fedc846dc5e1c65503a7" prot="public" virt="non-virtual"><scope>aetherion::networking::admin_connection::ServerAdminConnection</scope><name>connect</name></member>
+      <member refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a6b2e12a6a43a391ee5d4e4b9a059b899" prot="public" virt="non-virtual"><scope>aetherion::networking::admin_connection::ServerAdminConnection</scope><name>connected</name></member>
+      <member refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a38c1ce74b6e1def0f072ce5486953745" prot="public" virt="non-virtual"><scope>aetherion::networking::admin_connection::ServerAdminConnection</scope><name>connection_type</name></member>
+      <member refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1ae79640dbec337633effee2d24de1f026" prot="public" virt="non-virtual"><scope>aetherion::networking::admin_connection::ServerAdminConnection</scope><name>create_entity</name></member>
+      <member refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a43019fc1ca8a5c150e5fc792378ce2e6" prot="public" virt="non-virtual"><scope>aetherion::networking::admin_connection::ServerAdminConnection</scope><name>name</name></member>
+      <member refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1a3ddd90e8d3fdd2750cecef75dc491395" prot="public" virt="non-virtual"><scope>aetherion::networking::admin_connection::ServerAdminConnection</scope><name>server_online</name></member>
+      <member refid="classaetherion_1_1networking_1_1admin__connection_1_1ServerAdminConnection_1aab0a47b6c1c1e77717ed1636bd04383e" prot="public" virt="non-virtual"><scope>aetherion::networking::admin_connection::ServerAdminConnection</scope><name>websocket</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

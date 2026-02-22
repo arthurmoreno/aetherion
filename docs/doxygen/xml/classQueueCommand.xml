@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classQueueCommand" kind="class" language="C++" prot="public">
+    <compoundname>QueueCommand</compoundname>
+    <basecompoundref refid="classTerminalCommand" prot="public" virt="non-virtual">TerminalCommand</basecompoundref>
+    <includes refid="QueueCommand_8hpp" local="no">QueueCommand.hpp</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classQueueCommand_1a9b28c7eb523bc38eaa9fce3bcaf5f4b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void QueueCommand::execute</definition>
+        <argsstring>(GuiContext &amp;context, std::deque&lt; TerminalLine &gt; &amp;terminalBuffer, bool &amp;scrollToBottom) override</argsstring>
+        <name>execute</name>
+        <qualifiedname>QueueCommand::execute</qualifiedname>
+        <reimplements refid="classTerminalCommand_1a8db344419dde80954a49c1dcd0d829b7">execute</reimplements>
+        <param>
+          <type><ref refid="structGuiContext" kindref="compound">GuiContext</ref> &amp;</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>std::deque&lt; <ref refid="structTerminalLine" kindref="compound">TerminalLine</ref> &gt; &amp;</type>
+          <declname>terminalBuffer</declname>
+        </param>
+        <param>
+          <type>bool &amp;</type>
+          <declname>scrollToBottom</declname>
+        </param>
+        <briefdescription>
+<para>Execute the terminal command. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>context</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GUI context for accessing command queue </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>terminalBuffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Terminal output buffer to write to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>scrollToBottom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to trigger auto-scroll </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/QueueCommand.hpp" line="10" column="10" bodyfile="src/Gui/TerminalPrograms/QueueCommand.cpp" bodystart="5" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classQueueCommand_1ab4174a875e34f260fe31f0ac9343f4dc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string QueueCommand::getName</definition>
+        <argsstring>() const override</argsstring>
+        <name>getName</name>
+        <qualifiedname>QueueCommand::getName</qualifiedname>
+        <reimplements refid="classTerminalCommand_1a7163905f3b608f3a7bd2076c9b45fde7">getName</reimplements>
+        <briefdescription>
+<para>Get the command name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/QueueCommand.hpp" line="13" column="17" bodyfile="src/Gui/TerminalPrograms/QueueCommand.hpp" bodystart="13" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classQueueCommand_1a6ce09938f2e1a5d2c314f18fbeb667c8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string QueueCommand::getDescription</definition>
+        <argsstring>() const override</argsstring>
+        <name>getDescription</name>
+        <qualifiedname>QueueCommand::getDescription</qualifiedname>
+        <reimplements refid="classTerminalCommand_1a534632bd9b96f4d09df488f28b6cb5dd">getDescription</reimplements>
+        <briefdescription>
+<para>Get the command description. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Gui/TerminalPrograms/QueueCommand.hpp" line="15" column="17" bodyfile="src/Gui/TerminalPrograms/QueueCommand.hpp" bodystart="15" bodyend="15"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Queue command - Shows command queue status. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>QueueCommand</label>
+        <link refid="classQueueCommand"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TerminalCommand</label>
+        <link refid="classTerminalCommand"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>QueueCommand</label>
+        <link refid="classQueueCommand"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TerminalCommand</label>
+        <link refid="classTerminalCommand"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/Gui/TerminalPrograms/QueueCommand.hpp" line="8" column="1" bodyfile="src/Gui/TerminalPrograms/QueueCommand.hpp" bodystart="8" bodyend="16"/>
+    <listofallmembers>
+      <member refid="classTerminalCommand_1a8975332a523175e1d4983db065de5ea0" prot="protected" virt="non-virtual"><scope>QueueCommand</scope><name>addOutput</name></member>
+      <member refid="classQueueCommand_1a9b28c7eb523bc38eaa9fce3bcaf5f4b2" prot="public" virt="virtual"><scope>QueueCommand</scope><name>execute</name></member>
+      <member refid="classQueueCommand_1a6ce09938f2e1a5d2c314f18fbeb667c8" prot="public" virt="virtual"><scope>QueueCommand</scope><name>getDescription</name></member>
+      <member refid="classQueueCommand_1ab4174a875e34f260fe31f0ac9343f4dc" prot="public" virt="virtual"><scope>QueueCommand</scope><name>getName</name></member>
+      <member refid="classTerminalCommand_1a4d3dc5f2ec037ae6eb7142a7b862e900" prot="public" virt="virtual"><scope>QueueCommand</scope><name>~TerminalCommand</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

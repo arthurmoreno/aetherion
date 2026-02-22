@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classGetAIStatisticsHandler" kind="class" language="C++" prot="public">
+    <compoundname>GetAIStatisticsHandler</compoundname>
+    <basecompoundref refid="classICommandHandler" prot="public" virt="non-virtual">ICommandHandler</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGetAIStatisticsHandler_1a6767135da86297180660a662ed9e3038" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool GetAIStatisticsHandler::validate</definition>
+        <argsstring>(const QueryCommand &amp;cmd, std::string &amp;errorMsg) const override</argsstring>
+        <name>validate</name>
+        <qualifiedname>GetAIStatisticsHandler::validate</qualifiedname>
+        <reimplements refid="classICommandHandler_1a9e3dab195963e1d3ec7c62343c01f71b">validate</reimplements>
+        <param>
+          <type>const <ref refid="structQueryCommand" kindref="compound">QueryCommand</ref> &amp;</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>errorMsg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="37" column="10" bodyfile="src/WorldClientAPI/CommandHandlers.cpp" bodystart="91" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classGetAIStatisticsHandler_1a43e1ff41630494da9ff5247a388f7ef6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void GetAIStatisticsHandler::execute</definition>
+        <argsstring>(const QueryCommand &amp;cmd, PerceptionResponse &amp;response, entt::registry &amp;registry, GameDBHandler *dbHandler) override</argsstring>
+        <name>execute</name>
+        <qualifiedname>GetAIStatisticsHandler::execute</qualifiedname>
+        <reimplements refid="classICommandHandler_1a4995cb32f3816435e273e45b4e985da1">execute</reimplements>
+        <param>
+          <type>const <ref refid="structQueryCommand" kindref="compound">QueryCommand</ref> &amp;</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type><ref refid="structPerceptionResponse" kindref="compound">PerceptionResponse</ref> &amp;</type>
+          <declname>response</declname>
+        </param>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classGameDBHandler" kindref="compound">GameDBHandler</ref> *</type>
+          <declname>dbHandler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="38" column="10" bodyfile="src/WorldClientAPI/CommandHandlers.cpp" bodystart="59" bodyend="89"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classGetAIStatisticsHandler_1a95799d4085307625f5da8f26c25bab4c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GetAIStatisticsHandler::addTimeSeriesDataToResponse</definition>
+        <argsstring>(std::shared_ptr&lt; MapOfMapsOfDoubleResponse &gt; response, const std::string &amp;seriesName, uint64_t start, uint64_t end, GameDBHandler *dbHandler)</argsstring>
+        <name>addTimeSeriesDataToResponse</name>
+        <qualifiedname>GetAIStatisticsHandler::addTimeSeriesDataToResponse</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classMapOfMapsOfDoubleResponse" kindref="compound">MapOfMapsOfDoubleResponse</ref> &gt;</type>
+          <declname>response</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>seriesName</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>end</declname>
+        </param>
+        <param>
+          <type><ref refid="classGameDBHandler" kindref="compound">GameDBHandler</ref> *</type>
+          <declname>dbHandler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandHandlers.hpp" line="43" column="10" bodyfile="src/WorldClientAPI/CommandHandlers.cpp" bodystart="96" bodyend="119"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>GetAIStatisticsHandler</label>
+        <link refid="classGetAIStatisticsHandler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ICommandHandler</label>
+        <link refid="classICommandHandler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>GetAIStatisticsHandler</label>
+        <link refid="classGetAIStatisticsHandler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ICommandHandler</label>
+        <link refid="classICommandHandler"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/WorldClientAPI/CommandHandlers.hpp" line="35" column="1" bodyfile="src/WorldClientAPI/CommandHandlers.hpp" bodystart="35" bodyend="46"/>
+    <listofallmembers>
+      <member refid="classGetAIStatisticsHandler_1a95799d4085307625f5da8f26c25bab4c" prot="private" virt="non-virtual"><scope>GetAIStatisticsHandler</scope><name>addTimeSeriesDataToResponse</name></member>
+      <member refid="classGetAIStatisticsHandler_1a43e1ff41630494da9ff5247a388f7ef6" prot="public" virt="virtual"><scope>GetAIStatisticsHandler</scope><name>execute</name></member>
+      <member refid="classGetAIStatisticsHandler_1a6767135da86297180660a662ed9e3038" prot="public" virt="virtual"><scope>GetAIStatisticsHandler</scope><name>validate</name></member>
+      <member refid="classICommandHandler_1a2c2d11b6bd94d4bd721935b793fcd33d" prot="public" virt="virtual"><scope>GetAIStatisticsHandler</scope><name>~ICommandHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

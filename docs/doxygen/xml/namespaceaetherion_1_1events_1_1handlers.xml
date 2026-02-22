@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1events_1_1handlers" kind="namespace" language="Python">
+    <compoundname>aetherion::events::handlers</compoundname>
+    <innernamespace refid="namespaceaetherion_1_1events_1_1handlers_1_1game__engine">aetherion::events::handlers::game_engine</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events_1_1handlers_1_1types">aetherion::events::handlers::types</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1events_1_1handlers_1_1world__manager">aetherion::events::handlers::world_manager</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/events/handlers/game_engine.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

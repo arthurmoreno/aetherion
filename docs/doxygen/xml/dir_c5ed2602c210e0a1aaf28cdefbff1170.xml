@@ -2,7 +2,28 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
   <compounddef id="dir_c5ed2602c210e0a1aaf28cdefbff1170" kind="dir">
     <compoundname>src/aetherion</compoundname>
+    <innerdir refid="dir_e114fac978cd9d2246c0ae74737d1ca3">src/aetherion/animation</innerdir>
+    <innerdir refid="dir_efb128c9cdd4c670260bbe25fba18852">src/aetherion/audio</innerdir>
+    <innerdir refid="dir_ee5f427b32e820eec93c66d423c9f1ff">src/aetherion/camera</innerdir>
+    <innerdir refid="dir_7f37ddfe3f9361e1e67aba8bf611d7cb">src/aetherion/engine</innerdir>
+    <innerdir refid="dir_b5d37c6ca9956e4a1268f8550c03b05c">src/aetherion/entities</innerdir>
+    <innerdir refid="dir_686d0d99a431ee0a6335b27dc2a06758">src/aetherion/events</innerdir>
+    <innerdir refid="dir_e3d112a9b2e95c572eb8b2b88924b52d">src/aetherion/game_state</innerdir>
+    <innerdir refid="dir_1f56ed80aa7442d2b5757f0b3544ec7a">src/aetherion/input</innerdir>
+    <innerdir refid="dir_5197cac93d8388e1614c2e93212ab541">src/aetherion/networking</innerdir>
+    <innerdir refid="dir_115e2573c12db33cce239c4c8569f613">src/aetherion/renderer</innerdir>
+    <innerdir refid="dir_3152d005a51953a2627f861d1edf1366">src/aetherion/scenes</innerdir>
+    <innerdir refid="dir_5eab6c300659ff7b15595cb79dac5f3b">src/aetherion/windowing</innerdir>
+    <innerdir refid="dir_4ae11f4e756fe47f29a4b9f4ed3ef448">src/aetherion/world</innerdir>
     <innerfile refid="____init_____8py">__init__.py</innerfile>
+    <innerfile refid="constants_8py">constants.py</innerfile>
+    <innerfile refid="engine__config_8py">engine_config.py</innerfile>
+    <innerfile refid="logger_8py">logger.py</innerfile>
+    <innerfile refid="paths_8py">paths.py</innerfile>
+    <innerfile refid="resource__manager_8py">resource_manager.py</innerfile>
+    <innerfile refid="scheduler_8py">scheduler.py</innerfile>
+    <innerfile refid="settings_8py">settings.py</innerfile>
+    <innerfile refid="utils_8py">utils.py</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

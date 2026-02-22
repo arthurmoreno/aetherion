@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structWaveComponent" kind="struct" language="C++" prot="public">
+    <compoundname>WaveComponent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structWaveComponent_1ab0d84829daeaf3f21281f9f3efdc5a8f" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t WaveComponent::sourceId</definition>
+        <argsstring></argsstring>
+        <name>sourceId</name>
+        <qualifiedname>WaveComponent::sourceId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="25" column="13" bodyfile="src/WavePhysicsEngine.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveComponent_1a7fa6f03dcb74fb86e907e611c3384f0e" prot="public" static="no" mutable="no">
+        <type>WaveType</type>
+        <definition>WaveType WaveComponent::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>WaveComponent::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="26" column="14" bodyfile="src/WavePhysicsEngine.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveComponent_1a37a14adee79596e02484dc3b7f5848e4" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveComponent::amplitude</definition>
+        <argsstring></argsstring>
+        <name>amplitude</name>
+        <qualifiedname>WaveComponent::amplitude</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="27" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveComponent_1a444a1b116b5eecdeb5a328d74ef8a739" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveComponent::frequency</definition>
+        <argsstring></argsstring>
+        <name>frequency</name>
+        <qualifiedname>WaveComponent::frequency</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="28" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveComponent_1a781e734870f62335a5954d625bad4207" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveComponent::speed</definition>
+        <argsstring></argsstring>
+        <name>speed</name>
+        <qualifiedname>WaveComponent::speed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="29" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveComponent_1a5abe4d9ac2e8cb5dbae941dd2804387b" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveComponent::attenuationPerUnit</definition>
+        <argsstring></argsstring>
+        <name>attenuationPerUnit</name>
+        <qualifiedname>WaveComponent::attenuationPerUnit</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="30" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveComponent_1af05a8efd84a4254c6b8d8182fe8698e6" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t WaveComponent::lifetimeTicks</definition>
+        <argsstring></argsstring>
+        <name>lifetimeTicks</name>
+        <qualifiedname>WaveComponent::lifetimeTicks</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="31" column="14" bodyfile="src/WavePhysicsEngine.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveComponent_1a8dfdc07988d7b15584fb358ed025c8d8" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveComponent::dirX</definition>
+        <argsstring></argsstring>
+        <name>dirX</name>
+        <qualifiedname>WaveComponent::dirX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="34" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveComponent_1abbc8f12349bb1af2a2233e970d873bee" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveComponent::dirY</definition>
+        <argsstring></argsstring>
+        <name>dirY</name>
+        <qualifiedname>WaveComponent::dirY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="34" column="16" bodyfile="src/WavePhysicsEngine.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveComponent_1abe4ae8ff8f42106ac607d304e2d4e69a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveComponent::dirZ</definition>
+        <argsstring></argsstring>
+        <name>dirZ</name>
+        <qualifiedname>WaveComponent::dirZ</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="34" column="21" bodyfile="src/WavePhysicsEngine.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structWaveComponent_1a71ec8b77f0e86af590036fc7691ed06f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WaveComponent::distanceTraveled</definition>
+        <argsstring></argsstring>
+        <name>distanceTraveled</name>
+        <qualifiedname>WaveComponent::distanceTraveled</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="37" column="11" bodyfile="src/WavePhysicsEngine.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structWaveComponent_1a9ef0d6112f9086ae64bd41e62a6c00e2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>WaveComponent::WaveComponent</definition>
+        <argsstring>()</argsstring>
+        <name>WaveComponent</name>
+        <qualifiedname>WaveComponent::WaveComponent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="39" column="5" bodyfile="src/WavePhysicsEngine.hpp" bodystart="39" bodyend="50"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/WavePhysicsEngine.hpp" line="24" column="1" bodyfile="src/WavePhysicsEngine.hpp" bodystart="24" bodyend="51"/>
+    <listofallmembers>
+      <member refid="structWaveComponent_1a37a14adee79596e02484dc3b7f5848e4" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>amplitude</name></member>
+      <member refid="structWaveComponent_1a5abe4d9ac2e8cb5dbae941dd2804387b" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>attenuationPerUnit</name></member>
+      <member refid="structWaveComponent_1a8dfdc07988d7b15584fb358ed025c8d8" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>dirX</name></member>
+      <member refid="structWaveComponent_1abbc8f12349bb1af2a2233e970d873bee" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>dirY</name></member>
+      <member refid="structWaveComponent_1abe4ae8ff8f42106ac607d304e2d4e69a" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>dirZ</name></member>
+      <member refid="structWaveComponent_1a71ec8b77f0e86af590036fc7691ed06f" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>distanceTraveled</name></member>
+      <member refid="structWaveComponent_1a444a1b116b5eecdeb5a328d74ef8a739" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>frequency</name></member>
+      <member refid="structWaveComponent_1af05a8efd84a4254c6b8d8182fe8698e6" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>lifetimeTicks</name></member>
+      <member refid="structWaveComponent_1ab0d84829daeaf3f21281f9f3efdc5a8f" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>sourceId</name></member>
+      <member refid="structWaveComponent_1a781e734870f62335a5954d625bad4207" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>speed</name></member>
+      <member refid="structWaveComponent_1a7fa6f03dcb74fb86e907e611c3384f0e" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>type</name></member>
+      <member refid="structWaveComponent_1a9ef0d6112f9086ae64bd41e62a6c00e2" prot="public" virt="non-virtual"><scope>WaveComponent</scope><name>WaveComponent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

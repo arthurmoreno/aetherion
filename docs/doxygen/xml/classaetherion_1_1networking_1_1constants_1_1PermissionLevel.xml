@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1networking_1_1constants_1_1PermissionLevel" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::networking::constants::PermissionLevel</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Enum</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1constants_1_1PermissionLevel_1a29b6de91e1b71d1dac98398671761254" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.networking.constants.PermissionLevel::GUEST</definition>
+        <argsstring></argsstring>
+        <name>GUEST</name>
+        <qualifiedname>aetherion.networking.constants.PermissionLevel.GUEST</qualifiedname>
+        <initializer>=  &quot;guest&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/constants.py" line="7" column="1" bodyfile="src/aetherion/networking/constants.py" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1constants_1_1PermissionLevel_1aac84b09685b2bef4d7a05928e4de55e9" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.networking.constants.PermissionLevel::USER</definition>
+        <argsstring></argsstring>
+        <name>USER</name>
+        <qualifiedname>aetherion.networking.constants.PermissionLevel.USER</qualifiedname>
+        <initializer>=  &quot;user&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/constants.py" line="8" column="1" bodyfile="src/aetherion/networking/constants.py" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1constants_1_1PermissionLevel_1a3d2d162017e5cc8094a8684577742a09" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.networking.constants.PermissionLevel::ADMIN</definition>
+        <argsstring></argsstring>
+        <name>ADMIN</name>
+        <qualifiedname>aetherion.networking.constants.PermissionLevel.ADMIN</qualifiedname>
+        <initializer>=  &quot;admin&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/constants.py" line="9" column="1" bodyfile="src/aetherion/networking/constants.py" bodystart="9" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Permission levels for different types of actions.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.networking.constants.PermissionLevel</label>
+        <link refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Enum</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.networking.constants.PermissionLevel</label>
+        <link refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Enum</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/networking/constants.py" line="4" column="1" bodyfile="src/aetherion/networking/constants.py" bodystart="4" bodyend="10"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel_1a3d2d162017e5cc8094a8684577742a09" prot="public" virt="non-virtual"><scope>aetherion::networking::constants::PermissionLevel</scope><name>ADMIN</name></member>
+      <member refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel_1a29b6de91e1b71d1dac98398671761254" prot="public" virt="non-virtual"><scope>aetherion::networking::constants::PermissionLevel</scope><name>GUEST</name></member>
+      <member refid="classaetherion_1_1networking_1_1constants_1_1PermissionLevel_1aac84b09685b2bef4d7a05928e4de55e9" prot="public" virt="non-virtual"><scope>aetherion::networking::constants::PermissionLevel</scope><name>USER</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1networking_1_1websocket__server" kind="namespace" language="Python">
+    <compoundname>aetherion::networking::websocket_server</compoundname>
+    <innerclass refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer" prot="public">aetherion::networking::websocket_server::AuthenticatedWebSocketServer</innerclass>
+    <innerclass refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer" prot="public">aetherion::networking::websocket_server::WebSocketGameServer</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="websocket__server_8py_1a61935a3f35e04a62cb4afa9b904844fd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int aetherion::networking::websocket_server.FPS</definition>
+        <argsstring></argsstring>
+        <name>FPS</name>
+        <qualifiedname>aetherion.networking.websocket_server.FPS</qualifiedname>
+        <initializer>=  30</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="24" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="24" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="websocket__server_8py_1aa5de52ce41cb307d25733071440718b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>dict[int, dict[str, bytes|bool]]</type>
+        <definition> dict[int, dict[str, bytes | bool]] aetherion.networking.websocket_server.make_ai_metadata_serializable</definition>
+        <argsstring>(dict[int, dict[str, EntityInterface|bool]] ai_metadata)</argsstring>
+        <name>make_ai_metadata_serializable</name>
+        <qualifiedname>aetherion.networking.websocket_server.make_ai_metadata_serializable</qualifiedname>
+        <param>
+          <type>dict]</type>
+          <declname>ai_metadata</declname>
+          <array>[int, dict[str, EntityInterface|bool]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Convert AI metadata to a serializable format.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/websocket_server.py" line="27" column="1" bodyfile="src/aetherion/networking/websocket_server.py" bodystart="29" bodyend="45"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/networking/websocket_server.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

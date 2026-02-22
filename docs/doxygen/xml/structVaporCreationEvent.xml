@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structVaporCreationEvent" kind="struct" language="C++" prot="public">
+    <compoundname>VaporCreationEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structVaporCreationEvent_1ab97a3a525966481c0eb367c862d59151" prot="public" static="no" mutable="no">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position VaporCreationEvent::position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <qualifiedname>VaporCreationEvent::position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="120" column="14" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVaporCreationEvent_1a02296da421b305b6a22f5dbc8c4eeb06" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VaporCreationEvent::amount</definition>
+        <argsstring></argsstring>
+        <name>amount</name>
+        <qualifiedname>VaporCreationEvent::amount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="121" column="9" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVaporCreationEvent_1a7125ddaea5097e62719d7c1a27dbc933" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VaporCreationEvent::targetExists</definition>
+        <argsstring></argsstring>
+        <name>targetExists</name>
+        <qualifiedname>VaporCreationEvent::targetExists</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="122" column="10" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structVaporCreationEvent_1a2d8fd1a4c161b98ad5ffc3fcf3d83ad9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VaporCreationEvent::VaporCreationEvent</definition>
+        <argsstring>(Position position, int amount, bool targetExists)</argsstring>
+        <name>VaporCreationEvent</name>
+        <qualifiedname>VaporCreationEvent::VaporCreationEvent</qualifiedname>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>position</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>amount</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>targetExists</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ecosystem/EcosystemEvents.hpp" line="124" column="5" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="124" bodyend="125"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>Position</label>
+        <link refid="structPosition"/>
+      </node>
+      <node id="1">
+        <label>VaporCreationEvent</label>
+        <link refid="structVaporCreationEvent"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>position</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/ecosystem/EcosystemEvents.hpp" line="119" column="1" bodyfile="src/ecosystem/EcosystemEvents.hpp" bodystart="119" bodyend="126"/>
+    <listofallmembers>
+      <member refid="structVaporCreationEvent_1a02296da421b305b6a22f5dbc8c4eeb06" prot="public" virt="non-virtual"><scope>VaporCreationEvent</scope><name>amount</name></member>
+      <member refid="structVaporCreationEvent_1ab97a3a525966481c0eb367c862d59151" prot="public" virt="non-virtual"><scope>VaporCreationEvent</scope><name>position</name></member>
+      <member refid="structVaporCreationEvent_1a7125ddaea5097e62719d7c1a27dbc933" prot="public" virt="non-virtual"><scope>VaporCreationEvent</scope><name>targetExists</name></member>
+      <member refid="structVaporCreationEvent_1a2d8fd1a4c161b98ad5ffc3fcf3d83ad9" prot="public" virt="non-virtual"><scope>VaporCreationEvent</scope><name>VaporCreationEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

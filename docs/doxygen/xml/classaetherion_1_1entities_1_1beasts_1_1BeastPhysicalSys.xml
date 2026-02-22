@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::entities::beasts::BeastPhysicalSys</compoundname>
+    <derivedcompoundref refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity" prot="public" virt="non-virtual">aetherion.entities.beasts.BeastEntity</derivedcompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1a9e9fa77f7c3538a0817db3b00891bead" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.entities.beasts.BeastPhysicalSys::direction</definition>
+        <argsstring></argsstring>
+        <name>direction</name>
+        <qualifiedname>aetherion.entities.beasts.BeastPhysicalSys.direction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/beasts.py" line="16" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1a55bd1b93c4efd30b8de1b8fe77171164" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.entities.beasts.BeastPhysicalSys.set_direction</definition>
+        <argsstring>(self, direction)</argsstring>
+        <name>set_direction</name>
+        <qualifiedname>aetherion.entities.beasts.BeastPhysicalSys.set_direction</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>direction</type>
+          <defname>direction</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/beasts.py" line="15" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="15" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1aa481f85a632ec029e32cb889a7a0449f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.entities.beasts.BeastPhysicalSys.on_take_item_behavior</definition>
+        <argsstring>(self, entity_id, registry, voxel_grid, hovered_entity_id, selected_entity_id)</argsstring>
+        <name>on_take_item_behavior</name>
+        <qualifiedname>aetherion.entities.beasts.BeastPhysicalSys.on_take_item_behavior</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>entity_id</type>
+          <defname>entity_id</defname>
+        </param>
+        <param>
+          <type>registry</type>
+          <defname>registry</defname>
+        </param>
+        <param>
+          <type>voxel_grid</type>
+          <defname>voxel_grid</defname>
+        </param>
+        <param>
+          <type>hovered_entity_id</type>
+          <defname>hovered_entity_id</defname>
+        </param>
+        <param>
+          <type>selected_entity_id</type>
+          <defname>selected_entity_id</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/beasts.py" line="18" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="18" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1a8e4f6c9a9e335b1f7b36007efbd3de73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.entities.beasts.BeastPhysicalSys.on_use_food</definition>
+        <argsstring>(self, entity_id, registry, voxel_grid, item_id, inventory)</argsstring>
+        <name>on_use_food</name>
+        <qualifiedname>aetherion.entities.beasts.BeastPhysicalSys.on_use_food</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>entity_id</type>
+          <defname>entity_id</defname>
+        </param>
+        <param>
+          <type>registry</type>
+          <defname>registry</defname>
+        </param>
+        <param>
+          <type>voxel_grid</type>
+          <defname>voxel_grid</defname>
+        </param>
+        <param>
+          <type>item_id</type>
+          <defname>item_id</defname>
+        </param>
+        <param>
+          <type>inventory</type>
+          <defname>inventory</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/beasts.py" line="86" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="86" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1a104c11e3832b7ea3beee086686334f3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.entities.beasts.BeastPhysicalSys.on_use_tool_or_weapon</definition>
+        <argsstring>(self, entity_id, registry, voxel_grid, item_id, hovered_entity_id, selected_entity_id)</argsstring>
+        <name>on_use_tool_or_weapon</name>
+        <qualifiedname>aetherion.entities.beasts.BeastPhysicalSys.on_use_tool_or_weapon</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>entity_id</type>
+          <defname>entity_id</defname>
+        </param>
+        <param>
+          <type>registry</type>
+          <defname>registry</defname>
+        </param>
+        <param>
+          <type>voxel_grid</type>
+          <defname>voxel_grid</defname>
+        </param>
+        <param>
+          <type>item_id</type>
+          <defname>item_id</defname>
+        </param>
+        <param>
+          <type>hovered_entity_id</type>
+          <defname>hovered_entity_id</defname>
+        </param>
+        <param>
+          <type>selected_entity_id</type>
+          <defname>selected_entity_id</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/beasts.py" line="108" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="108" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1aadfa7161e3fc09ed8e4fa3295c8bb919" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.entities.beasts.BeastPhysicalSys.on_use_item_behavior</definition>
+        <argsstring>(self, entity_id, registry, voxel_grid, item_slot, hovered_entity_id, selected_entity_id)</argsstring>
+        <name>on_use_item_behavior</name>
+        <qualifiedname>aetherion.entities.beasts.BeastPhysicalSys.on_use_item_behavior</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>entity_id</type>
+          <defname>entity_id</defname>
+        </param>
+        <param>
+          <type>registry</type>
+          <defname>registry</defname>
+        </param>
+        <param>
+          <type>voxel_grid</type>
+          <defname>voxel_grid</defname>
+        </param>
+        <param>
+          <type>item_slot</type>
+          <defname>item_slot</defname>
+        </param>
+        <param>
+          <type>hovered_entity_id</type>
+          <defname>hovered_entity_id</defname>
+        </param>
+        <param>
+          <type>selected_entity_id</type>
+          <defname>selected_entity_id</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/beasts.py" line="122" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="122" bodyend="140"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.entities.beasts.BeastPhysicalSys</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys"/>
+      </node>
+      <node id="2">
+        <label>aetherion.entities.beasts.BeastEntity</label>
+        <link refid="classaetherion_1_1entities_1_1beasts_1_1BeastEntity"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="src/aetherion/entities/beasts.py" line="14" column="1" bodyfile="src/aetherion/entities/beasts.py" bodystart="14" bodyend="140"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1a9e9fa77f7c3538a0817db3b00891bead" prot="public" virt="non-virtual"><scope>aetherion::entities::beasts::BeastPhysicalSys</scope><name>direction</name></member>
+      <member refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1aa481f85a632ec029e32cb889a7a0449f" prot="public" virt="non-virtual"><scope>aetherion::entities::beasts::BeastPhysicalSys</scope><name>on_take_item_behavior</name></member>
+      <member refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1a8e4f6c9a9e335b1f7b36007efbd3de73" prot="public" virt="non-virtual"><scope>aetherion::entities::beasts::BeastPhysicalSys</scope><name>on_use_food</name></member>
+      <member refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1aadfa7161e3fc09ed8e4fa3295c8bb919" prot="public" virt="non-virtual"><scope>aetherion::entities::beasts::BeastPhysicalSys</scope><name>on_use_item_behavior</name></member>
+      <member refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1a104c11e3832b7ea3beee086686334f3f" prot="public" virt="non-virtual"><scope>aetherion::entities::beasts::BeastPhysicalSys</scope><name>on_use_tool_or_weapon</name></member>
+      <member refid="classaetherion_1_1entities_1_1beasts_1_1BeastPhysicalSys_1a55bd1b93c4efd30b8de1b8fe77171164" prot="public" virt="non-virtual"><scope>aetherion::entities::beasts::BeastPhysicalSys</scope><name>set_direction</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

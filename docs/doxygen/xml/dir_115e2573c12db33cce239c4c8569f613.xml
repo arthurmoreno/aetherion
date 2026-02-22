@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_115e2573c12db33cce239c4c8569f613" kind="dir">
+    <compoundname>src/aetherion/renderer</compoundname>
+    <innerfile refid="renderer_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="fonts_8py">fonts.py</innerfile>
+    <innerfile refid="image__set_8py">image_set.py</innerfile>
+    <innerfile refid="shapes_8py">shapes.py</innerfile>
+    <innerfile refid="sprites_8py">sprites.py</innerfile>
+    <innerfile refid="text_8py">text.py</innerfile>
+    <innerfile refid="renderer_2utils_8py">utils.py</innerfile>
+    <innerfile refid="views_8py">views.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/renderer/"/>
+  </compounddef>
+</doxygen>

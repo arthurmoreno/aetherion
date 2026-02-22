@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1entities_1_1views_1_1terrains_1_1EmptyView" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::entities::views::terrains::EmptyView</compoundname>
+    <basecompoundref refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView" prot="public" virt="non-virtual">aetherion.entities.views.terrains.TerrainView</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1views_1_1terrains_1_1EmptyView_1a5f3efb4752d61fd4f28c74f528e9addb" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.entities.views.terrains.EmptyView::terrain_type</definition>
+        <argsstring></argsstring>
+        <name>terrain_type</name>
+        <qualifiedname>aetherion.entities.views.terrains.EmptyView.terrain_type</qualifiedname>
+        <initializer>=  &quot;empty&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/views/terrains.py" line="73" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="73" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.entities.views.terrains.EmptyView</label>
+        <link refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1EmptyView"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.entities.views.terrains.TerrainView</label>
+        <link refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aetherion.renderer.views.BaseView</label>
+        <link refid="classaetherion_1_1renderer_1_1views_1_1BaseView"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.entities.views.terrains.EmptyView</label>
+        <link refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1EmptyView"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.entities.views.terrains.TerrainView</label>
+        <link refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>sprite_variation_name</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aetherion.renderer.sprites.Sprite</label>
+        <link refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite"/>
+      </node>
+      <node id="3">
+        <label>aetherion.renderer.views.BaseView</label>
+        <link refid="classaetherion_1_1renderer_1_1views_1_1BaseView"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>sprite</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Hashable</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/entities/views/terrains.py" line="72" column="1" bodyfile="src/aetherion/entities/views/terrains.py" bodystart="72" bodyend="74"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1EmptyView_1a5f3efb4752d61fd4f28c74f528e9addb" prot="public" virt="non-virtual"><scope>aetherion::entities::views::terrains::EmptyView</scope><name>terrain_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

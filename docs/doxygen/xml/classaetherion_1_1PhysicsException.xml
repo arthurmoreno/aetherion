@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1PhysicsException" kind="class" language="C++" prot="public">
+    <compoundname>aetherion::PhysicsException</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::runtime_error</basecompoundref>
+    <derivedcompoundref refid="classaetherion_1_1InvalidEntityException" prot="public" virt="non-virtual">aetherion::InvalidEntityException</derivedcompoundref>
+    <derivedcompoundref refid="classaetherion_1_1InvalidTerrainMovementException" prot="public" virt="non-virtual">aetherion::InvalidTerrainMovementException</derivedcompoundref>
+    <derivedcompoundref refid="classaetherion_1_1InvalidTerrainStateException" prot="public" virt="non-virtual">aetherion::InvalidTerrainStateException</derivedcompoundref>
+    <derivedcompoundref refid="classaetherion_1_1MovementException" prot="public" virt="non-virtual">aetherion::MovementException</derivedcompoundref>
+    <derivedcompoundref refid="classaetherion_1_1TerrainLockException" prot="public" virt="non-virtual">aetherion::TerrainLockException</derivedcompoundref>
+    <includes refid="PhysicsExceptions_8hpp" local="no">PhysicsExceptions.hpp</includes>
+    <briefdescription>
+<para>Base exception class for all physics-related errors. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This serves as the parent class for all custom physics exceptions, allowing callers to catch all physics exceptions with a single catch block. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>aetherion::InvalidEntityException</label>
+        <link refid="classaetherion_1_1InvalidEntityException"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aetherion::InvalidTerrainMovementException</label>
+        <link refid="classaetherion_1_1InvalidTerrainMovementException"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>aetherion::InvalidTerrainStateException</label>
+        <link refid="classaetherion_1_1InvalidTerrainStateException"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>aetherion::MovementException</label>
+        <link refid="classaetherion_1_1MovementException"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>aetherion::PhysicsException</label>
+        <link refid="classaetherion_1_1PhysicsException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>aetherion::TerrainLockException</label>
+        <link refid="classaetherion_1_1TerrainLockException"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>aetherion::VaporMovementBlockedException</label>
+        <link refid="classaetherion_1_1VaporMovementBlockedException"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::runtime_error</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion::PhysicsException</label>
+        <link refid="classaetherion_1_1PhysicsException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::runtime_error</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/physics/PhysicsExceptions.hpp" line="14" column="1" bodyfile="src/physics/PhysicsExceptions.hpp" bodystart="14" bodyend="17"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

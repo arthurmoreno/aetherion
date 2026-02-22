@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="100" column="17" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="100" bodyend="-1"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="127" column="17" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="127" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRenderTextureTask_1ad34dd3833dfda5b02955f2f9481f2a73" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="101" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="101" bodyend="-1"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="128" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="128" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRenderTextureTask_1aa14010c329e6c2057a3a4f856fc3f71d" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="102" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="102" bodyend="-1"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="129" column="9" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRenderTextureTask_1a0b096c76e053208e024b9caa5507f8c3" prot="private" static="no" mutable="no">
         <type>float</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="103" column="11" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="103" bodyend="-1"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="130" column="11" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRenderTextureTask_1a1ccfdbac5dece324e87dfb46a72a8790" prot="private" static="no" mutable="no">
         <type>float</type>
@@ -72,7 +72,35 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="104" column="11" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="104" bodyend="-1"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="131" column="11" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderTextureTask_1a50aebd58dda1c1b53607963ad5afbbe2" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool RenderTextureTask::use_source_rect</definition>
+        <argsstring></argsstring>
+        <name>use_source_rect</name>
+        <qualifiedname>RenderTextureTask::use_source_rect</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="132" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRenderTextureTask_1ad6c35833e3735efc5845262de3411704" prot="private" static="no" mutable="no">
+        <type>SDL_Rect</type>
+        <definition>SDL_Rect RenderTextureTask::source_rect</definition>
+        <argsstring></argsstring>
+        <name>source_rect</name>
+        <qualifiedname>RenderTextureTask::source_rect</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="133" column="14" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="133" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -108,7 +136,57 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="38" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="38" bodyend="39"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="38" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="38" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classRenderTextureTask_1a5df7cf68bfa9728bbf9f70f40d58a8c1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RenderTextureTask::RenderTextureTask</definition>
+        <argsstring>(SDL_Texture *tex, int x_pos, int y_pos, float lightIntensity, float opacity, int src_x, int src_y, int src_w, int src_h)</argsstring>
+        <name>RenderTextureTask</name>
+        <qualifiedname>RenderTextureTask::RenderTextureTask</qualifiedname>
+        <param>
+          <type>SDL_Texture *</type>
+          <declname>tex</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x_pos</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y_pos</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lightIntensity</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>opacity</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>src_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>src_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>src_w</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>src_h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="47" column="5" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="47" bodyend="55"/>
       </memberdef>
       <memberdef kind="function" id="classRenderTextureTask_1ac9df250fc7994127fb8ace8de0d62065" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -127,7 +205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="41" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="41" bodyend="97"/>
+        <location file="src/LowLevelRenderer/RenderQueue.hpp" line="57" column="10" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="57" bodyend="124"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -158,15 +236,18 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="36" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="36" bodyend="105"/>
+    <location file="src/LowLevelRenderer/RenderQueue.hpp" line="36" column="1" bodyfile="src/LowLevelRenderer/RenderQueue.hpp" bodystart="36" bodyend="134"/>
     <listofallmembers>
       <member refid="classRenderTaskBase_1a083109259e992a8b0b759fdbcdc24cf8" prot="public" virt="virtual"><scope>RenderTextureTask</scope><name>getZLayer</name></member>
       <member refid="classRenderTextureTask_1a0b096c76e053208e024b9caa5507f8c3" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>lightIntensity</name></member>
       <member refid="classRenderTextureTask_1a1ccfdbac5dece324e87dfb46a72a8790" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>opacity</name></member>
       <member refid="classRenderTextureTask_1ac9df250fc7994127fb8ace8de0d62065" prot="public" virt="virtual"><scope>RenderTextureTask</scope><name>render</name></member>
       <member refid="classRenderTextureTask_1afd371b7baa439c877e1847a406931a49" prot="public" virt="non-virtual"><scope>RenderTextureTask</scope><name>RenderTextureTask</name></member>
+      <member refid="classRenderTextureTask_1a5df7cf68bfa9728bbf9f70f40d58a8c1" prot="public" virt="non-virtual"><scope>RenderTextureTask</scope><name>RenderTextureTask</name></member>
       <member refid="classRenderTaskBase_1a87f842d1663de2935efc9dfee89553e8" prot="public" virt="virtual"><scope>RenderTextureTask</scope><name>setZLayer</name></member>
+      <member refid="classRenderTextureTask_1ad6c35833e3735efc5845262de3411704" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>source_rect</name></member>
       <member refid="classRenderTextureTask_1a85ba842b2ec30136c62a29c582b3b402" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>texture</name></member>
+      <member refid="classRenderTextureTask_1a50aebd58dda1c1b53607963ad5afbbe2" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>use_source_rect</name></member>
       <member refid="classRenderTextureTask_1ad34dd3833dfda5b02955f2f9481f2a73" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>x</name></member>
       <member refid="classRenderTextureTask_1aa14010c329e6c2057a3a4f856fc3f71d" prot="private" virt="non-virtual"><scope>RenderTextureTask</scope><name>y</name></member>
       <member refid="classRenderTaskBase_1afa7ba1f0ab38fc6df88b54bf8f7ac6fa" prot="protected" virt="non-virtual"><scope>RenderTextureTask</scope><name>z_layer</name></member>

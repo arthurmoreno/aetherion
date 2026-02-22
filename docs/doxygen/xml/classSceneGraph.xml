@@ -1,0 +1,596 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classSceneGraph" kind="class" language="C++" prot="public">
+    <compoundname>SceneGraph</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classSceneGraph_1a952786c9b602c986bae34f4e6aaca6d8" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; entt::registry &gt;</type>
+        <definition>std::unique_ptr&lt;entt::registry&gt; SceneGraph::owned_registry_</definition>
+        <argsstring></argsstring>
+        <name>owned_registry_</name>
+        <qualifiedname>SceneGraph::owned_registry_</qualifiedname>
+        <initializer>{nullptr}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="372" column="21" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="372" bodyend="372"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSceneGraph_1aa0e1e22719ab56c393dc575d9738520b" prot="private" static="no" mutable="no">
+        <type>entt::registry *</type>
+        <definition>entt::registry* SceneGraph::registry_</definition>
+        <argsstring></argsstring>
+        <name>registry_</name>
+        <qualifiedname>SceneGraph::registry_</qualifiedname>
+        <initializer>{nullptr}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="373" column="20" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="373" bodyend="373"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSceneGraph_1ae56efa041a45d466af73707b1e61d7dc" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; entt::entity &gt;</type>
+        <definition>std::vector&lt;entt::entity&gt; SceneGraph::roots_</definition>
+        <argsstring></argsstring>
+        <name>roots_</name>
+        <qualifiedname>SceneGraph::roots_</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="374" column="17" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="374" bodyend="374"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSceneGraph_1a22157e7fe9be0e69e82c722b5c87a656" prot="public" static="no" const="no" explicit="yes" inline="yes" noexcept="yes" virt="non-virtual">
+        <type></type>
+        <definition>SceneGraph::SceneGraph</definition>
+        <argsstring>(entt::registry *registry=nullptr) noexcept</argsstring>
+        <name>SceneGraph</name>
+        <qualifiedname>SceneGraph::SceneGraph</qualifiedname>
+        <param>
+          <type>entt::registry *</type>
+          <declname>registry</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="24" column="14" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="24" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a685265fcd85bcde2bf247b13995c0871" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>entt::entity</type>
+        <definition>entt::entity SceneGraph::create_node</definition>
+        <argsstring>()</argsstring>
+        <name>create_node</name>
+        <qualifiedname>SceneGraph::create_node</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="31" column="18" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="31" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a22e2d9d4410b69a0631868e46e18f1f6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneGraph::ensure_node</definition>
+        <argsstring>(entt::entity e)</argsstring>
+        <name>ensure_node</name>
+        <qualifiedname>SceneGraph::ensure_node</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="40" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="40" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1abd21f8b053d66003d4ab97647df8e761" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneGraph::destroy_subtree</definition>
+        <argsstring>(entt::entity e)</argsstring>
+        <name>destroy_subtree</name>
+        <qualifiedname>SceneGraph::destroy_subtree</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="49" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="49" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a31f907837c5a98290a7dffb27b3dbc76" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneGraph::destroy_node_only</definition>
+        <argsstring>(entt::entity e)</argsstring>
+        <name>destroy_node_only</name>
+        <qualifiedname>SceneGraph::destroy_node_only</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="82" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="82" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a887909777eb6bc5d558f9e048e499c0b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneGraph::attach_child</definition>
+        <argsstring>(entt::entity parent, entt::entity child, entt::entity before=entt::null)</argsstring>
+        <name>attach_child</name>
+        <qualifiedname>SceneGraph::attach_child</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>child</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>before</declname>
+          <defval>entt::null</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="108" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="108" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1ad3e4f5722a1f42e50c3f521e7fbacde5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneGraph::attach_node_python_instance</definition>
+        <argsstring>(entt::entity node, nb::object instance)</argsstring>
+        <name>attach_node_python_instance</name>
+        <qualifiedname>SceneGraph::attach_node_python_instance</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>nb::object</type>
+          <declname>instance</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="187" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="187" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a292f3886cdf8249251970268f244cd71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneGraph::detach</definition>
+        <argsstring>(entt::entity child)</argsstring>
+        <name>detach</name>
+        <qualifiedname>SceneGraph::detach</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>child</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="202" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="202" bodyend="234"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1ad7f435af9b1351a7cb09990e9e1c3b7f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneGraph::reparent</definition>
+        <argsstring>(entt::entity child, entt::entity new_parent, entt::entity before=entt::null)</argsstring>
+        <name>reparent</name>
+        <qualifiedname>SceneGraph::reparent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>child</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>new_parent</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>before</declname>
+          <defval>entt::null</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="238" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="238" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1af09a5abeb98593ededd75262be318c4b" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SceneGraph::contains</definition>
+        <argsstring>(entt::entity e) const noexcept</argsstring>
+        <name>contains</name>
+        <qualifiedname>SceneGraph::contains</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="254" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="254" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a6225021632a1925f53ee4dd15b39ca5d" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>entt::entity</type>
+        <definition>entt::entity SceneGraph::parent</definition>
+        <argsstring>(entt::entity e) const noexcept</argsstring>
+        <name>parent</name>
+        <qualifiedname>SceneGraph::parent</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="258" column="18" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="258" bodyend="260"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a513c2a21d9b0b70af578a0696c3d71ba" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>entt::entity</type>
+        <definition>entt::entity SceneGraph::first_child</definition>
+        <argsstring>(entt::entity e) const noexcept</argsstring>
+        <name>first_child</name>
+        <qualifiedname>SceneGraph::first_child</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="262" column="18" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="262" bodyend="264"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a7d8fa190f242b03f05552e2e38d553a3" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>entt::entity</type>
+        <definition>entt::entity SceneGraph::next_sibling</definition>
+        <argsstring>(entt::entity e) const noexcept</argsstring>
+        <name>next_sibling</name>
+        <qualifiedname>SceneGraph::next_sibling</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="266" column="18" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="266" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a2afe77aa49fde367f603d2e17eb627da" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>entt::entity</type>
+        <definition>entt::entity SceneGraph::prev_sibling</definition>
+        <argsstring>(entt::entity e) const noexcept</argsstring>
+        <name>prev_sibling</name>
+        <qualifiedname>SceneGraph::prev_sibling</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="270" column="18" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="270" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a1384c9f08a9c4b76eeeb6b28d3ae3754" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SceneGraph::is_root</definition>
+        <argsstring>(entt::entity e) const noexcept</argsstring>
+        <name>is_root</name>
+        <qualifiedname>SceneGraph::is_root</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="274" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="274" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1aebc98334e6158e48e8a56e5f56d3c1fb" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const std::vector&lt; entt::entity &gt; &amp;</type>
+        <definition>const std::vector&lt; entt::entity &gt; &amp; SceneGraph::roots</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>roots</name>
+        <qualifiedname>SceneGraph::roots</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="278" column="23" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="278" bodyend="278"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a73d0cc99d30bc7c1817ce8c899b3fca8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Fn</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void SceneGraph::for_each_child</definition>
+        <argsstring>(entt::entity e, Fn &amp;&amp;fn) const</argsstring>
+        <name>for_each_child</name>
+        <qualifiedname>SceneGraph::for_each_child</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>Fn &amp;&amp;</type>
+          <declname>fn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="282" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="282" bodyend="287"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a85eebe12441117d23e1701f2c9c53ba3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Fn</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void SceneGraph::for_each_descendant_preorder</definition>
+        <argsstring>(entt::entity root, Fn &amp;&amp;fn) const</argsstring>
+        <name>for_each_descendant_preorder</name>
+        <qualifiedname>SceneGraph::for_each_descendant_preorder</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>root</declname>
+        </param>
+        <param>
+          <type>Fn &amp;&amp;</type>
+          <declname>fn</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="291" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="291" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a660cc1dc7e62351acb80bc7d32121f90" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int SceneGraph::depth</definition>
+        <argsstring>(entt::entity e) const noexcept</argsstring>
+        <name>depth</name>
+        <qualifiedname>SceneGraph::depth</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="311" column="9" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="311" bodyend="318"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a0bf5efb8b33dc3c53f74d9ed9d88d7bb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; entt::entity &gt;</type>
+        <definition>std::vector&lt; entt::entity &gt; SceneGraph::get_render_order</definition>
+        <argsstring>(entt::entity root) const</argsstring>
+        <name>get_render_order</name>
+        <qualifiedname>SceneGraph::get_render_order</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>root</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="323" column="17" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="323" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a4380cd367bd500cf6629a994720821fa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; entt::entity &gt;</type>
+        <definition>std::vector&lt; entt::entity &gt; SceneGraph::get_all_entities_render_order</definition>
+        <argsstring>() const</argsstring>
+        <name>get_all_entities_render_order</name>
+        <qualifiedname>SceneGraph::get_all_entities_render_order</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="338" column="17" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="338" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1ad5b6d756eb60b2a007c2da60d35218f6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneGraph::drawGraphAsTree</definition>
+        <argsstring>(entt::entity root) const</argsstring>
+        <name>drawGraphAsTree</name>
+        <qualifiedname>SceneGraph::drawGraphAsTree</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>root</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="354" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="354" bodyend="369"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classSceneGraph_1a14d4d4a39d9ae6492fb8d55d34bf7206" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>constexpr bool</type>
+        <definition>static constexpr bool SceneGraph::is_null</definition>
+        <argsstring>(entt::entity e) noexcept</argsstring>
+        <name>is_null</name>
+        <qualifiedname>SceneGraph::is_null</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="252" column="27" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="252" bodyend="252"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classSceneGraph_1a0a0a91d82fa8bc622cdd86a64e9ddf71" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneGraph::add_root_if_absent_</definition>
+        <argsstring>(entt::entity e)</argsstring>
+        <name>add_root_if_absent_</name>
+        <qualifiedname>SceneGraph::add_root_if_absent_</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="378" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="378" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a6c9b289904acbd0d5c0f06919599cffe" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneGraph::erase_root_if_present_</definition>
+        <argsstring>(entt::entity e)</argsstring>
+        <name>erase_root_if_present_</name>
+        <qualifiedname>SceneGraph::erase_root_if_present_</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="383" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="383" bodyend="386"/>
+      </memberdef>
+      <memberdef kind="function" id="classSceneGraph_1a2bcd914ae9bae5055ba64f0b70045cb1" prot="private" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SceneGraph::is_descendant_of_</definition>
+        <argsstring>(entt::entity candidate, entt::entity ancestor) const noexcept</argsstring>
+        <name>is_descendant_of_</name>
+        <qualifiedname>SceneGraph::is_descendant_of_</qualifiedname>
+        <param>
+          <type>entt::entity</type>
+          <declname>candidate</declname>
+        </param>
+        <param>
+          <type>entt::entity</type>
+          <declname>ancestor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/LowLevelRenderer/SceneGraph.hpp" line="389" column="10" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="389" bodyend="395"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/LowLevelRenderer/SceneGraph.hpp" line="22" column="1" bodyfile="src/LowLevelRenderer/SceneGraph.hpp" bodystart="22" bodyend="396"/>
+    <listofallmembers>
+      <member refid="classSceneGraph_1a0a0a91d82fa8bc622cdd86a64e9ddf71" prot="private" virt="non-virtual"><scope>SceneGraph</scope><name>add_root_if_absent_</name></member>
+      <member refid="classSceneGraph_1a887909777eb6bc5d558f9e048e499c0b" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>attach_child</name></member>
+      <member refid="classSceneGraph_1ad3e4f5722a1f42e50c3f521e7fbacde5" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>attach_node_python_instance</name></member>
+      <member refid="classSceneGraph_1af09a5abeb98593ededd75262be318c4b" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>contains</name></member>
+      <member refid="classSceneGraph_1a685265fcd85bcde2bf247b13995c0871" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>create_node</name></member>
+      <member refid="classSceneGraph_1a660cc1dc7e62351acb80bc7d32121f90" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>depth</name></member>
+      <member refid="classSceneGraph_1a31f907837c5a98290a7dffb27b3dbc76" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>destroy_node_only</name></member>
+      <member refid="classSceneGraph_1abd21f8b053d66003d4ab97647df8e761" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>destroy_subtree</name></member>
+      <member refid="classSceneGraph_1a292f3886cdf8249251970268f244cd71" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>detach</name></member>
+      <member refid="classSceneGraph_1ad5b6d756eb60b2a007c2da60d35218f6" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>drawGraphAsTree</name></member>
+      <member refid="classSceneGraph_1a22e2d9d4410b69a0631868e46e18f1f6" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>ensure_node</name></member>
+      <member refid="classSceneGraph_1a6c9b289904acbd0d5c0f06919599cffe" prot="private" virt="non-virtual"><scope>SceneGraph</scope><name>erase_root_if_present_</name></member>
+      <member refid="classSceneGraph_1a513c2a21d9b0b70af578a0696c3d71ba" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>first_child</name></member>
+      <member refid="classSceneGraph_1a73d0cc99d30bc7c1817ce8c899b3fca8" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>for_each_child</name></member>
+      <member refid="classSceneGraph_1a85eebe12441117d23e1701f2c9c53ba3" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>for_each_descendant_preorder</name></member>
+      <member refid="classSceneGraph_1a4380cd367bd500cf6629a994720821fa" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>get_all_entities_render_order</name></member>
+      <member refid="classSceneGraph_1a0bf5efb8b33dc3c53f74d9ed9d88d7bb" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>get_render_order</name></member>
+      <member refid="classSceneGraph_1a2bcd914ae9bae5055ba64f0b70045cb1" prot="private" virt="non-virtual"><scope>SceneGraph</scope><name>is_descendant_of_</name></member>
+      <member refid="classSceneGraph_1a14d4d4a39d9ae6492fb8d55d34bf7206" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>is_null</name></member>
+      <member refid="classSceneGraph_1a1384c9f08a9c4b76eeeb6b28d3ae3754" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>is_root</name></member>
+      <member refid="classSceneGraph_1a7d8fa190f242b03f05552e2e38d553a3" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>next_sibling</name></member>
+      <member refid="classSceneGraph_1a952786c9b602c986bae34f4e6aaca6d8" prot="private" virt="non-virtual"><scope>SceneGraph</scope><name>owned_registry_</name></member>
+      <member refid="classSceneGraph_1a6225021632a1925f53ee4dd15b39ca5d" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>parent</name></member>
+      <member refid="classSceneGraph_1a2afe77aa49fde367f603d2e17eb627da" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>prev_sibling</name></member>
+      <member refid="classSceneGraph_1aa0e1e22719ab56c393dc575d9738520b" prot="private" virt="non-virtual"><scope>SceneGraph</scope><name>registry_</name></member>
+      <member refid="classSceneGraph_1ad7f435af9b1351a7cb09990e9e1c3b7f" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>reparent</name></member>
+      <member refid="classSceneGraph_1aebc98334e6158e48e8a56e5f56d3c1fb" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>roots</name></member>
+      <member refid="classSceneGraph_1ae56efa041a45d466af73707b1e61d7dc" prot="private" virt="non-virtual"><scope>SceneGraph</scope><name>roots_</name></member>
+      <member refid="classSceneGraph_1a22157e7fe9be0e69e82c722b5c87a656" prot="public" virt="non-virtual"><scope>SceneGraph</scope><name>SceneGraph</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

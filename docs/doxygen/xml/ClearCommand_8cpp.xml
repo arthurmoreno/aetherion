@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="ClearCommand_8cpp" kind="file" language="C++">
+    <compoundname>ClearCommand.cpp</compoundname>
+    <includes refid="ClearCommand_8hpp" local="yes">ClearCommand.hpp</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>src/Gui/TerminalPrograms/ClearCommand.cpp</label>
+        <link refid="ClearCommand_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ClearCommand.hpp</label>
+        <link refid="ClearCommand_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>TerminalCommand.hpp</label>
+        <link refid="TerminalCommand_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>deque</label>
+      </node>
+      <node id="4">
+        <label>nanobind/nanobind.h</label>
+      </node>
+      <node id="6">
+        <label>string</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;ClearCommand.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classClearCommand_1a0a6c06b3442c21b34866b8fa30e643ff" kindref="member">ClearCommand::execute</ref>(<ref refid="structGuiContext" kindref="compound">GuiContext</ref>&amp;<sp/>context,<sp/>std::deque&lt;TerminalLine&gt;&amp;<sp/>terminalBuffer,</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">&amp;<sp/>scrollToBottom)<sp/>{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>terminalBuffer.clear();</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classTerminalCommand_1a8975332a523175e1d4983db065de5ea0" kindref="member">addOutput</ref>(terminalBuffer,<sp/></highlight><highlight class="stringliteral">&quot;Terminal<sp/>cleared.<sp/>Type<sp/>&apos;help&apos;<sp/>for<sp/>available<sp/>commands.&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>scrollToBottom<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/Gui/TerminalPrograms/ClearCommand.cpp"/>
+  </compounddef>
+</doxygen>

@@ -199,34 +199,6 @@
         </inbodydescription>
         <location file="src/settings.hpp" line="21" column="11" bodyfile="src/settings.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="settings_8hpp_1ac097b0fb5fdac7e47cb002681816e007" prot="public" static="no" mutable="no">
-        <type>const bool</type>
-        <definition>const bool GRAVITY_FRICTION</definition>
-        <argsstring></argsstring>
-        <name>GRAVITY_FRICTION</name>
-        <initializer>= true</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/settings.hpp" line="23" column="12" bodyfile="src/settings.hpp" bodystart="23" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="settings_8hpp_1a48e56f4d6787b67d97b4655a84e7c3f1" prot="public" static="no" mutable="no">
-        <type>const float</type>
-        <definition>const float GRAVITY</definition>
-        <argsstring></argsstring>
-        <name>GRAVITY</name>
-        <initializer>= 9.81f</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/settings.hpp" line="24" column="13" bodyfile="src/settings.hpp" bodystart="24" bodyend="-1"/>
-      </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
@@ -255,8 +227,8 @@
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SPRITE_SIZE<sp/>=<sp/>32;</highlight></codeline>
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>GRAVITY_FRICTION<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>GRAVITY<sp/>=<sp/>9.81f;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>const<sp/>bool<sp/>GRAVITY_FRICTION<sp/>=<sp/>true;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>const<sp/>float<sp/>GRAVITY<sp/>=<sp/>9.81f;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHYSICS_COMP_AS_3DARRAY<sp/>true</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="27"><highlight class="normal"></highlight></codeline>

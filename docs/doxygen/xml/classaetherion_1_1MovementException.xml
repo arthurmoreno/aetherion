@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1MovementException" kind="class" language="C++" prot="public">
+    <compoundname>aetherion::MovementException</compoundname>
+    <basecompoundref refid="classaetherion_1_1PhysicsException" prot="public" virt="non-virtual">aetherion::PhysicsException</basecompoundref>
+    <derivedcompoundref refid="classaetherion_1_1VaporMovementBlockedException" prot="public" virt="non-virtual">aetherion::VaporMovementBlockedException</derivedcompoundref>
+    <includes refid="PhysicsExceptions_8hpp" local="no">PhysicsExceptions.hpp</includes>
+    <briefdescription>
+<para>Exception thrown when movement operations fail. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This exception indicates errors during entity movement, collision detection, or velocity calculations in the physics engine. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion::MovementException</label>
+        <link refid="classaetherion_1_1MovementException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion::PhysicsException</label>
+        <link refid="classaetherion_1_1PhysicsException"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aetherion::VaporMovementBlockedException</label>
+        <link refid="classaetherion_1_1VaporMovementBlockedException"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::runtime_error</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion::MovementException</label>
+        <link refid="classaetherion_1_1MovementException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion::PhysicsException</label>
+        <link refid="classaetherion_1_1PhysicsException"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::runtime_error</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/physics/PhysicsExceptions.hpp" line="53" column="1" bodyfile="src/physics/PhysicsExceptions.hpp" bodystart="53" bodyend="56"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

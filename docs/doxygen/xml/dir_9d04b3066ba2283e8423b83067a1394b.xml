@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_9d04b3066ba2283e8423b83067a1394b" kind="dir">
+    <compoundname>src/Gui/TerminalPrograms</compoundname>
+    <innerfile refid="ClearCommand_8cpp">ClearCommand.cpp</innerfile>
+    <innerfile refid="ClearCommand_8hpp">ClearCommand.hpp</innerfile>
+    <innerfile refid="HelpCommand_8cpp">HelpCommand.cpp</innerfile>
+    <innerfile refid="HelpCommand_8hpp">HelpCommand.hpp</innerfile>
+    <innerfile refid="HistoryCommand_8cpp">HistoryCommand.cpp</innerfile>
+    <innerfile refid="HistoryCommand_8hpp">HistoryCommand.hpp</innerfile>
+    <innerfile refid="QueueCommand_8cpp">QueueCommand.cpp</innerfile>
+    <innerfile refid="QueueCommand_8hpp">QueueCommand.hpp</innerfile>
+    <innerfile refid="TerminalCommand_8cpp">TerminalCommand.cpp</innerfile>
+    <innerfile refid="TerminalCommand_8hpp">TerminalCommand.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Gui/TerminalPrograms/"/>
+  </compounddef>
+</doxygen>

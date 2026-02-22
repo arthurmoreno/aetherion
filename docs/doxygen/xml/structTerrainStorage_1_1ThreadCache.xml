@@ -1,0 +1,493 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structTerrainStorage_1_1ThreadCache" kind="struct" language="C++" prot="private">
+    <compoundname>TerrainStorage::ThreadCache</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1aaf32811b0890ebe9d1108136d1c1eb63" prot="public" static="no" mutable="no">
+        <type>const <ref refid="classTerrainStorage" kindref="compound">TerrainStorage</ref> *</type>
+        <definition>const TerrainStorage* TerrainStorage::ThreadCache::owner</definition>
+        <argsstring></argsstring>
+        <name>owner</name>
+        <qualifiedname>TerrainStorage::ThreadCache::owner</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="168" column="30" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a71dda65c373ff3befbec3b093ce09a3e" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::terrainPtr</definition>
+        <argsstring></argsstring>
+        <name>terrainPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::terrainPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="171" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a9e0a5e296bcb54edc5d6e382d7af2d0e" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::mainTypePtr</definition>
+        <argsstring></argsstring>
+        <name>mainTypePtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::mainTypePtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="172" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1acf8ff7e8d1edec109b5c583ac857f7b4" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::subType0Ptr</definition>
+        <argsstring></argsstring>
+        <name>subType0Ptr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::subType0Ptr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="173" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1aae47afe3c805e0c2c978f43e811e1729" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::subType1Ptr</definition>
+        <argsstring></argsstring>
+        <name>subType1Ptr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::subType1Ptr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="174" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1ab553a55c7e2cef0e5764f7c1ea2c9814" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::terrainMatterPtr</definition>
+        <argsstring></argsstring>
+        <name>terrainMatterPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::terrainMatterPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="175" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a77058d727d74334f55997ebeff195544" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::waterMatterPtr</definition>
+        <argsstring></argsstring>
+        <name>waterMatterPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::waterMatterPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="176" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a8338128897e2d2f9ac3516dad8a832fa" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::vaporMatterPtr</definition>
+        <argsstring></argsstring>
+        <name>vaporMatterPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::vaporMatterPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="177" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a7f90f3e89ee7fd83a7242d6c396bb81f" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::biomassMatterPtr</definition>
+        <argsstring></argsstring>
+        <name>biomassMatterPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::biomassMatterPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="178" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a60d675a4889e6e0123a4c05bf6633af7" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::massPtr</definition>
+        <argsstring></argsstring>
+        <name>massPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::massPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="179" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a4c3c9db80cd357e8c5bc436c3e7b6cf3" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::maxSpeedPtr</definition>
+        <argsstring></argsstring>
+        <name>maxSpeedPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::maxSpeedPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="180" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a43d458c0d2a754346680ae5d4967bb6b" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::minSpeedPtr</definition>
+        <argsstring></argsstring>
+        <name>minSpeedPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::minSpeedPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="181" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a9dc187fc91a620cfe9189da6c4daaa4a" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::flagsPtr</definition>
+        <argsstring></argsstring>
+        <name>flagsPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::flagsPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="182" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a63665befdaf512a333b0cf1ced26ece2" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::maxLoadCapacityPtr</definition>
+        <argsstring></argsstring>
+        <name>maxLoadCapacityPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::maxLoadCapacityPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="183" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a248d913e5deed644759adf4286f4ffab" prot="public" static="no" mutable="no">
+        <type>const void *</type>
+        <definition>const void* TerrainStorage::ThreadCache::heatPtr</definition>
+        <argsstring></argsstring>
+        <name>heatPtr</name>
+        <qualifiedname>TerrainStorage::ThreadCache::heatPtr</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="184" column="20" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1aa20cde36c34213e3b24d971e080a8ec2" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::terrainAcc</definition>
+        <argsstring></argsstring>
+        <name>terrainAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::terrainAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="188" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a19191c5fb5a2f086c8a0fdb45ad32475" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::mainTypeAcc</definition>
+        <argsstring></argsstring>
+        <name>mainTypeAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::mainTypeAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="191" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a50d7c104845240730c70f01673573c10" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::subType0Acc</definition>
+        <argsstring></argsstring>
+        <name>subType0Acc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::subType0Acc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="192" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a6f5a1a0f8bf647b39888987d83f3d318" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::subType1Acc</definition>
+        <argsstring></argsstring>
+        <name>subType1Acc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::subType1Acc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="193" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1acc20e7e0eaade05bbde31cfac834b1b8" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::terrainMatterAcc</definition>
+        <argsstring></argsstring>
+        <name>terrainMatterAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::terrainMatterAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="196" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a227cae1eb0c382bc71a610cbc40e126c" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::waterMatterAcc</definition>
+        <argsstring></argsstring>
+        <name>waterMatterAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::waterMatterAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="197" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1ac94db094d22276805801c67a2ca499a6" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::vaporMatterAcc</definition>
+        <argsstring></argsstring>
+        <name>vaporMatterAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::vaporMatterAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="198" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1ac2b9fb309de1c751f9f49bcaaa61bdd2" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::biomassMatterAcc</definition>
+        <argsstring></argsstring>
+        <name>biomassMatterAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::biomassMatterAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="199" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1ad9c5ed388e8d6825a2b2e7800f16be6f" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::massAcc</definition>
+        <argsstring></argsstring>
+        <name>massAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::massAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="202" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1afec670b40da22cf87cc066acc245e1cf" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::maxSpeedAcc</definition>
+        <argsstring></argsstring>
+        <name>maxSpeedAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::maxSpeedAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="203" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1ae3a68517360b96ad86d38550a22b6c82" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::minSpeedAcc</definition>
+        <argsstring></argsstring>
+        <name>minSpeedAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::minSpeedAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="204" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1aaace14e66cd4bd1e982c2f56711b5417" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::FloatGrid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::FloatGrid::Accessor&gt; TerrainStorage::ThreadCache::heatAcc</definition>
+        <argsstring></argsstring>
+        <name>heatAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::heatAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="205" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a2c7716ad31730312607963b47900a725" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::flagsAcc</definition>
+        <argsstring></argsstring>
+        <name>flagsAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::flagsAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="208" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1aa238268ee34d7ca203a92436bd0abf9f" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; openvdb::Int32Grid::Accessor &gt;</type>
+        <definition>std::unique_ptr&lt;openvdb::Int32Grid::Accessor&gt; TerrainStorage::ThreadCache::maxLoadCapacityAcc</definition>
+        <argsstring></argsstring>
+        <name>maxLoadCapacityAcc</name>
+        <qualifiedname>TerrainStorage::ThreadCache::maxLoadCapacityAcc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="209" column="25" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structTerrainStorage_1_1ThreadCache_1a6e10b0eb3608c44e5c559c9b52ab922f" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TerrainStorage::ThreadCache::configured</definition>
+        <argsstring></argsstring>
+        <name>configured</name>
+        <qualifiedname>TerrainStorage::ThreadCache::configured</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/TerrainStorage.hpp" line="211" column="14" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="211" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>TerrainStorage</label>
+        <link refid="classTerrainStorage"/>
+      </node>
+      <node id="1">
+        <label>TerrainStorage::ThreadCache</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>owner</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/terrain/TerrainStorage.hpp" line="166" column="5" bodyfile="src/terrain/TerrainStorage.hpp" bodystart="166" bodyend="212"/>
+    <listofallmembers>
+      <member refid="structTerrainStorage_1_1ThreadCache_1ac2b9fb309de1c751f9f49bcaaa61bdd2" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>biomassMatterAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a7f90f3e89ee7fd83a7242d6c396bb81f" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>biomassMatterPtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a6e10b0eb3608c44e5c559c9b52ab922f" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>configured</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a2c7716ad31730312607963b47900a725" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>flagsAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a9dc187fc91a620cfe9189da6c4daaa4a" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>flagsPtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1aaace14e66cd4bd1e982c2f56711b5417" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>heatAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a248d913e5deed644759adf4286f4ffab" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>heatPtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a19191c5fb5a2f086c8a0fdb45ad32475" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>mainTypeAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a9e0a5e296bcb54edc5d6e382d7af2d0e" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>mainTypePtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1ad9c5ed388e8d6825a2b2e7800f16be6f" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>massAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a60d675a4889e6e0123a4c05bf6633af7" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>massPtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1aa238268ee34d7ca203a92436bd0abf9f" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>maxLoadCapacityAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a63665befdaf512a333b0cf1ced26ece2" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>maxLoadCapacityPtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1afec670b40da22cf87cc066acc245e1cf" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>maxSpeedAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a4c3c9db80cd357e8c5bc436c3e7b6cf3" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>maxSpeedPtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1ae3a68517360b96ad86d38550a22b6c82" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>minSpeedAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a43d458c0d2a754346680ae5d4967bb6b" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>minSpeedPtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1aaf32811b0890ebe9d1108136d1c1eb63" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>owner</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a50d7c104845240730c70f01673573c10" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>subType0Acc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1acf8ff7e8d1edec109b5c583ac857f7b4" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>subType0Ptr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a6f5a1a0f8bf647b39888987d83f3d318" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>subType1Acc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1aae47afe3c805e0c2c978f43e811e1729" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>subType1Ptr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1aa20cde36c34213e3b24d971e080a8ec2" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>terrainAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1acc20e7e0eaade05bbde31cfac834b1b8" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>terrainMatterAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1ab553a55c7e2cef0e5764f7c1ea2c9814" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>terrainMatterPtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a71dda65c373ff3befbec3b093ce09a3e" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>terrainPtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1ac94db094d22276805801c67a2ca499a6" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>vaporMatterAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a8338128897e2d2f9ac3516dad8a832fa" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>vaporMatterPtr</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a227cae1eb0c382bc71a610cbc40e126c" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>waterMatterAcc</name></member>
+      <member refid="structTerrainStorage_1_1ThreadCache_1a77058d727d74334f55997ebeff195544" prot="public" virt="non-virtual"><scope>TerrainStorage::ThreadCache</scope><name>waterMatterPtr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

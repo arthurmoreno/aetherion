@@ -1,0 +1,366 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::world::recorder::WorldRecorderManager</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a6127ce807e212b6db622d84d502e5791" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.recorder.WorldRecorderManager::recordings_dir_</definition>
+        <argsstring></argsstring>
+        <name>recordings_dir_</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.recordings_dir_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="424" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a0097808ab57312b2a5d3098beb0fe6e7" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.recorder.WorldRecorderManager::active_recorder_</definition>
+        <argsstring></argsstring>
+        <name>active_recorder_</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.active_recorder_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="457" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="457" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a40288b2d5e346b81a7e3f72b86fc2aa3" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.recorder.WorldRecorderManager::current_recording_name_</definition>
+        <argsstring></argsstring>
+        <name>current_recording_name_</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.current_recording_name_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="458" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="458" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a7884ab390970b328707e2b15959bd147" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.recorder.WorldRecorderManager.__init__</definition>
+        <argsstring>(self, str recordings_dir=&quot;recordings&quot;)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>recordings_dir</declname>
+          <defval>&quot;recordings&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initialize the WorldRecorderManager.
+
+Args:
+    recordings_dir: Directory where recordings will be saved (default: &quot;recordings&quot;)
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="418" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="418" bodyend="431"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1ad9c61a7ffeb04a485fe28e8578f6279a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str</type>
+        <definition> str aetherion.world.recorder.WorldRecorderManager.start_recording</definition>
+        <argsstring>(self, Optional[str] name=None, Optional[dict[str, Any]] config=None)</argsstring>
+        <name>start_recording</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.start_recording</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>name</declname>
+          <array>[str]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional]</type>
+          <declname>config</declname>
+          <array>[dict[str, Any]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Start a new recording session.
+
+Args:
+    name: Optional name for the recording. If not provided, generates timestamp-based name
+    config: Optional configuration for the WorldRecorder
+
+Returns:
+    The name of the started recording
+
+Raises:
+    RuntimeError: If a recording is already in progress
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="432" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="432" bodyend="463"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1ac567e28f71870e761709aeb335b2d884" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Optional[str]</type>
+        <definition> Optional[str] aetherion.world.recorder.WorldRecorderManager.stop_recording</definition>
+        <argsstring>(self)</argsstring>
+        <name>stop_recording</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.stop_recording</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Stop the current recording session.
+
+Returns:
+    The name of the stopped recording, or None if no recording was active
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="464" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="464" bodyend="480"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a51ae166195bf1a99aec75efbc065e70f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str</type>
+        <definition> str aetherion.world.recorder.WorldRecorderManager.save_recording</definition>
+        <argsstring>(self, Optional[str] name=None, Optional[str] filepath=None)</argsstring>
+        <name>save_recording</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.save_recording</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>name</declname>
+          <array>[str]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>filepath</declname>
+          <array>[str]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Save the current or specified recording to disk.
+
+Args:
+    name: Name to use when saving. If None, uses current recording name
+    filepath: Custom filepath. If None, saves to recordings_dir with .pkl extension
+
+Returns:
+    The filepath where the recording was saved
+
+Raises:
+    RuntimeError: If no active recorder exists
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="481" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="481" bodyend="512"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a05c30a3c769594392d638d671aa355dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.recorder.WorldRecorderManager.load_recording</definition>
+        <argsstring>(self, str name_or_path)</argsstring>
+        <name>load_recording</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.load_recording</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name_or_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Load a recording from disk.
+
+Args:
+    name_or_path: Either a recording name (will look in recordings_dir)
+                 or an absolute filepath to a recording file
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="513" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="513" bodyend="538"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1ac373fd0784fd78e0efa7410fdf88c905" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>list[dict[str, Any]]</type>
+        <definition> list[dict[str, Any]] aetherion.world.recorder.WorldRecorderManager.list_recordings</definition>
+        <argsstring>(self)</argsstring>
+        <name>list_recordings</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.list_recordings</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>List all available recordings in the recordings directory.
+
+Returns:
+    List of dictionaries containing recording information:
+        - name: Recording name (without extension)
+        - filepath: Full path to the recording file
+        - size_bytes: File size in bytes
+        - modified: Last modified timestamp
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="539" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="539" bodyend="572"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1adca7fb42bdd1d508cf8ca966e416ca74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Optional[<ref refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorder" kindref="compound">WorldRecorder</ref>]</type>
+        <definition> Optional[WorldRecorder] aetherion.world.recorder.WorldRecorderManager.get_active_recorder</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_active_recorder</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.get_active_recorder</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get the currently active WorldRecorder instance.
+
+Returns:
+    The active WorldRecorder, or None if no recorder is active
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="573" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="573" bodyend="580"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a9972b5dc835988c5177e8c7164a02e14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.world.recorder.WorldRecorderManager.is_recording</definition>
+        <argsstring>(self)</argsstring>
+        <name>is_recording</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.is_recording</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if a recording is currently in progress.
+
+Returns:
+    True if recording is active, False otherwise
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="581" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="581" bodyend="588"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1af6a531441e3838c00e8d6a3ef49e6e23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Optional[str]</type>
+        <definition> Optional[str] aetherion.world.recorder.WorldRecorderManager.get_current_recording_name</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_current_recording_name</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.get_current_recording_name</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get the name of the current recording.
+
+Returns:
+    The current recording name, or None if no recording is active
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="589" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="589" bodyend="596"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a9d4f0479cbe7103a87ad4cb1a7157aaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.world.recorder.WorldRecorderManager.delete_recording</definition>
+        <argsstring>(self, str name)</argsstring>
+        <name>delete_recording</name>
+        <qualifiedname>aetherion.world.recorder.WorldRecorderManager.delete_recording</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Delete a recording from disk.
+
+Args:
+    name: Name of the recording to delete
+
+Returns:
+    True if deletion was successful, False otherwise
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/recorder.py" line="597" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="597" bodyend="619"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Manages multiple world recordings and provides a simple interface for recording operations.
+
+This manager handles the lifecycle of recordings, including starting, stopping,
+saving, and listing recordings. It manages a single active recorder at a time.
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/world/recorder.py" line="411" column="1" bodyfile="src/aetherion/world/recorder.py" bodystart="411" bodyend="619"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a7884ab390970b328707e2b15959bd147" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a0097808ab57312b2a5d3098beb0fe6e7" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>active_recorder_</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a40288b2d5e346b81a7e3f72b86fc2aa3" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>current_recording_name_</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a9d4f0479cbe7103a87ad4cb1a7157aaf" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>delete_recording</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1adca7fb42bdd1d508cf8ca966e416ca74" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>get_active_recorder</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1af6a531441e3838c00e8d6a3ef49e6e23" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>get_current_recording_name</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a9972b5dc835988c5177e8c7164a02e14" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>is_recording</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1ac373fd0784fd78e0efa7410fdf88c905" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>list_recordings</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a05c30a3c769594392d638d671aa355dc" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>load_recording</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a6127ce807e212b6db622d84d502e5791" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>recordings_dir_</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1a51ae166195bf1a99aec75efbc065e70f" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>save_recording</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1ad9c61a7ffeb04a485fe28e8578f6279a" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>start_recording</name></member>
+      <member refid="classaetherion_1_1world_1_1recorder_1_1WorldRecorderManager_1ac567e28f71870e761709aeb335b2d884" prot="public" virt="non-virtual"><scope>aetherion::world::recorder::WorldRecorderManager</scope><name>stop_recording</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

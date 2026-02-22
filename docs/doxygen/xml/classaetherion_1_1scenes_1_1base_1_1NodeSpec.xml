@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1scenes_1_1base_1_1NodeSpec" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::scenes::base::NodeSpec</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1a07db4cc04efe84a0190b2c76b6914614" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.scenes.base.NodeSpec::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>aetherion.scenes.base.NodeSpec.name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="12" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1a4e5bd68f254a4f5c99534b88125fae2d" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.scenes.base.NodeSpec::cls</definition>
+        <argsstring></argsstring>
+        <name>cls</name>
+        <qualifiedname>aetherion.scenes.base.NodeSpec.cls</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="13" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1ae34963132e537b0921687a3a0a4864d5" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.scenes.base.NodeSpec::kwargs</definition>
+        <argsstring></argsstring>
+        <name>kwargs</name>
+        <qualifiedname>aetherion.scenes.base.NodeSpec.kwargs</qualifiedname>
+        <initializer>=  Field(default_factory=dict)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="14" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1a7be5ec74f09c2f3775a1654411c1e87c" prot="public" static="yes" mutable="no">
+        <type>list</type>
+        <definition>list aetherion.scenes.base.NodeSpec::children</definition>
+        <argsstring></argsstring>
+        <name>children</name>
+        <qualifiedname>aetherion.scenes.base.NodeSpec.children</qualifiedname>
+        <initializer>=  Field(default_factory=list)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="15" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1a0ee5376818469f2eba4f576212a5d2c1" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.scenes.base.NodeSpec::uuid</definition>
+        <argsstring></argsstring>
+        <name>uuid</name>
+        <qualifiedname>aetherion.scenes.base.NodeSpec.uuid</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="16" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1abb60fabe7ef7e6378ada0d38864be66e" prot="public" static="yes" mutable="no">
+        <type></type>
+        <definition>aetherion.scenes.base.NodeSpec::model_config</definition>
+        <argsstring></argsstring>
+        <name>model_config</name>
+        <qualifiedname>aetherion.scenes.base.NodeSpec.model_config</qualifiedname>
+        <initializer>=  ConfigDict(
+        arbitrary_types_allowed=True,
+        validate_assignment=True,
+        str_strip_whitespace=True,
+    )</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="18" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Specification for scene graph nodes with validation and serialization support.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.scenes.base.NodeSpec</label>
+        <link refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.scenes.base.NodeSpec</label>
+        <link refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/scenes/base.py" line="9" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="9" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1a7be5ec74f09c2f3775a1654411c1e87c" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::NodeSpec</scope><name>children</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1a4e5bd68f254a4f5c99534b88125fae2d" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::NodeSpec</scope><name>cls</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1ae34963132e537b0921687a3a0a4864d5" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::NodeSpec</scope><name>kwargs</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1abb60fabe7ef7e6378ada0d38864be66e" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::NodeSpec</scope><name>model_config</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1a07db4cc04efe84a0190b2c76b6914614" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::NodeSpec</scope><name>name</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1NodeSpec_1a0ee5376818469f2eba4f576212a5d2c1" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::NodeSpec</scope><name>uuid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

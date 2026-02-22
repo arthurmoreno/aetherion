@@ -1,0 +1,403 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceCommandConstants_1_1TimeSeriesNames" kind="namespace" language="C++">
+    <compoundname>CommandConstants::TimeSeriesNames</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a82436c5466db023a7e17442916b883f7" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::POPULATION_SIZE</definition>
+        <argsstring></argsstring>
+        <name>POPULATION_SIZE</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::POPULATION_SIZE</qualifiedname>
+        <initializer>= &quot;population_size&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="33" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a22c83a00ee3c4c6e9596ee411a96d4b5" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::INFERENCE_QUEUE_SIZE</definition>
+        <argsstring></argsstring>
+        <name>INFERENCE_QUEUE_SIZE</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::INFERENCE_QUEUE_SIZE</qualifiedname>
+        <initializer>= &quot;inference_queue_size&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="34" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a6a0b5b86ff8b9532bd396e903d091660" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::ACTION_QUEUE_SIZE</definition>
+        <argsstring></argsstring>
+        <name>ACTION_QUEUE_SIZE</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::ACTION_QUEUE_SIZE</qualifiedname>
+        <initializer>= &quot;action_queue_size&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="35" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1af0e43f820ecaf13e022ccd66c48766e7" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::POPULATION_MEAN</definition>
+        <argsstring></argsstring>
+        <name>POPULATION_MEAN</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::POPULATION_MEAN</qualifiedname>
+        <initializer>= &quot;population_mean&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="36" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1ab61211a7c9bdb0e3f13d4aa6c24b18ad" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::POPULATION_MAX</definition>
+        <argsstring></argsstring>
+        <name>POPULATION_MAX</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::POPULATION_MAX</qualifiedname>
+        <initializer>= &quot;population_max&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="37" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a6e3a274535b27c1714fe230950231b18" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::POPULATION_MIN</definition>
+        <argsstring></argsstring>
+        <name>POPULATION_MIN</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::POPULATION_MIN</qualifiedname>
+        <initializer>= &quot;population_min&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="38" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a388bc9b6c00129b71ea2c8abdd426ddf" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_MOVE_GAS_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_MOVE_GAS_ENTITY</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_MOVE_GAS_ENTITY</qualifiedname>
+        <initializer>= &quot;physics_move_gas_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="41" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a7cb69dea46dc8837e552277f7f35c77d" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_MOVE_SOLID_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_MOVE_SOLID_ENTITY</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_MOVE_SOLID_ENTITY</qualifiedname>
+        <initializer>= &quot;physics_move_solid_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="42" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a73ddf5da016d3676f8cbb6b1a89cccba" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_EVAPORATE_WATER_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_EVAPORATE_WATER_ENTITY</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_EVAPORATE_WATER_ENTITY</qualifiedname>
+        <initializer>= &quot;physics_evaporate_water_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="43" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a7049fe8ba3d0fdf0581dbf33266eb3ab" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_CONDENSE_WATER_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_CONDENSE_WATER_ENTITY</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_CONDENSE_WATER_ENTITY</qualifiedname>
+        <initializer>= &quot;physics_condense_water_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="44" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1ae9944b9b248357cb4f3d154409bdd60f" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_WATER_FALL_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_WATER_FALL_ENTITY</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_WATER_FALL_ENTITY</qualifiedname>
+        <initializer>= &quot;physics_water_fall_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="45" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a23c52d8e0046944d0ef79dfb4643a5f6" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_WATER_SPREAD</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_WATER_SPREAD</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_WATER_SPREAD</qualifiedname>
+        <initializer>= &quot;physics_water_spread&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="46" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a4f43ac870ae907300e38e254ca54192e" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_WATER_GRAVITY_FLOW</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_WATER_GRAVITY_FLOW</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_WATER_GRAVITY_FLOW</qualifiedname>
+        <initializer>= &quot;physics_water_gravity_flow&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="47" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1ad621c9bba25d702372bc8a84714be510" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_TERRAIN_PHASE_CONVERSION</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_TERRAIN_PHASE_CONVERSION</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_TERRAIN_PHASE_CONVERSION</qualifiedname>
+        <initializer>= &quot;physics_terrain_phase_conversion&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="48" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a4401f27c646a699e152229b08db16e8c" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_VAPOR_CREATION</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_VAPOR_CREATION</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_VAPOR_CREATION</qualifiedname>
+        <initializer>= &quot;physics_vapor_creation&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="49" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a6b474f3cdc3dbf5fe5adec07635fb731" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_VAPOR_MERGE_UP</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_VAPOR_MERGE_UP</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_VAPOR_MERGE_UP</qualifiedname>
+        <initializer>= &quot;physics_vapor_merge_up&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="50" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a9eabd0b6c2b0dbc3c74144088d0c7774" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_VAPOR_MERGE_SIDEWAYS</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_VAPOR_MERGE_SIDEWAYS</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_VAPOR_MERGE_SIDEWAYS</qualifiedname>
+        <initializer>= &quot;physics_vapor_merge_sideways&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="51" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a7a8b7723499f895a4db693b3a0aedd9b" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_ADD_VAPOR_TO_TILE_ABOVE</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_ADD_VAPOR_TO_TILE_ABOVE</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_ADD_VAPOR_TO_TILE_ABOVE</qualifiedname>
+        <initializer>= &quot;physics_add_vapor_to_tile_above&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="52" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1ac1ce017430bf74957c5e580be3ce20a1" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_CREATE_VAPOR_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_CREATE_VAPOR_ENTITY</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_CREATE_VAPOR_ENTITY</qualifiedname>
+        <initializer>= &quot;physics_create_vapor_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="53" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1ad3739e61df0db850d694a130eaecd31d" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_DELETE_OR_CONVERT_TERRAIN</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_DELETE_OR_CONVERT_TERRAIN</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_DELETE_OR_CONVERT_TERRAIN</qualifiedname>
+        <initializer>= &quot;physics_delete_or_convert_terrain&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="54" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a3f01e1167f1ad838e6d9c3f91d4d861f" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::PHYSICS_INVALID_TERRAIN_FOUND</definition>
+        <argsstring></argsstring>
+        <name>PHYSICS_INVALID_TERRAIN_FOUND</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::PHYSICS_INVALID_TERRAIN_FOUND</qualifiedname>
+        <initializer>= &quot;physics_invalid_terrain_found&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="55" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1aa0db4800dda18e536e5bc335d3415189" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::LIFE_KILL_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>LIFE_KILL_ENTITY</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::LIFE_KILL_ENTITY</qualifiedname>
+        <initializer>= &quot;life_kill_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="58" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a4b485234495792d5422ec58e8863b1c8" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::LIFE_SOFT_KILL_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>LIFE_SOFT_KILL_ENTITY</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::LIFE_SOFT_KILL_ENTITY</qualifiedname>
+        <initializer>= &quot;life_soft_kill_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="59" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1aba8eb2a288729b195cb8141266db465c" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::LIFE_HARD_KILL_ENTITY</definition>
+        <argsstring></argsstring>
+        <name>LIFE_HARD_KILL_ENTITY</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::LIFE_HARD_KILL_ENTITY</qualifiedname>
+        <initializer>= &quot;life_hard_kill_entity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="60" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1a4f65e0cb31eee6a06c43af27e5b387ed" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::LIFE_REMOVE_VELOCITY</definition>
+        <argsstring></argsstring>
+        <name>LIFE_REMOVE_VELOCITY</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::LIFE_REMOVE_VELOCITY</qualifiedname>
+        <initializer>= &quot;life_remove_velocity&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="61" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="CommandConstants_8hpp_1ae5023d04108de78943d89c979fc471d1" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CommandConstants::TimeSeriesNames::LIFE_REMOVE_MOVING_COMPONENT</definition>
+        <argsstring></argsstring>
+        <name>LIFE_REMOVE_MOVING_COMPONENT</name>
+        <qualifiedname>CommandConstants::TimeSeriesNames::LIFE_REMOVE_MOVING_COMPONENT</qualifiedname>
+        <initializer>= &quot;life_remove_moving_component&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WorldClientAPI/CommandConstants.hpp" line="62" column="26" bodyfile="src/WorldClientAPI/CommandConstants.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/WorldClientAPI/CommandConstants.hpp" line="31" column="1"/>
+  </compounddef>
+</doxygen>

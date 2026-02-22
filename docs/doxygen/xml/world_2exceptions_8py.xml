@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="world_2exceptions_8py" kind="file" language="Python">
+    <compoundname>exceptions.py</compoundname>
+    <innerclass refid="classaetherion_1_1world_1_1exceptions_1_1WorldException" prot="public">aetherion::world::exceptions::WorldException</innerclass>
+    <innerclass refid="classaetherion_1_1world_1_1exceptions_1_1CreatePerceptionResponseException" prot="public">aetherion::world::exceptions::CreatePerceptionResponseException</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1world">aetherion::world</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1world_1_1exceptions">aetherion::world::exceptions</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="classaetherion_1_1world_1_1exceptions_1_1WorldException" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1world_1_1exceptions_1_1WorldException" kindref="compound">WorldException</ref>(Exception):</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Base<sp/>class<sp/>for<sp/>all<sp/>exceptions<sp/>related<sp/>to<sp/>the<sp/>world.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="classaetherion_1_1world_1_1exceptions_1_1CreatePerceptionResponseException" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1world_1_1exceptions_1_1CreatePerceptionResponseException" kindref="compound">CreatePerceptionResponseException</ref>(<ref refid="classaetherion_1_1world_1_1exceptions_1_1WorldException" kindref="compound">WorldException</ref>):</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Exception<sp/>raised<sp/>when<sp/>creating<sp/>a<sp/>perception<sp/>response<sp/>fails.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self,<sp/>message:<sp/>str<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>create<sp/>perception<sp/>response.&quot;</highlight><highlight class="normal">)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>super().__init__(message)</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/world/exceptions.py"/>
+  </compounddef>
+</doxygen>

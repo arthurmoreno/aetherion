@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1renderer_1_1views_1_1BaseView" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::renderer::views::BaseView</compoundname>
+    <derivedcompoundref refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView" prot="public" virt="non-virtual">aetherion.entities.views.terrains.TerrainView</derivedcompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1views_1_1BaseView_1af58c727b35fb01aa1b15a202cf954494" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite" kindref="compound">Sprite</ref></type>
+        <definition>Sprite aetherion.renderer.views.BaseView::sprite</definition>
+        <argsstring></argsstring>
+        <name>sprite</name>
+        <qualifiedname>aetherion.renderer.views.BaseView.sprite</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a5d0ca95cc4011afeffecf666756ce86a">sprite</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/views.py" line="6" column="1" bodyfile="src/aetherion/renderer/views.py" bodystart="6" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1views_1_1BaseView_1a6ed70e7443d19144773efcc06751ee34" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.views.BaseView::sprite</definition>
+        <argsstring></argsstring>
+        <name>sprite</name>
+        <qualifiedname>aetherion.renderer.views.BaseView.sprite</qualifiedname>
+        <reimplementedby refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView_1a5d0ca95cc4011afeffecf666756ce86a">sprite</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/views.py" line="14" column="1" bodyfile="src/aetherion/renderer/views.py" bodystart="14" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1views_1_1BaseView_1a49ec21726046d35c13dbc095f21d895a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.renderer.views.BaseView.update</definition>
+        <argsstring>(self, int|None screen_x=None, int|None screen_y=None, batch=None, group=None, light_intensity=1)</argsstring>
+        <name>update</name>
+        <qualifiedname>aetherion.renderer.views.BaseView.update</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int|None</type>
+          <declname>screen_x</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>int|None</type>
+          <declname>screen_y</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>batch</type>
+          <defname>batch</defname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>group</type>
+          <defname>group</defname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>light_intensity</type>
+          <defname>light_intensity</defname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/views.py" line="8" column="1" bodyfile="src/aetherion/renderer/views.py" bodystart="10" bodyend="17"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.renderer.views.BaseView</label>
+        <link refid="classaetherion_1_1renderer_1_1views_1_1BaseView"/>
+      </node>
+      <node id="3">
+        <label>aetherion.entities.views.terrains.EmptyView</label>
+        <link refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1EmptyView"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.entities.views.terrains.TerrainView</label>
+        <link refid="classaetherion_1_1entities_1_1views_1_1terrains_1_1TerrainView"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.renderer.views.BaseView</label>
+        <link refid="classaetherion_1_1renderer_1_1views_1_1BaseView"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>sprite</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion.renderer.sprites.Sprite</label>
+        <link refid="classaetherion_1_1renderer_1_1sprites_1_1Sprite"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/renderer/views.py" line="5" column="1" bodyfile="src/aetherion/renderer/views.py" bodystart="5" bodyend="17"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1renderer_1_1views_1_1BaseView_1af58c727b35fb01aa1b15a202cf954494" prot="public" virt="non-virtual"><scope>aetherion::renderer::views::BaseView</scope><name>sprite</name></member>
+      <member refid="classaetherion_1_1renderer_1_1views_1_1BaseView_1a6ed70e7443d19144773efcc06751ee34" prot="public" virt="non-virtual"><scope>aetherion::renderer::views::BaseView</scope><name>sprite</name></member>
+      <member refid="classaetherion_1_1renderer_1_1views_1_1BaseView_1a49ec21726046d35c13dbc095f21d895a" prot="public" virt="non-virtual"><scope>aetherion::renderer::views::BaseView</scope><name>update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

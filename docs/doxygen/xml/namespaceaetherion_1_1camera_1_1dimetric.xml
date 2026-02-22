@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1camera_1_1dimetric" kind="namespace" language="Python">
+    <compoundname>aetherion::camera::dimetric</compoundname>
+    <innerclass refid="classaetherion_1_1camera_1_1dimetric_1_1Camera" prot="public">aetherion::camera::dimetric::Camera</innerclass>
+    <innerclass refid="classaetherion_1_1camera_1_1dimetric_1_1CameraUIViews" prot="public">aetherion::camera::dimetric::CameraUIViews</innerclass>
+    <innerclass refid="classaetherion_1_1camera_1_1dimetric_1_1ViewRegistry" prot="public">aetherion::camera::dimetric::ViewRegistry</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="camera_2dimetric_8py_1a7e2b8c29a52daac31c2ea56f808b5e80" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion::camera::dimetric.MouseState</definition>
+        <argsstring></argsstring>
+        <name>MouseState</name>
+        <qualifiedname>aetherion.camera.dimetric.MouseState</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="27" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="camera_2dimetric_8py_1a8c9a02259f791abe717c8c3b2fffccbb" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion::camera::dimetric.LightIntensityMap</definition>
+        <argsstring></argsstring>
+        <name>LightIntensityMap</name>
+        <qualifiedname>aetherion.camera.dimetric.LightIntensityMap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="28" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="camera_2dimetric_8py_1a5ff66a9a6d736eccfb5deefdd5611136" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int aetherion::camera::dimetric.LAYERS_TO_DRAW</definition>
+        <argsstring></argsstring>
+        <name>LAYERS_TO_DRAW</name>
+        <qualifiedname>aetherion.camera.dimetric.LAYERS_TO_DRAW</qualifiedname>
+        <initializer>=  5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="49" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="camera_2dimetric_8py_1ac4374e039afcf12b559c3eaba75fe9cb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float aetherion::camera::dimetric.SUN_LIGHT_SCALING_FACTOR</definition>
+        <argsstring></argsstring>
+        <name>SUN_LIGHT_SCALING_FACTOR</name>
+        <qualifiedname>aetherion.camera.dimetric.SUN_LIGHT_SCALING_FACTOR</qualifiedname>
+        <initializer>=  0.6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="50" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="50" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="camera_2dimetric_8py_1a83d68c8c49c9c8ecc582e3d6fa4193cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition> float aetherion.camera.dimetric.get_sun_light</definition>
+        <argsstring>(SharedState shared_state)</argsstring>
+        <name>get_sun_light</name>
+        <qualifiedname>aetherion.camera.dimetric.get_sun_light</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1game__state_1_1state_1_1SharedState" kindref="compound">SharedState</ref></type>
+          <declname>shared_state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="53" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="53" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="camera_2dimetric_8py_1a96fa149120f6ad000b8da9d22332e873" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>tuple[int, int, None]</type>
+        <definition> tuple[int, int, None] aetherion.camera.dimetric.adjust_camera_entity_moving</definition>
+        <argsstring>(WorldView world_view, Any entity, int screen_x_offset, int screen_y_offset, int tile_size_on_screen)</argsstring>
+        <name>adjust_camera_entity_moving</name>
+        <qualifiedname>aetherion.camera.dimetric.adjust_camera_entity_moving</qualifiedname>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_x_offset</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_y_offset</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>tile_size_on_screen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="67" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="73" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="camera_2dimetric_8py_1a25de1d9ac40fedc51b1cd2dc1370a557" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>|None</type>
+        <definition> EntityInterface | None aetherion.camera.dimetric._noop_entity_handler</definition>
+        <argsstring>(CameraModel camera_model, CameraSettings camera_settings, WorldView world_view, EntityInterface entity, Any view_object, int screen_x, int screen_y, int layer_index, MouseState mouse_state, Optional[int] selected_entity, EntityInterface|None entity_hovered, float sun_light)</argsstring>
+        <name>_noop_entity_handler</name>
+        <qualifiedname>aetherion.camera.dimetric._noop_entity_handler</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraModel" kindref="compound">CameraModel</ref></type>
+          <declname>camera_model</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraSettings" kindref="compound">CameraSettings</ref></type>
+          <declname>camera_settings</declname>
+        </param>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>view_object</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type>MouseState</type>
+          <declname>mouse_state</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>selected_entity</declname>
+          <array>[int]</array>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>|None</type>
+          <declname>entity_hovered</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sun_light</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="133" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="146" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="camera_2dimetric_8py_1a9c0e470531177a5c86989354c369d100" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>|None</type>
+        <definition> EntityInterface | None aetherion.camera.dimetric._noop_terrain_handler</definition>
+        <argsstring>(CameraModel camera_model, CameraSettings camera_settings, EntityInterface terrain, Any view_object, Optional[int] selected_entity, WorldView world_view, Any mouse_state, int screen_x, int screen_y, int layer_index, EntityInterface|None entity_hovered, float sun_light, EntityInterface player, Any gradient_view_object, Any water_view)</argsstring>
+        <name>_noop_terrain_handler</name>
+        <qualifiedname>aetherion.camera.dimetric._noop_terrain_handler</qualifiedname>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraModel" kindref="compound">CameraModel</ref></type>
+          <declname>camera_model</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1camera_1_1models_1_1CameraSettings" kindref="compound">CameraSettings</ref></type>
+          <declname>camera_settings</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>terrain</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>view_object</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>selected_entity</declname>
+          <array>[int]</array>
+        </param>
+        <param>
+          <type><ref refid="structWorldView" kindref="compound">WorldView</ref></type>
+          <declname>world_view</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>mouse_state</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>screen_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>layer_index</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref>|None</type>
+          <declname>entity_hovered</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>sun_light</declname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>player</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>gradient_view_object</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>water_view</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/dimetric.py" line="150" column="1" bodyfile="src/aetherion/camera/dimetric.py" bodystart="166" bodyend="169"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/camera/dimetric.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

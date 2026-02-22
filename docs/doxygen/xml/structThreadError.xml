@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structThreadError" kind="struct" language="C++" prot="public">
+    <compoundname>ThreadError</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structThreadError_1adbcbb7e10b448cfe1d627a9a01e719fa" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ThreadError::threadId</definition>
+        <argsstring></argsstring>
+        <name>threadId</name>
+        <qualifiedname>ThreadError::threadId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="69" column="9" bodyfile="src/EcosystemEngine.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structThreadError_1a3741f5408b75879d2488fa5b91d2d75e" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ThreadError::errorMessage</definition>
+        <argsstring></argsstring>
+        <name>errorMessage</name>
+        <qualifiedname>ThreadError::errorMessage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="70" column="17" bodyfile="src/EcosystemEngine.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structThreadError_1a7e8b3a368077d4d51a56b9db090b6779" prot="public" static="no" mutable="no">
+        <type>std::chrono::steady_clock::time_point</type>
+        <definition>std::chrono::steady_clock::time_point ThreadError::timestamp</definition>
+        <argsstring></argsstring>
+        <name>timestamp</name>
+        <qualifiedname>ThreadError::timestamp</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="71" column="43" bodyfile="src/EcosystemEngine.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structThreadError_1a552a528373894ad2d9bf9e963215401a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ThreadError::ThreadError</definition>
+        <argsstring>(int id, const std::string &amp;msg)</argsstring>
+        <name>ThreadError</name>
+        <qualifiedname>ThreadError::ThreadError</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/EcosystemEngine.hpp" line="73" column="5" bodyfile="src/EcosystemEngine.hpp" bodystart="73" bodyend="74"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/EcosystemEngine.hpp" line="68" column="1" bodyfile="src/EcosystemEngine.hpp" bodystart="68" bodyend="75"/>
+    <listofallmembers>
+      <member refid="structThreadError_1a3741f5408b75879d2488fa5b91d2d75e" prot="public" virt="non-virtual"><scope>ThreadError</scope><name>errorMessage</name></member>
+      <member refid="structThreadError_1a552a528373894ad2d9bf9e963215401a" prot="public" virt="non-virtual"><scope>ThreadError</scope><name>ThreadError</name></member>
+      <member refid="structThreadError_1adbcbb7e10b448cfe1d627a9a01e719fa" prot="public" virt="non-virtual"><scope>ThreadError</scope><name>threadId</name></member>
+      <member refid="structThreadError_1a7e8b3a368077d4d51a56b9db090b6779" prot="public" virt="non-virtual"><scope>ThreadError</scope><name>timestamp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

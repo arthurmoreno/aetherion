@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_e114fac978cd9d2246c0ae74737d1ca3" kind="dir">
+    <compoundname>src/aetherion/animation</compoundname>
+    <innerfile refid="animation_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="animation_2dimetric_8py">dimetric.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/animation/"/>
+  </compounddef>
+</doxygen>

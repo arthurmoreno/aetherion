@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1audio_1_1exceptions_1_1AudioInitError" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::audio::exceptions::AudioInitError</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Exception</basecompoundref>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Raised when SDL2 or SDL2_mixer initialization fails.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Exception</label>
+      </node>
+      <node id="1">
+        <label>aetherion.audio.exceptions.AudioInitError</label>
+        <link refid="classaetherion_1_1audio_1_1exceptions_1_1AudioInitError"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Exception</label>
+      </node>
+      <node id="1">
+        <label>aetherion.audio.exceptions.AudioInitError</label>
+        <link refid="classaetherion_1_1audio_1_1exceptions_1_1AudioInitError"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/audio/exceptions.py" line="2" column="1" bodyfile="src/aetherion/audio/exceptions.py" bodystart="2" bodyend="7"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

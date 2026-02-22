@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::audio::base_manager::BaseAudioManager</compoundname>
+    <derivedcompoundref refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager" prot="public" virt="non-virtual">aetherion.audio.audio_manager.MusicAndAmbienceManager</derivedcompoundref>
+    <derivedcompoundref refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager" prot="public" virt="non-virtual">aetherion.audio.sound_effects.SoundEffectManager</derivedcompoundref>
+    <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a1eaf3546a9f5dbf421ab18f6fe706def" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str</type>
+        <definition> str aetherion.audio.base_manager.BaseAudioManager._get_error</definition>
+        <argsstring>()</argsstring>
+        <name>_get_error</name>
+        <qualifiedname>aetherion.audio.base_manager.BaseAudioManager._get_error</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get the last SDL2_mixer error message as a string.
+
+Returns:
+    The error message from SDL2_mixer.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/base_manager.py" line="12" column="1" bodyfile="src/aetherion/audio/base_manager.py" bodystart="12" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a67f4563b7770ac5e7f35993054ab5eaf" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bytes</type>
+        <definition> bytes aetherion.audio.base_manager.BaseAudioManager._to_path_bytes</definition>
+        <argsstring>(str|bytes file_path)</argsstring>
+        <name>_to_path_bytes</name>
+        <qualifiedname>aetherion.audio.base_manager.BaseAudioManager._to_path_bytes</qualifiedname>
+        <param>
+          <type>str|bytes</type>
+          <declname>file_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Convert file path to bytes for SDL2_mixer.
+
+Args:
+    file_path: Path as string or bytes.
+
+Returns:
+    Path encoded as bytes.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/base_manager.py" line="24" column="1" bodyfile="src/aetherion/audio/base_manager.py" bodystart="24" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a657512e5ead7efd3d66807065199edf5" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str</type>
+        <definition> str aetherion.audio.base_manager.BaseAudioManager._to_path_str</definition>
+        <argsstring>(str|bytes file_path)</argsstring>
+        <name>_to_path_str</name>
+        <qualifiedname>aetherion.audio.base_manager.BaseAudioManager._to_path_str</qualifiedname>
+        <param>
+          <type>str|bytes</type>
+          <declname>file_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Convert file path to string for logging.
+
+Args:
+    file_path: Path as string or bytes.
+
+Returns:
+    Path as string.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/base_manager.py" line="36" column="1" bodyfile="src/aetherion/audio/base_manager.py" bodystart="36" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a27023c5c2096376d25514e9be6978f1d" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.audio.base_manager.BaseAudioManager._clamp_volume</definition>
+        <argsstring>(int volume)</argsstring>
+        <name>_clamp_volume</name>
+        <qualifiedname>aetherion.audio.base_manager.BaseAudioManager._clamp_volume</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>volume</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Clamp volume to SDL2_mixer valid range.
+
+Args:
+    volume: Volume level to clamp.
+
+Returns:
+    Volume clamped to 0-128 range.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/audio/base_manager.py" line="48" column="1" bodyfile="src/aetherion/audio/base_manager.py" bodystart="48" bodyend="58"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Base class for audio managers with common SDL2 mixer utilities.
+
+Provides shared functionality for error handling, path conversion,
+and SDL2_mixer primitive operations.
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.audio.base_manager.BaseAudioManager</label>
+        <link refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager"/>
+      </node>
+      <node id="2">
+        <label>aetherion.audio.audio_manager.MusicAndAmbienceManager</label>
+        <link refid="classaetherion_1_1audio_1_1audio__manager_1_1MusicAndAmbienceManager"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aetherion.audio.sound_effects.SoundEffectManager</label>
+        <link refid="classaetherion_1_1audio_1_1sound__effects_1_1SoundEffectManager"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="src/aetherion/audio/base_manager.py" line="4" column="1" bodyfile="src/aetherion/audio/base_manager.py" bodystart="4" bodyend="58"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a27023c5c2096376d25514e9be6978f1d" prot="protected" virt="non-virtual"><scope>aetherion::audio::base_manager::BaseAudioManager</scope><name>_clamp_volume</name></member>
+      <member refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a1eaf3546a9f5dbf421ab18f6fe706def" prot="protected" virt="non-virtual"><scope>aetherion::audio::base_manager::BaseAudioManager</scope><name>_get_error</name></member>
+      <member refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a67f4563b7770ac5e7f35993054ab5eaf" prot="protected" virt="non-virtual"><scope>aetherion::audio::base_manager::BaseAudioManager</scope><name>_to_path_bytes</name></member>
+      <member refid="classaetherion_1_1audio_1_1base__manager_1_1BaseAudioManager_1a657512e5ead7efd3d66807065199edf5" prot="protected" virt="non-virtual"><scope>aetherion::audio::base_manager::BaseAudioManager</scope><name>_to_path_str</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

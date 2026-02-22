@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PhysicsEngine.hpp" line="23" column="18" bodyfile="src/PhysicsEngine.hpp" bodystart="23" bodyend="-1"/>
+        <location file="src/PhysicsEngine.hpp" line="44" column="18" bodyfile="src/PhysicsEngine.hpp" bodystart="44" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
@@ -35,14 +35,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/PhysicsEngine.hpp" line="25" column="5" bodyfile="src/PhysicsEngine.hpp" bodystart="25" bodyend="25"/>
+        <location file="src/PhysicsEngine.hpp" line="46" column="5" bodyfile="src/PhysicsEngine.hpp" bodystart="46" bodyend="46"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/PhysicsEngine.hpp" line="22" column="1" bodyfile="src/PhysicsEngine.hpp" bodystart="22" bodyend="26"/>
+    <location file="src/PhysicsEngine.hpp" line="43" column="1" bodyfile="src/PhysicsEngine.hpp" bodystart="43" bodyend="47"/>
     <listofallmembers>
       <member refid="structSetPhysicsEntityToDebug_1abea09a349d4eada36a7660ea37c1e2b3" prot="public" virt="non-virtual"><scope>SetPhysicsEntityToDebug</scope><name>entity</name></member>
       <member refid="structSetPhysicsEntityToDebug_1aadbfc62f8ff4862a859062a63802d752" prot="public" virt="non-virtual"><scope>SetPhysicsEntityToDebug</scope><name>SetPhysicsEntityToDebug</name></member>

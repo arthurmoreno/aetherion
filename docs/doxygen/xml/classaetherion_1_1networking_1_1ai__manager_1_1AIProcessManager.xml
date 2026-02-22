@@ -1,0 +1,284 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::networking::ai_manager::AIProcessManager</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">ABC</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a09aa94e4f06d4d27cbfaf096f8fb828e" prot="public" static="yes" mutable="no">
+        <type>str</type>
+        <definition>str aetherion.networking.ai_manager.AIProcessManager::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager.name</qualifiedname>
+        <initializer>=  &quot;ai_manager&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="34" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a1e849f82c728b11e413996c0f65317ee" prot="protected" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.networking.ai_manager.AIProcessManager::_server_online</definition>
+        <argsstring></argsstring>
+        <name>_server_online</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager._server_online</qualifiedname>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="35" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a2a66172261ee095b1b29238efd2f314c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.networking.ai_manager.AIProcessManager.connect</definition>
+        <argsstring>(self, WorldInstanceTypes|None connection_type=None, world_instance=None, pipe=None)</argsstring>
+        <name>connect</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager.connect</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" kindref="compound">WorldInstanceTypes</ref>|None</type>
+          <declname>connection_type</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>world_instance</type>
+          <defname>world_instance</defname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>pipe</type>
+          <defname>pipe</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Connect to the world interface.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="38" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="38" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1ac357f56741e3fc1988274a25d3dea9a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.networking.ai_manager.AIProcessManager.server_online</definition>
+        <argsstring>(self)</argsstring>
+        <name>server_online</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager.server_online</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Check if the server is online.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="44" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="44" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1abd50687d5505d2851605da2bf526741f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.ai_manager.AIProcessManager.request_ai_metadata</definition>
+        <argsstring>(self)</argsstring>
+        <name>request_ai_metadata</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager.request_ai_metadata</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Request AI metadata from the world.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="49" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="49" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1ae36f1b075c284983dd25426832eb514b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.ai_manager.AIProcessManager.send_ai_decision</definition>
+        <argsstring>(self, dict entity_action_map, dict|None statistics=None)</argsstring>
+        <name>send_ai_decision</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager.send_ai_decision</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>entity_action_map</declname>
+        </param>
+        <param>
+          <type>dict|None</type>
+          <declname>statistics</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Send AI decisions to the world.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="54" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="54" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1af542d55d9b5a93db6caa9ab3e09bf7db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bytes|None</type>
+        <definition> bytes | None aetherion.networking.ai_manager.AIProcessManager.wait_for_next_world_state</definition>
+        <argsstring>(self)</argsstring>
+        <name>wait_for_next_world_state</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager.wait_for_next_world_state</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Wait for the next world state.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="59" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="59" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a7e27c805bcd292e1731d6e66ef7121e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.ai_manager.AIProcessManager.unsubscribe_entities</definition>
+        <argsstring>(self, list[int] entity_ids)</argsstring>
+        <name>unsubscribe_entities</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager.unsubscribe_entities</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>list</type>
+          <declname>entity_ids</declname>
+          <array>[int]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Unsubscribe entities from the world.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="64" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="64" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a99c5707c623ffbc36db369f859e85670" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.networking.ai_manager.AIProcessManager.process_ai_decisions</definition>
+        <argsstring>(self)</argsstring>
+        <name>process_ai_decisions</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager.process_ai_decisions</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Process AI decisions.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="69" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="69" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1ae2b8ec58de24ec65240a0fccbd531469" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.ai_manager.AIProcessManager.terminate</definition>
+        <argsstring>(self)</argsstring>
+        <name>terminate</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager.terminate</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Terminate all populations and cleanup resources.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="74" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="74" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a0fcadfd117586373855933b21bfd773b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.networking.ai_manager.AIProcessManager.report_metrics</definition>
+        <argsstring>(self)</argsstring>
+        <name>report_metrics</name>
+        <qualifiedname>aetherion.networking.ai_manager.AIProcessManager.report_metrics</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Print metrics for debugging or monitoring.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/networking/ai_manager.py" line="79" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="79" bodyend="82"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Abstract base class for AI process management with different connection types.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.networking.ai_manager.AIProcessManager</label>
+        <link refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.networking.ai_manager.AIProcessManager</label>
+        <link refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/networking/ai_manager.py" line="31" column="1" bodyfile="src/aetherion/networking/ai_manager.py" bodystart="31" bodyend="82"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a1e849f82c728b11e413996c0f65317ee" prot="protected" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>_server_online</name></member>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a2a66172261ee095b1b29238efd2f314c" prot="public" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>connect</name></member>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a09aa94e4f06d4d27cbfaf096f8fb828e" prot="public" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>name</name></member>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a99c5707c623ffbc36db369f859e85670" prot="public" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>process_ai_decisions</name></member>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a0fcadfd117586373855933b21bfd773b" prot="public" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>report_metrics</name></member>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1abd50687d5505d2851605da2bf526741f" prot="public" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>request_ai_metadata</name></member>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1ae36f1b075c284983dd25426832eb514b" prot="public" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>send_ai_decision</name></member>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1ac357f56741e3fc1988274a25d3dea9a7" prot="public" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>server_online</name></member>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1ae2b8ec58de24ec65240a0fccbd531469" prot="public" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>terminate</name></member>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1a7e27c805bcd292e1731d6e66ef7121e5" prot="public" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>unsubscribe_entities</name></member>
+      <member refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager_1af542d55d9b5a93db6caa9ab3e09bf7db" prot="public" virt="non-virtual"><scope>aetherion::networking::ai_manager::AIProcessManager</scope><name>wait_for_next_world_state</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

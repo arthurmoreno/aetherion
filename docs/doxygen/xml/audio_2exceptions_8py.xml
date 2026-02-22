@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="audio_2exceptions_8py" kind="file" language="Python">
+    <compoundname>exceptions.py</compoundname>
+    <innerclass refid="classaetherion_1_1audio_1_1exceptions_1_1AudioInitError" prot="public">aetherion::audio::exceptions::AudioInitError</innerclass>
+    <innerclass refid="classaetherion_1_1audio_1_1exceptions_1_1AudioLoadError" prot="public">aetherion::audio::exceptions::AudioLoadError</innerclass>
+    <innerclass refid="classaetherion_1_1audio_1_1exceptions_1_1AudioPlaybackError" prot="public">aetherion::audio::exceptions::AudioPlaybackError</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio">aetherion::audio</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio_1_1exceptions">aetherion::audio::exceptions</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">#<sp/>Custom<sp/>exceptions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2" refid="classaetherion_1_1audio_1_1exceptions_1_1AudioInitError" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1audio_1_1exceptions_1_1AudioInitError" kindref="compound">AudioInitError</ref>(Exception):</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Raised<sp/>when<sp/>SDL2<sp/>or<sp/>SDL2_mixer<sp/>initialization<sp/>fails.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="classaetherion_1_1audio_1_1exceptions_1_1AudioLoadError" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1audio_1_1exceptions_1_1AudioLoadError" kindref="compound">AudioLoadError</ref>(Exception):</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Raised<sp/>when<sp/>loading<sp/>audio<sp/>files<sp/>fails.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="classaetherion_1_1audio_1_1exceptions_1_1AudioPlaybackError" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1audio_1_1exceptions_1_1AudioPlaybackError" kindref="compound">AudioPlaybackError</ref>(Exception):</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Raised<sp/>when<sp/>audio<sp/>playback<sp/>operations<sp/>fail.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/audio/exceptions.py"/>
+  </compounddef>
+</doxygen>

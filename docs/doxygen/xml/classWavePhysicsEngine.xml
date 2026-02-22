@@ -1,0 +1,487 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classWavePhysicsEngine" kind="class" language="C++" prot="public">
+    <compoundname>WavePhysicsEngine</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classWavePhysicsEngine_1a0e4e47a4c7598b2254676130598f5345" prot="private" static="no" mutable="no">
+        <type>std::unordered_map&lt; uint64_t, std::vector&lt; <ref refid="structWaveComponent" kindref="compound">WaveComponent</ref> &gt; &gt;</type>
+        <definition>std::unordered_map&lt;uint64_t, std::vector&lt;WaveComponent&gt; &gt; WavePhysicsEngine::activeWaves</definition>
+        <argsstring></argsstring>
+        <name>activeWaves</name>
+        <qualifiedname>WavePhysicsEngine::activeWaves</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="135" column="24" bodyfile="src/WavePhysicsEngine.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classWavePhysicsEngine_1ac34fab4eece1ed802775c4fc4142cded" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>WavePhysicsEngine::WavePhysicsEngine</definition>
+        <argsstring>()=default</argsstring>
+        <name>WavePhysicsEngine</name>
+        <qualifiedname>WavePhysicsEngine::WavePhysicsEngine</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="118" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1a11d02be518561e2d8b100d53fbc69a61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WavePhysicsEngine::processWaves</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;grid, entt::dispatcher &amp;dispatcher, uint32_t dtTicks)</argsstring>
+        <name>processWaves</name>
+        <qualifiedname>WavePhysicsEngine::processWaves</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>dtTicks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="121" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="306" bodyend="313"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1a2b2860bf74bb109ebbaf3b9b443e4a6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WavePhysicsEngine::emitWave</definition>
+        <argsstring>(VoxelGrid &amp;grid, int x, int y, int z, const WaveComponent &amp;wave)</argsstring>
+        <name>emitWave</name>
+        <qualifiedname>WavePhysicsEngine::emitWave</qualifiedname>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structWaveComponent" kindref="compound">WaveComponent</ref> &amp;</type>
+          <declname>wave</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="125" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="67" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1a6bb5da4846017a16a1b2508d87a4403b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WavePhysicsEngine::processEmitters</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;grid)</argsstring>
+        <name>processEmitters</name>
+        <qualifiedname>WavePhysicsEngine::processEmitters</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="128" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="76" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1af018f74eba2f0b0f76a28564f66ae566" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WavePhysicsEngine::registerEventHandlers</definition>
+        <argsstring>(entt::dispatcher &amp;dispatcher)</argsstring>
+        <name>registerEventHandlers</name>
+        <qualifiedname>WavePhysicsEngine::registerEventHandlers</qualifiedname>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="131" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="315" bodyend="321"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classWavePhysicsEngine_1a88fd15f5268d6ff020267e819c425613" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t WavePhysicsEngine::coordToKey</definition>
+        <argsstring>(int x, int y, int z) const</argsstring>
+        <name>coordToKey</name>
+        <qualifiedname>WavePhysicsEngine::coordToKey</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="138" column="14" bodyfile="src/WavePhysicsEngine.cpp" bodystart="8" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1a755d23a7287f29869b32b12c3939b228" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WavePhysicsEngine::keyToCoord</definition>
+        <argsstring>(uint64_t key, int &amp;x, int &amp;y, int &amp;z) const</argsstring>
+        <name>keyToCoord</name>
+        <qualifiedname>WavePhysicsEngine::keyToCoord</qualifiedname>
+        <param>
+          <type>uint64_t</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int &amp;</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int &amp;</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="139" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="18" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1a7410e5332ab0fbf841099c31f8cdca7f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WavePhysicsEngine::propagateWaves</definition>
+        <argsstring>(entt::registry &amp;registry, VoxelGrid &amp;grid, entt::dispatcher &amp;dispatcher, uint32_t dtTicks)</argsstring>
+        <name>propagateWaves</name>
+        <qualifiedname>WavePhysicsEngine::propagateWaves</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>dtTicks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="142" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="266" bodyend="304"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1ab8783d7b8aafdeddb2f0201f3c8ceeaa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WavePhysicsEngine::propagateSpherical</definition>
+        <argsstring>(const WaveComponent &amp;wave, int originX, int originY, int originZ, std::vector&lt; std::tuple&lt; int, int, int, WaveComponent &gt; &gt; &amp;newWaves)</argsstring>
+        <name>propagateSpherical</name>
+        <qualifiedname>WavePhysicsEngine::propagateSpherical</qualifiedname>
+        <param>
+          <type>const <ref refid="structWaveComponent" kindref="compound">WaveComponent</ref> &amp;</type>
+          <declname>wave</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>originX</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>originY</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>originZ</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::tuple&lt; int, int, int, <ref refid="structWaveComponent" kindref="compound">WaveComponent</ref> &gt; &gt; &amp;</type>
+          <declname>newWaves</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="144" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="225" bodyend="264"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1a8291039c8fc971b983035d868c2e97e5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WavePhysicsEngine::handleWaveInteractions</definition>
+        <argsstring>(std::vector&lt; WaveComponent &gt; &amp;waves, int x, int y, int z)</argsstring>
+        <name>handleWaveInteractions</name>
+        <qualifiedname>WavePhysicsEngine::handleWaveInteractions</qualifiedname>
+        <param>
+          <type>std::vector&lt; <ref refid="structWaveComponent" kindref="compound">WaveComponent</ref> &gt; &amp;</type>
+          <declname>waves</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="148" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="106" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1a8816e0c356c107f70f35ce388674ff9a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WavePhysicsEngine::processWaveInteractions</definition>
+        <argsstring>(entt::registry &amp;registry, entt::dispatcher &amp;dispatcher, int x, int y, int z, const std::vector&lt; WaveComponent &gt; &amp;waves)</argsstring>
+        <name>processWaveInteractions</name>
+        <qualifiedname>WavePhysicsEngine::processWaveInteractions</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="structWaveComponent" kindref="compound">WaveComponent</ref> &gt; &amp;</type>
+          <declname>waves</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="149" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="156" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1a8dea714f16365518a8123125bb46cac8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WavePhysicsEngine::applyPhysicsImpulse</definition>
+        <argsstring>(entt::registry &amp;registry, entt::dispatcher &amp;dispatcher, const WaveComponent &amp;wave, int x, int y, int z, int sourceX, int sourceY, int sourceZ)</argsstring>
+        <name>applyPhysicsImpulse</name>
+        <qualifiedname>WavePhysicsEngine::applyPhysicsImpulse</qualifiedname>
+        <param>
+          <type>entt::registry &amp;</type>
+          <declname>registry</declname>
+        </param>
+        <param>
+          <type>entt::dispatcher &amp;</type>
+          <declname>dispatcher</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structWaveComponent" kindref="compound">WaveComponent</ref> &amp;</type>
+          <declname>wave</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sourceX</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sourceY</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sourceZ</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="153" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="191" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1a1d15a11f2fc3ce0ec386997acec20f64" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool WavePhysicsEngine::isValidCoordinate</definition>
+        <argsstring>(VoxelGrid &amp;grid, int x, int y, int z) const</argsstring>
+        <name>isValidCoordinate</name>
+        <qualifiedname>WavePhysicsEngine::isValidCoordinate</qualifiedname>
+        <param>
+          <type><ref refid="classVoxelGrid" kindref="compound">VoxelGrid</ref> &amp;</type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="158" column="10" bodyfile="src/WavePhysicsEngine.cpp" bodystart="28" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1a5ea68b614ee1048d2ecff4d4ec582b76" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float WavePhysicsEngine::calculateAttenuation</definition>
+        <argsstring>(const WaveComponent &amp;wave, float distance) const</argsstring>
+        <name>calculateAttenuation</name>
+        <qualifiedname>WavePhysicsEngine::calculateAttenuation</qualifiedname>
+        <param>
+          <type>const <ref refid="structWaveComponent" kindref="compound">WaveComponent</ref> &amp;</type>
+          <declname>wave</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>distance</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="159" column="11" bodyfile="src/WavePhysicsEngine.cpp" bodystart="32" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classWavePhysicsEngine_1ad7a5aee98a826e39cd46153320d93dd5" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::tuple&lt; int, int, int, float &gt; &gt;</type>
+        <definition>std::vector&lt; std::tuple&lt; int, int, int, float &gt; &gt; WavePhysicsEngine::getSphericalNeighbors</definition>
+        <argsstring>(int x, int y, int z, float radius) const</argsstring>
+        <name>getSphericalNeighbors</name>
+        <qualifiedname>WavePhysicsEngine::getSphericalNeighbors</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>radius</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/WavePhysicsEngine.hpp" line="160" column="17" bodyfile="src/WavePhysicsEngine.cpp" bodystart="44" bodyend="65"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/WavePhysicsEngine.hpp" line="116" column="1" bodyfile="src/WavePhysicsEngine.hpp" bodystart="116" bodyend="162"/>
+    <listofallmembers>
+      <member refid="classWavePhysicsEngine_1a0e4e47a4c7598b2254676130598f5345" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>activeWaves</name></member>
+      <member refid="classWavePhysicsEngine_1a8dea714f16365518a8123125bb46cac8" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>applyPhysicsImpulse</name></member>
+      <member refid="classWavePhysicsEngine_1a5ea68b614ee1048d2ecff4d4ec582b76" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>calculateAttenuation</name></member>
+      <member refid="classWavePhysicsEngine_1a88fd15f5268d6ff020267e819c425613" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>coordToKey</name></member>
+      <member refid="classWavePhysicsEngine_1a2b2860bf74bb109ebbaf3b9b443e4a6b" prot="public" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>emitWave</name></member>
+      <member refid="classWavePhysicsEngine_1ad7a5aee98a826e39cd46153320d93dd5" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>getSphericalNeighbors</name></member>
+      <member refid="classWavePhysicsEngine_1a8291039c8fc971b983035d868c2e97e5" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>handleWaveInteractions</name></member>
+      <member refid="classWavePhysicsEngine_1a1d15a11f2fc3ce0ec386997acec20f64" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>isValidCoordinate</name></member>
+      <member refid="classWavePhysicsEngine_1a755d23a7287f29869b32b12c3939b228" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>keyToCoord</name></member>
+      <member refid="classWavePhysicsEngine_1a6bb5da4846017a16a1b2508d87a4403b" prot="public" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>processEmitters</name></member>
+      <member refid="classWavePhysicsEngine_1a8816e0c356c107f70f35ce388674ff9a" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>processWaveInteractions</name></member>
+      <member refid="classWavePhysicsEngine_1a11d02be518561e2d8b100d53fbc69a61" prot="public" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>processWaves</name></member>
+      <member refid="classWavePhysicsEngine_1ab8783d7b8aafdeddb2f0201f3c8ceeaa" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>propagateSpherical</name></member>
+      <member refid="classWavePhysicsEngine_1a7410e5332ab0fbf841099c31f8cdca7f" prot="private" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>propagateWaves</name></member>
+      <member refid="classWavePhysicsEngine_1af018f74eba2f0b0f76a28564f66ae566" prot="public" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>registerEventHandlers</name></member>
+      <member refid="classWavePhysicsEngine_1ac34fab4eece1ed802775c4fc4142cded" prot="public" virt="non-virtual"><scope>WavePhysicsEngine</scope><name>WavePhysicsEngine</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

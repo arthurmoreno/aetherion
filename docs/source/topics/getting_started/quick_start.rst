@@ -4,25 +4,25 @@ Quick Start
 ===========
 
 This short walkthrough shows how to create a world, add an entity and query the voxel grid from Python.
-It assumes that the :ref:`installation` steps have been completed and that ``lifesimcore`` is importable.
+It assumes that the :ref:`installation` steps have been completed and that ``aetherion`` is importable.
 
 .. code-block:: python
 
-   import lifesimcore
+   import aetherion
 
    # Create a world with 100x100x10 voxels
-   world = lifesimcore.World(100, 100, 10)
+   world = aetherion.World(100, 100, 10)
    world.initialize_voxel_grid()
 
    # Create a basic entity using the helper interface
-   entity = lifesimcore.EntityInterface(
-       lifesimcore.Position(1, 2, 0),
-       lifesimcore.Velocity(0.0, 0.0, 0.0),
+   entity = aetherion.EntityInterface(
+       aetherion.Position(1, 2, 0),
+       aetherion.Velocity(0.0, 0.0, 0.0),
    )
    entity_id = world.create_entity(entity)
 
    # Store entity id in the voxel grid
-   data = lifesimcore.GridData(terrainID=0, entityID=int(entity_id), eventID=0, lightingLevel=0.0)
+   data = aetherion.GridData(terrainID=0, entityID=int(entity_id), eventID=0, lightingLevel=0.0)
    world.set_voxel(1, 2, 0, data)
 
    # Retrieve the voxel contents

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="entities_2base_8py" kind="file" language="Python">
+    <compoundname>base.py</compoundname>
+    <innerclass refid="classaetherion_1_1entities_1_1base_1_1Classification" prot="public">aetherion::entities::base::Classification</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1entities">aetherion::entities</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1entities_1_1base">aetherion::entities::base</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>dataclasses<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>dataclass</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">@dataclass(frozen=True)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="classaetherion_1_1entities_1_1base_1_1Classification" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1entities_1_1base_1_1Classification" kindref="compound">Classification</ref>:</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>main_type:<sp/>int</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>sub_type:<sp/>int</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__str__(self):</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>f</highlight><highlight class="stringliteral">&quot;{self.main_type}:{self.sub_type}&quot;</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/entities/base.py"/>
+  </compounddef>
+</doxygen>

@@ -2,7 +2,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Aetherion: The Cosmic Engine
+Aetherion: Retro Isometric Game Engine
 ============================
 
 .. image:: _static/aetherion-logo-128.png
@@ -10,11 +10,7 @@ Aetherion: The Cosmic Engine
    :alt: Aetherion Logo
    :width: 200 px
 
-Welcome to the official documentation for **Aetherion**, a game engine designed to bridge the gap between classic and modern sandbox simulations. Inspired by titles like *Tibia*, *Terraria*, *Minecraft*, *Dwarf Fortress*, and *Valheim*, Aetherion offers a unique blend of 2D physics and deep world simulation.
-
-.. image:: _static/aetherion-logo.png
-   :align: center
-   :alt: Aetherion Logo
+Welcome to the documentation for **Aetherion**, a game engine designed to bridge the gap between classic and modern sandbox simulations. Inspired by titles like *Tibia*, *Terraria*, *Minecraft*, *Dwarf Fortress*, and *Valheim*, Aetherion offers a unique blend of 2D physics and deep world simulation.
 
 Overview
 --------
@@ -26,7 +22,7 @@ Aetherion is built upon the principles of:
 - **Tibia-like Physics**: Emulating the classic 2D physics system, providing a familiar yet enhanced experience.
 - **Advanced World Simulation**: Incorporating features like dynamic water physics and environmental interactions, akin to *Dwarf Fortress*.
 - **Entity-Component-System Architecture**: Leveraging the power of EnTT for efficient and flexible game object management.
-- **Modular Rendering**: While defaulting to a 2D top-down perspective, Aetherion supports alternative rendering strategies, including 3D views.:contentReference[oaicite:16]{index=16}
+- **Modular Rendering**: While defaulting to a 2D top-down perspective, Aetherion should be able to supports alternative rendering strategies in the future, including 3D views.
 
 Contents
 --------
@@ -42,7 +38,6 @@ Contents
    :maxdepth: 2
    :caption: Advanced Topics
 
-   topics/ai_brains_framework/index
    topics/physics_and_ecosystem/index
    topics/user_guide/index
 
@@ -50,7 +45,6 @@ Contents
    :maxdepth: 2
    :caption: Reference
 
-   full_reference
 
 Indices and Tables
 ------------------

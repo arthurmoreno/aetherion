@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
   <compounddef id="dir_3c4c7c1a85608ccd561c026bec818e51" kind="dir">
     <compoundname>src/components</compoundname>
+    <innerdir refid="dir_ce5cbb054e11942c7b04938b6e8a1503">src/components/core</innerdir>
     <innerfile refid="CombatComponents_8hpp">CombatComponents.hpp</innerfile>
     <innerfile refid="ConsoleLogsComponent_8cpp">ConsoleLogsComponent.cpp</innerfile>
     <innerfile refid="ConsoleLogsComponent_8hpp">ConsoleLogsComponent.hpp</innerfile>
@@ -10,6 +11,7 @@
     <innerfile refid="HealthComponents_8hpp">HealthComponents.hpp</innerfile>
     <innerfile refid="ItemsComponents_8cpp">ItemsComponents.cpp</innerfile>
     <innerfile refid="ItemsComponents_8hpp">ItemsComponents.hpp</innerfile>
+    <innerfile refid="LifecycleComponents_8hpp">LifecycleComponents.hpp</innerfile>
     <innerfile refid="MetabolismComponents_8cpp">MetabolismComponents.cpp</innerfile>
     <innerfile refid="MetabolismComponents_8hpp">MetabolismComponents.hpp</innerfile>
     <innerfile refid="MovingComponent_8hpp">MovingComponent.hpp</innerfile>

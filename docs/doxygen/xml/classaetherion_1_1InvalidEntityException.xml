@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1InvalidEntityException" kind="class" language="C++" prot="public">
+    <compoundname>aetherion::InvalidEntityException</compoundname>
+    <basecompoundref refid="classaetherion_1_1PhysicsException" prot="public" virt="non-virtual">aetherion::PhysicsException</basecompoundref>
+    <includes refid="PhysicsExceptions_8hpp" local="no">PhysicsExceptions.hpp</includes>
+    <briefdescription>
+<para>Exception thrown when an entity is in an invalid state. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This exception is thrown when operations are attempted on entities that are not properly initialized, have been destroyed, or are missing required components for physics processing. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion::InvalidEntityException</label>
+        <link refid="classaetherion_1_1InvalidEntityException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion::PhysicsException</label>
+        <link refid="classaetherion_1_1PhysicsException"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::runtime_error</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion::InvalidEntityException</label>
+        <link refid="classaetherion_1_1InvalidEntityException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aetherion::PhysicsException</label>
+        <link refid="classaetherion_1_1PhysicsException"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::runtime_error</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/physics/PhysicsExceptions.hpp" line="42" column="1" bodyfile="src/physics/PhysicsExceptions.hpp" bodystart="42" bodyend="45"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

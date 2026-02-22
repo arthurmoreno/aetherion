@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="event__action__handler_8py" kind="file" language="Python">
+    <compoundname>event_action_handler.py</compoundname>
+    <innerclass refid="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler" prot="public">aetherion::input::event_action_handler::InputEventActionHandler</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1input">aetherion::input</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1input_1_1event__action__handler">aetherion::input::event_action_handler</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Any,<sp/>Callable</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>pydantic<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>BaseModel</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1input_1_1event__action__handler_1_1InputEventActionHandler" kindref="compound">InputEventActionHandler</ref>(BaseModel):</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>A<sp/>class<sp/>to<sp/>handle<sp/>input<sp/>events.</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>This<sp/>class<sp/>is<sp/>used<sp/>to<sp/>map<sp/>input<sp/>events<sp/>to<sp/>specific<sp/>actions.</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>handler:<sp/>Callable[[],<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>kwargs:<sp/>dict[str,<sp/>Any]<sp/>=<sp/>{}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>processor_kwargs:<sp/>set[str]<sp/>=<sp/>set()<sp/><sp/></highlight><highlight class="comment">#<sp/>Used<sp/>to<sp/>pass<sp/>shared<sp/>state<sp/>or<sp/>other<sp/>context<sp/>if<sp/>needed</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/input/event_action_handler.py"/>
+  </compounddef>
+</doxygen>

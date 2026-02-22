@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="TerrainVisibility_8cpp" kind="file" language="C++">
+    <compoundname>TerrainVisibility.cpp</compoundname>
+    <includes refid="TerrainVisibility_8hpp" local="yes">TerrainVisibility.hpp</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>src/WorldClientAPI/TerrainVisibility.cpp</label>
+        <link refid="TerrainVisibility_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>TerrainVisibility.hpp</label>
+        <link refid="TerrainVisibility_8hpp_source"/>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;TerrainVisibility.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Implementation<sp/>will<sp/>be<sp/>added<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/WorldClientAPI/TerrainVisibility.cpp"/>
+  </compounddef>
+</doxygen>

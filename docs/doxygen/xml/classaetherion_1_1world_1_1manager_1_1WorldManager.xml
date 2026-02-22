@@ -1,0 +1,838 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1world_1_1manager_1_1WorldManager" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::world::manager::WorldManager</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a279af9d04d360a137f9c646812f07328" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.manager.WorldManager::ai_manager_factory</definition>
+        <argsstring></argsstring>
+        <name>ai_manager_factory</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.ai_manager_factory</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="49" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a86555e38dc907c93c9e7e9560f87f15e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.manager.WorldManager::handlers</definition>
+        <argsstring></argsstring>
+        <name>handlers</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.handlers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="74" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a3556a5aadf666f345be356a4e6db6f44" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.manager.WorldManager::ai_manager</definition>
+        <argsstring></argsstring>
+        <name>ai_manager</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.ai_manager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="117" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a4b8222ffc93f1a72756ede0cbcbc784d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.manager.WorldManager::current</definition>
+        <argsstring></argsstring>
+        <name>current</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.current</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="354" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="354" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a2bfdb7ae359bf275c06521a897d5ca10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.manager.WorldManager.__init__</definition>
+        <argsstring>(self, EventBus[GameEventType] event_bus, Callable[[Any, WorldInstanceTypes], AIProcessManager]|None ai_manager_factory=None, WorldEventHandlersMap|None event_handlers=None, WorldEventHandlersMap|None default_event_handlers=None)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1events_1_1EventBus" kindref="compound">EventBus</ref></type>
+          <declname>event_bus</declname>
+          <array>[GameEventType]</array>
+        </param>
+        <param>
+          <type>Callable</type>
+          <defname>ai_manager_factory</defname>
+          <array>[[Any, WorldInstanceTypes]</array>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1networking_1_1ai__manager_1_1AIProcessManager" kindref="compound">AIProcessManager</ref>]|None</type>
+          <declname>ai_manager_factory</declname>
+          <defname>event_handlers</defname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>WorldEventHandlersMap|None</type>
+          <declname>event_handlers</declname>
+          <defname>default_event_handlers</defname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>WorldEventHandlersMap|None</type>
+          <declname>default_event_handlers</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="41" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="47" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a55b49e7577d95fa7d56f108e8d023c45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.manager.WorldManager.load_world</definition>
+        <argsstring>(self, str world_name=&quot;default&quot;, str world_factory_name=&quot;default&quot;, dict[str, Any] world_config={})</argsstring>
+        <name>load_world</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.load_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>world_name</declname>
+          <defval>&quot;default&quot;</defval>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>world_factory_name</declname>
+          <defval>&quot;default&quot;</defval>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>world_config</declname>
+          <array>[str, Any]</array>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="84" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="86" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1ada5350ed5361129c74a00dd79f79e14b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.manager.WorldManager.start_ai_manager</definition>
+        <argsstring>(self, world_instance, WorldInstanceTypes connection_type=WorldInstanceTypes.SYNCHRONOUS)</argsstring>
+        <name>start_ai_manager</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.start_ai_manager</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>world_instance</type>
+          <defname>world_instance</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" kindref="compound">WorldInstanceTypes</ref></type>
+          <declname>connection_type</declname>
+          <defval>WorldInstanceTypes.SYNCHRONOUS</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="115" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="115" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a0e4d7bb04b33d6d202005627e17685d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.manager.WorldManager.update_shared_state_snapshots</definition>
+        <argsstring>(self, SharedState shared_state)</argsstring>
+        <name>update_shared_state_snapshots</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.update_shared_state_snapshots</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1game__state_1_1state_1_1SharedState" kindref="compound">SharedState</ref></type>
+          <declname>shared_state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Update the shared_state with current snapshot data.
+
+Loads the snapshot list for the current world into shared_state
+so it can be accessed by the GUI layer.
+
+This method should be called before rendering the GUI to ensure
+the EditorDebuggerProgram displays the current snapshot list.
+
+Args:
+    shared_state: SharedState object to update with snapshot data
+
+Usage:
+    world_manager.update_shared_state_snapshots(shared_state)
+    # Then shared_state.snapshots will be available in GUI
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="124" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="124" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a378e24470efe33cf2d9a4825b99f182e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.manager.WorldManager.pause_world</definition>
+        <argsstring>(self, str|None world_key=None)</argsstring>
+        <name>pause_world</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.pause_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>world_key</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Public method to pause a world.
+
+Args:
+    world_key: The key of the world to pause. If None, pauses the current world.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="275" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="275" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1aa71cf8a23d164432b97cf3cf495400df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.manager.WorldManager.play_world</definition>
+        <argsstring>(self, str|None world_key=None)</argsstring>
+        <name>play_world</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.play_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>world_key</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Public method to play/resume a world.
+
+Args:
+    world_key: The key of the world to play. If None, plays the current world.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="284" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="284" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1ab6feef885cf2f5ce12159db2728ee44f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.manager.WorldManager.step_simulation</definition>
+        <argsstring>(self, str|None world_key=None, int steps=1)</argsstring>
+        <name>step_simulation</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.step_simulation</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>world_key</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>steps</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Public method to step the simulation.
+
+Args:
+    world_key: The key of the world to step. If None, steps the current world.
+    steps: Number of simulation steps to perform (default: 1).
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="293" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="293" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1ae136f5a841bc4ce000d356e09554b6b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str|None</type>
+        <definition> str | None aetherion.world.manager.WorldManager.get_world_status</definition>
+        <argsstring>(self, str|None world_key=None)</argsstring>
+        <name>get_world_status</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.get_world_status</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>world_key</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Public method to get world status.
+
+Args:
+    world_key: The key of the world. If None, gets the current world status.
+
+Returns:
+    The status string or None if the world is not found.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="303" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="303" bodyend="314"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a0bb788adc36bd7cf059ba9aa690ccd1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.manager.WorldManager.register_factory</definition>
+        <argsstring>(self, str name, Callable[[], World] factory)</argsstring>
+        <name>register_factory</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.register_factory</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <defname>factory</defname>
+          <array>[[]</array>
+        </param>
+        <param>
+          <type><ref refid="classWorld" kindref="compound">World</ref>]</type>
+          <declname>factory</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Register a world factory under a name.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="315" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="315" bodyend="324"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a3e5ede18281995aa54df06dfe6daf5b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref></type>
+        <definition> WorldInterface aetherion.world.manager.WorldManager.register</definition>
+        <argsstring>(self, str name, WorldInterface world)</argsstring>
+        <name>register</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.register</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref></type>
+          <declname>world</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Register a world instance under a name.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="325" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="325" bodyend="336"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a1437aa06494ea0a9fcaeea490731f95b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref></type>
+        <definition> WorldInterface aetherion.world.manager.WorldManager.create_world</definition>
+        <argsstring>(self, str name, dict[str, Any] world_config, world_class=None)</argsstring>
+        <name>create_world</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.create_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>world_config</declname>
+          <array>[str, Any]</array>
+        </param>
+        <param>
+          <type>world_class</type>
+          <defname>world_class</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Create and register a new world with given configuration.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="337" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="337" bodyend="344"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a54f9233c329d9f569797f756b0f3a525" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref></type>
+        <definition> WorldInterface aetherion.world.manager.WorldManager.get_world</definition>
+        <argsstring>(self, str world_name)</argsstring>
+        <name>get_world</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.get_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>world_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get a registered world by name.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="345" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="345" bodyend="349"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1ad61d916b780daa1155a96f8f45c64a0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.manager.WorldManager.change</definition>
+        <argsstring>(self, str name)</argsstring>
+        <name>change</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.change</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Switch to a registered world by name.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="350" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="350" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1aa61665a398c4bec1e9dbc69bb72b8b4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.manager.WorldManager.process_ai_decisions</definition>
+        <argsstring>(self)</argsstring>
+        <name>process_ai_decisions</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.process_ai_decisions</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Process AI decisions if the conditions are met.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="358" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="358" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1aac4384845eb4678c63254f945ed63058" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.manager.WorldManager.update</definition>
+        <argsstring>(self)</argsstring>
+        <name>update</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.update</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Update the current world; handle world simulation.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="365" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="365" bodyend="391"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a23a345a7988e0d685fd308c2aac7e3f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.manager.WorldManager.save_current_world</definition>
+        <argsstring>(self, str save_path)</argsstring>
+        <name>save_current_world</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.save_current_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>save_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Save the current world to a file.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="392" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="392" bodyend="401"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a5f32740609958ffd2790df502989ec4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1world_1_1interface_1_1WorldInterface" kindref="compound">WorldInterface</ref></type>
+        <definition> WorldInterface aetherion.world.manager.WorldManager.load_world_from_save</definition>
+        <argsstring>(self, str world_name, str save_path, world_class=None)</argsstring>
+        <name>load_world_from_save</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.load_world_from_save</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>world_name</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>save_path</declname>
+        </param>
+        <param>
+          <type>world_class</type>
+          <defname>world_class</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Load a world from a save file.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="402" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="402" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1abc6b1b062907694ea0c58e1bf54a2a4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.manager.WorldManager.unload_world</definition>
+        <argsstring>(self, str world_name)</argsstring>
+        <name>unload_world</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.unload_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>world_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Unload a world and free its resources.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="416" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="416" bodyend="427"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a09120701b82c4db162ceec41d8219e2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>list[str]</type>
+        <definition> list[str] aetherion.world.manager.WorldManager.list_worlds</definition>
+        <argsstring>(self)</argsstring>
+        <name>list_worlds</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.list_worlds</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get a list of all registered world names.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="428" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="428" bodyend="431"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1ac80fd6dc9ec8ed21d899402784721159" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Optional[str]</type>
+        <definition> Optional[str] aetherion.world.manager.WorldManager.get_current_world_name</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_current_world_name</name>
+        <qualifiedname>aetherion.world.manager.WorldManager.get_current_world_name</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get the name of the currently active world.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="432" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="432" bodyend="440"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1ab7c8cee3c8c1c3cfe0a6cd26c2c5e9d3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str|None</type>
+        <definition> str | None aetherion.world.manager.WorldManager._validate_target_key</definition>
+        <argsstring>(self, str|None world_key=None)</argsstring>
+        <name>_validate_target_key</name>
+        <qualifiedname>aetherion.world.manager.WorldManager._validate_target_key</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>world_key</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Validate and return the target world key.
+
+Args:
+    world_key: The key of the world. If None, uses the current world key.
+
+Returns:
+    The validated world key, or None if validation fails.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="158" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="158" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1ae9c90dbc28e9c8b01d21f9552b0b2696" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.manager.WorldManager._pause_world</definition>
+        <argsstring>(self, str|None world_key=None)</argsstring>
+        <name>_pause_world</name>
+        <qualifiedname>aetherion.world.manager.WorldManager._pause_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>world_key</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Pause the specified world or the current world.
+
+Args:
+    world_key: The key of the world to pause. If None, pauses the current world.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="180" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="180" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1ad227b4641f30b6bb60e73263c8855c23" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.manager.WorldManager._play_world</definition>
+        <argsstring>(self, str|None world_key=None)</argsstring>
+        <name>_play_world</name>
+        <qualifiedname>aetherion.world.manager.WorldManager._play_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>world_key</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Resume/play the specified world or the current world.
+
+Args:
+    world_key: The key of the world to play. If None, plays the current world.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="200" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="200" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a124eed70f585034825e258b44ab7fb55" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.manager.WorldManager._step_simulation</definition>
+        <argsstring>(self, str|None world_key=None, int steps=1)</argsstring>
+        <name>_step_simulation</name>
+        <qualifiedname>aetherion.world.manager.WorldManager._step_simulation</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>world_key</declname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>steps</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Step the simulation forward by a specified number of ticks.
+Useful for debugging and controlled simulation.
+
+Args:
+    world_key: The key of the world to step. If None, steps the current world.
+    steps: Number of simulation steps to perform (default: 1).
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="220" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="220" bodyend="257"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1manager_1_1WorldManager_1a7da7a634e183aba6d440fb44907f70e5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>str|None</type>
+        <definition> str | None aetherion.world.manager.WorldManager._get_world_status</definition>
+        <argsstring>(self, str|None world_key=None)</argsstring>
+        <name>_get_world_status</name>
+        <qualifiedname>aetherion.world.manager.WorldManager._get_world_status</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>world_key</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Get the status of the specified world or the current world.
+
+Args:
+    world_key: The key of the world. If None, gets the current world status.
+
+Returns:
+    The status string or None if the world is not found.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/manager.py" line="258" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="258" bodyend="273"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Manages world registration and lifecycle transitions.
+
+Provides comprehensive world state management including:
+- World creation and registration
+- World lifecycle (connect, disconnect, unload)
+- Simulation control (pause, play, step)
+- World status tracking (creating, ready, running, paused, stepping)
+
+Usage:
+    # Pause the current world
+    world_manager.pause_world()
+
+    # Resume the current world
+    world_manager.play_world()
+
+    # Step simulation by 1 tick (useful for debugging)
+    world_manager.step_simulation(steps=1)
+
+    # Check world status
+    status = world_manager.get_world_status()
+
+    # Control a specific world by key
+    world_manager.pause_world(&quot;my_world_key&quot;)
+</verbatim> </para>
+    </detaileddescription>
+    <location file="src/aetherion/world/manager.py" line="14" column="1" bodyfile="src/aetherion/world/manager.py" bodystart="14" bodyend="440"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a2bfdb7ae359bf275c06521a897d5ca10" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a7da7a634e183aba6d440fb44907f70e5" prot="protected" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>_get_world_status</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1ae9c90dbc28e9c8b01d21f9552b0b2696" prot="protected" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>_pause_world</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1ad227b4641f30b6bb60e73263c8855c23" prot="protected" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>_play_world</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a124eed70f585034825e258b44ab7fb55" prot="protected" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>_step_simulation</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1ab7c8cee3c8c1c3cfe0a6cd26c2c5e9d3" prot="protected" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>_validate_target_key</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a3556a5aadf666f345be356a4e6db6f44" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>ai_manager</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a279af9d04d360a137f9c646812f07328" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>ai_manager_factory</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1ad61d916b780daa1155a96f8f45c64a0e" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>change</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a1437aa06494ea0a9fcaeea490731f95b" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>create_world</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a4b8222ffc93f1a72756ede0cbcbc784d" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>current</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1ac80fd6dc9ec8ed21d899402784721159" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>get_current_world_name</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a54f9233c329d9f569797f756b0f3a525" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>get_world</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1ae136f5a841bc4ce000d356e09554b6b3" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>get_world_status</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a86555e38dc907c93c9e7e9560f87f15e" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>handlers</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a09120701b82c4db162ceec41d8219e2a" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>list_worlds</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a55b49e7577d95fa7d56f108e8d023c45" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>load_world</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a5f32740609958ffd2790df502989ec4e" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>load_world_from_save</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a378e24470efe33cf2d9a4825b99f182e" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>pause_world</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1aa71cf8a23d164432b97cf3cf495400df" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>play_world</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1aa61665a398c4bec1e9dbc69bb72b8b4a" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>process_ai_decisions</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a3e5ede18281995aa54df06dfe6daf5b8" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>register</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a0bb788adc36bd7cf059ba9aa690ccd1e" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>register_factory</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a23a345a7988e0d685fd308c2aac7e3f5" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>save_current_world</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1ada5350ed5361129c74a00dd79f79e14b" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>start_ai_manager</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1ab6feef885cf2f5ce12159db2728ee44f" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>step_simulation</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1abc6b1b062907694ea0c58e1bf54a2a4a" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>unload_world</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1aac4384845eb4678c63254f945ed63058" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>update</name></member>
+      <member refid="classaetherion_1_1world_1_1manager_1_1WorldManager_1a0e4d7bb04b33d6d202005627e17685d1" prot="public" virt="non-virtual"><scope>aetherion::world::manager::WorldManager</scope><name>update_shared_state_snapshots</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

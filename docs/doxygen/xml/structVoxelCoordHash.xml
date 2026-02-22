@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structVoxelCoordHash" kind="struct" language="C++" prot="public">
+    <compoundname>VoxelCoordHash</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structVoxelCoordHash_1a66c357049d32380b7cf21e83400755e4" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t VoxelCoordHash::operator()</definition>
+        <argsstring>(const VoxelCoord &amp;k) const noexcept</argsstring>
+        <name>operator()</name>
+        <qualifiedname>VoxelCoordHash::operator()</qualifiedname>
+        <param>
+          <type>const <ref refid="structVoxelCoord" kindref="compound">VoxelCoord</ref> &amp;</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/terrain/VoxelCoord.hpp" line="17" column="17" bodyfile="src/terrain/VoxelCoord.hpp" bodystart="17" bodyend="23"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/terrain/VoxelCoord.hpp" line="16" column="1" bodyfile="src/terrain/VoxelCoord.hpp" bodystart="16" bodyend="24"/>
+    <listofallmembers>
+      <member refid="structVoxelCoordHash_1a66c357049d32380b7cf21e83400755e4" prot="public" virt="non-virtual"><scope>VoxelCoordHash</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

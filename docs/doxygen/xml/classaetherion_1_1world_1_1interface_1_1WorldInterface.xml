@@ -1,0 +1,1318 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1world_1_1interface_1_1WorldInterface" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::world::interface::WorldInterface</compoundname>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a9e197180d121f516a292648fc54d998d" prot="public" static="yes" mutable="no">
+        <type><ref refid="classWorld" kindref="compound">World</ref></type>
+        <definition>World aetherion.world.interface.WorldInterface::world</definition>
+        <argsstring></argsstring>
+        <name>world</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.world</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="31" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1afe4a57784679854d0bbfd67a0b9b3038" prot="public" static="yes" mutable="no">
+        <type><ref refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer" kindref="compound">AuthenticatedWebSocketServer</ref></type>
+        <definition>AuthenticatedWebSocketServer aetherion.world.interface.WorldInterface::server</definition>
+        <argsstring></argsstring>
+        <name>server</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.server</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="32" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a2b0c9bf56aef36e42ff873a6d2600c12" prot="public" static="yes" mutable="no">
+        <type>asyncio</type>
+        <definition>asyncio aetherion.world.interface.WorldInterface::server_task</definition>
+        <argsstring></argsstring>
+        <name>server_task</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.server_task</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="33" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a7065f451815a82d849eb3fd239fdd8c6" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.world.interface.WorldInterface::entity_action_map</definition>
+        <argsstring></argsstring>
+        <name>entity_action_map</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.entity_action_map</qualifiedname>
+        <initializer>[int, object]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="40" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a643aa329588ae8c1b1935c4caf4618c4" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.world.interface.WorldInterface::entity_last_action_map</definition>
+        <argsstring></argsstring>
+        <name>entity_last_action_map</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.entity_last_action_map</qualifiedname>
+        <initializer>[int, float]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="41" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a744e2f6b469f981a3faa1aadd95a70a0" prot="public" static="yes" mutable="no">
+        <type>bytes</type>
+        <definition>bytes aetherion.world.interface.WorldInterface::last_state_response</definition>
+        <argsstring></argsstring>
+        <name>last_state_response</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.last_state_response</qualifiedname>
+        <initializer> | None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="42" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="42" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a60a088717056243b33094c589633f2cd" prot="protected" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.world.interface.WorldInterface::_ready</definition>
+        <argsstring></argsstring>
+        <name>_ready</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface._ready</qualifiedname>
+        <initializer>=  False</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="35" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a02a7cc440e824c770c3df1913f16f390" prot="protected" static="yes" mutable="no">
+        <type>set</type>
+        <definition>set aetherion.world.interface.WorldInterface::_connected_entities</definition>
+        <argsstring></argsstring>
+        <name>_connected_entities</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface._connected_entities</qualifiedname>
+        <initializer>=  set()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="36" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a2751ec73d0b15943f877722824c833e8" prot="protected" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.world.interface.WorldInterface::_connected_entity_names</definition>
+        <argsstring></argsstring>
+        <name>_connected_entity_names</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface._connected_entity_names</qualifiedname>
+        <initializer>=  {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="37" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a21a69b6c9c3724079cb41ab16d3a2e11" prot="protected" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.world.interface.WorldInterface::_entities_optional_queries</definition>
+        <argsstring></argsstring>
+        <name>_entities_optional_queries</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface._entities_optional_queries</qualifiedname>
+        <initializer>=  {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="38" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a3d99b2846a2fb5c4b28493a386aa871f" prot="protected" static="yes" mutable="no">
+        <type>ThreadPoolExecutor</type>
+        <definition>ThreadPoolExecutor aetherion.world.interface.WorldInterface::_executor</definition>
+        <argsstring></argsstring>
+        <name>_executor</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface._executor</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="39" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a48b56a35b9c7acbdb5ec188b262b02b7" prot="protected" static="yes" mutable="no">
+        <type>Callable</type>
+        <definition>Callable aetherion.world.interface.WorldInterface::_start_world</definition>
+        <argsstring></argsstring>
+        <name>_start_world</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface._start_world</qualifiedname>
+        <initializer>=  None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="44" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="44" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a8ce37e72399c83733a6b520e630cfff5" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface::world</definition>
+        <argsstring></argsstring>
+        <name>world</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.world</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="48" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a421a6bd892dd5edae406e46939093015" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface::entity_action_map</definition>
+        <argsstring></argsstring>
+        <name>entity_action_map</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.entity_action_map</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="62" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1accd045f6d1df445c480aec316310c206" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface::entity_last_action_map</definition>
+        <argsstring></argsstring>
+        <name>entity_last_action_map</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.entity_last_action_map</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="63" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1af4e2212bb6f20507d2a1bdee74cbb589" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface::last_state_response</definition>
+        <argsstring></argsstring>
+        <name>last_state_response</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.last_state_response</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="65" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a711112c7b7a45d7ed97dc51fe5d4509f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface::connection_type</definition>
+        <argsstring></argsstring>
+        <name>connection_type</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.connection_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="84" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a5fbeebbef49bda07ebe7531325c127c2" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface::ai_metadata_response</definition>
+        <argsstring></argsstring>
+        <name>ai_metadata_response</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.ai_metadata_response</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="119" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a53400d3998d6caa64aada2bbefe55475" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface::server</definition>
+        <argsstring></argsstring>
+        <name>server</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.server</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="202" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a2be4a6d748ed5295abb7799d30bdb229" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface::server_task</definition>
+        <argsstring></argsstring>
+        <name>server_task</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.server_task</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="205" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a7d34857c6aee97130734516ba2c4f3a5" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface::get_perception_responses</definition>
+        <argsstring></argsstring>
+        <name>get_perception_responses</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.get_perception_responses</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="263" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="263" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a7f8c2854d69497233c0cf18dde44b334" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface::_executor</definition>
+        <argsstring></argsstring>
+        <name>_executor</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface._executor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="69" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="69" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a08ad215a9f7ac5cf6e05b6ad7b522385" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.interface.WorldInterface.__init__</definition>
+        <argsstring>(self, WorldInstanceTypes world_instance_type, World world, int fps=30)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1world_1_1constants_1_1WorldInstanceTypes" kindref="compound">WorldInstanceTypes</ref></type>
+          <declname>world_instance_type</declname>
+        </param>
+        <param>
+          <type><ref refid="classWorld" kindref="compound">World</ref></type>
+          <declname>world</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fps</declname>
+          <defval>30</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="46" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="46" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a6d987913cced32a051c3ed8a14bb5b09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition> int aetherion.world.interface.WorldInterface.ticks</definition>
+        <argsstring>(self)</argsstring>
+        <name>ticks</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.ticks</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Getter for the number of ticks.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="75" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="75" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a09b051e1f6eda21b72c8f000da64921a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition> bool aetherion.world.interface.WorldInterface.ready</definition>
+        <argsstring>(self)</argsstring>
+        <name>ready</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.ready</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="82" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="82" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ae5f2119f07fd3e11c3d6b46c471fffc9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.interface.WorldInterface.check_world</definition>
+        <argsstring>(self)</argsstring>
+        <name>check_world</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.check_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="88" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="88" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1acb854dcf2564ad50a6c1cbaf11cb9f3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaetherion_1_1world_1_1models_1_1AIMetadataResponse" kindref="compound">AIMetadataResponse</ref>|None</type>
+        <definition> AIMetadataResponse | None aetherion.world.interface.WorldInterface.get_ai_metadata</definition>
+        <argsstring>(self)</argsstring>
+        <name>get_ai_metadata</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.get_ai_metadata</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="92" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="92" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a92f609ec8c332663c0fd0dd4a7e3d52a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.set_entity_action_map</definition>
+        <argsstring>(self, dict[int, object] entity_action_map, dict[str, float] statistics)</argsstring>
+        <name>set_entity_action_map</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.set_entity_action_map</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>entity_action_map</declname>
+          <array>[int, object]</array>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>statistics</declname>
+          <array>[str, float]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="124" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="124" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ace5f55bf134f7c591ceb65b1c541f9ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.process_nn_actions</definition>
+        <argsstring>(self)</argsstring>
+        <name>process_nn_actions</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.process_nn_actions</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Process the actions received from the neural network for each entity.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="147" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="147" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a099c53aacbcee6fe2359dd1a924b7ef8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.start_server</definition>
+        <argsstring>(self)</argsstring>
+        <name>start_server</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.start_server</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="201" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="201" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ac299a1b084a58e29ff0b62822812f3ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.update_world</definition>
+        <argsstring>(self)</argsstring>
+        <name>update_world</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.update_world</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>To update the world and get creatures perceptions.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="207" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="207" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ac5103d7a9ad01471ee77cfaf71a309a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.register_connected_entity</definition>
+        <argsstring>(self, int entity_id, str|None name=None)</argsstring>
+        <name>register_connected_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.register_connected_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>entity_id</declname>
+        </param>
+        <param>
+          <type>str|None</type>
+          <declname>name</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="224" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="224" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1aa81868cdd19f466a56df28176a754c00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.register_list_of_connected_entities</definition>
+        <argsstring>(self, list[int] entity_ids)</argsstring>
+        <name>register_list_of_connected_entities</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.register_list_of_connected_entities</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>list</type>
+          <declname>entity_ids</declname>
+          <array>[int]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="229" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="229" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1afd7fddebb1191f59b50a0efa36f98398" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.unregister_connected_entity</definition>
+        <argsstring>(self, int entity_id)</argsstring>
+        <name>unregister_connected_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.unregister_connected_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>entity_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="232" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="232" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1afdd8d95877cdc8d4e306ea4731f5ae50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.unregister_list_of_connected_entities</definition>
+        <argsstring>(self, list[int] entity_ids)</argsstring>
+        <name>unregister_list_of_connected_entities</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.unregister_list_of_connected_entities</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>list</type>
+          <declname>entity_ids</declname>
+          <array>[int]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="236" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="236" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ac24475c5daa0e29ebecde92dcb37c755" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.get_perception_responses</definition>
+        <argsstring>(self, entities_ids_with_queries, entities_ids_connection_names)</argsstring>
+        <name>get_perception_responses</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.get_perception_responses</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>entities_ids_with_queries</type>
+          <defname>entities_ids_with_queries</defname>
+        </param>
+        <param>
+          <type>entities_ids_connection_names</type>
+          <defname>entities_ids_connection_names</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="239" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="239" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a6d797f3ff8c2d496526dd89b2139a851" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.get_perception_responses_async</definition>
+        <argsstring>(self, entities_ids_with_queries, entities_ids_connection_names)</argsstring>
+        <name>get_perception_responses_async</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.get_perception_responses_async</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>entities_ids_with_queries</type>
+          <defname>entities_ids_with_queries</defname>
+        </param>
+        <param>
+          <type>entities_ids_connection_names</type>
+          <defname>entities_ids_connection_names</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Run get_perception_responses in the dedicated thread pool.
+
+Returns the encoded state bytes and updates self.last_state_response.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="255" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="255" bodyend="267"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a56442fde7c611158ce407e35ca541d54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.run_game_loop</definition>
+        <argsstring>(self)</argsstring>
+        <name>run_game_loop</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.run_game_loop</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="268" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="268" bodyend="305"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a078d460e4d4f20f2e3ab8e23f66581fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_left_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_left_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_left_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="306" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="306" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a35646ee7f742c40ee0a41a116f741f37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_up_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_up_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_up_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="311" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="311" bodyend="315"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a4f9473fe5aa331f3fe6d3bb42d4ce532" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_right_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_right_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_right_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="316" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="316" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a5ffa6c0926d5220bf04b251ade93d94e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_down_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_down_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_down_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="321" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="321" bodyend="325"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ae6cc037607190e237af699e63da9b962" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.jump_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>jump_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.jump_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="326" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="326" bodyend="330"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a978e68db67f3aeccd486beb89785859c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_left_up_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_left_up_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_left_up_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="331" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="331" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a6ac8097cebef3a818d66605d2dbd5902" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_left_down_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_left_down_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_left_down_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="336" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="336" bodyend="340"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ada36be3d9fd07abaf8b7d9007735aab7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_right_up_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_right_up_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_right_up_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="341" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="341" bodyend="345"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a97d6d668dab4901e3862c8806db26832" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_right_down_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_right_down_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_right_down_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="346" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="346" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a6e1dcfa77bc2008aa0af17cc57d8afc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_left_jump_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_left_jump_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_left_jump_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="351" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="351" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ab390f00149ab8813f7dd43ecc46eb0ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_right_jump_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_right_jump_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_right_jump_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="356" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="356" bodyend="360"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a3bdb1123b7df9a055d1e5e31ee3b15fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_up_jump_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_up_jump_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_up_jump_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="361" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="361" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a48f8fe5a5d8c0c4d50b3d4fbe2776e9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.walk_down_jump_entity</definition>
+        <argsstring>(self, EntityInterface entity_interface)</argsstring>
+        <name>walk_down_jump_entity</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.walk_down_jump_entity</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="366" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="366" bodyend="370"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a129705222e03c26f25aab99b7d6b75a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.make_entity_take_item</definition>
+        <argsstring>(self, EntityInterface entity_interface, int|None hovered_entity, int|None selected_entity)</argsstring>
+        <name>make_entity_take_item</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.make_entity_take_item</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+          <declname>entity_interface</declname>
+        </param>
+        <param>
+          <type>int|None</type>
+          <declname>hovered_entity</declname>
+        </param>
+        <param>
+          <type>int|None</type>
+          <declname>selected_entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="371" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="373" bodyend="380"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1aedb85f60b801b5ddb1e5ab0e6a5637d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.make_entity_use_item</definition>
+        <argsstring>(self, entity_interface, item_slot, hovered_entity, selected_entity)</argsstring>
+        <name>make_entity_use_item</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.make_entity_use_item</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>entity_interface</type>
+          <defname>entity_interface</defname>
+        </param>
+        <param>
+          <type>item_slot</type>
+          <defname>item_slot</defname>
+        </param>
+        <param>
+          <type>hovered_entity</type>
+          <defname>hovered_entity</defname>
+        </param>
+        <param>
+          <type>selected_entity</type>
+          <defname>selected_entity</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="381" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="381" bodyend="390"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a9c30589457e7a85e97780bcfaed772c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.set_entity_to_debug</definition>
+        <argsstring>(self, int entity_id)</argsstring>
+        <name>set_entity_to_debug</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.set_entity_to_debug</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>entity_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="391" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="391" bodyend="394"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a19ba1966754ba6582bd39e7b44d0a757" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.set_entity_statistics_map</definition>
+        <argsstring>(self, dict[int, dict[str, float]] entity_statistics_map)</argsstring>
+        <name>set_entity_statistics_map</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.set_entity_statistics_map</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>dict]</type>
+          <declname>entity_statistics_map</declname>
+          <array>[int, dict[str, float]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="395" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="395" bodyend="398"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1afa73cc13842e44f7e651249332fd07fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.interface.WorldInterface.put_time_series</definition>
+        <argsstring>(self, int timestamp, float value, str series_name=&quot;performance_metrics&quot;)</argsstring>
+        <name>put_time_series</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.put_time_series</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>timestamp</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>series_name</declname>
+          <defval>&quot;performance_metrics&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Record a time series value in the C++ world database.
+
+Args:
+    timestamp: Unix timestamp
+    value: The value to record
+    series_name: Name of the time series (default: &quot;performance_metrics&quot;)
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="399" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="399" bodyend="410"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a68c0d87366933e24361f0bf45c162fd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.world.interface.WorldInterface.query_time_series</definition>
+        <argsstring>(self, int start, int end, str series_name=&quot;performance_metrics&quot;)</argsstring>
+        <name>query_time_series</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.query_time_series</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>end</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>series_name</declname>
+          <defval>&quot;performance_metrics&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Query time series data from the C++ world database.
+Returns a list of (timestamp, value) pairs.
+
+Args:
+    start: Start timestamp
+    end: End timestamp
+    series_name: Name of the time series to query (default: &quot;performance_metrics&quot;)
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="411" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="411" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ac71f8ddca31fe3e98115179d682c635f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.interface.WorldInterface.execute_sql</definition>
+        <argsstring>(self, str sql)</argsstring>
+        <name>execute_sql</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.execute_sql</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>sql</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Execute a raw SQL command in the C++ world database.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="424" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="424" bodyend="430"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1world_1_1interface_1_1WorldInterface_1abde9ae578f7821948c614cee5be01c64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.world.interface.WorldInterface.close</definition>
+        <argsstring>(self)</argsstring>
+        <name>close</name>
+        <qualifiedname>aetherion.world.interface.WorldInterface.close</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Gracefully shutdown background executors.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/interface.py" line="431" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="431" bodyend="438"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Manages different ways to instantiate and manage a world instance.</verbatim> </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.world.interface.WorldInterface</label>
+        <link refid="classaetherion_1_1world_1_1interface_1_1WorldInterface"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>world</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>server</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>server_task</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>_executor</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>_start_world</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>World</label>
+      </node>
+      <node id="3">
+        <label>aetherion.networking.websocket_server.AuthenticatedWebSocketServer</label>
+        <link refid="classaetherion_1_1networking_1_1websocket__server_1_1AuthenticatedWebSocketServer"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aetherion.networking.websocket_server.WebSocketGameServer</label>
+        <link refid="classaetherion_1_1networking_1_1websocket__server_1_1WebSocketGameServer"/>
+      </node>
+      <node id="5">
+        <label>asyncio</label>
+      </node>
+      <node id="7">
+        <label>Callable</label>
+      </node>
+      <node id="6">
+        <label>ThreadPoolExecutor</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/world/interface.py" line="28" column="1" bodyfile="src/aetherion/world/interface.py" bodystart="28" bodyend="438"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a08ad215a9f7ac5cf6e05b6ad7b522385" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a02a7cc440e824c770c3df1913f16f390" prot="protected" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>_connected_entities</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a2751ec73d0b15943f877722824c833e8" prot="protected" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>_connected_entity_names</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a21a69b6c9c3724079cb41ab16d3a2e11" prot="protected" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>_entities_optional_queries</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a3d99b2846a2fb5c4b28493a386aa871f" prot="protected" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>_executor</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a7f8c2854d69497233c0cf18dde44b334" prot="protected" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>_executor</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a60a088717056243b33094c589633f2cd" prot="protected" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>_ready</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a48b56a35b9c7acbdb5ec188b262b02b7" prot="protected" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>_start_world</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a5fbeebbef49bda07ebe7531325c127c2" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>ai_metadata_response</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ae5f2119f07fd3e11c3d6b46c471fffc9" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>check_world</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1abde9ae578f7821948c614cee5be01c64" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>close</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a711112c7b7a45d7ed97dc51fe5d4509f" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>connection_type</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a7065f451815a82d849eb3fd239fdd8c6" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>entity_action_map</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a421a6bd892dd5edae406e46939093015" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>entity_action_map</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a643aa329588ae8c1b1935c4caf4618c4" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>entity_last_action_map</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1accd045f6d1df445c480aec316310c206" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>entity_last_action_map</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ac71f8ddca31fe3e98115179d682c635f" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>execute_sql</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1acb854dcf2564ad50a6c1cbaf11cb9f3b" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>get_ai_metadata</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a7d34857c6aee97130734516ba2c4f3a5" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>get_perception_responses</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ac24475c5daa0e29ebecde92dcb37c755" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>get_perception_responses</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a6d797f3ff8c2d496526dd89b2139a851" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>get_perception_responses_async</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ae6cc037607190e237af699e63da9b962" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>jump_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a744e2f6b469f981a3faa1aadd95a70a0" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>last_state_response</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1af4e2212bb6f20507d2a1bdee74cbb589" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>last_state_response</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a129705222e03c26f25aab99b7d6b75a3" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>make_entity_take_item</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1aedb85f60b801b5ddb1e5ab0e6a5637d7" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>make_entity_use_item</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ace5f55bf134f7c591ceb65b1c541f9ad" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>process_nn_actions</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1afa73cc13842e44f7e651249332fd07fb" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>put_time_series</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a68c0d87366933e24361f0bf45c162fd7" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>query_time_series</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a09b051e1f6eda21b72c8f000da64921a" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>ready</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ac5103d7a9ad01471ee77cfaf71a309a5" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>register_connected_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1aa81868cdd19f466a56df28176a754c00" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>register_list_of_connected_entities</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a56442fde7c611158ce407e35ca541d54" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>run_game_loop</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1afe4a57784679854d0bbfd67a0b9b3038" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>server</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a53400d3998d6caa64aada2bbefe55475" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>server</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a2b0c9bf56aef36e42ff873a6d2600c12" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>server_task</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a2be4a6d748ed5295abb7799d30bdb229" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>server_task</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a92f609ec8c332663c0fd0dd4a7e3d52a" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>set_entity_action_map</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a19ba1966754ba6582bd39e7b44d0a757" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>set_entity_statistics_map</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a9c30589457e7a85e97780bcfaed772c3" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>set_entity_to_debug</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a099c53aacbcee6fe2359dd1a924b7ef8" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>start_server</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a6d987913cced32a051c3ed8a14bb5b09" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>ticks</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1afd7fddebb1191f59b50a0efa36f98398" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>unregister_connected_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1afdd8d95877cdc8d4e306ea4731f5ae50" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>unregister_list_of_connected_entities</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ac299a1b084a58e29ff0b62822812f3ca" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>update_world</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a5ffa6c0926d5220bf04b251ade93d94e" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_down_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a48f8fe5a5d8c0c4d50b3d4fbe2776e9a" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_down_jump_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a6ac8097cebef3a818d66605d2dbd5902" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_left_down_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a078d460e4d4f20f2e3ab8e23f66581fa" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_left_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a6e1dcfa77bc2008aa0af17cc57d8afc2" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_left_jump_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a978e68db67f3aeccd486beb89785859c" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_left_up_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a97d6d668dab4901e3862c8806db26832" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_right_down_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a4f9473fe5aa331f3fe6d3bb42d4ce532" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_right_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ab390f00149ab8813f7dd43ecc46eb0ee" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_right_jump_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1ada36be3d9fd07abaf8b7d9007735aab7" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_right_up_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a35646ee7f742c40ee0a41a116f741f37" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_up_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a3bdb1123b7df9a055d1e5e31ee3b15fc" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>walk_up_jump_entity</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a9e197180d121f516a292648fc54d998d" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>world</name></member>
+      <member refid="classaetherion_1_1world_1_1interface_1_1WorldInterface_1a8ce37e72399c83733a6b520e630cfff5" prot="public" virt="non-virtual"><scope>aetherion::world::interface::WorldInterface</scope><name>world</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

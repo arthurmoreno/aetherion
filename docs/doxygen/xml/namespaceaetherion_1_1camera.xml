@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1camera" kind="namespace" language="Python">
+    <compoundname>aetherion::camera</compoundname>
+    <innernamespace refid="namespaceaetherion_1_1camera_1_1dimetric">aetherion::camera::dimetric</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1camera_1_1entities__handlers">aetherion::camera::entities_handlers</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1camera_1_1models">aetherion::camera::models</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1camera_1_1mouse">aetherion::camera::mouse</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1camera_1_1terrain">aetherion::camera::terrain</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/camera/dimetric.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

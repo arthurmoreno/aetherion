@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::world::models::AIEntityMetadataResponse</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse_1a7cb2e2e98bdbede0e9c737250698820c" prot="public" static="yes" mutable="no">
+        <type><ref refid="classEntityInterface" kindref="compound">EntityInterface</ref></type>
+        <definition>EntityInterface aetherion.world.models.AIEntityMetadataResponse::entity_interface</definition>
+        <argsstring></argsstring>
+        <name>entity_interface</name>
+        <qualifiedname>aetherion.world.models.AIEntityMetadataResponse.entity_interface</qualifiedname>
+        <initializer> | None</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="45" column="1" bodyfile="src/aetherion/world/models.py" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse_1afe2f10815ef619c7e4b93a1cc06ec87d" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.world.models.AIEntityMetadataResponse::brain_created</definition>
+        <argsstring></argsstring>
+        <name>brain_created</name>
+        <qualifiedname>aetherion.world.models.AIEntityMetadataResponse.brain_created</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="46" column="1" bodyfile="src/aetherion/world/models.py" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse_1a6f14bcd305e9b251a8f26e74e582ae98" prot="public" static="yes" mutable="no">
+        <type></type>
+        <definition>aetherion.world.models.AIEntityMetadataResponse::model_config</definition>
+        <argsstring></argsstring>
+        <name>model_config</name>
+        <qualifiedname>aetherion.world.models.AIEntityMetadataResponse.model_config</qualifiedname>
+        <initializer>=  ConfigDict(arbitrary_types_allowed=True)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/world/models.py" line="47" column="1" bodyfile="src/aetherion/world/models.py" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.world.models.AIEntityMetadataResponse</label>
+        <link refid="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.world.models.AIEntityMetadataResponse</label>
+        <link refid="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>entity_interface</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>EntityInterface</label>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/world/models.py" line="44" column="1" bodyfile="src/aetherion/world/models.py" bodystart="44" bodyend="49"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse_1afe2f10815ef619c7e4b93a1cc06ec87d" prot="public" virt="non-virtual"><scope>aetherion::world::models::AIEntityMetadataResponse</scope><name>brain_created</name></member>
+      <member refid="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse_1a7cb2e2e98bdbede0e9c737250698820c" prot="public" virt="non-virtual"><scope>aetherion::world::models::AIEntityMetadataResponse</scope><name>entity_interface</name></member>
+      <member refid="classaetherion_1_1world_1_1models_1_1AIEntityMetadataResponse_1a6f14bcd305e9b251a8f26e74e582ae98" prot="public" virt="non-virtual"><scope>aetherion::world::models::AIEntityMetadataResponse</scope><name>model_config</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

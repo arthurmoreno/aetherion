@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1entities_1_1items_1_1item__configuration_1_1ItemConfigurationHandler" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::entities::items::item_configuration::ItemConfigurationHandler</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1items_1_1item__configuration_1_1ItemConfigurationHandler_1a6b2cb98bade2cc2d7c86689659f816dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.entities.items.item_configuration.ItemConfigurationHandler.__init__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.entities.items.item_configuration.ItemConfigurationHandler.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/items/item_configuration.py" line="9" column="1" bodyfile="src/aetherion/entities/items/item_configuration.py" bodystart="9" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1items_1_1item__configuration_1_1ItemConfigurationHandler_1af0cc7c85abb896e11a7e4eba7a8a12b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.entities.items.item_configuration.ItemConfigurationHandler.register_item_configuration</definition>
+        <argsstring>(self, ItemConfiguration|dict[str, Any] json_item_configuration)</argsstring>
+        <name>register_item_configuration</name>
+        <qualifiedname>aetherion.entities.items.item_configuration.ItemConfigurationHandler.register_item_configuration</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classaetherion_1_1entities_1_1items_1_1models_1_1ItemConfiguration" kindref="compound">ItemConfiguration</ref>|dict</type>
+          <declname>json_item_configuration</declname>
+          <array>[str, Any]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/items/item_configuration.py" line="13" column="1" bodyfile="src/aetherion/entities/items/item_configuration.py" bodystart="13" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1items_1_1item__configuration_1_1ItemConfigurationHandler_1a8957e533fd4ef5bfdda6a2e4b6c3f75d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>None</type>
+        <definition> None aetherion.entities.items.item_configuration.ItemConfigurationHandler.register_all_items</definition>
+        <argsstring>(self, list[ItemConfiguration] items_configurations)</argsstring>
+        <name>register_all_items</name>
+        <qualifiedname>aetherion.entities.items.item_configuration.ItemConfigurationHandler.register_all_items</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>list</type>
+          <declname>items_configurations</declname>
+          <array>[ItemConfiguration]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/items/item_configuration.py" line="39" column="1" bodyfile="src/aetherion/entities/items/item_configuration.py" bodystart="39" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1items_1_1item__configuration_1_1ItemConfigurationHandler_1ac1e71fe2b473d4db23c611be11ced8d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Any|None</type>
+        <definition> Any | None aetherion.entities.items.item_configuration.ItemConfigurationHandler.get_item_configuration</definition>
+        <argsstring>(self, int|str item_id)</argsstring>
+        <name>get_item_configuration</name>
+        <qualifiedname>aetherion.entities.items.item_configuration.ItemConfigurationHandler.get_item_configuration</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int|str</type>
+          <declname>item_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/items/item_configuration.py" line="43" column="1" bodyfile="src/aetherion/entities/items/item_configuration.py" bodystart="43" bodyend="45"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/entities/items/item_configuration.py" line="8" column="1" bodyfile="src/aetherion/entities/items/item_configuration.py" bodystart="8" bodyend="45"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1entities_1_1items_1_1item__configuration_1_1ItemConfigurationHandler_1a6b2cb98bade2cc2d7c86689659f816dd" prot="public" virt="non-virtual"><scope>aetherion::entities::items::item_configuration::ItemConfigurationHandler</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1entities_1_1items_1_1item__configuration_1_1ItemConfigurationHandler_1ac1e71fe2b473d4db23c611be11ced8d4" prot="public" virt="non-virtual"><scope>aetherion::entities::items::item_configuration::ItemConfigurationHandler</scope><name>get_item_configuration</name></member>
+      <member refid="classaetherion_1_1entities_1_1items_1_1item__configuration_1_1ItemConfigurationHandler_1a8957e533fd4ef5bfdda6a2e4b6c3f75d" prot="public" virt="non-virtual"><scope>aetherion::entities::items::item_configuration::ItemConfigurationHandler</scope><name>register_all_items</name></member>
+      <member refid="classaetherion_1_1entities_1_1items_1_1item__configuration_1_1ItemConfigurationHandler_1af0cc7c85abb896e11a7e4eba7a8a12b1" prot="public" virt="non-virtual"><scope>aetherion::entities::items::item_configuration::ItemConfigurationHandler</scope><name>register_item_configuration</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

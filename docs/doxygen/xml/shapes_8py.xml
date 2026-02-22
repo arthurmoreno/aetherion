@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="shapes_8py" kind="file" language="Python">
+    <compoundname>shapes.py</compoundname>
+    <innerclass refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle" prot="public">aetherion::renderer::shapes::Rectangle</innerclass>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer">aetherion::renderer</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1renderer_1_1shapes">aetherion::renderer::shapes</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sdl2</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle" kindref="compound">Rectangle</ref>:</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1af1693992b4e791526142613dd4ff1747" kindref="member">__init__</ref>(self,<sp/>renderer,<sp/>x:<sp/>int,<sp/>y:<sp/>int,<sp/>width:<sp/>int,<sp/>height:<sp/>int,<sp/>color=(255,<sp/>255,<sp/>255)):</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Initializes<sp/>a<sp/>Rectangle<sp/>object.</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>renderer:<sp/>The<sp/>renderer<sp/>object<sp/>responsible<sp/>for<sp/>drawing.</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>(int):<sp/>The<sp/>x-coordinate<sp/>of<sp/>the<sp/>rectangle&apos;s<sp/>top-left<sp/>corner.</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>(int):<sp/>The<sp/>y-coordinate<sp/>of<sp/>the<sp/>rectangle&apos;s<sp/>top-left<sp/>corner.</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>width<sp/>(int):<sp/>The<sp/>width<sp/>of<sp/>the<sp/>rectangle.</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>height<sp/>(int):<sp/>The<sp/>height<sp/>of<sp/>the<sp/>rectangle.</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>color<sp/>(tuple,<sp/>optional):<sp/>The<sp/>color<sp/>of<sp/>the<sp/>rectangle<sp/>in<sp/>RGB<sp/>format.<sp/>Defaults<sp/>to<sp/>white.</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a9f37255914ca465df129e990e9dd74b8" kindref="member">renderer</ref><sp/>=<sp/>renderer</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1aab280a764714cd6a9afc59db47c3e58a" kindref="member">x</ref><sp/>=<sp/>x</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ad5aad4c0b204b101575a447cae0c3a31" kindref="member">y</ref><sp/>=<sp/>y</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ab2f2cf03fb0460af2c8a317099b8455a" kindref="member">width</ref><sp/>=<sp/>width</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a45274537a6ae0b4bc6dccf921edc25f4" kindref="member">height</ref><sp/>=<sp/>height</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ac121b35ae000691526d9ea5745242f2d" kindref="member">color</ref><sp/>=<sp/>color<sp/><sp/></highlight><highlight class="comment">#<sp/>RGB<sp/>tuple</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Initialize<sp/>the<sp/>SDL_Rect</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" kindref="member">rect</ref><sp/>=<sp/>sdl2.SDL_Rect(x,<sp/>y,<sp/>width,<sp/>height)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a980c8cd54348d8677a66f5f0126bbb32" kindref="member">set_position</ref>(self,<sp/>x:<sp/>int,<sp/>y:<sp/>int):</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sets<sp/>the<sp/>position<sp/>of<sp/>the<sp/>rectangle.</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>(int):<sp/>The<sp/>new<sp/>x-coordinate.</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>(int):<sp/>The<sp/>new<sp/>y-coordinate.</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1aab280a764714cd6a9afc59db47c3e58a" kindref="member">x</ref><sp/>=<sp/>x</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ad5aad4c0b204b101575a447cae0c3a31" kindref="member">y</ref><sp/>=<sp/>y</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" kindref="member">rect</ref>.x<sp/>=<sp/>x</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" kindref="member">rect</ref>.y<sp/>=<sp/>y</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ab5cfdcb86ab49e009692918757a50ac2" kindref="member">set_size</ref>(self,<sp/>width:<sp/>int,<sp/>height:<sp/>int):</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sets<sp/>the<sp/>size<sp/>of<sp/>the<sp/>rectangle.</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>width<sp/>(int):<sp/>The<sp/>new<sp/>width.</highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>height<sp/>(int):<sp/>The<sp/>new<sp/>height.</highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ab2f2cf03fb0460af2c8a317099b8455a" kindref="member">width</ref><sp/>=<sp/>width</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a45274537a6ae0b4bc6dccf921edc25f4" kindref="member">height</ref><sp/>=<sp/>height</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" kindref="member">rect</ref>.w<sp/>=<sp/>width</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" kindref="member">rect</ref>.h<sp/>=<sp/>height</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a824123ab07b961f59c95dc98b0e2345d" kindref="member">set_color</ref>(self,<sp/>color:<sp/>tuple):</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sets<sp/>the<sp/>color<sp/>of<sp/>the<sp/>rectangle.</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="58"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>color<sp/>(tuple):<sp/>The<sp/>new<sp/>color<sp/>in<sp/>RGB<sp/>format.</highlight></codeline>
+<codeline lineno="59"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ac121b35ae000691526d9ea5745242f2d" kindref="member">color</ref><sp/>=<sp/>color</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a36798bfec4d374e71313195b18c98a1c" kindref="member">render</ref>(self):</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Renders<sp/>the<sp/>rectangle<sp/>to<sp/>the<sp/>screen.</highlight></codeline>
+<codeline lineno="65"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Set<sp/>the<sp/>drawing<sp/>color</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_SetRenderDrawColor(</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a9f37255914ca465df129e990e9dd74b8" kindref="member">renderer</ref>._renderer,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ac121b35ae000691526d9ea5745242f2d" kindref="member">color</ref>[0],</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ac121b35ae000691526d9ea5745242f2d" kindref="member">color</ref>[1],</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ac121b35ae000691526d9ea5745242f2d" kindref="member">color</ref>[2],</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>255,<sp/><sp/></highlight><highlight class="comment">#<sp/>Alpha<sp/>channel<sp/>(opaque)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Render<sp/>the<sp/>filled<sp/>rectangle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>sdl2.SDL_RenderFillRect(self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a9f37255914ca465df129e990e9dd74b8" kindref="member">renderer</ref>._renderer,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" kindref="member">rect</ref>)<sp/>!=<sp/>0:</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;SDL_RenderFillRect<sp/>Error:&quot;</highlight><highlight class="normal">,<sp/>sdl2.SDL_GetError())</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ae3ae7256f1aa6caf7b699f28a05185b1" kindref="member">render_outline</ref>(self,<sp/>thickness:<sp/>int<sp/>=<sp/>1):</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="81"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Renders<sp/>the<sp/>outline<sp/>of<sp/>the<sp/>rectangle<sp/>with<sp/>the<sp/>specified<sp/>thickness.</highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="83"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="84"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>thickness<sp/>(int,<sp/>optional):<sp/>The<sp/>thickness<sp/>of<sp/>the<sp/>outline.<sp/>Defaults<sp/>to<sp/>1.</highlight></codeline>
+<codeline lineno="85"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Set<sp/>the<sp/>drawing<sp/>color</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_SetRenderDrawColor(</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a9f37255914ca465df129e990e9dd74b8" kindref="member">renderer</ref>._renderer,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ac121b35ae000691526d9ea5745242f2d" kindref="member">color</ref>[0],</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ac121b35ae000691526d9ea5745242f2d" kindref="member">color</ref>[1],</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ac121b35ae000691526d9ea5745242f2d" kindref="member">color</ref>[2],</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>255,<sp/><sp/></highlight><highlight class="comment">#<sp/>Alpha<sp/>channel<sp/>(opaque)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>i<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>range(thickness):</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Adjust<sp/>the<sp/>rectangle<sp/>size<sp/>for<sp/>each<sp/>layer<sp/>of<sp/>the<sp/>outline</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>outline_rect<sp/>=<sp/>sdl2.SDL_Rect(self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" kindref="member">rect</ref>.x<sp/>-<sp/>i,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" kindref="member">rect</ref>.y<sp/>-<sp/>i,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" kindref="member">rect</ref>.w<sp/>+<sp/>2<sp/>*<sp/>i,<sp/>self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" kindref="member">rect</ref>.h<sp/>+<sp/>2<sp/>*<sp/>i)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>sdl2.SDL_RenderDrawRect(self.<ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a9f37255914ca465df129e990e9dd74b8" kindref="member">renderer</ref>._renderer,<sp/>outline_rect)<sp/>!=<sp/>0:</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;SDL_RenderDrawRect<sp/>Error:&quot;</highlight><highlight class="normal">,<sp/>sdl2.SDL_GetError())</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1aabf18c01cb6544c742f4a63dafd839de" kindref="member">destroy</ref>(self):</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="103"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cleans<sp/>up<sp/>resources<sp/>used<sp/>by<sp/>the<sp/>rectangle,<sp/>if<sp/>any.</highlight></codeline>
+<codeline lineno="104"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Currently,<sp/>SDL_Rect<sp/>doesn&apos;t<sp/>require<sp/>explicit<sp/>destruction.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Implement<sp/>if<sp/>you<sp/>add<sp/>resources<sp/>that<sp/>need<sp/>manual<sp/>cleanup.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">pass</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/renderer/shapes.py"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1entities_1_1base_1_1Classification" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::entities::base::Classification</compoundname>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1base_1_1Classification_1a1bf86820d50cab780958bc06932d92f8" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.entities.base.Classification::main_type</definition>
+        <argsstring></argsstring>
+        <name>main_type</name>
+        <qualifiedname>aetherion.entities.base.Classification.main_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/base.py" line="6" column="1" bodyfile="src/aetherion/entities/base.py" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1entities_1_1base_1_1Classification_1ae19ba4aded301f07f79e3b538e97d44e" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.entities.base.Classification::sub_type</definition>
+        <argsstring></argsstring>
+        <name>sub_type</name>
+        <qualifiedname>aetherion.entities.base.Classification.sub_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/base.py" line="7" column="1" bodyfile="src/aetherion/entities/base.py" bodystart="7" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1entities_1_1base_1_1Classification_1a34bfe190109c282a217727ec95a8ffff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.entities.base.Classification.__str__</definition>
+        <argsstring>(self)</argsstring>
+        <name>__str__</name>
+        <qualifiedname>aetherion.entities.base.Classification.__str__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/entities/base.py" line="9" column="1" bodyfile="src/aetherion/entities/base.py" bodystart="9" bodyend="11"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/entities/base.py" line="5" column="1" bodyfile="src/aetherion/entities/base.py" bodystart="5" bodyend="11"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1entities_1_1base_1_1Classification_1a34bfe190109c282a217727ec95a8ffff" prot="public" virt="non-virtual"><scope>aetherion::entities::base::Classification</scope><name>__str__</name></member>
+      <member refid="classaetherion_1_1entities_1_1base_1_1Classification_1a1bf86820d50cab780958bc06932d92f8" prot="public" virt="non-virtual"><scope>aetherion::entities::base::Classification</scope><name>main_type</name></member>
+      <member refid="classaetherion_1_1entities_1_1base_1_1Classification_1ae19ba4aded301f07f79e3b538e97d44e" prot="public" virt="non-virtual"><scope>aetherion::entities::base::Classification</scope><name>sub_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

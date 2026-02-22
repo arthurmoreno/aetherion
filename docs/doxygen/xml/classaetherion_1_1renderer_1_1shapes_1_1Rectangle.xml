@@ -1,0 +1,341 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::renderer::shapes::Rectangle</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a9f37255914ca465df129e990e9dd74b8" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle::renderer</definition>
+        <argsstring></argsstring>
+        <name>renderer</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.renderer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="17" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1aab280a764714cd6a9afc59db47c3e58a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="18" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ad5aad4c0b204b101575a447cae0c3a31" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="19" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ab2f2cf03fb0460af2c8a317099b8455a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="20" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a45274537a6ae0b4bc6dccf921edc25f4" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="21" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ac121b35ae000691526d9ea5745242f2d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle::color</definition>
+        <argsstring></argsstring>
+        <name>color</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.color</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="22" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle::rect</definition>
+        <argsstring></argsstring>
+        <name>rect</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.rect</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="25" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1af1693992b4e791526142613dd4ff1747" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle.__init__</definition>
+        <argsstring>(self, renderer, int x, int y, int width, int height, color=(255, 255, 255))</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>renderer</type>
+          <defname>renderer</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <param>
+          <type>color</type>
+          <defname>color</defname>
+          <defval>(255, 255, 255)</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initializes a Rectangle object.
+
+Args:
+    renderer: The renderer object responsible for drawing.
+    x (int): The x-coordinate of the rectangle&apos;s top-left corner.
+    y (int): The y-coordinate of the rectangle&apos;s top-left corner.
+    width (int): The width of the rectangle.
+    height (int): The height of the rectangle.
+    color (tuple, optional): The color of the rectangle in RGB format. Defaults to white.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="5" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="5" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a980c8cd54348d8677a66f5f0126bbb32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle.set_position</definition>
+        <argsstring>(self, int x, int y)</argsstring>
+        <name>set_position</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.set_position</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Sets the position of the rectangle.
+
+Args:
+    x (int): The new x-coordinate.
+    y (int): The new y-coordinate.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="27" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="27" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ab5cfdcb86ab49e009692918757a50ac2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle.set_size</definition>
+        <argsstring>(self, int width, int height)</argsstring>
+        <name>set_size</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.set_size</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Sets the size of the rectangle.
+
+Args:
+    width (int): The new width.
+    height (int): The new height.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="40" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="40" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a824123ab07b961f59c95dc98b0e2345d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle.set_color</definition>
+        <argsstring>(self, tuple color)</argsstring>
+        <name>set_color</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.set_color</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>tuple</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Sets the color of the rectangle.
+
+Args:
+    color (tuple): The new color in RGB format.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="53" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="53" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a36798bfec4d374e71313195b18c98a1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle.render</definition>
+        <argsstring>(self)</argsstring>
+        <name>render</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.render</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Renders the rectangle to the screen.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="62" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="62" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ae3ae7256f1aa6caf7b699f28a05185b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle.render_outline</definition>
+        <argsstring>(self, int thickness=1)</argsstring>
+        <name>render_outline</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.render_outline</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>thickness</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Renders the outline of the rectangle with the specified thickness.
+
+Args:
+    thickness (int, optional): The thickness of the outline. Defaults to 1.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="79" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="79" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1aabf18c01cb6544c742f4a63dafd839de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.renderer.shapes.Rectangle.destroy</definition>
+        <argsstring>(self)</argsstring>
+        <name>destroy</name>
+        <qualifiedname>aetherion.renderer.shapes.Rectangle.destroy</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Cleans up resources used by the rectangle, if any.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/renderer/shapes.py" line="101" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="101" bodyend="108"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/renderer/shapes.py" line="4" column="1" bodyfile="src/aetherion/renderer/shapes.py" bodystart="4" bodyend="108"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1af1693992b4e791526142613dd4ff1747" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ac121b35ae000691526d9ea5745242f2d" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>color</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1aabf18c01cb6544c742f4a63dafd839de" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>destroy</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a45274537a6ae0b4bc6dccf921edc25f4" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>height</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a16160daf42892c6c2bcb1d46c2370a40" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>rect</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a36798bfec4d374e71313195b18c98a1c" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>render</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ae3ae7256f1aa6caf7b699f28a05185b1" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>render_outline</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a9f37255914ca465df129e990e9dd74b8" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>renderer</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a824123ab07b961f59c95dc98b0e2345d" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>set_color</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1a980c8cd54348d8677a66f5f0126bbb32" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>set_position</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ab5cfdcb86ab49e009692918757a50ac2" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>set_size</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ab2f2cf03fb0460af2c8a317099b8455a" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>width</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1aab280a764714cd6a9afc59db47c3e58a" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>x</name></member>
+      <member refid="classaetherion_1_1renderer_1_1shapes_1_1Rectangle_1ad5aad4c0b204b101575a447cae0c3a31" prot="public" virt="non-virtual"><scope>aetherion::renderer::shapes::Rectangle</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

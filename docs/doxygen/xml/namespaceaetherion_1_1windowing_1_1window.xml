@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceaetherion_1_1windowing_1_1window" kind="namespace" language="Python">
+    <compoundname>aetherion::windowing::window</compoundname>
+    <innerclass refid="classaetherion_1_1windowing_1_1window_1_1BasicGameWindow" prot="public">aetherion::windowing::window::BasicGameWindow</innerclass>
+    <innerclass refid="classaetherion_1_1windowing_1_1window_1_1GameWindow" prot="public">aetherion::windowing::window::GameWindow</innerclass>
+    <innerclass refid="classaetherion_1_1windowing_1_1window_1_1OpenGLGameWindow" prot="public">aetherion::windowing::window::OpenGLGameWindow</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/aetherion/windowing/window.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

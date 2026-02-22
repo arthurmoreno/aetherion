@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="sdl__utils_8py" kind="file" language="Python">
+    <compoundname>sdl_utils.py</compoundname>
+    <innernamespace refid="namespaceaetherion">aetherion</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio">aetherion::audio</innernamespace>
+    <innernamespace refid="namespaceaetherion_1_1audio_1_1sdl__utils">aetherion::audio::sdl_utils</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sdl2</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sdl2.sdlmixer<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>mixer</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1audio_1_1exceptions" kindref="compound">aetherion.audio.exceptions</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>AudioInitError</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceaetherion_1_1logger" kindref="compound">aetherion.logger</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>logger</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">init_sdl()<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Initialize<sp/>SDL2<sp/>with<sp/>video<sp/>and<sp/>audio<sp/>subsystems.</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Raises:</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AudioInitError:<sp/>If<sp/>SDL2<sp/>initialization<sp/>fails.</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>=<sp/>sdl2.SDL_Init(sdl2.SDL_INIT_VIDEO<sp/>|<sp/>sdl2.SDL_INIT_AUDIO)<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>result<sp/>!=<sp/>0:</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_msg<sp/>=<sp/>sdl2.SDL_GetError()<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>isinstance(error_msg,<sp/>bytes):</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_msg<sp/>=<sp/>error_msg.decode(</highlight><highlight class="stringliteral">&quot;utf-8&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(f</highlight><highlight class="stringliteral">&quot;SDL_Init<sp/>failed:<sp/>{error_msg}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>AudioInitError(f</highlight><highlight class="stringliteral">&quot;SDL_Init<sp/>failed:<sp/>{error_msg}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>logger.info(</highlight><highlight class="stringliteral">&quot;SDL2<sp/>initialized<sp/>successfully<sp/>with<sp/>audio<sp/>support&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">init_mixer()<sp/>-&gt;<sp/>None:</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Initialize<sp/>SDL2_mixer<sp/>with<sp/>MP3<sp/>and<sp/>OGG<sp/>support.</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Opens<sp/>audio<sp/>device<sp/>with<sp/>44.1kHz,<sp/>stereo,<sp/>4096<sp/>byte<sp/>buffer.</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Raises:</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AudioInitError:<sp/>If<sp/>SDL2_mixer<sp/>initialization<sp/>or<sp/>audio<sp/>device<sp/>opening<sp/>fails.</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Initialize<sp/>SDL_mixer<sp/>with<sp/>desired<sp/>audio<sp/>formats</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>init_flags<sp/>=<sp/>mixer.MIX_INIT_MP3<sp/>|<sp/>mixer.MIX_INIT_OGG<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>=<sp/>mixer.Mix_Init(init_flags)<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>result<sp/>!=<sp/>init_flags:</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_msg<sp/>=<sp/>mixer.Mix_GetError()<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>isinstance(error_msg,<sp/>bytes):</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_msg<sp/>=<sp/>error_msg.decode(</highlight><highlight class="stringliteral">&quot;utf-8&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(f</highlight><highlight class="stringliteral">&quot;Mix_Init<sp/>failed:<sp/>{error_msg}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mixer.Mix_Quit()<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_Quit()<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>AudioInitError(f</highlight><highlight class="stringliteral">&quot;Mix_Init<sp/>failed:<sp/>{error_msg}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>logger.info(</highlight><highlight class="stringliteral">&quot;SDL2_mixer<sp/>initialized<sp/>with<sp/>MP3<sp/>and<sp/>OGG<sp/>support&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Open<sp/>audio<sp/>device</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>=<sp/>mixer.Mix_OpenAudio(44100,<sp/>mixer.MIX_DEFAULT_FORMAT,<sp/>2,<sp/>4096)<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>result<sp/>!=<sp/>0:</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_msg<sp/>=<sp/>mixer.Mix_GetError()<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>isinstance(error_msg,<sp/>bytes):</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_msg<sp/>=<sp/>error_msg.decode(</highlight><highlight class="stringliteral">&quot;utf-8&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.error(f</highlight><highlight class="stringliteral">&quot;Mix_OpenAudio<sp/>failed:<sp/>{error_msg}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mixer.Mix_Quit()<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sdl2.SDL_Quit()<sp/><sp/></highlight><highlight class="comment">#<sp/>pyright:<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>AudioInitError(f</highlight><highlight class="stringliteral">&quot;Mix_OpenAudio<sp/>failed:<sp/>{error_msg}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>logger.info(</highlight><highlight class="stringliteral">&quot;Audio<sp/>device<sp/>opened:<sp/>44.1kHz,<sp/>stereo,<sp/>4096<sp/>buffer&quot;</highlight><highlight class="normal">)</highlight></codeline>
+    </programlisting>
+    <location file="src/aetherion/audio/sdl_utils.py"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1scenes_1_1base_1_1Node" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::scenes::base::Node</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">ABC</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1scenes_1_1base_1_1Node_1a7ebd6d66a6243704f729174e0b0407f7" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aetherion.scenes.base.Node::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <qualifiedname>aetherion.scenes.base.Node.name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="29" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Node_1ad35fbab16e1f4f7751973514f96685db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Node.__init__</definition>
+        <argsstring>(self, str name, **kwargs)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>aetherion.scenes.base.Node.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>**</type>
+          <declname>kwargs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="28" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="28" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Node_1a8947fc6171dc091a0ea4ea579208f5f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Node.on_load</definition>
+        <argsstring>(self)</argsstring>
+        <name>on_load</name>
+        <qualifiedname>aetherion.scenes.base.Node.on_load</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Called when the node is loaded.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="34" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="34" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Node_1a42f82d5bd171cde98f63c2297299df4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Node.on_enter</definition>
+        <argsstring>(self)</argsstring>
+        <name>on_enter</name>
+        <qualifiedname>aetherion.scenes.base.Node.on_enter</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Called when the node becomes active.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="39" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="39" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Node_1aadc71fe640d80fb0a1f02f347d2eb910" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Node.update</definition>
+        <argsstring>(self, float dt, dict shared_state)</argsstring>
+        <name>update</name>
+        <qualifiedname>aetherion.scenes.base.Node.update</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>dt</declname>
+        </param>
+        <param>
+          <type>dict</type>
+          <declname>shared_state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Update the node logic.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="44" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="44" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Node_1afaaa6f7adaaf0d5228c62d65dc7ff88d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Node.render</definition>
+        <argsstring>(self, renderer, shared_state, player_connection=None)</argsstring>
+        <name>render</name>
+        <qualifiedname>aetherion.scenes.base.Node.render</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>renderer</type>
+          <defname>renderer</defname>
+        </param>
+        <param>
+          <type>shared_state</type>
+          <defname>shared_state</defname>
+        </param>
+        <param>
+          <type>player_connection</type>
+          <defname>player_connection</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Draw the current frame.</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="49" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="49" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classaetherion_1_1scenes_1_1base_1_1Node_1a6116ea20a83ab139576f47bd990aa3cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aetherion.scenes.base.Node.on_unload</definition>
+        <argsstring>(self)</argsstring>
+        <name>on_unload</name>
+        <qualifiedname>aetherion.scenes.base.Node.on_unload</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Free resources (called once).</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/scenes/base.py" line="54" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="54" bodyend="58"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Base class for all scene graph nodes.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.scenes.base.Node</label>
+        <link refid="classaetherion_1_1scenes_1_1base_1_1Node"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ABC</label>
+      </node>
+      <node id="1">
+        <label>aetherion.scenes.base.Node</label>
+        <link refid="classaetherion_1_1scenes_1_1base_1_1Node"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/scenes/base.py" line="25" column="1" bodyfile="src/aetherion/scenes/base.py" bodystart="25" bodyend="58"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Node_1ad35fbab16e1f4f7751973514f96685db" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Node</scope><name>__init__</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Node_1a7ebd6d66a6243704f729174e0b0407f7" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Node</scope><name>name</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Node_1a42f82d5bd171cde98f63c2297299df4f" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Node</scope><name>on_enter</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Node_1a8947fc6171dc091a0ea4ea579208f5f6" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Node</scope><name>on_load</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Node_1a6116ea20a83ab139576f47bd990aa3cc" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Node</scope><name>on_unload</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Node_1afaaa6f7adaaf0d5228c62d65dc7ff88d" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Node</scope><name>render</name></member>
+      <member refid="classaetherion_1_1scenes_1_1base_1_1Node_1aadc71fe640d80fb0a1f02f347d2eb910" prot="public" virt="non-virtual"><scope>aetherion::scenes::base::Node</scope><name>update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

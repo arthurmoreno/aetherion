@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classaetherion_1_1camera_1_1models_1_1CameraSettings" kind="class" language="Python" prot="public">
+    <compoundname>aetherion::camera::models::CameraSettings</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">BaseModel</basecompoundref>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a5025b069150d452817900658197d64e3" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.camera.models.CameraSettings::blocks_in_screen</definition>
+        <argsstring></argsstring>
+        <name>blocks_in_screen</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.blocks_in_screen</qualifiedname>
+        <initializer>[str, int]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="26" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a647f4352658c6f199df9f65ad3a4cf82" prot="public" static="yes" mutable="no">
+        <type>dict</type>
+        <definition>dict aetherion.camera.models.CameraSettings::player_block_position</definition>
+        <argsstring></argsstring>
+        <name>player_block_position</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.player_block_position</qualifiedname>
+        <initializer>[str, int]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="27" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a37147f128eb718f792a4289c12865b7d" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::layers_to_draw</definition>
+        <argsstring></argsstring>
+        <name>layers_to_draw</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.layers_to_draw</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="28" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a43f13a1094729aa3c7206c4606c6a225" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::layers_bellow_player</definition>
+        <argsstring></argsstring>
+        <name>layers_bellow_player</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.layers_bellow_player</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="29" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a3e1c3d497cddc29d1081764653aab7c0" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::sprite_size</definition>
+        <argsstring></argsstring>
+        <name>sprite_size</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.sprite_size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="30" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a3c6e5438e004c4bd35f755167ba99925" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::sprite_scale</definition>
+        <argsstring></argsstring>
+        <name>sprite_scale</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.sprite_scale</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="31" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a3924c562fcd399cb641b2a53dab1753b" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::tile_size_on_screen</definition>
+        <argsstring></argsstring>
+        <name>tile_size_on_screen</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.tile_size_on_screen</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="32" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a038a37fd3313b95393412d0bc26cfaaf" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::right_offset</definition>
+        <argsstring></argsstring>
+        <name>right_offset</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.right_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="33" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1acf3ebb6b0a67f2dccd95e1f301fc6572" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::up_offset</definition>
+        <argsstring></argsstring>
+        <name>up_offset</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.up_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="34" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a39ec9a71b6de37f5c479012efb02923a" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::game_screen_width</definition>
+        <argsstring></argsstring>
+        <name>game_screen_width</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.game_screen_width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="35" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1abad5af40f0850e8244dbb98b233f65ff" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::game_screen_height</definition>
+        <argsstring></argsstring>
+        <name>game_screen_height</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.game_screen_height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="36" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1aee4801bbbc061ebb6e060668a26e8258" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::camera_screen_width_adjust_offset</definition>
+        <argsstring></argsstring>
+        <name>camera_screen_width_adjust_offset</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.camera_screen_width_adjust_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="37" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a5e93da4c5635257079d6e3ed9c516e36" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int aetherion.camera.models.CameraSettings::camera_screen_height_adjust_offset</definition>
+        <argsstring></argsstring>
+        <name>camera_screen_height_adjust_offset</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.camera_screen_height_adjust_offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="38" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a1d3b46131dba8da1e46cd4f6d033ef7f" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.camera.models.CameraSettings::empty_tile_debugging</definition>
+        <argsstring></argsstring>
+        <name>empty_tile_debugging</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.empty_tile_debugging</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="39" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1aa7c9255e374a1e1a1c9f22a2390ed733" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.camera.models.CameraSettings::camera_iterate_right_to_left</definition>
+        <argsstring></argsstring>
+        <name>camera_iterate_right_to_left</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.camera_iterate_right_to_left</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="40" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a516a6fcdb873c1f4038e12782a78d0ca" prot="public" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool aetherion.camera.models.CameraSettings::camera_iterate_bottom_to_top</definition>
+        <argsstring></argsstring>
+        <name>camera_iterate_bottom_to_top</name>
+        <qualifiedname>aetherion.camera.models.CameraSettings.camera_iterate_bottom_to_top</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/aetherion/camera/models.py" line="41" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="41" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aetherion.camera.models.CameraSettings</label>
+        <link refid="classaetherion_1_1camera_1_1models_1_1CameraSettings"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aetherion.camera.models.CameraSettings</label>
+        <link refid="classaetherion_1_1camera_1_1models_1_1CameraSettings"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>BaseModel</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/aetherion/camera/models.py" line="25" column="1" bodyfile="src/aetherion/camera/models.py" bodystart="25" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a5025b069150d452817900658197d64e3" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>blocks_in_screen</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a516a6fcdb873c1f4038e12782a78d0ca" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>camera_iterate_bottom_to_top</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1aa7c9255e374a1e1a1c9f22a2390ed733" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>camera_iterate_right_to_left</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a5e93da4c5635257079d6e3ed9c516e36" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>camera_screen_height_adjust_offset</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1aee4801bbbc061ebb6e060668a26e8258" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>camera_screen_width_adjust_offset</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a1d3b46131dba8da1e46cd4f6d033ef7f" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>empty_tile_debugging</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1abad5af40f0850e8244dbb98b233f65ff" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>game_screen_height</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a39ec9a71b6de37f5c479012efb02923a" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>game_screen_width</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a43f13a1094729aa3c7206c4606c6a225" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>layers_bellow_player</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a37147f128eb718f792a4289c12865b7d" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>layers_to_draw</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a647f4352658c6f199df9f65ad3a4cf82" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>player_block_position</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a038a37fd3313b95393412d0bc26cfaaf" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>right_offset</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a3c6e5438e004c4bd35f755167ba99925" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>sprite_scale</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a3e1c3d497cddc29d1081764653aab7c0" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>sprite_size</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1a3924c562fcd399cb641b2a53dab1753b" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>tile_size_on_screen</name></member>
+      <member refid="classaetherion_1_1camera_1_1models_1_1CameraSettings_1acf3ebb6b0a67f2dccd95e1f301fc6572" prot="public" virt="non-virtual"><scope>aetherion::camera::models::CameraSettings</scope><name>up_offset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
