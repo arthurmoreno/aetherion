@@ -183,26 +183,40 @@ void drawTileEffects(EntityInterface& terrain, std::shared_ptr<WorldView> worldV
                      std::shared_ptr<RenderQueue> render_queue_ptr, int layerIndex,
                      const std::string& guiGroup, int screenX, int screenY,
                      int TILE_SIZE_ON_SCREEN) {
-    if (terrain.hasComponent(ComponentFlag::TILE_EFFECTS_LIST)) {
-        const TileEffectsList effectsList = terrain.getComponent<TileEffectsList>();
-        if (!effectsList.tileEffectsIDs.empty()) {
-            for (const auto& effectId : effectsList.tileEffectsIDs) {
-                EntityInterface* effect = worldView->getEntityById(effectId);
-                if (effect) {
-                    const TileEffectComponent& tileEffectComp =
-                        effect->getComponent<TileEffectComponent>();
-                    if (tileEffectComp.tileEffectType ==
-                        static_cast<int>(TileEffectTypeEnum::BLOOD_DAMAGE)) {
-                        std::string damageValueStr =
-                            std::to_string(static_cast<int>(tileEffectComp.damageValue));
-                        render_queue_ptr->add_task_text(
-                            layerIndex, guiGroup, damageValueStr, "my_font", BLOOD_DAMAGE_COLOR,
-                            screenX + static_cast<int>(TILE_SIZE_ON_SCREEN * 1.25),
-                            screenY + static_cast<int>(TILE_SIZE_ON_SCREEN * 0.6) +
-                                tileEffectComp.effectRemainingTime);
-                    }
-                }
+
+    if (!terrain.hasComponent(ComponentFlag::TILE_EFFECTS_LIST)) {
+        return;
+    }
+
+    const TileEffectsList effectsList = terrain.getComponent<TileEffectsList>();
+
+    if (effectsList.tileEffectsIDs.empty()) {
+        return;
+    }
+
+    for (const auto& effectId : effectsList.tileEffectsIDs) {
+        EntityInterface* effect = worldView->getEntityById(effectId);
+        if (!effect) {
+            continue;
+        }
+
+        try {
+            const TileEffectComponent& tileEffectComp =
+                effect->getComponent<TileEffectComponent>();
+
+            if (tileEffectComp.tileEffectType ==
+                static_cast<int>(TileEffectTypeEnum::BLOOD_DAMAGE)) {
+                std::string damageValueStr =
+                    std::to_string(static_cast<int>(tileEffectComp.damageValue));
+                int textX = screenX + static_cast<int>(TILE_SIZE_ON_SCREEN * 1.25);
+                int textY = screenY + static_cast<int>(TILE_SIZE_ON_SCREEN * 0.6) +
+                            tileEffectComp.effectRemainingTime;
+                render_queue_ptr->add_task_text(
+                    layerIndex, guiGroup, damageValueStr, "default_font", BLOOD_DAMAGE_COLOR, textX,
+                    textY);
             }
+        } catch (const std::exception& ex) {
+            continue;
         }
     }
 }

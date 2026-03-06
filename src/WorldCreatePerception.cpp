@@ -76,7 +76,8 @@ EntityInterface World::buildEntityInterface(entt::entity entity) {
 // ---------------------------------------------------------------------------
 // Helper: build the EntityInterface for a single visible terrain voxel
 // ---------------------------------------------------------------------------
-static EntityInterface buildTerrainEntityInterface(VoxelGrid* voxelGrid, int x, int y, int z,
+static EntityInterface buildTerrainEntityInterface(VoxelGrid* voxelGrid, entt::registry& registry,
+                                                   int x, int y, int z, int realTerrainId,
                                                    int virtualTerrainId) {
     EntityInterface entity_interface;
     entity_interface.entityId = virtualTerrainId;
@@ -89,6 +90,15 @@ static EntityInterface buildTerrainEntityInterface(VoxelGrid* voxelGrid, int x, 
     entity_interface.setComponent<EntityTypeComponent>(terrainEtc);
     entity_interface.setComponent<Position>(pos);
     entity_interface.setComponent<MatterContainer>(matterContainer);
+
+    // Copy TileEffectsList from the EnTT registry when this voxel has a real entity backing it
+    if (realTerrainId > 0) {
+        entt::entity terrainEntity = static_cast<entt::entity>(realTerrainId);
+        if (registry.valid(terrainEntity) && registry.all_of<TileEffectsList>(terrainEntity)) {
+            const TileEffectsList& tileEffectsList = registry.get<TileEffectsList>(terrainEntity);
+            entity_interface.setComponent<TileEffectsList>(tileEffectsList);
+        }
+    }
 
     return entity_interface;
 }
@@ -168,7 +178,8 @@ void World::buildTerrainView(int x_min, int y_min, int z_min, int x_max, int y_m
         } else {
             int virtualTerrainId = (terrainId == -1) ? terrainVirtualIdCounter-- : terrainId;
             voxelGridView.setTerrainVoxel(x, y, z, virtualTerrainId);
-            terrainEntities[virtualTerrainId] = buildTerrainEntityInterface(voxelGrid, x, y, z, virtualTerrainId);
+            terrainEntities[virtualTerrainId] =
+                buildTerrainEntityInterface(voxelGrid, registry, x, y, z, terrainId, virtualTerrainId);
         }
     }
 }
@@ -219,6 +230,21 @@ static EntityInterface buildNonTerrainEntityInterface(
 }
 
 // ---------------------------------------------------------------------------
+// Helper: build the EntityInterface for a single tile effect entity
+// ---------------------------------------------------------------------------
+static EntityInterface buildTileEffectEntityInterface(
+    entt::entity entity,
+    entt::view<entt::get_t<TileEffectComponent>> tileEffectCompView) {
+    EntityInterface entity_interface;
+    entity_interface.entityId = static_cast<int>(entity);
+
+    const TileEffectComponent& tileEffectComp = tileEffectCompView.get<TileEffectComponent>(entity);
+    entity_interface.setComponent<TileEffectComponent>(tileEffectComp);
+
+    return entity_interface;
+}
+
+// ---------------------------------------------------------------------------
 // Helper: populate response.world_view.entities with non-terrain entities
 // ---------------------------------------------------------------------------
 void World::buildNonTerrainEntities(
@@ -239,7 +265,6 @@ void World::buildNonTerrainEntities(
     auto movingComponentView = registry.view<MovingComponent>();
     auto healthView = registry.view<HealthComponent>();
     auto inventoryView = registry.view<Inventory>();
-    auto tileEffectsView = registry.view<TileEffectsList>();
     auto tileEffectCompView = registry.view<TileEffectComponent>();
 
     response.world_view.entities.reserve(entitiesInView.size() + terrainEntities.size());
@@ -260,6 +285,22 @@ void World::buildNonTerrainEntities(
         response.world_view.entities.emplace(entity_interface.entityId,
                                              std::move(entity_interface));
     });
+
+    // Insert all tile effect entities so the camera can look them up via getEntityById.
+    // These entities are not placed in the OpenVDB entity grid, so they would otherwise
+    // be invisible to the perception system.
+    for (auto entity : tileEffectCompView) {
+        if (!registry.valid(entity)) {
+            continue;
+        }
+        int effectId = static_cast<int>(entity);
+        // Only add if not already present (avoid overwriting a richer entry)
+        if (response.world_view.entities.find(effectId) == response.world_view.entities.end()) {
+            EntityInterface effect_interface =
+                buildTileEffectEntityInterface(entity, tileEffectCompView);
+            response.world_view.entities.emplace(effectId, std::move(effect_interface));
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------
