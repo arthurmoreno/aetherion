@@ -271,7 +271,7 @@ def draw_terrain(
             water_volume = str(terrain.get_matter_container().water_matter)
             # TODO: Fix this hardcoded font and color.
             sdl_color = (255, 255, 255)
-            render_queue.add_task_text(layer_index, gui_group, water_volume, "my_font", sdl_color, screen_x, screen_y)
+            render_queue.add_task_text(layer_index, gui_group, water_volume, "default_font", sdl_color, screen_x, screen_y)
         if terrain.get_matter_container().water_vapor > 0 or terrain.get_entity_type().sub_type0 == 1:
             water_volume = str(terrain.get_matter_container().water_vapor)
             sdl_color = (255, 255, 255)
@@ -279,7 +279,7 @@ def draw_terrain(
                 layer_index,
                 gui_group,
                 water_volume,
-                "my_font",
+                "default_font",
                 sdl_color,
                 screen_x + 20,
                 screen_y + 20,

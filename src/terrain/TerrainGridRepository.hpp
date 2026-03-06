@@ -192,6 +192,7 @@ class TerrainGridRepository {
     void lockTerrainGrid();
     void unlockTerrainGrid();
 
+    entt::entity createEnttForTerrain(int x, int y, int z);
     entt::entity ensureActive(int x, int y, int z);
 
     // Tracking map helpers

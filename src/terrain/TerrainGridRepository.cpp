@@ -359,6 +359,37 @@ void TerrainGridRepository::onDestroyMoving(entt::registry& reg, entt::entity e)
         true, true);
 }
 
+entt::entity TerrainGridRepository::createEnttForTerrain(int x, int y, int z) {
+
+    // Check if already active (now protected by lock)
+    entt::entity existing = getEntityAt(x, y, z);
+    if (existing != entt::null && registry_.valid(existing)) {
+        return existing;
+    } else if (existing != entt::null) {
+        // Clean up stale mapping
+        VoxelCoord key{x, y, z};
+        removeFromTrackingMaps(key, existing);
+        registry_.destroy(existing);
+    }
+
+    DirectionEnum direction = storage_.getTerrainDirection(x, y, z);
+
+    entt::entity e = registry_.create();
+    registry_.emplace<Position>(e, Position{x, y, z, direction});
+    
+    VoxelCoord key{x, y, z};
+    
+    // CRITICAL: Set terrain ID in grid BEFORE adding to tracking maps
+    // This ensures the terrain ID matches when other threads query the voxel
+    if (storage_.terrainGrid) {
+        storage_.terrainGrid->tree().setValue(C(x, y, z), static_cast<int>(e));
+    }
+    // Now add to tracking maps after terrain ID is set
+    addToTrackingMaps(key, e);
+
+    return e;
+}
+
 entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {
     // CRITICAL: Lock terrain grid for entire operation to prevent race conditions
     // where multiple threads try to activate the same voxel simultaneously

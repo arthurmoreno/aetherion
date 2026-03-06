@@ -50,8 +50,11 @@ class VoxelGrid {
     // Individual component setters and getters
     bool checkIfTerrainExists(int x, int y, int z) const;
     EntityTypeComponent getTerrainEntityTypeComponent(int x, int y, int z) const;
+    bool setTerrainEntityTypeComponent(int x, int y, int z, EntityTypeComponent component) const;
+
     void setTerrain(int x, int y, int z, int terrainID);
     int getTerrain(int x, int y, int z) const;
+    int createEnttForTerrain(int x, int y, int z) const;
     // Forward to TerrainGridRepository::deleteTerrain. If `takeLock` is false,
     // the repository will assume the caller already holds the terrain grid lock.
     void deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z, bool takeLock = true);
