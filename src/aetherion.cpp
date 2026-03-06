@@ -1277,6 +1277,8 @@ NB_MODULE(_aetherion, m) {
              nb::arg("terrainID"), "Set terrainID at (x, y, z)")
         .def("get_terrain", &VoxelGrid::getTerrain, nb::arg("x"), nb::arg("y"), nb::arg("z"),
              "Get terrainID at (x, y, z)")
+        .def("create_entt_for_terrain", &VoxelGrid::createEnttForTerrain, nb::arg("x"), nb::arg("y"),
+             nb::arg("z"), "Create an entt entity for the terrain at (x, y, z) and return its ID")
         .def("set_entity", &VoxelGrid::setEntity, nb::arg("x"), nb::arg("y"), nb::arg("z"),
              nb::arg("entityID"), "Set entityID at (x, y, z)")
         .def("get_entity", &VoxelGrid::getEntity, nb::arg("x"), nb::arg("y"), nb::arg("z"),
@@ -1303,7 +1305,11 @@ NB_MODULE(_aetherion, m) {
         .def("get_all_lighting_in_region", &VoxelGrid::getAllLightingInRegion, nb::arg("x_min"),
              nb::arg("y_min"), nb::arg("z_min"), nb::arg("x_max"), nb::arg("y_max"),
              nb::arg("z_max"),
-             "Retrieve all lighting voxel coordinates within a specified region.");
+             "Retrieve all lighting voxel coordinates within a specified region.")
+
+        .def("set_terrain_entity_type_component", &VoxelGrid::setTerrainEntityTypeComponent, nb::arg("x"),
+             nb::arg("y"), nb::arg("z"), nb::arg("component"),
+             "Set the EntityTypeComponent for the terrain entity at (x, y, z) based on its terrain type");
 
     // Binding the GameClock class
     nb::class_<GameClock>(m, "GameClock")

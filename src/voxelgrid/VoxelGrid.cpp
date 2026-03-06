@@ -138,6 +138,16 @@ int VoxelGrid::getTerrain(int x, int y, int z) const {
     return -2;
 }
 
+int VoxelGrid::createEnttForTerrain(int x, int y, int z) const {
+    if (terrainGridRepository) {
+        // std::cout << "[getTerrain] Checkpoint! Before:
+        // terrainGridRepository->getTerrainIdIfExists (" << x << ", " << y << ", " << z << ")\n";
+        entt::entity terrain = terrainGridRepository->createEnttForTerrain(x, y, z);
+        return static_cast<int>(terrain);
+    }
+    return -2;
+}
+
 // Delete terrain at a specific voxel
 void VoxelGrid::deleteTerrain(entt::dispatcher& dispatcher, int x, int y, int z, bool takeLock) {
     if (terrainGridRepository) {
@@ -157,6 +167,14 @@ EntityTypeComponent VoxelGrid::getTerrainEntityTypeComponent(int x, int y, int z
         return terrainGridRepository->getTerrainEntityType(x, y, z);
     }
     return EntityTypeComponent();  // Return a default-constructed EntityTypeComponent if not found
+}
+
+bool VoxelGrid::setTerrainEntityTypeComponent(int x, int y, int z, EntityTypeComponent component) const {
+    if (terrainGridRepository) {
+        terrainGridRepository->setTerrainEntityType(x, y, z, component);
+        return true;
+    }
+    return false;  // Return false if not found
 }
 
 // void VoxelGrid::setTerrainFromEntt(entt::entity entity) {

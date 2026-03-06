@@ -167,6 +167,19 @@ class World {
     int getPerceptionBounds(int pos, int perception) const;
     void onTakeItemEventPython(const TakeItemEvent& event);
     void onUseItemEventPython(const UseItemEvent& event);
+
+    // Perception helpers
+    void buildInventoryItems(entt::entity entity, PerceptionResponse& response);
+    EntityInterface buildEntityInterface(entt::entity entity);
+    void buildTerrainView(int x_min, int y_min, int z_min, int x_max, int y_max, int z_max,
+                          VoxelGridView& voxelGridView,
+                          std::unordered_map<int, EntityInterface>& terrainEntities,
+                          const Position& observerPos);
+    void buildNonTerrainEntities(const std::vector<int>& entitiesIds,
+                                 std::unordered_map<int, EntityInterface>& terrainEntities,
+                                 PerceptionResponse& response,
+                                 entt::view<entt::get_t<Position, EntityTypeComponent,
+                                                        PerceptionComponent>> allView);
     // Helper: remove entity from terrain storage. Caller MUST hold exclusive
     // `entityLifecycleMutex` before calling this.
 
