@@ -558,14 +558,14 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
     if (!isSpecialId && registry.valid(entity) &&
         registry.all_of<Position, EntityTypeComponent>(entity)) {
         std::ostringstream ossMessage;
-        ossMessage << "[processPhysics:Velocity] Removing entity from grid: " << entityId;
+        ossMessage << "[removeEntityFromGrid] Removing entity from grid: " << entityId;
         spdlog::get("console")->info(ossMessage.str());
         auto&& [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
 
         int currentGridEntity = voxelGrid.getEntity(pos.x, pos.y, pos.z);
         if (currentGridEntity != entityId) {
             std::ostringstream ossMessage2;
-            ossMessage2 << "[processPhysics:Velocity] WARNING: Grid position (" << pos.x << ","
+            ossMessage2 << "[removeEntityFromGrid] WARNING: Grid position (" << pos.x << ","
                         << pos.y << "," << pos.z << ") contains entity " << currentGridEntity
                         << " but trying to remove entity " << entityId;
             spdlog::get("console")->info(ossMessage2.str());
@@ -582,7 +582,7 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
         }
     } else if (isSpecialId) {
         std::ostringstream ossMessage;
-        ossMessage << "[processPhysics:Velocity] Entity " << entityId
+        ossMessage << "[removeEntityFromGrid] Entity " << entityId
                    << " is a special ID, skipping grid removal.";
         spdlog::get("console")->info(ossMessage.str());
     } else if (!isSpecialId && registry.valid(entity)) {
@@ -590,13 +590,13 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
         EntityTypeComponent* entityType = registry.try_get<EntityTypeComponent>(entity);
         if (position) {
             std::ostringstream ossMessage;
-            ossMessage << "[processPhysics:Velocity] Entity " << entityId
+            ossMessage << "[removeEntityFromGrid] Entity " << entityId
                        << " has Position component at (" << position->x << ", " << position->y
                        << ", " << position->z << ").";
             spdlog::get("console")->info(ossMessage.str());
         } else {
             std::ostringstream ossMessage;
-            ossMessage << "[processPhysics:Velocity] Entity " << entityId
+            ossMessage << "[removeEntityFromGrid] Entity " << entityId
                        << " is missing Position component.";
             spdlog::get("console")->info(ossMessage.str());
             Position _pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
@@ -605,19 +605,19 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
 
         std::ostringstream ossMessage3;
         ossMessage3
-            << "[processPhysics:Velocity] Entity " << entityId
+            << "[removeEntityFromGrid] Entity " << entityId
             << " is missing Position or EntityTypeComponent, checking TerrainGridRepository.";
         spdlog::get("console")->info(ossMessage3.str());
         if (position->x == -1 && position->y == -1 && position->z == -1) {
             std::ostringstream ossMessage4;
-            ossMessage4 << "[processPhysics:Velocity] Could not find position of entity "
+            ossMessage4 << "[removeEntityFromGrid] Could not find position of entity "
                         << entityId << " in TerrainGridRepository, skipping grid removal.";
             spdlog::get("console")->info(ossMessage4.str());
             throw std::runtime_error(
                 "Entity is missing Position component and not found in TerrainGridRepository.");
         } else {
             std::ostringstream ossMessage5;
-            ossMessage5 << "[processPhysics:Velocity] Removing entity " << entityId
+            ossMessage5 << "[removeEntityFromGrid] Removing entity " << entityId
                         << " from grid using position from TerrainGridRepository at ("
                         << position->x << ", " << position->y << ", " << position->z << ").";
             spdlog::get("console")->info(ossMessage5.str());
@@ -625,7 +625,7 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
         }
     } else {
         std::ostringstream ossMessage;
-        ossMessage << "[processPhysics:Velocity] Entity " << entityId
+        ossMessage << "[removeEntityFromGrid] Entity " << entityId
                    << " is invalid, skipping grid removal.";
         spdlog::get("console")->info(ossMessage.str());
     }
