@@ -50,10 +50,16 @@ jobs:
             libgl1-mesa-dev \
             libglu1-mesa-dev \
             libopenvdb-dev \
-            openvdb \
             flatbuffers-compiler \
             libflatbuffers-dev
           sudo rm -rf /var/lib/apt/lists/*
+
+      - name: Install OpenVDB runtime (aetherion system-libs)
+        run: |
+          set -euo pipefail
+          OPENVDB_DEB_URL="https://arthurmoreno.github.io/aetherion-docs/wheel-html-index/system-libs/openvdb-11-0-1-1_amd64.deb"
+          wget -q -O /tmp/openvdb.deb "${OPENVDB_DEB_URL}"
+          sudo dpkg -i /tmp/openvdb.deb || sudo apt-get -y -f install
 
       - name: Map OpenVDB into /usr/local (CMake expects /usr/local)
         run: |
