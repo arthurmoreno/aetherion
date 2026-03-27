@@ -9,6 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         wget \
+        curl \
         bzip2 \
         ca-certificates \
         git \
