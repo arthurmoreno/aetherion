@@ -54,20 +54,25 @@ ENV PATH="/usr/local/bin:${PATH}"
 
 # 3) Install Miniconda
 ENV CONDA_DIR=/opt/conda
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(uname -m).sh \
       -O /tmp/miniconda.sh \
  && bash /tmp/miniconda.sh -b -p $CONDA_DIR \
  && rm /tmp/miniconda.sh \
  # config conda for strict, non-interactive installs
- && $CONDA_DIR/bin/conda config --set always_yes yes --set changeps1 no \
- && $CONDA_DIR/bin/conda config --set channel_priority strict \
- && $CONDA_DIR/bin/conda update -q conda
+ && $CONDA_DIR/bin/conda config --set always_yes yes \
+ && $CONDA_DIR/bin/conda config --set channel_priority strict
 
 ENV PATH="$CONDA_DIR/bin:$PATH"
 
 # 4) Copy in your environment spec
 WORKDIR /project
 COPY . /project/
+
+# 5) Create the exact Conda env you use locally
+# First, accept the Terms of Service for the default channels
+RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main \
+ && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 # 5) Create the exact Conda env you use locally
 RUN conda env create -f environment.yml \

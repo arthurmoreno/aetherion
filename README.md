@@ -124,23 +124,31 @@ The included `Dockerfile` creates an Ubuntu-based image that builds OpenVDB and 
 
 OpenVDB is expensive to build from source, so CI publishes a reusable base image containing OpenVDB under `/usr/local`. The main CI base image then builds “on top of” this OpenVDB image, which keeps rebuilds fast when OpenVDB hasn’t changed.
 
-- OpenVDB base Dockerfile: `aetherion/Dockerfile.openvdb`
-- CI base Dockerfile: `aetherion/Dockerfile` (uses `ARG OPENVDB_BASE_IMAGE=...` then `FROM ${OPENVDB_BASE_IMAGE}`)
+- OpenVDB base Dockerfile: `Dockerfile.openvdb`
+- CI base Dockerfile: `Dockerfile` (uses `ARG OPENVDB_BASE_IMAGE=...` then `FROM ${OPENVDB_BASE_IMAGE}`)
 
 Local workflow (from repo root):
 
 ```bash
 # 1) Build the OpenVDB base image (one-time or when OpenVDB build inputs change)
-docker build -f aetherion/Dockerfile.openvdb --target openvdb-runtime -t aetherion-openvdb:openvdb-11.0.0 .
+docker build -f Dockerfile.openvdb --target openvdb-runtime -t aetherion-openvdb:openvdb-11.0.0 .
 
 # 2) Build the CI/dev base image on top of OpenVDB
-docker build -f aetherion/Dockerfile -t aetherion-ci:local .
+docker build -f Dockerfile -t aetherion-ci:local .
+```
+
+Optional: reuse the cached OpenVDB base image from GHCR (skips the expensive local OpenVDB build):
+
+```bash
+docker build -f Dockerfile . \
+  --build-arg OPENVDB_BASE_IMAGE=ghcr.io/arthurmoreno/aetherion-openvdb:openvdb-11.0.0 \
+  --progress=plain
 ```
 
 Build and run the image (from repo root):
 
 ```bash
-docker build -f aetherion/Dockerfile -t aetherion-dev:latest .
+docker build -f Dockerfile -t aetherion-dev:latest .
 docker run -it --rm aetherion-dev:latest
 ```
 
