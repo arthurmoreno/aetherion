@@ -1,33 +1,6 @@
 
-# Stage: Build OpenVDB from source
-FROM ubuntu:24.04 AS openvdb-build
-
-# 1) Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        build-essential \
-        cmake \
-        ninja-build \
-        git \
-        pkg-config \
-        zlib1g-dev \
-        libfmt-dev \
-        libboost-iostreams-dev \
-        libtbb-dev \
-        libblosc-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# 2) Clone & configure OpenVDB
-RUN git clone --depth 1 https://github.com/AcademySoftwareFoundation/openvdb.git /tmp/openvdb \
-    && cd /tmp/openvdb \
-    && git fetch origin --tags && git checkout v11.0.0 \
-    && mkdir /tmp/openvdb/build \
-    && cd /tmp/openvdb/build \
-    && cmake .. \
-    && make -j4 && make install
-
-FROM ubuntu:24.04
-COPY --from=openvdb-build /usr/local /usr/local
+ARG OPENVDB_BASE_IMAGE=aetherion-openvdb:openvdb-11.0.0
+FROM ${OPENVDB_BASE_IMAGE}
 
 # avoid prompts during apt installs
 ARG DEBIAN_FRONTEND=noninteractive

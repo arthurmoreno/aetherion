@@ -4,10 +4,11 @@ on:
   push:
     branches: [main]
     paths:
-      - Dockerfile
+      - aetherion/Dockerfile
+      - aetherion/Dockerfile.openvdb
       - environment.yml
       - dev-requirements.txt
-      - .github/workflows/build-ghcr-image.yml
+      - aetherion/.github/workflows/build-ghcr-image.yml
   workflow_dispatch:
 
 permissions:
@@ -32,14 +33,28 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push OpenVDB base
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: Dockerfile
+          file: aetherion/Dockerfile.openvdb
           push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0
+            ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:sha-${{ github.sha }}
+          cache-from: type=gha,scope=aetherion-openvdb
+          cache-to: type=gha,mode=max,scope=aetherion-openvdb
+
+      - name: Build and push CI base
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: aetherion/Dockerfile
+          push: true
+          build-args: |
+            OPENVDB_BASE_IMAGE=ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0
           tags: |
             ghcr.io/${{ github.repository_owner }}/aetherion-ci:base
             ghcr.io/${{ github.repository_owner }}/aetherion-ci:sha-${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=aetherion-ci
+          cache-to: type=gha,mode=max,scope=aetherion-ci

@@ -120,6 +120,23 @@ Important CMake notes:
 
 The included `Dockerfile` creates an Ubuntu-based image that builds OpenVDB and FlatBuffers and creates the Conda env `aetherion-312`. It is useful when system packages are hard to satisfy locally.
 
+### CI: cached OpenVDB base image
+
+OpenVDB is expensive to build from source, so CI publishes a reusable base image containing OpenVDB under `/usr/local`. The main CI base image then builds “on top of” this OpenVDB image, which keeps rebuilds fast when OpenVDB hasn’t changed.
+
+- OpenVDB base Dockerfile: `aetherion/Dockerfile.openvdb`
+- CI base Dockerfile: `aetherion/Dockerfile` (uses `ARG OPENVDB_BASE_IMAGE=...` then `FROM ${OPENVDB_BASE_IMAGE}`)
+
+Local workflow (from repo root):
+
+```bash
+# 1) Build the OpenVDB base image (one-time or when OpenVDB build inputs change)
+docker build -f aetherion/Dockerfile.openvdb --target openvdb-runtime -t aetherion-openvdb:openvdb-11.0.0 .
+
+# 2) Build the CI/dev base image on top of OpenVDB
+docker build -f aetherion/Dockerfile -t aetherion-ci:local .
+```
+
 Build and run the image (from repo root):
 
 ```bash
