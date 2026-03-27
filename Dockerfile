@@ -10,6 +10,9 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         wget \
         curl \
+        zip \
+        unzip \
+        tar \
         bzip2 \
         ca-certificates \
         git \
