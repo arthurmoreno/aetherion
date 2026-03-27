@@ -12,49 +12,45 @@ permissions:
 jobs:
   build_install_test:
     runs-on: ubuntu-24.04
-    container:
-      image: ghcr.io/${{ github.repository_owner }}/aetherion-ci:base
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install ccache (runtime)
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends ccache
-          rm -rf /var/lib/apt/lists/*
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Restore ccache
         uses: actions/cache@v4
         with:
-          path: /root/.cache/ccache
+          path: .ccache
           key: ccache-${{ runner.os }}-${{ github.ref_name }}-${{ github.sha }}
           restore-keys: |
             ccache-${{ runner.os }}-${{ github.ref_name }}-
             ccache-${{ runner.os }}-
 
-      - name: Configure ccache
-        run: |
-          ccache --version
-          ccache --set-config=max_size=1G
-          ccache --show-config
+      - name: Build local image (cacheable)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          load: true
+          tags: aetherion-ci:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      - name: Build, install, and test
-        env:
-          CCACHE_DIR: /root/.cache/ccache
-          CCACHE_BASEDIR: ${{ github.workspace }}
-          CCACHE_COMPRESS: "true"
-          CMAKE_ARGS: >-
-            -DCMAKE_C_COMPILER_LAUNCHER=ccache
-            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+      - name: Build, install, and test (inside image)
         run: |
-          make build-install-test
-
-      - name: ccache stats
-        if: always()
-        run: |
-          ccache --show-stats || true
+          docker run --rm \
+            -v "${{ github.workspace }}:/project" \
+            -v "${{ github.workspace }}/.ccache:/ccache" \
+            -w /project \
+            -e CCACHE_DIR=/ccache \
+            -e CCACHE_BASEDIR=/project \
+            -e CCACHE_COMPRESS=true \
+            -e CMAKE_ARGS="-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache" \
+            aetherion-ci:test \
+            bash -lc "apt-get update && apt-get install -y --no-install-recommends ccache && rm -rf /var/lib/apt/lists/* && ccache --set-config=max_size=1G && make build-install-test && ccache --show-stats"
 
       - name: Upload build artifacts (on failure)
         if: failure()
