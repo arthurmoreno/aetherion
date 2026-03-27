@@ -4,11 +4,11 @@ on:
   push:
     branches: [main]
     paths:
-      - aetherion/Dockerfile
-      - aetherion/Dockerfile.openvdb
+      - Dockerfile
+      - Dockerfile.openvdb
       - environment.yml
       - dev-requirements.txt
-      - aetherion/.github/workflows/build-ghcr-image.yml
+      - .github/workflows/build-ghcr-image.yml
   workflow_dispatch:
 
 permissions:
@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: aetherion/Dockerfile.openvdb
+          file: Dockerfile.openvdb
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0
@@ -49,7 +49,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: aetherion/Dockerfile
+          file: Dockerfile
           push: true
           build-args: |
             OPENVDB_BASE_IMAGE=ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0

@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  packages: read
 
 jobs:
   build_install_test:
@@ -29,6 +30,33 @@ jobs:
             ccache-${{ runner.os }}-${{ github.ref_name }}-
             ccache-${{ runner.os }}-
 
+      - name: Log in to GHCR (for cacheable base pulls)
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull OpenVDB base image (best effort)
+        id: pull_openvdb
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+        continue-on-error: true
+        run: |
+          docker pull "ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0"
+          docker tag "ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0" "aetherion-openvdb:openvdb-11.0.0"
+
+      - name: Build OpenVDB base image (local fallback)
+        if: ${{ steps.pull_openvdb.outcome != 'success' }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.openvdb
+          load: true
+          tags: aetherion-openvdb:openvdb-11.0.0
+          cache-from: type=gha,scope=aetherion-openvdb
+          cache-to: type=gha,mode=max,scope=aetherion-openvdb
+
       - name: Build local image (cacheable)
         uses: docker/build-push-action@v6
         with:
@@ -36,8 +64,10 @@ jobs:
           file: Dockerfile
           load: true
           tags: aetherion-ci:test
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          build-args: |
+            OPENVDB_BASE_IMAGE=aetherion-openvdb:openvdb-11.0.0
+          cache-from: type=gha,scope=aetherion-ci
+          cache-to: type=gha,mode=max,scope=aetherion-ci
 
       - name: Build, install, and test (inside image)
         run: |
