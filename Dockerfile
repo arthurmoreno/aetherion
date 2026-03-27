@@ -56,7 +56,17 @@ RUN git clone --depth 1 -b v${FLATBUFFERS_VERSION} \
 # ensure flatc is on PATH
 ENV PATH="/usr/local/bin:${PATH}"
 
-# 3) Install Miniconda
+# 3) Cacheable vcpkg manifest bootstrap (materializes entt/flatbuffers/nanobind under /opt/aetherion-libs)
+ENV VCPKG_ROOT=/opt/vcpkg
+ENV VCPKG_CACHE_ROOT=/opt/vcpkg-user-cache
+WORKDIR /opt/aetherion-bootstrap
+COPY vcpkg.json vcpkg-configuration.json vcpkg-lock.json third_party.lock ./
+COPY scripts/install_third_party_libs.sh ./scripts/install_third_party_libs.sh
+RUN chmod +x ./scripts/install_third_party_libs.sh \
+ && VCPKG_ROOT="$VCPKG_ROOT" VCPKG_CACHE_ROOT="$VCPKG_CACHE_ROOT" \
+    ./scripts/install_third_party_libs.sh /opt/aetherion-libs
+
+# 4) Install Miniconda
 ENV CONDA_DIR=/opt/conda
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(uname -m).sh \
@@ -69,16 +79,20 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(uname -m)
 
 ENV PATH="$CONDA_DIR/bin:$PATH"
 
-# 4) Copy in your environment spec
+# 5) Copy project sources
 WORKDIR /project
 COPY . /project/
+RUN mkdir -p /project/libs \
+ && [ -e /project/libs/entt ] || ln -s /opt/aetherion-libs/entt /project/libs/entt \
+ && [ -e /project/libs/flatbuffers ] || ln -s /opt/aetherion-libs/flatbuffers /project/libs/flatbuffers \
+ && [ -e /project/libs/nanobind ] || ln -s /opt/aetherion-libs/nanobind /project/libs/nanobind
 
-# 5) Create the exact Conda env you use locally
+# 6) Create the exact Conda env you use locally
 # First, accept the Terms of Service for the default channels
 RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main \
  && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
-# 5) Create the exact Conda env you use locally
+# 7) Create the exact Conda env you use locally
 RUN conda env create -f environment.yml \
  && conda clean -afy
 
@@ -88,8 +102,8 @@ RUN echo "conda activate aetherion-312" > ~/.bashrc
 RUN conda run -n aetherion-312 pip install -r dev-requirements.txt \
     && conda run -n aetherion-312 pip install --upgrade build scikit-build-core
 
-# 6) Default to your env in any following RUN/SHELL
+# 8) Default to your env in any following RUN/SHELL
 SHELL ["conda", "run", "-n", "aetherion-312", "/bin/bash", "-lc"]
 
-# 7) By default drop you into bash with env active
+# 9) By default drop you into bash with env active
 CMD ["bash"]

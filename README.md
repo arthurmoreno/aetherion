@@ -54,6 +54,21 @@ sudo apt-get install -y build-essential cmake ninja-build pkg-config git \
 
 Note: `flatc` (FlatBuffers compiler) must be available on `PATH`. The included Dockerfile builds FlatBuffers and OpenVDB when required.
 
+### Third-party libraries (`libs/`) — vcpkg manifest + git
+
+Header-only **EnTT** and **FlatBuffers** sources are pinned via [vcpkg.json](vcpkg.json) / [vcpkg-lock.json](vcpkg-lock.json) (baseline + overrides), built with a **full** `microsoft/vcpkg` clone at that baseline (required for the version database). The installer materializes trees under `libs/` so **CMake does not need to change**.
+
+**nanobind** is cloned from Git at `NANOBIND_REF` in [third_party.lock](third_party.lock) (not via the vcpkg port), so we avoid pulling the vcpkg **python3** dependency chain; this matches the engine’s vendored `libs/nanobind` layout.
+
+**Hybrid (not vcpkg):** **imgui** / **implot** / **ImGuizmo** stay as your existing source or snapshots under `libs/` (or add them the same way you always have). Only EnTT + FlatBuffers use vcpkg for version locking.
+
+```bash
+# From aetherion/ — requires: git, cmake, ninja, curl
+./scripts/install_third_party_libs.sh
+```
+
+Caches default next to the repo: `.vcpkg` (tool clone + checkout), `.vcpkg_cache`, `.vcpkg_installed`. Override with `VCPKG_ROOT`, `VCPKG_CACHE_ROOT`. For CI binary artifacts directory, set `VCPKG_BINARY_SOURCES` (see workflow).
+
 ## Conda environment
 
 Use the provided `environment.yml` to create the Conda environment used for building/testing. The project expects `CONDA_PREFIX` to be set or a named env matching the expected path.

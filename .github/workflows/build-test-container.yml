@@ -20,41 +20,27 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Ensure nanobind submodule is present
+      - name: Show dependency locks (third_party + vcpkg)
         run: |
           set -euxo pipefail
-          echo "== Repo debug =="
-          pwd
-          git rev-parse --is-inside-work-tree
-          git rev-parse HEAD
-          git status --short || true
-          echo "== .gitmodules (if present) =="
-          if [ -f .gitmodules ]; then
-            sed -n '1,200p' .gitmodules
-          else
-            echo ".gitmodules not present"
-          fi
-          echo "== Existing libs layout before fetch =="
-          ls -la .
-          ls -la libs || true
+          test -f third_party.lock
+          sed -n '1,200p' third_party.lock
+          echo "== vcpkg.json =="
+          sed -n '1,200p' vcpkg.json
+          echo "== vcpkg-lock.json =="
+          sed -n '1,200p' vcpkg-lock.json
 
-          if [ -f .gitmodules ] && git config -f .gitmodules --get-regexp path | grep -q "libs/nanobind"; then
-            echo "Using git submodule source for libs/nanobind"
-            git submodule sync --recursive
-            git submodule update --init --recursive libs/nanobind
-          elif [ ! -d libs/nanobind/.git ]; then
-            echo "Submodule not registered; cloning nanobind directly"
-            rm -rf libs/nanobind
-            git clone --depth=1 https://github.com/wjakob/nanobind libs/nanobind
-          else
-            echo "libs/nanobind already present; reusing existing checkout"
-          fi
-
-          echo "== nanobind checkout debug =="
-          ls -la libs/nanobind
-          git -C libs/nanobind rev-parse HEAD || true
-          test -f libs/nanobind/cmake/nanobind-config.cmake
-          echo "Verified: libs/nanobind/cmake/nanobind-config.cmake exists"
+      - name: Cache vcpkg (clone, buildtrees, binary artifacts)
+        uses: actions/cache@v4
+        with:
+          path: |
+            .vcpkg
+            .vcpkg_cache
+            .vcpkg_installed
+            .vcpkg-binary-cache
+          key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json', 'vcpkg-lock.json', 'vcpkg-configuration.json', 'third_party.lock') }}
+          restore-keys: |
+            vcpkg-${{ runner.os }}-
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -130,8 +116,11 @@ jobs:
             -e CCACHE_BASEDIR=/project \
             -e CCACHE_COMPRESS=true \
             -e CMAKE_ARGS="-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache" \
+            -e VCPKG_ROOT=/project/.vcpkg \
+            -e VCPKG_CACHE_ROOT=/project/.vcpkg_cache \
+            -e 'VCPKG_BINARY_SOURCES=clear;files,/project/.vcpkg-binary-cache,readwrite' \
             aetherion-ci:test \
-            bash -lc "apt-get update && apt-get install -y --no-install-recommends ccache && rm -rf /var/lib/apt/lists/* && ccache --set-config=max_size=1G && make build-install-test && ccache --show-stats"
+            bash -lc "set -euxo pipefail; apt-get update && apt-get install -y --no-install-recommends ccache && rm -rf /var/lib/apt/lists/*; ccache --set-config=max_size=1G; chmod +x scripts/install_third_party_libs.sh; ./scripts/install_third_party_libs.sh; make build-install-test; ccache --show-stats"
 
       - name: Upload build artifacts (on failure)
         if: failure()
