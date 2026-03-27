@@ -163,6 +163,7 @@ list(
 add_subdirectory(src/components)
 add_subdirectory(src/LowLevelRenderer)
 add_subdirectory(src/Gui)
+add_subdirectory(src/items)
 add_subdirectory(src/neat)
 add_subdirectory(src/physics)
 add_subdirectory(src/terrain)
@@ -182,6 +183,7 @@ target_link_libraries(_aetherion PRIVATE
     components
     LowLevelRenderer
     Gui
+    items
     neat
     physics
     ecosystem
@@ -216,6 +218,7 @@ if(BUILD_WORLD_TEST)
         components
         LowLevelRenderer
         Gui
+        items
         ${SDL2_LIBRARIES}
         ${SDL2_IMAGE_LIBRARIES}
         ${SDL2_TTF_LIBRARIES}

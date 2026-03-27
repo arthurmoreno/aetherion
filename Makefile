@@ -17,20 +17,60 @@ clean-build-run:
 	cp build/lib/libmy_module.so my_module.so &&  \
 	python test.py
 
-build-test:
-	rm -rf build && \
-	mkdir build && \
-	cd build && \
-	cmake -DCMAKE_CXX_FLAGS="-fdiagnostics-color=always" -DBUILD_WORLD_TEST=OFF -G Ninja -DCMAKE_PREFIX_PATH="$(PREFIX_PATH)" .. && \
-	stdbuf -oL ninja && \
-	cd .. && \
-	pytest tests
+.PHONY: build-test
+build-test: build test
+	@echo "Build and test completed."
 
 
 .PHONY: test
 test:
 	@echo "Running aetherion tests with pytest..."
 	conda run --no-capture-output -n aetherion-312 pytest tests
+
+.PHONY: coverage
+coverage:
+	@echo "Running tests with coverage report..."
+	conda run --no-capture-output -n aetherion-312 \
+		pytest tests \
+		--cov=aetherion \
+		--cov-report=term-missing \
+		--cov-report=html
+	@echo "Coverage HTML report generated at htmlcov/index.html"
+
+.PHONY: test-ci
+test-ci:
+	@echo "Running canonical local test command (coverage + status)..."
+	@STATUS_FILE=".test_status"; \
+	if conda run --no-capture-output -n aetherion-312 \
+		pytest tests \
+		--cov=aetherion \
+		--cov-report=term-missing \
+		--cov-report=html \
+		--cov-report=xml:coverage.xml; then \
+		echo "passing" > $$STATUS_FILE; \
+		echo "Test status saved to $$STATUS_FILE"; \
+	else \
+		RESULT=$$?; \
+		echo "failing" > $$STATUS_FILE; \
+		echo "Test status saved to $$STATUS_FILE"; \
+		exit $$RESULT; \
+	fi
+
+.PHONY: badges
+badges:
+	@echo "Generating local badges from test artifacts..."
+	conda run --no-capture-output -n aetherion-312 python scripts/generate_badges.py \
+		--coverage coverage.xml \
+		--status .test_status \
+		--output _images
+
+.PHONY: test-badges
+test-badges:
+	@echo "Running tests and refreshing local badges..."
+	@RESULT=0; \
+	$(MAKE) test-ci || RESULT=$$?; \
+	$(MAKE) badges; \
+	exit $$RESULT
 
 device-info:
 	nvidia-smi
@@ -39,6 +79,21 @@ device-info:
 build:
 	@echo "Building aetherion package with python -m build..."
 	conda run --no-capture-output -n aetherion-312 python -m build
+
+.PHONY: install
+install:
+	@echo "Installing latest aetherion wheel from dist/..."
+	@WHEEL=$$(ls -t dist/aetherion-*.whl 2>/dev/null | head -n 1); \
+	if [ -z "$$WHEEL" ]; then \
+		echo "No wheel found in dist/. Run 'make build' first."; \
+		exit 1; \
+	fi; \
+	echo "Using $$WHEEL"; \
+	conda run --no-capture-output -n aetherion-312 pip install --force-reinstall "$$WHEEL"
+
+.PHONY: build-install-test
+build-install-test: build install test
+	@echo "Build, install, and test completed."
 
 .PHONY: clang-format
 clang-format:
@@ -80,9 +135,7 @@ install-package:
 
 
 .PHONY: wheel-install
-wheel-install:
-	@echo "Installing aetherion..."
-	conda run --no-capture-output -n aetherion-312 pip install --force-reinstall dist/aetherion-0.1.0-cp312-abi3-linux_x86_64.whl
+wheel-install: install
 
 .PHONY: conda-install
 conda-install:
