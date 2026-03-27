@@ -23,8 +23,8 @@ jobs:
       - name: Ensure nanobind submodule is present
         run: |
           git submodule sync --recursive
-          git submodule update --init --recursive aetherion/libs/nanobind
-          test -f aetherion/libs/nanobind/cmake/nanobind-config.cmake
+          git submodule update --init --recursive libs/nanobind
+          test -f libs/nanobind/cmake/nanobind-config.cmake
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
