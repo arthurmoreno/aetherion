@@ -16,6 +16,10 @@ RUN apt-get update \
         cmake \
         ninja-build \
         pkg-config \
+        libopengl-dev \
+        libglvnd-dev \
+        mesa-common-dev \
+        libgl1-mesa-dev \
         libfmt-dev \
         libeigen3-dev \
         libtbb-dev \
