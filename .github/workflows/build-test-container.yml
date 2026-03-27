@@ -20,6 +20,10 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          # Use the local docker driver so the subsequent build can use
+          # locally-built images as a FROM base (e.g. aetherion-openvdb:*).
+          driver: docker
 
       - name: Restore ccache
         uses: actions/cache@v4
