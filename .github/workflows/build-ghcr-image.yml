@@ -1,0 +1,60 @@
+name: Build & publish CI base image (GHCR)
+
+on:
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - Dockerfile
+  #     - Dockerfile.openvdb
+  #     - environment.yml
+  #     - dev-requirements.txt
+  #     - .github/workflows/build-ghcr-image.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push OpenVDB base
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.openvdb
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0
+            ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:sha-${{ github.sha }}
+          cache-from: type=gha,scope=aetherion-openvdb
+          cache-to: type=gha,mode=max,scope=aetherion-openvdb
+
+      - name: Build and push CI base
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          build-args: |
+            OPENVDB_BASE_IMAGE=ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/aetherion-ci:base
+            ghcr.io/${{ github.repository_owner }}/aetherion-ci:sha-${{ github.sha }}
+          cache-from: type=gha,scope=aetherion-ci
+          cache-to: type=gha,mode=max,scope=aetherion-ci

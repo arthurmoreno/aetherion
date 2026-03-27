@@ -1,0 +1,135 @@
+name: Build & test (container)
+
+on:
+  # pull_request:
+  # push:
+  #   branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build_install_test:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Show dependency locks (third_party + vcpkg)
+        run: |
+          set -euxo pipefail
+          test -f third_party.lock
+          sed -n '1,200p' third_party.lock
+          echo "== vcpkg.json =="
+          sed -n '1,200p' vcpkg.json
+          echo "== vcpkg-lock.json =="
+          sed -n '1,200p' vcpkg-lock.json
+
+      - name: Cache vcpkg (clone, buildtrees, binary artifacts)
+        uses: actions/cache@v4
+        with:
+          path: |
+            .vcpkg
+            .vcpkg_cache
+            .vcpkg_installed
+            .vcpkg-binary-cache
+          key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json', 'vcpkg-lock.json', 'vcpkg-configuration.json', 'third_party.lock') }}
+          restore-keys: |
+            vcpkg-${{ runner.os }}-
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Restore ccache
+        uses: actions/cache@v4
+        with:
+          path: .ccache
+          key: ccache-${{ runner.os }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            ccache-${{ runner.os }}-${{ github.ref_name }}-
+            ccache-${{ runner.os }}-
+
+      - name: Log in to GHCR (for cacheable base pulls)
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull OpenVDB base image (best effort)
+        id: pull_openvdb
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+        continue-on-error: true
+        run: |
+          docker pull "ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0"
+
+      - name: Build OpenVDB base image (local fallback)
+        if: ${{ steps.pull_openvdb.outcome != 'success' }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.openvdb
+          load: true
+          tags: aetherion-openvdb:openvdb-11.0.0
+          cache-from: type=gha,scope=aetherion-openvdb
+          cache-to: type=gha,mode=max,scope=aetherion-openvdb
+
+      - name: Push OpenVDB base image to GHCR (seed cache)
+        if: ${{ steps.pull_openvdb.outcome != 'success' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false) }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.openvdb
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0
+            ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:sha-${{ github.sha }}
+          cache-from: type=gha,scope=aetherion-openvdb
+          cache-to: type=gha,mode=max,scope=aetherion-openvdb
+
+      - name: Build local image (cacheable)
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          load: true
+          tags: aetherion-ci:test
+          build-args: |
+            OPENVDB_BASE_IMAGE=ghcr.io/${{ github.repository_owner }}/aetherion-openvdb:openvdb-11.0.0
+          cache-from: type=gha,scope=aetherion-ci
+          cache-to: type=gha,mode=max,scope=aetherion-ci
+
+      - name: Build, install, and test (inside image)
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/project" \
+            -v "${{ github.workspace }}/.ccache:/ccache" \
+            -w /project \
+            -e CCACHE_DIR=/ccache \
+            -e CCACHE_BASEDIR=/project \
+            -e CCACHE_COMPRESS=true \
+            -e CMAKE_ARGS="-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache" \
+            -e VCPKG_ROOT=/project/.vcpkg \
+            -e VCPKG_CACHE_ROOT=/project/.vcpkg_cache \
+            -e 'VCPKG_BINARY_SOURCES=clear;files,/project/.vcpkg-binary-cache,readwrite' \
+            aetherion-ci:test \
+            bash -lc "set -euxo pipefail; apt-get update && apt-get install -y --no-install-recommends ccache && rm -rf /var/lib/apt/lists/*; ccache --set-config=max_size=1G; chmod +x scripts/install_third_party_libs.sh; ./scripts/install_third_party_libs.sh; make build-install-test; ccache --show-stats"
+
+      - name: Upload build artifacts (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aetherion-build-artifacts
+          if-no-files-found: ignore
+          path: |
+            dist/**
+            wheelhouse/**
+            coverage.xml
+            htmlcov/**

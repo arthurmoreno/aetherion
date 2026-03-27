@@ -1,0 +1,35 @@
+# Builds OpenVDB into /usr/local and packages it as a base image.
+#
+# Build locally:
+#   docker build -f aetherion/Dockerfile.openvdb -t aetherion-openvdb:openvdb-11.0.0 aetherion
+
+ARG UBUNTU_VERSION=24.04
+FROM ubuntu:${UBUNTU_VERSION} AS openvdb-build
+
+ARG DEBIAN_FRONTEND=noninteractive
+ARG OPENVDB_TAG=v11.0.0
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        build-essential \
+        cmake \
+        ninja-build \
+        git \
+        pkg-config \
+        zlib1g-dev \
+        libfmt-dev \
+        libboost-iostreams-dev \
+        libtbb-dev \
+        libblosc-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN git clone --depth 1 --branch "${OPENVDB_TAG}" https://github.com/AcademySoftwareFoundation/openvdb.git /tmp/openvdb \
+    && mkdir -p /tmp/openvdb/build \
+    && cd /tmp/openvdb/build \
+    && cmake .. \
+    && make -j"$(nproc)" \
+    && make install \
+    && rm -rf /tmp/openvdb
+
+FROM ubuntu:${UBUNTU_VERSION} AS openvdb-runtime
+COPY --from=openvdb-build /usr/local /usr/local

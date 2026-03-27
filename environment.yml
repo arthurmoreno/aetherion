@@ -28,4 +28,3 @@ dependencies:
     - build==1.2.2.post1
     - packaging==25.0
     - pyproject-hooks==1.2.0
-prefix: /home/arthur/anaconda3/envs/aetherion-312

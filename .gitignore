@@ -38,6 +38,12 @@ data/*
 libs/*
 site-packages/*
 
+# vcpkg (manifest install / local caches — keep vcpkg.json + vcpkg-lock.json committed)
+.vcpkg/
+.vcpkg_cache/
+.vcpkg_installed/
+.vcpkg-binary-cache/
+
 build-tests/*
 tmp/*
 html/*
