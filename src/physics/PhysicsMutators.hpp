@@ -13,6 +13,8 @@
 #include "components/MetabolismComponents.hpp"
 #include "components/MovingComponent.hpp"
 #include "components/PhysicsComponents.hpp"
+#include "items/ItemConfiguration.hpp"
+#include "items/ItemConfigurationManager.hpp"
 #include "ecosystem/EcosystemEvents.hpp"
 #include "physics/ComponentMutators.hpp"
 #include "physics/PhysicalMath.hpp"
@@ -141,6 +143,63 @@ inline entt::entity createVaporTerrainEntity(entt::registry& registry, VoxelGrid
 
     return newVaporEntity;
 }
+
+/**
+ * @brief Creates a new entity and initializes it as a vapor terrain block.
+ * @details Creates an entity in the ECS and sets its corresponding properties (Position, Type,
+ * Matter, etc.) directly in the TerrainGridRepository.
+ * @param registry The entt::registry to create the entity in.
+ * @param voxelGrid The VoxelGrid for accessing the terrain repository.
+ * @param x The x-coordinate for the new entity.
+ * @param y The y-coordinate for the new entity.
+ * @param z The z-coordinate for the new entity.
+ * @param vaporAmount The amount of vapor to initialize the entity with.
+ * @return The newly created vapor entity.
+ */
+// [Storage:Hybrid] [Lock:None] [Scope:Entity]
+inline entt::entity createEmptyActiveTerrain(entt::registry& registry, VoxelGrid& voxelGrid, int x,
+                                             int y, int z) {
+    if (!voxelGrid.terrainGridRepository) {
+        spdlog::warn("createEmptyActiveTerrain: missing terrainGridRepository");
+        return entt::null;
+    }
+    auto newVaporEntity = registry.create();
+    Position newPosition = {x, y, z, DirectionEnum::DOWN};
+    registry.emplace<Position>(newVaporEntity, newPosition);
+
+    EntityTypeComponent newType = {};
+    newType.mainType = 0;  // Terrain type
+    newType.subType0 = static_cast<int>(TerrainEnum::EMPTY);  // Water terrain (vapor)
+    newType.subType1 = 0;
+
+    // MatterContainer newMatterContainer = {};
+    // newMatterContainer.WaterVapor = 0;
+    // newMatterContainer.WaterMatter = 0;
+
+    // PhysicsStats newPhysicsStats = {};
+    // newPhysicsStats.mass = 0.1;
+    // newPhysicsStats.maxSpeed = 10;
+    // newPhysicsStats.minSpeed = 0.0;
+
+    // StructuralIntegrityComponent newStructuralIntegrityComponent = {};
+    // newStructuralIntegrityComponent.canStackEntities = false;
+    // newStructuralIntegrityComponent.maxLoadCapacity = -1;
+
+    voxelGrid.terrainGridRepository->setPosition(x, y, z, newPosition);
+    voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z, newType);
+    // voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z, newMatterContainer);
+    // voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z,
+    //                                                                newStructuralIntegrityComponent);
+    // voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
+    int newTerrainId = static_cast<int>(newVaporEntity);
+    voxelGrid.terrainGridRepository->setTerrainId(x, y, z, newTerrainId);
+
+    VoxelCoord key{newPosition.x, newPosition.y, newPosition.z};
+    voxelGrid.terrainGridRepository->addToTrackingMaps(key, newVaporEntity);
+
+    return newVaporEntity;
+}
+
 
 /**
  * @brief Destroys an entity and cleans up its associated data from the TerrainGridRepository.
@@ -497,47 +556,101 @@ inline void checkAndConvertSoftEmptyIntoVapor(entt::registry& registry, VoxelGri
  * @param voxelGrid The VoxelGrid.
  * @param entity The entity dropping items.
  */
-inline void dropEntityItems(entt::registry& registry, VoxelGrid& voxelGrid, entt::entity entity) {
+inline void dropEntityItems(entt::registry& registry, entt::dispatcher& dispatcher, VoxelGrid& voxelGrid, entt::entity entity) {
     // NOTE: The logic for this function is based on the commented-out `dropItems`
     // function in `LifeEvents.cpp` and serves as a placeholder for the intended functionality.
-    // std::cout << "Checking for item drops from entity " << static_cast<int>(entity)
-    //           << " (placeholder)." << std::endl;
+    std::cout << "Checking for item drops from entity " << static_cast<int>(entity)
+              << " (placeholder)." << std::endl;
 
-    // if (registry.valid(entity) && registry.all_of<Position, DropRates>(entity)) {
-    //     auto&& [pos, dropRates] = registry.get<Position, DropRates>(entity);
+    if (!registry.valid(entity)) {
+        std::cout << "[dropEntityItems] Entity " << static_cast<int>(entity) << " is not valid. Aborting." << std::endl;
+        return;
+    }
 
-    //     auto terrainBellowId = voxelGrid->getTerrain(pos.x, pos.y, pos.z - 1);
+    bool hasPosition = registry.all_of<Position>(entity);
+    bool hasDropRates = registry.all_of<DropRates>(entity);
+    std::cout << "[dropEntityItems] Entity " << static_cast<int>(entity)
+              << " hasPosition=" << hasPosition << " hasDropRates=" << hasDropRates << std::endl;
 
-    //     // TODO: TerrainRepository is not supporting Inventory yet. (Only Pure ECS entities)
-    //     if (terrainBellowId != -1 && terrainBellowId != -2) {
-    //         entt::entity terrainBellow = static_cast<entt::entity>(terrainBellowId);
+    if (hasPosition && hasDropRates) {
+        auto&& [pos, dropRates] = registry.get<Position, DropRates>(entity);
+        std::cout << "[dropEntityItems] Entity position=(" << pos.x << ", " << pos.y << ", " << pos.z << ")"
+                  << " | itemDropRates count=" << dropRates.itemDropRates.size() << std::endl;
 
-    //         Inventory* inventory = registry.try_get<Inventory>(terrainBellow);
-    //         bool shouldEmplaceInventory{inventory == nullptr};
-    //         if (inventory == nullptr) {
-    //             inventory = new Inventory();
-    //         }
+        auto terrainBellowId = voxelGrid.getTerrain(pos.x, pos.y, pos.z - 1);
+        std::cout << "[dropEntityItems] Terrain below at z-1=" << (pos.z - 1) << " terrainBellowId=" << terrainBellowId << std::endl;
 
-    //         if (!dropRates.itemDropRates.empty()) {
-    //             for (const auto& [combinedItemId, valuesTuple] : dropRates.itemDropRates) {
-    //                 auto [itemMainType, itemSubType0] = splitStringToInts(combinedItemId);
+        // TODO: TerrainRepository is not supporting Inventory yet. (Only Pure ECS entities)
+        if (terrainBellowId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+            std::cout << "[dropEntityItems] No terrain below (terrainBellowId == -2). Cannot drop items." << std::endl;
+        } else {
+            entt::entity terrainBellow = static_cast<entt::entity>(terrainBellowId);
+            std::cout << "[dropEntityItems] Terrain below entity=" << terrainBellowId
+                      << " valid=" << registry.valid(terrainBellow) << std::endl;
 
-    //                 if (itemMainType == static_cast<int>(ItemEnum::FOOD)) {
-    //                     std::shared_ptr<ItemConfiguration> itemConfiguration =
-    //                         getItemConfigurationOnManager(combinedItemId);
-    //                     auto newFoodItem = itemConfiguration->createFoodItem(registry);
+            Inventory* inventory = registry.try_get<Inventory>(terrainBellow);
+            bool shouldEmplaceInventory{inventory == nullptr};
+            std::cout << "[dropEntityItems] Terrain below already has inventory=" << !shouldEmplaceInventory << std::endl;
+            if (inventory == nullptr) {
+                inventory = new Inventory();
+            }
 
-    //                     auto entityId = entt::to_integral(newFoodItem);
-    //                     inventory->itemIDs.push_back(entityId);
-    //                 }
-    //             }
+            if (dropRates.itemDropRates.empty()) {
+                std::cout << "[dropEntityItems] itemDropRates is empty. No items to drop." << std::endl;
+            } else {
+                int itemsAdded = 0;
+                for (const auto& [combinedItemId, valuesTuple] : dropRates.itemDropRates) {
+                    auto [itemMainType, itemSubType0] = splitStringToInts(combinedItemId);
+                    std::cout << "[dropEntityItems] Processing drop entry combinedItemId='" << combinedItemId
+                              << "' itemMainType=" << itemMainType << " itemSubType0=" << itemSubType0
+                              << " FOOD=" << static_cast<int>(ItemEnum::FOOD) << std::endl;
 
-    //             if (shouldEmplaceInventory) {
-    //                 registry.emplace<Inventory>(terrainBellow, *inventory);
-    //             }
-    //         }
-    //     }
-    // }
+                    if (itemMainType == static_cast<int>(ItemEnum::FOOD)) {
+                        std::shared_ptr<ItemConfiguration> itemConfiguration =
+                            getItemConfigurationOnManager(combinedItemId);
+                        if (!itemConfiguration) {
+                            std::cout << "[dropEntityItems] WARNING: itemConfiguration is null for combinedItemId='" << combinedItemId << "'" << std::endl;
+                            continue;
+                        }
+                        auto newFoodItem = itemConfiguration->createFoodItem(registry);
+                        auto entityId = entt::to_integral(newFoodItem);
+                        inventory->itemIDs.push_back(entityId);
+                        itemsAdded++;
+                        std::cout << "[dropEntityItems] Created food item entity=" << entityId << " for combinedItemId='" << combinedItemId << "'" << std::endl;
+                    } else {
+                        std::cout << "[dropEntityItems] Item type " << itemMainType << " is not FOOD. Skipping." << std::endl;
+                    }
+                }
+
+                std::cout << "[dropEntityItems] Total items added to inventory=" << itemsAdded << std::endl;
+
+                if (shouldEmplaceInventory) {
+                    // convertTerrainTileToEmpty(registry, dispatcher, voxelGrid, pos, terrainBellow);
+                    // auto newTerrainBellowId = createEmptyActiveTerrain(registry, voxelGrid, pos.x, pos.y, pos.z - 1);
+
+                    entt::entity newTerrainBellow = terrainBellow;
+                    if (terrainBellowId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
+                        auto newTerrainEntity = registry.create();
+                        Position newPosition = {pos.x, pos.y, pos.z - 1, DirectionEnum::DOWN};
+                        registry.emplace<Position>(newTerrainEntity, newPosition);
+                        // voxelGrid.terrainGridRepository->setPosition(x, y, z, newPosition);
+                        int newTerrainId = static_cast<int>(newTerrainEntity);
+                        voxelGrid.terrainGridRepository->setTerrainId(pos.x, pos.y, pos.z - 1, newTerrainId);
+
+                        VoxelCoord key{newPosition.x, newPosition.y, newPosition.z};
+                        voxelGrid.terrainGridRepository->addToTrackingMaps(key, newTerrainEntity);
+
+                        newTerrainBellow = newTerrainEntity;
+                    }
+                    // Here I also need to make the terrain, empty terrain if it is -2
+                    registry.emplace<Inventory>(newTerrainBellow, *inventory);
+                    std::cout << "[dropEntityItems] Emplacing new Inventory on terrain entity=" << static_cast<int>(newTerrainBellow) << std::endl;
+                } else {
+                    std::cout << "[dropEntityItems] Terrain already has Inventory, items appended in place." << std::endl;
+                }
+            }
+        }
+    }
 }
 
 /**

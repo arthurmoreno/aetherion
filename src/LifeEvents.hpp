@@ -14,7 +14,7 @@
 
 #include "EntityInterface.hpp"
 #include "GameDBHandler.hpp"
-#include "ItemConfigurationManager.hpp"
+#include "items/ItemConfigurationManager.hpp"
 #include "components/ItemsComponents.hpp"
 #include "components/LifecycleComponents.hpp"
 #include "voxelgrid/VoxelGrid.hpp"

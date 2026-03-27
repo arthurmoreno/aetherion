@@ -77,6 +77,7 @@ EntityInterface World::buildEntityInterface(entt::entity entity) {
 // Helper: build the EntityInterface for a single visible terrain voxel
 // ---------------------------------------------------------------------------
 static EntityInterface buildTerrainEntityInterface(VoxelGrid* voxelGrid, entt::registry& registry,
+                                                    std::vector<int>& terrainInventoryEntityIds,
                                                    int x, int y, int z, int realTerrainId,
                                                    int virtualTerrainId) {
     EntityInterface entity_interface;
@@ -100,6 +101,23 @@ static EntityInterface buildTerrainEntityInterface(VoxelGrid* voxelGrid, entt::r
         }
     }
 
+
+    if (terrainEtc.mainType == static_cast<int>(EntityEnum::TERRAIN) && realTerrainId > 0) {
+        entt::entity terrainEntity = static_cast<entt::entity>(realTerrainId);
+        if (const Inventory* inventory = registry.try_get<Inventory>(terrainEntity)) {
+            entity_interface.setComponent<Inventory>(*inventory);
+
+            // If I comment here I am getting a different error!
+            for (int itemEntityID : inventory->itemIDs) {
+                if (itemEntityID != -1) {
+                    // std::cout << "Adding itemEntityID=" << itemEntityID
+                    //           << " from terrain inventory to terrainInventoryEntityIds list." << std::endl;
+                    terrainInventoryEntityIds.push_back(itemEntityID);
+                }
+            }
+        }
+    }
+
     return entity_interface;
 }
 
@@ -107,11 +125,12 @@ static EntityInterface buildTerrainEntityInterface(VoxelGrid* voxelGrid, entt::r
 // Helper: query terrain in region, run occlusion logic, fill voxelGridView and
 //         terrainEntities map
 // ---------------------------------------------------------------------------
-void World::buildTerrainView(int x_min, int y_min, int z_min, int x_max, int y_max, int z_max,
-                             VoxelGridView& voxelGridView,
-                             std::unordered_map<int, EntityInterface>& terrainEntities,
-                             const Position& observerPos) {
+std::vector<int> World::buildTerrainView(int x_min, int y_min, int z_min, int x_max, int y_max,
+                                         int z_max, VoxelGridView& voxelGridView,
+                                         std::unordered_map<int, EntityInterface>& terrainEntities,
+                                         const Position& observerPos) {
     int terrainVirtualIdCounter = -1000;
+    std::vector<int> terrainInventoryEntityIds;
 
     std::vector<VoxelGridCoordinates> terrainCoords =
         voxelGrid->getAllTerrainInRegion(x_min, y_min, z_min, x_max, y_max, z_max);
@@ -179,9 +198,11 @@ void World::buildTerrainView(int x_min, int y_min, int z_min, int x_max, int y_m
             int virtualTerrainId = (terrainId == -1) ? terrainVirtualIdCounter-- : terrainId;
             voxelGridView.setTerrainVoxel(x, y, z, virtualTerrainId);
             terrainEntities[virtualTerrainId] =
-                buildTerrainEntityInterface(voxelGrid, registry, x, y, z, terrainId, virtualTerrainId);
+                buildTerrainEntityInterface(voxelGrid, registry, terrainInventoryEntityIds, x, y, z, terrainId, virtualTerrainId);
         }
     }
+
+    return terrainInventoryEntityIds;
 }
 
 // ---------------------------------------------------------------------------
@@ -189,6 +210,7 @@ void World::buildTerrainView(int x_min, int y_min, int z_min, int x_max, int y_m
 // ---------------------------------------------------------------------------
 static EntityInterface buildNonTerrainEntityInterface(
     entt::entity entity,
+    entt::registry& registry,
     entt::view<entt::get_t<Position, EntityTypeComponent, PerceptionComponent>> allView,
     entt::view<entt::get_t<Velocity>> velocityView,
     entt::view<entt::get_t<MovingComponent>> movingComponentView,
@@ -197,11 +219,29 @@ static EntityInterface buildNonTerrainEntityInterface(
     EntityInterface entity_interface;
     entity_interface.entityId = static_cast<int>(entity);
 
+    const ItemTypeComponent* itemTypeComp = registry.try_get<ItemTypeComponent>(entity);
+    if (itemTypeComp) {
+        // entity_interface.setComponent<ItemTypeComponent>(*itemTypeComp);
+        // std::cout << "Entity " << static_cast<int>(entity)
+        //           << " is a non-terrain entity with ItemTypeComponent." << std::endl;
+        const ItemTypeComponent& itemType = registry.get<ItemTypeComponent>(entity);
+        entity_interface.setComponent<ItemTypeComponent>(itemType);
+        const FoodItem& foodItem = registry.get<FoodItem>(entity);
+        entity_interface.setComponent<FoodItem>(foodItem);
+        return entity_interface;  // Early return for items, as they don't have other components
+    }
+
     const Position& pos = allView.get<Position>(entity);
     const EntityTypeComponent& etc = allView.get<EntityTypeComponent>(entity);
 
     entity_interface.setComponent<Position>(pos);
     entity_interface.setComponent<EntityTypeComponent>(etc);
+
+    if (itemTypeComp) {
+        // entity_interface.setComponent<ItemTypeComponent>(*itemTypeComp);
+        // std::cout << "Entity " << static_cast<int>(entity)
+        //           << " is a non-terrain entity with ItemTypeComponent. After get and set pos and etc." << std::endl;
+    }
 
     if (etc.mainType != static_cast<int>(EntityEnum::TERRAIN) && velocityView.contains(entity)) {
         const Velocity& velocity = velocityView.get<Velocity>(entity);
@@ -224,6 +264,12 @@ static EntityInterface buildNonTerrainEntityInterface(
         etc.mainType == static_cast<int>(EntityEnum::PLANT) && inventoryView.contains(entity)) {
         const Inventory& inventory = inventoryView.get<Inventory>(entity);
         entity_interface.setComponent<Inventory>(inventory);
+    }
+
+    if (itemTypeComp) {
+        // entity_interface.setComponent<ItemTypeComponent>(*itemTypeComp);
+        // std::cout << "Entity " << static_cast<int>(entity)
+        //           << " is a non-terrain entity with ItemTypeComponent. After get and set all other components." << std::endl;
     }
 
     return entity_interface;
@@ -281,7 +327,7 @@ void World::buildNonTerrainEntities(
         }
 
         EntityInterface entity_interface = buildNonTerrainEntityInterface(
-            entity, allView, velocityView, movingComponentView, healthView, inventoryView);
+            entity, registry, allView, velocityView, movingComponentView, healthView, inventoryView);
         response.world_view.entities.emplace(entity_interface.entityId,
                                              std::move(entity_interface));
     });
@@ -357,11 +403,16 @@ std::vector<char> World::createPerceptionResponseC(int entityId,
     voxelGridView.initVoxelGridView(view_width, view_height, view_depth, x_min, y_min, z_min);
 
     std::unordered_map<int, EntityInterface> terrainEntities;
-    buildTerrainView(x_min, y_min, z_min, x_max, y_max, z_max, voxelGridView, terrainEntities, pos);
+    std::vector<int> terrainInventoryEntityIds =
+        buildTerrainView(x_min, y_min, z_min, x_max, y_max, z_max, voxelGridView, terrainEntities, pos);
 
     // Collect non-terrain entity IDs visible in the region
     std::vector<int> entitiesIds =
         voxelGrid->getAllEntityIdsInRegion(x_min, y_min, z_min, x_max, y_max, z_max, voxelGridView);
+
+    // Merge entity IDs from terrain inventories (dropped items, etc.) into the visible entities list
+    entitiesIds.insert(entitiesIds.end(), terrainInventoryEntityIds.begin(),
+                       terrainInventoryEntityIds.end());
 
     response.world_view.voxelGridView = voxelGridView;
 

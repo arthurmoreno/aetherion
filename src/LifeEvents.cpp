@@ -33,7 +33,7 @@ void LifeEngine::onKillEntity(const KillEntityEvent& event) {
         // std::cout << "Deleting entity hard kill: " << entityId << std::endl;
     }
 
-    dropEntityItems(registry, *voxelGrid, event.entity);
+    dropEntityItems(registry, dispatcher, *voxelGrid, event.entity);
 
     if (entityId != -1 && entityId != -2) {
         entitiesToDelete.emplace_back(event.entity, event.softKill);

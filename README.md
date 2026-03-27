@@ -1,5 +1,8 @@
 ## ![Aetherion Logo](docs/_images/aetherion-logo.png) Aetherion — C++ Engine with Python Bindings
 
+![Tests](_images/tests-badge.svg)
+![Coverage](_images/coverage-badge.svg)
+
 ![Dungeon Test](docs/_images/lifesim-dungeon-test-screenshot.png)
 
 Aetherion is the native C++ engine and runtime designed to bridge the gap between classic and modern sandbox simulations. It builds C++ components and exposes a Python extension via nanobind (Python module: `_aetherion`). This document explains system and Conda deps, how to build, test, and a minimal usage example surfaced as a unit test.
@@ -128,11 +131,21 @@ Inside the container the `aetherion-312` env will be available and active (the D
 
 ## Testing and minimal Python example
 
-Run Python tests with `pytest` (Makefile helper):
+Run local automated tests + badge refresh (canonical command):
+
+```bash
+make test-badges
+```
+
+This runs tests with coverage (`coverage.xml`, `htmlcov/`), records the latest local test status (`.test_status`), and regenerates local README badges under `_images/`.
+
+Quick fallback (tests only):
 
 ```bash
 # config + run tests
 make build-test
+# canonical local test command (coverage + status marker)
+make test-ci
 # or from within an activated env and after building the extension
 pytest tests
 ```
@@ -179,6 +192,9 @@ cmake --build build --parallel
 
 # run python tests
 pytest tests
+
+# run local automated test + badge refresh
+make test-badges
 
 # docker (if system deps fail locally)
 docker build -f aetherion/Dockerfile -t aetherion-dev:latest .
