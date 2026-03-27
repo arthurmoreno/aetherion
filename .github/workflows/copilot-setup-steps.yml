@@ -1,0 +1,119 @@
+name: "Copilot Setup Steps"
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies (apt)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ca-certificates \
+            build-essential \
+            cmake \
+            ninja-build \
+            pkg-config \
+            git \
+            wget \
+            bzip2 \
+            libfmt-dev \
+            libeigen3-dev \
+            libtbb-dev \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-ttf-dev \
+            libmsgpack-dev \
+            libmsgpack-cxx-dev \
+            liblmdb-dev \
+            libspdlog-dev \
+            libboost-iostreams-dev \
+            libboost-all-dev \
+            zlib1g-dev \
+            libblosc-dev \
+            libsqlite3-dev \
+            libgl1-mesa-dev \
+            libglu1-mesa-dev \
+            libopenvdb-dev \
+            openvdb \
+            flatbuffers-compiler \
+            libflatbuffers-dev
+          sudo rm -rf /var/lib/apt/lists/*
+
+      - name: Map OpenVDB into /usr/local (CMake expects /usr/local)
+        run: |
+          set -euo pipefail
+          sudo mkdir -p /usr/local/include /usr/local/lib
+
+          if [ -d /usr/include/openvdb ]; then
+            sudo ln -sfn /usr/include/openvdb /usr/local/include/openvdb
+          fi
+
+          OPENVDB_LIB="$(ldconfig -p | awk '{print $NF}' | grep -E '/libopenvdb\.so(\.|$)' | head -n 1 || true)"
+          if [ -z "${OPENVDB_LIB}" ]; then
+            echo "Could not locate libopenvdb.so via ldconfig"
+            exit 1
+          fi
+
+          sudo ln -sfn "${OPENVDB_LIB}" /usr/local/lib/libopenvdb.so
+          sudo ldconfig
+
+      - name: Setup Miniconda (Miniforge)
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+          auto-update-conda: true
+          auto-activate-base: false
+
+      - name: Create aetherion-312 conda env + Python tooling
+        shell: bash -l {0}
+        run: |
+          set -euo pipefail
+
+          conda create -y -n aetherion-312 -c conda-forge python=3.12
+          conda install -y -n aetherion-312 -c conda-forge \
+            numpy \
+            scikit-build-core \
+            cmake \
+            ninja
+
+          conda run -n aetherion-312 python -m pip install --upgrade pip
+          conda run -n aetherion-312 python -m pip install -r aetherion/dev-requirements.txt
+          conda run -n aetherion-312 python -m pip install --upgrade build
+
+      - name: Export environment variables for the agent
+        shell: bash -l {0}
+        run: |
+          set -euo pipefail
+          CONDA_PREFIX="$(conda run -n aetherion-312 python -c 'import os; print(os.environ[\"CONDA_PREFIX\"])')"
+          echo "PREFIX_PATH=${CONDA_PREFIX}" >> "$GITHUB_ENV"
+          echo "TARGET_PREFIX_PATH=${CONDA_PREFIX}" >> "$GITHUB_ENV"
+          echo "CMAKE_PREFIX_PATH=${CONDA_PREFIX}" >> "$GITHUB_ENV"
+
+      - name: Validate toolchain and critical paths
+        shell: bash -l {0}
+        run: |
+          set -euo pipefail
+          conda run -n aetherion-312 python -m pip --version
+          conda run -n aetherion-312 python -c "import numpy; print('numpy', numpy.__version__)"
+
+          command -v flatc
+          flatc --version
+
+          test -d /usr/local/include/openvdb
+          test -e /usr/local/lib/libopenvdb.so
