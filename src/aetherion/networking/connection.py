@@ -26,7 +26,8 @@ from aetherion.world.constants import WorldInstanceTypes
 if TYPE_CHECKING:
     from aetherion.world.interface import WorldInterface
 
-from aetherion import BaseEntity, EntityInterface, GameClock, PerceptionResponseFlatB, SharedState
+from aetherion import (BaseEntity, EntityInterface, GameClock,
+                       PerceptionResponseFlatB, SharedState)
 
 OPTIONAL_QUERIES_COMMANDS: list[str] = [
     "get_ai_statistics",
