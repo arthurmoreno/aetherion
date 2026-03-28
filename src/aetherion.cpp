@@ -1309,7 +1309,10 @@ NB_MODULE(_aetherion, m) {
 
         .def("set_terrain_entity_type_component", &VoxelGrid::setTerrainEntityTypeComponent, nb::arg("x"),
              nb::arg("y"), nb::arg("z"), nb::arg("component"),
-             "Set the EntityTypeComponent for the terrain entity at (x, y, z) based on its terrain type");
+             "Set the EntityTypeComponent for the terrain entity at (x, y, z) based on its terrain type")
+        .def("get_terrain_entity_type_component", &VoxelGrid::getTerrainEntityTypeComponent, nb::arg("x"),
+             nb::arg("y"), nb::arg("z"),
+             "Get the EntityTypeComponent for the terrain entity at (x, y, z)");
 
     // Binding the GameClock class
     nb::class_<GameClock>(m, "GameClock")
