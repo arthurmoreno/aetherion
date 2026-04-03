@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import pytest
 
-from aetherion.networking import jwt as jwt_module
+from aetherion.networking import jwt_auth as jwt_module
 from aetherion.networking.constants import PermissionLevel
 from aetherion.networking.exceptions import AuthenticationError
-from aetherion.networking.jwt import JWTAuthenticator, MockJWTProvider
+from aetherion.networking.jwt_auth import JWTAuthenticator, MockJWTProvider
 
 
 def test_validate_token_returns_payload_for_valid_token(monkeypatch):

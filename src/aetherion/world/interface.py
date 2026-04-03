@@ -8,21 +8,19 @@ from concurrent.futures import ThreadPoolExecutor
 
 # from threading import Thread
 from time import perf_counter
-from typing import TYPE_CHECKING, cast
+from typing import cast
 
 import lz4.frame
 import msgpack
 
+from aetherion import BaseEntity, DirectionEnum, EntityEnum, EntityInterface, World
 from aetherion.entities.beasts import BeastEnum
 from aetherion.logger import logger
+from aetherion.networking.models import WebsocketActionHandler
+from aetherion.networking.websocket_server import AuthenticatedWebSocketServer
 from aetherion.world.constants import WorldInstanceTypes
 from aetherion.world.models import AIEntityMetadataResponse, AIMetadataResponse
 from aetherion.world.state_manager import create_perception_multithread
-
-if TYPE_CHECKING:
-    from aetherion.networking.websocket_server import AuthenticatedWebSocketServer
-
-from aetherion import BaseEntity, DirectionEnum, EntityEnum, EntityInterface, World
 
 
 class WorldInterface:
@@ -198,8 +196,20 @@ class WorldInterface:
                     )
                     logger.debug(log_message)
 
-    def start_server(self):
-        self.server = AuthenticatedWebSocketServer(world_interface=self, host="0.0.0.0", port=8765, fps=self.fps)
+    def start_server(self, action_handlers: dict[str, WebsocketActionHandler] | None = None) -> None:
+        """Start the authenticated websocket server bound to this world.
+
+        Args:
+            action_handlers: Optional map of ``action_name`` -> async handler. Merged on top of engine defaults;
+                your keys override defaults (see ``WebSocketGameServer``).
+        """
+        self.server = AuthenticatedWebSocketServer(
+            world_interface=self,
+            host="0.0.0.0",
+            port=8765,
+            fps=self.fps,
+            action_handlers=action_handlers,
+        )
 
         # Start the WebSocket server as a background task
         self.server_task = asyncio.create_task(self.server.start())

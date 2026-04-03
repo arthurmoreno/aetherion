@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import asyncio
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 import lz4.frame
 import msgpack
@@ -10,16 +10,12 @@ from websockets import State
 from websockets.asyncio.server import ServerConnection
 
 from aetherion import EntityEnum, EntityInterface
-from aetherion.entities.beasts import BeastEntity
-
-if TYPE_CHECKING:
-    # Only imported for typing to avoid circular import at runtime
-    from aetherion.world.interface import WorldInterface
-from networking.exceptions import AuthenticationError
-from networking.jwt import JWTAuthenticator
-
-from aetherion.entities.beasts import BeastEnum
+from aetherion.entities.beasts import BeastEntity, BeastEnum
 from aetherion.logger import logger
+from aetherion.networking.exceptions import AuthenticationError
+from aetherion.networking.jwt_auth import JWTAuthenticator
+from aetherion.networking.models import WebsocketActionHandler
+from aetherion.world.protocols import WorldInterfaceProtocol
 
 FPS = 30  # Default frames per second for the server
 
@@ -45,12 +41,17 @@ def make_ai_metadata_serializable(
 
 class WebSocketGameServer:
     def __init__(
-        self, world_interface: WorldInterface, host: str = "localhost", port: int = 8765, fps: int = FPS
+        self,
+        world_interface: WorldInterfaceProtocol,
+        host: str = "localhost",
+        port: int = 8765,
+        fps: int = FPS,
+        action_handlers: dict[str, WebsocketActionHandler] | None = None,
     ) -> None:
         self.host: str = host
         self.port: int = port
         self.fps: int = fps
-        self.world_interface: WorldInterface = world_interface
+        self.world_interface: WorldInterfaceProtocol = world_interface
         self.clients: set[ServerConnection] = set()
         self.clients_entities_map: dict[ServerConnection, list[int]] = {}
         # Streaming state
@@ -58,6 +59,10 @@ class WebSocketGameServer:
         self._client_stream_tasks: dict[ServerConnection, tuple[asyncio.Task, asyncio.Task]] = {}
         # Per-connection stream configuration (poll interval seconds)
         self._client_stream_cfg: dict[ServerConnection, dict[str, float]] = {}
+        self._action_handlers: dict[str, WebsocketActionHandler] = {
+            **self._default_action_handlers(),
+            **(action_handlers or {}),
+        }
 
     def get_entity_from_request(self, request_message: dict[str, Any]) -> EntityInterface:
         entity_id: Any | None = request_message.get("entity_id")
@@ -68,36 +73,46 @@ class WebSocketGameServer:
             raise ValueError(f"Entity with ID {entity_id} not found.")
         return entity
 
-    # TODO: This must be implemented by the user, not the game engine. Or this should be a more flexible protocol?
-    # This is event handling logic... Is it possible to reuse the event bus here?
-    async def process_action(self, request_message: dict[str, Any], websocket: ServerConnection):
-        action_name = request_message.get("action_name")
-        logger.info(f"Processing action: {action_name} for entity")
-        if action_name == "walk_left_entity":
+    def _default_action_handlers(self) -> dict[str, WebsocketActionHandler]:
+        """Default action handlers shipped with the engine.
+
+        Users are expected to inject/override handlers via the `action_handlers` constructor argument. The
+        defaults are intentionally small and generic (movement, jump, etc.) and can be replaced if your game’s
+        websocket protocol differs.
+        """
+
+        async def walk_left_entity(request_message: dict[str, Any], _ws: ServerConnection) -> None:
             entity = self.get_entity_from_request(request_message)
             self.world_interface.walk_left_entity(entity)
-        elif action_name == "walk_up_entity":
+
+        async def walk_up_entity(request_message: dict[str, Any], _ws: ServerConnection) -> None:
             entity = self.get_entity_from_request(request_message)
             self.world_interface.walk_up_entity(entity)
-        elif action_name == "walk_right_entity":
+
+        async def walk_right_entity(request_message: dict[str, Any], _ws: ServerConnection) -> None:
             entity = self.get_entity_from_request(request_message)
             self.world_interface.walk_right_entity(entity)
-        elif action_name == "walk_down_entity":
+
+        async def walk_down_entity(request_message: dict[str, Any], _ws: ServerConnection) -> None:
             entity = self.get_entity_from_request(request_message)
             self.world_interface.walk_down_entity(entity)
-        elif action_name == "jump_entity":
+
+        async def jump_entity(request_message: dict[str, Any], _ws: ServerConnection) -> None:
             entity = self.get_entity_from_request(request_message)
             self.world_interface.jump_entity(entity)
-        elif action_name == "make_entity_eat":
+
+        async def make_entity_eat(request_message: dict[str, Any], _ws: ServerConnection) -> None:
             entity = self.get_entity_from_request(request_message)
             self.world_interface.make_entity_eat(entity)
-        elif action_name == "ai_decisions":
+
+        async def ai_decisions(request_message: dict[str, Any], _ws: ServerConnection) -> None:
             entity_action_map = request_message.get("entity_action_map", {})
             statistics = request_message.get("statistics", {})
             self.world_interface.set_entity_action_map(entity_action_map, statistics)
             self.world_interface.process_nn_actions()
-        elif action_name == "create_player":
-            # Create a new player entity in the world
+
+        async def create_player(request_message: dict[str, Any], websocket: ServerConnection) -> None:
+            # Example default: many games will want to override this.
             player_start_x: int = request_message.get("player_start_x", 50)
             player_start_y: int = request_message.get("player_start_y", 50)
             player_start_z: int = request_message.get("player_start_z", 9)
@@ -121,15 +136,47 @@ class WebSocketGameServer:
             )
             entity_created = self.world_interface.world.create_entity(player)
             self.add_client_entity(websocket, entity_created.get_id())
-            # Ensure the world starts producing player_<id> snapshots
             try:
                 self.world_interface.register_connected_entity(entity_created.get_id())
             except Exception:
                 pass
             response_message = {"type": "player_created", "entity_id": entity_created.get_id(), "success": True}
             await websocket.send(msgpack.packb(response_message))
-        else:
+
+        return {
+            "walk_left_entity": walk_left_entity,
+            "walk_up_entity": walk_up_entity,
+            "walk_right_entity": walk_right_entity,
+            "walk_down_entity": walk_down_entity,
+            "jump_entity": jump_entity,
+            "make_entity_eat": make_entity_eat,
+            "ai_decisions": ai_decisions,
+            "create_player": create_player,
+        }
+
+    async def process_action(self, request_message: dict[str, Any], websocket: ServerConnection) -> None:
+        """Dispatch an incoming `type='action'` message to an action handler.
+
+        The engine ships a small set of defaults for common movement-like actions, but games should treat the
+        websocket action protocol as *user-owned*. Inject handlers via ``action_handlers`` on
+        ``WebSocketGameServer`` / ``AuthenticatedWebSocketServer``, or pass them through
+        ``WorldInterface.start_server(action_handlers=...)`` when the server is created from the world layer.
+        """
+
+        action_name_raw = request_message.get("action_name")
+        action_name = str(action_name_raw) if action_name_raw is not None else None
+        logger.info(f"Processing action: {action_name} for entity")
+
+        if not action_name:
+            await websocket.send(msgpack.packb({"type": "error", "message": "Missing action_name"}))
+            return
+
+        handler = self._action_handlers.get(action_name)
+        if handler is None:
             await websocket.send(msgpack.packb({"type": "error", "message": f"Unknown action: {action_name}"}))
+            return
+
+        await handler(request_message, websocket)
 
     def add_client(self, websocket: ServerConnection) -> None:
         self.clients.add(websocket)
@@ -401,13 +448,14 @@ class AuthenticatedWebSocketServer(WebSocketGameServer):
 
     def __init__(
         self,
-        world_interface: WorldInterface,
+        world_interface: WorldInterfaceProtocol,
         host: str = "localhost",
         port: int = 8765,
         jwt_secret: str = "dev-secret-key",
         fps: int = FPS,
+        action_handlers: dict[str, WebsocketActionHandler] | None = None,
     ) -> None:
-        super().__init__(world_interface, host, port, fps=fps)
+        super().__init__(world_interface, host, port, fps=fps, action_handlers=action_handlers)
         self.authenticator: JWTAuthenticator = JWTAuthenticator(jwt_secret)
 
         # Store authenticated user sessions
