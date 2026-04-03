@@ -1,28 +1,14 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from types import SimpleNamespace
 from typing import Any
 
 import pytest
 from conftest import make_event
 
+from aetherion import WorldInterfaceMetadata
 from aetherion.events.handlers import game_engine as game_engine_handlers
 from aetherion.world.constants import WorldInstanceTypes
-
-
-@dataclass
-class _Metadata:
-    key: str
-    name: str
-    type: Any
-    status: str = "ready"
-    gravity: float = 5.0
-    friction: float = 1.0
-    evaporation_coefficient: float = 8.0
-    heat_to_water_evaporation: float = 120.0
-    water_minimum_units: int = 30000
-    metabolism_cost_to_apply_force: float = 1.9999999949504854e-06
 
 
 class _PhysicsSettings:
@@ -50,10 +36,16 @@ class _PhysicsSettings:
 
 class _ServerAdminConnection:
     def __init__(self):
-        self.connected: list[Any] = []
+        self.connected: list[dict[str, Any]] = []
 
-    def connect(self, connection_type):
-        self.connected.append(connection_type)
+    def connect(self, connection_type, world_host: str = "localhost", world_port: str = "8765", **_kwargs):
+        self.connected.append(
+            {
+                "connection_type": connection_type,
+                "world_host": world_host,
+                "world_port": world_port,
+            }
+        )
 
 
 def _build_engine() -> SimpleNamespace:
@@ -90,8 +82,11 @@ def test_on_world_connected_missing_metadata_raises():
 
 def test_on_world_connected_sync_updates_shared_state(monkeypatch):
     engine = _build_engine()
-    engine.world_manager.worlds_metadata["new_world"] = _Metadata(
-        key="new_world", name="New World", type=WorldInstanceTypes.SYNCHRONOUS
+    engine.world_manager.worlds_metadata["new_world"] = WorldInterfaceMetadata(
+        key="new_world",
+        name="New World",
+        description="Test world metadata",
+        type=WorldInstanceTypes.SYNCHRONOUS,
     )
     monkeypatch.setattr(game_engine_handlers, "PhysicsSettings", _PhysicsSettings)
 
@@ -102,14 +97,21 @@ def test_on_world_connected_sync_updates_shared_state(monkeypatch):
 
 def test_on_world_connected_server_connects_admin(monkeypatch):
     engine = _build_engine()
-    engine.world_manager.worlds_metadata["srv"] = _Metadata(key="srv", name="Srv", type=WorldInstanceTypes.SERVER)
+    engine.world_manager.worlds_metadata["srv"] = WorldInterfaceMetadata(
+        key="srv",
+        name="Srv",
+        description="Test server world metadata",
+        type=WorldInstanceTypes.SERVER,
+    )
     monkeypatch.setattr(game_engine_handlers, "ServerAdminConnection", _ServerAdminConnection)
     event = make_event({"world_name": "Srv", "world_key": "srv"})
 
     game_engine_handlers.on_world_connected(engine, event)
 
     assert isinstance(engine.server_admin_connection, _ServerAdminConnection)
-    assert engine.server_admin_connection.connected == [WorldInstanceTypes.SERVER]
+    assert engine.server_admin_connection.connected == [
+        {"connection_type": WorldInstanceTypes.SERVER, "world_host": "localhost", "world_port": "8765"}
+    ]
     assert engine.shared_state.connected_world == "srv"
 
 

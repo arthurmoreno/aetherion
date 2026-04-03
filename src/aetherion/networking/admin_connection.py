@@ -4,7 +4,7 @@ import msgpack
 from websockets.sync.client import connect
 
 from aetherion.logger import logger
-from aetherion.networking.jwt import MockJWTProvider
+from aetherion.networking.jwt_auth import MockJWTProvider
 from aetherion.world.constants import WorldInstanceTypes
 
 
@@ -21,12 +21,19 @@ class ServerAdminConnection:
 
         self.jwt_provider: MockJWTProvider = MockJWTProvider()
 
-    def connect(self, connection_type: WorldInstanceTypes | None = None, world_instance=None, pipe=None) -> bool:
+    def connect(
+        self,
+        connection_type: WorldInstanceTypes | None = None,
+        world_host: str = "localhost",
+        world_port: str = "8765",
+        world_instance=None,
+        pipe=None,
+    ) -> bool:
         self.connection_type = connection_type
         if self.connection_type != WorldInstanceTypes.SERVER:
             raise ValueError("ServerAdminConnection only supports SERVER connection type")
 
-        uri = "ws://168.119.102.52:5202"
+        uri = f"ws://{world_host}:{world_port}"
         while not self.connected:
             try:
                 self.websocket = connect(uri)

@@ -2,15 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from aetherion import (
-    GameEvent,
-    GameEventType,
-    PhysicsSettings,
-    WorldInterfaceMetadata,
-)
-from aetherion.events.handlers.types import (
-    GameEngineEventHandlersMap,
-)
+from aetherion import GameEvent, GameEventType, PhysicsSettings, WorldInterfaceMetadata
+from aetherion.events.handlers.types import GameEngineEventHandlersMap
 from aetherion.logger import logger
 from aetherion.networking.admin_connection import ServerAdminConnection
 from aetherion.paths import resolve_path
@@ -42,7 +35,11 @@ def on_world_connected(game_engine: GameEngineProtocol, event: GameEvent[GameEve
     elif world_metadata.type == WorldInstanceTypes.SERVER:
         # For SERVER worlds, we just set the connected world without physics settings
         game_engine.server_admin_connection = ServerAdminConnection()
-        game_engine.server_admin_connection.connect(connection_type=world_metadata.type)
+        game_engine.server_admin_connection.connect(
+            connection_type=world_metadata.type,
+            world_host=world_metadata.host,
+            world_port=world_metadata.port,
+        )
         game_engine.shared_state.connected_world = world_key
 
 

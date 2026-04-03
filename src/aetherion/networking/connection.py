@@ -19,15 +19,14 @@ from websockets.sync.client import ClientConnection, connect
 from aetherion.entities.beasts import BeastEntity
 from aetherion.logger import logger
 from aetherion.networking.exceptions import AuthenticationError
-from aetherion.networking.jwt import MockJWTProvider
+from aetherion.networking.jwt_auth import MockJWTProvider
 from aetherion.networking.receiver import WebSocketReceiver
 from aetherion.world.constants import WorldInstanceTypes
 
 if TYPE_CHECKING:
     from aetherion.world.interface import WorldInterface
 
-from aetherion import (BaseEntity, EntityInterface, GameClock,
-                       PerceptionResponseFlatB, SharedState)
+from aetherion import BaseEntity, EntityInterface, GameClock, PerceptionResponseFlatB, SharedState
 
 OPTIONAL_QUERIES_COMMANDS: list[str] = [
     "get_ai_statistics",
