@@ -101,6 +101,12 @@ clang-format:
 	find ./src ./webclient/wasm -type f -regex '.*\.\(cpp\|hpp\|h\|cxx\|cc\)' | \
 	xargs clang-format -i
 
+.PHONY: clang-format-check
+clang-format-check:
+	@echo "Checking C++ formatting with clang-format..."
+	find ./src ./webclient/wasm -type f -regex '.*\.\(cpp\|hpp\|h\|cxx\|cc\)' | \
+	xargs -r clang-format --dry-run --Werror
+
 .PHONY: python-format
 python-format:
 	@echo "Formatting and sorting imports with Ruff..."

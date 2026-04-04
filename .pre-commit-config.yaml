@@ -1,0 +1,11 @@
+# Install: pre-commit install (from repo root; needs pre-commit on PATH).
+# Skip this hook once: SKIP=aetherion-pre-commit git commit ...
+repos:
+  - repo: local
+    hooks:
+      - id: aetherion-pre-commit
+        name: aetherion (test, clang-format-check, python-format)
+        entry: bash scripts/pre-commit.sh
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
