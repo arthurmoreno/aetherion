@@ -1,0 +1,36 @@
+# From repo root: pre-commit install
+# Skip all aetherion hooks once: SKIP=aetherion-test,aetherion-clang-format-check,aetherion-python-format,aetherion-git-diff-aetherion git commit ...
+repos:
+  - repo: local
+    hooks:
+      - id: aetherion-test
+        name: aetherion make test
+        entry: bash -c 'cd aetherion && make test'
+        language: system
+        pass_filenames: false
+        files: ^aetherion/
+        stages: [pre-commit]
+
+      - id: aetherion-clang-format-check
+        name: aetherion clang-format (check)
+        entry: bash -c 'cd aetherion && make clang-format-check'
+        language: system
+        pass_filenames: false
+        files: ^aetherion/
+        stages: [pre-commit]
+
+      - id: aetherion-python-format
+        name: aetherion make python-format
+        entry: bash -c 'cd aetherion && make python-format'
+        language: system
+        pass_filenames: false
+        files: ^aetherion/
+        stages: [pre-commit]
+
+      - id: aetherion-git-diff-aetherion
+        name: aetherion git diff (no unstaged after format)
+        entry: "bash -c 'git diff --exit-code -- aetherion/ || { echo >&2; echo \"pre-commit: stage changes under aetherion/ after formatters\" >&2; git diff --name-only -- aetherion/ >&2; exit 1; }'"
+        language: system
+        pass_filenames: false
+        files: ^aetherion/
+        stages: [pre-commit]

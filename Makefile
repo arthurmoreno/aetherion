@@ -9,6 +9,9 @@ PREFIX_PATH ?= /default/path/to/your/env
 # Use TARGET_PREFIX_PATH from .env if available
 TARGET_PREFIX_PATH ?= $(PREFIX_PATH)
 
+# Conda env for conda run targets (override: CONDA_ENV=myenv make test, or set in .env)
+CONDA_ENV ?= aetherion-312
+
 clean-build-run:
 	rm -rf build && mkdir build &&  \
 	cmake -S . -B ./build -DCMAKE_PREFIX_PATH="$(PREFIX_PATH)" &&  \
@@ -25,12 +28,12 @@ build-test: build test
 .PHONY: test
 test:
 	@echo "Running aetherion tests with pytest..."
-	conda run --no-capture-output -n aetherion-312 pytest tests
+	conda run --no-capture-output -n $(CONDA_ENV) pytest tests
 
 .PHONY: coverage
 coverage:
 	@echo "Running tests with coverage report..."
-	conda run --no-capture-output -n aetherion-312 \
+	conda run --no-capture-output -n $(CONDA_ENV) \
 		pytest tests \
 		--cov=aetherion \
 		--cov-report=term-missing \
@@ -41,7 +44,7 @@ coverage:
 test-ci:
 	@echo "Running canonical local test command (coverage + status)..."
 	@STATUS_FILE=".test_status"; \
-	if conda run --no-capture-output -n aetherion-312 \
+	if conda run --no-capture-output -n $(CONDA_ENV) \
 		pytest tests \
 		--cov=aetherion \
 		--cov-report=term-missing \
@@ -59,7 +62,7 @@ test-ci:
 .PHONY: badges
 badges:
 	@echo "Generating local badges from test artifacts..."
-	conda run --no-capture-output -n aetherion-312 python scripts/generate_badges.py \
+	conda run --no-capture-output -n $(CONDA_ENV) python scripts/generate_badges.py \
 		--coverage coverage.xml \
 		--status .test_status \
 		--output _images
@@ -78,7 +81,7 @@ device-info:
 .PHONY: build
 build:
 	@echo "Building aetherion package with python -m build..."
-	conda run --no-capture-output -n aetherion-312 python -m build
+	conda run --no-capture-output -n $(CONDA_ENV) python -m build
 
 .PHONY: install
 install:
@@ -89,7 +92,7 @@ install:
 		exit 1; \
 	fi; \
 	echo "Using $$WHEEL"; \
-	conda run --no-capture-output -n aetherion-312 pip install --force-reinstall "$$WHEEL"
+	conda run --no-capture-output -n $(CONDA_ENV) pip install --force-reinstall "$$WHEEL"
 
 .PHONY: build-install-test
 build-install-test: build install test
@@ -101,10 +104,16 @@ clang-format:
 	find ./src ./webclient/wasm -type f -regex '.*\.\(cpp\|hpp\|h\|cxx\|cc\)' | \
 	xargs clang-format -i
 
+.PHONY: clang-format-check
+clang-format-check:
+	@echo "Checking C++ formatting with clang-format..."
+	find ./src ./webclient/wasm -type f -regex '.*\.\(cpp\|hpp\|h\|cxx\|cc\)' | \
+	xargs -r clang-format --dry-run --Werror
+
 .PHONY: python-format
 python-format:
 	@echo "Formatting and sorting imports with Ruff..."
-	conda run --no-capture-output -n aetherion-312 ruff format . && conda run --no-capture-output -n aetherion-312 ruff check --fix .
+	conda run --no-capture-output -n $(CONDA_ENV) ruff format . && conda run --no-capture-output -n $(CONDA_ENV) ruff check --fix .
 
 .PHONY: format
 format: clang-format python-format
