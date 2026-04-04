@@ -18,9 +18,16 @@ class _FakeWorld:
         self.take_calls = []
         self.use_calls = []
         self.debug_calls = []
+        self.update_calls = 0
 
     def update(self):
-        pass
+        self.update_calls += 1
+
+    def get_py_registry(self):
+        return "fake_registry"
+
+    def get_voxel_grid(self):
+        return "fake_voxel_grid"
 
     def dispatch_move_entity_event_by_id(self, entity_id, directions):
         self.move_calls.append((entity_id, directions))
@@ -101,3 +108,37 @@ def test_get_perception_responses_server_compresses(monkeypatch):
     iface.close()
 
     assert encoded.startswith(b"compressed-")
+
+
+def test_update_world_invokes_pre_then_world_update_then_post():
+    world = _FakeWorld()
+    iface = WorldInterface(WorldInstanceTypes.SYNCHRONOUS, world)
+    events: list[str] = []
+
+    def pre(reg, vg):
+        events.append("pre")
+        assert reg == "fake_registry"
+        assert vg == "fake_voxel_grid"
+        assert world.update_calls == 0
+
+    def post(reg, vg):
+        events.append("post")
+        assert reg == "fake_registry"
+        assert vg == "fake_voxel_grid"
+        assert world.update_calls == 1
+
+    iface.pre_update_handler = pre
+    iface.post_update_handler = post
+    iface.update_world()
+    iface.close()
+
+    assert events == ["pre", "post"]
+    assert world.update_calls == 1
+
+
+def test_update_world_skips_handlers_when_none():
+    world = _FakeWorld()
+    iface = WorldInterface(WorldInstanceTypes.SYNCHRONOUS, world)
+    iface.update_world()
+    iface.close()
+    assert world.update_calls == 1

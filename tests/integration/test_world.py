@@ -220,6 +220,10 @@ class TestWorldUsage:
         # Initialize the voxel grid (typical usage pattern)
         world.initialize_voxel_grid()
 
+        # Borrowed views for Python-side hooks (same objects as add_python_system updates)
+        assert world.get_py_registry() is not None
+        assert world.get_voxel_grid() is not None
+
         # Test that we can modify dimensions after creation if needed
         world.width = width
         world.height = height
@@ -265,6 +269,8 @@ class TestWorldUsage:
             "set_terrain",
             "get_terrain",
             "get_entity",
+            "get_py_registry",
+            "get_voxel_grid",
         ]
 
         for method_name in essential_methods:
