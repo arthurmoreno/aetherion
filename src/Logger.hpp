@@ -8,24 +8,24 @@
 #include <memory>
 
 class Logger {
-   public:
-    // Retrieves the singleton logger instance
-    static std::shared_ptr<spdlog::logger>& getLogger();
+public:
+  // Retrieves the singleton logger instance
+  static std::shared_ptr<spdlog::logger> &getLogger();
 
-    // Initializes the logger with desired settings
-    static void initialize();
+  // Initializes the logger with desired settings
+  static void initialize();
 
-    // Logging methods
-    void info(const std::string& message);
-    void warn(const std::string& message);
-    void error(const std::string& message);
-    void critical(const std::string& message);
-    void debug(const std::string& message);
-    void trace(const std::string& message);
+  // Logging methods
+  void info(const std::string &message);
+  void warn(const std::string &message);
+  void error(const std::string &message);
+  void critical(const std::string &message);
+  void debug(const std::string &message);
+  void trace(const std::string &message);
 
-   private:
-    Logger() = default;  // Private constructor to prevent instantiation
-    static std::shared_ptr<spdlog::logger> logger;
+private:
+  Logger() = default; // Private constructor to prevent instantiation
+  static std::shared_ptr<spdlog::logger> logger;
 };
 
-#endif  // LOGGER_HPP
+#endif // LOGGER_HPP

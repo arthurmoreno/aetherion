@@ -21,19 +21,21 @@ std::vector<InventoryItem> LoadInventory(nb::dict inventoryData);
  * When closed, automatically shows the hotbar instead.
  */
 class InventoryProgram : public GuiProgram {
-   public:
-    void render(GuiContext& context) override {
-        if (!isActive_) return;
+public:
+  void render(GuiContext &context) override {
+    if (!isActive_)
+      return;
 
-        if (ImGui::Begin("Inventory", &isActive_)) {
-            std::vector<InventoryItem> items = LoadInventory(context.inventoryData);
-            GuiStateManager::Instance()->inventoryWindow.setItems(items);
-            GuiStateManager::Instance()->inventoryWindow.setCommands(context.commands);
-            GuiStateManager::Instance()->inventoryWindow.Render();
-        }
-        ImGui::End();
+    if (ImGui::Begin("Inventory", &isActive_)) {
+      std::vector<InventoryItem> items = LoadInventory(context.inventoryData);
+      GuiStateManager::Instance()->inventoryWindow.setItems(items);
+      GuiStateManager::Instance()->inventoryWindow.setCommands(
+          context.commands);
+      GuiStateManager::Instance()->inventoryWindow.Render();
     }
+    ImGui::End();
+  }
 
-    std::string getId() const override { return "inventory"; }
-    std::string getDisplayName() const override { return "Inventory"; }
+  std::string getId() const override { return "inventory"; }
+  std::string getDisplayName() const override { return "Inventory"; }
 };

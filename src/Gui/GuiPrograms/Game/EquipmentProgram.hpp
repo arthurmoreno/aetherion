@@ -21,19 +21,21 @@ std::vector<InventoryItem> LoadInventory(nb::dict inventoryData);
  * equip/unequip functionality.
  */
 class EquipmentProgram : public GuiProgram {
-   public:
-    void render(GuiContext& context) override {
-        if (!isActive_) return;
+public:
+  void render(GuiContext &context) override {
+    if (!isActive_)
+      return;
 
-        if (ImGui::Begin("Equipment", &isActive_)) {
-            std::vector<InventoryItem> items = LoadInventory(context.inventoryData);
-            GuiStateManager::Instance()->equipmentWindow.setItems(items);
-            GuiStateManager::Instance()->equipmentWindow.setCommands(context.commands);
-            GuiStateManager::Instance()->equipmentWindow.Render();
-        }
-        ImGui::End();
+    if (ImGui::Begin("Equipment", &isActive_)) {
+      std::vector<InventoryItem> items = LoadInventory(context.inventoryData);
+      GuiStateManager::Instance()->equipmentWindow.setItems(items);
+      GuiStateManager::Instance()->equipmentWindow.setCommands(
+          context.commands);
+      GuiStateManager::Instance()->equipmentWindow.Render();
     }
+    ImGui::End();
+  }
 
-    std::string getId() const override { return "equipment"; }
-    std::string getDisplayName() const override { return "Equipment"; }
+  std::string getId() const override { return "equipment"; }
+  std::string getDisplayName() const override { return "Equipment"; }
 };

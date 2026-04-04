@@ -4,15 +4,15 @@
 enum class PlantEnum { RASPBERRY = 1 };
 
 struct FruitGrowth {
-    int energyNeeded;
-    int currentEnergy;
+  int energyNeeded;
+  int currentEnergy;
 };
 
 struct PlantResources {
-    int maxEnergy;
-    int currentEnergy;
-    float water;
-    float bioMacronutrients;
+  int maxEnergy;
+  int currentEnergy;
+  float water;
+  float bioMacronutrients;
 };
 
-#endif  // PLANTS_COMPONENTS_HPP
+#endif // PLANTS_COMPONENTS_HPP

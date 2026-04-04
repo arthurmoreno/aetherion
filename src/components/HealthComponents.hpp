@@ -6,14 +6,14 @@
 
 // Position component to store an entity's position in 3D space
 struct HealthComponent {
-    float healthLevel;
-    float maxHealth;
+  float healthLevel;
+  float maxHealth;
 
-    // Print function for debugging
-    void print() const {
-        std::cout << "HealthComponent(healthLevel: " << healthLevel << ", maxHealth: " << maxHealth
-                  << ")" << std::endl;
-    }
+  // Print function for debugging
+  void print() const {
+    std::cout << "HealthComponent(healthLevel: " << healthLevel
+              << ", maxHealth: " << maxHealth << ")" << std::endl;
+  }
 };
 
-#endif  // HEALTH_COMPONENT_HPP
+#endif // HEALTH_COMPONENT_HPP

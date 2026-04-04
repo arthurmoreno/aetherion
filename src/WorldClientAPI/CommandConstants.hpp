@@ -25,7 +25,7 @@ inline const std::string START = "start";
 inline const std::string END = "end";
 inline const std::string X = "x";
 inline const std::string Y = "y";
-}  // namespace Params
+} // namespace Params
 
 // Time series names for AI statistics
 namespace TimeSeriesNames {
@@ -39,30 +39,42 @@ inline const std::string POPULATION_MIN = "population_min";
 
 // Physics event time series
 inline const std::string PHYSICS_MOVE_GAS_ENTITY = "physics_move_gas_entity";
-inline const std::string PHYSICS_MOVE_SOLID_ENTITY = "physics_move_solid_entity";
-inline const std::string PHYSICS_EVAPORATE_WATER_ENTITY = "physics_evaporate_water_entity";
-inline const std::string PHYSICS_CONDENSE_WATER_ENTITY = "physics_condense_water_entity";
-inline const std::string PHYSICS_WATER_FALL_ENTITY = "physics_water_fall_entity";
+inline const std::string PHYSICS_MOVE_SOLID_ENTITY =
+    "physics_move_solid_entity";
+inline const std::string PHYSICS_EVAPORATE_WATER_ENTITY =
+    "physics_evaporate_water_entity";
+inline const std::string PHYSICS_CONDENSE_WATER_ENTITY =
+    "physics_condense_water_entity";
+inline const std::string PHYSICS_WATER_FALL_ENTITY =
+    "physics_water_fall_entity";
 inline const std::string PHYSICS_WATER_SPREAD = "physics_water_spread";
-inline const std::string PHYSICS_WATER_GRAVITY_FLOW = "physics_water_gravity_flow";
-inline const std::string PHYSICS_TERRAIN_PHASE_CONVERSION = "physics_terrain_phase_conversion";
+inline const std::string PHYSICS_WATER_GRAVITY_FLOW =
+    "physics_water_gravity_flow";
+inline const std::string PHYSICS_TERRAIN_PHASE_CONVERSION =
+    "physics_terrain_phase_conversion";
 inline const std::string PHYSICS_VAPOR_CREATION = "physics_vapor_creation";
 inline const std::string PHYSICS_VAPOR_MERGE_UP = "physics_vapor_merge_up";
-inline const std::string PHYSICS_VAPOR_MERGE_SIDEWAYS = "physics_vapor_merge_sideways";
-inline const std::string PHYSICS_ADD_VAPOR_TO_TILE_ABOVE = "physics_add_vapor_to_tile_above";
-inline const std::string PHYSICS_CREATE_VAPOR_ENTITY = "physics_create_vapor_entity";
-inline const std::string PHYSICS_DELETE_OR_CONVERT_TERRAIN = "physics_delete_or_convert_terrain";
-inline const std::string PHYSICS_INVALID_TERRAIN_FOUND = "physics_invalid_terrain_found";
+inline const std::string PHYSICS_VAPOR_MERGE_SIDEWAYS =
+    "physics_vapor_merge_sideways";
+inline const std::string PHYSICS_ADD_VAPOR_TO_TILE_ABOVE =
+    "physics_add_vapor_to_tile_above";
+inline const std::string PHYSICS_CREATE_VAPOR_ENTITY =
+    "physics_create_vapor_entity";
+inline const std::string PHYSICS_DELETE_OR_CONVERT_TERRAIN =
+    "physics_delete_or_convert_terrain";
+inline const std::string PHYSICS_INVALID_TERRAIN_FOUND =
+    "physics_invalid_terrain_found";
 
 // Life event time series
 inline const std::string LIFE_KILL_ENTITY = "life_kill_entity";
 inline const std::string LIFE_SOFT_KILL_ENTITY = "life_soft_kill_entity";
 inline const std::string LIFE_HARD_KILL_ENTITY = "life_hard_kill_entity";
 inline const std::string LIFE_REMOVE_VELOCITY = "life_remove_velocity";
-inline const std::string LIFE_REMOVE_MOVING_COMPONENT = "life_remove_moving_component";
+inline const std::string LIFE_REMOVE_MOVING_COMPONENT =
+    "life_remove_moving_component";
 
-}  // namespace TimeSeriesNames
+} // namespace TimeSeriesNames
 
-}  // namespace CommandConstants
+} // namespace CommandConstants
 
-#endif  // COMMAND_CONSTANTS_HPP
+#endif // COMMAND_CONSTANTS_HPP

@@ -16,58 +16,58 @@
  * - Derived classes implement specific rendering/execution logic
  */
 class BasicProgram {
-   public:
-    virtual ~BasicProgram() = default;
+public:
+  virtual ~BasicProgram() = default;
 
-    /**
-     * @brief Get the program's unique identifier
-     *
-     * Used for program activation/deactivation and inter-program communication.
-     * Should be lowercase with underscores (e.g., "physics_settings").
-     *
-     * @return Program ID string
-     */
-    virtual std::string getId() const = 0;
+  /**
+   * @brief Get the program's unique identifier
+   *
+   * Used for program activation/deactivation and inter-program communication.
+   * Should be lowercase with underscores (e.g., "physics_settings").
+   *
+   * @return Program ID string
+   */
+  virtual std::string getId() const = 0;
 
-    /**
-     * @brief Get program's display name for UI
-     *
-     * Human-readable name shown in menus and window titles.
-     *
-     * @return Display name string
-     */
-    virtual std::string getDisplayName() const = 0;
+  /**
+   * @brief Get program's display name for UI
+   *
+   * Human-readable name shown in menus and window titles.
+   *
+   * @return Display name string
+   */
+  virtual std::string getDisplayName() const = 0;
 
-    /**
-     * @brief Check if program should be rendered this frame
-     *
-     * @return true if program is active and should render
-     */
-    virtual bool isActive() const { return isActive_; }
+  /**
+   * @brief Check if program should be rendered this frame
+   *
+   * @return true if program is active and should render
+   */
+  virtual bool isActive() const { return isActive_; }
 
-    /**
-     * @brief Set program active state
-     *
-     * @param active true to activate program, false to deactivate
-     */
-    virtual void setActive(bool active) { isActive_ = active; }
+  /**
+   * @brief Set program active state
+   *
+   * @param active true to activate program, false to deactivate
+   */
+  virtual void setActive(bool active) { isActive_ = active; }
 
-    /**
-     * @brief Called when program is activated
-     *
-     * Override to implement custom initialization logic (e.g., loading data,
-     * resetting state). Default implementation does nothing.
-     */
-    virtual void onActivate() {}
+  /**
+   * @brief Called when program is activated
+   *
+   * Override to implement custom initialization logic (e.g., loading data,
+   * resetting state). Default implementation does nothing.
+   */
+  virtual void onActivate() {}
 
-    /**
-     * @brief Called when program is deactivated
-     *
-     * Override to implement cleanup logic (e.g., saving state, releasing resources).
-     * Default implementation does nothing.
-     */
-    virtual void onDeactivate() {}
+  /**
+   * @brief Called when program is deactivated
+   *
+   * Override to implement cleanup logic (e.g., saving state, releasing
+   * resources). Default implementation does nothing.
+   */
+  virtual void onDeactivate() {}
 
-   protected:
-    bool isActive_ = false;  ///< Program activation state
+protected:
+  bool isActive_ = false; ///< Program activation state
 };

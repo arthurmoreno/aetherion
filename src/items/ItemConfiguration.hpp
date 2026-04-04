@@ -9,29 +9,29 @@
 #include "components/ItemsComponents.hpp"
 
 class ItemConfiguration {
-   public:
-    using DefaultValue = std::variant<int, float, double, std::string, bool>;
+public:
+  using DefaultValue = std::variant<int, float, double, std::string, bool>;
 
-    ItemConfiguration(const std::string& id);
+  ItemConfiguration(const std::string &id);
 
-    // Setters
-    void setInGameTextures(const std::vector<std::string>& textures);
-    void setInventoryTextures(const std::vector<std::string>& textures);
-    void setDefaultValue(const std::string& key, const DefaultValue& value);
+  // Setters
+  void setInGameTextures(const std::vector<std::string> &textures);
+  void setInventoryTextures(const std::vector<std::string> &textures);
+  void setDefaultValue(const std::string &key, const DefaultValue &value);
 
-    // Getters
-    const std::string& getItemId() const;
-    const std::vector<std::string>& getInGameTextures() const;
-    const std::vector<std::string>& getInventoryTextures() const;
-    const DefaultValue* getDefaultValue(const std::string& key) const;
-    const float getDefaultValueAsFloat(const std::string& key);
+  // Getters
+  const std::string &getItemId() const;
+  const std::vector<std::string> &getInGameTextures() const;
+  const std::vector<std::string> &getInventoryTextures() const;
+  const DefaultValue *getDefaultValue(const std::string &key) const;
+  const float getDefaultValueAsFloat(const std::string &key);
 
-    // Item Creators
-    entt::entity createFoodItem(entt::registry& registry);
+  // Item Creators
+  entt::entity createFoodItem(entt::registry &registry);
 
-   private:
-    std::string itemId;
-    std::vector<std::string> inGameTextures;
-    std::vector<std::string> inventoryTextures;
-    std::unordered_map<std::string, DefaultValue> defaultValues;
+private:
+  std::string itemId;
+  std::vector<std::string> inGameTextures;
+  std::vector<std::string> inventoryTextures;
+  std::unordered_map<std::string, DefaultValue> defaultValues;
 };

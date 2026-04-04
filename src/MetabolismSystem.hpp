@@ -14,33 +14,33 @@
 #include "voxelgrid/VoxelGrid.hpp"
 
 class MetabolismSystem {
-   public:
-    MetabolismSystem() = default;
-    MetabolismSystem(entt::registry& reg, VoxelGrid* voxelGrid) : registry(reg) {}
+public:
+  MetabolismSystem() = default;
+  MetabolismSystem(entt::registry &reg, VoxelGrid *voxelGrid) : registry(reg) {}
 
-    // Method to process physics-related events
-    void processMetabolism(entt::registry& registry, VoxelGrid& voxelGrid,
-                           entt::dispatcher& dispatcher);
-    void processMetabolismAsync(entt::registry& registry, VoxelGrid& voxelGrid,
-                                entt::dispatcher& dispatcher);
+  // Method to process physics-related events
+  void processMetabolism(entt::registry &registry, VoxelGrid &voxelGrid,
+                         entt::dispatcher &dispatcher);
+  void processMetabolismAsync(entt::registry &registry, VoxelGrid &voxelGrid,
+                              entt::dispatcher &dispatcher);
 
-    // Register the event handler
-    void registerEventHandlers(entt::dispatcher& dispatcher);
+  // Register the event handler
+  void registerEventHandlers(entt::dispatcher &dispatcher);
 
-    bool isProcessingComplete() const;
+  bool isProcessingComplete() const;
 
-   private:
-    int chunkDigestionTime = 10;
-    float chunkMass = 1;
-    entt::registry& registry;
-    VoxelGrid* voxelGrid;
+private:
+  int chunkDigestionTime = 10;
+  float chunkMass = 1;
+  entt::registry &registry;
+  VoxelGrid *voxelGrid;
 
-    // Mutex for thread safety
-    std::mutex metabolismMutex;
-    bool processingComplete = true;  // Flag to indicate processing state
+  // Mutex for thread safety
+  std::mutex metabolismMutex;
+  bool processingComplete = true; // Flag to indicate processing state
 
-    int lastEntitiesCount{};
-    const int MAX_ENTITIES{300};
+  int lastEntitiesCount{};
+  const int MAX_ENTITIES{300};
 };
 
-#endif  // METABOLISM_SYSTEM_HPP
+#endif // METABOLISM_SYSTEM_HPP

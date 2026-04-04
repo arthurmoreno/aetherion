@@ -14,15 +14,17 @@ namespace nb = nanobind;
 
 nb::object fbGetEntityById(
     int entity_id,
-    const ::flatbuffers::Vector<::flatbuffers::Offset<GameEngine::EntityInterface>>& entities);
+    const ::flatbuffers::Vector<
+        ::flatbuffers::Offset<GameEngine::EntityInterface>> &entities);
 
-void populateEntitiesMap(
-    std::unordered_map<int, EntityInterface>& entities,
-    const ::flatbuffers::Vector<::flatbuffers::Offset<GameEngine::EntityInterface>>&
-        flatbuffersEntities);
+void populateEntitiesMap(std::unordered_map<int, EntityInterface> &entities,
+                         const ::flatbuffers::Vector<
+                             ::flatbuffers::Offset<GameEngine::EntityInterface>>
+                             &flatbuffersEntities);
 
 nb::object fbGetQueryResponseById(
     int entity_id,
-    const ::flatbuffers::Vector<::flatbuffers::Offset<GameEngine::QueryResponse>>& queryResponses);
+    const ::flatbuffers::Vector<
+        ::flatbuffers::Offset<GameEngine::QueryResponse>> &queryResponses);
 
-#endif  // WORLD_VIEW_HPP
+#endif // WORLD_VIEW_HPP
