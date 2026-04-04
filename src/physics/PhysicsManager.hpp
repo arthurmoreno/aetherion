@@ -17,6 +17,10 @@ class PhysicsManager {
     void setEvaporationCoefficient(float value);
     void setHeatToWaterEvaporation(float value);
     void setWaterMinimumUnits(float value);
+    void setSimulateVaporCondensation(bool value);
+    void setSimulateVaporMovement(bool value);
+    void setSimulateWaterMovement(bool value);
+    void setSimulateWaterEvaporation(bool value);
 
     // Getters
     float getGravity() const;
@@ -26,6 +30,10 @@ class PhysicsManager {
     float getEvaporationCoefficient() const;
     float getHeatToWaterEvaporation() const;
     float getWaterMinimumUnits() const;
+    bool getSimulateVaporCondensation() const;
+    bool getSimulateVaporMovement() const;
+    bool getSimulateWaterMovement() const;
+    bool getSimulateWaterEvaporation() const;
 
     // Optional: Load physics settings from a file
     bool loadSettings(const std::string& fileName);
@@ -69,7 +77,11 @@ class PhysicsManager {
     // const float metabolismCostToApplyForce = 0.000005f;
     // const float metabolismCostToApplyForce = 0.00001f;
 
-    // Optional: Additional physics parameters can be added here
+    // Water simulation phase toggles (all default to true = full simulation)
+    bool simulateVaporCondensation = true;
+    bool simulateVaporMovement = true;
+    bool simulateWaterMovement = true;
+    bool simulateWaterEvaporation = true;
 };
 
 typedef PhysicsManager ThePhysicsManager;

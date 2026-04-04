@@ -64,6 +64,16 @@ void PhysicsManager::setWaterMinimumUnits(float value) {
     std::cout << "Water minimum units set to: " << value << std::endl;
 }
 
+void PhysicsManager::setSimulateVaporCondensation(bool value) {
+    simulateVaporCondensation = value;
+}
+
+void PhysicsManager::setSimulateVaporMovement(bool value) { simulateVaporMovement = value; }
+
+void PhysicsManager::setSimulateWaterMovement(bool value) { simulateWaterMovement = value; }
+
+void PhysicsManager::setSimulateWaterEvaporation(bool value) { simulateWaterEvaporation = value; }
+
 // Getters
 float PhysicsManager::getGravity() const { return gravity; }
 
@@ -78,6 +88,14 @@ float PhysicsManager::getEvaporationCoefficient() const { return EVAPORATION_COE
 float PhysicsManager::getHeatToWaterEvaporation() const { return HEAT_TO_WATER_EVAPORATION; }
 
 float PhysicsManager::getWaterMinimumUnits() const { return waterMinimumUnits; }
+
+bool PhysicsManager::getSimulateVaporCondensation() const { return simulateVaporCondensation; }
+
+bool PhysicsManager::getSimulateVaporMovement() const { return simulateVaporMovement; }
+
+bool PhysicsManager::getSimulateWaterMovement() const { return simulateWaterMovement; }
+
+bool PhysicsManager::getSimulateWaterEvaporation() const { return simulateWaterEvaporation; }
 
 // Optional: Load physics settings from a file
 bool PhysicsManager::loadSettings(const std::string& fileName) {

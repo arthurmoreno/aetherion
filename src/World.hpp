@@ -115,6 +115,16 @@ class World {
     bool getProcessEcosystemAsync() const { return processEcosystemAsync_; }
     void setProcessEcosystemAsync(bool value) { processEcosystemAsync_ = value; }
 
+    // Water simulation phase toggles (delegate to PhysicsManager singleton)
+    bool getSimulateVaporCondensation() const;
+    void setSimulateVaporCondensation(bool value);
+    bool getSimulateVaporMovement() const;
+    void setSimulateVaporMovement(bool value);
+    bool getSimulateWaterMovement() const;
+    void setSimulateWaterMovement(bool value);
+    bool getSimulateWaterEvaporation() const;
+    void setSimulateWaterEvaporation(bool value);
+
     // Water simulation error handling
     std::vector<ThreadError> getWaterSimErrors() const;
     bool hasWaterSimErrors() const;

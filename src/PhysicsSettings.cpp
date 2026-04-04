@@ -31,3 +31,35 @@ float PhysicsSettings::getFriction() const { return PhysicsManager::Instance()->
 bool PhysicsSettings::getAllowMultiDirection() const {
     return PhysicsManager::Instance()->getAllowMultiDirection();
 }
+
+void PhysicsSettings::setSimulateVaporCondensation(bool value) {
+    PhysicsManager::Instance()->setSimulateVaporCondensation(value);
+}
+
+void PhysicsSettings::setSimulateVaporMovement(bool value) {
+    PhysicsManager::Instance()->setSimulateVaporMovement(value);
+}
+
+void PhysicsSettings::setSimulateWaterMovement(bool value) {
+    PhysicsManager::Instance()->setSimulateWaterMovement(value);
+}
+
+void PhysicsSettings::setSimulateWaterEvaporation(bool value) {
+    PhysicsManager::Instance()->setSimulateWaterEvaporation(value);
+}
+
+bool PhysicsSettings::getSimulateVaporCondensation() const {
+    return PhysicsManager::Instance()->getSimulateVaporCondensation();
+}
+
+bool PhysicsSettings::getSimulateVaporMovement() const {
+    return PhysicsManager::Instance()->getSimulateVaporMovement();
+}
+
+bool PhysicsSettings::getSimulateWaterMovement() const {
+    return PhysicsManager::Instance()->getSimulateWaterMovement();
+}
+
+bool PhysicsSettings::getSimulateWaterEvaporation() const {
+    return PhysicsManager::Instance()->getSimulateWaterEvaporation();
+}
