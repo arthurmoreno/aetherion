@@ -1803,12 +1803,19 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent& event) {
         spdlog::get("console")->info(
             "onWaterFallEntityEvent -> entity is ON_GRID_STORAGE, skipping Position check");
         return;
-    } else if (static_cast<int>(event.entity) != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
-        (!registry.valid(event.entity) || !registry.all_of<Position>(event.entity))) {
-        spdlog::get("console")->info(
-            "onWaterFallEntityEvent -> entity {} is not valid or missing Position component - skipping event",
-            static_cast<int>(event.entity));
-        return;
+    } else if (static_cast<int>(event.entity) != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
+        if (!registry.valid(event.entity)) {
+            spdlog::get("console")->info(
+                "onWaterFallEntityEvent -> entity {} is not valid - skipping event",
+                static_cast<int>(event.entity));
+            return;
+        }
+        if (!registry.all_of<Position>(event.entity)) {
+            spdlog::get("console")->info(
+                "onWaterFallEntityEvent -> entity {} is missing Position component - skipping event",
+                static_cast<int>(event.entity));
+            return;
+        }
     }
 
     Position pos;
@@ -1831,9 +1838,15 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent& event) {
         voxelGrid->getTerrain(event.position.x, event.position.y, event.position.z);
     if (terrainToCreateWaterId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
         // TODO [feature#181-water-not-running]: Here seems dangerous and causing segfaults when trying to create water terrain on fall - need to investigate and ensure all necessary state is properly initialized before creating terrain. For now, just logging and skipping the event to prevent crashes.
-        // createWaterTerrainFromFall(registry, dispatcher, *voxelGrid, event.position.x,
-        //                            event.position.y, event.position.z, event.fallingAmount,
-        //                            event.entity, event.sourcePos);
+        entt::entity newWaterEntity = createWaterTerrainFromFall(registry, dispatcher, *voxelGrid, event.position.x,
+                                   event.position.y, event.position.z, event.fallingAmount,
+                                   event.entity, event.sourcePos);
+        if (newWaterEntity == entt::null) {
+            spdlog::get("console")->warn(
+                "onWaterFallEntityEvent -> Failed to create water terrain from fall at ({}, {}, {}) - skipping event",
+                event.position.x, event.position.y, event.position.z);
+            return;
+        }
         spdlog::get("console")->info(
             "onWaterFallEntityEvent -> No terrain at position ({}, {}, {}) to create water from fall - skipping event",
             event.position.x, event.position.y, event.position.z);

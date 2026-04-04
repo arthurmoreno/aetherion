@@ -1358,12 +1358,19 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
                 terrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
                 entt::entity entity = static_cast<entt::entity>(terrainId);
                 dispatcher.enqueue<DeleteOrConvertTerrainEvent>(entity);
+
+                std::ostringstream oss;
+                oss << "[processTileWater] Empty water entity at (" << x << ", " << y << ", " << z
+                    << ") with live entity; ID=" << terrainId << " entity sent for deletion.";
+                const std::string msg = oss.str();
+                std::cout << msg << "\n";
             } else {
-                std::cout << "[processTileWater] Empty water entity at (" << x << ", " << y << ", "
-                          << z << ") in ON_GRID_STORAGE or NONE; no action taken.\n";
-                throw std::runtime_error(
-                    "[processTileWater] Error: Water (or empty type) entity with no water detected "
-                    "ON_GRID_STORAGE or NONE.");
+                std::ostringstream oss;
+                oss << "[processTileWater] Empty water entity at (" << x << ", " << y << ", " << z
+                    << ") in ON_GRID_STORAGE or NONE; ID=" << terrainId << " no action taken.";
+                const std::string msg = oss.str();
+                std::cout << msg << "\n";
+                throw std::runtime_error(msg);
             }
             // deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
         }

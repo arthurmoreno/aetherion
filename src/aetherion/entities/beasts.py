@@ -3,8 +3,7 @@ from typing import Literal
 
 import aetherion
 from aetherion import DirectionEnum, EntityEnum, ItemEnum
-from aetherion._aetherion import (EntityTypeComponent, Inventory, Position,
-                                  PyRegistry, VoxelGrid)
+from aetherion._aetherion import EntityTypeComponent, Inventory, Position, PyRegistry, VoxelGrid
 from aetherion.entities import BaseEntity
 
 
@@ -53,7 +52,6 @@ def _max_terrain_z_in_column(voxel_grid: VoxelGrid, x: int, y: int, z_max_inclus
     return max(c.z for c in coords)
 
 
-
 def _try_take_item_from_terrain(
     entity_id: int,
     registry: PyRegistry,
@@ -70,9 +68,9 @@ def _try_take_item_from_terrain(
         return "none"
 
     entity_type: EntityTypeComponent = voxel_grid.get_terrain_entity_type_component(x, y, z)
-    target_inventory: Inventory = registry.get_component(terrain_id, "Inventory")
+    target_inventory: Inventory | None = registry.get_component(terrain_id, "Inventory")
 
-    if entity_type.main_type != EntityEnum.TERRAIN.value or not target_inventory.item_ids:
+    if target_inventory is None or entity_type.main_type != EntityEnum.TERRAIN.value or not target_inventory.item_ids:
         return "none"
 
     if inventory.is_full():
@@ -93,6 +91,7 @@ def _try_take_item_from_terrain(
     registry.set_component(terrain_id, "Inventory", target_inventory)
     registry.set_component(entity_id, "Inventory", inventory)
     return "taken"
+
 
 def _try_take_item_from_entity(
     entity_id: int,
