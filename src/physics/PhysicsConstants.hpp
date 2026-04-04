@@ -4,4 +4,4 @@
 const bool GRAVITY_FRICTION = true;
 const float GRAVITY = 9.81f;
 
-#endif  // PHYSICS_CONSTANTS_H
+#endif // PHYSICS_CONSTANTS_H

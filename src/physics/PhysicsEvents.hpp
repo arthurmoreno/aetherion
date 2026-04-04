@@ -2,7 +2,7 @@
 #define PHYSICS_EVENTS_HPP
 
 struct InvalidTerrainFoundEvent {
-    int x, y, z;
+  int x, y, z;
 };
 
-#endif  // PHYSICS_EVENTS_HPP
+#endif // PHYSICS_EVENTS_HPP

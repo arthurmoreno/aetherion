@@ -21,32 +21,32 @@
  * - Program lookup and enumeration
  */
 class GuiProgramManager : public ProgramManager<GuiProgram> {
-   public:
-    /**
-     * @brief Get singleton instance
-     */
-    static GuiProgramManager* Instance() {
-        static GuiProgramManager instance;
-        return &instance;
-    }
+public:
+  /**
+   * @brief Get singleton instance
+   */
+  static GuiProgramManager *Instance() {
+    static GuiProgramManager instance;
+    return &instance;
+  }
 
-    /**
-     * @brief Render all active GUI programs
-     *
-     * Iterates over all registered programs and renders those that are active.
-     * Should be called once per frame. This is the GUI-specific functionality
-     * that extends the base ProgramManager.
-     *
-     * @param context Shared GUI context for all programs
-     */
-    void renderAllPrograms(GuiContext& context) {
-        for (auto& [id, program] : programs_) {
-            if (program->isActive()) {
-                program->render(context);
-            }
-        }
+  /**
+   * @brief Render all active GUI programs
+   *
+   * Iterates over all registered programs and renders those that are active.
+   * Should be called once per frame. This is the GUI-specific functionality
+   * that extends the base ProgramManager.
+   *
+   * @param context Shared GUI context for all programs
+   */
+  void renderAllPrograms(GuiContext &context) {
+    for (auto &[id, program] : programs_) {
+      if (program->isActive()) {
+        program->render(context);
+      }
     }
+  }
 
-   private:
-    GuiProgramManager() = default;
+private:
+  GuiProgramManager() = default;
 };

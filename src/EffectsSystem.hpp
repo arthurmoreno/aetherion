@@ -12,28 +12,28 @@
 #include "voxelgrid/VoxelGrid.hpp"
 
 class EffectsSystem {
-   public:
-    EffectsSystem() = default;
-    EffectsSystem(entt::registry& reg, VoxelGrid* voxelGrid) : registry(reg) {}
+public:
+  EffectsSystem() = default;
+  EffectsSystem(entt::registry &reg, VoxelGrid *voxelGrid) : registry(reg) {}
 
-    // Method to process physics-related events
-    void processEffects(entt::registry& registry, VoxelGrid& voxelGrid,
-                        entt::dispatcher& dispatcher);
-    void processEffectsAsync(entt::registry& registry, VoxelGrid& voxelGrid,
-                             entt::dispatcher& dispatcher);
+  // Method to process physics-related events
+  void processEffects(entt::registry &registry, VoxelGrid &voxelGrid,
+                      entt::dispatcher &dispatcher);
+  void processEffectsAsync(entt::registry &registry, VoxelGrid &voxelGrid,
+                           entt::dispatcher &dispatcher);
 
-    // Register the event handler
-    void registerEventHandlers(entt::dispatcher& dispatcher);
+  // Register the event handler
+  void registerEventHandlers(entt::dispatcher &dispatcher);
 
-    bool isProcessingComplete() const;
+  bool isProcessingComplete() const;
 
-   private:
-    entt::registry& registry;
-    VoxelGrid* voxelGrid;
+private:
+  entt::registry &registry;
+  VoxelGrid *voxelGrid;
 
-    // Mutex for thread safety
-    std::mutex combatMutex;
-    bool processingComplete = true;  // Flag to indicate processing state
+  // Mutex for thread safety
+  std::mutex combatMutex;
+  bool processingComplete = true; // Flag to indicate processing state
 };
 
-#endif  // EFFECTS_SYSTEM_HPP
+#endif // EFFECTS_SYSTEM_HPP

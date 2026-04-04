@@ -9,20 +9,20 @@
 
 // Command registry that maps command types to their handlers
 class CommandRegistry {
-   public:
-    CommandRegistry();
-    ~CommandRegistry() = default;
+public:
+  CommandRegistry();
+  ~CommandRegistry() = default;
 
-    // Get handler for a command type
-    ICommandHandler* getHandler(const std::string& commandType) const;
+  // Get handler for a command type
+  ICommandHandler *getHandler(const std::string &commandType) const;
 
-    // Check if a command type is registered
-    bool hasHandler(const std::string& commandType) const;
+  // Check if a command type is registered
+  bool hasHandler(const std::string &commandType) const;
 
-   private:
-    void registerHandlers();
+private:
+  void registerHandlers();
 
-    std::unordered_map<std::string, std::unique_ptr<ICommandHandler>> handlers_;
+  std::unordered_map<std::string, std::unique_ptr<ICommandHandler>> handlers_;
 };
 
-#endif  // COMMAND_VALIDATOR_HPP
+#endif // COMMAND_VALIDATOR_HPP

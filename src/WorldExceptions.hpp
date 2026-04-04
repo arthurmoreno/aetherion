@@ -12,8 +12,8 @@ namespace aetherion {
  * including water simulation, vapor processing, and ecosystem dynamics.
  */
 class EcosystemEngineException : public std::runtime_error {
-   public:
-    using std::runtime_error::runtime_error;
+public:
+  using std::runtime_error::runtime_error;
 };
 
-}  // namespace aetherion
+} // namespace aetherion

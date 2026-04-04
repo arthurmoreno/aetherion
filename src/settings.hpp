@@ -25,4 +25,4 @@ const int SPRITE_SIZE = 32;
 
 #define PHYSICS_COMP_AS_3DARRAY true
 
-#endif  // SETTINGS_H
+#endif // SETTINGS_H

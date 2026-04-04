@@ -3,4 +3,4 @@
 
 // Terrain occlusion and visibility logic will be implemented here
 
-#endif  // TERRAIN_VISIBILITY_HPP
+#endif // TERRAIN_VISIBILITY_HPP

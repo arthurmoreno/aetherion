@@ -11,27 +11,27 @@
 #include "voxelgrid/VoxelGrid.hpp"
 
 class CombatSystem {
-   public:
-    CombatSystem() = default;
-    CombatSystem(entt::registry& reg, VoxelGrid* voxelGrid) : registry(reg) {}
+public:
+  CombatSystem() = default;
+  CombatSystem(entt::registry &reg, VoxelGrid *voxelGrid) : registry(reg) {}
 
-    // Method to process physics-related events
-    void processCombat(entt::registry& registry, VoxelGrid& voxelGrid);
-    void processCombatAsync(entt::registry& registry, VoxelGrid& voxelGrid,
-                            entt::dispatcher& dispatcher);
+  // Method to process physics-related events
+  void processCombat(entt::registry &registry, VoxelGrid &voxelGrid);
+  void processCombatAsync(entt::registry &registry, VoxelGrid &voxelGrid,
+                          entt::dispatcher &dispatcher);
 
-    // Register the event handler
-    void registerEventHandlers(entt::dispatcher& dispatcher);
+  // Register the event handler
+  void registerEventHandlers(entt::dispatcher &dispatcher);
 
-    bool isProcessingComplete() const;
+  bool isProcessingComplete() const;
 
-   private:
-    entt::registry& registry;
-    VoxelGrid* voxelGrid;
+private:
+  entt::registry &registry;
+  VoxelGrid *voxelGrid;
 
-    // Mutex for thread safety
-    std::mutex combatMutex;
-    bool processingComplete = true;  // Flag to indicate processing state
+  // Mutex for thread safety
+  std::mutex combatMutex;
+  bool processingComplete = true; // Flag to indicate processing state
 };
 
-#endif  // COMBAT_SYSTEM_HPP
+#endif // COMBAT_SYSTEM_HPP

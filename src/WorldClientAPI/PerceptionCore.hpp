@@ -3,4 +3,4 @@
 
 // Core perception logic will be implemented here
 
-#endif  // PERCEPTION_CORE_HPP
+#endif // PERCEPTION_CORE_HPP

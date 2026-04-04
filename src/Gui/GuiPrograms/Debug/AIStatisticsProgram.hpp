@@ -8,7 +8,7 @@
 namespace nb = nanobind;
 
 // Forward declare helper function
-void RenderAIStatisticsWindow(const nb::dict& statistics);
+void RenderAIStatisticsWindow(const nb::dict &statistics);
 
 /**
  * @brief AI statistics visualization program
@@ -17,16 +17,18 @@ void RenderAIStatisticsWindow(const nb::dict& statistics);
  * and performance statistics using ImPlot.
  */
 class AIStatisticsProgram : public GuiProgram {
-   public:
-    void render(GuiContext& context) override {
-        if (!isActive_) return;
+public:
+  void render(GuiContext &context) override {
+    if (!isActive_)
+      return;
 
-        if (ImGui::Begin("AI Statistics", &isActive_, ImGuiWindowFlags_NoScrollbar)) {
-            RenderAIStatisticsWindow(context.statistics);
-        }
-        ImGui::End();
+    if (ImGui::Begin("AI Statistics", &isActive_,
+                     ImGuiWindowFlags_NoScrollbar)) {
+      RenderAIStatisticsWindow(context.statistics);
     }
+    ImGui::End();
+  }
 
-    std::string getId() const override { return "ai_statistics"; }
-    std::string getDisplayName() const override { return "AI Statistics"; }
+  std::string getId() const override { return "ai_statistics"; }
+  std::string getDisplayName() const override { return "AI Statistics"; }
 };

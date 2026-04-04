@@ -4,28 +4,28 @@
 #include "components/PhysicsComponents.hpp"
 
 struct MovingComponent {
-    bool isMoving;
+  bool isMoving;
 
-    int movingFromX;
-    int movingFromY;
-    int movingFromZ;
+  int movingFromX;
+  int movingFromY;
+  int movingFromZ;
 
-    int movingToX;
-    int movingToY;
-    int movingToZ;
+  int movingToX;
+  int movingToY;
+  int movingToZ;
 
-    float vx;
-    float vy;
-    float vz;
+  float vx;
+  float vy;
+  float vz;
 
-    bool willStopX;
-    bool willStopY;
-    bool willStopZ;
+  bool willStopX;
+  bool willStopY;
+  bool willStopZ;
 
-    int completionTime;
-    int timeRemaining;
+  int completionTime;
+  int timeRemaining;
 
-    DirectionEnum direction;
+  DirectionEnum direction;
 };
 
-#endif  // MOVING_COMPONENT_HPP
+#endif // MOVING_COMPONENT_HPP

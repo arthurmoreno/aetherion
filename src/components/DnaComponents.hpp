@@ -5,7 +5,7 @@
 #include <vector>
 
 struct ParentsComponent {
-    std::vector<int> parents;
+  std::vector<int> parents;
 };
 
 #endif

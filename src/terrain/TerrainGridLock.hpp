@@ -13,27 +13,27 @@
 //   // Lock automatically released when lock goes out of scope
 //
 class TerrainGridLock {
-   private:
-    TerrainGridRepository* repo_;
+private:
+  TerrainGridRepository *repo_;
 
-   public:
-    explicit TerrainGridLock(TerrainGridRepository* repo) : repo_(repo) {
-        if (repo_) {
-            repo_->lockTerrainGrid();
-        }
+public:
+  explicit TerrainGridLock(TerrainGridRepository *repo) : repo_(repo) {
+    if (repo_) {
+      repo_->lockTerrainGrid();
     }
+  }
 
-    ~TerrainGridLock() {
-        if (repo_) {
-            repo_->unlockTerrainGrid();
-        }
+  ~TerrainGridLock() {
+    if (repo_) {
+      repo_->unlockTerrainGrid();
     }
+  }
 
-    // Non-copyable, non-movable to ensure single ownership
-    TerrainGridLock(const TerrainGridLock&) = delete;
-    TerrainGridLock& operator=(const TerrainGridLock&) = delete;
-    TerrainGridLock(TerrainGridLock&&) = delete;
-    TerrainGridLock& operator=(TerrainGridLock&&) = delete;
+  // Non-copyable, non-movable to ensure single ownership
+  TerrainGridLock(const TerrainGridLock &) = delete;
+  TerrainGridLock &operator=(const TerrainGridLock &) = delete;
+  TerrainGridLock(TerrainGridLock &&) = delete;
+  TerrainGridLock &operator=(TerrainGridLock &&) = delete;
 };
 
-#endif  // TERRAIN_GRID_LOCK_HPP
+#endif // TERRAIN_GRID_LOCK_HPP

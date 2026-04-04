@@ -12,8 +12,8 @@ namespace aetherion {
  * allowing callers to catch all physics exceptions with a single catch block.
  */
 class PhysicsException : public std::runtime_error {
-   public:
-    using std::runtime_error::runtime_error;
+public:
+  using std::runtime_error::runtime_error;
 };
 
 /**
@@ -23,13 +23,13 @@ class PhysicsException : public std::runtime_error {
  * terrain grid locks, typically in concurrent physics operations.
  */
 class TerrainLockException : public PhysicsException {
-   public:
-    using PhysicsException::PhysicsException;
+public:
+  using PhysicsException::PhysicsException;
 };
 
 class InvalidTerrainMovementException : public PhysicsException {
-   public:
-    using PhysicsException::PhysicsException;
+public:
+  using PhysicsException::PhysicsException;
 };
 
 /**
@@ -40,8 +40,8 @@ class InvalidTerrainMovementException : public PhysicsException {
  * components for physics processing.
  */
 class InvalidEntityException : public PhysicsException {
-   public:
-    using PhysicsException::PhysicsException;
+public:
+  using PhysicsException::PhysicsException;
 };
 
 /**
@@ -51,31 +51,33 @@ class InvalidEntityException : public PhysicsException {
  * or velocity calculations in the physics engine.
  */
 class MovementException : public PhysicsException {
-   public:
-    using PhysicsException::PhysicsException;
+public:
+  using PhysicsException::PhysicsException;
 };
 
 /**
  * @brief Exception thrown when terrain state is invalid or corrupted
  *
- * This exception is used when terrain data is in an unexpected or invalid state,
- * such as position mismatches, corrupted grid data, or TOCTOU race conditions.
+ * This exception is used when terrain data is in an unexpected or invalid
+ * state, such as position mismatches, corrupted grid data, or TOCTOU race
+ * conditions.
  */
 class InvalidTerrainStateException : public PhysicsException {
-   public:
-    using PhysicsException::PhysicsException;
+public:
+  using PhysicsException::PhysicsException;
 };
 
 /**
- * @brief Exception thrown when vapor upward movement is blocked and should diffuse sideways
+ * @brief Exception thrown when vapor upward movement is blocked and should
+ * diffuse sideways
  *
- * Thrown by `moveVaporUp` when upward movement cannot proceed (e.g. moving obstruction
- * or no suitable vapor above to merge). The orchestrator can catch this and call
- * `moveVaporSideways` to attempt lateral diffusion.
+ * Thrown by `moveVaporUp` when upward movement cannot proceed (e.g. moving
+ * obstruction or no suitable vapor above to merge). The orchestrator can catch
+ * this and call `moveVaporSideways` to attempt lateral diffusion.
  */
 class VaporMovementBlockedException : public MovementException {
-   public:
-    using MovementException::MovementException;
+public:
+  using MovementException::MovementException;
 };
 
-}  // namespace aetherion
+} // namespace aetherion

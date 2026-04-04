@@ -8,7 +8,8 @@
 #include "EntityInterface.hpp"
 
 // Forward declare helper function
-void RenderEntityInterfaceWindow(std::shared_ptr<EntityInterface> entityInterface);
+void RenderEntityInterfaceWindow(
+    std::shared_ptr<EntityInterface> entityInterface);
 
 /**
  * @brief Entity interface inspection program
@@ -17,16 +18,18 @@ void RenderEntityInterfaceWindow(std::shared_ptr<EntityInterface> entityInterfac
  * components, position, velocity, health, and component mask.
  */
 class EntityInterfaceProgram : public GuiProgram {
-   public:
-    void render(GuiContext& context) override {
-        if (!isActive_) return;
+public:
+  void render(GuiContext &context) override {
+    if (!isActive_)
+      return;
 
-        if (ImGui::Begin("Entity Interface", &isActive_, ImGuiWindowFlags_AlwaysAutoResize)) {
-            RenderEntityInterfaceWindow(context.entityInterfacePtr);
-        }
-        ImGui::End();
+    if (ImGui::Begin("Entity Interface", &isActive_,
+                     ImGuiWindowFlags_AlwaysAutoResize)) {
+      RenderEntityInterfaceWindow(context.entityInterfacePtr);
     }
+    ImGui::End();
+  }
 
-    std::string getId() const override { return "entity_interface"; }
-    std::string getDisplayName() const override { return "Entity Interface"; }
+  std::string getId() const override { return "entity_interface"; }
+  std::string getDisplayName() const override { return "Entity Interface"; }
 };

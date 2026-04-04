@@ -14,36 +14,38 @@
  * Data is stored in a std::map for quick lookups by timestamp.
  */
 struct TimeSeriesComponent {
-    // Map of timestamps to values
-    // Using std::map for ordered storage and binary search lookups
-    std::string timeSeriesName;
-    std::map<uint64_t, double> timeSeriesData;
+  // Map of timestamps to values
+  // Using std::map for ordered storage and binary search lookups
+  std::string timeSeriesName;
+  std::map<uint64_t, double> timeSeriesData;
 
-    // Add a data point
-    void addDataPoint(uint64_t timestamp, double value) { timeSeriesData[timestamp] = value; }
+  // Add a data point
+  void addDataPoint(uint64_t timestamp, double value) {
+    timeSeriesData[timestamp] = value;
+  }
 
-    // Get data points within a time range
-    std::vector<std::pair<uint64_t, double>> getDataPoints(uint64_t startTime,
-                                                           uint64_t endTime) const {
-        std::vector<std::pair<uint64_t, double>> results;
+  // Get data points within a time range
+  std::vector<std::pair<uint64_t, double>>
+  getDataPoints(uint64_t startTime, uint64_t endTime) const {
+    std::vector<std::pair<uint64_t, double>> results;
 
-        // Find the first timestamp greater than or equal to startTime
-        auto it = timeSeriesData.lower_bound(startTime);
+    // Find the first timestamp greater than or equal to startTime
+    auto it = timeSeriesData.lower_bound(startTime);
 
-        // Iterate through all timestamps in the range [startTime, endTime]
-        while (it != timeSeriesData.end() && it->first <= endTime) {
-            results.emplace_back(it->first, it->second);
-            ++it;
-        }
-
-        return results;
+    // Iterate through all timestamps in the range [startTime, endTime]
+    while (it != timeSeriesData.end() && it->first <= endTime) {
+      results.emplace_back(it->first, it->second);
+      ++it;
     }
 
-    // Clear all data points
-    void clear() { timeSeriesData.clear(); }
+    return results;
+  }
 
-    // Get number of data points
-    size_t size() const { return timeSeriesData.size(); }
+  // Clear all data points
+  void clear() { timeSeriesData.clear(); }
+
+  // Get number of data points
+  size_t size() const { return timeSeriesData.size(); }
 };
 
-#endif  // TIMESERIES_COMPONENT_HPP
+#endif // TIMESERIES_COMPONENT_HPP

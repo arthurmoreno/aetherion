@@ -104,7 +104,7 @@ clang-format:
 .PHONY: python-format
 python-format:
 	@echo "Formatting and sorting imports with Ruff..."
-	ruff format . && ruff check --fix .
+	conda run --no-capture-output -n aetherion-312 ruff format . && conda run --no-capture-output -n aetherion-312 ruff check --fix .
 
 .PHONY: format
 format: clang-format python-format

@@ -12,14 +12,14 @@
 // Hierarchy component: attached to every scene-graph node (entity)
 // -----------------------------------------------------------------------------
 struct Hierarchy {
-    entt::entity parent{entt::null};
-    entt::entity first_child{entt::null};
-    entt::entity next_sibling{entt::null};
-    entt::entity prev_sibling{entt::null};
+  entt::entity parent{entt::null};
+  entt::entity first_child{entt::null};
+  entt::entity next_sibling{entt::null};
+  entt::entity prev_sibling{entt::null};
 };
 
 struct NodePython {
-    nb::object instance;  // The actual Python object instance
+  nb::object instance; // The actual Python object instance
 };
 
-#endif  // SCENE_COMPONENTS_HPP
+#endif // SCENE_COMPONENTS_HPP
