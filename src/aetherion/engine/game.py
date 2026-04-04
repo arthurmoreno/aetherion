@@ -35,10 +35,7 @@ from aetherion.events.action_event import InputEventActionType
 from aetherion.events.handlers.world_manager import worldmanager_event_handlers
 from aetherion.logger import logger
 from aetherion.networking.admin_connection import ServerAdminConnection
-from aetherion.networking.connection import (
-    BeastConnection,
-    ServerBeastConnection,
-)
+from aetherion.networking.connection import BeastConnection, ServerBeastConnection
 from aetherion.paths import resolve_path
 from aetherion.renderer.sprites import Sprite
 from aetherion.renderer.views import BaseView

@@ -763,9 +763,9 @@ void World::dispatchMoveSolidEntityEventByPosition(int x, int y, int z, GridType
 }
 
 void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId, int selectedEntityId) {
-    std::cout << "[TakeItemEvent] entityId=" << entityId
-              << " hoveredEntityId=" << hoveredEntityId
-              << " selectedEntityId=" << selectedEntityId << "\n";
+    // std::cout << "[TakeItemEvent] entityId=" << entityId
+    //           << " hoveredEntityId=" << hoveredEntityId
+    //           << " selectedEntityId=" << selectedEntityId << "\n";
 
     // Acquire shared lock to prevent entity destruction during item take dispatch
     std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
@@ -774,8 +774,8 @@ void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId, int sel
 
     // TODO: Make this a more robust check.
     Position position = registry.get<Position>(entity);
-    std::cout << "[TakeItemEvent] position=(" << position.x << "," << position.y << "," << position.z << ")"
-              << " direction=" << static_cast<int>(position.direction) << "\n";
+    // std::cout << "[TakeItemEvent] position=(" << position.x << "," << position.y << "," << position.z << ")"
+    //           << " direction=" << static_cast<int>(position.direction) << "\n";
     int entityIdVoxel = voxelGrid->getEntity(position.x, position.y, position.z);
     if (entityIdVoxel != entityId) {
         std::string errorMessage = "Entity id on EntityInterface: " + std::to_string(entityId) +

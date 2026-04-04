@@ -671,23 +671,23 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
     if (!isSpecialId && registry.valid(entity) &&
         registry.all_of<Position, EntityTypeComponent>(entity)) {
         std::ostringstream ossMessage;
-        ossMessage << "[removeEntityFromGrid] Removing entity from grid: " << entityId;
-        spdlog::get("console")->info(ossMessage.str());
+        // ossMessage << "[removeEntityFromGrid] Removing entity from grid: " << entityId;
+        // spdlog::get("console")->info(ossMessage.str());
         auto&& [pos, type] = registry.get<Position, EntityTypeComponent>(entity);
 
         int currentGridEntity = voxelGrid.getEntity(pos.x, pos.y, pos.z);
         if (currentGridEntity != entityId) {
-            std::ostringstream ossMessage2;
-            ossMessage2 << "[removeEntityFromGrid] WARNING: Grid position (" << pos.x << ","
-                        << pos.y << "," << pos.z << ") contains entity " << currentGridEntity
-                        << " but trying to remove entity " << entityId;
-            spdlog::get("console")->info(ossMessage2.str());
+            // std::ostringstream ossMessage2;
+            // ossMessage2 << "[removeEntityFromGrid] WARNING: Grid position (" << pos.x << ","
+            //             << pos.y << "," << pos.z << ") contains entity " << currentGridEntity
+            //             << " but trying to remove entity " << entityId;
+            // spdlog::get("console")->info(ossMessage2.str());
             return;
         }
 
         if (type.mainType == static_cast<int>(EntityEnum::TERRAIN)) {
-            spdlog::get("console")->info(
-                "[removeEntityFromGrid] Entity is terrain, calling deleteTerrain.");
+            // spdlog::get("console")->info(
+            //     "[removeEntityFromGrid] Entity is terrain, calling deleteTerrain.");
             voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z, takeLock);
         } else if (type.mainType == static_cast<int>(EntityEnum::BEAST) ||
                    type.mainType == static_cast<int>(EntityEnum::PLANT)) {
@@ -695,52 +695,52 @@ inline void removeEntityFromGrid(entt::registry& registry, VoxelGrid& voxelGrid,
         }
     } else if (isSpecialId) {
         std::ostringstream ossMessage;
-        ossMessage << "[removeEntityFromGrid] Entity " << entityId
-                   << " is a special ID, skipping grid removal.";
-        spdlog::get("console")->info(ossMessage.str());
+        // ossMessage << "[removeEntityFromGrid] Entity " << entityId
+        //            << " is a special ID, skipping grid removal.";
+        // spdlog::get("console")->info(ossMessage.str());
     } else if (!isSpecialId && registry.valid(entity)) {
         Position* position = registry.try_get<Position>(entity);
         EntityTypeComponent* entityType = registry.try_get<EntityTypeComponent>(entity);
         if (position) {
             std::ostringstream ossMessage;
-            ossMessage << "[removeEntityFromGrid] Entity " << entityId
-                       << " has Position component at (" << position->x << ", " << position->y
-                       << ", " << position->z << ").";
+            // ossMessage << "[removeEntityFromGrid] Entity " << entityId
+            //            << " has Position component at (" << position->x << ", " << position->y
+            //            << ", " << position->z << ").";
             spdlog::get("console")->info(ossMessage.str());
         } else {
             std::ostringstream ossMessage;
-            ossMessage << "[removeEntityFromGrid] Entity " << entityId
-                       << " is missing Position component.";
-            spdlog::get("console")->info(ossMessage.str());
+            // ossMessage << "[removeEntityFromGrid] Entity " << entityId
+            //            << " is missing Position component.";
+            // spdlog::get("console")->info(ossMessage.str());
             Position _pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
             position = &_pos;
         }
 
-        std::ostringstream ossMessage3;
-        ossMessage3
-            << "[removeEntityFromGrid] Entity " << entityId
-            << " is missing Position or EntityTypeComponent, checking TerrainGridRepository.";
-        spdlog::get("console")->info(ossMessage3.str());
+        // std::ostringstream ossMessage3;
+        // ossMessage3
+        //     << "[removeEntityFromGrid] Entity " << entityId
+        //     << " is missing Position or EntityTypeComponent, checking TerrainGridRepository.";
+        // spdlog::get("console")->info(ossMessage3.str());
         if (position->x == -1 && position->y == -1 && position->z == -1) {
-            std::ostringstream ossMessage4;
-            ossMessage4 << "[removeEntityFromGrid] Could not find position of entity "
-                        << entityId << " in TerrainGridRepository, skipping grid removal.";
-            spdlog::get("console")->info(ossMessage4.str());
+            // std::ostringstream ossMessage4;
+            // ossMessage4 << "[removeEntityFromGrid] Could not find position of entity "
+            //             << entityId << " in TerrainGridRepository, skipping grid removal.";
+            // spdlog::get("console")->info(ossMessage4.str());
             throw std::runtime_error(
                 "Entity is missing Position component and not found in TerrainGridRepository.");
         } else {
-            std::ostringstream ossMessage5;
-            ossMessage5 << "[removeEntityFromGrid] Removing entity " << entityId
-                        << " from grid using position from TerrainGridRepository at ("
-                        << position->x << ", " << position->y << ", " << position->z << ").";
-            spdlog::get("console")->info(ossMessage5.str());
+            // std::ostringstream ossMessage5;
+            // ossMessage5 << "[removeEntityFromGrid] Removing entity " << entityId
+            //             << " from grid using position from TerrainGridRepository at ("
+            //             << position->x << ", " << position->y << ", " << position->z << ").";
+            // spdlog::get("console")->info(ossMessage5.str());
             voxelGrid.deleteTerrain(dispatcher, position->x, position->y, position->z, takeLock);
         }
     } else {
-        std::ostringstream ossMessage;
-        ossMessage << "[removeEntityFromGrid] Entity " << entityId
-                   << " is invalid, skipping grid removal.";
-        spdlog::get("console")->info(ossMessage.str());
+        // std::ostringstream ossMessage;
+        // ossMessage << "[removeEntityFromGrid] Entity " << entityId
+        //            << " is invalid, skipping grid removal.";
+        // spdlog::get("console")->info(ossMessage.str());
     }
 }
 
@@ -1030,15 +1030,20 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry& registry, Vox
  * @param fallingAmount The amount of water matter for the new tile.
  * @param sourceEntity The entity from which the water is falling.
  */
-inline void createWaterTerrainFromFall(entt::registry& registry, entt::dispatcher& dispatcher,
+inline entt::entity createWaterTerrainFromFall(entt::registry& registry, entt::dispatcher& dispatcher,
                                        VoxelGrid& voxelGrid, int x, int y, int z,
                                        double fallingAmount, entt::entity sourceEntity, Position sourcePos) {
     // Lock for atomic state change
+    if (!voxelGrid.terrainGridRepository) {
+        spdlog::warn("createVaporTerrainEntity: missing terrainGridRepository");
+        return entt::null;
+    }
     TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
     // Create a new water tile
     entt::entity newWaterEntity = registry.create();
     Position newPosition = {x, y, z, DirectionEnum::DOWN};
+    registry.emplace<Position>(newWaterEntity, newPosition);
 
     EntityTypeComponent newType = {};
     newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
@@ -1071,7 +1076,9 @@ inline void createWaterTerrainFromFall(entt::registry& registry, entt::dispatche
     voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z,
                                                                    newStructuralIntegrityComponent);
     voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
-    registry.emplace<Position>(newWaterEntity, newPosition);
+
+    int newTerrainId = static_cast<int>(newWaterEntity);
+    voxelGrid.terrainGridRepository->setTerrainId(x, y, z, newTerrainId);
 
     VoxelCoord key{newPosition.x, newPosition.y, newPosition.z};
     voxelGrid.terrainGridRepository->addToTrackingMaps(key, newWaterEntity);
@@ -1097,6 +1104,8 @@ inline void createWaterTerrainFromFall(entt::registry& registry, entt::dispatche
     //     }
     // }
     // throw std::runtime_error("createWaterTerrainFromFall  -> Just exploding for testing.");
+
+    return newWaterEntity;
 }
 
 /**
@@ -1217,7 +1226,7 @@ inline void createWaterTerrainBelowVapor(entt::registry& registry, entt::dispatc
     newPhysicsStats.maxSpeed = 10;
     newPhysicsStats.minSpeed = 0.0;
 
-    Velocity newVelocity = {};
+    // Velocity newVelocity = {};
 
     StructuralIntegrityComponent newStructuralIntegrityComponent = {};
     newStructuralIntegrityComponent.canStackEntities = false;
