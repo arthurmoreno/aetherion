@@ -40,6 +40,8 @@ class WorldInterface:
     last_state_response: bytes | None
 
     _start_world: Callable[[], tuple[World, BaseEntity]] | None = None
+    pre_update_handler: Callable[..., None] | None
+    post_update_handler: Callable[..., None] | None
 
     def __init__(self, world_instance_type: WorldInstanceTypes, world: World, fps: int = 30) -> None:
         self.connection_type: WorldInstanceTypes = world_instance_type
@@ -68,6 +70,8 @@ class WorldInterface:
             max_workers=max_workers,
             thread_name_prefix="lifesim-perception",
         )
+        self.pre_update_handler = None
+        self.post_update_handler = None
 
     @property
     def ticks(self) -> int:
@@ -86,6 +90,11 @@ class WorldInterface:
     def check_world(self) -> None:
         if self.world is None:
             raise RuntimeError("World is not initialized.")
+
+    def _registry_and_voxel_for_hooks(self) -> tuple[object, object]:
+        """Return (PyRegistry, VoxelGrid) for pre/post handlers; bound C++ methods not in static types."""
+        w = self.world
+        return w.get_py_registry(), w.get_voxel_grid()  # type: ignore[attr-defined]
 
     def get_ai_metadata(self) -> AIMetadataResponse | None:
         if self.world:
@@ -215,21 +224,24 @@ class WorldInterface:
         self.server_task = asyncio.create_task(self.server.start())
 
     def update_world(self):
-        """
-        To update the world and get creatures perceptions.
+        """Advance the simulation by one engine tick.
+
+        If set, ``pre_update_handler`` runs after ``check_world()`` and before ``world.update()``;
+        ``post_update_handler`` runs after ``world.update()`` returns. Each callback receives
+        ``(registry, voxel_grid)`` — the same pair passed to registered Python systems'
+        ``update`` method. Leave handlers as ``None`` to skip.
+
+        These hooks run outside the C++ ``registryMutex`` and may overlap async engine work;
+        use only from the main simulation thread unless you know the risks.
         """
         self.check_world()
+        if self.pre_update_handler is not None:
+            reg, vg = self._registry_and_voxel_for_hooks()
+            self.pre_update_handler(reg, vg)
         self.world.update()
-
-    # def get_next_world_state(self, optional_queries={}):
-    #     self.check_world()
-    #     # TODO: Now this needs to be a list of ids to gather the perception responses for.
-    #     response = update_world(self, self.player, optional_queries)
-
-    #     encoded_state = msgpack.packb(response)
-    #     self.last_state_response = encoded_state
-
-    #     return encoded_state
+        if self.post_update_handler is not None:
+            reg, vg = self._registry_and_voxel_for_hooks()
+            self.post_update_handler(reg, vg)
 
     def register_connected_entity(self, entity_id: int, name: str | None = None):
         self._connected_entities.add(entity_id)

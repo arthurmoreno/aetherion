@@ -66,17 +66,3 @@ def create_perception_multithread(world: World, entities_ids_with_queries, entit
             # response[response_key] = resp_value
 
     return response
-
-
-def update_world(world_interface, player: BeastEntity, optional_queries):
-    """
-    To update the world and get creatures perceptions.
-    """
-    # if not world_interface.world:
-    #     sleep(1)
-    #     return {}
-
-    world_interface.world.update()
-    # world_interface.player = look_for_player(world_interface.world, player)
-
-    # return create_perception_multithread(optional_queries, world_interface.world, player)
