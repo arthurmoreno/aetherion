@@ -35,4 +35,3 @@ class WorldInterfaceProtocol(Protocol):
         entities_ids_with_queries: Any,
         entities_ids_connection_names: Any,
     ) -> Awaitable[bytes | None]: ...
-
