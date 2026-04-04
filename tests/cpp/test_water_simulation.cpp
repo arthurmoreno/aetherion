@@ -32,6 +32,10 @@ public:
     int getWaterMinimumUnits() const { return 100; }
     float getEvaporationCoefficient() const { return 0.1f; }
     float getHeatToWaterEvaporation() const { return 10.0f; }
+    bool getSimulateVaporCondensation() const { return true; }
+    bool getSimulateVaporMovement() const { return true; }
+    bool getSimulateWaterMovement() const { return true; }
+    bool getSimulateWaterEvaporation() const { return true; }
     
 private:
     MockPhysicsManager() = default;

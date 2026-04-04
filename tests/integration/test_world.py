@@ -271,3 +271,36 @@ class TestWorldUsage:
             assert hasattr(world, method_name), f"World missing method: {method_name}"
             method = getattr(world, method_name)
             assert callable(method), f"World.{method_name} is not callable"
+
+
+class TestWorldWaterSimulationToggles:
+    """Tests for water simulation phase toggles exposed on World."""
+
+    def test_toggle_properties_exist(self):
+        world = World(3, 3, 3)
+        toggle_names = [
+            "simulate_vapor_condensation",
+            "simulate_vapor_movement",
+            "simulate_water_movement",
+            "simulate_water_evaporation",
+        ]
+        for name in toggle_names:
+            assert hasattr(world, name), f"World missing property: {name}"
+
+    def test_defaults_are_all_on(self):
+        world = World(3, 3, 3)
+        assert world.simulate_vapor_condensation is True
+        assert world.simulate_vapor_movement is True
+        assert world.simulate_water_movement is True
+        assert world.simulate_water_evaporation is True
+
+    def test_round_trip_toggle(self):
+        world = World(3, 3, 3)
+
+        world.simulate_vapor_condensation = False
+        assert world.simulate_vapor_condensation is False
+        world.simulate_vapor_condensation = True
+
+        world.simulate_water_movement = False
+        assert world.simulate_water_movement is False
+        world.simulate_water_movement = True

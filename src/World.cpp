@@ -1,5 +1,7 @@
 #include "World.hpp"
 
+#include "physics/PhysicsManager.hpp"
+
 // #include <pybind11/stl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -1120,4 +1122,33 @@ bool World::hasWaterSimErrors() const {
         return ecosystemEngine->waterSimManager_->hasEncounteredCriticalError();
     }
     return false;
+}
+
+// Water simulation phase toggles
+bool World::getSimulateVaporCondensation() const {
+    return PhysicsManager::Instance()->getSimulateVaporCondensation();
+}
+void World::setSimulateVaporCondensation(bool value) {
+    PhysicsManager::Instance()->setSimulateVaporCondensation(value);
+}
+
+bool World::getSimulateVaporMovement() const {
+    return PhysicsManager::Instance()->getSimulateVaporMovement();
+}
+void World::setSimulateVaporMovement(bool value) {
+    PhysicsManager::Instance()->setSimulateVaporMovement(value);
+}
+
+bool World::getSimulateWaterMovement() const {
+    return PhysicsManager::Instance()->getSimulateWaterMovement();
+}
+void World::setSimulateWaterMovement(bool value) {
+    PhysicsManager::Instance()->setSimulateWaterMovement(value);
+}
+
+bool World::getSimulateWaterEvaporation() const {
+    return PhysicsManager::Instance()->getSimulateWaterEvaporation();
+}
+void World::setSimulateWaterEvaporation(bool value) {
+    PhysicsManager::Instance()->setSimulateWaterEvaporation(value);
 }

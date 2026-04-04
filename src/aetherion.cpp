@@ -626,6 +626,18 @@ NB_MODULE(_aetherion, m) {
         .def_prop_rw("process_ecosystem_async",
                      [](const World& w) { return w.getProcessEcosystemAsync(); },
                      [](World& w, bool v) { w.setProcessEcosystemAsync(v); })
+        .def_prop_rw("simulate_vapor_condensation",
+                     [](const World& w) { return w.getSimulateVaporCondensation(); },
+                     [](World& w, bool v) { w.setSimulateVaporCondensation(v); })
+        .def_prop_rw("simulate_vapor_movement",
+                     [](const World& w) { return w.getSimulateVaporMovement(); },
+                     [](World& w, bool v) { w.setSimulateVaporMovement(v); })
+        .def_prop_rw("simulate_water_movement",
+                     [](const World& w) { return w.getSimulateWaterMovement(); },
+                     [](World& w, bool v) { w.setSimulateWaterMovement(v); })
+        .def_prop_rw("simulate_water_evaporation",
+                     [](const World& w) { return w.getSimulateWaterEvaporation(); },
+                     [](World& w, bool v) { w.setSimulateWaterEvaporation(v); })
         .def("initialize_voxel_grid", &World::initializeVoxelGrid)
         .def("set_voxel", &World::setVoxel)
         .def("get_voxel", &World::getVoxel)
@@ -783,7 +795,15 @@ NB_MODULE(_aetherion, m) {
         .def("set_water_minimum_units", &PhysicsSettings::setWaterMinimumUnits)
         .def("get_gravity", &PhysicsSettings::getGravity)
         .def("get_friction", &PhysicsSettings::getFriction)
-        .def("get_allow_multi_direction", &PhysicsSettings::getAllowMultiDirection);
+        .def("get_allow_multi_direction", &PhysicsSettings::getAllowMultiDirection)
+        .def("set_simulate_vapor_condensation", &PhysicsSettings::setSimulateVaporCondensation)
+        .def("set_simulate_vapor_movement", &PhysicsSettings::setSimulateVaporMovement)
+        .def("set_simulate_water_movement", &PhysicsSettings::setSimulateWaterMovement)
+        .def("set_simulate_water_evaporation", &PhysicsSettings::setSimulateWaterEvaporation)
+        .def("get_simulate_vapor_condensation", &PhysicsSettings::getSimulateVaporCondensation)
+        .def("get_simulate_vapor_movement", &PhysicsSettings::getSimulateVaporMovement)
+        .def("get_simulate_water_movement", &PhysicsSettings::getSimulateWaterMovement)
+        .def("get_simulate_water_evaporation", &PhysicsSettings::getSimulateWaterEvaporation);
 
     nb::enum_<DirectionEnum>(m, "DirectionEnum")
         .value("UP", DirectionEnum::UP)

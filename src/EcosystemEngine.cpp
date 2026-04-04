@@ -1119,14 +1119,18 @@ void moveVapor(entt::registry& registry, VoxelGrid& voxelGrid, entt::dispatcher&
 
     // Condensation Logic for Vapor
     const int condensationThreshold = 16;
-    if (matterContainer.WaterVapor >= condensationThreshold) {
+    if (PhysicsManager::Instance()->getSimulateVaporCondensation() &&
+        matterContainer.WaterVapor >= condensationThreshold) {
         spdlog::get("console")->debug(
             "[moveVapor] Vapor at (" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " +
             std::to_string(pos.z) + ") reached condensation threshold with WaterVapor = " +
             std::to_string(matterContainer.WaterVapor) + "; initiating condensation.");
-        // TODO: Uncomment when ready.
         condenseVapor(registry, voxelGrid, dispatcher, pos, type, matterContainer);
         return;  // Condensation happened, exit the function
+    }
+
+    if (!PhysicsManager::Instance()->getSimulateVaporMovement()) {
+        return;
     }
 
     std::ostringstream ossMessage;
@@ -1299,13 +1303,19 @@ void processTileWater(int x, int y, int z, entt::registry& registry, VoxelGrid& 
             //           isGrassWithWater << ")"
             //           << " actionPerformed: " << actionPerformed << " -- Entity "
             //           << entity_id_for_print << " at (" << x << ", " << y << ", " << z << ")\n";
-            // Create a list of action identifiers
-            std::vector<int> actions = {1, 2};  // 1: Movement, 2: Evaporation
+            // Build the action list based on which phases are enabled
+            std::vector<int> actions;
+            if (PhysicsManager::Instance()->getSimulateWaterMovement()) {
+                actions.push_back(1);  // Movement
+            }
+            if (PhysicsManager::Instance()->getSimulateWaterEvaporation()) {
+                actions.push_back(2);  // Evaporation
+            }
 
-            // Shuffle the actions to randomize their order
-            std::shuffle(actions.begin(), actions.end(), gen);
+            if (actions.size() > 1) {
+                std::shuffle(actions.begin(), actions.end(), gen);
+            }
 
-            // Iterate through the actions in random order
             for (int action : actions) {
                 if (actionPerformed) {
                     break;

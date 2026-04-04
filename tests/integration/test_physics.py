@@ -29,3 +29,76 @@ def test_physics_settings():
     assert settings.get_gravity() == pytest.approx(9.8)
     assert settings.get_friction() == pytest.approx(0.5)
     assert settings.get_allow_multi_direction() is True
+
+
+class TestWaterSimulationToggles:
+    """Tests for the water simulation phase toggles on PhysicsSettings."""
+
+    def _reset_toggles(self, settings: PhysicsSettings) -> None:
+        settings.set_simulate_vapor_condensation(True)
+        settings.set_simulate_vapor_movement(True)
+        settings.set_simulate_water_movement(True)
+        settings.set_simulate_water_evaporation(True)
+
+    def test_defaults_are_all_on(self):
+        settings = PhysicsSettings()
+        self._reset_toggles(settings)
+
+        assert settings.get_simulate_vapor_condensation() is True
+        assert settings.get_simulate_vapor_movement() is True
+        assert settings.get_simulate_water_movement() is True
+        assert settings.get_simulate_water_evaporation() is True
+
+    def test_toggle_vapor_condensation(self):
+        settings = PhysicsSettings()
+        self._reset_toggles(settings)
+
+        settings.set_simulate_vapor_condensation(False)
+        assert settings.get_simulate_vapor_condensation() is False
+
+        settings.set_simulate_vapor_condensation(True)
+        assert settings.get_simulate_vapor_condensation() is True
+
+    def test_toggle_vapor_movement(self):
+        settings = PhysicsSettings()
+        self._reset_toggles(settings)
+
+        settings.set_simulate_vapor_movement(False)
+        assert settings.get_simulate_vapor_movement() is False
+
+        settings.set_simulate_vapor_movement(True)
+        assert settings.get_simulate_vapor_movement() is True
+
+    def test_toggle_water_movement(self):
+        settings = PhysicsSettings()
+        self._reset_toggles(settings)
+
+        settings.set_simulate_water_movement(False)
+        assert settings.get_simulate_water_movement() is False
+
+        settings.set_simulate_water_movement(True)
+        assert settings.get_simulate_water_movement() is True
+
+    def test_toggle_water_evaporation(self):
+        settings = PhysicsSettings()
+        self._reset_toggles(settings)
+
+        settings.set_simulate_water_evaporation(False)
+        assert settings.get_simulate_water_evaporation() is False
+
+        settings.set_simulate_water_evaporation(True)
+        assert settings.get_simulate_water_evaporation() is True
+
+    def test_toggles_are_independent(self):
+        settings = PhysicsSettings()
+        self._reset_toggles(settings)
+
+        settings.set_simulate_vapor_condensation(False)
+        settings.set_simulate_water_movement(False)
+
+        assert settings.get_simulate_vapor_condensation() is False
+        assert settings.get_simulate_vapor_movement() is True
+        assert settings.get_simulate_water_movement() is False
+        assert settings.get_simulate_water_evaporation() is True
+
+        self._reset_toggles(settings)
