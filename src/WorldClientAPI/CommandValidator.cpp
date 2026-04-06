@@ -15,6 +15,10 @@ void CommandRegistry::registerHandlers() {
       std::make_unique<GetLifeStatisticsHandler>();
   handlers_[std::string(CommandConstants::MOVE)] =
       std::make_unique<MoveCommandHandler>();
+  handlers_[std::string(CommandConstants::QUERY_GET_ENTITY)] =
+      std::make_unique<GetEntityHandler>();
+  handlers_[std::string(CommandConstants::QUERY_GET_TERRAIN)] =
+      std::make_unique<GetTerrainHandler>();
 }
 
 ICommandHandler *

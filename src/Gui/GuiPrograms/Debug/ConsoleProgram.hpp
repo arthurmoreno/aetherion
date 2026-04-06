@@ -12,6 +12,8 @@
 
 #include "../../GuiCore/GuiProgram.hpp"
 #include "../../TerminalPrograms/ClearCommand.hpp"
+#include "../../TerminalPrograms/GetEntityCommand.hpp"
+#include "../../TerminalPrograms/GetTerrainCommand.hpp"
 #include "../../TerminalPrograms/HelpCommand.hpp"
 #include "../../TerminalPrograms/HistoryCommand.hpp"
 #include "../../TerminalPrograms/QueueCommand.hpp"
@@ -68,6 +70,24 @@ public:
     ImGui::BeginChild("TerminalScrollRegion",
                       ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), false,
                       ImGuiWindowFlags_HorizontalScrollbar);
+
+    // Poll context.consoleLogs for new entries (e.g. entity query responses)
+    {
+      size_t currentSize = static_cast<size_t>(context.consoleLogs.size());
+      if (currentSize < consoleLogs_lastIdx_) {
+        consoleLogs_lastIdx_ = 0;
+      }
+      while (consoleLogs_lastIdx_ < currentSize) {
+        try {
+          std::string entry =
+              nb::cast<std::string>(context.consoleLogs[consoleLogs_lastIdx_]);
+          addOutput(entry, false, false);
+          scrollToBottom_ = true;
+        } catch (...) {
+        }
+        ++consoleLogs_lastIdx_;
+      }
+    }
 
     // Render terminal buffer (command history and output)
     for (const auto &line : terminalBuffer_) {
@@ -153,6 +173,7 @@ private:
   std::deque<TerminalLine> terminalBuffer_; // Terminal output buffer
   bool scrollToBottom_ = false;             // Flag to trigger auto-scroll
   bool reclaimFocus_ = false;               // Flag to reclaim input focus
+  size_t consoleLogs_lastIdx_ = 0;          // Track consoleLogs read position
   static constexpr size_t MAX_TERMINAL_LINES =
       1000; // Maximum lines in terminal buffer
 
@@ -170,6 +191,8 @@ private:
     auto helpCmd = std::make_shared<HelpCommand>();
     auto historyCmd = std::make_shared<HistoryCommand>();
     auto queueCmd = std::make_shared<QueueCommand>();
+    auto getEntityCmd = std::make_shared<GetEntityCommand>();
+    auto getTerrainCmd = std::make_shared<GetTerrainCommand>();
 
     // Set up command references
     historyCmd->setHistory(&history_);
@@ -179,9 +202,12 @@ private:
     commands_["help"] = helpCmd;
     commands_["history"] = historyCmd;
     commands_["queue"] = queueCmd;
+    commands_["get_entity"] = getEntityCmd;
+    commands_["get_terrain"] = getTerrainCmd;
 
     // Build command list for help display
-    commandList_ = {clearCmd, helpCmd, historyCmd, queueCmd};
+    commandList_ = {clearCmd, helpCmd,      historyCmd,
+                    queueCmd, getEntityCmd, getTerrainCmd};
     helpCmd->setCommands(commandList_);
   }
 
@@ -280,18 +306,27 @@ private:
     history_.push_back(commandStr);
     historyPos_ = -1;
 
-    // Handle built-in commands using command handlers
-    auto it = commands_.find(commandStr);
+    // Parse first token as command name for lookup
+    std::istringstream iss(commandStr);
+    std::string cmdName;
+    iss >> cmdName;
+
+    // Handle registered commands using command handlers
+    auto it = commands_.find(cmdName);
     if (it != commands_.end()) {
+      std::vector<std::string> tokens;
+      std::string tok;
+      while (iss >> tok) {
+        tokens.push_back(tok);
+      }
+      it->second->setTokens(tokens);
       it->second->execute(context, terminalBuffer_, scrollToBottom_);
       return;
     }
 
-    // Parse and execute custom command
+    // Parse and execute custom command (key=value format)
     try {
-      std::istringstream iss(commandStr);
-      std::string type;
-      iss >> type;
+      std::string type = cmdName;
 
       nb::dict params;
       std::string paramPair;

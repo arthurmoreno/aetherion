@@ -6,8 +6,8 @@
 
 void _processOptionalQueries(const std::vector<QueryCommand> &commands,
                              PerceptionResponse &response,
-                             entt::registry &registry,
-                             GameDBHandler *dbHandler) {
+                             entt::registry &registry, GameDBHandler *dbHandler,
+                             VoxelGrid *voxelGrid) {
   // Create command registry
   static CommandRegistry commandRegistry;
 
@@ -21,7 +21,7 @@ void _processOptionalQueries(const std::vector<QueryCommand> &commands,
       std::string errorMsg;
       if (handler->validate(cmd, errorMsg)) {
         // Execute the command
-        handler->execute(cmd, response, registry, dbHandler);
+        handler->execute(cmd, response, registry, dbHandler, voxelGrid);
       } else {
         std::cerr << "Error: Command validation failed for '" << cmd.type
                   << "': " << errorMsg << std::endl;

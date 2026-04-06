@@ -6,13 +6,17 @@
 #include "../components/EntityTypeComponent.hpp"
 #include "../components/HealthComponents.hpp"
 #include "../components/MetabolismComponents.hpp"
+#include "../components/PhysicsComponents.hpp"
+#include "../components/TerrainComponents.hpp"
+#include "../voxelgrid/VoxelGrid.hpp"
 #include "CommandConstants.hpp"
 
 // QueryEntitiesDataHandler implementation
 void QueryEntitiesDataHandler::execute(const QueryCommand &cmd,
                                        PerceptionResponse &response,
                                        entt::registry &registry,
-                                       GameDBHandler *dbHandler) {
+                                       GameDBHandler *dbHandler,
+                                       VoxelGrid * /*voxelGrid*/) {
   auto it =
       cmd.params.find(std::string(CommandConstants::Params::ENTITY_TYPE_ID));
   if (it == cmd.params.end()) {
@@ -66,7 +70,8 @@ bool QueryEntitiesDataHandler::validate(const QueryCommand &cmd,
 void GetAIStatisticsHandler::execute(const QueryCommand &cmd,
                                      PerceptionResponse &response,
                                      entt::registry &registry,
-                                     GameDBHandler *dbHandler) {
+                                     GameDBHandler *dbHandler,
+                                     VoxelGrid * /*voxelGrid*/) {
   auto itStart = cmd.params.find(std::string(CommandConstants::Params::START));
   long long start = 0;
   if (itStart != cmd.params.end()) {
@@ -136,7 +141,8 @@ void GetAIStatisticsHandler::addTimeSeriesDataToResponse(
 void GetPhysicsStatisticsHandler::execute(const QueryCommand &cmd,
                                           PerceptionResponse &response,
                                           entt::registry &registry,
-                                          GameDBHandler *dbHandler) {
+                                          GameDBHandler *dbHandler,
+                                          VoxelGrid * /*voxelGrid*/) {
   auto itStart = cmd.params.find(std::string(CommandConstants::Params::START));
   long long start = 0;
   if (itStart != cmd.params.end()) {
@@ -225,7 +231,8 @@ void GetPhysicsStatisticsHandler::addTimeSeriesDataToResponse(
 void GetLifeStatisticsHandler::execute(const QueryCommand &cmd,
                                        PerceptionResponse &response,
                                        entt::registry &registry,
-                                       GameDBHandler *dbHandler) {
+                                       GameDBHandler *dbHandler,
+                                       VoxelGrid * /*voxelGrid*/) {
   auto itStart = cmd.params.find(std::string(CommandConstants::Params::START));
   long long start = 0;
   if (itStart != cmd.params.end()) {
@@ -295,7 +302,8 @@ void GetLifeStatisticsHandler::addTimeSeriesDataToResponse(
 void MoveCommandHandler::execute(const QueryCommand &cmd,
                                  PerceptionResponse &response,
                                  entt::registry &registry,
-                                 GameDBHandler *dbHandler) {
+                                 GameDBHandler *dbHandler,
+                                 VoxelGrid * /*voxelGrid*/) {
   int x = 0, y = 0;
 
   auto itx = cmd.params.find(std::string(CommandConstants::Params::X));
@@ -316,5 +324,149 @@ void MoveCommandHandler::execute(const QueryCommand &cmd,
 bool MoveCommandHandler::validate(const QueryCommand &cmd,
                                   std::string &errorMsg) const {
   // Optional parameters, so always valid
+  return true;
+}
+
+// GetEntityHandler implementation
+void GetEntityHandler::execute(const QueryCommand &cmd,
+                               PerceptionResponse &response,
+                               entt::registry &registry,
+                               GameDBHandler *dbHandler,
+                               VoxelGrid * /*voxelGrid*/) {
+  int x = std::stoi(cmd.params.at(std::string(CommandConstants::Params::X)));
+  int y = std::stoi(cmd.params.at(std::string(CommandConstants::Params::Y)));
+  int z = std::stoi(cmd.params.at(std::string(CommandConstants::Params::Z)));
+
+  auto mapOfMapsResponse = std::make_shared<MapOfMapsResponse>();
+
+  auto view = registry.view<Position>();
+  bool found = false;
+
+  for (auto entity : view) {
+    const auto &pos = view.get<Position>(entity);
+    if (pos.x == x && pos.y == y && pos.z == z) {
+      int entityId = static_cast<int>(entity);
+      std::string idStr = std::to_string(entityId);
+
+      std::map<std::string, std::string> fields;
+      fields["ID"] = idStr;
+      fields["Position"] = "(" + std::to_string(pos.x) + ", " +
+                           std::to_string(pos.y) + ", " +
+                           std::to_string(pos.z) + ")";
+
+      if (registry.all_of<EntityTypeComponent>(entity)) {
+        const auto &typeComp = registry.get<EntityTypeComponent>(entity);
+        fields["EntityType"] = std::to_string(typeComp.mainType) + "/" +
+                               std::to_string(typeComp.subType0);
+      }
+
+      if (registry.all_of<Velocity>(entity)) {
+        const auto &vel = registry.get<Velocity>(entity);
+        fields["Velocity"] = "(" + std::to_string(vel.vx) + ", " +
+                             std::to_string(vel.vy) + ", " +
+                             std::to_string(vel.vz) + ")";
+      }
+
+      if (registry.all_of<HealthComponent>(entity)) {
+        const auto &healthComp = registry.get<HealthComponent>(entity);
+        fields["Health"] = std::to_string(healthComp.healthLevel);
+      }
+
+      mapOfMapsResponse->mapOfMaps[idStr] = std::move(fields);
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) {
+    mapOfMapsResponse->mapOfMaps["no_entity"] = {
+        {"Message", "No entity found at (" + std::to_string(x) + ", " +
+                        std::to_string(y) + ", " + std::to_string(z) + ")"}};
+  }
+
+  response.queryResponses.emplace(
+      CommandConstants::QUERY_GET_ENTITY_RESPONSE_ID, mapOfMapsResponse);
+}
+
+bool GetEntityHandler::validate(const QueryCommand &cmd,
+                                std::string &errorMsg) const {
+  if (cmd.params.find(std::string(CommandConstants::Params::X)) ==
+          cmd.params.end() ||
+      cmd.params.find(std::string(CommandConstants::Params::Y)) ==
+          cmd.params.end() ||
+      cmd.params.find(std::string(CommandConstants::Params::Z)) ==
+          cmd.params.end()) {
+    errorMsg = "Missing required parameters 'x', 'y', 'z'";
+    return false;
+  }
+  return true;
+}
+
+// GetTerrainHandler implementation
+void GetTerrainHandler::execute(const QueryCommand &cmd,
+                                PerceptionResponse &response,
+                                entt::registry &registry,
+                                GameDBHandler * /*dbHandler*/,
+                                VoxelGrid *voxelGrid) {
+  int x = std::stoi(cmd.params.at(std::string(CommandConstants::Params::X)));
+  int y = std::stoi(cmd.params.at(std::string(CommandConstants::Params::Y)));
+  int z = std::stoi(cmd.params.at(std::string(CommandConstants::Params::Z)));
+
+  auto mapOfMapsResponse = std::make_shared<MapOfMapsResponse>();
+
+  if (!voxelGrid->checkIfTerrainExists(x, y, z)) {
+    mapOfMapsResponse->mapOfMaps["no_terrain"] = {
+        {"Message", "No terrain found at (" + std::to_string(x) + ", " +
+                        std::to_string(y) + ", " + std::to_string(z) + ")"}};
+  } else {
+    int realTerrainId = voxelGrid->getTerrain(x, y, z);
+
+    EntityTypeComponent terrainEtc =
+        voxelGrid->getTerrainEntityTypeComponent(x, y, z);
+    Position pos = voxelGrid->terrainGridRepository->getPosition(x, y, z);
+    MatterContainer matterContainer =
+        voxelGrid->terrainGridRepository->getTerrainMatterContainer(x, y, z);
+
+    std::map<std::string, std::string> fields;
+    fields["RealEntityID"] = std::to_string(realTerrainId);
+    fields["EntityTypeMain"] = std::to_string(terrainEtc.mainType);
+    fields["EntityTypeSub0"] = std::to_string(terrainEtc.subType0);
+    fields["EntityTypeSub1"] = std::to_string(terrainEtc.subType1);
+    fields["Position"] = "(" + std::to_string(pos.x) + ", " +
+                         std::to_string(pos.y) + ", " + std::to_string(pos.z) +
+                         ")";
+    fields["TerrainMatter"] = std::to_string(matterContainer.TerrainMatter);
+    fields["WaterMatter"] = std::to_string(matterContainer.WaterMatter);
+    fields["WaterVapor"] = std::to_string(matterContainer.WaterVapor);
+    fields["BioMassMatter"] = std::to_string(matterContainer.BioMassMatter);
+
+    if (realTerrainId > 0) {
+      entt::entity terrainEntity = static_cast<entt::entity>(realTerrainId);
+      if (registry.valid(terrainEntity) &&
+          registry.all_of<TileEffectsList>(terrainEntity)) {
+        const TileEffectsList &tel =
+            registry.get<TileEffectsList>(terrainEntity);
+        fields["TileEffectsCount"] = std::to_string(tel.tileEffectsIDs.size());
+      }
+    }
+
+    mapOfMapsResponse->mapOfMaps["terrain"] = std::move(fields);
+  }
+
+  response.queryResponses.emplace(
+      CommandConstants::QUERY_GET_TERRAIN_RESPONSE_ID, mapOfMapsResponse);
+}
+
+bool GetTerrainHandler::validate(const QueryCommand &cmd,
+                                 std::string &errorMsg) const {
+  if (cmd.params.find(std::string(CommandConstants::Params::X)) ==
+          cmd.params.end() ||
+      cmd.params.find(std::string(CommandConstants::Params::Y)) ==
+          cmd.params.end() ||
+      cmd.params.find(std::string(CommandConstants::Params::Z)) ==
+          cmd.params.end()) {
+    errorMsg = "Missing required parameters 'x', 'y', 'z'";
+    return false;
+  }
   return true;
 }

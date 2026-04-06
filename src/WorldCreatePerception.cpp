@@ -18,7 +18,8 @@ computePerceptionArea(const Position &pos,
 
 void World::processOptionalQueries(const std::vector<QueryCommand> &commands,
                                    PerceptionResponse &response) {
-  _processOptionalQueries(commands, response, registry, dbHandler.get());
+  _processOptionalQueries(commands, response, registry, dbHandler.get(),
+                          voxelGrid);
 }
 
 // ---------------------------------------------------------------------------

@@ -12,13 +12,14 @@
 #include "QueryCommand.hpp"
 #include "QueryResponse.hpp"
 #include "entt/entt.hpp"
+#include "voxelgrid/VoxelGrid.hpp"
 
 // Main function to process optional queries
 // This function is decoupled from the World class and requires explicit context
 // passing
 void _processOptionalQueries(const std::vector<QueryCommand> &commands,
                              PerceptionResponse &response,
-                             entt::registry &registry,
-                             GameDBHandler *dbHandler);
+                             entt::registry &registry, GameDBHandler *dbHandler,
+                             VoxelGrid *voxelGrid);
 
 #endif // PROCESS_OPTIONAL_QUERIES_HPP

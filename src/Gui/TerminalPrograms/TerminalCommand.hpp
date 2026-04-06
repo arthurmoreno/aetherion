@@ -4,6 +4,7 @@
 
 #include <deque>
 #include <string>
+#include <vector>
 
 namespace nb = nanobind;
 
@@ -39,6 +40,14 @@ public:
   virtual void execute(GuiContext &context,
                        std::deque<TerminalLine> &terminalBuffer,
                        bool &scrollToBottom) = 0;
+
+  /**
+   * @brief Set positional tokens parsed from the command line
+   *
+   * Called before execute() when the command was invoked with arguments.
+   * Default implementation is a no-op for commands that take no arguments.
+   */
+  virtual void setTokens(const std::vector<std::string> & /*tokens*/) {}
 
   /**
    * @brief Get the command name
