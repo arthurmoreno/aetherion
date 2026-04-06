@@ -12,6 +12,7 @@ inline const std::string GET_PHYSICS_STATISTICS = "get_physics_statistics";
 inline const std::string GET_LIFE_STATISTICS = "get_life_statistics";
 inline const std::string MOVE = "move";
 inline const std::string QUERY_GET_ENTITY = "query_get_entity";
+inline const std::string QUERY_GET_TERRAIN = "query_get_terrain";
 
 // Response ID constants
 constexpr int QUERY_ENTITIES_DATA_RESPONSE_ID = 1;
@@ -19,6 +20,7 @@ constexpr int GET_AI_STATISTICS_RESPONSE_ID = 2;
 constexpr int GET_PHYSICS_STATISTICS_RESPONSE_ID = 3;
 constexpr int GET_LIFE_STATISTICS_RESPONSE_ID = 4;
 constexpr int QUERY_GET_ENTITY_RESPONSE_ID = 5;
+constexpr int QUERY_GET_TERRAIN_RESPONSE_ID = 6;
 
 // Parameter name constants
 namespace Params {

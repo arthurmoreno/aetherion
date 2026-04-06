@@ -13,6 +13,7 @@
 #include "../../GuiCore/GuiProgram.hpp"
 #include "../../TerminalPrograms/ClearCommand.hpp"
 #include "../../TerminalPrograms/GetEntityCommand.hpp"
+#include "../../TerminalPrograms/GetTerrainCommand.hpp"
 #include "../../TerminalPrograms/HelpCommand.hpp"
 #include "../../TerminalPrograms/HistoryCommand.hpp"
 #include "../../TerminalPrograms/QueueCommand.hpp"
@@ -191,6 +192,7 @@ private:
     auto historyCmd = std::make_shared<HistoryCommand>();
     auto queueCmd = std::make_shared<QueueCommand>();
     auto getEntityCmd = std::make_shared<GetEntityCommand>();
+    auto getTerrainCmd = std::make_shared<GetTerrainCommand>();
 
     // Set up command references
     historyCmd->setHistory(&history_);
@@ -201,9 +203,11 @@ private:
     commands_["history"] = historyCmd;
     commands_["queue"] = queueCmd;
     commands_["get_entity"] = getEntityCmd;
+    commands_["get_terrain"] = getTerrainCmd;
 
     // Build command list for help display
-    commandList_ = {clearCmd, helpCmd, historyCmd, queueCmd, getEntityCmd};
+    commandList_ = {clearCmd, helpCmd,      historyCmd,
+                    queueCmd, getEntityCmd, getTerrainCmd};
     helpCmd->setCommands(commandList_);
   }
 

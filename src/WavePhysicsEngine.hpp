@@ -12,7 +12,6 @@
 #include "voxelgrid/VoxelGrid.hpp"
 
 // Forward declarations
-class VoxelGrid;
 
 // Wave types for different behaviors
 enum class WaveType {
