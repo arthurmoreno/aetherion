@@ -130,6 +130,8 @@ public:
   void setSimulateWaterMovement(bool value);
   bool getSimulateWaterEvaporation() const;
   void setSimulateWaterEvaporation(bool value);
+  bool getWaterAutoBalancing() const;
+  void setWaterAutoBalancing(bool value);
 
   // Water simulation error handling
   std::vector<ThreadError> getWaterSimErrors() const;

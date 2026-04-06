@@ -725,6 +725,10 @@ NB_MODULE(_aetherion, m) {
           "simulate_water_evaporation",
           [](const World &w) { return w.getSimulateWaterEvaporation(); },
           [](World &w, bool v) { w.setSimulateWaterEvaporation(v); })
+      .def_prop_rw(
+          "water_auto_balancing",
+          [](const World &w) { return w.getWaterAutoBalancing(); },
+          [](World &w, bool v) { w.setWaterAutoBalancing(v); })
       .def("initialize_voxel_grid", &World::initializeVoxelGrid)
       .def("set_voxel", &World::setVoxel)
       .def("get_voxel", &World::getVoxel)

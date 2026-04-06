@@ -33,6 +33,7 @@ public:
       static bool simVaporMovement = physics->getSimulateVaporMovement();
       static bool simWaterMovement = physics->getSimulateWaterMovement();
       static bool simWaterEvaporation = physics->getSimulateWaterEvaporation();
+      static bool simWaterAutoBalancing = physics->getWaterAutoBalancing();
 
       if (ImGui::InputFloat("Gravity (m/s²)", &gravity)) {
         physics->setGravity(gravity);
@@ -71,6 +72,9 @@ public:
       if (ImGui::Checkbox("Water Evaporation", &simWaterEvaporation)) {
         physics->setSimulateWaterEvaporation(simWaterEvaporation);
       }
+      if (ImGui::Checkbox("Water Auto-Balancing", &simWaterAutoBalancing)) {
+        physics->setWaterAutoBalancing(simWaterAutoBalancing);
+      }
 
       // Reset button
       if (ImGui::Button("Reset to Defaults")) {
@@ -88,6 +92,8 @@ public:
         simVaporMovement = true;
         simWaterMovement = true;
         simWaterEvaporation = true;
+        physics->setWaterAutoBalancing(true);
+        simWaterAutoBalancing = true;
       }
 
       // Update context with current values
