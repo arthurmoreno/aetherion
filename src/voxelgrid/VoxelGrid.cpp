@@ -201,6 +201,23 @@ bool VoxelGrid::setTerrainEntityTypeComponent(
   return false; // Return false if not found
 }
 
+MatterContainer VoxelGrid::getTerrainMatterContainerComponent(int x, int y,
+                                                              int z) const {
+  if (terrainGridRepository) {
+    return terrainGridRepository->getTerrainMatterContainer(x, y, z);
+  }
+  return MatterContainer{};
+}
+
+bool VoxelGrid::setTerrainMatterContainerComponent(
+    int x, int y, int z, const MatterContainer &component) const {
+  if (terrainGridRepository) {
+    terrainGridRepository->setTerrainMatterContainer(x, y, z, component);
+    return true;
+  }
+  return false;
+}
+
 // void VoxelGrid::setTerrainFromEntt(entt::entity entity) {
 //     if (terrainGridRepository) {
 //         terrainGridRepository->setTerrainFromEntt(entity);

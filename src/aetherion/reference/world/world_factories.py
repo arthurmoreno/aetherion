@@ -147,6 +147,99 @@ class PyramidWorldFactory(WorldFactory):
             world.create_entity(grass)
 
 
+def trapezium_column_top_z(x: int, width: int, depth: int) -> int:
+    """Highest filled z index for column ``x`` in the left-to-right trapezium mountain.
+
+    Column ``x=0`` is tallest (``depth - 1``); height decreases monotonically toward ``+x``.
+    """
+    if depth <= 0:
+        return -1
+    if width <= 1:
+        return max(0, depth - 1)
+    numer = (depth - 1) * (width - 1 - x)
+    den = width - 1
+    return max(0, min(depth - 1, numer // den))
+
+
+class MountainSideWorldFactory(WorldFactory):
+    """Stepped trapezium in the x–z plane: high on the left, low on the right (full y extent)."""
+
+    pause_debug = False
+
+    def draw_trapezium_mountain(self, tile_matrix: np.ndarray) -> np.ndarray:
+        tile_matrix[:] = "empty"
+
+        for x in range(self.width):
+            top_z = trapezium_column_top_z(x, self.width, self.depth)
+            if top_z < 0:
+                continue
+            tile_matrix[x, :, 0 : top_z + 1] = "full_block"
+
+        return tile_matrix
+
+    def mark_ramps(self, tile_matrix: np.ndarray) -> np.ndarray:
+        """Tag step-border voxels as ramp_east where the column drops by exactly 1 toward +x."""
+        for x in range(self.width - 1):
+            top_z_current = trapezium_column_top_z(x, self.width, self.depth)
+            top_z_next = trapezium_column_top_z(x + 1, self.width, self.depth)
+            if top_z_current - top_z_next == 1:
+                tile_matrix[x, :, top_z_current] = "ramp_east"
+        return tile_matrix
+
+    @override
+    def generate_world(self) -> World:
+        _world = self.create_world()
+
+        heightmap_2d = generate_heightmap(self.width, self.height, self.depth)
+
+        tile_matrix = np.empty((self.width, self.height, self.depth), dtype=object)
+        self.final_processed_map = self.mark_ramps(self.draw_trapezium_mountain(tile_matrix))
+
+        descent_gx, descent_gy, _gradient_magnitude = compute_gradient_descent(heightmap_2d)
+        self.gradient_descent_gx, self.gradient_descent_gy = fill_missing_vectors(descent_gx, descent_gy)
+        self.entities_state_views = {}
+        self.entity_id_counter = 1
+        self.aeolus_entity = None
+        self.perception_thread = None
+
+        self.init_world_grid(_world)
+
+        logger.info("Finished mountain-side world initialization.")
+
+        return _world
+
+    def init_world_grid(self, world: World) -> None:
+        for i in range(self.width):
+            for j in range(self.height):
+                for k in range(self.depth):
+                    self.create_terrain_node(world, i, j, k)
+
+    def create_terrain_node(self, world: World, x: int, y: int, z: int) -> None:
+        cell = self.final_processed_map[x, y, z]
+        if cell == "full_block":
+            grass = ReferenceGrass(
+                x,
+                y,
+                z,
+                TerrainVariantEnum.FULL.value,
+                DirectionEnum.RIGHT,
+                gradient_descent_gx=self.gradient_descent_gx[x, y],
+                gradient_descent_gy=self.gradient_descent_gy[x, y],
+            )
+            world.create_entity(grass)
+        elif cell == "ramp_east":
+            ramp = ReferenceGrass(
+                x,
+                y,
+                z,
+                TerrainVariantEnum.RAMP_EAST.value,
+                DirectionEnum.RIGHT,
+                gradient_descent_gx=self.gradient_descent_gx[x, y],
+                gradient_descent_gy=self.gradient_descent_gy[x, y],
+            )
+            world.create_entity(ramp)
+
+
 class EmptySquareWorldFactory(WorldFactory):
     """Define each z-layer with fills and masks (same workflow as the demo)."""
 

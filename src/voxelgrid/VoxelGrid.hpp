@@ -52,6 +52,10 @@ public:
   EntityTypeComponent getTerrainEntityTypeComponent(int x, int y, int z) const;
   bool setTerrainEntityTypeComponent(int x, int y, int z,
                                      EntityTypeComponent component) const;
+  MatterContainer getTerrainMatterContainerComponent(int x, int y, int z) const;
+  bool
+  setTerrainMatterContainerComponent(int x, int y, int z,
+                                     const MatterContainer &component) const;
 
   void setTerrain(int x, int y, int z, int terrainID);
   int getTerrain(int x, int y, int z) const;

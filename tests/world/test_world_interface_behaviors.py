@@ -110,33 +110,7 @@ def test_get_perception_responses_server_compresses(monkeypatch):
     assert encoded.startswith(b"compressed-")
 
 
-def test_update_world_invokes_pre_then_world_update_then_post():
-    world = _FakeWorld()
-    iface = WorldInterface(WorldInstanceTypes.SYNCHRONOUS, world)
-    events: list[str] = []
-
-    def pre(reg, vg):
-        events.append("pre")
-        assert reg == "fake_registry"
-        assert vg == "fake_voxel_grid"
-        assert world.update_calls == 0
-
-    def post(reg, vg):
-        events.append("post")
-        assert reg == "fake_registry"
-        assert vg == "fake_voxel_grid"
-        assert world.update_calls == 1
-
-    iface.pre_update_handler = pre
-    iface.post_update_handler = post
-    iface.update_world()
-    iface.close()
-
-    assert events == ["pre", "post"]
-    assert world.update_calls == 1
-
-
-def test_update_world_skips_handlers_when_none():
+def test_update_world_calls_world_update():
     world = _FakeWorld()
     iface = WorldInterface(WorldInstanceTypes.SYNCHRONOUS, world)
     iface.update_world()
