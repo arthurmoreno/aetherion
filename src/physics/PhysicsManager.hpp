@@ -21,6 +21,7 @@ public:
   void setSimulateVaporMovement(bool value);
   void setSimulateWaterMovement(bool value);
   void setSimulateWaterEvaporation(bool value);
+  void setWaterAutoBalancing(bool value);
 
   // Getters
   float getGravity() const;
@@ -34,6 +35,7 @@ public:
   bool getSimulateVaporMovement() const;
   bool getSimulateWaterMovement() const;
   bool getSimulateWaterEvaporation() const;
+  bool getWaterAutoBalancing() const;
 
   // Optional: Load physics settings from a file
   bool loadSettings(const std::string &fileName);
@@ -82,6 +84,7 @@ private:
   bool simulateVaporMovement = true;
   bool simulateWaterMovement = true;
   bool simulateWaterEvaporation = true;
+  bool waterAutoBalancing = true;
 };
 
 typedef PhysicsManager ThePhysicsManager;

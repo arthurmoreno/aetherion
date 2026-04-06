@@ -80,6 +80,10 @@ void PhysicsManager::setSimulateWaterEvaporation(bool value) {
   simulateWaterEvaporation = value;
 }
 
+void PhysicsManager::setWaterAutoBalancing(bool value) {
+  waterAutoBalancing = value;
+}
+
 // Getters
 float PhysicsManager::getGravity() const { return gravity; }
 
@@ -117,6 +121,10 @@ bool PhysicsManager::getSimulateWaterMovement() const {
 
 bool PhysicsManager::getSimulateWaterEvaporation() const {
   return simulateWaterEvaporation;
+}
+
+bool PhysicsManager::getWaterAutoBalancing() const {
+  return waterAutoBalancing;
 }
 
 // Optional: Load physics settings from a file

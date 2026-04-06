@@ -1671,86 +1671,12 @@ void processPlants(entt::registry &registry, VoxelGrid &voxelGrid,
 //==============================================================================
 // SECTION 8: PUBLIC API - ECOSYSTEM ENGINE
 //==============================================================================
-//   8.1 loopTiles - Water conservation/replenishment
-//   8.2 processEcosystem - Synchronous plant processing
-//   8.3 processEcosystemAsync - Async water simulation
-//   8.4 Event handlers
+//   8.1 processEcosystem - Synchronous plant processing
+//   8.2 processEcosystemAsync - Async water simulation
+//   8.3 Event handlers
 //==============================================================================
 
-// 8.1 loopTiles - Water conservation/replenishment
-
-void EcosystemEngine::loopTiles(entt::registry &registry, VoxelGrid &voxelGrid,
-                                entt::dispatcher &dispatcher,
-                                float sunIntensity) {
-  std::random_device rd;
-  std::mt19937 gen(rd());
-
-  std::uniform_int_distribution<> disWaterSpreading(1, 4);
-
-  int count = 0;
-  int waterUnits = 0;
-
-  auto matter_container_view = registry.view<MatterContainer>();
-
-  // Copy entities into a vector
-  std::vector<entt::entity> entities(matter_container_view.begin(),
-                                     matter_container_view.end());
-
-  // Shuffle the vector
-  std::shuffle(entities.begin(), entities.end(),
-               std::default_random_engine{std::random_device{}()});
-
-  for (auto entity : entities) {
-    // processTileWater(entity, registry, voxelGrid, dispatcher, sunIntensity,
-    //                  pendingEvaporateWater, pendingCondenseWater,
-    //                  pendingWaterFall, rd, gen, disWaterSpreading,
-    //                  entityBeingDebugged);
-
-    auto &matterContainer = matter_container_view.get<MatterContainer>(entity);
-    waterUnits += matterContainer.WaterMatter;
-    waterUnits += matterContainer.WaterVapor;
-
-    count++;
-    // Pause execution after every 2000 entities processed
-    if (count >= 2'000) {
-      count = 0; // Reset the counter
-      std::this_thread::sleep_for(
-          std::chrono::milliseconds(10)); // Sleep for 10 milliseconds
-    }
-  }
-
-  // std::cout << "Total water units: " << waterUnits << std::endl;
-  const int waterMinimumUnits =
-      PhysicsManager::Instance()->getWaterMinimumUnits();
-  int x, y, z;
-  if (waterUnits < waterMinimumUnits) {
-    int waterToCreate = waterMinimumUnits - waterUnits;
-
-    int vaporUnits = 0;
-    while (waterToCreate > 0) {
-      // Create x value from voxelGrid.width and y value from voxelGrid.height
-      // (randomly from 0 to voxelGrid.width and height)
-
-      vaporUnits = 0;
-      if (waterToCreate > 10) {
-        vaporUnits = 10;
-      } else {
-        vaporUnits = waterToCreate;
-      }
-
-      std::uniform_int_distribution<> disX(0, voxelGrid.width - 1);
-      std::uniform_int_distribution<> disY(0, voxelGrid.height - 1);
-      x = disX(gen);
-      y = disY(gen);
-      z = voxelGrid.depth - 1;
-      dispatchVaporCreationOrAddition(registry, voxelGrid, dispatcher, x, y, z,
-                                      vaporUnits);
-      waterToCreate -= vaporUnits;
-    }
-  }
-}
-
-// 8.2 processEcosystem - Synchronous plant processing
+// 8.1 processEcosystem - Synchronous plant processing
 
 void EcosystemEngine::processEcosystem(entt::registry &registry,
                                        VoxelGrid &voxelGrid,
@@ -1762,7 +1688,7 @@ void EcosystemEngine::processEcosystem(entt::registry &registry,
   processPlants(registry, voxelGrid, dispatcher, clock);
 }
 
-// 8.3 processEcosystemAsync - Async water simulation
+// 8.2 processEcosystemAsync - Async water simulation
 
 void EcosystemEngine::processEcosystemAsync(entt::registry &registry,
                                             VoxelGrid &voxelGrid,
@@ -1777,8 +1703,6 @@ void EcosystemEngine::processEcosystemAsync(entt::registry &registry,
   processingComplete = false;
 
   std::vector<ToBeCreatedWaterTile> pendingEntities;
-
-  // loopTiles(registry, voxelGrid, dispatcher, sunIntensity);
 
   // std::cout << "[processEcosystemAsync] Before water simulation\n";
 
@@ -1797,8 +1721,11 @@ void EcosystemEngine::processEcosystemAsync(entt::registry &registry,
                                "after simulation: {}\n=======================",
                                waterUnits);
 
+  const bool waterAutoBalancing =
+      PhysicsManager::Instance()->getWaterAutoBalancing();
+
   int x, y, z;
-  if (waterUnits < waterMinimumUnits) {
+  if (waterAutoBalancing && waterUnits < waterMinimumUnits) {
     int waterToCreate = waterMinimumUnits - waterUnits;
 
     int vaporUnits = 0;
@@ -1833,7 +1760,7 @@ bool EcosystemEngine::isProcessingComplete() const {
   return processingComplete;
 }
 
-// 8.4 Event handlers
+// 8.3 Event handlers
 
 // NOTE: Water event processing methods have been moved to PhysicsEngine
 // for better separation of concerns. The ecosystem engine now only detects

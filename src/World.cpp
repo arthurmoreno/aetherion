@@ -1252,3 +1252,9 @@ bool World::getSimulateWaterEvaporation() const {
 void World::setSimulateWaterEvaporation(bool value) {
   PhysicsManager::Instance()->setSimulateWaterEvaporation(value);
 }
+bool World::getWaterAutoBalancing() const {
+  return PhysicsManager::Instance()->getWaterAutoBalancing();
+}
+void World::setWaterAutoBalancing(bool value) {
+  PhysicsManager::Instance()->setWaterAutoBalancing(value);
+}
