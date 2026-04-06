@@ -85,4 +85,12 @@ public:
                entt::registry &registry, GameDBHandler *dbHandler) override;
 };
 
+// Handler for "query_get_entity" command
+class GetEntityHandler : public ICommandHandler {
+public:
+  bool validate(const QueryCommand &cmd, std::string &errorMsg) const override;
+  void execute(const QueryCommand &cmd, PerceptionResponse &response,
+               entt::registry &registry, GameDBHandler *dbHandler) override;
+};
+
 #endif // COMMAND_HANDLERS_HPP
