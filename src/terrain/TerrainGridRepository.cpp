@@ -934,6 +934,9 @@ void TerrainGridRepository::deleteTerrain(entt::dispatcher &dispatcher, int x,
     std::cout << "No active terrain entity to delete at (" << x << ", " << y
               << ", " << z << ") EntityID: " << terrainId
               << "But we might clean up something else here." << "\n";
+    entt::entity entity = static_cast<entt::entity>(terrainId);
+    removeFromTrackingMaps(key, entity);
+    dispatcher.enqueue<KillEntityEvent>(entity);
   } else {
     std::cout << "No active terrain entity to delete at (" << x << ", " << y
               << ", " << z << ") EntityID: " << terrainId << "\n";
