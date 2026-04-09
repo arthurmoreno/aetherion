@@ -1,4 +1,27 @@
-from aetherion import MatterContainer, PyRegistry, VoxelGrid
+from aetherion import (
+    EntityEnum,
+    EntityTypeComponent,
+    MatterContainer,
+    Position,
+    PyRegistry,
+    TerrainEnum,
+    VoxelGrid,
+)
+
+
+def create_empty_water_terrain(registry: PyRegistry, voxel_grid: VoxelGrid, target_entity_pos: Position):
+    new_terrain_entity = voxel_grid.create_entt_for_terrain(
+        target_entity_pos.x, target_entity_pos.y, target_entity_pos.z
+    )
+
+    entity_type: EntityTypeComponent = EntityTypeComponent()
+    entity_type.main_type = EntityEnum.TERRAIN.value
+    entity_type.sub_type0 = TerrainEnum.WATER.value
+    entity_type.sub_type1 = 0
+    voxel_grid.set_terrain_entity_type_component(
+        target_entity_pos.x, target_entity_pos.y, target_entity_pos.z, entity_type
+    )
+    return new_terrain_entity
 
 
 class SpringWaterSystem:
@@ -34,7 +57,11 @@ class SpringWaterSystem:
                 f"({self._source_x}, {self._source_y}, {self._source_z}). "
                 "Cannot inject water."
             )
-            return
+            pos = Position()
+            pos.x = self._source_x
+            pos.y = self._source_y
+            pos.z = self._source_z
+            terrain_id = create_empty_water_terrain(registry, voxel_grid, pos)
 
         mc: MatterContainer | None = voxel_grid.get_terrain_matter_container_component(
             self._source_x, self._source_y, self._source_z

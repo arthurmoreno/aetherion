@@ -1713,13 +1713,13 @@ void EcosystemEngine::processEcosystemAsync(entt::registry &registry,
       PhysicsManager::Instance()->getWaterMinimumUnits();
 
   // std::cout << "Total water units: " << waterUnits << std::endl;
-  spdlog::get("console")->info(
-      "=======================\n[processEcosystemAsync] Minimum water units "
-      "required: {}",
-      waterMinimumUnits);
-  spdlog::get("console")->info("[processEcosystemAsync] Total water units "
-                               "after simulation: {}\n=======================",
-                               waterUnits);
+  // spdlog::get("console")->info(
+  //     "=======================\n[processEcosystemAsync] Minimum water units "
+  //     "required: {}",
+  //     waterMinimumUnits);
+  // spdlog::get("console")->info("[processEcosystemAsync] Total water units "
+  //                              "after simulation:
+  //                              {}\n=======================", waterUnits);
 
   const bool waterAutoBalancing =
       PhysicsManager::Instance()->getWaterAutoBalancing();

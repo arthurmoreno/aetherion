@@ -125,7 +125,7 @@ void PhysicsEngine::onWaterSpreadEvent(const WaterSpreadEvent &event) {
 void PhysicsEngine::onWaterGravityFlowEvent(
     const WaterGravityFlowEvent &event) {
   incPhysicsMetric(PHYSICS_WATER_GRAVITY_FLOW);
-  _handleWaterGravityFlowEvent(*voxelGrid, event);
+  _handleWaterGravityFlowEvent(registry, dispatcher, *voxelGrid, event);
 }
 
 void PhysicsEngine::onTerrainPhaseConversionEvent(
@@ -182,7 +182,7 @@ void PhysicsEngine::onDeleteOrConvertTerrainEvent(
   TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
   entt::entity terrain = event.terrain;
-  deleteEntityOrConvertInEmpty(registry, dispatcher,
+  deleteEntityOrConvertInEmpty(registry, *voxelGrid, dispatcher,
                                const_cast<entt::entity &>(terrain));
 }
 
@@ -2075,37 +2075,74 @@ void PhysicsEngine::onCondenseWaterEntityEvent(
 void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
   incPhysicsMetric(PHYSICS_WATER_FALL_ENTITY);
   // On EnTT only need to check for Position, the others are on voxelGrid
-  if (static_cast<int>(event.entity) ==
+
+  entt::entity terrainEntity = event.entity;
+
+  if (static_cast<int>(terrainEntity) ==
       static_cast<int>(TerrainIdTypeEnum::NONE)) {
     spdlog::get("console")->info("onWaterFallEntityEvent -> entity is "
                                  "ON_GRID_STORAGE, skipping Position check");
     return;
-  } else if (static_cast<int>(event.entity) !=
+  } else if (static_cast<int>(terrainEntity) !=
              static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-    if (!registry.valid(event.entity)) {
+    if (!registry.valid(terrainEntity)) {
       spdlog::get("console")->info(
-          "onWaterFallEntityEvent -> entity {} is not valid - skipping event",
-          static_cast<int>(event.entity));
-      return;
+          "onWaterFallEntityEvent -> entity {} is not valid - Cleaning up "
+          "terrain grid state and allowing water fall to proceed",
+          static_cast<int>(terrainEntity));
+
+      // Here we need to be proactive and clean up the invalid entity from the
+      // terrain grid.
+      EntityTypeComponent type =
+          voxelGrid->terrainGridRepository->getTerrainEntityType(
+              event.position.x, event.position.y, event.position.z);
+      if (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+          type.subType0 == static_cast<int>(TerrainEnum::EMPTY)) {
+        spdlog::get("console")->warn(
+            "onWaterFallEntityEvent -> Detected invalid entity {} at position "
+            "({}, {}, {}) with empty terrain type - attempting to clean up "
+            "terrain grid state",
+            static_cast<int>(terrainEntity), event.position.x, event.position.y,
+            event.position.z);
+
+        voxelGrid->deleteTerrain(dispatcher, event.position.x, event.position.y,
+                                 event.position.z, false);
+
+        // Safe to create vapor entity
+        entt::entity newEntity = registry.create();
+        int newTerrainId = static_cast<int>(newEntity);
+        voxelGrid->terrainGridRepository->setTerrainId(
+            event.position.x, event.position.y, event.position.z, newTerrainId);
+
+        VoxelCoord key{event.position.x, event.position.y, event.position.z};
+        voxelGrid->terrainGridRepository->addToTrackingMaps(key, newEntity);
+        terrainEntity =
+            newEntity; // Update terrainEntity to the newly created valid entity
+      }
+      // return;
     }
-    if (!registry.all_of<Position>(event.entity)) {
+    if (!registry.all_of<Position>(terrainEntity)) {
       spdlog::get("console")->info(
           "onWaterFallEntityEvent -> entity {} is missing Position component - "
           "skipping event",
-          static_cast<int>(event.entity));
-      return;
+          static_cast<int>(terrainEntity));
+
+      Position newPosition = {event.position.x, event.position.y,
+                              event.position.z, DirectionEnum::DOWN};
+      registry.emplace<Position>(terrainEntity, newPosition);
+      // return;
     }
   }
 
   Position pos;
-  if (static_cast<int>(event.entity) !=
+  if (static_cast<int>(terrainEntity) !=
       static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-    auto *posPtr = registry.try_get<Position>(event.entity);
+    auto *posPtr = registry.try_get<Position>(terrainEntity);
     if (!posPtr) {
       spdlog::get("console")->warn(
           "onWaterFallEntityEvent -> entity {} missing Position component "
           "after validation - skipping event",
-          static_cast<int>(event.entity));
+          static_cast<int>(terrainEntity));
       return;
     }
     pos = *posPtr;
