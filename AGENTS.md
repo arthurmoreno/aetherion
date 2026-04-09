@@ -44,13 +44,19 @@ private:
 ## Workflow & Commands
 
 *   **Environment**: `aetherion-312`
+    * Only needed for custom commands. make commands like `make build` or `make build-install-test`
     *   **CRITICAL**: You MUST switch to this environment for engine work.
     ```bash
     conda deactivate
     conda activate aetherion-312
     ```
 
-*   **Build & Install**:
+*   **Build**:
+    ```bash
+    make build
+    ```
+
+*   **Build, Install and Test**:
     ```bash
     make build
     ```

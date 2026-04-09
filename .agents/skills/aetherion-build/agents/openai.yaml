@@ -1,0 +1,7 @@
+interface:
+  display_name: "Aetherion Build"
+  short_description: "Run the repo's canonical build target."
+  default_prompt: "Use $aetherion-build to run the standard Aetherion package build."
+
+policy:
+  allow_implicit_invocation: true

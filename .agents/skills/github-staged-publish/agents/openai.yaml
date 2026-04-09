@@ -1,0 +1,7 @@
+interface:
+  display_name: "GitHub Staged Publish"
+  short_description: "Publish staged changes as issue, branch, commit, push, and PR."
+  default_prompt: "Use $github-staged-publish to review my staged changes, create or use a GitHub issue, commit with the issue tag, push, and open a PR against main."
+
+policy:
+  allow_implicit_invocation: true

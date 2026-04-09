@@ -1,0 +1,7 @@
+interface:
+  display_name: "GitHub Project MCP"
+  short_description: "Use the Aetherion GitHub issue and PR workflow."
+  default_prompt: "Use $github-project-mcp for GitHub issue and PR work in arthurmoreno/aetherion."
+
+policy:
+  allow_implicit_invocation: true

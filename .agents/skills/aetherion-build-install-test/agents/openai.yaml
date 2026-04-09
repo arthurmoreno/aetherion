@@ -1,0 +1,7 @@
+interface:
+  display_name: "Aetherion Build Install Test"
+  short_description: "Run build, reinstall, and test together."
+  default_prompt: "Use $aetherion-build-install-test to run the full Aetherion local verification flow."
+
+policy:
+  allow_implicit_invocation: true
