@@ -13,6 +13,7 @@
 #include "components/MetabolismComponents.hpp"
 #include "components/MovingComponent.hpp"
 #include "components/PhysicsComponents.hpp"
+#include "physics/PhysicsMutators.hpp"
 
 namespace nb = nanobind;
 using namespace entt::literals;
@@ -33,11 +34,11 @@ public:
 
   // Entity management
   int create_entity() {
-    auto entity = registry.create();
+    auto entity = allocateEntity(registry);
     return entt::to_integral(entity);
   }
 
-  void destroy_entity(entt::entity entity) { registry.destroy(entity); }
+  void destroy_entity(entt::entity entity) { freeEntity(registry, entity); }
 
   // View entities with specific components
   nb::list view(const std::vector<std::string> &component_names) {

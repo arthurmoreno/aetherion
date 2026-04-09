@@ -126,7 +126,7 @@ void World::setTerrain(int x, int y, int z,
 // Create an entity in the EnTT registry with data from EntityInterface
 entt::entity World::createEntity(const EntityInterface &entityInterface) {
   // Create a new entity in the EnTT registry
-  entt::entity entity = registry.create();
+  entt::entity entity = allocateEntity(registry);
 
   // Assign Position and Velocity components from the EntityInterface
   if (entityInterface.hasComponent(ComponentFlag::POSITION)) {
@@ -157,7 +157,7 @@ entt::entity World::createEntity(const EntityInterface &entityInterface) {
 
 // Create an entity from a Python class and introspect its components
 entt::entity World::createEntityFromPython(nb::object pyEntity) {
-  entt::entity newEntity = registry.create();
+  entt::entity newEntity = allocateEntity(registry);
 
   // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "entity_type") &&

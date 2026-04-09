@@ -1,5 +1,7 @@
 #include "ItemConfiguration.hpp"
 
+#include "physics/PhysicsMutators.hpp"
+
 ItemConfiguration::ItemConfiguration(const std::string &id) : itemId(id) {}
 
 void ItemConfiguration::setInGameTextures(
@@ -70,7 +72,7 @@ entt::entity ItemConfiguration::createFoodItem(entt::registry &registry) {
     float defaultMass = this->getDefaultValueAsFloat("default_mass");
     float defaultVolume = this->getDefaultValueAsFloat("default_volume");
 
-    auto newFoodItem = registry.create();
+    auto newFoodItem = allocateEntity(registry);
 
     registry.emplace<ItemTypeComponent>(
         newFoodItem, ItemTypeComponent{itemMainType, itemSubType0});

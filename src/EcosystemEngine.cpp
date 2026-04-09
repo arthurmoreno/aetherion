@@ -1635,7 +1635,7 @@ void processPlants(entt::registry &registry, VoxelGrid &voxelGrid,
       if (type.mainType == 1 && type.subType0 == 1 &&
           inventory.itemIDs.size() < static_cast<size_t>(inventory.maxItems) &&
           fruitGrowth.currentEnergy >= fruitGrowth.energyNeeded) {
-        auto raspberryFruit = registry.create();
+        auto raspberryFruit = allocateEntity(registry);
 
         registry.emplace<ItemTypeComponent>(
             raspberryFruit,

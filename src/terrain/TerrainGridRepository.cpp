@@ -1,5 +1,7 @@
 #include "terrain/TerrainGridRepository.hpp"
 
+#include "physics/PhysicsMutators.hpp"
+
 #include <openvdb/openvdb.h>
 #include <spdlog/spdlog.h>
 
@@ -412,18 +414,19 @@ entt::entity TerrainGridRepository::createEnttForTerrain(int x, int y, int z) {
 
   // Check if already active (now protected by lock)
   entt::entity existing = getEntityAt(x, y, z);
-  if (existing != entt::null && registry_.valid(existing)) {
+  if (existing != entt::null && registry_.valid(existing) &&
+      !isDeletedEntity(registry_, existing)) {
     return existing;
   } else if (existing != entt::null) {
     // Clean up stale mapping
     VoxelCoord key{x, y, z};
     removeFromTrackingMaps(key, existing);
-    registry_.destroy(existing);
+    freeEntity(registry_, existing);
   }
 
   DirectionEnum direction = storage_.getTerrainDirection(x, y, z);
 
-  entt::entity e = registry_.create();
+  entt::entity e = allocateEntity(registry_);
   registry_.emplace<Position>(e, Position{x, y, z, direction});
 
   VoxelCoord key{x, y, z};
@@ -450,18 +453,19 @@ entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {
 
   // Check if already active (now protected by lock)
   entt::entity existing = getEntityAt(x, y, z);
-  if (existing != entt::null && registry_.valid(existing)) {
+  if (existing != entt::null && registry_.valid(existing) &&
+      !isDeletedEntity(registry_, existing)) {
     return existing;
   } else if (existing != entt::null) {
     // Clean up stale mapping
     VoxelCoord key{x, y, z};
     removeFromTrackingMaps(key, existing);
-    registry_.destroy(existing);
+    freeEntity(registry_, existing);
   }
 
   DirectionEnum direction = storage_.getTerrainDirection(x, y, z);
 
-  entt::entity e = registry_.create();
+  entt::entity e = allocateEntity(registry_);
   registry_.emplace<Position>(e, Position{x, y, z, direction});
   registry_.emplace<Velocity>(e, Velocity{0.f, 0.f, 0.f});
   registry_.emplace<MovingComponent>(e, MovingComponent{0});
@@ -890,7 +894,7 @@ void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
         byEntity_.erase(entityIt);
       }
     }
-    registry_.destroy(entity);
+    freeEntity(registry_, entity);
     // Set terrain ID to -1 to indicate no active entity, but that terrain
     // exists
     storage_.setTerrainId(x, y, z, -1);

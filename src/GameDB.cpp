@@ -3,6 +3,8 @@
 #include <chrono>
 #include <filesystem>
 
+#include "physics/PhysicsMutators.hpp"
+
 GameDB::GameDB(const std::string &sqlite_path)
     : sqlitePath(sqlite_path), sqliteDb(nullptr), needsSync(false) {
   // Create directory for the SQLite database if it doesn't exist
@@ -115,7 +117,7 @@ bool GameDB::putTimeSeries(const std::string &seriesName, uint64_t timestamp,
     }
     // 3) Otherwise create a new entity + component
     else {
-      targetEntity = registry.create();
+      targetEntity = allocateEntity(registry);
       auto &newComp = registry.emplace<TimeSeriesComponent>(targetEntity);
       newComp.timeSeriesName = seriesName;
       newComp.addDataPoint(timestamp, value);
@@ -397,7 +399,7 @@ bool GameDB::loadFromDatabase() {
       double val = sqlite3_column_double(stmt, 2);
 
       // Add to memory cache
-      auto entity = registry.create();
+      auto entity = allocateEntity(registry);
       auto &timeSeriesComp = registry.emplace<TimeSeriesComponent>(entity);
       timeSeriesComp.timeSeriesName = seriesName;
       timeSeriesComp.addDataPoint(ts, val);
