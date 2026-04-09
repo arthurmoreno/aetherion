@@ -1,0 +1,7 @@
+interface:
+  display_name: "Aetherion Format"
+  short_description: "Run the repo's canonical format target."
+  default_prompt: "Use $aetherion-format to apply the standard Aetherion formatting workflow."
+
+policy:
+  allow_implicit_invocation: true
