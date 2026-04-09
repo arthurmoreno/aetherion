@@ -2109,7 +2109,7 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
                                  event.position.z, false);
 
         // Safe to create vapor entity
-        entt::entity newEntity = registry.create();
+        entt::entity newEntity = allocateEntity(registry);
         int newTerrainId = static_cast<int>(newEntity);
         voxelGrid->terrainGridRepository->setTerrainId(
             event.position.x, event.position.y, event.position.z, newTerrainId);

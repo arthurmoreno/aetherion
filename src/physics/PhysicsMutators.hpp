@@ -6,9 +6,11 @@
 #include <entt/entt.hpp>
 #include <iostream>
 #include <memory>
+#include <mutex>
 #include <sstream>
 #include <stdexcept>
 
+#include "components/DeletedEntity.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/MetabolismComponents.hpp"
 #include "components/MovingComponent.hpp"
@@ -79,6 +81,146 @@
  * [Scope:Entity|Multi|Orch]`
  */
 
+inline std::recursive_mutex &entityPoolMutex() {
+  static std::recursive_mutex mutex;
+  return mutex;
+}
+
+class EntityPoolExclusiveLock {
+public:
+  EntityPoolExclusiveLock() : lock_(entityPoolMutex()) {}
+
+  EntityPoolExclusiveLock(const EntityPoolExclusiveLock &) = delete;
+  EntityPoolExclusiveLock &operator=(const EntityPoolExclusiveLock &) = delete;
+
+private:
+  std::lock_guard<std::recursive_mutex> lock_;
+};
+
+inline bool isDeletedEntity(const entt::registry &registry,
+                            const entt::entity entity) {
+  const std::lock_guard<std::recursive_mutex> lock(entityPoolMutex());
+  const bool isValid = registry.valid(entity);
+  const bool isDeleted = isValid && registry.all_of<DeletedEntity>(entity);
+  const bool hasPosition = isValid && registry.any_of<Position>(entity);
+  const bool hasEntityType =
+      isValid && registry.any_of<EntityTypeComponent>(entity);
+  // std::cout << "[EntityPool] isDeletedEntity entity="
+  //           << static_cast<int>(entity) << " valid=" << isValid
+  //           << " deleted=" << isDeleted << " hasPosition=" << hasPosition
+  //           << " hasEntityType=" << hasEntityType << std::endl;
+  return isDeleted;
+}
+
+inline std::size_t countNonDeletedComponents(const entt::registry &registry,
+                                             const entt::entity entity) {
+  const std::lock_guard<std::recursive_mutex> lock(entityPoolMutex());
+  if (entity == entt::null || !registry.valid(entity)) {
+    return 0;
+  }
+
+  std::size_t count = 0;
+  for (auto [id, storage] : registry.storage()) {
+    if (id == entt::type_hash<DeletedEntity>::value()) {
+      continue;
+    }
+    if (storage.contains(entity)) {
+      ++count;
+    }
+  }
+
+  return count;
+}
+
+inline void eraseAllNonDeletedComponents(entt::registry &registry,
+                                         const entt::entity entity) {
+  const std::lock_guard<std::recursive_mutex> lock(entityPoolMutex());
+  if (entity == entt::null || !registry.valid(entity)) {
+    return;
+  }
+
+  registry.erase_if(entity, [](const entt::id_type id, const auto &) {
+    return id != entt::type_hash<DeletedEntity>::value();
+  });
+}
+
+inline bool isReusableDeletedEntity(const entt::registry &registry,
+                                    const entt::entity entity) {
+  const std::lock_guard<std::recursive_mutex> lock(entityPoolMutex());
+  if (entity == entt::null || !registry.valid(entity) ||
+      !registry.all_of<DeletedEntity>(entity)) {
+    return false;
+  }
+
+  const bool hasPosition = registry.any_of<Position>(entity);
+  const bool hasEntityType = registry.any_of<EntityTypeComponent>(entity);
+  const std::size_t nonDeletedComponents =
+      countNonDeletedComponents(registry, entity);
+  const bool reusable =
+      !hasPosition && !hasEntityType && nonDeletedComponents == 0;
+
+  // std::cout << "[EntityPool] isReusableDeletedEntity entity="
+  //           << static_cast<int>(entity) << " hasPosition=" << hasPosition
+  //           << " hasEntityType=" << hasEntityType
+  //           << " nonDeletedComponents=" << nonDeletedComponents
+  //           << " reusable=" << reusable << std::endl;
+
+  return reusable;
+}
+
+inline entt::entity allocateEntity(entt::registry &registry) {
+  const std::lock_guard<std::recursive_mutex> lock(entityPoolMutex());
+  auto deletedView = registry.view<DeletedEntity>();
+  for (const entt::entity entity : deletedView) {
+    if (!isReusableDeletedEntity(registry, entity)) {
+      // std::cout << "[EntityPool] allocateEntity skipping dirty deleted
+      // entity="
+      //           << static_cast<int>(entity) << std::endl;
+      continue;
+    }
+
+    // std::cout << "[EntityPool] allocateEntity reusing entity="
+    //           << static_cast<int>(entity) << std::endl;
+    registry.remove<DeletedEntity>(entity);
+    return entity;
+  }
+
+  const entt::entity entity = registry.create();
+  // std::cout << "[EntityPool] allocateEntity created new entity="
+  //           << static_cast<int>(entity) << std::endl;
+  return entity;
+}
+
+inline void freeEntity(entt::registry &registry, const entt::entity entity) {
+  const std::lock_guard<std::recursive_mutex> lock(entityPoolMutex());
+  if (entity == entt::null || !registry.valid(entity)) {
+    // std::cout << "[EntityPool] freeEntity skipped entity="
+    //           << static_cast<int>(entity) << " reason=invalid-or-null"
+    //           << std::endl;
+    return;
+  }
+
+  // const bool hadPosition = registry.any_of<Position>(entity);
+  // const bool hadEntityType = registry.any_of<EntityTypeComponent>(entity);
+  const std::size_t componentsBefore =
+      countNonDeletedComponents(registry, entity);
+
+  // std::cout << "[EntityPool] freeEntity pooling entity="
+  //           << static_cast<int>(entity)
+  //           << " componentsBefore=" << componentsBefore
+  //           << " hadPosition=" << hadPosition
+  //           << " hadEntityType=" << hadEntityType << std::endl;
+
+  eraseAllNonDeletedComponents(registry, entity);
+  registry.emplace_or_replace<DeletedEntity>(entity);
+
+  // const std::size_t componentsAfter =
+  //     countNonDeletedComponents(registry, entity);
+  // std::cout << "[EntityPool] freeEntity pooled entity="
+  //           << static_cast<int>(entity)
+  //           << " componentsAfter=" << componentsAfter << std::endl;
+}
+
 // Forward declarations for functions used across categories
 // Note: direct component mutators are declared in ComponentMutators.hpp
 static void setEmptyWaterComponentsStorage(entt::registry &registry,
@@ -113,7 +255,7 @@ inline entt::entity createVaporTerrainEntity(entt::registry &registry,
     spdlog::warn("createVaporTerrainEntity: missing terrainGridRepository");
     return entt::null;
   }
-  auto newVaporEntity = registry.create();
+  auto newVaporEntity = allocateEntity(registry);
   Position newPosition = {x, y, z, DirectionEnum::DOWN};
   registry.emplace<Position>(newVaporEntity, newPosition);
 
@@ -172,7 +314,7 @@ inline entt::entity createEmptyActiveTerrain(entt::registry &registry,
     spdlog::warn("createEmptyActiveTerrain: missing terrainGridRepository");
     return entt::null;
   }
-  auto newVaporEntity = registry.create();
+  auto newVaporEntity = allocateEntity(registry);
   Position newPosition = {x, y, z, DirectionEnum::DOWN};
   registry.emplace<Position>(newVaporEntity, newPosition);
 
@@ -322,7 +464,7 @@ inline void _destroyEntity(entt::registry &registry,
   // mappings Use centralized wrapper to keep state-changes in this module.
   softDeactivateTerrainEntity(dispatcher, voxelGrid, entity, !shouldLock);
 
-  registry.destroy(entity);
+  freeEntity(registry, entity);
 }
 
 /**
@@ -742,7 +884,7 @@ inline void dropEntityItems(entt::registry &registry,
           entt::entity newTerrainBellow = terrainBellow;
           if (terrainBellowId ==
               static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-            auto newTerrainEntity = registry.create();
+            auto newTerrainEntity = allocateEntity(registry);
             Position newPosition = {pos.x, pos.y, pos.z - 1,
                                     DirectionEnum::DOWN};
             registry.emplace<Position>(newTerrainEntity, newPosition);
@@ -939,8 +1081,6 @@ inline void destroyEntityWithGridCleanup(entt::registry &registry,
   if (!registry.valid(entity)) {
     std::cout << "destroyEntityWithGridCleanup: entity invalid, skipping: "
               << static_cast<int>(entity) << std::endl;
-    registry.destroy(entity); // Ensure cleanup of any remaining components if
-                              // entity still exists
     return;
   }
 
@@ -972,8 +1112,6 @@ inline void destroyEntityWithGridCleanup(entt::registry &registry,
     std::cout << "destroyEntityWithGridCleanup: entity already invalid at "
                  "destroy step for entity "
               << entityId << std::endl;
-    registry.destroy(entity); // Ensure cleanup of any remaining components if
-                              // entity still exists
   }
 }
 
@@ -1216,7 +1354,7 @@ createWaterTerrainFromFall(entt::registry &registry,
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
   // Create a new water tile
-  entt::entity newWaterEntity = registry.create();
+  entt::entity newWaterEntity = allocateEntity(registry);
   Position newPosition = {x, y, z, DirectionEnum::DOWN};
   registry.emplace<Position>(newWaterEntity, newPosition);
 
@@ -1407,7 +1545,7 @@ inline entt::entity createWaterTerrainFromGravityFlow(
   }
 
   if (targetTerrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
-    entt::entity newWaterEntity = registry.create();
+    entt::entity newWaterEntity = allocateEntity(registry);
     registry.emplace<Position>(newWaterEntity, gravityTargetPos);
 
     MatterContainer emptyMatter = {};
@@ -1545,7 +1683,7 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
       ") with condensation amount: " + std::to_string(condensationAmount));
 
   // Create a new water tile below
-  entt::entity newWaterEntity = registry.create();
+  entt::entity newWaterEntity = allocateEntity(registry);
   Position newPosition = {vaporX, vaporY, vaporZ - 1, DirectionEnum::DOWN};
   registry.emplace<Position>(newWaterEntity, newPosition);
 
@@ -1840,7 +1978,7 @@ inline entt::entity createAndRegisterVaporEntity(entt::registry &registry,
   }
 
   // Safe to create vapor entity
-  entt::entity newEntity = registry.create();
+  entt::entity newEntity = allocateEntity(registry);
   int terrainId = static_cast<int>(newEntity);
   voxelGrid.terrainGridRepository->setTerrainId(x, y, z, terrainId);
   return newEntity;

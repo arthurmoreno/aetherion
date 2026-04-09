@@ -208,7 +208,7 @@ void destroyInvalidDeletionTarget(entt::registry &registry,
   console.warn("[Deletion] Entity {} already invalid - forcing cleanup",
                decision.entity_id);
   try {
-    registry.destroy(decision.entity);
+    freeEntity(registry, decision.entity);
     eraseScheduledDeletion(console, lifeEngine, decision.entity, true);
     console.info("[Deletion] Force-destroyed invalid entity {}",
                  decision.entity_id);

@@ -3,11 +3,13 @@
 #include <chrono>
 #include <thread>
 
+#include "physics/PhysicsMutators.hpp"
+
 // Function to clone an entity and all of its components
 entt::entity clone_entity(entt::registry &registry,
                           entt::entity source_entity) {
   // Create a new entity in the target registry
-  entt::entity new_entity = registry.create();
+  entt::entity new_entity = allocateEntity(registry);
 
   // Clone the components from the source entity to the new entity
   if (registry.any_of<EntityTypeComponent>(source_entity)) {
