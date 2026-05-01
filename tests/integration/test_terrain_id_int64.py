@@ -5,7 +5,9 @@ RED before Int64Grid: handles with version >= 256 stored as negative int32, retu
 GREEN after Int64Grid: full uint32 range stored as int64, returned as positive integers.
 Sentinel values -2 and -1 are unchanged in both cases.
 """
+
 import pytest
+
 import aetherion
 
 # EnTT v3: [version: 9 bits][index: 23 bits]

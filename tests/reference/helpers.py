@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing import Any
 
-import aetherion
 from conftest import FakeEventBus
 
+import aetherion
 from aetherion import (
     DirectionEnum,
-    EntityTypeComponent,
     EntityEnum,
+    EntityTypeComponent,
     GameEventType,
     MatterContainer,
     MatterState,

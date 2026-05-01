@@ -25,9 +25,7 @@ def test_loop2_does_not_crash_during_normal_simulation():
 
     repo = manager.current.world.get_voxel_grid().terrain_grid_repository
     # Pre-C1–C4: physics loop writes ECS Velocity, not VDB; VDB count stays 0.
-    assert repo.count_active_velocity_voxels() == 0, (
-        "Pre-C1–C4 the physics loop must not populate VDB velocity grids"
-    )
+    assert repo.count_active_velocity_voxels() == 0, "Pre-C1–C4 the physics loop must not populate VDB velocity grids"
 
 
 def test_loop2_processes_vdb_velocity_on_on_grid_storage_voxel():

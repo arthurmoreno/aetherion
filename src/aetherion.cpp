@@ -377,10 +377,10 @@ NB_MODULE(_aetherion, m) {
              Velocity v = repo.getVelocity(x, y, z);
              return {v.vx, v.vy, v.vz};
            })
-      .def("set_terrain_velocity", [](TerrainGridRepository &repo, int x, int y,
-                                      int z, float vx, float vy, float vz) {
-        repo.setVelocity(x, y, z, Velocity{vx, vy, vz});
-      })
+      .def("set_terrain_velocity",
+           [](TerrainGridRepository &repo, int x, int y, int z, float vx,
+              float vy,
+              float vz) { repo.setVelocity(x, y, z, Velocity{vx, vy, vz}); })
       .def("has_terrain_moving_component",
            [](const TerrainGridRepository &repo, int x, int y, int z) -> bool {
              return repo.hasMovingComponent(x, y, z);

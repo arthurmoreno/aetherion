@@ -354,42 +354,26 @@ inline entt::entity _ensureEntityActive(VoxelGrid &voxelGrid, int x, int y,
 inline void deleteEntityOrConvertInEmpty(entt::registry &registry,
                                          VoxelGrid &voxelGrid,
                                          entt::dispatcher &dispatcher,
-                                         entt::entity &terrain) {
+                                         entt::entity &terrain,
+                                         const Position &pos) {
   std::cout << "deleteEntityOrConvertInEmpty: processing entity "
-            << static_cast<int>(terrain) << std::endl;
+            << static_cast<int>(terrain) << " at (" << pos.x << ", " << pos.y
+            << ", " << pos.z << ")" << std::endl;
+
+  // ON_GRID_STORAGE / NONE / invalid: no entity exists, take the grid-only
+  // path using the canonical position the caller supplied.
+  const bool hasEntity = terrain != entt::null && registry.valid(terrain);
+  if (!hasEntity) {
+    voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z, false);
+    return;
+  }
+
   TileEffectsList *terrainEffectsList =
       registry.try_get<TileEffectsList>(terrain);
   if (terrainEffectsList == nullptr ||
       (terrainEffectsList && terrainEffectsList->tileEffectsIDs.empty())) {
     std::cout << "terrainEffectsList is nullptr or empty... deleting entity"
               << std::endl;
-    Position pos{-1, -1, -1, DirectionEnum::UP};
-    Position *registryPos = registry.try_get<Position>(terrain);
-    if (registryPos != nullptr) {
-      pos = *registryPos;
-    } else {
-      try {
-        pos = voxelGrid.terrainGridRepository->getPositionOfEntt(terrain);
-      } catch (const aetherion::InvalidEntityException &e) {
-        std::cout << "deleteEntityOrConvertInEmpty: "
-                  << "InvalidEntityException while looking up entity "
-                  << static_cast<int>(terrain) << ": " << e.what() << std::endl;
-
-        registryPos = registry.try_get<Position>(terrain);
-        pos = registryPos != nullptr ? *registryPos
-                                     : Position{-1, -1, -1, DirectionEnum::UP};
-      }
-    }
-
-    if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-      std::cout << "deleteEntityOrConvertInEmpty: missing terrain position for "
-                   "entity "
-                << static_cast<int>(terrain)
-                << ", falling back to KillEntityEvent" << std::endl;
-      dispatcher.enqueue<KillEntityEvent>(terrain);
-      return;
-    }
-
     voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z, false);
   } else {
     // Convert into empty terrain because there are effects being processed
@@ -1197,11 +1181,12 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry &registry,
  * @param fallingAmount The amount of water matter for the new tile.
  * @param sourceEntity The entity from which the water is falling.
  */
-inline void
-createWaterTerrainFromFall(entt::registry &registry,
-                           entt::dispatcher &dispatcher, VoxelGrid &voxelGrid,
-                           int x, int y, int z, double fallingAmount,
-                           entt::entity sourceEntity, Position sourcePos) {
+inline void createWaterTerrainFromFall(entt::registry &registry,
+                                       entt::dispatcher &dispatcher,
+                                       VoxelGrid &voxelGrid, int x, int y,
+                                       int z, double fallingAmount,
+                                       entt::entity sourceEntity,
+                                       Position sourcePos) {
   // Lock for atomic state change
   if (!voxelGrid.terrainGridRepository) {
     spdlog::warn("createVaporTerrainEntity: missing terrainGridRepository");

@@ -184,7 +184,8 @@ void PhysicsEngine::onDeleteOrConvertTerrainEvent(
 
   entt::entity terrain = event.terrain;
   deleteEntityOrConvertInEmpty(registry, *voxelGrid, dispatcher,
-                               const_cast<entt::entity &>(terrain));
+                               const_cast<entt::entity &>(terrain),
+                               event.position);
 }
 
 void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent &event) {
@@ -1137,7 +1138,10 @@ void PhysicsEngine::processPhysics(entt::registry &registry,
   // Pre-C1–C4 this yields nothing; post-C1–C4 it drives all water physics.
   // Two-phase: collect coords under shared lock, then process without lock.
   {
-    struct VdbVoxel { int x, y, z; float vx, vy, vz; };
+    struct VdbVoxel {
+      int x, y, z;
+      float vx, vy, vz;
+    };
     std::vector<VdbVoxel> vdbVoxels;
     voxelGrid.terrainGridRepository->iterateVelocityVoxels(
         [&](int x, int y, int z, float vx, float vy, float vz) {
@@ -1160,8 +1164,8 @@ void PhysicsEngine::processPhysics(entt::registry &registry,
         auto [newVz, willStopZ] = resolveVerticalMotion(
             registry, voxelGrid, pos, vel.vz, ms, entt::null, entt::null);
         bool belowStable = checkBelowStability(registry, voxelGrid, pos);
-        auto [newVx, newVy, willStopX, willStopY] = applyKineticFrictionDamping(
-            vel.vx, vel.vy, ms, belowStable, newVz);
+        auto [newVx, newVy, willStopX, willStopY] =
+            applyKineticFrictionDamping(vel.vx, vel.vy, ms, belowStable, newVz);
 
         if (ms != MatterState::GAS) {
           vel.vx = newVx;
@@ -1176,18 +1180,15 @@ void PhysicsEngine::processPhysics(entt::registry &registry,
         auto [toX, toY, toZ, completionTime] = calculateMovementDestination(
             registry, voxelGrid, pos, vel, ps, vel.vx, vel.vy, vel.vz);
 
-        bool collision =
-            hasCollision(registry, voxelGrid, entt::null, v.x, v.y, v.z, toX,
-                         toY, toZ, true);
+        bool collision = hasCollision(registry, voxelGrid, entt::null, v.x, v.y,
+                                      v.z, toX, toY, toZ, true);
 
-        if (!collision &&
-            completionTime < calculateTimeToMove(ps.minSpeed)) {
+        if (!collision && completionTime < calculateTimeToMove(ps.minSpeed)) {
           if (!voxelGrid.terrainGridRepository->hasMovingComponent(v.x, v.y,
                                                                    v.z)) {
-            MovingComponent mc =
-                initializeMovingComponent(pos, vel, toX, toY, toZ,
-                                          completionTime, willStopX, willStopY,
-                                          willStopZ);
+            MovingComponent mc = initializeMovingComponent(
+                pos, vel, toX, toY, toZ, completionTime, willStopX, willStopY,
+                willStopZ);
             voxelGrid.terrainGridRepository->setMovingComponent(v.x, v.y, v.z,
                                                                 mc);
             voxelGrid.terrainGridRepository->moveTerrain(mc);
@@ -1199,8 +1200,8 @@ void PhysicsEngine::processPhysics(entt::registry &registry,
         }
       } catch (const std::exception &e) {
         spdlog::get("console")->warn(
-            "[processPhysics:VDB] Exception for voxel ({},{},{}): {}", v.x,
-            v.y, v.z, e.what());
+            "[processPhysics:VDB] Exception for voxel ({},{},{}): {}", v.x, v.y,
+            v.z, e.what());
       }
     }
   }

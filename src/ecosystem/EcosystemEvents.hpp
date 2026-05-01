@@ -181,8 +181,10 @@ struct MoveGasEntityEvent {
 
 struct DeleteOrConvertTerrainEvent {
   entt::entity terrain;
+  Position position;
 
-  DeleteOrConvertTerrainEvent(entt::entity terrain) : terrain(terrain) {}
+  DeleteOrConvertTerrainEvent(entt::entity terrain, Position position)
+      : terrain(terrain), position(position) {}
 };
 
 #endif // ECOSYSTEM_EVENTS_HPP

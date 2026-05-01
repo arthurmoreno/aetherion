@@ -30,6 +30,4 @@ def test_water_falls_and_lands_as_on_grid_storage():
     assert landed is not None, "Water did not fall"
 
     terrain_id = voxel_grid.get_terrain(2, 2, landed)
-    assert terrain_id == -1, (
-        f"Fallen water at z={landed} has tid={terrain_id}, expected -1 (ON_GRID_STORAGE)"
-    )
+    assert terrain_id == -1, f"Fallen water at z={landed} has tid={terrain_id}, expected -1 (ON_GRID_STORAGE)"

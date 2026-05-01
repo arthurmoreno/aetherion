@@ -1526,29 +1526,22 @@ void processTileWater(int x, int y, int z, entt::registry &registry,
     }
 
     if (emptyWater || emptyWithoutWater) {
-      // throw std::runtime_error("Error: Water entity with no water
-      // detected.");
-      if (terrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
-          terrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
-        entt::entity entity = static_cast<entt::entity>(terrainId);
-        dispatcher.enqueue<DeleteOrConvertTerrainEvent>(entity);
+      // Dispatch a coord-carrying delete event for both entity-backed and
+      // ON_GRID_STORAGE empty water; the handler picks the grid-only path
+      // when no live entity exists.
+      const bool hasLiveEntity =
+          terrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE) &&
+          terrainId != static_cast<int>(TerrainIdTypeEnum::NONE);
+      entt::entity entity =
+          hasLiveEntity ? static_cast<entt::entity>(terrainId) : entt::null;
+      dispatcher.enqueue<DeleteOrConvertTerrainEvent>(entity, pos);
 
-        std::ostringstream oss;
-        oss << "[processTileWater] Empty water entity at (" << x << ", " << y
-            << ", " << z << ") with live entity; ID=" << terrainId
-            << " entity sent for deletion.";
-        const std::string msg = oss.str();
-        std::cout << msg << "\n";
-      } else {
-        std::ostringstream oss;
-        oss << "[processTileWater] Empty water entity at (" << x << ", " << y
-            << ", " << z << ") in ON_GRID_STORAGE or NONE; ID=" << terrainId
-            << " no action taken.";
-        const std::string msg = oss.str();
-        std::cout << msg << "\n";
-        // throw std::runtime_error(msg);
-      }
-      // deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
+      std::ostringstream oss;
+      oss << "[processTileWater] Empty water at (" << x << ", " << y << ", "
+          << z << ") ID=" << terrainId
+          << (hasLiveEntity ? " (entity-backed)" : " (ON_GRID_STORAGE/NONE)")
+          << " sent for deletion.";
+      std::cout << oss.str() << "\n";
     }
 
     // Ensure that both WaterMatter and WaterVapor cannot coexist

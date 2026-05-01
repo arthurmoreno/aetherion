@@ -74,7 +74,8 @@ public:
   // Tick transient systems; auto-deactivate when no transients remain
   void tick(int dtTicks = 1);
 
-  void setTerrainId(int x, int y, int z, int64_t terrainID, bool takeLock = true);
+  void setTerrainId(int x, int y, int z, int64_t terrainID,
+                    bool takeLock = true);
 
   bool isTerrainIdOnEnttRegistry(int terrainID) const;
 
@@ -298,7 +299,8 @@ private:
   TerrainStorage &storage_;
   std::unordered_map<VoxelCoord, entt::entity, VoxelCoordHash> byCoord_;
   std::unordered_map<entt::entity, VoxelCoord> byEntity_;
-  std::unordered_map<VoxelCoord, MovingComponent, VoxelCoordHash> movingByCoord_;
+  std::unordered_map<VoxelCoord, MovingComponent, VoxelCoordHash>
+      movingByCoord_;
 
   entt::entity getEntityAt(int x, int y, int z) const;
   void markActive(int x, int y, int z, entt::entity e, bool takeLock = true);
@@ -358,8 +360,7 @@ void TerrainGridRepository::iterateActiveVoxels(Callback callback) const {
 
 template <typename Callback>
 void TerrainGridRepository::iterateVelocityVoxels(Callback callback) const {
-  withSharedLock(
-      [&]() { storage_.iterateVelocityVoxels(callback); });
+  withSharedLock([&]() { storage_.iterateVelocityVoxels(callback); });
 }
 
 #endif // TERRAIN_GRID_REPOSITORY_HPP

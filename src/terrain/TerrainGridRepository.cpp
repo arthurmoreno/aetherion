@@ -78,7 +78,8 @@ void TerrainGridRepository::moveTerrain(MovingComponent &movingComponent) {
                            movingComponent.movingToZ, false);
   if (currentPositionEntityId && !movingToPositionEntityId) {
     int64_t terrainID = currentPositionEntityId.value();
-    // terrainID >= 0 means a real ECS entity exists; -1 = ON_GRID_STORAGE (no entity)
+    // terrainID >= 0 means a real ECS entity exists; -1 = ON_GRID_STORAGE (no
+    // entity)
     const bool hasEntity = terrainID >= 0;
 
     if (hasEntity) {
@@ -87,7 +88,8 @@ void TerrainGridRepository::moveTerrain(MovingComponent &movingComponent) {
     }
     // Clear coord-keyed map entry BEFORE removing from ECS (Position is already
     // gone at this point so onDestroyMoving can't recover the coordinates).
-    clearMovingComponent(movingComponent.movingFromX, movingComponent.movingFromY,
+    clearMovingComponent(movingComponent.movingFromX,
+                         movingComponent.movingFromY,
                          movingComponent.movingFromZ);
     if (hasEntity) {
       registry_.remove<MovingComponent>(static_cast<entt::entity>(terrainID));
@@ -183,7 +185,8 @@ void TerrainGridRepository::moveTerrain(MovingComponent &movingComponent) {
                                                   movingComponent.movingFromZ);
     if (hasEntity) {
       Position newPosition{movingComponent.movingToX, movingComponent.movingToY,
-                           movingComponent.movingToZ, movingComponent.direction};
+                           movingComponent.movingToZ,
+                           movingComponent.direction};
       registry_.emplace<Position>(static_cast<entt::entity>(terrainID),
                                   newPosition);
       // Update tracking maps to keep byCoord_/byEntity_ in sync with the grid
@@ -191,7 +194,8 @@ void TerrainGridRepository::moveTerrain(MovingComponent &movingComponent) {
       // Position but find stale tracking map entries pointing to the old
       // position, causing zombie entities.
       entt::entity entity = static_cast<entt::entity>(terrainID);
-      VoxelCoord oldKey{movingComponent.movingFromX, movingComponent.movingFromY,
+      VoxelCoord oldKey{movingComponent.movingFromX,
+                        movingComponent.movingFromY,
                         movingComponent.movingFromZ};
       VoxelCoord newKey{movingComponent.movingToX, movingComponent.movingToY,
                         movingComponent.movingToZ};
@@ -992,9 +996,8 @@ void TerrainGridRepository::setTerrainStructuralIntegrity(
 }
 
 bool TerrainGridRepository::hasMovingComponent(int x, int y, int z) const {
-  return withSharedLock([&]() -> bool {
-    return movingByCoord_.count(VoxelCoord{x, y, z}) > 0;
-  });
+  return withSharedLock(
+      [&]() -> bool { return movingByCoord_.count(VoxelCoord{x, y, z}) > 0; });
 }
 
 // Per-thread flag: true only while the calling thread holds the exclusive lock.

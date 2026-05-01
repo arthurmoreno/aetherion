@@ -160,8 +160,9 @@ public:
   template <typename Callback>
   void iterateBiomassMatter(Callback callback) const;
 
-  // Iterate every voxel that currently has a non-zero velocity (active in velXGrid).
-  // Callback signature: void(int x, int y, int z, float vx, float vy, float vz)
+  // Iterate every voxel that currently has a non-zero velocity (active in
+  // velXGrid). Callback signature: void(int x, int y, int z, float vx, float
+  // vy, float vz)
   template <typename Callback>
   void iterateVelocityVoxels(Callback callback) const;
 
