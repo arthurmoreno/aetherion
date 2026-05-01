@@ -716,10 +716,10 @@ bool moveWater(int terrainEntityId, entt::registry &registry,
     terrain = static_cast<entt::entity>(terrainEntityId);
     haveMovement = registry.all_of<MovingComponent>(terrain);
   } else if (terrainEntityId == -1) {
-    terrain = entt::null;
+    terrain = static_cast<entt::entity>(terrainEntityId);
     haveMovement = false;
   } else if (terrainEntityId == -2) {
-    terrain = entt::null;
+    terrain = static_cast<entt::entity>(terrainEntityId);
     haveMovement = false;
   }
 
@@ -1546,7 +1546,7 @@ void processTileWater(int x, int y, int z, entt::registry &registry,
             << " no action taken.";
         const std::string msg = oss.str();
         std::cout << msg << "\n";
-        throw std::runtime_error(msg);
+        // throw std::runtime_error(msg);
       }
       // deleteEntityOrConvertInEmpty(registry, dispatcher, entity);
     }

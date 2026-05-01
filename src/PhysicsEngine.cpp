@@ -2263,16 +2263,9 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
     // investigate and ensure all necessary state is properly initialized before
     // creating terrain. For now, just logging and skipping the event to prevent
     // crashes.
-    entt::entity newWaterEntity = createWaterTerrainFromFall(
+    createWaterTerrainFromFall(
         registry, dispatcher, *voxelGrid, event.position.x, event.position.y,
         event.position.z, event.fallingAmount, event.entity, event.sourcePos);
-    if (newWaterEntity == entt::null) {
-      spdlog::get("console")->warn(
-          "onWaterFallEntityEvent -> Failed to create water terrain from fall "
-          "at ({}, {}, {}) - skipping event",
-          event.position.x, event.position.y, event.position.z);
-      return;
-    }
     spdlog::get("console")->info(
         "onWaterFallEntityEvent -> No terrain at position ({}, {}, {}) to "
         "create water from fall - skipping event",

@@ -1185,15 +1185,9 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry &registry,
 }
 
 /**
- * @brief Creates a new water entity from a "water fall" event.
- * @details This is a highly compound function that:
- * 1. Creates a new entity in the ECS.
- * 2. Emplaces all required components (`Position`, `Velocity`,
- * `MatterContainer`, etc.).
- * 3. Updates the `VoxelGrid` to reference the new entity.
- * 4. Modifies the `MatterContainer` of the source entity that produced the
- * water.
- * 5. Potentially destroys the source entity if its matter is depleted.
+ * @brief Creates a new water terrain voxel from a "water fall" event.
+ * @details This function writes the destination voxel directly into terrain
+ * storage without creating an ECS entity.
  * @note This function performs its own manual grid locking.
  * @param registry The entt::registry.
  * @param voxelGrid The VoxelGrid.
@@ -1203,7 +1197,7 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry &registry,
  * @param fallingAmount The amount of water matter for the new tile.
  * @param sourceEntity The entity from which the water is falling.
  */
-inline entt::entity
+inline void
 createWaterTerrainFromFall(entt::registry &registry,
                            entt::dispatcher &dispatcher, VoxelGrid &voxelGrid,
                            int x, int y, int z, double fallingAmount,
@@ -1211,14 +1205,11 @@ createWaterTerrainFromFall(entt::registry &registry,
   // Lock for atomic state change
   if (!voxelGrid.terrainGridRepository) {
     spdlog::warn("createVaporTerrainEntity: missing terrainGridRepository");
-    return entt::null;
+    return;
   }
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
-  // Create a new water tile
-  entt::entity newWaterEntity = registry.create();
   Position newPosition = {x, y, z, DirectionEnum::DOWN};
-  registry.emplace<Position>(newWaterEntity, newPosition);
 
   EntityTypeComponent newType = {};
   newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
@@ -1241,8 +1232,8 @@ createWaterTerrainFromFall(entt::registry &registry,
   newStructuralIntegrityComponent.maxLoadCapacity = -1;
   newStructuralIntegrityComponent.matterState = MatterState::LIQUID;
 
-  // Set terrain ID in voxel grid (associates entity with voxel)
-  voxelGrid.setTerrain(x, y, z, static_cast<int>(newWaterEntity));
+  // Note: VoxelGrid::setTerrain rejects -1/-2; for ON_GRID_STORAGE we write
+  // the terrain ID directly through the repository below.
 
   // Store static terrain data in TerrainStorage via repository (not in EnTT)
   voxelGrid.terrainGridRepository->setPosition(x, y, z, newPosition);
@@ -1253,11 +1244,8 @@ createWaterTerrainFromFall(entt::registry &registry,
       x, y, z, newStructuralIntegrityComponent);
   voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
 
-  int newTerrainId = static_cast<int>(newWaterEntity);
-  voxelGrid.terrainGridRepository->setTerrainId(x, y, z, newTerrainId);
-
-  VoxelCoord key{newPosition.x, newPosition.y, newPosition.z};
-  voxelGrid.terrainGridRepository->addToTrackingMaps(key, newWaterEntity);
+  voxelGrid.terrainGridRepository->setTerrainId(
+      x, y, z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
 
   // Only transient data (Velocity) goes in ECS if needed for active movement
   // Water at rest doesn't need velocity in ECS; it will be activated when
@@ -1290,8 +1278,6 @@ createWaterTerrainFromFall(entt::registry &registry,
   // }
   // throw std::runtime_error("createWaterTerrainFromFall  -> Just exploding for
   // testing.");
-
-  return newWaterEntity;
 }
 
 inline void
