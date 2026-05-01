@@ -380,7 +380,15 @@ NB_MODULE(_aetherion, m) {
       .def("set_terrain_velocity", [](TerrainGridRepository &repo, int x, int y,
                                       int z, float vx, float vy, float vz) {
         repo.setVelocity(x, y, z, Velocity{vx, vy, vz});
-      });
+      })
+      .def("has_terrain_moving_component",
+           [](const TerrainGridRepository &repo, int x, int y, int z) -> bool {
+             return repo.hasMovingComponent(x, y, z);
+           })
+      .def("count_active_velocity_voxels",
+           [](const TerrainGridRepository &repo) -> int {
+             return repo.countActiveVelocityVoxels();
+           });
 
   // nb::class_<RenderTask>(m, "RenderTask")
   //     .def(nb::init<SDL_Texture*, int, int>())
@@ -1075,6 +1083,12 @@ NB_MODULE(_aetherion, m) {
       .value("CORNER_NORTH_WEST", TerrainVariantEnum::CORNER_NORTH_WEST)
       .export_values();
 
+  nb::enum_<TerrainIdTypeEnum>(m, "TerrainIdTypeEnum")
+      .value("NONE", TerrainIdTypeEnum::NONE)
+      .value("ON_GRID_STORAGE", TerrainIdTypeEnum::ON_GRID_STORAGE)
+      .value("ON_ENTT", TerrainIdTypeEnum::ON_ENTT)
+      .export_values();
+
   nb::class_<EntityTypeComponent>(m, "EntityTypeComponent")
       .def(nb::init<>())
       .def_rw("main_type", &EntityTypeComponent::mainType)
@@ -1480,6 +1494,13 @@ NB_MODULE(_aetherion, m) {
            nb::arg("z"), nb::arg("terrainID"), "Set terrainID at (x, y, z)")
       .def("get_terrain", &VoxelGrid::getTerrain, nb::arg("x"), nb::arg("y"),
            nb::arg("z"), "Get terrainID at (x, y, z)")
+      .def(
+          "set_terrain_id_raw",
+          [](VoxelGrid &vg, int x, int y, int z, int64_t value) {
+            vg.terrainGridRepository->setTerrainId(x, y, z, value);
+          },
+          nb::arg("x"), nb::arg("y"), nb::arg("z"), nb::arg("value"),
+          "Test-only: write raw int64 terrain ID without entity creation.")
       .def("create_entt_for_terrain", &VoxelGrid::createEnttForTerrain,
            nb::arg("x"), nb::arg("y"), nb::arg("z"),
            "Create an entt entity for the terrain at (x, y, z) and return its "

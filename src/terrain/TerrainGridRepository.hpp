@@ -74,14 +74,14 @@ public:
   // Tick transient systems; auto-deactivate when no transients remain
   void tick(int dtTicks = 1);
 
-  void setTerrainId(int x, int y, int z, int terrainID, bool takeLock = true);
+  void setTerrainId(int x, int y, int z, int64_t terrainID, bool takeLock = true);
 
   bool isTerrainIdOnEnttRegistry(int terrainID) const;
 
   // ---------------- Static getters/setters (VDB-backed) ----------------
 
-  std::optional<int> getTerrainIdIfExists(int x, int y, int z,
-                                          bool takeLock = true) const;
+  std::optional<int64_t> getTerrainIdIfExists(int x, int y, int z,
+                                              bool takeLock = true) const;
 
   // EntityTypeComponent
   EntityTypeComponent getTerrainEntityType(int x, int y, int z,
@@ -155,6 +155,13 @@ public:
   // Setting velocity writes directly to VDB (no ECS entity created)
   void setVelocity(int x, int y, int z, const Velocity &vel);
 
+  // ---------------- MovingComponent coord-keyed map ----------------
+  // MovingComponent is stored in movingByCoord_ (protected by terrainGridMutex)
+  // instead of the ECS registry for terrain voxels.
+  void setMovingComponent(int x, int y, int z, const MovingComponent &mc);
+  MovingComponent getMovingComponent(int x, int y, int z) const;
+  void clearMovingComponent(int x, int y, int z);
+
   // ---------------- Migration Methods ----------------
   // Extract terrain components from EnTT entity and save to OpenVDB storage
   // If no transient components remain after migration, destroys the entity
@@ -187,6 +194,14 @@ public:
 
   template <typename Callback>
   void iterateBiomassMatter(Callback callback) const;
+
+  // Iterate every voxel that currently carries a non-zero velocity in VDB.
+  // Callback signature: void(int x, int y, int z, float vx, float vy, float vz)
+  template <typename Callback>
+  void iterateVelocityVoxels(Callback callback) const;
+
+  // Count of voxels currently carrying non-zero velocity (active in velXGrid).
+  int countActiveVelocityVoxels() const;
 
   // Generic iterator that provides TerrainInfo for each active voxel
   template <typename Callback>
@@ -283,6 +298,7 @@ private:
   TerrainStorage &storage_;
   std::unordered_map<VoxelCoord, entt::entity, VoxelCoordHash> byCoord_;
   std::unordered_map<entt::entity, VoxelCoord> byEntity_;
+  std::unordered_map<VoxelCoord, MovingComponent, VoxelCoordHash> movingByCoord_;
 
   entt::entity getEntityAt(int x, int y, int z) const;
   void markActive(int x, int y, int z, entt::entity e, bool takeLock = true);
@@ -338,6 +354,12 @@ void TerrainGridRepository::iterateActiveVoxels(Callback callback) const {
     TerrainInfo info = readTerrainInfo(key.x, key.y, key.z);
     callback(key.x, key.y, key.z, info);
   }
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateVelocityVoxels(Callback callback) const {
+  withSharedLock(
+      [&]() { storage_.iterateVelocityVoxels(callback); });
 }
 
 #endif // TERRAIN_GRID_REPOSITORY_HPP

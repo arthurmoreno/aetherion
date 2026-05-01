@@ -169,8 +169,8 @@ TerrainStorage::TerrainStorage() {
   // OpenVDB).
   openvdb::initialize();
   // Allocate terrain-related grids (terrainGrid attached externally)
-  terrainGrid = openvdb::Int32Grid::create(
-      -2); // -2 = off nodes, -1 = terrain exists but no enTT entity
+  terrainGrid = openvdb::Int64Grid::create(
+      -2LL); // -2 = off nodes, -1 = terrain exists but no enTT entity
   // Entity type component grids
   mainTypeGrid = openvdb::Int32Grid::create(0);
   subType0Grid = openvdb::Int32Grid::create(0);
@@ -324,7 +324,7 @@ void TerrainStorage::configureThreadCache() {
   if (!tc.configured || changed) {
     // Rebuild all accessors from current grids
     if (terrainGrid)
-      tc.terrainAcc = std::make_unique<openvdb::Int32Grid::Accessor>(
+      tc.terrainAcc = std::make_unique<openvdb::Int64Grid::Accessor>(
           terrainGrid->getAccessor());
     tc.mainTypeAcc = std::make_unique<openvdb::Int32Grid::Accessor>(
         mainTypeGrid->getAccessor());
@@ -453,13 +453,14 @@ int TerrainStorage::getFlagBits(int x, int y, int z) const {
   return flagsGrid->tree().getValue(openvdb::Coord(x, y, z));
 }
 
-int TerrainStorage::getTerrainIdIfExists(int x, int y, int z) {
+int64_t TerrainStorage::getTerrainIdIfExists(int x, int y, int z) {
   configureThreadCache();
   if (s_threadCache.terrainAcc) {
     // std::cout << "[getTerrainIdIfExists] Checkpoint! Before:
     // s_threadCache.terrainAcc->getValue (" << x << ", " << y << ", " << z <<
     // ")\n";
-    int entityId = s_threadCache.terrainAcc->getValue(openvdb::Coord(x, y, z));
+    int64_t entityId =
+        s_threadCache.terrainAcc->getValue(openvdb::Coord(x, y, z));
     // std::cout << "[getTerrainIdIfExists] Checkpoint! After:
     // s_threadCache.terrainAcc->getValue (" << x << ", " << y << ", " << z <<
     // ") is " << entityId << std::endl;
@@ -480,7 +481,7 @@ int TerrainStorage::getTerrainIdIfExists(int x, int y, int z) {
   // << ", " << y << ", " << z << ")\n";
   if (!terrainGrid)
     return -2;
-  int entityId = terrainGrid->tree().getValue(openvdb::Coord(x, y, z));
+  int64_t entityId = terrainGrid->tree().getValue(openvdb::Coord(x, y, z));
   if (entityId != -2) {
     return entityId;
   }
@@ -730,7 +731,7 @@ size_t TerrainStorage::prune(int currentTick) {
     size_t count = 0;
     if (terrainGrid) {
       for (auto it = terrainGrid->cbeginValueOn(); it; ++it) {
-        if (static_cast<int>(it.getValue()) != bgEntityId)
+        if (it.getValue() != bgEntityId)
           ++count;
       }
     }
@@ -769,7 +770,7 @@ size_t TerrainStorage::prune(int currentTick) {
   return activeCount;
 }
 
-void TerrainStorage::setTerrainId(int x, int y, int z, int id) {
+void TerrainStorage::setTerrainId(int x, int y, int z, int64_t id) {
   if (terrainGrid) {
     terrainGrid->tree().setValue(openvdb::Coord(x, y, z), id);
   }
@@ -858,4 +859,13 @@ int64_t TerrainStorage::sumGrid(const openvdb::Int32Grid::Ptr &grid) const {
 
 int64_t TerrainStorage::sumTotalWater() const {
   return sumGrid(waterMatterGrid) + sumGrid(vaporMatterGrid);
+}
+
+int TerrainStorage::countActiveVelocityVoxels() const {
+  if (!velXGrid)
+    return 0;
+  int count = 0;
+  for (auto it = velXGrid->cbeginValueOn(); it; ++it)
+    ++count;
+  return count;
 }

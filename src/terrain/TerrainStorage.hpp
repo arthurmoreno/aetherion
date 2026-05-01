@@ -28,7 +28,7 @@ public:
 
   // ---------------- Grids ----------------
   // Main terrain grid reference (source of truth)
-  openvdb::Int32Grid::Ptr
+  openvdb::Int64Grid::Ptr
       terrainGrid; // non-owning semantic: constructed in VoxelGrid
   // Entity type component grids [This could be a flag system]:
   openvdb::Int32Grid::Ptr mainTypeGrid; // mainType (0=TERRAIN, 1=PLANT, etc.)
@@ -70,9 +70,9 @@ public:
   // Memory usage of all terrain-related grids
   size_t memUsage() const;
 
-  int getTerrainIdIfExists(int x, int y, int z);
+  int64_t getTerrainIdIfExists(int x, int y, int z);
 
-  void setTerrainId(int x, int y, int z, int id);
+  void setTerrainId(int x, int y, int z, int64_t id);
   bool checkIfTerrainExists(int x, int y, int z) const;
 
   // Entity type component accessors:
@@ -160,6 +160,14 @@ public:
   template <typename Callback>
   void iterateBiomassMatter(Callback callback) const;
 
+  // Iterate every voxel that currently has a non-zero velocity (active in velXGrid).
+  // Callback signature: void(int x, int y, int z, float vx, float vy, float vz)
+  template <typename Callback>
+  void iterateVelocityVoxels(Callback callback) const;
+
+  // Count of voxels currently carrying non-zero velocity (active in velXGrid).
+  int countActiveVelocityVoxels() const;
+
   // Generic grid iterator - can iterate over any Int32Grid with a predicate
   template <typename Callback>
   void iterateGrid(const openvdb::Int32Grid::Ptr &grid, Callback callback,
@@ -198,7 +206,7 @@ private:
 
     // Accessors are not default-constructible; store as pointers and create on
     // demand Main terrain grid reference (source of truth) Accessor:
-    std::unique_ptr<openvdb::Int32Grid::Accessor> terrainAcc;
+    std::unique_ptr<openvdb::Int64Grid::Accessor> terrainAcc;
 
     // Entity type component grids [This could be a flag system] Accessors:
     std::unique_ptr<openvdb::Int32Grid::Accessor> mainTypeAcc;
@@ -265,6 +273,19 @@ void TerrainStorage::iterateVaporMatter(Callback callback) const {
 template <typename Callback>
 void TerrainStorage::iterateBiomassMatter(Callback callback) const {
   iterateGrid(biomassMatterGrid, callback, 1);
+}
+
+template <typename Callback>
+void TerrainStorage::iterateVelocityVoxels(Callback callback) const {
+  if (!velXGrid)
+    return;
+  for (auto it = velXGrid->cbeginValueOn(); it; ++it) {
+    const auto coord = it.getCoord();
+    const float vx = it.getValue();
+    const float vy = velYGrid ? velYGrid->tree().getValue(coord) : 0.0f;
+    const float vz = velZGrid ? velZGrid->tree().getValue(coord) : 0.0f;
+    callback(coord.x(), coord.y(), coord.z(), vx, vy, vz);
+  }
 }
 
 #endif // TERRAIN_STORAGE_HPP

@@ -70,18 +70,28 @@ void TerrainGridRepository::moveTerrain(MovingComponent &movingComponent) {
   // with takeLock param get false explicitly. TerrainGridLock gridLock(this);
 
   // Get the current position of the entity
-  std::optional<int> currentPositionEntityId = getTerrainIdIfExists(
+  std::optional<int64_t> currentPositionEntityId = getTerrainIdIfExists(
       movingComponent.movingFromX, movingComponent.movingFromY,
       movingComponent.movingFromZ, false);
-  std::optional<int> movingToPositionEntityId =
+  std::optional<int64_t> movingToPositionEntityId =
       getTerrainIdIfExists(movingComponent.movingToX, movingComponent.movingToY,
                            movingComponent.movingToZ, false);
   if (currentPositionEntityId && !movingToPositionEntityId) {
-    int terrainID = currentPositionEntityId.value();
+    int64_t terrainID = currentPositionEntityId.value();
+    // terrainID >= 0 means a real ECS entity exists; -1 = ON_GRID_STORAGE (no entity)
+    const bool hasEntity = terrainID >= 0;
 
-    registry_.remove<Position>(static_cast<entt::entity>(terrainID));
-    registry_.remove<Velocity>(static_cast<entt::entity>(terrainID));
-    registry_.remove<MovingComponent>(static_cast<entt::entity>(terrainID));
+    if (hasEntity) {
+      registry_.remove<Position>(static_cast<entt::entity>(terrainID));
+      registry_.remove<Velocity>(static_cast<entt::entity>(terrainID));
+    }
+    // Clear coord-keyed map entry BEFORE removing from ECS (Position is already
+    // gone at this point so onDestroyMoving can't recover the coordinates).
+    clearMovingComponent(movingComponent.movingFromX, movingComponent.movingFromY,
+                         movingComponent.movingFromZ);
+    if (hasEntity) {
+      registry_.remove<MovingComponent>(static_cast<entt::entity>(terrainID));
+    }
 
     // CRITICAL: Reserve destination FIRST to prevent race conditions
     // This must happen before copying any data to prevent other entities from
@@ -171,33 +181,34 @@ void TerrainGridRepository::moveTerrain(MovingComponent &movingComponent) {
     int movFromTerrainId = storage_.deleteTerrain(movingComponent.movingFromX,
                                                   movingComponent.movingFromY,
                                                   movingComponent.movingFromZ);
-    Position newPosition{movingComponent.movingToX, movingComponent.movingToY,
-                         movingComponent.movingToZ, movingComponent.direction};
-    registry_.emplace<Position>(static_cast<entt::entity>(terrainID),
-                                newPosition);
-    // Update tracking maps to keep byCoord_/byEntity_ in sync with the grid
-    // move. Without this, cleanup hooks (onDestroyVelocity) look up the new
-    // Position but find stale tracking map entries pointing to the old
-    // position, causing zombie entities.
-    entt::entity entity = static_cast<entt::entity>(terrainID);
-    VoxelCoord oldKey{movingComponent.movingFromX, movingComponent.movingFromY,
-                      movingComponent.movingFromZ};
-    VoxelCoord newKey{movingComponent.movingToX, movingComponent.movingToY,
-                      movingComponent.movingToZ};
-    removeFromTrackingMaps(oldKey, entity, true, false);
-    // [COMMENTED OUT FOR TESTING]
-    addToTrackingMaps(newKey, entity, true, false);
+    if (hasEntity) {
+      Position newPosition{movingComponent.movingToX, movingComponent.movingToY,
+                           movingComponent.movingToZ, movingComponent.direction};
+      registry_.emplace<Position>(static_cast<entt::entity>(terrainID),
+                                  newPosition);
+      // Update tracking maps to keep byCoord_/byEntity_ in sync with the grid
+      // move. Without this, cleanup hooks (onDestroyVelocity) look up the new
+      // Position but find stale tracking map entries pointing to the old
+      // position, causing zombie entities.
+      entt::entity entity = static_cast<entt::entity>(terrainID);
+      VoxelCoord oldKey{movingComponent.movingFromX, movingComponent.movingFromY,
+                        movingComponent.movingFromZ};
+      VoxelCoord newKey{movingComponent.movingToX, movingComponent.movingToY,
+                        movingComponent.movingToZ};
+      removeFromTrackingMaps(oldKey, entity, true, false);
+      addToTrackingMaps(newKey, entity, true, false);
+    }
   } else {
     return;
   }
 }
 
-std::optional<int>
+std::optional<int64_t>
 TerrainGridRepository::getTerrainIdIfExists(int x, int y, int z,
                                             bool takeLock) const {
   return withSharedLock(
-      [&]() -> std::optional<int> {
-        int terrainId = storage_.getTerrainIdIfExists(x, y, z);
+      [&]() -> std::optional<int64_t> {
+        int64_t terrainId = storage_.getTerrainIdIfExists(x, y, z);
         if (terrainId == -2) {
           return std::nullopt;
         }
@@ -210,8 +221,8 @@ bool TerrainGridRepository::checkIfTerrainHasEntity(int x, int y, int z,
                                                     bool takeLock) const {
   return withSharedLock(
       [&]() {
-        std::optional<int> entityId = storage_.getTerrainIdIfExists(x, y, z);
-        return entityId.has_value() && entityId.value() >= 0;
+        int64_t entityId = storage_.getTerrainIdIfExists(x, y, z);
+        return entityId >= 0;
       },
       takeLock);
 }
@@ -243,7 +254,7 @@ void TerrainGridRepository::clearActive(int x, int y, int z, bool takeLock) {
       takeLock);
 }
 
-void TerrainGridRepository::setTerrainId(int x, int y, int z, int terrainID,
+void TerrainGridRepository::setTerrainId(int x, int y, int z, int64_t terrainID,
                                          bool takeLock) {
   withUniqueLock(
       [&]() { storage_.terrainGrid->tree().setValue(C(x, y, z), terrainID); },
@@ -300,26 +311,19 @@ void TerrainGridRepository::onConstructVelocity(entt::registry &reg,
 
 void TerrainGridRepository::onConstructMoving(entt::registry &reg,
                                               entt::entity e) {
-  // if (!reg.valid(e)) return;
-  // if (auto pos = reg.try_get<Position>(e)) {
-  //     auto entityType = reg.try_get<EntityTypeComponent>(e);
-  //     if (entityType && entityType->mainType !=
-  //     static_cast<int>(EntityEnum::TERRAIN)) {
-  //         return;
-  //     }
-  //     withTrackingMapsLock([&]() {
-  //         if (checkIfTerrainHasEntity(pos->x, pos->y, pos->z, false)) {
-  //         // std::cout << "TerrainGridRepository: onConstructMoving at (" <<
-  //         pos->x << ", " <<
-  //         // pos->y
-  //         //           << ", " << pos->z << ") entity=" << int(e) << "\n";
-
-  //             VoxelCoord key{pos->x, pos->y, pos->z};
-  //             addToTrackingMaps(key, e, false, false);
-  //             markActive(pos->x, pos->y, pos->z, e, false);
-  //             }
-  //     }, true, true);
-  // }
+  if (!reg.valid(e))
+    return;
+  auto pos = reg.try_get<Position>(e);
+  if (!pos)
+    return;
+  auto entityType = reg.try_get<EntityTypeComponent>(e);
+  if (entityType &&
+      entityType->mainType != static_cast<int>(EntityEnum::TERRAIN))
+    return;
+  auto mc = reg.try_get<MovingComponent>(e);
+  if (!mc)
+    return;
+  setMovingComponent(pos->x, pos->y, pos->z, *mc);
 }
 
 void TerrainGridRepository::onDestroyVelocity(entt::registry &reg,
@@ -427,7 +431,8 @@ entt::entity TerrainGridRepository::createEnttForTerrain(int x, int y, int z) {
   // CRITICAL: Set terrain ID in grid BEFORE adding to tracking maps
   // This ensures the terrain ID matches when other threads query the voxel
   if (storage_.terrainGrid) {
-    storage_.terrainGrid->tree().setValue(C(x, y, z), static_cast<int>(e));
+    storage_.terrainGrid->tree().setValue(
+        C(x, y, z), static_cast<int64_t>(static_cast<uint32_t>(e)));
   }
   // Now add to tracking maps after terrain ID is set
   addToTrackingMaps(key, e);
@@ -467,7 +472,8 @@ entt::entity TerrainGridRepository::ensureActive(int x, int y, int z) {
   // CRITICAL: Set terrain ID in grid BEFORE adding to tracking maps
   // This ensures the terrain ID matches when other threads query the voxel
   if (storage_.terrainGrid) {
-    storage_.terrainGrid->tree().setValue(C(x, y, z), static_cast<int>(e));
+    storage_.terrainGrid->tree().setValue(
+        C(x, y, z), static_cast<int64_t>(static_cast<uint32_t>(e)));
   }
 
   // Now add to tracking maps after terrain ID is set
@@ -783,6 +789,26 @@ void TerrainGridRepository::setVelocity(int x, int y, int z,
   storage_.setVelocity(x, y, z, vel.vx, vel.vy, vel.vz);
 }
 
+// ---------------- MovingComponent coord-keyed map ----------------
+void TerrainGridRepository::setMovingComponent(int x, int y, int z,
+                                               const MovingComponent &mc) {
+  withUniqueLock([&]() { movingByCoord_[VoxelCoord{x, y, z}] = mc; });
+}
+
+MovingComponent TerrainGridRepository::getMovingComponent(int x, int y,
+                                                          int z) const {
+  return withSharedLock([&]() -> MovingComponent {
+    auto it = movingByCoord_.find(VoxelCoord{x, y, z});
+    if (it == movingByCoord_.end())
+      return MovingComponent{};
+    return it->second;
+  });
+}
+
+void TerrainGridRepository::clearMovingComponent(int x, int y, int z) {
+  withUniqueLock([&]() { movingByCoord_.erase(VoxelCoord{x, y, z}); });
+}
+
 // void TerrainGridRepository::setTerrain(int x, int y, int z, int terrainID) {
 //     if (terrainID == -2) {
 //         deleteTerrain(x, y, z);
@@ -966,29 +992,9 @@ void TerrainGridRepository::setTerrainStructuralIntegrity(
 }
 
 bool TerrainGridRepository::hasMovingComponent(int x, int y, int z) const {
-  // Get the terrain ID at the specified coordinates
-  std::optional<int> terrainIdOpt = getTerrainIdIfExists(x, y, z);
-
-  if (!terrainIdOpt.has_value()) {
-    // No terrain at this location
-    return false;
-  }
-
-  int terrainId = terrainIdOpt.value();
-
-  // Check if terrain is in grid storage (not an EnTT entity)
-  if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-    return false;
-  }
-
-  // Check if terrain is marked as NONE
-  if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
-    return false;
-  }
-
-  // Terrain is an EnTT entity - check if it has MovingComponent
-  entt::entity entity = static_cast<entt::entity>(terrainId);
-  return registry_.all_of<MovingComponent>(entity);
+  return withSharedLock([&]() -> bool {
+    return movingByCoord_.count(VoxelCoord{x, y, z}) > 0;
+  });
 }
 
 // Per-thread flag: true only while the calling thread holds the exclusive lock.
@@ -1098,4 +1104,9 @@ void TerrainGridRepository::softDeactivateEntity(entt::dispatcher &dispatcher,
 
 int64_t TerrainGridRepository::sumTotalWater() const {
   return storage_.sumTotalWater();
+}
+
+int TerrainGridRepository::countActiveVelocityVoxels() const {
+  return withSharedLock(
+      [&]() -> int { return storage_.countActiveVelocityVoxels(); });
 }

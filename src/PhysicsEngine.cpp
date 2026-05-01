@@ -8,6 +8,7 @@
 #include <sstream>
 
 #include "EcosystemEngine.hpp"
+#include "debug/WaterDebugLog.hpp"
 #include "ecosystem/EcosystemEvents.hpp"
 #include "physics/Collision.hpp"
 #include "physics/PhysicalMath.hpp"
@@ -1131,6 +1132,79 @@ void PhysicsEngine::processPhysics(entt::registry &registry,
     }
   }
 
+  // ── Loop 2: VDB velocity voxels for ON_GRID_STORAGE terrain ──────────────
+  // Handles terrain with velocity stored only in VDB (no ECS entity).
+  // Pre-C1–C4 this yields nothing; post-C1–C4 it drives all water physics.
+  // Two-phase: collect coords under shared lock, then process without lock.
+  {
+    struct VdbVoxel { int x, y, z; float vx, vy, vz; };
+    std::vector<VdbVoxel> vdbVoxels;
+    voxelGrid.terrainGridRepository->iterateVelocityVoxels(
+        [&](int x, int y, int z, float vx, float vy, float vz) {
+          auto maybeId =
+              voxelGrid.terrainGridRepository->getTerrainIdIfExists(x, y, z);
+          if (maybeId && *maybeId >= 0)
+            return; // ECS entity exists — Loop 1 already handled it
+          vdbVoxels.push_back({x, y, z, vx, vy, vz});
+        });
+
+    for (auto &v : vdbVoxels) {
+      try {
+        Position pos{v.x, v.y, v.z, DirectionEnum::UP};
+        Velocity vel{v.vx, v.vy, v.vz};
+        PhysicsStats ps =
+            voxelGrid.terrainGridRepository->getPhysicsStats(v.x, v.y, v.z);
+        MatterState ms =
+            voxelGrid.terrainGridRepository->getMatterState(v.x, v.y, v.z);
+
+        auto [newVz, willStopZ] = resolveVerticalMotion(
+            registry, voxelGrid, pos, vel.vz, ms, entt::null, entt::null);
+        bool belowStable = checkBelowStability(registry, voxelGrid, pos);
+        auto [newVx, newVy, willStopX, willStopY] = applyKineticFrictionDamping(
+            vel.vx, vel.vy, ms, belowStable, newVz);
+
+        if (ms != MatterState::GAS) {
+          vel.vx = newVx;
+          vel.vy = newVy;
+          vel.vz = newVz;
+        }
+
+        // Persist updated velocity to VDB (setValueOff when zero)
+        voxelGrid.terrainGridRepository->setVelocity(v.x, v.y, v.z, vel);
+
+        // Trigger movement if velocity warrants it
+        auto [toX, toY, toZ, completionTime] = calculateMovementDestination(
+            registry, voxelGrid, pos, vel, ps, vel.vx, vel.vy, vel.vz);
+
+        bool collision =
+            hasCollision(registry, voxelGrid, entt::null, v.x, v.y, v.z, toX,
+                         toY, toZ, true);
+
+        if (!collision &&
+            completionTime < calculateTimeToMove(ps.minSpeed)) {
+          if (!voxelGrid.terrainGridRepository->hasMovingComponent(v.x, v.y,
+                                                                   v.z)) {
+            MovingComponent mc =
+                initializeMovingComponent(pos, vel, toX, toY, toZ,
+                                          completionTime, willStopX, willStopY,
+                                          willStopZ);
+            voxelGrid.terrainGridRepository->setMovingComponent(v.x, v.y, v.z,
+                                                                mc);
+            voxelGrid.terrainGridRepository->moveTerrain(mc);
+          }
+        } else {
+          // Clear velocity on collision or below-min-speed
+          voxelGrid.terrainGridRepository->setVelocity(v.x, v.y, v.z,
+                                                       Velocity{0, 0, 0});
+        }
+      } catch (const std::exception &e) {
+        spdlog::get("console")->warn(
+            "[processPhysics:VDB] Exception for voxel ({},{},{}): {}", v.x,
+            v.y, v.z, e.what());
+      }
+    }
+  }
+
   auto movingComponentView = registry.view<MovingComponent>();
   for (auto entity : movingComponentView) {
     // SAFETY CHECK: Validate entity before processing
@@ -1604,7 +1678,7 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(
   if (registry.valid(event.entity) && registry.all_of<Position>(event.entity)) {
     auto pos = registry.get<Position>(event.entity);
 
-    std::optional<int> terrainId =
+    std::optional<int64_t> terrainId =
         voxelGrid->terrainGridRepository->getTerrainIdIfExists(
             pos.x, pos.y, pos.z); // Validate terrain exists at this position
                                   // before proceeding
@@ -2105,14 +2179,39 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
             static_cast<int>(terrainEntity), event.position.x, event.position.y,
             event.position.z);
 
+        if (waterDebugInWatchRegion(event.position.x, event.position.y,
+                                    event.position.z)) {
+          std::ostringstream jss;
+          jss << "{\"event\":\"recovery_triggered\""
+              << ",\"x\":" << event.position.x << ",\"y\":" << event.position.y
+              << ",\"z\":" << event.position.z
+              << ",\"invalid_entity\":" << static_cast<int>(terrainEntity)
+              << ",\"invalid_entity_hex\":\"0x" << std::hex
+              << static_cast<unsigned int>(static_cast<int>(terrainEntity))
+              << std::dec << "\"" << ",\"thread\":\"" << waterDebugThreadId()
+              << "\"}";
+          waterDebugLog(jss.str());
+        }
+
         voxelGrid->deleteTerrain(dispatcher, event.position.x, event.position.y,
-                                 event.position.z, false);
+                                 event.position.z, true);
 
         // Safe to create vapor entity
         entt::entity newEntity = registry.create();
         int newTerrainId = static_cast<int>(newEntity);
         voxelGrid->terrainGridRepository->setTerrainId(
             event.position.x, event.position.y, event.position.z, newTerrainId);
+
+        if (waterDebugInWatchRegion(event.position.x, event.position.y,
+                                    event.position.z)) {
+          std::ostringstream jss;
+          jss << "{\"event\":\"recovery_new_entity\""
+              << ",\"x\":" << event.position.x << ",\"y\":" << event.position.y
+              << ",\"z\":" << event.position.z
+              << ",\"new_entity\":" << newTerrainId << ",\"thread\":\""
+              << waterDebugThreadId() << "\"}";
+          waterDebugLog(jss.str());
+        }
 
         VoxelCoord key{event.position.x, event.position.y, event.position.z};
         voxelGrid->terrainGridRepository->addToTrackingMaps(key, newEntity);

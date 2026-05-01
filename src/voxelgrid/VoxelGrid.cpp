@@ -74,10 +74,10 @@ GridData VoxelGrid::getVoxel(int x, int y, int z) const {
 
   // Retrieve data from terrain repository and other grids
   if (terrainGridRepository) {
-    std::optional<int> terrainId =
+    std::optional<int64_t> terrainId =
         terrainGridRepository->getTerrainIdIfExists(x, y, z);
     if (terrainId && *terrainId != -2) {
-      data.terrainID = *terrainId;
+      data.terrainID = static_cast<int>(*terrainId);
     }
   } else {
     data.terrainID = -2;
@@ -134,12 +134,12 @@ void VoxelGrid::setTerrain(int x, int y, int z, int terrainID) {
   }
 }
 
-int VoxelGrid::getTerrain(int x, int y, int z) const {
+int64_t VoxelGrid::getTerrain(int x, int y, int z) const {
   if (terrainGridRepository) {
     // std::cout << "[getTerrain] Checkpoint! Before:
     // terrainGridRepository->getTerrainIdIfExists (" << x << ", " << y << ", "
     // << z << ")\n";
-    std::optional<int> terrainId =
+    std::optional<int64_t> terrainId =
         terrainGridRepository->getTerrainIdIfExists(x, y, z);
     if (terrainId && *terrainId != -2) {
       // if (*terrainId == -1) {
