@@ -47,6 +47,9 @@ public:
   openvdb::Int32Grid::Ptr maxSpeedGrid; // 0 default
   openvdb::Int32Grid::Ptr minSpeedGrid; // 0 default
   openvdb::FloatGrid::Ptr heatGrid;     // 0.0f default
+  openvdb::FloatGrid::Ptr velXGrid;     // 0.0f default
+  openvdb::FloatGrid::Ptr velYGrid;     // 0.0f default
+  openvdb::FloatGrid::Ptr velZGrid;     // 0.0f default
 
   // Flags -- List of bit flags:
   //      DirectionEnum direction;
@@ -113,6 +116,9 @@ public:
 
   void setTerrainHeat(int x, int y, int z, float heat);
   float getTerrainHeat(int x, int y, int z) const;
+
+  void setVelocity(int x, int y, int z, float vx, float vy, float vz);
+  Velocity getVelocity(int x, int y, int z) const;
 
   // Flags accessors:
   //      DirectionEnum direction;
@@ -186,6 +192,9 @@ private:
     const void *flagsPtr = nullptr;
     const void *maxLoadCapacityPtr = nullptr;
     const void *heatPtr = nullptr;
+    const void *velXPtr = nullptr;
+    const void *velYPtr = nullptr;
+    const void *velZPtr = nullptr;
 
     // Accessors are not default-constructible; store as pointers and create on
     // demand Main terrain grid reference (source of truth) Accessor:
@@ -207,6 +216,9 @@ private:
     std::unique_ptr<openvdb::Int32Grid::Accessor> maxSpeedAcc;
     std::unique_ptr<openvdb::Int32Grid::Accessor> minSpeedAcc;
     std::unique_ptr<openvdb::FloatGrid::Accessor> heatAcc;
+    std::unique_ptr<openvdb::FloatGrid::Accessor> velXAcc;
+    std::unique_ptr<openvdb::FloatGrid::Accessor> velYAcc;
+    std::unique_ptr<openvdb::FloatGrid::Accessor> velZAcc;
 
     // Flags and other Accessors:
     std::unique_ptr<openvdb::Int32Grid::Accessor> flagsAcc;

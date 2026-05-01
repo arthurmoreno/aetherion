@@ -7,6 +7,7 @@
 #include "aetherion.hpp"
 
 #include <nanobind/ndarray.h>
+#include <nanobind/stl/tuple.h>
 #include <spdlog/spdlog.h>
 
 #include <cstdint>
@@ -369,7 +370,17 @@ NB_MODULE(_aetherion, m) {
       .def("get_position", &TerrainGridRepository::getPosition)
       .def("set_position", &TerrainGridRepository::setPosition)
       .def("get_physics_stats", &TerrainGridRepository::getPhysicsStats)
-      .def("set_physics_stats", &TerrainGridRepository::setPhysicsStats);
+      .def("set_physics_stats", &TerrainGridRepository::setPhysicsStats)
+      .def("get_terrain_velocity",
+           [](const TerrainGridRepository &repo, int x, int y,
+              int z) -> std::tuple<float, float, float> {
+             Velocity v = repo.getVelocity(x, y, z);
+             return {v.vx, v.vy, v.vz};
+           })
+      .def("set_terrain_velocity", [](TerrainGridRepository &repo, int x, int y,
+                                      int z, float vx, float vy, float vz) {
+        repo.setVelocity(x, y, z, Velocity{vx, vy, vz});
+      });
 
   // nb::class_<RenderTask>(m, "RenderTask")
   //     .def(nb::init<SDL_Texture*, int, int>())
@@ -1521,7 +1532,14 @@ NB_MODULE(_aetherion, m) {
       .def("get_terrain_matter_container_component",
            &VoxelGrid::getTerrainMatterContainerComponent, nb::arg("x"),
            nb::arg("y"), nb::arg("z"),
-           "Get the MatterContainer for the terrain entity at (x, y, z)");
+           "Get the MatterContainer for the terrain entity at (x, y, z)")
+      .def_prop_ro(
+          "terrain_grid_repository",
+          [](VoxelGrid &vg) -> TerrainGridRepository * {
+            return vg.terrainGridRepository.get();
+          },
+          nb::rv_policy::reference_internal,
+          "Borrowed TerrainGridRepository; keep VoxelGrid alive while using.");
 
   // Binding the GameClock class
   nb::class_<GameClock>(m, "GameClock")

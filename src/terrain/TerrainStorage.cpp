@@ -187,6 +187,9 @@ TerrainStorage::TerrainStorage() {
   maxSpeedGrid = openvdb::Int32Grid::create(0);
   minSpeedGrid = openvdb::Int32Grid::create(0);
   heatGrid = openvdb::FloatGrid::create(0.0f);
+  velXGrid = openvdb::FloatGrid::create(0.0f);
+  velYGrid = openvdb::FloatGrid::create(0.0f);
+  velZGrid = openvdb::FloatGrid::create(0.0f);
 
   // Flags and aux grids
   flagsGrid = openvdb::Int32Grid::create(0);
@@ -215,6 +218,9 @@ void TerrainStorage::applyTransform(double voxelSize_) {
   maxLoadCapacityGrid->setTransform(xform);
   if (heatGrid)
     heatGrid->setTransform(xform);
+  velXGrid->setTransform(xform);
+  velYGrid->setTransform(xform);
+  velZGrid->setTransform(xform);
 }
 
 size_t TerrainStorage::memUsage() const {
@@ -233,6 +239,9 @@ size_t TerrainStorage::memUsage() const {
   total += flagsGrid ? flagsGrid->memUsage() : 0;
   total += maxLoadCapacityGrid ? maxLoadCapacityGrid->memUsage() : 0;
   total += heatGrid ? heatGrid->memUsage() : 0;
+  total += velXGrid ? velXGrid->memUsage() : 0;
+  total += velYGrid ? velYGrid->memUsage() : 0;
+  total += velZGrid ? velZGrid->memUsage() : 0;
   return total;
 }
 
@@ -295,6 +304,12 @@ void TerrainStorage::configureThreadCache() {
   const void *mlcPtr = static_cast<const void *>(&maxLoadCapacityGrid->tree());
   const void *hPtr =
       heatGrid ? static_cast<const void *>(&heatGrid->tree()) : nullptr;
+  const void *vxPtr =
+      velXGrid ? static_cast<const void *>(&velXGrid->tree()) : nullptr;
+  const void *vyPtr =
+      velYGrid ? static_cast<const void *>(&velYGrid->tree()) : nullptr;
+  const void *vzPtr =
+      velZGrid ? static_cast<const void *>(&velZGrid->tree()) : nullptr;
 
   const bool changed =
       newOwner || tc.terrainPtr != tptr || tc.mainTypePtr != mtPtr ||
@@ -303,7 +318,8 @@ void TerrainStorage::configureThreadCache() {
       tc.vaporMatterPtr != vapPtr || tc.biomassMatterPtr != bmPtr ||
       tc.massPtr != mPtr || tc.maxSpeedPtr != mxPtr ||
       tc.minSpeedPtr != mnPtr || tc.flagsPtr != fptr ||
-      tc.maxLoadCapacityPtr != mlcPtr || tc.heatPtr != hPtr;
+      tc.maxLoadCapacityPtr != mlcPtr || tc.heatPtr != hPtr ||
+      tc.velXPtr != vxPtr || tc.velYPtr != vyPtr || tc.velZPtr != vzPtr;
 
   if (!tc.configured || changed) {
     // Rebuild all accessors from current grids
@@ -339,6 +355,21 @@ void TerrainStorage::configureThreadCache() {
           heatGrid->getAccessor());
     else
       tc.heatAcc.reset();
+    if (velXGrid)
+      tc.velXAcc = std::make_unique<openvdb::FloatGrid::Accessor>(
+          velXGrid->getAccessor());
+    else
+      tc.velXAcc.reset();
+    if (velYGrid)
+      tc.velYAcc = std::make_unique<openvdb::FloatGrid::Accessor>(
+          velYGrid->getAccessor());
+    else
+      tc.velYAcc.reset();
+    if (velZGrid)
+      tc.velZAcc = std::make_unique<openvdb::FloatGrid::Accessor>(
+          velZGrid->getAccessor());
+    else
+      tc.velZAcc.reset();
 
     // Update identity pointers
     tc.terrainPtr = tptr;
@@ -355,6 +386,9 @@ void TerrainStorage::configureThreadCache() {
     tc.flagsPtr = fptr;
     tc.maxLoadCapacityPtr = mlcPtr;
     tc.heatPtr = hPtr;
+    tc.velXPtr = vxPtr;
+    tc.velYPtr = vyPtr;
+    tc.velZPtr = vzPtr;
 
     tc.configured = true;
   }
@@ -379,6 +413,9 @@ void TerrainStorage::resetThreadCache() {
   s_threadCache.flagsPtr = nullptr;
   s_threadCache.maxLoadCapacityPtr = nullptr;
   s_threadCache.heatPtr = nullptr;
+  s_threadCache.velXPtr = nullptr;
+  s_threadCache.velYPtr = nullptr;
+  s_threadCache.velZPtr = nullptr;
 
   // Reset all accessors to drop stale references into previous instance trees
   s_threadCache.terrainAcc.reset();
@@ -395,6 +432,9 @@ void TerrainStorage::resetThreadCache() {
   s_threadCache.flagsAcc.reset();
   s_threadCache.maxLoadCapacityAcc.reset();
   s_threadCache.heatAcc.reset();
+  s_threadCache.velXAcc.reset();
+  s_threadCache.velYAcc.reset();
+  s_threadCache.velZAcc.reset();
 }
 
 // Accessors
@@ -559,6 +599,58 @@ float TerrainStorage::getTerrainHeat(int x, int y, int z) const {
   return heatGrid->tree().getValue(openvdb::Coord(x, y, z));
 }
 
+void TerrainStorage::setVelocity(int x, int y, int z, float vx, float vy,
+                                 float vz) {
+  configureThreadCache();
+  auto c = openvdb::Coord(x, y, z);
+  if (vx == 0.0f && vy == 0.0f && vz == 0.0f) {
+    if (s_threadCache.velXAcc)
+      s_threadCache.velXAcc->setValueOff(c, 0.0f);
+    else if (velXGrid)
+      velXGrid->tree().setValueOff(c, 0.0f);
+    if (s_threadCache.velYAcc)
+      s_threadCache.velYAcc->setValueOff(c, 0.0f);
+    else if (velYGrid)
+      velYGrid->tree().setValueOff(c, 0.0f);
+    if (s_threadCache.velZAcc)
+      s_threadCache.velZAcc->setValueOff(c, 0.0f);
+    else if (velZGrid)
+      velZGrid->tree().setValueOff(c, 0.0f);
+    return;
+  }
+  if (s_threadCache.velXAcc)
+    s_threadCache.velXAcc->setValue(c, vx);
+  else if (velXGrid)
+    velXGrid->tree().setValue(c, vx);
+  if (s_threadCache.velYAcc)
+    s_threadCache.velYAcc->setValue(c, vy);
+  else if (velYGrid)
+    velYGrid->tree().setValue(c, vy);
+  if (s_threadCache.velZAcc)
+    s_threadCache.velZAcc->setValue(c, vz);
+  else if (velZGrid)
+    velZGrid->tree().setValue(c, vz);
+}
+
+Velocity TerrainStorage::getVelocity(int x, int y, int z) const {
+  auto c = openvdb::Coord(x, y, z);
+  float vx = 0.0f, vy = 0.0f, vz = 0.0f;
+  if (s_threadCache.owner == this && s_threadCache.velXAcc) {
+    vx = s_threadCache.velXAcc->getValue(c);
+    vy = s_threadCache.velYAcc
+             ? s_threadCache.velYAcc->getValue(c)
+             : (velYGrid ? velYGrid->tree().getValue(c) : 0.0f);
+    vz = s_threadCache.velZAcc
+             ? s_threadCache.velZAcc->getValue(c)
+             : (velZGrid ? velZGrid->tree().getValue(c) : 0.0f);
+  } else {
+    vx = velXGrid ? velXGrid->tree().getValue(c) : 0.0f;
+    vy = velYGrid ? velYGrid->tree().getValue(c) : 0.0f;
+    vz = velZGrid ? velZGrid->tree().getValue(c) : 0.0f;
+  }
+  return Velocity{vx, vy, vz};
+}
+
 // ------------------ New Accessors: Flags ------------------
 void TerrainStorage::setTerrainDirection(int x, int y, int z,
                                          DirectionEnum direction) {
@@ -716,6 +808,12 @@ int TerrainStorage::deleteTerrain(int x, int y, int z) {
   minSpeedGrid->tree().setValueOff(coord);
   flagsGrid->tree().setValueOff(coord);
   maxLoadCapacityGrid->tree().setValueOff(coord);
+  if (velXGrid)
+    velXGrid->tree().setValueOff(coord);
+  if (velYGrid)
+    velYGrid->tree().setValueOff(coord);
+  if (velZGrid)
+    velZGrid->tree().setValueOff(coord);
 
   return oldTerrainId;
 }

@@ -5,8 +5,10 @@
 
 #include <cassert>
 #include <functional>
+#include <memory>
 #include <shared_mutex>
 
+#include "debug/WaterDebugLog.hpp"
 #include "physics/PhysicsExceptions.hpp"
 #include "terrain/TerrainGridLock.hpp"
 
@@ -216,7 +218,6 @@ bool TerrainGridRepository::checkIfTerrainHasEntity(int x, int y, int z,
 
 void TerrainGridRepository::markActive(int x, int y, int z, entt::entity e,
                                        bool takeLock) {
-  // Update TerrainStorage activation indicator based on strategy
   withUniqueLock(
       [&]() {
         if (storage_.terrainGrid) {
@@ -245,12 +246,7 @@ void TerrainGridRepository::clearActive(int x, int y, int z, bool takeLock) {
 void TerrainGridRepository::setTerrainId(int x, int y, int z, int terrainID,
                                          bool takeLock) {
   withUniqueLock(
-      [&]() {
-        // std::cout << "[setTerrainId] Setting terrain ID at (" << x << ", " <<
-        // y << ", " << z
-        //           << ") to " << terrainID << std::endl;
-        storage_.terrainGrid->tree().setValue(C(x, y, z), terrainID);
-      },
+      [&]() { storage_.terrainGrid->tree().setValue(C(x, y, z), terrainID); },
       takeLock);
 }
 
@@ -777,24 +773,14 @@ void TerrainGridRepository::setMaxLoadCapacity(int x, int y, int z, int v) {
   storage_.setTerrainMaxLoadCapacity(x, y, z, v);
 }
 
-// ---------------- Transient arbitration (ECS-backed) ----------------
+// ---------------- Transient arbitration (VDB-backed) ----------------
 Velocity TerrainGridRepository::getVelocity(int x, int y, int z) const {
-  entt::entity e = getEntityAt(x, y, z);
-  if (e == entt::null)
-    return Velocity{0.f, 0.f, 0.f};
-  if (auto v = registry_.try_get<Velocity>(e))
-    return *v;
-  return Velocity{0.f, 0.f, 0.f};
+  return storage_.getVelocity(x, y, z);
 }
 
 void TerrainGridRepository::setVelocity(int x, int y, int z,
                                         const Velocity &vel) {
-  entt::entity e = ensureActive(x, y, z);
-  if (auto v = registry_.try_get<Velocity>(e)) {
-    *v = vel;
-  } else {
-    registry_.emplace<Velocity>(e, vel);
-  }
+  storage_.setVelocity(x, y, z, vel.vx, vel.vy, vel.vz);
 }
 
 // void TerrainGridRepository::setTerrain(int x, int y, int z, int terrainID) {
@@ -915,11 +901,31 @@ bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
 // Delete terrain at a specific voxel
 void TerrainGridRepository::deleteTerrain(entt::dispatcher &dispatcher, int x,
                                           int y, int z, bool takeLock) {
+  const bool inWatch = waterDebugInWatchRegion(x, y, z);
+  if (inWatch) {
+    std::ostringstream jss;
+    jss << "{\"event\":\"delete_terrain_enter\"" << ",\"x\":" << x
+        << ",\"y\":" << y << ",\"z\":" << z
+        << ",\"take_lock\":" << (takeLock ? "true" : "false")
+        << ",\"grid_locked\":" << (isTerrainGridLocked() ? "true" : "false")
+        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+    waterDebugLog(jss.str());
+  }
+
+  std::unique_ptr<TerrainGridLock> lock;
   if (takeLock) {
-    TerrainGridLock lock(this);
+    lock = std::make_unique<TerrainGridLock>(this);
   }
 
   int terrainId = storage_.deleteTerrain(x, y, z);
+
+  if (inWatch) {
+    std::ostringstream jss;
+    jss << "{\"event\":\"delete_terrain_exit\"" << ",\"x\":" << x
+        << ",\"y\":" << y << ",\"z\":" << z << ",\"returned_id\":" << terrainId
+        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+    waterDebugLog(jss.str());
+  }
 
   VoxelCoord key{x, y, z};
   if (terrainId != -2 && terrainId != -1 &&
@@ -985,14 +991,23 @@ bool TerrainGridRepository::hasMovingComponent(int x, int y, int z) const {
   return registry_.all_of<MovingComponent>(entity);
 }
 
+// Per-thread flag: true only while the calling thread holds the exclusive lock.
+static thread_local bool s_thisThreadHoldsTerrainGridLock = false;
+
+bool TerrainGridRepository::currentThreadHoldsTerrainGridLock() {
+  return s_thisThreadHoldsTerrainGridLock;
+}
+
 // Lock terrain grid for external synchronization
 void TerrainGridRepository::lockTerrainGrid() {
   terrainGridMutex.lock();
   terrainGridLocked_.store(true);
+  s_thisThreadHoldsTerrainGridLock = true;
 }
 
 // Unlock terrain grid after external synchronization
 void TerrainGridRepository::unlockTerrainGrid() {
+  s_thisThreadHoldsTerrainGridLock = false;
   terrainGridLocked_.store(false);
   terrainGridMutex.unlock();
 }

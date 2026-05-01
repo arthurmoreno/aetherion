@@ -149,10 +149,10 @@ public:
   int getMaxLoadCapacity(int x, int y, int z) const;
   void setMaxLoadCapacity(int x, int y, int z, int v);
 
-  // ---------------- Transient getters/setters (ECS-backed) -------------
-  // Get velocity without activating; returns zero when inactive
+  // ---------------- Transient getters/setters (VDB-backed) -------------
+  // Get velocity; returns zero when no velocity stored
   Velocity getVelocity(int x, int y, int z) const;
-  // Setting a transient auto-activates voxel and writes to ECS only
+  // Setting velocity writes directly to VDB (no ECS entity created)
   void setVelocity(int x, int y, int z, const Velocity &vel);
 
   // ---------------- Migration Methods ----------------
@@ -238,9 +238,11 @@ public:
 
   bool isTerrainGridLocked() const;
 
-private:
-  // Check if terrain grid is currently locked
+  // True only when the calling thread is the current exclusive lock holder.
+  // Use this for re-entrancy guards inside withUniqueLock/withSharedLock.
+  static bool currentThreadHoldsTerrainGridLock();
 
+private:
   // Utility methods for conditional locking
   template <typename Func>
   auto withSharedLock(Func &&func,
@@ -248,7 +250,7 @@ private:
     if (!takeLock) {
       return func();
     }
-    if (!isTerrainGridLocked()) {
+    if (!currentThreadHoldsTerrainGridLock()) {
       std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
       return func();
     }
@@ -260,7 +262,7 @@ private:
     if (!takeLock) {
       return func();
     }
-    if (!isTerrainGridLocked()) {
+    if (!currentThreadHoldsTerrainGridLock()) {
       std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
       return func();
     }
