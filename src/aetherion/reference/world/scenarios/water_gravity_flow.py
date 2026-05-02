@@ -22,6 +22,7 @@ module level so a single source of truth defines what success looks like.
 from __future__ import annotations
 
 import aetherion
+from aetherion.reference.systems.spring_water import SpringWaterSystem
 from aetherion.reference.world.scenarios.primitives import place_water
 from aetherion.reference.world.world_factories import EmptySquareWorldFactory
 
@@ -38,7 +39,7 @@ INITIAL_WATER_MATTER: int = 3
 GRAVITY_FLOW_AMOUNT: int = 3
 
 
-def water_gravity_flow_world_factory(world_config: dict[str, int]) -> aetherion.World:
+def water_gravity_flow_world_factory_3x3x3(world_config: dict[str, int]) -> aetherion.World:
     """Build the gravity-flow-into-empty-cell scenario world.
 
     The ``world_config`` dimensions are ignored — this scenario is
@@ -53,11 +54,45 @@ def water_gravity_flow_world_factory(world_config: dict[str, int]) -> aetherion.
     world.process_ecosystem_async = True
     world.water_auto_balancing = False
     world.simulate_water_movement = True
-    world.simulate_water_evaporation = False
-    world.simulate_vapor_movement = False
-    world.simulate_vapor_condensation = False
+    world.simulate_water_evaporation = True
+    world.simulate_vapor_movement = True
+    world.simulate_vapor_condensation = True
 
     voxel_grid = world.get_voxel_grid()
     place_water(voxel_grid, *SOURCE_POS, water_matter=INITIAL_WATER_MATTER)
+
+    return world
+
+
+def water_gravity_flow_world_factory(world_config: dict[str, int]) -> aetherion.World:
+    """Build the gravity-flow-into-empty-cell scenario world.
+
+    The ``world_config`` dimensions are ignored — this scenario is
+    intentionally fixed at 3x3x3 so coordinates stay stable across runs.
+    Other config keys (``gravity``, ``friction``, ...) are accepted for
+    parity with the other reference factories but do not affect the layout.
+    """
+    world_width: int = world_config.get("world_width", 3)
+    world_height: int = world_config.get("world_height", 3)
+    world_depth: int = world_config.get("world_depth", 3)
+    factory = EmptySquareWorldFactory(width=world_width, height=world_height, depth=world_depth)
+
+    # z=0: solid floor
+    factory.fill_layer(z=0)
+
+    world = factory.generate_world()
+
+    world.process_ecosystem_async = True
+    world.water_auto_balancing = False
+    world.simulate_water_movement = True
+    world.simulate_water_evaporation = True
+    world.simulate_vapor_movement = True
+    world.simulate_vapor_condensation = True
+
+    rx = world_width // 2
+    ry = world_height // 2
+    rz = world_depth - 1
+    spring_pace: int = world_config.get("spring_pace", 5)
+    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry, source_z=rz))
 
     return world

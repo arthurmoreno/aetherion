@@ -20,8 +20,34 @@ from aetherion.reference.world.scenarios.primitives import (
     make_water_physics_stats,
     place_empty,
     place_stone,
+    place_vapor,
     place_water,
     water_matter,
+    water_vapor,
+)
+from aetherion.reference.world.scenarios.water_condensation import (
+    CONDENSATION_AMOUNT as CONDENSATION_AMOUNT,
+)
+from aetherion.reference.world.scenarios.water_condensation import (
+    INITIAL_VAPOR as CONDENSATION_INITIAL_VAPOR,
+)
+from aetherion.reference.world.scenarios.water_condensation import (
+    TARGET_POS as CONDENSATION_TARGET_POS,
+)
+from aetherion.reference.world.scenarios.water_condensation import (
+    VAPOR_POS as CONDENSATION_VAPOR_POS,
+)
+from aetherion.reference.world.scenarios.water_condensation import (
+    WORLD_DEPTH as CONDENSATION_WORLD_DEPTH,
+)
+from aetherion.reference.world.scenarios.water_condensation import (
+    WORLD_HEIGHT as CONDENSATION_WORLD_HEIGHT,
+)
+from aetherion.reference.world.scenarios.water_condensation import (
+    WORLD_WIDTH as CONDENSATION_WORLD_WIDTH,
+)
+from aetherion.reference.world.scenarios.water_condensation import (
+    water_condense_below_vapor_world_factory,
 )
 from aetherion.reference.world.scenarios.water_gravity_flow import GRAVITY_FLOW_AMOUNT, water_gravity_flow_world_factory
 from aetherion.reference.world.scenarios.water_gravity_flow import (
@@ -40,8 +66,10 @@ __all__ = [
     "make_water_physics_stats",
     "place_empty",
     "place_stone",
+    "place_vapor",
     "place_water",
     "water_matter",
+    "water_vapor",
     # gravity-flow scenario
     "GRAVITY_FLOW_AMOUNT",
     "GRAVITY_FLOW_INITIAL_WATER_MATTER",
@@ -51,4 +79,13 @@ __all__ = [
     "GRAVITY_FLOW_WORLD_HEIGHT",
     "GRAVITY_FLOW_WORLD_WIDTH",
     "water_gravity_flow_world_factory",
+    # condensation scenario
+    "CONDENSATION_AMOUNT",
+    "CONDENSATION_INITIAL_VAPOR",
+    "CONDENSATION_TARGET_POS",
+    "CONDENSATION_VAPOR_POS",
+    "CONDENSATION_WORLD_DEPTH",
+    "CONDENSATION_WORLD_HEIGHT",
+    "CONDENSATION_WORLD_WIDTH",
+    "water_condense_below_vapor_world_factory",
 ]

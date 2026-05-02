@@ -18,19 +18,19 @@ from typing import Any, Callable
 from conftest import FakeEventBus
 
 from aetherion import GameEventType, WorldInterfaceMetadata
-from aetherion.reference.world.factory import (
-    empty_square_world_factory,
-    mountain_side_world_factory,
-)
+from aetherion.reference.world.factory import empty_square_world_factory
 from aetherion.reference.world.scenarios.primitives import (
     fall_event_position,
     make_position,
     make_water_physics_stats,
     place_empty,
     place_stone,
+    place_vapor,
     place_water,
     water_matter,
+    water_vapor,
 )
+from aetherion.reference.world.scenarios.water_mountain_side_world import mountain_side_stream_world_factory
 from aetherion.world.constants import WorldInstanceTypes
 from aetherion.world.manager import WorldManager
 
@@ -46,8 +46,10 @@ __all__ = [
     "make_water_physics_stats",
     "place_empty",
     "place_stone",
+    "place_vapor",
     "place_water",
     "water_matter",
+    "water_vapor",
 ]
 
 MOUNTAIN_SIDE_WORLD_CONFIG: dict[str, Any] = {
@@ -85,7 +87,7 @@ def build_mountain_side_manager(world_name: str) -> WorldManager:
         event_bus=FakeEventBus(),
         event_handlers={GameEventType.WORLD_CREATED: None},
     )
-    manager.register_factory("default", mountain_side_world_factory)
+    manager.register_factory("default", mountain_side_stream_world_factory)
 
     world_key = world_name.lower().replace(" ", "_")
     manager.worlds_metadata[world_key] = WorldInterfaceMetadata(

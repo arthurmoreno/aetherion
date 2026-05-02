@@ -96,6 +96,41 @@ def place_water(
     repo.set_physics_stats(x, y, z, make_water_physics_stats(), True)
 
 
+def place_vapor(
+    voxel_grid: aetherion.VoxelGrid,
+    x: int,
+    y: int,
+    z: int,
+    *,
+    water_vapor: int = 1000,
+) -> None:
+    """Materialize a water-vapor (gaseous) voxel at ``(x, y, z)`` with no ECS entity.
+
+    Same shape as :func:`place_water` but ``WaterVapor`` is non-zero and
+    ``WaterMatter`` is zero, mirroring the "only vapor or only water"
+    invariant the condensation handler enforces.
+    """
+    repo = voxel_grid.terrain_grid_repository
+    voxel_grid.set_terrain_id_raw(x, y, z, TerrainIdTypeEnum.ON_GRID_STORAGE.value)
+    repo.set_position(x, y, z, make_position(x, y, z))
+
+    entity_type = EntityTypeComponent()
+    entity_type.main_type = EntityEnum.TERRAIN.value
+    entity_type.sub_type0 = TerrainEnum.WATER.value
+    entity_type.sub_type1 = 0
+    repo.set_terrain_entity_type(x, y, z, entity_type, True)
+
+    matter = MatterContainer()
+    matter.terrain_matter = 0
+    matter.water_matter = 0
+    matter.water_vapor = water_vapor
+    matter.bio_mass_matter = 0
+    repo.set_terrain_matter_container(x, y, z, matter)
+
+    repo.set_matter_state(x, y, z, MatterState.GAS)
+    repo.set_physics_stats(x, y, z, make_water_physics_stats(), True)
+
+
 def place_empty(voxel_grid: aetherion.VoxelGrid, x: int, y: int, z: int) -> None:
     """Force ``(x, y, z)`` to be a fully empty cell (terrain id ``NONE``).
 
@@ -118,6 +153,12 @@ def water_matter(voxel_grid: aetherion.VoxelGrid, x: int, y: int, z: int) -> int
     """Read ``WaterMatter`` at ``(x, y, z)`` from the repository."""
     matter = voxel_grid.get_terrain_matter_container_component(x, y, z)
     return int(matter.water_matter)
+
+
+def water_vapor(voxel_grid: aetherion.VoxelGrid, x: int, y: int, z: int) -> int:
+    """Read ``WaterVapor`` at ``(x, y, z)`` from the repository."""
+    matter = voxel_grid.get_terrain_matter_container_component(x, y, z)
+    return int(matter.water_vapor)
 
 
 def fall_event_position(x: int, y: int, z: int) -> Position:
