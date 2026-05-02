@@ -1297,6 +1297,21 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
   sourceMatter.WaterMatter -= fallingAmount;
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
       sourcePos.x, sourcePos.y, sourcePos.z, sourceMatter);
+
+  // Seed an initial downward gravity velocity so the new ON_GRID_STORAGE
+  // voxel enters the VDB velocity grid and the velocity-driven pass
+  // picks it up next tick. ON_GRID_STORAGE water has no Position
+  // component in the registry and is therefore invisible to the
+  // ECS-only iteration in `processPhysicsAsync` — without this seed it
+  // would never start falling. Only seed when the cell directly below
+  // is truly empty (NONE); water onto water and water onto solid are
+  // handled by other paths.
+  if (z > 0 && voxelGrid.getTerrain(x, y, z - 1) ==
+                   static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
+    float gravityKick = PhysicsManager::Instance()->getGravity();
+    voxelGrid.terrainGridRepository->setVelocity(
+        x, y, z, Velocity{0.0f, 0.0f, -gravityKick});
+  }
 }
 
 // Definition: src/physics/mutators/WaterPhysicsMutators.cpp
@@ -1343,6 +1358,21 @@ inline void createWaterTerrainFromGravityFlow(
   voxelGrid.terrainGridRepository->setTerrainId(
       gravityTargetPos.x, gravityTargetPos.y, gravityTargetPos.z,
       static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE), false);
+
+  // Seed an initial downward gravity velocity so the newly-flowed water
+  // voxel enters the VDB velocity grid and keeps falling on subsequent
+  // ticks — e.g., when a gravity-flow event lands water at the top of a
+  // deep empty column. See `createWaterTerrainFromFall` for the same
+  // rationale spelled out in full.
+  if (gravityTargetPos.z > 0 &&
+      voxelGrid.getTerrain(gravityTargetPos.x, gravityTargetPos.y,
+                           gravityTargetPos.z - 1) ==
+          static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
+    float gravityKick = PhysicsManager::Instance()->getGravity();
+    voxelGrid.terrainGridRepository->setVelocity(
+        gravityTargetPos.x, gravityTargetPos.y, gravityTargetPos.z,
+        Velocity{0.0f, 0.0f, -gravityKick});
+  }
 }
 
 /**
@@ -1456,54 +1486,69 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
       std::to_string(vaporZ - 1) +
       ") with condensation amount: " + std::to_string(condensationAmount));
 
-  // Create a new water tile below
-  entt::entity newWaterEntity = registry.create();
-  Position newPosition = {vaporX, vaporY, vaporZ - 1, DirectionEnum::DOWN};
-  registry.emplace<Position>(newWaterEntity, newPosition);
+  // Snapshot destination state. Matter is written *additively* so a future
+  // caller hitting an existing-water destination keeps its WaterMatter (and
+  // any other matter fields already present). Type / SIC / physics
+  // scaffolding only gets written when the destination was previously NONE.
+  int destX = vaporX;
+  int destY = vaporY;
+  int destZ = vaporZ - 1;
+  int64_t destTerrainId = voxelGrid.getTerrain(destX, destY, destZ);
+  bool destinationIsEmpty =
+      destTerrainId == static_cast<int64_t>(TerrainIdTypeEnum::NONE);
 
-  EntityTypeComponent newType = {};
-  newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
-  newType.subType0 = static_cast<int>(TerrainEnum::WATER);
-  newType.subType1 = 0;
+  MatterContainer destMatter =
+      voxelGrid.terrainGridRepository->getTerrainMatterContainer(destX, destY,
+                                                                 destZ);
 
-  MatterContainer newMatterContainer = {};
-  newMatterContainer.WaterMatter = condensationAmount;
-  newMatterContainer.WaterVapor = 0;
+  if (destinationIsEmpty) {
+    Position newPosition = {destX, destY, destZ, DirectionEnum::DOWN};
 
-  PhysicsStats newPhysicsStats = {};
-  newPhysicsStats.mass = 20;
-  newPhysicsStats.maxSpeed = 10;
-  newPhysicsStats.minSpeed = 0.0;
+    EntityTypeComponent newType = {};
+    newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
+    newType.subType0 = static_cast<int>(TerrainEnum::WATER);
+    newType.subType1 = 0;
 
-  // Velocity newVelocity = {};
+    PhysicsStats newPhysicsStats = {};
+    newPhysicsStats.mass = 20;
+    newPhysicsStats.maxSpeed = 10;
+    newPhysicsStats.minSpeed = 0.0;
 
-  StructuralIntegrityComponent newStructuralIntegrityComponent = {};
-  newStructuralIntegrityComponent.canStackEntities = false;
-  newStructuralIntegrityComponent.maxLoadCapacity = -1;
-  newStructuralIntegrityComponent.matterState = MatterState::LIQUID;
+    StructuralIntegrityComponent newStructuralIntegrityComponent = {};
+    newStructuralIntegrityComponent.canStackEntities = false;
+    newStructuralIntegrityComponent.maxLoadCapacity = -1;
+    newStructuralIntegrityComponent.matterState = MatterState::LIQUID;
 
-  // Set terrain ID in voxel grid (associates entity with voxel)
-  voxelGrid.terrainGridRepository->setTerrainId(
-      vaporX, vaporY, vaporZ - 1, static_cast<int>(newWaterEntity));
+    voxelGrid.terrainGridRepository->setPosition(destX, destY, destZ,
+                                                 newPosition);
+    voxelGrid.terrainGridRepository->setTerrainEntityType(destX, destY, destZ,
+                                                          newType);
+    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(
+        destX, destY, destZ, newStructuralIntegrityComponent);
+    voxelGrid.terrainGridRepository->setPhysicsStats(destX, destY, destZ,
+                                                     newPhysicsStats);
 
-  // Store static terrain data in TerrainStorage via repository (not in EnTT)
-  voxelGrid.terrainGridRepository->setPosition(vaporX, vaporY, vaporZ - 1,
-                                               newPosition);
-  voxelGrid.terrainGridRepository->setTerrainEntityType(vaporX, vaporY,
-                                                        vaporZ - 1, newType);
-  voxelGrid.terrainGridRepository->setTerrainMatterContainer(
-      vaporX, vaporY, vaporZ - 1, newMatterContainer);
-  voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(
-      vaporX, vaporY, vaporZ - 1, newStructuralIntegrityComponent);
-  voxelGrid.terrainGridRepository->setPhysicsStats(vaporX, vaporY, vaporZ - 1,
-                                                   newPhysicsStats);
+    voxelGrid.terrainGridRepository->setTerrainId(
+        destX, destY, destZ,
+        static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+  }
 
-  VoxelCoord key{newPosition.x, newPosition.y, newPosition.z - 1};
-  voxelGrid.terrainGridRepository->addToTrackingMaps(key, newWaterEntity);
+  destMatter.WaterMatter += condensationAmount;
+  voxelGrid.terrainGridRepository->setTerrainMatterContainer(destX, destY,
+                                                             destZ, destMatter);
 
-  // Only transient data (Velocity) goes in ECS if needed for active movement
-  // Water at rest doesn't need velocity in ECS; it will be activated when
-  // movement starts
+  // Seed an initial downward gravity velocity so the newly-condensed
+  // water voxel enters the VDB velocity grid and keeps falling on
+  // subsequent ticks — condensation can land water above an empty
+  // column when the vapor was floating. See `createWaterTerrainFromFall`
+  // for the same rationale spelled out in full.
+  if (destZ > 0 &&
+      voxelGrid.getTerrain(destX, destY, destZ - 1) ==
+          static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
+    float gravityKick = PhysicsManager::Instance()->getGravity();
+    voxelGrid.terrainGridRepository->setVelocity(
+        destX, destY, destZ, Velocity{0.0f, 0.0f, -gravityKick});
+  }
 
   // Reduce vapor amount
   vaporMatter.WaterVapor -= condensationAmount;
@@ -1522,6 +1567,8 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
           dispatcher, static_cast<entt::entity>(vaporTerrainId), false);
     }
   }
+
+  (void)registry; // no longer creates an EnTT entity for the new water voxel
 
   spdlog::get("console")->info(
       "[createWaterTerrainBelowVapor] Created water terrain below vapor at (" +

@@ -358,6 +358,47 @@ void PhysicsEngine::onInvalidTerrainFound(
   _handleInvalidTerrainFound(dispatcher, *voxelGrid, event);
 }
 
+void PhysicsEngine::nudgeSettledWaterAfterDrain(int drainedX, int drainedY,
+                                                int drainedZ,
+                                                VoxelGrid &voxelGrid) {
+  // Gravity wake-up cascade: when a terrain voxel just became empty, the
+  // cell directly above may be settled water with zero velocity in the
+  // VDB velocity grid. Without a nudge it stays stuck, because the
+  // VDB-driven velocity pass only iterates voxels that already carry
+  // non-zero velocity. Kick it with a small downward velocity so the
+  // next tick picks it up and the column collapses cleanly.
+  //
+  // Caller-driven: physics-layer code invokes this right after it calls
+  // `moveTerrain` / `deleteTerrain`. It is deliberately not hooked into
+  // a storage-emitted event — `TerrainGridRepository` stays pure CRUD.
+  int ax = drainedX;
+  int ay = drainedY;
+  int az = drainedZ + 1;
+
+  int aboveId = voxelGrid.getTerrain(ax, ay, az);
+  if (aboveId == static_cast<int>(TerrainIdTypeEnum::NONE))
+    return;
+
+  MatterState aboveMs =
+      voxelGrid.terrainGridRepository->getMatterState(ax, ay, az);
+  if (aboveMs != MatterState::LIQUID)
+    return;
+
+  MatterContainer aboveMatter =
+      voxelGrid.terrainGridRepository->getTerrainMatterContainer(ax, ay, az);
+  if (aboveMatter.WaterMatter <= 0)
+    return;
+
+  Velocity aboveVel =
+      voxelGrid.terrainGridRepository->getVelocity(ax, ay, az);
+  if (aboveVel.vx != 0.0f || aboveVel.vy != 0.0f || aboveVel.vz != 0.0f)
+    return; // already moving — Loop 2 will handle it
+
+  float gravityKick = PhysicsManager::Instance()->getGravity();
+  voxelGrid.terrainGridRepository->setVelocity(
+      ax, ay, az, Velocity{0.0f, 0.0f, -gravityKick});
+}
+
 // Increment metric counter (thread-safe)
 void PhysicsEngine::incPhysicsMetric(const std::string &metricName) {
   std::lock_guard<std::mutex> lock(metricsMutex_);
@@ -1467,6 +1508,10 @@ void PhysicsEngine::processVelocityForVoxel(int x, int y, int z, float vx,
             willStopZ);
         voxelGrid.terrainGridRepository->setMovingComponent(x, y, z, mc);
         voxelGrid.terrainGridRepository->moveTerrain(mc);
+        // (x, y, z) was just drained by `moveTerrain`; wake any settled
+        // water sitting in the cell directly above so a column collapses
+        // on the next tick.
+        nudgeSettledWaterAfterDrain(x, y, z, voxelGrid);
       }
     } else {
       // Clear velocity on collision or below-min-speed

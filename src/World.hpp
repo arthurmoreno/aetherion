@@ -116,6 +116,13 @@ public:
   void dispatchCondenseWaterEvent(Position vaporPos, int condensationAmount,
                                   int terrainBelowId);
 
+  // Test/debug helper: delete the terrain voxel at (x, y, z) via
+  // `VoxelGrid::deleteTerrain`. The physics layer's velocity-driven
+  // pass picks up any settled water above on the next tick. Forwards
+  // World's owned dispatcher and acquires the terrain grid lock
+  // internally.
+  void deleteTerrainAt(int x, int y, int z);
+
   // World update function
   void update();
 

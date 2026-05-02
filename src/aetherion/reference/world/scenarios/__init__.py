@@ -49,6 +49,25 @@ from aetherion.reference.world.scenarios.water_condensation import (
 from aetherion.reference.world.scenarios.water_condensation import (
     water_condense_below_vapor_world_factory,
 )
+from aetherion.reference.world.scenarios.water_fall_from_midair import (
+    INITIAL_WATER_MATTER as MIDAIR_INITIAL_WATER_MATTER,
+)
+from aetherion.reference.world.scenarios.water_fall_from_midair import (
+    WATER_POS as MIDAIR_WATER_POS,
+)
+from aetherion.reference.world.scenarios.water_fall_from_midair import (
+    WORLD_DEPTH as MIDAIR_WORLD_DEPTH,
+)
+from aetherion.reference.world.scenarios.water_fall_from_midair import (
+    WORLD_HEIGHT as MIDAIR_WORLD_HEIGHT,
+)
+from aetherion.reference.world.scenarios.water_fall_from_midair import (
+    WORLD_WIDTH as MIDAIR_WORLD_WIDTH,
+)
+from aetherion.reference.world.scenarios.water_fall_from_midair import (
+    water_column_above_floor_world_factory,
+    water_fall_from_midair_world_factory,
+)
 from aetherion.reference.world.scenarios.water_gravity_flow import GRAVITY_FLOW_AMOUNT, water_gravity_flow_world_factory
 from aetherion.reference.world.scenarios.water_gravity_flow import (
     INITIAL_WATER_MATTER as GRAVITY_FLOW_INITIAL_WATER_MATTER,
@@ -88,4 +107,12 @@ __all__ = [
     "CONDENSATION_WORLD_HEIGHT",
     "CONDENSATION_WORLD_WIDTH",
     "water_condense_below_vapor_world_factory",
+    # mid-air falling-water scenario
+    "MIDAIR_INITIAL_WATER_MATTER",
+    "MIDAIR_WATER_POS",
+    "MIDAIR_WORLD_DEPTH",
+    "MIDAIR_WORLD_HEIGHT",
+    "MIDAIR_WORLD_WIDTH",
+    "water_column_above_floor_world_factory",
+    "water_fall_from_midair_world_factory",
 ]

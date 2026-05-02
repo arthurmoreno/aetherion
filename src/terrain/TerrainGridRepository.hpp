@@ -212,6 +212,13 @@ public:
   int64_t sumTotalWater() const;
 
   Position getPositionOfEntt(entt::entity terrain_entity) const;
+
+  // Move a terrain voxel from `(movingFromX/Y/Z)` to `(movingToX/Y/Z)` per
+  // the supplied `MovingComponent`. Pure CRUD — the repository does not
+  // dispatch any simulation events. Physics-layer callers that need a
+  // gravity wake-up on the cell above must invoke
+  // `PhysicsEngine::nudgeSettledWaterAfterDrain` themselves after this
+  // call returns.
   void moveTerrain(MovingComponent &movingComponent);
 
   // Locking methods for external synchronization during terrain movement

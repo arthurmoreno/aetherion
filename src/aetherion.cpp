@@ -806,6 +806,12 @@ NB_MODULE(_aetherion, m) {
            "(NONE) to drive the empty-destination branch "
            "(`createWaterTerrainBelowVapor`); pass a non-NONE id to test "
            "merging condensation into existing terrain below.")
+      .def("delete_terrain_at", &World::deleteTerrainAt, nb::arg("x"),
+           nb::arg("y"), nb::arg("z"),
+           "Delete the terrain voxel at (x, y, z) via "
+           "`VoxelGrid::deleteTerrain`. The physics layer's velocity-driven "
+           "pass picks up any settled water above on the next tick. Used "
+           "by tests to drive the wake-up mechanism.")
       .def("dispatch_take_item_event_by_id", &World::dispatchTakeItemEventById)
       .def("dispatch_use_item_event_by_id", &World::dispatchUseItemEventById)
       .def("dispatch_set_entity_to_debug", &World::dispatchSetEntityToDebug)

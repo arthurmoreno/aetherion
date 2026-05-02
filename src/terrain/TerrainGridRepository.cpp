@@ -180,9 +180,22 @@ void TerrainGridRepository::moveTerrain(MovingComponent &movingComponent) {
     // setPhysicsStats(movingComponent.movingFromX, movingComponent.movingFromY,
     //                 movingComponent.movingFromZ, emptyPS, false);
 
-    int movFromTerrainId = storage_.deleteTerrain(movingComponent.movingFromX,
-                                                  movingComponent.movingFromY,
-                                                  movingComponent.movingFromZ);
+    // Propagate velocity from source to destination before the source
+    // is cleared. The upcoming `storage_.deleteTerrain(...from...)`
+    // zeros the source's velocity grids; without first carrying the
+    // velocity over, a moving ON_GRID_STORAGE voxel drops out of
+    // `iterateVelocityVoxels`'s active set on the very next tick and
+    // appears to stop mid-fall.
+    Velocity currentVelocity = getVelocity(movingComponent.movingFromX,
+                                           movingComponent.movingFromY,
+                                           movingComponent.movingFromZ);
+    setVelocity(movingComponent.movingToX, movingComponent.movingToY,
+                movingComponent.movingToZ, currentVelocity);
+
+    storage_.deleteTerrain(movingComponent.movingFromX,
+                           movingComponent.movingFromY,
+                           movingComponent.movingFromZ);
+
     if (hasEntity) {
       Position newPosition{movingComponent.movingToX, movingComponent.movingToY,
                            movingComponent.movingToZ,

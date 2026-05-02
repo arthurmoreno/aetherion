@@ -678,6 +678,10 @@ void World::dispatchCondenseWaterEvent(Position vaporPos,
                                                terrainBelowId);
 }
 
+void World::deleteTerrainAt(int x, int y, int z) {
+  voxelGrid->deleteTerrain(dispatcher, x, y, z, true);
+}
+
 void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId,
                                       int selectedEntityId) {
   // std::cout << "[TakeItemEvent] entityId=" << entityId
