@@ -19,6 +19,7 @@
 
 #include "PerceptionResponse_generated.h"
 #include "WorldExceptions.hpp"
+#include "ecosystem/EcosystemEvents.hpp"
 #include "flatbuffers/flatbuffers.h"
 #include "physics/PhysicsMutators.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
@@ -634,6 +635,13 @@ void World::dispatchMoveSolidEntityEventByPosition(int x, int y, int z,
   } else {
     std::cout << "Event not dispatched.\n";
   }
+}
+
+void World::dispatchWaterFallEvent(Position sourcePos, Position destPos,
+                                   int fallingAmount, int entity) {
+  entt::entity terrainEntity = static_cast<entt::entity>(entity);
+  dispatcher.enqueue<WaterFallEntityEvent>(terrainEntity, sourcePos, destPos,
+                                           fallingAmount);
 }
 
 void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId,

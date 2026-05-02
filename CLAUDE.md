@@ -22,12 +22,17 @@ The Makefile selects this automatically for all `make` targets. Only activate it
 | Task | Command |
 |------|---------|
 | Build package | `make build` |
-| Build + reinstall + test | `make build-install-test` |
-| Run tests only | `make test` |
+| Build + reinstall + test | `make agent-build-install-test` |
+| Run tests only | `make agent-test` |
 | Run tests with coverage | `make coverage` |
 | Format (C++ + Python) | `make format` |
 | Check C++ formatting | `make clang-format-check` |
 | C++ unit tests | `make cpp-tests` |
+
+> Note: the `agent-` prefix on the test targets is the LD_PRELOAD workaround for
+> a `readline` segfault in the conda env — see
+> `.claude/docs/analysis/2026-05-02-make-test-segfault.md`. Drop the prefix once
+> the env is rebuilt.
 
 ## Code Style
 

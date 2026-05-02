@@ -1187,82 +1187,116 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
                                        int z, double fallingAmount,
                                        entt::entity sourceEntity,
                                        Position sourcePos) {
-  // Lock for atomic state change
   if (!voxelGrid.terrainGridRepository) {
-    spdlog::warn("createVaporTerrainEntity: missing terrainGridRepository");
+    spdlog::warn("createWaterTerrainFromFall: missing terrainGridRepository");
     return;
   }
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
-  Position newPosition = {x, y, z, DirectionEnum::DOWN};
+  // Snapshot destination state. The matter write below is *additive* so a
+  // populated water destination keeps its existing WaterMatter (and any
+  // vapor / biomass / terrain matter already present). Type / SIC / physics
+  // scaffolding only gets written when the destination was previously NONE.
+  int64_t destTerrainId = voxelGrid.getTerrain(x, y, z);
+  bool destinationIsEmpty =
+      destTerrainId == static_cast<int64_t>(TerrainIdTypeEnum::NONE);
 
-  EntityTypeComponent newType = {};
-  newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
-  newType.subType0 = static_cast<int>(TerrainEnum::WATER);
-  newType.subType1 = 0;
+  MatterContainer destMatter =
+      voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
 
-  MatterContainer newMatterContainer = {};
-  newMatterContainer.WaterMatter = fallingAmount;
-  newMatterContainer.WaterVapor = 0;
+  // Vapor-only safeguard. If the destination cell already exists as a water
+  // cell whose matter is purely vapor (WaterVapor > 0, WaterMatter <= 0),
+  // redirecting the falling liquid into it would mix gas with the new liquid.
+  // For now, look for a horizontal neighbor at the same z that is either
+  // EMPTY or a liquid-water cell (WaterMatter > 0) and redirect the fall
+  // there. If no neighbor is suitable, we fall through and merge into the
+  // vapor cell — preserves matter, but is the wrong physics.
+  //
+  // TODO(future): invert this — falling water should push the vapor
+  // sideways, not the other way around. Replace this neighbor scan with a
+  // gas-displacement step once the vapor-physics path is in place.
+  EntityTypeComponent destType =
+      voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
+  bool destinationIsVaporOnly =
+      !destinationIsEmpty &&
+      destType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+      destType.subType0 == static_cast<int>(TerrainEnum::WATER) &&
+      destMatter.WaterVapor > 0 && destMatter.WaterMatter <= 0;
 
-  PhysicsStats newPhysicsStats = {};
-  newPhysicsStats.mass = 20;
-  newPhysicsStats.maxSpeed = 10;
-  newPhysicsStats.minSpeed = 0.0;
+  if (destinationIsVaporOnly) {
+    static constexpr int dx[] = {1, -1, 0, 0};
+    static constexpr int dy[] = {0, 0, 1, -1};
+    for (int i = 0; i < 4; ++i) {
+      int nx = x + dx[i];
+      int ny = y + dy[i];
+      if (nx < 0 || nx >= voxelGrid.width || ny < 0 || ny >= voxelGrid.height) {
+        continue;
+      }
+      int64_t neighborId = voxelGrid.getTerrain(nx, ny, z);
+      if (neighborId == static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
+        x = nx;
+        y = ny;
+        destinationIsEmpty = true;
+        destMatter =
+            voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
+        break;
+      }
+      EntityTypeComponent nType =
+          voxelGrid.terrainGridRepository->getTerrainEntityType(nx, ny, z);
+      if (nType.mainType != static_cast<int>(EntityEnum::TERRAIN) ||
+          nType.subType0 != static_cast<int>(TerrainEnum::WATER)) {
+        continue;
+      }
+      MatterContainer nMatter =
+          voxelGrid.terrainGridRepository->getTerrainMatterContainer(nx, ny, z);
+      if (nMatter.WaterMatter > 0) {
+        x = nx;
+        y = ny;
+        destinationIsEmpty = false;
+        destMatter = nMatter;
+        break;
+      }
+    }
+  }
 
-  Velocity newVelocity = {};
+  if (destinationIsEmpty) {
+    Position newPosition = {x, y, z, DirectionEnum::DOWN};
 
-  StructuralIntegrityComponent newStructuralIntegrityComponent = {};
-  newStructuralIntegrityComponent.canStackEntities = false;
-  newStructuralIntegrityComponent.maxLoadCapacity = -1;
-  newStructuralIntegrityComponent.matterState = MatterState::LIQUID;
+    EntityTypeComponent newType = {};
+    newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
+    newType.subType0 = static_cast<int>(TerrainEnum::WATER);
+    newType.subType1 = 0;
 
-  // Note: VoxelGrid::setTerrain rejects -1/-2; for ON_GRID_STORAGE we write
-  // the terrain ID directly through the repository below.
+    PhysicsStats newPhysicsStats = {};
+    newPhysicsStats.mass = 20;
+    newPhysicsStats.maxSpeed = 10;
+    newPhysicsStats.minSpeed = 0.0;
 
-  // Store static terrain data in TerrainStorage via repository (not in EnTT)
-  voxelGrid.terrainGridRepository->setPosition(x, y, z, newPosition);
-  voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z, newType);
-  voxelGrid.terrainGridRepository->setTerrainMatterContainer(
-      x, y, z, newMatterContainer);
-  voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(
-      x, y, z, newStructuralIntegrityComponent);
-  voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
+    StructuralIntegrityComponent newSIC = {};
+    newSIC.canStackEntities = false;
+    newSIC.maxLoadCapacity = -1;
+    newSIC.matterState = MatterState::LIQUID;
 
-  voxelGrid.terrainGridRepository->setTerrainId(
-      x, y, z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+    voxelGrid.terrainGridRepository->setPosition(x, y, z, newPosition);
+    voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z, newType);
+    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z,
+                                                                   newSIC);
+    voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
 
-  // Only transient data (Velocity) goes in ECS if needed for active movement
-  // Water at rest doesn't need velocity in ECS; it will be activated when
-  // movement starts
+    voxelGrid.terrainGridRepository->setTerrainId(
+        x, y, z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+  }
 
-  // Update source entity's water matter
-  MatterContainer sourceMatterContainer =
+  destMatter.WaterMatter += fallingAmount;
+  voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z,
+                                                             destMatter);
+
+  MatterContainer sourceMatter =
       voxelGrid.terrainGridRepository->getTerrainMatterContainer(
           sourcePos.x, sourcePos.y, sourcePos.z);
-  sourceMatterContainer.WaterMatter -= fallingAmount;
+  sourceMatter.WaterMatter -= fallingAmount;
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
-      sourcePos.x, sourcePos.y, sourcePos.z, sourceMatterContainer);
-
-  // The bellow might be not necessary, because it is usually a ramp terrain.
-  // // Cleanup source entity if depleted
-  // if (sourceMatterContainer.WaterVapor <= 0 &&
-  // sourceMatterContainer.WaterMatter <= 0) {
-  //     // auto& sourceType = registry.get<EntityTypeComponent>(sourceEntity);
-  //     EntityTypeComponent sourceType =
-  //     voxelGrid.terrainGridRepository->getTerrainEntityType(sourcePos.x,
-  //     sourcePos.y, sourcePos.z); if (sourceType.mainType ==
-  //     static_cast<int>(EntityEnum::TERRAIN) &&
-  //         sourceType.subType0 == static_cast<int>(TerrainEnum::WATER)) {
-  //         voxelGrid.setTerrain(sourcePos.x, sourcePos.y, sourcePos.z, -1);
-  //         // We're already holding TerrainGridLock for this operation, avoid
-  //         double-locking
-  //         voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher,
-  //         sourceEntity, false);
-  //     }
-  // }
-  // throw std::runtime_error("createWaterTerrainFromFall  -> Just exploding for
-  // testing.");
+      sourcePos.x, sourcePos.y, sourcePos.z, sourceMatter);
 }
 
 inline void

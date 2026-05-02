@@ -95,6 +95,13 @@ public:
                                 int selectedEntityId);
   void dispatchSetEntityToDebug(int entityId);
 
+  // Test/debug helper: enqueue a WaterFallEntityEvent directly. Used by Python
+  // tests that need to drive the event-based water path without going through
+  // the velocity grid. `entity` is advisory; pass -2 (NONE) to skip the entity
+  // path entirely.
+  void dispatchWaterFallEvent(Position sourcePos, Position destPos,
+                              int fallingAmount, int entity);
+
   // World update function
   void update();
 

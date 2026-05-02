@@ -169,6 +169,17 @@ def place_stone(voxel_grid: aetherion.VoxelGrid, x: int, y: int, z: int) -> None
     repo.set_matter_state(x, y, z, MatterState.SOLID)
 
 
+def fall_event_position(x: int, y: int, z: int) -> Position:
+    """Build a Position struct for use in WaterFallEntityEvent dispatch."""
+    return _make_position(x, y, z)
+
+
+def water_matter(voxel_grid: aetherion.VoxelGrid, x: int, y: int, z: int) -> int:
+    """Read WaterMatter at (x, y, z) from the terrain grid repository."""
+    matter = voxel_grid.get_terrain_matter_container_component(x, y, z)
+    return int(matter.water_matter)
+
+
 def place_water(
     voxel_grid: aetherion.VoxelGrid,
     x: int,

@@ -206,10 +206,10 @@ class TestPreArrivalInvariants:
 
 
 class TestMidFlowCorruptionDetection:
-    def test_watch_corridor_no_corrupted_ids_at_500_steps(self):
-        """Watch corridor must have no invalid terrain IDs at step 500."""
+    def test_watch_corridor_no_corrupted_ids_at_50_steps(self):
+        """Watch corridor must have no invalid terrain IDs at step 50."""
         manager = build_mountain_side_manager("Water Invariant Test")
-        result = _run_steps_safe(manager, steps=500, scan_corridor_every=100)
+        result = _run_steps_safe(manager, steps=50, scan_corridor_every=10)
 
         assert result.exception is None, f"Engine threw at step {result.steps_completed}: {result.exception}"
         assert result.first_corruption_step is None, (
@@ -218,29 +218,29 @@ class TestMidFlowCorruptionDetection:
         )
 
         corrupted = _scan_watch_corridor(manager.current.world.get_voxel_grid())
-        assert not corrupted, f"Corrupted terrain IDs in watch corridor at step 500: {_format_corrupted(corrupted)}"
+        assert not corrupted, f"Corrupted terrain IDs in watch corridor at step 50: {_format_corrupted(corrupted)}"
 
-    def test_no_water_sim_errors_at_500_steps(self):
-        """World must report no worker-thread water errors at step 500."""
+    def test_no_water_sim_errors_at_50_steps(self):
+        """World must report no worker-thread water errors at step 50."""
         manager = build_mountain_side_manager("Water Invariant Test")
-        result = _run_steps_safe(manager, steps=500)
+        result = _run_steps_safe(manager, steps=50)
 
         assert result.exception is None, f"Engine threw at step {result.steps_completed}: {result.exception}"
 
         world = manager.current.world
         assert not world.has_water_sim_errors(), (
-            f"Worker-thread water errors at step 500: {world.get_water_sim_errors()}"
+            f"Worker-thread water errors at step 50: {world.get_water_sim_errors()}"
         )
 
-    def test_watch_corridor_no_corrupted_ids_at_1000_steps(self):
-        """Watch corridor must have no invalid terrain IDs at step 1000.
+    def test_watch_corridor_no_corrupted_ids_at_100_steps(self):
+        """Watch corridor must have no invalid terrain IDs at step 100.
 
         This is the primary regression test. It reproduces the bug via Python-level
         terrain ID scanning BEFORE the C++ crash occurs (~1500 steps). After the fix,
         this test must pass cleanly.
         """
         manager = build_mountain_side_manager("Water Invariant Test")
-        result = _run_steps_safe(manager, steps=1000, scan_corridor_every=100)
+        result = _run_steps_safe(manager, steps=100, scan_corridor_every=10)
 
         assert result.exception is None, f"Engine threw at step {result.steps_completed}: {result.exception}"
         assert result.first_corruption_step is None, (

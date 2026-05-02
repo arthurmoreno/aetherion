@@ -388,7 +388,10 @@ NB_MODULE(_aetherion, m) {
       .def("count_active_velocity_voxels",
            [](const TerrainGridRepository &repo) -> int {
              return repo.countActiveVelocityVoxels();
-           });
+           })
+      .def("sum_total_water", [](const TerrainGridRepository &repo) -> int64_t {
+        return repo.sumTotalWater();
+      });
 
   // nb::class_<RenderTask>(m, "RenderTask")
   //     .def(nb::init<SDL_Texture*, int, int>())
@@ -778,6 +781,13 @@ NB_MODULE(_aetherion, m) {
           &World::dispatchMoveSolidEntityEventById,
           nb::sig("def dispatch_move_entity_event_by_id(self, arg0: int, arg1: "
                   "list[DirectionEnum], /) -> None: ..."))
+      .def("dispatch_water_fall_event", &World::dispatchWaterFallEvent,
+           nb::arg("source_pos"), nb::arg("dest_pos"),
+           nb::arg("falling_amount"),
+           nb::arg("entity") = static_cast<int>(TerrainIdTypeEnum::NONE),
+           "Enqueue a WaterFallEntityEvent. `entity` defaults to NONE (-2), "
+           "which causes the handler to skip entity-handle-based reads and "
+           "use only the dest_pos/source_pos coordinates.")
       .def("dispatch_take_item_event_by_id", &World::dispatchTakeItemEventById)
       .def("dispatch_use_item_event_by_id", &World::dispatchUseItemEventById)
       .def("dispatch_set_entity_to_debug", &World::dispatchSetEntityToDebug)

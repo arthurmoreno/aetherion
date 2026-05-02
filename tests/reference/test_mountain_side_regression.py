@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from time import sleep
-
 from helpers import build_mountain_side_manager
 
 from aetherion import TerrainEnum
@@ -47,6 +45,10 @@ def _format_water_band(cells: list[tuple[int, int, int, int]], *, limit: int = 2
 
 def _assert_water_advances_through_center_corridor(*, steps: int) -> None:
     manager = build_mountain_side_manager("Mountain Side Regression")
+    # `WorldManager.load_world` (called by the helper) resets status to
+    # "ready", which makes `manager.update()` a no-op. The regression test
+    # needs the world to actually tick, so flip it back to "running".
+    manager.current_metadata.status = "running"
 
     for _ in range(steps):
         manager.update()
