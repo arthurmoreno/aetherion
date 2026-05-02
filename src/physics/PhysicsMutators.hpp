@@ -1181,17 +1181,31 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry &registry,
  * @param fallingAmount The amount of water matter for the new tile.
  * @param sourceEntity The entity from which the water is falling.
  */
+// Cap on how many times a water-creation event (fall or condensation)
+// will be re-dispatched after hitting a vapor-only destination with no
+// resolution available. Three retries gives surrounding vapor a few
+// ticks to disperse via the regular vapor physics path before we give
+// up; without a cap we'd loop forever on a sealed vapor pocket.
+inline constexpr int WATER_VAPOR_CONFLICT_RETRY_LIMIT = 3;
+
 inline void createWaterTerrainFromFall(entt::registry &registry,
                                        entt::dispatcher &dispatcher,
                                        VoxelGrid &voxelGrid, int x, int y,
                                        int z, double fallingAmount,
                                        entt::entity sourceEntity,
-                                       Position sourcePos) {
+                                       Position sourcePos,
+                                       int retryCount = 0) {
   if (!voxelGrid.terrainGridRepository) {
     spdlog::warn("createWaterTerrainFromFall: missing terrainGridRepository");
     return;
   }
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
+  // Capture original destination coords for the retry path — the loop
+  // below may rewrite x/y if it finds a horizontal redirect.
+  const int originalDestX = x;
+  const int originalDestY = y;
+  const int originalDestZ = z;
 
   // Snapshot destination state. The matter write below is *additive* so a
   // populated water destination keeps its existing WaterMatter (and any
@@ -1206,15 +1220,26 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
 
   // Vapor-only safeguard. If the destination cell already exists as a water
   // cell whose matter is purely vapor (WaterVapor > 0, WaterMatter <= 0),
-  // redirecting the falling liquid into it would mix gas with the new liquid.
-  // For now, look for a horizontal neighbor at the same z that is either
-  // EMPTY or a liquid-water cell (WaterMatter > 0) and redirect the fall
-  // there. If no neighbor is suitable, we fall through and merge into the
-  // vapor cell — preserves matter, but is the wrong physics.
+  // writing the falling liquid into it would create a both-WaterMatter-and-
+  // WaterVapor cell, which the per-tick water invariant check forbids. We
+  // first scan the four horizontal neighbors at the same z for an EMPTY or
+  // liquid-water cell to redirect the fall to. If none match, we re-dispatch
+  // the same `WaterFallEntityEvent` with an incremented retry counter so the
+  // surrounding vapor has a chance to disperse on the next tick. After
+  // `WATER_VAPOR_CONFLICT_RETRY_LIMIT` retries we abort with a warn log to keep the
+  // dispatcher queue from growing unbounded on a genuinely sealed pocket.
   //
-  // TODO(future): invert this — falling water should push the vapor
-  // sideways, not the other way around. Replace this neighbor scan with a
-  // gas-displacement step once the vapor-physics path is in place.
+  // The pure-abort alternative (drop the water on retry-exhaust without any
+  // log) is *not* used here because the warn log is the only diagnostic we
+  // get for sealed-pocket recurrences in the live game. If retries ever
+  // prove buggy or sealed-pocket cases turn out to be common, a future
+  // change can swap the body of the retry branch for a one-line return —
+  // but lose the source water — and a follow-up wake-up trigger would be
+  // required to restart it later.
+  //
+  // The principled fix is to push vapor sideways instead of redirecting
+  // the falling liquid. That belongs in the vapor-physics path and is out
+  // of scope here.
   EntityTypeComponent destType =
       voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
   bool destinationIsVaporOnly =
@@ -1223,6 +1248,7 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
       destType.subType0 == static_cast<int>(TerrainEnum::WATER) &&
       destMatter.WaterVapor > 0 && destMatter.WaterMatter <= 0;
 
+  bool redirectedAwayFromVapor = false;
   if (destinationIsVaporOnly) {
     static constexpr int dx[] = {1, -1, 0, 0};
     static constexpr int dy[] = {0, 0, 1, -1};
@@ -1239,6 +1265,7 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
         destinationIsEmpty = true;
         destMatter =
             voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
+        redirectedAwayFromVapor = true;
         break;
       }
       EntityTypeComponent nType =
@@ -1254,8 +1281,28 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
         y = ny;
         destinationIsEmpty = false;
         destMatter = nMatter;
+        redirectedAwayFromVapor = true;
         break;
       }
+    }
+
+    if (!redirectedAwayFromVapor) {
+      if (retryCount < WATER_VAPOR_CONFLICT_RETRY_LIMIT) {
+        Position retryDest{originalDestX, originalDestY, originalDestZ,
+                           DirectionEnum::DOWN};
+        dispatcher.enqueue<WaterFallEntityEvent>(WaterFallEntityEvent{
+            sourceEntity, sourcePos, retryDest,
+            static_cast<int>(fallingAmount), retryCount + 1});
+        return;
+      }
+      spdlog::get("console")->warn(
+          "[createWaterTerrainFromFall] Falling water gave up after {} "
+          "retries at ({}, {}, {}); destination cell holds only vapor and "
+          "no horizontal neighbor is available — vapor pocket may be "
+          "sealed. Source water remains in place at ({}, {}, {}).",
+          WATER_VAPOR_CONFLICT_RETRY_LIMIT, originalDestX, originalDestY, originalDestZ,
+          sourcePos.x, sourcePos.y, sourcePos.z);
+      return;
     }
   }
 
@@ -1465,7 +1512,8 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
                                          VoxelGrid &voxelGrid, int vaporX,
                                          int vaporY, int vaporZ,
                                          double condensationAmount,
-                                         MatterContainer &vaporMatter) {
+                                         MatterContainer &vaporMatter,
+                                         int retryCount = 0) {
   // Lock for atomic state change
   // TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
@@ -1500,6 +1548,44 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
   MatterContainer destMatter =
       voxelGrid.terrainGridRepository->getTerrainMatterContainer(destX, destY,
                                                                  destZ);
+
+  // Vapor-only destination guard. The handler `onCondenseWaterEntityEvent`
+  // routes here only when its event snapshot says the cell below is NONE,
+  // but events sit on the dispatcher queue between enqueue and dispatch,
+  // and other handlers (cascading vapor merges, condensation events from
+  // adjacent vapor columns) can populate that cell with vapor in the
+  // meantime. Writing liquid water on top of pure vapor would create a
+  // both-WaterMatter-and-WaterVapor cell, which the per-tick water
+  // invariant check forbids. Re-dispatch the same condensation event with
+  // an incremented retry counter so the destination's vapor has a chance
+  // to disperse on the next tick. After
+  // `WATER_VAPOR_CONFLICT_RETRY_LIMIT` retries, abort with a warn log so
+  // the dispatcher queue does not grow unbounded on a sealed configuration.
+  //
+  // Pure abort (skip without re-dispatch) is a valid fallback if retries
+  // ever prove buggy, but it would silently lose the condensation amount;
+  // the warn log is the only diagnostic we get for sealed-pocket
+  // recurrences in the live game.
+  bool destinationIsVaporOnly =
+      !destinationIsEmpty && destMatter.WaterVapor > 0 &&
+      destMatter.WaterMatter <= 0;
+  if (destinationIsVaporOnly) {
+    if (retryCount < WATER_VAPOR_CONFLICT_RETRY_LIMIT) {
+      Position retrySource{vaporX, vaporY, vaporZ, DirectionEnum::DOWN};
+      dispatcher.enqueue<CondenseWaterEntityEvent>(CondenseWaterEntityEvent{
+          retrySource, static_cast<int>(condensationAmount),
+          static_cast<int>(TerrainIdTypeEnum::NONE), retryCount + 1});
+      return;
+    }
+    spdlog::get("console")->warn(
+        "[createWaterTerrainBelowVapor] Condensation gave up after {} "
+        "retries at ({}, {}, {}); destination cell holds only vapor and no "
+        "horizontal escape is available — vapor stack may be sealed. "
+        "Source vapor at ({}, {}, {}) keeps its matter.",
+        WATER_VAPOR_CONFLICT_RETRY_LIMIT, destX, destY, destZ, vaporX, vaporY,
+        vaporZ);
+    return;
+  }
 
   if (destinationIsEmpty) {
     Position newPosition = {destX, destY, destZ, DirectionEnum::DOWN};

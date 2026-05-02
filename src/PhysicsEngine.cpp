@@ -2220,7 +2220,8 @@ void PhysicsEngine::onCondenseWaterEntityEvent(
     spdlog::get("console")->debug(ossMessage.str());
     // Path 2: Create new water tile below (no terrain exists)
     createWaterTerrainBelowVapor(registry, dispatcher, *voxelGrid, x, y, z,
-                                 event.condensationAmount, vaporMatter);
+                                 event.condensationAmount, vaporMatter,
+                                 event.retryCount);
   }
 
   // RAII `lock` will release the terrain grid lock when it goes out of scope
@@ -2346,7 +2347,8 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
     // crashes.
     createWaterTerrainFromFall(
         registry, dispatcher, *voxelGrid, event.position.x, event.position.y,
-        event.position.z, event.fallingAmount, event.entity, event.sourcePos);
+        event.position.z, event.fallingAmount, event.entity, event.sourcePos,
+        event.retryCount);
     spdlog::get("console")->info(
         "onWaterFallEntityEvent -> No terrain at position ({}, {}, {}) to "
         "create water from fall - skipping event",
