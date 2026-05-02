@@ -73,8 +73,7 @@ public:
   void applyGravityForcesToECSEntities(entt::registry &registry,
                                        VoxelGrid &voxelGrid,
                                        entt::dispatcher &dispatcher);
-  void applyGravityForceToEntity(entt::entity entity,
-                                 entt::registry &registry,
+  void applyGravityForceToEntity(entt::entity entity, entt::registry &registry,
                                  VoxelGrid &voxelGrid,
                                  entt::dispatcher &dispatcher);
 
@@ -84,8 +83,7 @@ public:
   void processVelocityForECSEntities(entt::registry &registry,
                                      VoxelGrid &voxelGrid,
                                      entt::dispatcher &dispatcher);
-  void processVelocityForEntity(entt::entity entity,
-                                entt::registry &registry,
+  void processVelocityForEntity(entt::entity entity, entt::registry &registry,
                                 VoxelGrid &voxelGrid,
                                 entt::dispatcher &dispatcher);
 

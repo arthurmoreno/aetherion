@@ -49,8 +49,7 @@ struct WaterFallEntityEvent {
   int retryCount;
 
   WaterFallEntityEvent(entt::entity entity, Position sourcePos,
-                       Position position, int fallingAmount,
-                       int retryCount = 0)
+                       Position position, int fallingAmount, int retryCount = 0)
       : entity(entity), sourcePos(sourcePos), position(position),
         fallingAmount(fallingAmount), retryCount(retryCount) {}
 };

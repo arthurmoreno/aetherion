@@ -1193,8 +1193,7 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
                                        VoxelGrid &voxelGrid, int x, int y,
                                        int z, double fallingAmount,
                                        entt::entity sourceEntity,
-                                       Position sourcePos,
-                                       int retryCount = 0) {
+                                       Position sourcePos, int retryCount = 0) {
   if (!voxelGrid.terrainGridRepository) {
     spdlog::warn("createWaterTerrainFromFall: missing terrainGridRepository");
     return;
@@ -1226,8 +1225,8 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
   // liquid-water cell to redirect the fall to. If none match, we re-dispatch
   // the same `WaterFallEntityEvent` with an incremented retry counter so the
   // surrounding vapor has a chance to disperse on the next tick. After
-  // `WATER_VAPOR_CONFLICT_RETRY_LIMIT` retries we abort with a warn log to keep the
-  // dispatcher queue from growing unbounded on a genuinely sealed pocket.
+  // `WATER_VAPOR_CONFLICT_RETRY_LIMIT` retries we abort with a warn log to keep
+  // the dispatcher queue from growing unbounded on a genuinely sealed pocket.
   //
   // The pure-abort alternative (drop the water on retry-exhaust without any
   // log) is *not* used here because the warn log is the only diagnostic we
@@ -1291,8 +1290,8 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
         Position retryDest{originalDestX, originalDestY, originalDestZ,
                            DirectionEnum::DOWN};
         dispatcher.enqueue<WaterFallEntityEvent>(WaterFallEntityEvent{
-            sourceEntity, sourcePos, retryDest,
-            static_cast<int>(fallingAmount), retryCount + 1});
+            sourceEntity, sourcePos, retryDest, static_cast<int>(fallingAmount),
+            retryCount + 1});
         return;
       }
       spdlog::get("console")->warn(
@@ -1300,8 +1299,8 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
           "retries at ({}, {}, {}); destination cell holds only vapor and "
           "no horizontal neighbor is available — vapor pocket may be "
           "sealed. Source water remains in place at ({}, {}, {}).",
-          WATER_VAPOR_CONFLICT_RETRY_LIMIT, originalDestX, originalDestY, originalDestZ,
-          sourcePos.x, sourcePos.y, sourcePos.z);
+          WATER_VAPOR_CONFLICT_RETRY_LIMIT, originalDestX, originalDestY,
+          originalDestZ, sourcePos.x, sourcePos.y, sourcePos.z);
       return;
     }
   }
@@ -1566,9 +1565,9 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
   // ever prove buggy, but it would silently lose the condensation amount;
   // the warn log is the only diagnostic we get for sealed-pocket
   // recurrences in the live game.
-  bool destinationIsVaporOnly =
-      !destinationIsEmpty && destMatter.WaterVapor > 0 &&
-      destMatter.WaterMatter <= 0;
+  bool destinationIsVaporOnly = !destinationIsEmpty &&
+                                destMatter.WaterVapor > 0 &&
+                                destMatter.WaterMatter <= 0;
   if (destinationIsVaporOnly) {
     if (retryCount < WATER_VAPOR_CONFLICT_RETRY_LIMIT) {
       Position retrySource{vaporX, vaporY, vaporZ, DirectionEnum::DOWN};
@@ -1628,9 +1627,8 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
   // subsequent ticks — condensation can land water above an empty
   // column when the vapor was floating. See `createWaterTerrainFromFall`
   // for the same rationale spelled out in full.
-  if (destZ > 0 &&
-      voxelGrid.getTerrain(destX, destY, destZ - 1) ==
-          static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
+  if (destZ > 0 && voxelGrid.getTerrain(destX, destY, destZ - 1) ==
+                       static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
     float gravityKick = PhysicsManager::Instance()->getGravity();
     voxelGrid.terrainGridRepository->setVelocity(
         destX, destY, destZ, Velocity{0.0f, 0.0f, -gravityKick});

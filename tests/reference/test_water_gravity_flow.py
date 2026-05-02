@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from time import sleep
 
-from helpers import build_scenario_manager, water_matter
+from helpers import build_minimal_test_manager, place_empty, place_water, water_matter
 
 from aetherion import Position
 from aetherion.reference.world.scenarios import (
@@ -20,8 +20,18 @@ from aetherion.reference.world.scenarios import (
     GRAVITY_FLOW_INITIAL_WATER_MATTER,
     GRAVITY_FLOW_SOURCE_POS,
     GRAVITY_FLOW_TARGET_POS,
-    water_gravity_flow_world_factory,
 )
+
+# Setup is built inline rather than via a scenario factory because:
+# 1. The package-level `water_gravity_flow_world_factory` was rewired
+#    to a spring-driven layout (no water at t=0, water injected at z=2
+#    every 5 ticks) that doesn't match this test's contract.
+# 2. The original `_3x3x3` factory still does the right `place_water`
+#    call but enables `process_ecosystem_async = True`, whose worker
+#    pool races on small grids and intermittently hangs `manager.update()`.
+# `build_minimal_test_manager` defaults to a synchronous world via
+# `empty_square_world_factory`, mirroring `test_water_fall_event.py`'s
+# already-stable setup.
 
 
 def _coord_to_position(coord: tuple[int, int, int]) -> Position:
@@ -31,11 +41,19 @@ def _coord_to_position(coord: tuple[int, int, int]) -> Position:
 
 
 def _setup_scenario():
-    manager = build_scenario_manager(
-        water_gravity_flow_world_factory,
-        "Water Gravity Flow Into Empty Cell",
-    )
+    manager = build_minimal_test_manager(3, 3, 3)
     voxel_grid = manager.current.world.get_voxel_grid()
+    # `empty_square_world_factory` (the factory behind
+    # `build_minimal_test_manager`) fills layer z=0 with stone. The
+    # gravity-flow scenario expects the target cell to be NONE so the
+    # handler routes through `createWaterTerrainFromGravityFlow`'s
+    # empty-target branch — clear it explicitly here.
+    place_empty(voxel_grid, *GRAVITY_FLOW_TARGET_POS)
+    place_water(
+        voxel_grid,
+        *GRAVITY_FLOW_SOURCE_POS,
+        water_matter=GRAVITY_FLOW_INITIAL_WATER_MATTER,
+    )
     return manager, voxel_grid
 
 
@@ -60,6 +78,7 @@ def test_gravity_flow_into_empty_cell_lands_as_on_grid_storage():
         amount=GRAVITY_FLOW_AMOUNT,
     )
     manager.update()
+    sleep(0.001)
 
     target_terrain_id = voxel_grid.get_terrain(*GRAVITY_FLOW_TARGET_POS)
     assert target_terrain_id == -1, (

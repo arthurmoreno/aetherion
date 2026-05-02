@@ -389,8 +389,7 @@ void PhysicsEngine::nudgeSettledWaterAfterDrain(int drainedX, int drainedY,
   if (aboveMatter.WaterMatter <= 0)
     return;
 
-  Velocity aboveVel =
-      voxelGrid.terrainGridRepository->getVelocity(ax, ay, az);
+  Velocity aboveVel = voxelGrid.terrainGridRepository->getVelocity(ax, ay, az);
   if (aboveVel.vx != 0.0f || aboveVel.vy != 0.0f || aboveVel.vz != 0.0f)
     return; // already moving — Loop 2 will handle it
 
@@ -1185,8 +1184,7 @@ void PhysicsEngine::applyGravityForceToEntity(entt::entity entity,
       matterState = sic.matterState;
     }
   }
-  if (matterState == MatterState::SOLID ||
-      matterState == MatterState::LIQUID) {
+  if (matterState == MatterState::SOLID || matterState == MatterState::LIQUID) {
     // Physics processing for solid/liquid entities
     if (!isTerrain && registry.all_of<EntityTypeComponent>(entity)) {
       EntityTypeComponent type = registry.get<EntityTypeComponent>(entity);
@@ -1208,8 +1206,7 @@ void PhysicsEngine::applyGravityForceToEntity(entt::entity entity,
           voxelGrid.terrainGridRepository->getTerrainMatterContainer(
               pos.x, pos.y, pos.z);
       PhysicsStats physicsStats =
-          voxelGrid.terrainGridRepository->getPhysicsStats(pos.x, pos.y,
-                                                           pos.z);
+          voxelGrid.terrainGridRepository->getPhysicsStats(pos.x, pos.y, pos.z);
 
       spdlog::get("console")->debug(
           "Processing terrain entity {} at position ({}, {}, {}), entity "
@@ -1273,10 +1270,10 @@ void PhysicsEngine::processVelocityForEntity(entt::entity entity,
     // hook execution The onDestroyVelocity hook will clean up tracking maps -
     // just skip for now
     std::ostringstream ossMessage;
-    ossMessage
-        << "[processPhysics:MovingComponent] WARNING: Invalid entity in "
-           "velocityView - skipping; entity ID="
-        << static_cast<int>(entity) << " (cleanup will be handled by hooks)";
+    ossMessage << "[processPhysics:MovingComponent] WARNING: Invalid entity in "
+                  "velocityView - skipping; entity ID="
+               << static_cast<int>(entity)
+               << " (cleanup will be handled by hooks)";
     spdlog::get("console")->debug(ossMessage.str());
 
     return;
@@ -1406,8 +1403,8 @@ void PhysicsEngine::processVelocityForEntity(entt::entity entity,
       spdlog::get("console")->warn(ossMessage.str());
     } catch (const aetherion::PhysicsException &e) {
       std::ostringstream ossMessage;
-      ossMessage << "[processPhysics] PhysicsException for entity "
-                 << entityId << ": " << e.what() << " - skipping";
+      ossMessage << "[processPhysics] PhysicsException for entity " << entityId
+                 << ": " << e.what() << " - skipping";
       spdlog::get("console")->warn(ossMessage.str());
     }
     return;
@@ -1428,9 +1425,8 @@ void PhysicsEngine::processVelocityForEntity(entt::entity entity,
       spdlog::get("console")->warn(ossMessage.str());
     } catch (const aetherion::TerrainLockException &e) {
       std::ostringstream ossMessage;
-      ossMessage
-          << "[processPhysics] TerrainLockException for terrain entity "
-          << entityId << ": " << e.what() << " - skipping";
+      ossMessage << "[processPhysics] TerrainLockException for terrain entity "
+                 << entityId << ": " << e.what() << " - skipping";
       spdlog::get("console")->warn(ossMessage.str());
     } catch (const aetherion::PhysicsException &e) {
       std::ostringstream ossMessage;
@@ -1474,10 +1470,8 @@ void PhysicsEngine::processVelocityForVoxel(int x, int y, int z, float vx,
   try {
     Position pos{x, y, z, DirectionEnum::UP};
     Velocity vel{vx, vy, vz};
-    PhysicsStats ps =
-        voxelGrid.terrainGridRepository->getPhysicsStats(x, y, z);
-    MatterState ms =
-        voxelGrid.terrainGridRepository->getMatterState(x, y, z);
+    PhysicsStats ps = voxelGrid.terrainGridRepository->getPhysicsStats(x, y, z);
+    MatterState ms = voxelGrid.terrainGridRepository->getMatterState(x, y, z);
 
     auto [newVz, willStopZ] = resolveVerticalMotion(
         registry, voxelGrid, pos, vel.vz, ms, entt::null, entt::null);
@@ -1498,14 +1492,14 @@ void PhysicsEngine::processVelocityForVoxel(int x, int y, int z, float vx,
     auto [toX, toY, toZ, completionTime] = calculateMovementDestination(
         registry, voxelGrid, pos, vel, ps, vel.vx, vel.vy, vel.vz);
 
-    bool collision = hasCollision(registry, voxelGrid, entt::null, x, y,
-                                  z, toX, toY, toZ, true);
+    bool collision = hasCollision(registry, voxelGrid, entt::null, x, y, z, toX,
+                                  toY, toZ, true);
 
     if (!collision && completionTime < calculateTimeToMove(ps.minSpeed)) {
       if (!voxelGrid.terrainGridRepository->hasMovingComponent(x, y, z)) {
-        MovingComponent mc = initializeMovingComponent(
-            pos, vel, toX, toY, toZ, completionTime, willStopX, willStopY,
-            willStopZ);
+        MovingComponent mc =
+            initializeMovingComponent(pos, vel, toX, toY, toZ, completionTime,
+                                      willStopX, willStopY, willStopZ);
         voxelGrid.terrainGridRepository->setMovingComponent(x, y, z, mc);
         voxelGrid.terrainGridRepository->moveTerrain(mc);
         // (x, y, z) was just drained by `moveTerrain`; wake any settled
@@ -1515,13 +1509,12 @@ void PhysicsEngine::processVelocityForVoxel(int x, int y, int z, float vx,
       }
     } else {
       // Clear velocity on collision or below-min-speed
-      voxelGrid.terrainGridRepository->setVelocity(x, y, z,
-                                                   Velocity{0, 0, 0});
+      voxelGrid.terrainGridRepository->setVelocity(x, y, z, Velocity{0, 0, 0});
     }
   } catch (const std::exception &e) {
     spdlog::get("console")->warn(
-        "[processPhysics:VDB] Exception for voxel ({},{},{}): {}", x, y,
-        z, e.what());
+        "[processPhysics:VDB] Exception for voxel ({},{},{}): {}", x, y, z,
+        e.what());
   }
 }
 
@@ -2345,10 +2338,10 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
     // investigate and ensure all necessary state is properly initialized before
     // creating terrain. For now, just logging and skipping the event to prevent
     // crashes.
-    createWaterTerrainFromFall(
-        registry, dispatcher, *voxelGrid, event.position.x, event.position.y,
-        event.position.z, event.fallingAmount, event.entity, event.sourcePos,
-        event.retryCount);
+    createWaterTerrainFromFall(registry, dispatcher, *voxelGrid,
+                               event.position.x, event.position.y,
+                               event.position.z, event.fallingAmount,
+                               event.entity, event.sourcePos, event.retryCount);
     spdlog::get("console")->info(
         "onWaterFallEntityEvent -> No terrain at position ({}, {}, {}) to "
         "create water from fall - skipping event",

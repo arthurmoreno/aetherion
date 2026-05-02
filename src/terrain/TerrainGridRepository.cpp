@@ -186,9 +186,9 @@ void TerrainGridRepository::moveTerrain(MovingComponent &movingComponent) {
     // velocity over, a moving ON_GRID_STORAGE voxel drops out of
     // `iterateVelocityVoxels`'s active set on the very next tick and
     // appears to stop mid-fall.
-    Velocity currentVelocity = getVelocity(movingComponent.movingFromX,
-                                           movingComponent.movingFromY,
-                                           movingComponent.movingFromZ);
+    Velocity currentVelocity =
+        getVelocity(movingComponent.movingFromX, movingComponent.movingFromY,
+                    movingComponent.movingFromZ);
     setVelocity(movingComponent.movingToX, movingComponent.movingToY,
                 movingComponent.movingToZ, currentVelocity);
 

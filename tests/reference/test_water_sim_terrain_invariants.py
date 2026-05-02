@@ -321,7 +321,30 @@ class TestPostRunInvariants:
     def test_no_water_sim_errors_after_safe_budget(self):
         """Worker-thread error list must be empty after SAFE_MAX_STEPS."""
         manager = build_mountain_side_manager("Water Invariant Test")
+
+        world = manager.current.world
+        voxel_grid = world.get_voxel_grid()
+        repo = voxel_grid.terrain_grid_repository
+
+        initial_total = repo.sum_total_water()
+        print(
+            f"[probe] pre-run: total_water={initial_total}, "
+            f"process_async={world.process_ecosystem_async}, "
+            f"simulate_water_movement={world.simulate_water_movement}, "
+            f"simulate_water_evaporation={world.simulate_water_evaporation}, "
+            f"simulate_vapor_movement={world.simulate_vapor_movement}, "
+            f"simulate_vapor_condensation={world.simulate_vapor_condensation}"
+        )
+
         result = _run_steps_safe(manager, steps=SAFE_MAX_STEPS, scan_corridor_every=50)
+
+        final_total = repo.sum_total_water()
+        print(
+            f"[probe] post-run: steps_completed={result.steps_completed}, "
+            f"total_water={final_total}, "
+            f"delta={final_total - initial_total}, "
+            f"has_errors={world.has_water_sim_errors()}"
+        )
 
         if result.exception is not None:
             assert False, f"EcosystemEngineException at step {result.steps_completed}: {result.exception}"
@@ -331,6 +354,12 @@ class TestPostRunInvariants:
                 f"{_format_corrupted(result.corrupted or [])}"
             )
 
-        world = manager.current.world
-        errors = world.get_water_sim_errors()
-        assert not world.has_water_sim_errors(), f"Worker-thread errors after {SAFE_MAX_STEPS} steps: {errors}"
+        # NOTE: get_water_sim_errors() returns std::vector<ThreadError> and the
+        # installed wheel is missing nanobind/stl/vector.h, so a direct call
+        # raises TypeError. has_water_sim_errors() returns bool and crosses the
+        # binding cleanly. We only touch get_water_sim_errors() inside the
+        # assertion message so it stays lazy and never fires on success.
+        assert not world.has_water_sim_errors(), (
+            f"Worker-thread errors after {SAFE_MAX_STEPS} steps "
+            f"(rebuild aetherion with nanobind/stl/vector.h to surface details)"
+        )
