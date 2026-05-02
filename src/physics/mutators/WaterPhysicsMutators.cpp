@@ -9,7 +9,7 @@
 #include "physics/PhysicsMutators.hpp"
 
 void _handleWaterSpreadEvent(VoxelGrid &voxelGrid,
-                                    const WaterSpreadEvent &event) {
+                             const WaterSpreadEvent &event) {
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
   // Re-read current repository state to avoid TOCTOU races
@@ -44,10 +44,9 @@ void _handleWaterSpreadEvent(VoxelGrid &voxelGrid,
       event.source.x, event.source.y, event.source.z, currentSource);
 }
 
-void
-setGravityFlowWaterTargetDefaults(VoxelGrid &voxelGrid,
-                                  const Position &targetPos,
-                                  const PhysicsStats &physicsStats) {
+void setGravityFlowWaterTargetDefaults(VoxelGrid &voxelGrid,
+                                       const Position &targetPos,
+                                       const PhysicsStats &physicsStats) {
   EntityTypeComponent targetType = {};
   targetType.mainType = static_cast<int>(EntityEnum::TERRAIN);
   targetType.subType0 = static_cast<int>(TerrainEnum::WATER);
@@ -69,7 +68,7 @@ setGravityFlowWaterTargetDefaults(VoxelGrid &voxelGrid,
 }
 
 void setGravityFlowEmptySourceDefaults(VoxelGrid &voxelGrid,
-                                              const Position &sourcePos) {
+                                       const Position &sourcePos) {
   EntityTypeComponent emptyType = {};
   emptyType.mainType = static_cast<int>(EntityEnum::TERRAIN);
   emptyType.subType0 = static_cast<int>(TerrainEnum::EMPTY);
@@ -101,9 +100,8 @@ void setGravityFlowEmptySourceDefaults(VoxelGrid &voxelGrid,
       sourcePos.x, sourcePos.y, sourcePos.z, emptyPhysicsStats);
 }
 
-void
-_handleTerrainPhaseConversionEvent(VoxelGrid &voxelGrid,
-                                   const TerrainPhaseConversionEvent &event) {
+void _handleTerrainPhaseConversionEvent(
+    VoxelGrid &voxelGrid, const TerrainPhaseConversionEvent &event) {
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
   // Re-read current repository state to avoid TOCTOU races and validate

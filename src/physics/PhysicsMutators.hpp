@@ -1300,14 +1300,13 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
 }
 
 // Definition: src/physics/mutators/WaterPhysicsMutators.cpp
-void
-setGravityFlowWaterTargetDefaults(VoxelGrid &voxelGrid,
-                                  const Position &targetPos,
-                                  const PhysicsStats &physicsStats);
+void setGravityFlowWaterTargetDefaults(VoxelGrid &voxelGrid,
+                                       const Position &targetPos,
+                                       const PhysicsStats &physicsStats);
 
 // Definition: src/physics/mutators/WaterPhysicsMutators.cpp
 void setGravityFlowEmptySourceDefaults(VoxelGrid &voxelGrid,
-                                              const Position &sourcePos);
+                                       const Position &sourcePos);
 
 inline void createWaterTerrainFromGravityFlow(
     VoxelGrid &voxelGrid, const Position &targetPos, int targetTerrainId,
@@ -1543,7 +1542,7 @@ inline void _handleInvalidTerrainFound(entt::dispatcher &dispatcher,
 
 // Definition: src/physics/mutators/WaterPhysicsMutators.cpp
 void _handleWaterSpreadEvent(VoxelGrid &voxelGrid,
-                                    const WaterSpreadEvent &event);
+                             const WaterSpreadEvent &event);
 
 inline void _handleWaterGravityFlowEvent(entt::registry &registry,
                                          entt::dispatcher &dispatcher,
@@ -1641,9 +1640,8 @@ inline void _handleWaterGravityFlowEvent(entt::registry &registry,
 }
 
 // Definition: src/physics/mutators/WaterPhysicsMutators.cpp
-void
-_handleTerrainPhaseConversionEvent(VoxelGrid &voxelGrid,
-                                   const TerrainPhaseConversionEvent &event);
+void _handleTerrainPhaseConversionEvent(
+    VoxelGrid &voxelGrid, const TerrainPhaseConversionEvent &event);
 
 // Helper: Create an Entt entity and register its terrain id in the
 // TerrainGridRepository. If `takeLock` is true (default) a TerrainGridLock is
