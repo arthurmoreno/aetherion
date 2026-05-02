@@ -671,6 +671,13 @@ void World::dispatchWaterGravityFlowEvent(Position sourcePos,
       sourceMatter, targetMatter);
 }
 
+void World::dispatchCondenseWaterEvent(Position vaporPos,
+                                       int condensationAmount,
+                                       int terrainBelowId) {
+  dispatcher.enqueue<CondenseWaterEntityEvent>(vaporPos, condensationAmount,
+                                               terrainBelowId);
+}
+
 void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId,
                                       int selectedEntityId) {
   // std::cout << "[TakeItemEvent] entityId=" << entityId

@@ -797,6 +797,15 @@ NB_MODULE(_aetherion, m) {
            "snapshots are read from the repository at dispatch time. Pass "
            "`target_terrain_id = -2` (NONE) to drive the empty-destination "
            "branch of the gravity-flow handler.")
+      .def("dispatch_condense_water_event",
+           &World::dispatchCondenseWaterEvent, nb::arg("vapor_pos"),
+           nb::arg("condensation_amount"),
+           nb::arg("terrain_below_id") =
+               static_cast<int>(TerrainIdTypeEnum::NONE),
+           "Enqueue a CondenseWaterEntityEvent. Pass `terrain_below_id = -2` "
+           "(NONE) to drive the empty-destination branch "
+           "(`createWaterTerrainBelowVapor`); pass a non-NONE id to test "
+           "merging condensation into existing terrain below.")
       .def("dispatch_take_item_event_by_id", &World::dispatchTakeItemEventById)
       .def("dispatch_use_item_event_by_id", &World::dispatchUseItemEventById)
       .def("dispatch_set_entity_to_debug", &World::dispatchSetEntityToDebug)

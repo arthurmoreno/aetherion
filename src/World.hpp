@@ -109,6 +109,13 @@ public:
   void dispatchWaterGravityFlowEvent(Position sourcePos, Position targetPos,
                                      int amount, int targetTerrainId);
 
+  // Test/debug helper: enqueue a CondenseWaterEntityEvent directly. Pass
+  // `terrainBelowId = -2` (NONE) to drive the empty-destination branch
+  // (createWaterTerrainBelowVapor); pass a non-NONE id to test merging
+  // condensation into existing terrain below.
+  void dispatchCondenseWaterEvent(Position vaporPos, int condensationAmount,
+                                  int terrainBelowId);
+
   // World update function
   void update();
 

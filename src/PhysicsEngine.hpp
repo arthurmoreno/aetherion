@@ -63,6 +63,45 @@ public:
   void processPhysicsAsync(entt::registry &registry, VoxelGrid &voxelGrid,
                            entt::dispatcher &dispatcher, GameClock &clock);
 
+  // ── Iteration helpers extracted from processPhysics / processPhysicsAsync ──
+  // These are pure code-organization seams: bodies are byte-identical to the
+  // original inlined loops (only `continue` → `return` translation on early
+  // exits, since each "inner" method is now a per-iteration callable). They
+  // are kept private; the orchestrator methods call them in sequence.
+
+  // C3.0 — gravity-force enqueue for ECS-backed entities (used by
+  // `processPhysicsAsync`). Outer iterates `registry.view<Position>()`; inner
+  // is the per-entity decision tree.
+  void applyGravityForcesToECSEntities(entt::registry &registry,
+                                       VoxelGrid &voxelGrid,
+                                       entt::dispatcher &dispatcher);
+  void applyGravityForceToEntity(entt::entity entity,
+                                 entt::registry &registry,
+                                 VoxelGrid &voxelGrid,
+                                 entt::dispatcher &dispatcher);
+
+  // Velocity processing (Loop 1) for ECS-backed entities (used by
+  // `processPhysics`). Outer iterates `registry.view<Velocity>()`; inner
+  // runs per-entity validation + cold-vapor revival + `handleMovement`.
+  void processVelocityForECSEntities(entt::registry &registry,
+                                     VoxelGrid &voxelGrid,
+                                     entt::dispatcher &dispatcher);
+  void processVelocityForEntity(entt::entity entity,
+                                entt::registry &registry,
+                                VoxelGrid &voxelGrid,
+                                entt::dispatcher &dispatcher);
+
+  // Velocity processing (Loop 2) for ON_GRID_STORAGE voxels driven by the
+  // VDB velocity grid (used by `processPhysics`). Outer two-phase: collects
+  // active VDB voxels (skipping any whose terrainId points at an ECS entity
+  // — Loop 1 already handled them), then processes each. Inner runs the
+  // per-voxel velocity update + movement trigger.
+  void processVelocityForVDBVoxels(entt::registry &registry,
+                                   VoxelGrid &voxelGrid);
+  void processVelocityForVoxel(int x, int y, int z, float vx, float vy,
+                               float vz, entt::registry &registry,
+                               VoxelGrid &voxelGrid);
+
   // Example: Applying force to an entity
   // void applyForce(entt::registry& registry, VoxelGrid& voxelGrid,
   // entt::entity entity, float fx, float fy, float fz);

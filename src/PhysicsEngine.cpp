@@ -956,255 +956,9 @@ void PhysicsEngine::processPhysics(entt::registry &registry,
                                    GameClock &clock) {
   // spdlog::get("console")->debug("Processing physics");
 
-  auto velocityView = registry.view<Velocity>();
-  for (auto entity : velocityView) {
-    // SAFETY CHECK: Validate entity before processing
-    if (!registry.valid(entity)) {
-      // Entity is invalid but still in MovingComponent component storage
-      // This happens during the timing window between registry.destroy() and
-      // hook execution The onDestroyVelocity hook will clean up tracking maps -
-      // just skip for now
-      std::ostringstream ossMessage;
-      ossMessage
-          << "[processPhysics:MovingComponent] WARNING: Invalid entity in "
-             "velocityView - skipping; entity ID="
-          << static_cast<int>(entity) << " (cleanup will be handled by hooks)";
-      spdlog::get("console")->debug(ossMessage.str());
+  processVelocityForECSEntities(registry, voxelGrid, dispatcher);
 
-      continue;
-    }
-
-    // SAFETY CHECK: Ensure entity has Position component
-    Position pos;
-    int entityId = static_cast<int>(entity);
-    if (!registry.all_of<Position>(entity)) {
-      {
-        std::ostringstream ossMessage;
-        ossMessage << "[processPhysics:Velocity] WARNING: Entity "
-                   << static_cast<int>(entity)
-                   << " has Velocity but no Position - skipping";
-        spdlog::get("console")->debug(ossMessage.str());
-      }
-
-      // delete from terrain repository mapping.
-      Position pos;
-      try {
-        pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
-      } catch (const aetherion::InvalidEntityException &e) {
-        // Exception indicates we should stop processing this entity.
-        // The mutator function already logged the details.
-        Position *_pos = registry.try_get<Position>(entity);
-        pos = _pos ? *_pos : Position{-1, -1, -1, DirectionEnum::UP};
-        if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-          {
-            std::ostringstream ossMessage;
-            ossMessage
-                << "[processPhysics:Velocity] Could not find position of "
-                   "entity "
-                << static_cast<int>(entity)
-                << " in TerrainGridRepository or registry - just delete it.";
-            spdlog::get("console")->debug(ossMessage.str());
-          }
-          softDeactivateTerrainEntity(dispatcher, voxelGrid, entity, true);
-          // throw std::runtime_error("Could not find entity position for
-          // Velocity processing");
-          continue;
-        }
-      }
-
-      if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
-        {
-          std::ostringstream ossMessage;
-          ossMessage
-              << "[processPhysics:Velocity] Could not find position of entity "
-              << entityId << " in TerrainGridRepository, skipping entity.";
-          spdlog::get("console")->debug(ossMessage.str());
-        }
-        continue;
-      }
-
-      {
-        // std::ostringstream ossMessage;
-        // ossMessage << "[processPhysics:Velocity] Found position of entity "
-        // << entityId
-        //            << " in TerrainGridRepository at (" << pos.x << ", " <<
-        //            pos.y << ", "
-        //            << pos.z
-        //            << ") - checking if vapor terrain needs revival";
-        // spdlog::get("console")->debug(ossMessage.str());
-      }
-
-      // Check if this is vapor terrain that needs to be revived
-      EntityTypeComponent terrainType =
-          voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y,
-                                                                pos.z);
-      int vaporMatter =
-          voxelGrid.terrainGridRepository->getVaporMatter(pos.x, pos.y, pos.z);
-
-      if (terrainType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-          vaporMatter > 0) {
-        {
-          std::ostringstream ossMessage;
-          ossMessage
-              << "[processPhysics:Velocity] Reviving cold vapor terrain at ("
-              << pos.x << ", " << pos.y << ", " << pos.z
-              << ") with vapor matter: " << vaporMatter;
-          spdlog::get("console")->debug(ossMessage.str());
-        }
-
-        // Revive the terrain by ensuring it's active in ECS
-        entity = _ensureEntityActive(voxelGrid, pos.x, pos.y, pos.z);
-
-        {
-          std::ostringstream ossMessage;
-          ossMessage
-              << "[processPhysics:Velocity] Revived vapor terrain as entity "
-              << static_cast<int>(entity) << " - will continue processing";
-          spdlog::get("console")->debug(ossMessage.str());
-        }
-
-        // Get the position from the newly revived entity
-        pos = registry.get<Position>(entity);
-      } else {
-        {
-          std::ostringstream ossMessage;
-          ossMessage << "[processPhysics:Velocity] Not vapor terrain (mainType="
-                     << terrainType.mainType << ", vapor=" << vaporMatter
-                     << ") - skipping";
-          spdlog::get("console")->debug(ossMessage.str());
-        }
-        continue;
-      }
-    } else {
-      // std::cout << "[processPhysics] Entity " << static_cast<int>(entity)
-      //           << " has Velocity and Position - proceeding" << std::endl;
-      pos = registry.get<Position>(entity);
-    }
-
-    int entityVoxelGridId = voxelGrid.getEntity(pos.x, pos.y, pos.z);
-    if (entityId == entityVoxelGridId) {
-      try {
-        handleMovement(registry, dispatcher, voxelGrid, entity,
-                       entityBeingDebugged, false);
-      } catch (const aetherion::InvalidEntityException &e) {
-        std::ostringstream ossMessage;
-        ossMessage << "[processPhysics] InvalidEntityException for entity "
-                   << entityId << ": " << e.what() << " - skipping";
-        spdlog::get("console")->warn(ossMessage.str());
-      } catch (const aetherion::TerrainLockException &e) {
-        std::ostringstream ossMessage;
-        ossMessage << "[processPhysics] TerrainLockException for entity "
-                   << entityId << ": " << e.what() << " - skipping";
-        spdlog::get("console")->warn(ossMessage.str());
-      } catch (const aetherion::PhysicsException &e) {
-        std::ostringstream ossMessage;
-        ossMessage << "[processPhysics] PhysicsException for entity "
-                   << entityId << ": " << e.what() << " - skipping";
-        spdlog::get("console")->warn(ossMessage.str());
-      }
-      continue;
-    }
-    int terrainVoxelGridId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
-    if (terrainVoxelGridId != static_cast<int>(TerrainIdTypeEnum::NONE) &&
-        terrainVoxelGridId !=
-            static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-      // This entity is actually terrain, remove its velocity
-      try {
-        handleMovement(registry, dispatcher, voxelGrid, entity,
-                       entityBeingDebugged, true);
-      } catch (const aetherion::InvalidEntityException &e) {
-        std::ostringstream ossMessage;
-        ossMessage
-            << "[processPhysics] InvalidEntityException for terrain entity "
-            << entityId << ": " << e.what() << " - skipping";
-        spdlog::get("console")->warn(ossMessage.str());
-      } catch (const aetherion::TerrainLockException &e) {
-        std::ostringstream ossMessage;
-        ossMessage
-            << "[processPhysics] TerrainLockException for terrain entity "
-            << entityId << ": " << e.what() << " - skipping";
-        spdlog::get("console")->warn(ossMessage.str());
-      } catch (const aetherion::PhysicsException &e) {
-        std::ostringstream ossMessage;
-        ossMessage << "[processPhysics] PhysicsException for terrain entity "
-                   << entityId << ": " << e.what() << " - skipping";
-        spdlog::get("console")->warn(ossMessage.str());
-      }
-    }
-  }
-
-  // ── Loop 2: VDB velocity voxels for ON_GRID_STORAGE terrain ──────────────
-  // Handles terrain with velocity stored only in VDB (no ECS entity).
-  // Pre-C1–C4 this yields nothing; post-C1–C4 it drives all water physics.
-  // Two-phase: collect coords under shared lock, then process without lock.
-  {
-    struct VdbVoxel {
-      int x, y, z;
-      float vx, vy, vz;
-    };
-    std::vector<VdbVoxel> vdbVoxels;
-    voxelGrid.terrainGridRepository->iterateVelocityVoxels(
-        [&](int x, int y, int z, float vx, float vy, float vz) {
-          auto maybeId =
-              voxelGrid.terrainGridRepository->getTerrainIdIfExists(x, y, z);
-          if (maybeId && *maybeId >= 0)
-            return; // ECS entity exists — Loop 1 already handled it
-          vdbVoxels.push_back({x, y, z, vx, vy, vz});
-        });
-
-    for (auto &v : vdbVoxels) {
-      try {
-        Position pos{v.x, v.y, v.z, DirectionEnum::UP};
-        Velocity vel{v.vx, v.vy, v.vz};
-        PhysicsStats ps =
-            voxelGrid.terrainGridRepository->getPhysicsStats(v.x, v.y, v.z);
-        MatterState ms =
-            voxelGrid.terrainGridRepository->getMatterState(v.x, v.y, v.z);
-
-        auto [newVz, willStopZ] = resolveVerticalMotion(
-            registry, voxelGrid, pos, vel.vz, ms, entt::null, entt::null);
-        bool belowStable = checkBelowStability(registry, voxelGrid, pos);
-        auto [newVx, newVy, willStopX, willStopY] =
-            applyKineticFrictionDamping(vel.vx, vel.vy, ms, belowStable, newVz);
-
-        if (ms != MatterState::GAS) {
-          vel.vx = newVx;
-          vel.vy = newVy;
-          vel.vz = newVz;
-        }
-
-        // Persist updated velocity to VDB (setValueOff when zero)
-        voxelGrid.terrainGridRepository->setVelocity(v.x, v.y, v.z, vel);
-
-        // Trigger movement if velocity warrants it
-        auto [toX, toY, toZ, completionTime] = calculateMovementDestination(
-            registry, voxelGrid, pos, vel, ps, vel.vx, vel.vy, vel.vz);
-
-        bool collision = hasCollision(registry, voxelGrid, entt::null, v.x, v.y,
-                                      v.z, toX, toY, toZ, true);
-
-        if (!collision && completionTime < calculateTimeToMove(ps.minSpeed)) {
-          if (!voxelGrid.terrainGridRepository->hasMovingComponent(v.x, v.y,
-                                                                   v.z)) {
-            MovingComponent mc = initializeMovingComponent(
-                pos, vel, toX, toY, toZ, completionTime, willStopX, willStopY,
-                willStopZ);
-            voxelGrid.terrainGridRepository->setMovingComponent(v.x, v.y, v.z,
-                                                                mc);
-            voxelGrid.terrainGridRepository->moveTerrain(mc);
-          }
-        } else {
-          // Clear velocity on collision or below-min-speed
-          voxelGrid.terrainGridRepository->setVelocity(v.x, v.y, v.z,
-                                                       Velocity{0, 0, 0});
-        }
-      } catch (const std::exception &e) {
-        spdlog::get("console")->warn(
-            "[processPhysics:VDB] Exception for voxel ({},{},{}): {}", v.x, v.y,
-            v.z, e.what());
-      }
-    }
-  }
+  processVelocityForVDBVoxels(registry, voxelGrid);
 
   auto movingComponentView = registry.view<MovingComponent>();
   for (auto entity : movingComponentView) {
@@ -1347,102 +1101,383 @@ void PhysicsEngine::processPhysicsAsync(entt::registry &registry,
 
   processingComplete = false;
 
+  applyGravityForcesToECSEntities(registry, voxelGrid, dispatcher);
+
+  processingComplete = true;
+}
+
+void PhysicsEngine::applyGravityForcesToECSEntities(
+    entt::registry &registry, VoxelGrid &voxelGrid,
+    entt::dispatcher &dispatcher) {
   auto position_view = registry.view<Position>();
 
   // spdlog::get("console")->debug("Processing physics Async");
 
   for (auto entity : position_view) {
-    if (!registry.valid(entity)) {
-      continue;
+    applyGravityForceToEntity(entity, registry, voxelGrid, dispatcher);
+  }
+}
+
+void PhysicsEngine::applyGravityForceToEntity(entt::entity entity,
+                                              entt::registry &registry,
+                                              VoxelGrid &voxelGrid,
+                                              entt::dispatcher &dispatcher) {
+  if (!registry.valid(entity)) {
+    return;
+  }
+
+  Position pos = registry.get<Position>(entity);
+
+  MatterState matterState = MatterState::SOLID;
+  bool isTerrain = false;
+  StructuralIntegrityComponent *sic =
+      registry.try_get<StructuralIntegrityComponent>(entity);
+  if (sic) {
+    matterState = sic->matterState;
+  } else {
+    int terrainId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
+    if (terrainId == static_cast<int>(entity)) {
+      isTerrain = true;
+      StructuralIntegrityComponent sic =
+          voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(
+              pos.x, pos.y, pos.z);
+      matterState = sic.matterState;
     }
-
-    Position pos = registry.get<Position>(entity);
-
-    MatterState matterState = MatterState::SOLID;
-    bool isTerrain = false;
-    StructuralIntegrityComponent *sic =
-        registry.try_get<StructuralIntegrityComponent>(entity);
-    if (sic) {
-      matterState = sic->matterState;
-    } else {
-      int terrainId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
-      if (terrainId == static_cast<int>(entity)) {
-        isTerrain = true;
-        StructuralIntegrityComponent sic =
-            voxelGrid.terrainGridRepository->getTerrainStructuralIntegrity(
-                pos.x, pos.y, pos.z);
-        matterState = sic.matterState;
+  }
+  if (matterState == MatterState::SOLID ||
+      matterState == MatterState::LIQUID) {
+    // Physics processing for solid/liquid entities
+    if (!isTerrain && registry.all_of<EntityTypeComponent>(entity)) {
+      EntityTypeComponent type = registry.get<EntityTypeComponent>(entity);
+      // Guard: Don't enqueue movement event if entity is already moving
+      // This prevents feedback loops where MoveSolidEntityEvent cascades
+      bool isAlreadyMoving = registry.all_of<MovingComponent>(entity);
+      if (!isAlreadyMoving &&
+          checkIfCanFall(registry, voxelGrid, pos.x, pos.y, pos.z)) {
+        float gravity = PhysicsManager::Instance()->getGravity();
+        dispatcher.enqueue<MoveSolidEntityEvent>(entity, 0, 0, -gravity);
       }
-    }
-    if (matterState == MatterState::SOLID ||
-        matterState == MatterState::LIQUID) {
-      // Physics processing for solid/liquid entities
-      if (!isTerrain && registry.all_of<EntityTypeComponent>(entity)) {
-        EntityTypeComponent type = registry.get<EntityTypeComponent>(entity);
-        // Guard: Don't enqueue movement event if entity is already moving
-        // This prevents feedback loops where MoveSolidEntityEvent cascades
-        bool isAlreadyMoving = registry.all_of<MovingComponent>(entity);
-        if (!isAlreadyMoving &&
-            checkIfCanFall(registry, voxelGrid, pos.x, pos.y, pos.z)) {
+    } else if (isTerrain) {
+      EntityTypeComponent type =
+          voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y,
+                                                                pos.z);
+      bool isAlreadyMoving = registry.all_of<MovingComponent>(entity);
+
+      MatterContainer matterContainer =
+          voxelGrid.terrainGridRepository->getTerrainMatterContainer(
+              pos.x, pos.y, pos.z);
+      PhysicsStats physicsStats =
+          voxelGrid.terrainGridRepository->getPhysicsStats(pos.x, pos.y,
+                                                           pos.z);
+
+      spdlog::get("console")->debug(
+          "Processing terrain entity {} at position ({}, {}, {}), entity "
+          "type.mainType: {}, type.subType0: {}, type.subType1: {}, "
+          "isTerrain: {}, isAlreadyMoving: {}, physicsStats.mass: {:.2f}",
+          static_cast<int>(entity), pos.x, pos.y, pos.z, type.mainType,
+          type.subType0, type.subType1, isTerrain, isAlreadyMoving,
+          physicsStats.mass);
+
+      if (!isAlreadyMoving &&
+          checkIfTerrainCanFall(registry, voxelGrid, pos.x, pos.y, pos.z,
+                                matterState)) {
+        if (physicsStats.mass > 0.0f) {
           float gravity = PhysicsManager::Instance()->getGravity();
-          dispatcher.enqueue<MoveSolidEntityEvent>(entity, 0, 0, -gravity);
-        }
-      } else if (isTerrain) {
-        EntityTypeComponent type =
-            voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y,
-                                                                  pos.z);
-        bool isAlreadyMoving = registry.all_of<MovingComponent>(entity);
-
-        MatterContainer matterContainer =
-            voxelGrid.terrainGridRepository->getTerrainMatterContainer(
-                pos.x, pos.y, pos.z);
-        PhysicsStats physicsStats =
-            voxelGrid.terrainGridRepository->getPhysicsStats(pos.x, pos.y,
-                                                             pos.z);
-
-        spdlog::get("console")->debug(
-            "Processing terrain entity {} at position ({}, {}, {}), entity "
-            "type.mainType: {}, type.subType0: {}, type.subType1: {}, "
-            "isTerrain: {}, isAlreadyMoving: {}, physicsStats.mass: {:.2f}",
-            static_cast<int>(entity), pos.x, pos.y, pos.z, type.mainType,
-            type.subType0, type.subType1, isTerrain, isAlreadyMoving,
-            physicsStats.mass);
-
-        if (!isAlreadyMoving &&
-            checkIfTerrainCanFall(registry, voxelGrid, pos.x, pos.y, pos.z,
-                                  matterState)) {
-          if (physicsStats.mass > 0.0f) {
-            float gravity = PhysicsManager::Instance()->getGravity();
-            dispatcher.enqueue<MoveSolidLiquidTerrainEvent>(entity, 0, 0,
-                                                            -gravity);
-          }
-        } else {
-          spdlog::get("console")->debug(
-              "Not enqueuing MoveSolidEntityEvent for terrain entity {} at "
-              "position ({}, {}, {}), entity type.mainType: {} , "
-              "type.subType0: {}, isTerrain: {}, isAlreadyMoving: {}",
-              static_cast<int>(entity), pos.x, pos.y, pos.z, type.mainType,
-              type.subType0, isTerrain, isAlreadyMoving);
+          dispatcher.enqueue<MoveSolidLiquidTerrainEvent>(entity, 0, 0,
+                                                          -gravity);
         }
       } else {
         spdlog::get("console")->debug(
-            "Entity {} at position ({}, {}, {}) is not terrain and does not "
-            "have EntityTypeComponent, skipping physics processing. isTerrain: "
-            "{}",
-            static_cast<int>(entity), pos.x, pos.y, pos.z, isTerrain);
+            "Not enqueuing MoveSolidEntityEvent for terrain entity {} at "
+            "position ({}, {}, {}), entity type.mainType: {} , "
+            "type.subType0: {}, isTerrain: {}, isAlreadyMoving: {}",
+            static_cast<int>(entity), pos.x, pos.y, pos.z, type.mainType,
+            type.subType0, isTerrain, isAlreadyMoving);
       }
-
-    } else if (matterState == MatterState::GAS) {
-      // Physics processing for gas entities (vapor)
-      // Gas entities should be processed via EcosystemEngine for
-      // buoyancy-driven movement This prevents duplicate event generation that
-      // would cause cascading events Note: Vapor movement is driven by density
-      // differences and is handled by the ecosystem engine during its vapor
-      // movement phase, not by async gravity events
+    } else {
+      spdlog::get("console")->debug(
+          "Entity {} at position ({}, {}, {}) is not terrain and does not "
+          "have EntityTypeComponent, skipping physics processing. isTerrain: "
+          "{}",
+          static_cast<int>(entity), pos.x, pos.y, pos.z, isTerrain);
     }
+
+  } else if (matterState == MatterState::GAS) {
+    // Physics processing for gas entities (vapor)
+    // Gas entities should be processed via EcosystemEngine for
+    // buoyancy-driven movement This prevents duplicate event generation that
+    // would cause cascading events Note: Vapor movement is driven by density
+    // differences and is handled by the ecosystem engine during its vapor
+    // movement phase, not by async gravity events
+  }
+}
+
+void PhysicsEngine::processVelocityForECSEntities(
+    entt::registry &registry, VoxelGrid &voxelGrid,
+    entt::dispatcher &dispatcher) {
+  auto velocityView = registry.view<Velocity>();
+  for (auto entity : velocityView) {
+    processVelocityForEntity(entity, registry, voxelGrid, dispatcher);
+  }
+}
+
+void PhysicsEngine::processVelocityForEntity(entt::entity entity,
+                                             entt::registry &registry,
+                                             VoxelGrid &voxelGrid,
+                                             entt::dispatcher &dispatcher) {
+  // SAFETY CHECK: Validate entity before processing
+  if (!registry.valid(entity)) {
+    // Entity is invalid but still in MovingComponent component storage
+    // This happens during the timing window between registry.destroy() and
+    // hook execution The onDestroyVelocity hook will clean up tracking maps -
+    // just skip for now
+    std::ostringstream ossMessage;
+    ossMessage
+        << "[processPhysics:MovingComponent] WARNING: Invalid entity in "
+           "velocityView - skipping; entity ID="
+        << static_cast<int>(entity) << " (cleanup will be handled by hooks)";
+    spdlog::get("console")->debug(ossMessage.str());
+
+    return;
   }
 
-  processingComplete = true;
+  // SAFETY CHECK: Ensure entity has Position component
+  Position pos;
+  int entityId = static_cast<int>(entity);
+  if (!registry.all_of<Position>(entity)) {
+    {
+      std::ostringstream ossMessage;
+      ossMessage << "[processPhysics:Velocity] WARNING: Entity "
+                 << static_cast<int>(entity)
+                 << " has Velocity but no Position - skipping";
+      spdlog::get("console")->debug(ossMessage.str());
+    }
+
+    // delete from terrain repository mapping.
+    Position pos;
+    try {
+      pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
+    } catch (const aetherion::InvalidEntityException &e) {
+      // Exception indicates we should stop processing this entity.
+      // The mutator function already logged the details.
+      Position *_pos = registry.try_get<Position>(entity);
+      pos = _pos ? *_pos : Position{-1, -1, -1, DirectionEnum::UP};
+      if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+        {
+          std::ostringstream ossMessage;
+          ossMessage
+              << "[processPhysics:Velocity] Could not find position of "
+                 "entity "
+              << static_cast<int>(entity)
+              << " in TerrainGridRepository or registry - just delete it.";
+          spdlog::get("console")->debug(ossMessage.str());
+        }
+        softDeactivateTerrainEntity(dispatcher, voxelGrid, entity, true);
+        // throw std::runtime_error("Could not find entity position for
+        // Velocity processing");
+        return;
+      }
+    }
+
+    if (pos.x == -1 && pos.y == -1 && pos.z == -1) {
+      {
+        std::ostringstream ossMessage;
+        ossMessage
+            << "[processPhysics:Velocity] Could not find position of entity "
+            << entityId << " in TerrainGridRepository, skipping entity.";
+        spdlog::get("console")->debug(ossMessage.str());
+      }
+      return;
+    }
+
+    {
+      // std::ostringstream ossMessage;
+      // ossMessage << "[processPhysics:Velocity] Found position of entity "
+      // << entityId
+      //            << " in TerrainGridRepository at (" << pos.x << ", " <<
+      //            pos.y << ", "
+      //            << pos.z
+      //            << ") - checking if vapor terrain needs revival";
+      // spdlog::get("console")->debug(ossMessage.str());
+    }
+
+    // Check if this is vapor terrain that needs to be revived
+    EntityTypeComponent terrainType =
+        voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y,
+                                                              pos.z);
+    int vaporMatter =
+        voxelGrid.terrainGridRepository->getVaporMatter(pos.x, pos.y, pos.z);
+
+    if (terrainType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+        vaporMatter > 0) {
+      {
+        std::ostringstream ossMessage;
+        ossMessage
+            << "[processPhysics:Velocity] Reviving cold vapor terrain at ("
+            << pos.x << ", " << pos.y << ", " << pos.z
+            << ") with vapor matter: " << vaporMatter;
+        spdlog::get("console")->debug(ossMessage.str());
+      }
+
+      // Revive the terrain by ensuring it's active in ECS
+      entity = _ensureEntityActive(voxelGrid, pos.x, pos.y, pos.z);
+
+      {
+        std::ostringstream ossMessage;
+        ossMessage
+            << "[processPhysics:Velocity] Revived vapor terrain as entity "
+            << static_cast<int>(entity) << " - will continue processing";
+        spdlog::get("console")->debug(ossMessage.str());
+      }
+
+      // Get the position from the newly revived entity
+      pos = registry.get<Position>(entity);
+    } else {
+      {
+        std::ostringstream ossMessage;
+        ossMessage << "[processPhysics:Velocity] Not vapor terrain (mainType="
+                   << terrainType.mainType << ", vapor=" << vaporMatter
+                   << ") - skipping";
+        spdlog::get("console")->debug(ossMessage.str());
+      }
+      return;
+    }
+  } else {
+    // std::cout << "[processPhysics] Entity " << static_cast<int>(entity)
+    //           << " has Velocity and Position - proceeding" << std::endl;
+    pos = registry.get<Position>(entity);
+  }
+
+  int entityVoxelGridId = voxelGrid.getEntity(pos.x, pos.y, pos.z);
+  if (entityId == entityVoxelGridId) {
+    try {
+      handleMovement(registry, dispatcher, voxelGrid, entity,
+                     entityBeingDebugged, false);
+    } catch (const aetherion::InvalidEntityException &e) {
+      std::ostringstream ossMessage;
+      ossMessage << "[processPhysics] InvalidEntityException for entity "
+                 << entityId << ": " << e.what() << " - skipping";
+      spdlog::get("console")->warn(ossMessage.str());
+    } catch (const aetherion::TerrainLockException &e) {
+      std::ostringstream ossMessage;
+      ossMessage << "[processPhysics] TerrainLockException for entity "
+                 << entityId << ": " << e.what() << " - skipping";
+      spdlog::get("console")->warn(ossMessage.str());
+    } catch (const aetherion::PhysicsException &e) {
+      std::ostringstream ossMessage;
+      ossMessage << "[processPhysics] PhysicsException for entity "
+                 << entityId << ": " << e.what() << " - skipping";
+      spdlog::get("console")->warn(ossMessage.str());
+    }
+    return;
+  }
+  int terrainVoxelGridId = voxelGrid.getTerrain(pos.x, pos.y, pos.z);
+  if (terrainVoxelGridId != static_cast<int>(TerrainIdTypeEnum::NONE) &&
+      terrainVoxelGridId !=
+          static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
+    // This entity is actually terrain, remove its velocity
+    try {
+      handleMovement(registry, dispatcher, voxelGrid, entity,
+                     entityBeingDebugged, true);
+    } catch (const aetherion::InvalidEntityException &e) {
+      std::ostringstream ossMessage;
+      ossMessage
+          << "[processPhysics] InvalidEntityException for terrain entity "
+          << entityId << ": " << e.what() << " - skipping";
+      spdlog::get("console")->warn(ossMessage.str());
+    } catch (const aetherion::TerrainLockException &e) {
+      std::ostringstream ossMessage;
+      ossMessage
+          << "[processPhysics] TerrainLockException for terrain entity "
+          << entityId << ": " << e.what() << " - skipping";
+      spdlog::get("console")->warn(ossMessage.str());
+    } catch (const aetherion::PhysicsException &e) {
+      std::ostringstream ossMessage;
+      ossMessage << "[processPhysics] PhysicsException for terrain entity "
+                 << entityId << ": " << e.what() << " - skipping";
+      spdlog::get("console")->warn(ossMessage.str());
+    }
+  }
+}
+
+void PhysicsEngine::processVelocityForVDBVoxels(entt::registry &registry,
+                                                VoxelGrid &voxelGrid) {
+  // ── Loop 2: VDB velocity voxels for ON_GRID_STORAGE terrain ──────────────
+  // Handles terrain with velocity stored only in VDB (no ECS entity).
+  // Pre-C1–C4 this yields nothing; post-C1–C4 it drives all water physics.
+  // Two-phase: collect coords under shared lock, then process without lock.
+  struct VdbVoxel {
+    int x, y, z;
+    float vx, vy, vz;
+  };
+  std::vector<VdbVoxel> vdbVoxels;
+  voxelGrid.terrainGridRepository->iterateVelocityVoxels(
+      [&](int x, int y, int z, float vx, float vy, float vz) {
+        auto maybeId =
+            voxelGrid.terrainGridRepository->getTerrainIdIfExists(x, y, z);
+        if (maybeId && *maybeId >= 0)
+          return; // ECS entity exists — Loop 1 already handled it
+        vdbVoxels.push_back({x, y, z, vx, vy, vz});
+      });
+
+  for (auto &v : vdbVoxels) {
+    processVelocityForVoxel(v.x, v.y, v.z, v.vx, v.vy, v.vz, registry,
+                            voxelGrid);
+  }
+}
+
+void PhysicsEngine::processVelocityForVoxel(int x, int y, int z, float vx,
+                                            float vy, float vz,
+                                            entt::registry &registry,
+                                            VoxelGrid &voxelGrid) {
+  try {
+    Position pos{x, y, z, DirectionEnum::UP};
+    Velocity vel{vx, vy, vz};
+    PhysicsStats ps =
+        voxelGrid.terrainGridRepository->getPhysicsStats(x, y, z);
+    MatterState ms =
+        voxelGrid.terrainGridRepository->getMatterState(x, y, z);
+
+    auto [newVz, willStopZ] = resolveVerticalMotion(
+        registry, voxelGrid, pos, vel.vz, ms, entt::null, entt::null);
+    bool belowStable = checkBelowStability(registry, voxelGrid, pos);
+    auto [newVx, newVy, willStopX, willStopY] =
+        applyKineticFrictionDamping(vel.vx, vel.vy, ms, belowStable, newVz);
+
+    if (ms != MatterState::GAS) {
+      vel.vx = newVx;
+      vel.vy = newVy;
+      vel.vz = newVz;
+    }
+
+    // Persist updated velocity to VDB (setValueOff when zero)
+    voxelGrid.terrainGridRepository->setVelocity(x, y, z, vel);
+
+    // Trigger movement if velocity warrants it
+    auto [toX, toY, toZ, completionTime] = calculateMovementDestination(
+        registry, voxelGrid, pos, vel, ps, vel.vx, vel.vy, vel.vz);
+
+    bool collision = hasCollision(registry, voxelGrid, entt::null, x, y,
+                                  z, toX, toY, toZ, true);
+
+    if (!collision && completionTime < calculateTimeToMove(ps.minSpeed)) {
+      if (!voxelGrid.terrainGridRepository->hasMovingComponent(x, y, z)) {
+        MovingComponent mc = initializeMovingComponent(
+            pos, vel, toX, toY, toZ, completionTime, willStopX, willStopY,
+            willStopZ);
+        voxelGrid.terrainGridRepository->setMovingComponent(x, y, z, mc);
+        voxelGrid.terrainGridRepository->moveTerrain(mc);
+      }
+    } else {
+      // Clear velocity on collision or below-min-speed
+      voxelGrid.terrainGridRepository->setVelocity(x, y, z,
+                                                   Velocity{0, 0, 0});
+    }
+  } catch (const std::exception &e) {
+    spdlog::get("console")->warn(
+        "[processPhysics:VDB] Exception for voxel ({},{},{}): {}", x, y,
+        z, e.what());
+  }
 }
 
 bool PhysicsEngine::isProcessingComplete() const { return processingComplete; }
