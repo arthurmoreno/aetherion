@@ -102,6 +102,13 @@ public:
   void dispatchWaterFallEvent(Position sourcePos, Position destPos,
                               int fallingAmount, int entity);
 
+  // Test/debug helper: enqueue a WaterGravityFlowEvent directly. Source/target
+  // type and matter snapshots are read from the repository at dispatch time so
+  // the caller does not need to assemble them manually. Pass `targetTerrainId
+  // = -2` (NONE) to drive the empty-destination branch.
+  void dispatchWaterGravityFlowEvent(Position sourcePos, Position targetPos,
+                                     int amount, int targetTerrainId);
+
   // World update function
   void update();
 

@@ -1356,86 +1356,41 @@ inline void setGravityFlowEmptySourceDefaults(VoxelGrid &voxelGrid,
       sourcePos.x, sourcePos.y, sourcePos.z, emptyPhysicsStats);
 }
 
-inline entt::entity createWaterTerrainFromGravityFlow(
-    entt::registry &registry, VoxelGrid &voxelGrid, const Position &sourcePos,
-    const Position &targetPos, int targetTerrainId, entt::entity sourceEntity,
-    bool reuseSourceEntity, const PhysicsStats &sourcePhysicsStats) {
+inline void createWaterTerrainFromGravityFlow(
+    VoxelGrid &voxelGrid, const Position &targetPos, int targetTerrainId,
+    const PhysicsStats &sourcePhysicsStats) {
   if (!voxelGrid.terrainGridRepository) {
     spdlog::warn("createWaterTerrainFromGravityFlow: missing "
                  "terrainGridRepository");
-    return entt::null;
+    return;
   }
 
   Position gravityTargetPos = targetPos;
   gravityTargetPos.direction = DirectionEnum::DOWN;
 
-  if (reuseSourceEntity && sourceEntity != entt::null &&
-      registry.valid(sourceEntity)) {
-    VoxelCoord sourceKey{sourcePos.x, sourcePos.y, sourcePos.z};
-    VoxelCoord targetKey{gravityTargetPos.x, gravityTargetPos.y,
-                         gravityTargetPos.z};
+  // Today the only callers of this function reach it on NONE or EMPTY-typed
+  // ON_GRID_STORAGE destinations (per `_handleWaterGravityFlowEvent`'s entry
+  // condition) — both pre-water states that need the full water-cell
+  // scaffolding written. We still gate the scaffolding defensively against
+  // an existing-water destination so a future caller would only get an
+  // additive matter merge (matter is owned by the handler), preserving
+  // type / SIC / PhysicsStats already in place.
+  EntityTypeComponent existingType =
+      voxelGrid.terrainGridRepository->getTerrainEntityType(
+          gravityTargetPos.x, gravityTargetPos.y, gravityTargetPos.z);
+  bool destinationNeedsScaffolding =
+      targetTerrainId == static_cast<int>(TerrainIdTypeEnum::NONE) ||
+      existingType.mainType != static_cast<int>(EntityEnum::TERRAIN) ||
+      existingType.subType0 != static_cast<int>(TerrainEnum::WATER);
 
-    voxelGrid.terrainGridRepository->removeFromTrackingMaps(
-        sourceKey, sourceEntity, false, false);
-    if (Position *sourceRegistryPos =
-            registry.try_get<Position>(sourceEntity)) {
-      *sourceRegistryPos = gravityTargetPos;
-    } else {
-      registry.emplace<Position>(sourceEntity, gravityTargetPos);
-    }
-
-    setGravityFlowEmptySourceDefaults(voxelGrid, sourcePos);
+  if (destinationNeedsScaffolding) {
     setGravityFlowWaterTargetDefaults(voxelGrid, gravityTargetPos,
                                       sourcePhysicsStats);
-    voxelGrid.terrainGridRepository->setTerrainId(
-        gravityTargetPos.x, gravityTargetPos.y, gravityTargetPos.z,
-        static_cast<int>(sourceEntity), false);
-    voxelGrid.terrainGridRepository->addToTrackingMaps(targetKey, sourceEntity,
-                                                       false, false);
-    return sourceEntity;
   }
 
-  if (targetTerrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-    entt::entity targetEntity =
-        voxelGrid.terrainGridRepository->createEnttForTerrain(
-            gravityTargetPos.x, gravityTargetPos.y, gravityTargetPos.z);
-    if (Position *targetRegistryPos =
-            registry.try_get<Position>(targetEntity)) {
-      *targetRegistryPos = gravityTargetPos;
-    }
-    setGravityFlowWaterTargetDefaults(voxelGrid, gravityTargetPos,
-                                      sourcePhysicsStats);
-    voxelGrid.terrainGridRepository->setTerrainId(
-        gravityTargetPos.x, gravityTargetPos.y, gravityTargetPos.z,
-        static_cast<int>(targetEntity), false);
-    return targetEntity;
-  }
-
-  if (targetTerrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
-    entt::entity newWaterEntity = registry.create();
-    registry.emplace<Position>(newWaterEntity, gravityTargetPos);
-
-    MatterContainer emptyMatter = {};
-    emptyMatter.TerrainMatter = 0;
-    emptyMatter.WaterMatter = 0;
-    emptyMatter.WaterVapor = 0;
-    emptyMatter.BioMassMatter = 0;
-
-    VoxelCoord key{gravityTargetPos.x, gravityTargetPos.y, gravityTargetPos.z};
-    setGravityFlowWaterTargetDefaults(voxelGrid, gravityTargetPos,
-                                      sourcePhysicsStats);
-    voxelGrid.terrainGridRepository->setTerrainMatterContainer(
-        gravityTargetPos.x, gravityTargetPos.y, gravityTargetPos.z,
-        emptyMatter);
-    voxelGrid.terrainGridRepository->setTerrainId(
-        gravityTargetPos.x, gravityTargetPos.y, gravityTargetPos.z,
-        static_cast<int>(newWaterEntity), false);
-    voxelGrid.terrainGridRepository->addToTrackingMaps(key, newWaterEntity,
-                                                       false, false);
-    return newWaterEntity;
-  }
-
-  return entt::null;
+  voxelGrid.terrainGridRepository->setTerrainId(
+      gravityTargetPos.x, gravityTargetPos.y, gravityTargetPos.z,
+      static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE), false);
 }
 
 /**
@@ -1706,14 +1661,6 @@ inline void _handleWaterGravityFlowEvent(entt::registry &registry,
     return; // Target has vapor; skip flow
   }
 
-  const bool sourceWillBecomeEmpty =
-      (currentSource.WaterMatter - event.amount) == 0 &&
-      currentSource.WaterVapor == 0;
-  const entt::entity sourceEntity =
-      (sourceTerrainId != static_cast<int>(TerrainIdTypeEnum::NONE) &&
-       sourceTerrainId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE))
-          ? static_cast<entt::entity>(sourceTerrainId)
-          : entt::null;
   PhysicsStats sourcePhysicsStats =
       voxelGrid.terrainGridRepository->getPhysicsStats(
           event.source.x, event.source.y, event.source.z);
@@ -1725,16 +1672,12 @@ inline void _handleWaterGravityFlowEvent(entt::registry &registry,
       (targetType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
        targetType.subType0 == static_cast<int>(TerrainEnum::EMPTY));
 
-  bool reusedSourceEntity = false;
   if (targetTerrainId == static_cast<int>(TerrainIdTypeEnum::NONE) ||
       (isTargetEmptyTerrain &&
        targetTerrainId ==
            static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE))) {
-    reusedSourceEntity = sourceWillBecomeEmpty && sourceEntity != entt::null &&
-                         registry.valid(sourceEntity);
-    createWaterTerrainFromGravityFlow(
-        registry, voxelGrid, event.source, event.target, targetTerrainId,
-        sourceEntity, reusedSourceEntity, sourcePhysicsStats);
+    createWaterTerrainFromGravityFlow(voxelGrid, event.target, targetTerrainId,
+                                      sourcePhysicsStats);
   }
 
   // Apply transfer using up-to-date state
@@ -1762,17 +1705,17 @@ inline void _handleWaterGravityFlowEvent(entt::registry &registry,
                                 currentSource.WaterVapor == 0);
 
   if (emptyWater) {
-    // Convert to empty terrain if we just removed the last of the water
+    // Convert to empty terrain if we just removed the last of the water.
+    // Source always needs deletion now that the function no longer reuses an
+    // ECS source entity at the destination.
 
     spdlog::get("console")->warn("[_handleWaterGravityFlowEvent] Empty terrain "
                                  "at ({}, {}, {}), deleting it.",
                                  event.source.x, event.source.y,
                                  event.source.z);
 
-    if (!reusedSourceEntity) {
-      voxelGrid.deleteTerrain(dispatcher, event.source.x, event.source.y,
-                              event.source.z, false);
-    }
+    voxelGrid.deleteTerrain(dispatcher, event.source.x, event.source.y,
+                            event.source.z, false);
   }
 }
 

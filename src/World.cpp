@@ -644,6 +644,33 @@ void World::dispatchWaterFallEvent(Position sourcePos, Position destPos,
                                            fallingAmount);
 }
 
+void World::dispatchWaterGravityFlowEvent(Position sourcePos,
+                                          Position targetPos, int amount,
+                                          int targetTerrainId) {
+  // Snapshot type and matter at source/target so the event handler sees the
+  // same state we observe here. Skip the target reads when target is NONE
+  // (no terrain to query).
+  EntityTypeComponent sourceType =
+      voxelGrid->terrainGridRepository->getTerrainEntityType(
+          sourcePos.x, sourcePos.y, sourcePos.z);
+  MatterContainer sourceMatter =
+      voxelGrid->terrainGridRepository->getTerrainMatterContainer(
+          sourcePos.x, sourcePos.y, sourcePos.z);
+
+  EntityTypeComponent targetType = {};
+  MatterContainer targetMatter = {};
+  if (targetTerrainId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
+    targetType = voxelGrid->terrainGridRepository->getTerrainEntityType(
+        targetPos.x, targetPos.y, targetPos.z);
+    targetMatter = voxelGrid->terrainGridRepository->getTerrainMatterContainer(
+        targetPos.x, targetPos.y, targetPos.z);
+  }
+
+  dispatcher.enqueue<WaterGravityFlowEvent>(
+      sourcePos, targetPos, amount, targetTerrainId, sourceType, targetType,
+      sourceMatter, targetMatter);
+}
+
 void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId,
                                       int selectedEntityId) {
   // std::cout << "[TakeItemEvent] entityId=" << entityId

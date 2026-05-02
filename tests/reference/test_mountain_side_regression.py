@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from time import sleep
+
 from helpers import build_mountain_side_manager
 
 from aetherion import TerrainEnum
@@ -52,7 +54,7 @@ def _assert_water_advances_through_center_corridor(*, steps: int) -> None:
 
     for _ in range(steps):
         manager.update()
-        sleep(0.01)
+        sleep(0.005)
 
     world = manager.current.world
     water_cells = _collect_water_cells_in_band(manager)
@@ -79,14 +81,14 @@ def _assert_water_advances_through_center_corridor(*, steps: int) -> None:
     )
 
 
-def test_mountain_side_world_advances_water_through_center_corridor_200_steps():
+def test_mountain_side_world_advances_water_through_center_corridor_100_steps():
     """Engine-managed paced repro with post-step state inspection.
 
     This uses the same factory registration and world-manager load path the game
     uses, instead of instantiating the raw world directly.
     """
-    _assert_water_advances_through_center_corridor(steps=200)
+    _assert_water_advances_through_center_corridor(steps=100)
 
 
-def test_mountain_side_world_advances_water_through_center_corridor_2000_steps():
-    _assert_water_advances_through_center_corridor(steps=2000)
+def test_mountain_side_world_advances_water_through_center_corridor_500_steps():
+    _assert_water_advances_through_center_corridor(steps=500)

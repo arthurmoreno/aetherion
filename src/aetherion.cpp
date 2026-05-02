@@ -788,6 +788,15 @@ NB_MODULE(_aetherion, m) {
            "Enqueue a WaterFallEntityEvent. `entity` defaults to NONE (-2), "
            "which causes the handler to skip entity-handle-based reads and "
            "use only the dest_pos/source_pos coordinates.")
+      .def("dispatch_water_gravity_flow_event",
+           &World::dispatchWaterGravityFlowEvent, nb::arg("source_pos"),
+           nb::arg("target_pos"), nb::arg("amount"),
+           nb::arg("target_terrain_id") =
+               static_cast<int>(TerrainIdTypeEnum::NONE),
+           "Enqueue a WaterGravityFlowEvent. Source/target type and matter "
+           "snapshots are read from the repository at dispatch time. Pass "
+           "`target_terrain_id = -2` (NONE) to drive the empty-destination "
+           "branch of the gravity-flow handler.")
       .def("dispatch_take_item_event_by_id", &World::dispatchTakeItemEventById)
       .def("dispatch_use_item_event_by_id", &World::dispatchUseItemEventById)
       .def("dispatch_set_entity_to_debug", &World::dispatchSetEntityToDebug)

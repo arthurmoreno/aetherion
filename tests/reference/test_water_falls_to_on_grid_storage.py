@@ -1,4 +1,10 @@
-"""C1: createWaterTerrainFromFall must produce ON_GRID_STORAGE water."""
+"""Falling water lands as ON_GRID_STORAGE — no EnTT entity for the new voxel.
+
+Drives `createWaterTerrainFromFall` through the velocity-driven fall path:
+seeds a single water voxel mid-air with downward velocity, ticks the
+simulation, and asserts the destination cell is created with terrain id
+``-1`` (ON_GRID_STORAGE) rather than a positive EnTT entity handle.
+"""
 
 from __future__ import annotations
 
