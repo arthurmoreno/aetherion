@@ -980,15 +980,20 @@ void TerrainGridRepository::deleteTerrain(entt::dispatcher &dispatcher, int x,
     dispatcher.enqueue<KillEntityEvent>(entity);
   } else if (terrainId != -2 && terrainId != -1) {
     // TODO
-    std::cout << "No active terrain entity to delete at (" << x << ", " << y
-              << ", " << z << ") EntityID: " << terrainId
-              << "But we might clean up something else here." << "\n";
+    // Silenced: stale-id deletion trace was crowding the log during
+    // water-state debugging. Re-enable if id-flow inspection is needed.
+    // std::cout << "No active terrain entity to delete at (" << x << ", " << y
+    //           << ", " << z << ") EntityID: " << terrainId
+    //           << "But we might clean up something else here." << "\n";
     entt::entity entity = static_cast<entt::entity>(terrainId);
     removeFromTrackingMaps(key, entity);
     dispatcher.enqueue<KillEntityEvent>(entity);
   } else {
-    std::cout << "No active terrain entity to delete at (" << x << ", " << y
-              << ", " << z << ") EntityID: " << terrainId << "\n";
+    // Silenced: ON_GRID_STORAGE/NONE deletion trace was crowding the log
+    // during water-state debugging. Re-enable if id-flow inspection is
+    // needed.
+    // std::cout << "No active terrain entity to delete at (" << x << ", " << y
+    //           << ", " << z << ") EntityID: " << terrainId << "\n";
   }
 }
 

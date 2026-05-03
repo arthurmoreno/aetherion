@@ -36,6 +36,7 @@ inline const std::string PHYSICS_WATER_GRAVITY_FLOW =
 inline const std::string PHYSICS_TERRAIN_PHASE_CONVERSION =
     "physics_terrain_phase_conversion";
 inline const std::string PHYSICS_VAPOR_CREATION = "physics_vapor_creation";
+inline const std::string PHYSICS_WATER_CREATION = "physics_water_creation";
 inline const std::string PHYSICS_VAPOR_MERGE_UP = "physics_vapor_merge_up";
 inline const std::string PHYSICS_VAPOR_MERGE_SIDEWAYS =
     "physics_vapor_merge_sideways";
@@ -103,9 +104,12 @@ resolveVerticalMotion(entt::registry &registry, VoxelGrid &voxelGrid,
                       MatterState matterState, entt::entity entityBeingDebugged,
                       entt::entity entity) {
   if (matterState == MatterState::SOLID || matterState == MatterState::LIQUID) {
-    if (entity == entityBeingDebugged) {
-      std::cout << "handleMovement -> applying Gravity" << std::endl;
-    }
+    // Silenced: gravity-application spam was crowding the log during
+    // water-state debugging. Re-enable if movement-velocity instrumentation
+    // is needed again.
+    // if (entity == entityBeingDebugged) {
+    //   std::cout << "handleMovement -> applying Gravity" << std::endl;
+    // }
     auto resultZ = calculateVelocityAfterGravityStep(
         registry, voxelGrid, position.x, position.y, position.z, velocityZ, 1);
     float newVelocityZ = resultZ.first;
@@ -170,10 +174,9 @@ void PhysicsEngine::onVaporCreationEvent(const VaporCreationEvent &event) {
                            event.position.y, event.position.z, event.amount);
 }
 
-void PhysicsEngine::onCreateVaporEntityEvent(
-    const CreateVaporEntityEvent &event) {
-  incPhysicsMetric(PHYSICS_CREATE_VAPOR_ENTITY);
-  _handleCreateVaporEntityEvent(registry, dispatcher, *voxelGrid, event);
+void PhysicsEngine::onWaterCreationEvent(const WaterCreationEvent &event) {
+  incPhysicsMetric(PHYSICS_WATER_CREATION);
+  _handleWaterCreationEvent(registry, dispatcher, *voxelGrid, event);
 }
 
 void PhysicsEngine::onDeleteOrConvertTerrainEvent(
@@ -338,14 +341,14 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher &dispatcher) {
   // Register vapor event handlers
   dispatcher.sink<VaporCreationEvent>()
       .connect<&PhysicsEngine::onVaporCreationEvent>(*this);
+  dispatcher.sink<WaterCreationEvent>()
+      .connect<&PhysicsEngine::onWaterCreationEvent>(*this);
   dispatcher.sink<VaporMergeUpEvent>()
       .connect<&PhysicsEngine::onVaporMergeUpEvent>(*this);
   dispatcher.sink<VaporMergeSidewaysEvent>()
       .connect<&PhysicsEngine::onVaporMergeSidewaysEvent>(*this);
   dispatcher.sink<AddVaporToTileAboveEvent>()
       .connect<&PhysicsEngine::onAddVaporToTileAboveEvent>(*this);
-  dispatcher.sink<CreateVaporEntityEvent>()
-      .connect<&PhysicsEngine::onCreateVaporEntityEvent>(*this);
   dispatcher.sink<DeleteOrConvertTerrainEvent>()
       .connect<&PhysicsEngine::onDeleteOrConvertTerrainEvent>(*this);
   dispatcher.sink<InvalidTerrainFoundEvent>()
@@ -356,46 +359,6 @@ void PhysicsEngine::onInvalidTerrainFound(
     const InvalidTerrainFoundEvent &event) {
   incPhysicsMetric(PHYSICS_INVALID_TERRAIN_FOUND);
   _handleInvalidTerrainFound(dispatcher, *voxelGrid, event);
-}
-
-void PhysicsEngine::nudgeSettledWaterAfterDrain(int drainedX, int drainedY,
-                                                int drainedZ,
-                                                VoxelGrid &voxelGrid) {
-  // Gravity wake-up cascade: when a terrain voxel just became empty, the
-  // cell directly above may be settled water with zero velocity in the
-  // VDB velocity grid. Without a nudge it stays stuck, because the
-  // VDB-driven velocity pass only iterates voxels that already carry
-  // non-zero velocity. Kick it with a small downward velocity so the
-  // next tick picks it up and the column collapses cleanly.
-  //
-  // Caller-driven: physics-layer code invokes this right after it calls
-  // `moveTerrain` / `deleteTerrain`. It is deliberately not hooked into
-  // a storage-emitted event — `TerrainGridRepository` stays pure CRUD.
-  int ax = drainedX;
-  int ay = drainedY;
-  int az = drainedZ + 1;
-
-  int aboveId = voxelGrid.getTerrain(ax, ay, az);
-  if (aboveId == static_cast<int>(TerrainIdTypeEnum::NONE))
-    return;
-
-  MatterState aboveMs =
-      voxelGrid.terrainGridRepository->getMatterState(ax, ay, az);
-  if (aboveMs != MatterState::LIQUID)
-    return;
-
-  MatterContainer aboveMatter =
-      voxelGrid.terrainGridRepository->getTerrainMatterContainer(ax, ay, az);
-  if (aboveMatter.WaterMatter <= 0)
-    return;
-
-  Velocity aboveVel = voxelGrid.terrainGridRepository->getVelocity(ax, ay, az);
-  if (aboveVel.vx != 0.0f || aboveVel.vy != 0.0f || aboveVel.vz != 0.0f)
-    return; // already moving — Loop 2 will handle it
-
-  float gravityKick = PhysicsManager::Instance()->getGravity();
-  voxelGrid.terrainGridRepository->setVelocity(
-      ax, ay, az, Velocity{0.0f, 0.0f, -gravityKick});
 }
 
 // Increment metric counter (thread-safe)
@@ -1497,15 +1460,14 @@ void PhysicsEngine::processVelocityForVoxel(int x, int y, int z, float vx,
 
     if (!collision && completionTime < calculateTimeToMove(ps.minSpeed)) {
       if (!voxelGrid.terrainGridRepository->hasMovingComponent(x, y, z)) {
-        MovingComponent mc =
-            initializeMovingComponent(pos, vel, toX, toY, toZ, completionTime,
-                                      willStopX, willStopY, willStopZ);
-        voxelGrid.terrainGridRepository->setMovingComponent(x, y, z, mc);
-        voxelGrid.terrainGridRepository->moveTerrain(mc);
-        // (x, y, z) was just drained by `moveTerrain`; wake any settled
-        // water sitting in the cell directly above so a column collapses
-        // on the next tick.
-        nudgeSettledWaterAfterDrain(x, y, z, voxelGrid);
+        // The move-trigger sub-block lives in `_attemptVelocityDrivenMove`
+        // (in `PhysicsMutators.hpp`). The mutator owns the locking, the
+        // phase-mismatch guard, and the post-move wake-up nudge. It
+        // returns `false` when it refused the move (in which case it has
+        // already cleared the source velocity).
+        _attemptVelocityDrivenMove(voxelGrid, pos, vel, toX, toY, toZ,
+                                   completionTime, willStopX, willStopY,
+                                   willStopZ);
       }
     } else {
       // Clear velocity on collision or below-min-speed
@@ -1520,28 +1482,29 @@ void PhysicsEngine::processVelocityForVoxel(int x, int y, int z, float vx,
 
 bool PhysicsEngine::isProcessingComplete() const { return processingComplete; }
 
-// Handle movement of gas entities based on applied forces and environmental
-// conditions Algorithm:
+// Handle movement of gas (vapor) cells based on applied forces and
+// environmental conditions. Coord-based: gas cells live only in the VDB
+// grids of `TerrainGridRepository`, never in the ECS registry.
+// Algorithm:
 // 1. Validate voxelGrid exists
 // 2. Acquire terrain grid lock for thread-safe access
-// 3. Get terrain at event position (exit early if NONE)
-// 4. Validate entity is valid and not null/on-grid
-// 5. Read terrain data atomically: position, physics stats, and velocity
-// 6. Ensure Position component exists in ECS for consistency
-// 7. Check if entity already has MovingComponent
-// 8. Calculate acceleration from forces:
-//    - X and Y acceleration from applied forces (F = ma)
-//    - Z acceleration from buoyancy (density difference with environment)
-// 9. Translate physics acceleration to grid velocities with max speed limits
-// 10. Determine movement direction from new velocities
-// 11. Decide if force can be applied:
-//     - Allow if no movement yet
-//     - Allow if same direction as current movement
-//     - Allow if forceApplyNewVelocity override is set (e.g., evaporation)
-//     - Block if changing direction mid-movement
-// 12. If force can be applied:
-//     - Update velocity in terrain grid (source of truth)
-//     - Sync velocity to MovingComponent if it exists
+// 3. Get terrain at event position (exit early if NONE; sanity-check the
+//    cell's terrain id still matches the event's payload)
+// 4. Read terrain data atomically: position, physics stats, velocity
+// 5. Check if the cell already has a MovingComponent (repository as source
+//    of truth)
+// 6. Calculate acceleration from forces:
+//    - X and Y from applied forces (F = ma)
+//    - Z from buoyancy (density difference with environment)
+// 7. Translate physics acceleration to grid velocities with max-speed
+//    limits
+// 8. Determine movement direction from new velocities
+// 9. Decide if force can be applied:
+//    - Allow if no movement yet
+//    - Allow if same direction as current movement
+//    - Allow if forceApplyNewVelocity override is set (e.g., evaporation)
+//    - Block if changing direction mid-movement
+// 10. If force can be applied: update velocity in the terrain grid.
 void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
   incPhysicsMetric(PHYSICS_MOVE_GAS_ENTITY);
   // Step 1: Validate voxelGrid before acquiring lock
@@ -1561,33 +1524,22 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
   }
 
   if (terrainId != static_cast<int>(event.entity)) {
-    // This can happen if the gas entity is in the process of being removed but
-    // still has a pending movement event Just skip processing since the entity
-    // will be removed shortly
-    return;
-    // throw std::runtime_error(
-    //     "onMoveGasEntityEvent: Terrain ID at position does not match event
-    //     entity (entity may be pending removal) - skipping");
-  }
-
-  // Step 4: Validate entity is valid and not null/on-grid
-  bool hasEntity = event.entity != entt::null &&
-                   static_cast<int>(event.entity) !=
-                       static_cast<int>(TerrainIdTypeEnum::NONE) &&
-                   static_cast<int>(event.entity) !=
-                       static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE);
-
-  if (!hasEntity) {
-    throw std::runtime_error("onMoveGasEntityEvent: event.entity is null or "
-                             "invalid (Either none or on grid)");
-  }
-
-  if (!registry.valid(event.entity)) {
-    // throw std::runtime_error(
-    //     "onMoveGasEntityEvent: event.entity is not a valid entity in the
-    //     registry");
+    // Sanity gate: the cell's terrain id no longer matches the event's
+    // payload — typically because the cell was drained / replaced after
+    // the event was queued. Skip rather than act on stale state. The
+    // comparison round-trips through int so it handles both the
+    // ON_GRID_STORAGE sentinel and any legacy positive entity handles
+    // that might still appear (terrain entities on cells that carry
+    // Inventory etc., none of which are gas/water cells today).
     return;
   }
+
+  // The gas-movement path is purely coord-based after C4.x: vapor lives
+  // only in the VDB grids of `TerrainGridRepository`, never in the ECS
+  // registry. All reads and the velocity write below go through the
+  // repository keyed by `event.position`. The `event.entity` field is
+  // retained on the event struct for legacy reasons but is otherwise
+  // unused inside this body.
 
   // Step 5: Read terrain data atomically: position, physics stats, and velocity
   Position pos = voxelGrid->terrainGridRepository->getPosition(
@@ -1597,17 +1549,13 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
   Velocity velocity =
       voxelGrid->terrainGridRepository->getVelocity(pos.x, pos.y, pos.z);
 
-  // Step 6: Ensure Position component exists in ECS for consistency
-  bool hasEnTTPosition = registry.all_of<Position>(event.entity);
-  if (!hasEnTTPosition) {
-    registry.emplace<Position>(event.entity, pos);
-  }
+  // Step 6: Check if the cell already has a movement component (repository
+  // is the source of truth).
+  bool haveMovement = voxelGrid->terrainGridRepository->hasMovingComponent(
+      pos.x, pos.y, pos.z);
 
-  // Step 7: Check if entity already has MovingComponent
-  bool haveMovement = registry.all_of<MovingComponent>(event.entity);
-
-  // Step 8: Calculate acceleration from forces (X and Y from applied forces, Z
-  // from buoyancy)
+  // Step 7: Calculate acceleration from forces (X and Y from applied forces,
+  // Z from buoyancy)
   float gravity = PhysicsManager::Instance()->getGravity();
   float accelerationX = static_cast<float>(event.forceX) / physicsStats.mass;
   float accelerationY = static_cast<float>(event.forceY) / physicsStats.mass;
@@ -1616,7 +1564,7 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
     accelerationZ = ((event.rhoEnv - event.rhoGas) * gravity) / event.rhoGas;
   }
 
-  // Step 9: Translate physics acceleration to grid velocities with max speed
+  // Step 8: Translate physics acceleration to grid velocities with max speed
   // limits
   float newVelocityX, newVelocityY, newVelocityZ;
   std::tie(newVelocityX, newVelocityY, newVelocityZ) =
@@ -1624,16 +1572,19 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
                                      accelerationX, accelerationY,
                                      accelerationZ, physicsStats.maxSpeed);
 
-  // Step 10: Determine movement direction from new velocities
+  // Step 9: Determine movement direction from new velocities
   DirectionEnum direction =
       getDirectionFromVelocities(newVelocityX, newVelocityY, newVelocityZ);
   bool canApplyForce = true;
 
-  // Step 11: Decide if force can be applied (check direction constraints)
+  // Step 10: Decide if force can be applied (check direction constraints).
+  // The repository-stored MovingComponent is the single source of truth for
+  // the cell's current direction.
   if (haveMovement) {
-    auto &movingComponent = registry.get<MovingComponent>(event.entity);
-    // Allow same-direction acceleration, block direction changes
-    canApplyForce = (direction == movingComponent.direction);
+    MovingComponent existingMc =
+        voxelGrid->terrainGridRepository->getMovingComponent(pos.x, pos.y,
+                                                             pos.z);
+    canApplyForce = (direction == existingMc.direction);
 
     if (!canApplyForce && event.forceApplyNewVelocity) {
       // forceApplyNewVelocity overrides direction check (e.g., evaporation)
@@ -1641,24 +1592,15 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
     }
   }
 
-  // Step 12: If force can be applied, update velocity in terrain grid and sync
-  // to ECS
+  // Step 11: If force can be applied, persist the updated velocity to the
+  // terrain grid. There is no ECS Velocity / MovingComponent mirror to
+  // sync — the repository owns that state for terrain cells.
   if (canApplyForce) {
-    // Update velocity in terrainGridRepository (source of truth for terrain
-    // entities)
     velocity.vx = newVelocityX;
     velocity.vy = newVelocityY;
     velocity.vz = newVelocityZ;
     voxelGrid->terrainGridRepository->setVelocity(pos.x, pos.y, pos.z,
                                                   velocity);
-
-    // Synchronize MovingComponent to prevent stale velocity
-    if (haveMovement) {
-      auto &movingComp = registry.get<MovingComponent>(event.entity);
-      movingComp.vx = newVelocityX;
-      movingComp.vy = newVelocityY;
-      movingComp.vz = newVelocityZ;
-    }
   }
 }
 
@@ -2220,131 +2162,60 @@ void PhysicsEngine::onCondenseWaterEntityEvent(
   // RAII `lock` will release the terrain grid lock when it goes out of scope
 }
 
-// Water fall event handler - moved from EcosystemEngine
+// Water fall event handler — coord-based.
+//
+// `event.entity` is advisory: post-C1–C4 the fall path neither needs nor
+// uses an EnTT handle to populate the destination cell.
+// `createWaterTerrainFromFall` writes ON_GRID_STORAGE directly. The handler
+// only inspects the entity field to detect a stale reference (an event
+// queued before the referenced entity was destroyed) so it can repair the
+// cell via `_recoverStaleTerrainCellIfTransitory` before the main fall
+// logic runs.
 void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
   incPhysicsMetric(PHYSICS_WATER_FALL_ENTITY);
-  // On EnTT only need to check for Position, the others are on voxelGrid
 
-  entt::entity terrainEntity = event.entity;
+  const int rawEntityId = static_cast<int>(event.entity);
+  const bool entityFieldIsRealHandle =
+      rawEntityId != static_cast<int>(TerrainIdTypeEnum::NONE) &&
+      rawEntityId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE);
 
-  if (static_cast<int>(terrainEntity) ==
-      static_cast<int>(TerrainIdTypeEnum::NONE)) {
-    spdlog::get("console")->info("onWaterFallEntityEvent -> entity is "
-                                 "ON_GRID_STORAGE, skipping Position check");
-    return;
-  } else if (static_cast<int>(terrainEntity) !=
-             static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-    if (!registry.valid(terrainEntity)) {
-      spdlog::get("console")->info(
-          "onWaterFallEntityEvent -> entity {} is not valid - Cleaning up "
-          "terrain grid state and allowing water fall to proceed",
-          static_cast<int>(terrainEntity));
+  if (entityFieldIsRealHandle && !registry.valid(event.entity)) {
+    spdlog::get("console")->info(
+        "onWaterFallEntityEvent -> stale entity handle {} at ({}, {}, {}); "
+        "attempting transitory-cell recovery and continuing coord-based.",
+        rawEntityId, event.position.x, event.position.y, event.position.z);
 
-      // Here we need to be proactive and clean up the invalid entity from the
-      // terrain grid.
-      EntityTypeComponent type =
-          voxelGrid->terrainGridRepository->getTerrainEntityType(
-              event.position.x, event.position.y, event.position.z);
-      if (type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
-          type.subType0 == static_cast<int>(TerrainEnum::EMPTY)) {
-        spdlog::get("console")->warn(
-            "onWaterFallEntityEvent -> Detected invalid entity {} at position "
-            "({}, {}, {}) with empty terrain type - attempting to clean up "
-            "terrain grid state",
-            static_cast<int>(terrainEntity), event.position.x, event.position.y,
-            event.position.z);
-
-        if (waterDebugInWatchRegion(event.position.x, event.position.y,
-                                    event.position.z)) {
-          std::ostringstream jss;
-          jss << "{\"event\":\"recovery_triggered\""
-              << ",\"x\":" << event.position.x << ",\"y\":" << event.position.y
-              << ",\"z\":" << event.position.z
-              << ",\"invalid_entity\":" << static_cast<int>(terrainEntity)
-              << ",\"invalid_entity_hex\":\"0x" << std::hex
-              << static_cast<unsigned int>(static_cast<int>(terrainEntity))
-              << std::dec << "\"" << ",\"thread\":\"" << waterDebugThreadId()
-              << "\"}";
-          waterDebugLog(jss.str());
-        }
-
-        voxelGrid->deleteTerrain(dispatcher, event.position.x, event.position.y,
-                                 event.position.z, true);
-
-        // Safe to create vapor entity
-        entt::entity newEntity = registry.create();
-        int newTerrainId = static_cast<int>(newEntity);
-        voxelGrid->terrainGridRepository->setTerrainId(
-            event.position.x, event.position.y, event.position.z, newTerrainId);
-
-        if (waterDebugInWatchRegion(event.position.x, event.position.y,
-                                    event.position.z)) {
-          std::ostringstream jss;
-          jss << "{\"event\":\"recovery_new_entity\""
-              << ",\"x\":" << event.position.x << ",\"y\":" << event.position.y
-              << ",\"z\":" << event.position.z
-              << ",\"new_entity\":" << newTerrainId << ",\"thread\":\""
-              << waterDebugThreadId() << "\"}";
-          waterDebugLog(jss.str());
-        }
-
-        VoxelCoord key{event.position.x, event.position.y, event.position.z};
-        voxelGrid->terrainGridRepository->addToTrackingMaps(key, newEntity);
-        terrainEntity =
-            newEntity; // Update terrainEntity to the newly created valid entity
-      }
-      // return;
+    if (waterDebugInWatchRegion(event.position.x, event.position.y,
+                                event.position.z)) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"recovery_triggered\""
+          << ",\"x\":" << event.position.x << ",\"y\":" << event.position.y
+          << ",\"z\":" << event.position.z
+          << ",\"invalid_entity\":" << rawEntityId
+          << ",\"invalid_entity_hex\":\"0x" << std::hex
+          << static_cast<unsigned int>(rawEntityId) << std::dec << "\""
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
     }
-    if (!registry.all_of<Position>(terrainEntity)) {
-      spdlog::get("console")->info(
-          "onWaterFallEntityEvent -> entity {} is missing Position component - "
-          "skipping event",
-          static_cast<int>(terrainEntity));
 
-      Position newPosition = {event.position.x, event.position.y,
-                              event.position.z, DirectionEnum::DOWN};
-      registry.emplace<Position>(terrainEntity, newPosition);
-      // return;
-    }
+    _recoverStaleTerrainCellIfTransitory(*voxelGrid, dispatcher,
+                                         event.position.x, event.position.y,
+                                         event.position.z);
   }
 
-  Position pos;
-  if (static_cast<int>(terrainEntity) !=
-      static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-    auto *posPtr = registry.try_get<Position>(terrainEntity);
-    if (!posPtr) {
-      spdlog::get("console")->warn(
-          "onWaterFallEntityEvent -> entity {} missing Position component "
-          "after validation - skipping event",
-          static_cast<int>(terrainEntity));
-      return;
-    }
-    pos = *posPtr;
-  } else {
-    pos = event.position;
-  }
-  EntityTypeComponent type =
-      voxelGrid->terrainGridRepository->getTerrainEntityType(pos.x, pos.y,
-                                                             pos.z);
-  MatterContainer matterContainer =
-      voxelGrid->terrainGridRepository->getTerrainMatterContainer(pos.x, pos.y,
-                                                                  pos.z);
-
-  int terrainToCreateWaterId = voxelGrid->getTerrain(
+  const int terrainToCreateWaterId = voxelGrid->getTerrain(
       event.position.x, event.position.y, event.position.z);
   if (terrainToCreateWaterId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
-    // TODO [feature#181-water-not-running]: Here seems dangerous and causing
-    // segfaults when trying to create water terrain on fall - need to
-    // investigate and ensure all necessary state is properly initialized before
-    // creating terrain. For now, just logging and skipping the event to prevent
-    // crashes.
     createWaterTerrainFromFall(registry, dispatcher, *voxelGrid,
                                event.position.x, event.position.y,
                                event.position.z, event.fallingAmount,
                                event.entity, event.sourcePos, event.retryCount);
     spdlog::get("console")->info(
-        "onWaterFallEntityEvent -> No terrain at position ({}, {}, {}) to "
-        "create water from fall - skipping event",
+        "onWaterFallEntityEvent -> Created ON_GRID_STORAGE water at "
+        "({}, {}, {}).",
         event.position.x, event.position.y, event.position.z);
   }
+  // Otherwise the destination already holds terrain — the additive merge
+  // path (the broken short-circuit) is tracked under merge-fix E1.3/E1.4
+  // and is not in scope for this change.
 }

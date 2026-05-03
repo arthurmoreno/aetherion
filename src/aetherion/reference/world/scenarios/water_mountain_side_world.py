@@ -24,7 +24,7 @@ def mountain_side_stream_world_factory(world_config: dict[str, int]) -> World:
 
     rx, ry, rz = mountain_ridge_source_xyz(world_width, world_height, world_depth)
     spring_pace: int = world_config.get("spring_pace", 5)
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry, source_z=rz))
 
     return world
 
@@ -45,18 +45,18 @@ def mountain_side_spring_world_factory(world_config: dict[str, int]) -> World:
 
     rx, ry, rz = mountain_ridge_source_xyz(world_width, world_height, world_depth)
     spring_pace: int = world_config.get("spring_pace", 1)
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry - 6, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry - 5, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry - 4, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry - 3, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry - 2, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry - 1, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry + 1, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry + 2, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry + 3, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry + 4, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry + 5, source_z=rz))
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry + 6, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry - 6, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry - 5, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry - 4, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry - 3, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry - 2, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry - 1, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry + 1, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry + 2, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry + 3, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry + 4, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry + 5, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry + 6, source_z=rz))
 
     return world

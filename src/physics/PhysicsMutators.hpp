@@ -79,47 +79,74 @@
  * [Scope:Entity|Multi|Orch]`
  */
 
+// Diagnostic helper for the persistent
+// "Entity has both WaterMatter and WaterVapor" invariant violation.
+// Call this immediately *before* `setTerrainMatterContainer` from inside any
+// mutator. Parameter-only check (no storage reads, no throw, no unwinding —
+// the storage-layer probe segfaulted under both forms; instrumentation lives
+// here, where the calling thread already holds its mutator's lock and the
+// log path is known-safe). When the outgoing container would land the cell
+// in the both-fields-positive state, the helper logs an [INVARIANT-WRITE]
+// line tagged with the mutator name; the per-tick check in
+// `processTileWater` still trips the actual exception, but the log shows
+// which mutator's outgoing matter caused it.
+inline void
+_logIfViolatingMatterWrite(const char *mutatorName, int x, int y, int z,
+                           const MatterContainer &outgoing) {
+  if (outgoing.WaterMatter > 0 && outgoing.WaterVapor > 0) {
+    auto logger = spdlog::get("console");
+    if (logger) {
+      logger->error("[INVARIANT-WRITE][{}] coord=({}, {}, {}) "
+                    "WaterMatter={} WaterVapor={} TerrainMatter={} "
+                    "BioMassMatter={}",
+                    mutatorName, x, y, z, outgoing.WaterMatter,
+                    outgoing.WaterVapor, outgoing.TerrainMatter,
+                    outgoing.BioMassMatter);
+    }
+  }
+}
+
 // Forward declarations for functions used across categories
 // Note: direct component mutators are declared in ComponentMutators.hpp
 static void setEmptyWaterComponentsStorage(entt::registry &registry,
                                            VoxelGrid &voxelGrid, int terrainId,
                                            int x, int y, int z,
                                            MatterState matterState);
-inline entt::entity createVaporTerrainEntity(entt::registry &registry,
-                                             VoxelGrid &voxelGrid, int x, int y,
-                                             int z, int vaporAmount);
+inline void createVaporTerrainEntity(entt::registry &registry,
+                                     VoxelGrid &voxelGrid, int x, int y, int z,
+                                     int vaporAmount);
 
 // =========================================================================
 // ================ 2. Entity Lifecycle Mutators = ================
 // =========================================================================
 
 /**
- * @brief Creates a new entity and initializes it as a vapor terrain block.
- * @details Creates an entity in the ECS and sets its corresponding properties
- * (Position, Type, Matter, etc.) directly in the TerrainGridRepository.
- * @param registry The entt::registry to create the entity in.
+ * @brief Materialise a vapor voxel directly into VDB storage.
+ * @details Writes type / matter / physics scaffolding plus an
+ * `ON_GRID_STORAGE` terrain id at the given coordinate. No EnTT entity is
+ * created; the registry parameter is retained for source compatibility
+ * with other mutators in this header but is not used.
+ * @param registry Unused — kept to match the signature of sibling mutators.
  * @param voxelGrid The VoxelGrid for accessing the terrain repository.
- * @param x The x-coordinate for the new entity.
- * @param y The y-coordinate for the new entity.
- * @param z The z-coordinate for the new entity.
- * @param vaporAmount The amount of vapor to initialize the entity with.
- * @return The newly created vapor entity.
+ * @param x The x-coordinate for the new vapor cell.
+ * @param y The y-coordinate for the new vapor cell.
+ * @param z The z-coordinate for the new vapor cell.
+ * @param vaporAmount The amount of vapor to initialise the cell with.
  */
-// [Storage:Hybrid] [Lock:None] [Scope:Entity]
-inline entt::entity createVaporTerrainEntity(entt::registry &registry,
-                                             VoxelGrid &voxelGrid, int x, int y,
-                                             int z, int vaporAmount) {
+// [Storage:VDB] [Lock:None] [Scope:Cell]
+inline void createVaporTerrainEntity(entt::registry &registry,
+                                     VoxelGrid &voxelGrid, int x, int y, int z,
+                                     int vaporAmount) {
+  (void)registry; // No EnTT entity is created — vapor lives in VDB only.
   if (!voxelGrid.terrainGridRepository) {
     spdlog::warn("createVaporTerrainEntity: missing terrainGridRepository");
-    return entt::null;
+    return;
   }
-  auto newVaporEntity = registry.create();
   Position newPosition = {x, y, z, DirectionEnum::DOWN};
-  registry.emplace<Position>(newVaporEntity, newPosition);
 
   EntityTypeComponent newType = {};
-  newType.mainType = 0; // Terrain type
-  newType.subType0 = 1; // Water terrain (vapor)
+  newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
+  newType.subType0 = static_cast<int>(TerrainEnum::WATER);
   newType.subType1 = 0;
 
   MatterContainer newMatterContainer = {};
@@ -143,72 +170,42 @@ inline entt::entity createVaporTerrainEntity(entt::registry &registry,
   voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(
       x, y, z, newStructuralIntegrityComponent);
   voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
-  int newTerrainId = static_cast<int>(newVaporEntity);
-  voxelGrid.terrainGridRepository->setTerrainId(x, y, z, newTerrainId);
-
-  VoxelCoord key{newPosition.x, newPosition.y, newPosition.z};
-  voxelGrid.terrainGridRepository->addToTrackingMaps(key, newVaporEntity);
-
-  return newVaporEntity;
+  voxelGrid.terrainGridRepository->setTerrainId(
+      x, y, z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
 }
 
 /**
- * @brief Creates a new entity and initializes it as a vapor terrain block.
- * @details Creates an entity in the ECS and sets its corresponding properties
- * (Position, Type, Matter, etc.) directly in the TerrainGridRepository.
- * @param registry The entt::registry to create the entity in.
+ * @brief Materialise an EMPTY-typed terrain cell directly into VDB storage.
+ * @details Writes the EMPTY type tag and an `ON_GRID_STORAGE` terrain id
+ * at the given coordinate. No EnTT entity is created; the registry
+ * parameter is retained for source compatibility with sibling mutators
+ * but is unused.
+ * @param registry Unused — kept to match the signature of sibling mutators.
  * @param voxelGrid The VoxelGrid for accessing the terrain repository.
- * @param x The x-coordinate for the new entity.
- * @param y The y-coordinate for the new entity.
- * @param z The z-coordinate for the new entity.
- * @param vaporAmount The amount of vapor to initialize the entity with.
- * @return The newly created vapor entity.
+ * @param x The x-coordinate for the new cell.
+ * @param y The y-coordinate for the new cell.
+ * @param z The z-coordinate for the new cell.
  */
-// [Storage:Hybrid] [Lock:None] [Scope:Entity]
-inline entt::entity createEmptyActiveTerrain(entt::registry &registry,
-                                             VoxelGrid &voxelGrid, int x, int y,
-                                             int z) {
+// [Storage:VDB] [Lock:None] [Scope:Cell]
+inline void createEmptyActiveTerrain(entt::registry &registry,
+                                     VoxelGrid &voxelGrid, int x, int y,
+                                     int z) {
+  (void)registry; // No EnTT entity is created — cell lives in VDB only.
   if (!voxelGrid.terrainGridRepository) {
     spdlog::warn("createEmptyActiveTerrain: missing terrainGridRepository");
-    return entt::null;
+    return;
   }
-  auto newVaporEntity = registry.create();
   Position newPosition = {x, y, z, DirectionEnum::DOWN};
-  registry.emplace<Position>(newVaporEntity, newPosition);
 
   EntityTypeComponent newType = {};
-  newType.mainType = 0; // Terrain type
-  newType.subType0 =
-      static_cast<int>(TerrainEnum::EMPTY); // Water terrain (vapor)
+  newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
+  newType.subType0 = static_cast<int>(TerrainEnum::EMPTY);
   newType.subType1 = 0;
-
-  // MatterContainer newMatterContainer = {};
-  // newMatterContainer.WaterVapor = 0;
-  // newMatterContainer.WaterMatter = 0;
-
-  // PhysicsStats newPhysicsStats = {};
-  // newPhysicsStats.mass = 0.1;
-  // newPhysicsStats.maxSpeed = 10;
-  // newPhysicsStats.minSpeed = 0.0;
-
-  // StructuralIntegrityComponent newStructuralIntegrityComponent = {};
-  // newStructuralIntegrityComponent.canStackEntities = false;
-  // newStructuralIntegrityComponent.maxLoadCapacity = -1;
 
   voxelGrid.terrainGridRepository->setPosition(x, y, z, newPosition);
   voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z, newType);
-  // voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z,
-  // newMatterContainer);
-  // voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z,
-  //                                                                newStructuralIntegrityComponent);
-  // voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
-  int newTerrainId = static_cast<int>(newVaporEntity);
-  voxelGrid.terrainGridRepository->setTerrainId(x, y, z, newTerrainId);
-
-  VoxelCoord key{newPosition.x, newPosition.y, newPosition.z};
-  voxelGrid.terrainGridRepository->addToTrackingMaps(key, newVaporEntity);
-
-  return newVaporEntity;
+  voxelGrid.terrainGridRepository->setTerrainId(
+      x, y, z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
 }
 
 /**
@@ -356,9 +353,11 @@ inline void deleteEntityOrConvertInEmpty(entt::registry &registry,
                                          entt::dispatcher &dispatcher,
                                          entt::entity &terrain,
                                          const Position &pos) {
-  std::cout << "deleteEntityOrConvertInEmpty: processing entity "
-            << static_cast<int>(terrain) << " at (" << pos.x << ", " << pos.y
-            << ", " << pos.z << ")" << std::endl;
+  // Silenced: per-call entry trace was crowding the log during water-state
+  // debugging. Re-enable if entity-id flow needs to be traced again.
+  // std::cout << "deleteEntityOrConvertInEmpty: processing entity "
+  //           << static_cast<int>(terrain) << " at (" << pos.x << ", " << pos.y
+  //           << ", " << pos.z << ")" << std::endl;
 
   // ON_GRID_STORAGE / NONE / invalid: no entity exists, take the grid-only
   // path using the canonical position the caller supplied.
@@ -1210,12 +1209,25 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
   // populated water destination keeps its existing WaterMatter (and any
   // vapor / biomass / terrain matter already present). Type / SIC / physics
   // scaffolding only gets written when the destination was previously NONE.
+  //
+  // For NONE cells we deliberately do *not* read matter from storage: orphan
+  // values can linger in the WaterVapor / WaterMatter VDB grids when an
+  // upstream path cleared the terrain id without zeroing the matter
+  // container. Reading those would let the additive write below produce a
+  // both-WaterMatter-and-WaterVapor container; the subsequent
+  // setTerrainMatterContainer would then overwrite the stale grid values
+  // with the new ones from the local container, so zero-initialising here
+  // both prevents the violation and cleans up the orphan in one step. This
+  // matches the conditional-read pattern in `_handleWaterCreationEvent`.
   int64_t destTerrainId = voxelGrid.getTerrain(x, y, z);
   bool destinationIsEmpty =
       destTerrainId == static_cast<int64_t>(TerrainIdTypeEnum::NONE);
 
-  MatterContainer destMatter =
-      voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
+  MatterContainer destMatter{};
+  if (!destinationIsEmpty) {
+    destMatter =
+        voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
+  }
 
   // Vapor-only safeguard. If the destination cell already exists as a water
   // cell whose matter is purely vapor (WaterVapor > 0, WaterMatter <= 0),
@@ -1334,6 +1346,8 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
   }
 
   destMatter.WaterMatter += fallingAmount;
+  _logIfViolatingMatterWrite("createWaterTerrainFromFall:dest", x, y, z,
+                             destMatter);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z,
                                                              destMatter);
 
@@ -1341,6 +1355,8 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
       voxelGrid.terrainGridRepository->getTerrainMatterContainer(
           sourcePos.x, sourcePos.y, sourcePos.z);
   sourceMatter.WaterMatter -= fallingAmount;
+  _logIfViolatingMatterWrite("createWaterTerrainFromFall:source", sourcePos.x,
+                             sourcePos.y, sourcePos.z, sourceMatter);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
       sourcePos.x, sourcePos.y, sourcePos.z, sourceMatter);
 
@@ -1464,6 +1480,8 @@ inline void addOrCreateVaporAbove(entt::registry &registry,
           << ", WaterMatter=" << matterContainerAbove.WaterMatter
           << ", WaterVapor=" << matterContainerAbove.WaterVapor;
       spdlog::get("console")->info(oss.str());
+      _logIfViolatingMatterWrite("addOrCreateVaporAbove", x, y, z + 1,
+                                 matterContainerAbove);
       voxelGrid.terrainGridRepository->setTerrainMatterContainer(
           x, y, z + 1, matterContainerAbove);
     } else {
@@ -1619,6 +1637,8 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
   }
 
   destMatter.WaterMatter += condensationAmount;
+  _logIfViolatingMatterWrite("createWaterTerrainBelowVapor:dest", destX, destY,
+                             destZ, destMatter);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(destX, destY,
                                                              destZ, destMatter);
 
@@ -1636,6 +1656,8 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
 
   // Reduce vapor amount
   vaporMatter.WaterVapor -= condensationAmount;
+  _logIfViolatingMatterWrite("createWaterTerrainBelowVapor:vaporSource", vaporX,
+                             vaporY, vaporZ, vaporMatter);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
       vaporX, vaporY, vaporZ, vaporMatter);
 
@@ -1669,6 +1691,333 @@ inline void _handleInvalidTerrainFound(entt::dispatcher &dispatcher,
                                        VoxelGrid &voxelGrid,
                                        const InvalidTerrainFoundEvent &event) {
   voxelGrid.deleteTerrain(dispatcher, event.x, event.y, event.z);
+}
+
+// Centralised stale-terrain-cell recovery.
+//
+// An event handler may receive an event that carries a now-invalid EnTT
+// entity handle (typical when the event was queued before the entity was
+// destroyed — e.g., via version-overflow recycling). When the cell at
+// the event's coord is in a transitory "EMPTY water" state, we want to
+// clean up the dead entity reference and leave the cell as ``NONE`` so
+// downstream coord-based code paths can re-populate it cleanly. Cells
+// that already hold real water/vapor matter are *not* touched — losing
+// matter is worse than carrying a dead handle until the next pass.
+//
+// Returns ``true`` when the cell was recovered (caller can treat it as
+// freshly NONE), ``false`` when the cell holds real matter and the
+// caller should leave it alone.
+inline bool _recoverStaleTerrainCellIfTransitory(
+    VoxelGrid &voxelGrid, entt::dispatcher &dispatcher, int x, int y, int z) {
+  EntityTypeComponent type =
+      voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
+  const bool isTransitoryEmpty =
+      type.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+      type.subType0 == static_cast<int>(TerrainEnum::EMPTY);
+  if (!isTransitoryEmpty) {
+    return false;
+  }
+  voxelGrid.deleteTerrain(dispatcher, x, y, z, true);
+  return true;
+}
+
+// Gravity wake-up: when physics-layer code drains a cell (via `moveTerrain`
+// or `deleteTerrain`), the cell directly above may be settled water with
+// zero velocity in the VDB velocity grid. Without a nudge it stays stuck,
+// because the velocity-driven physics pass only iterates voxels that
+// already carry non-zero velocity. Kick the cell-above with a small
+// downward velocity so the next tick picks it up and the column collapses
+// cleanly.
+//
+// This is a free helper (not on a class) so the move-trigger mutator
+// below can call it without pulling `PhysicsEngine` into the call site.
+inline void _nudgeSettledWaterAfterDrain(VoxelGrid &voxelGrid, int drainedX,
+                                         int drainedY, int drainedZ) {
+  const int ax = drainedX;
+  const int ay = drainedY;
+  const int az = drainedZ + 1;
+
+  const int aboveId = voxelGrid.getTerrain(ax, ay, az);
+  if (aboveId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+    return;
+  }
+
+  const MatterState aboveMs =
+      voxelGrid.terrainGridRepository->getMatterState(ax, ay, az);
+  if (aboveMs != MatterState::LIQUID) {
+    return;
+  }
+
+  const MatterContainer aboveMatter =
+      voxelGrid.terrainGridRepository->getTerrainMatterContainer(ax, ay, az);
+  if (aboveMatter.WaterMatter <= 0) {
+    return;
+  }
+
+  const Velocity aboveVel =
+      voxelGrid.terrainGridRepository->getVelocity(ax, ay, az);
+  if (aboveVel.vx != 0.0f || aboveVel.vy != 0.0f || aboveVel.vz != 0.0f) {
+    return; // already moving — the velocity-driven pass will handle it
+  }
+
+  const float gravityKick = PhysicsManager::Instance()->getGravity();
+  voxelGrid.terrainGridRepository->setVelocity(
+      ax, ay, az, Velocity{0.0f, 0.0f, -gravityKick});
+}
+
+// Centralised mutator for the move-trigger sub-block of
+// `PhysicsEngine::processVelocityForVoxel`. Wrapping the
+// `setMovingComponent` + `moveTerrain` + nudge sequence in a single
+// helper keeps every state-mutating physics-loop write inside
+// `PhysicsMutators`, makes the locking explicit, and adds an invariant
+// guard that `moveTerrain` itself does not enforce: a velocity-driven
+// move must not relocate liquid water into a vapor cell, nor vapor into
+// a liquid-water cell, because `moveTerrain` overwrites the destination
+// with the source's `MatterContainer` as-is. If a phase mismatch is
+// detected (or if the source itself is already in violation with both
+// `WaterMatter > 0` and `WaterVapor > 0`), the move is skipped and the
+// source's velocity is cleared so the source does not retry on the next
+// tick.
+//
+// Returns ``true`` when the move executed, ``false`` when it was
+// refused. Callers that observed `!hasCollision` from
+// `ReadonlyQueries::hasCollision` should *not* assume the move always
+// runs — this guard is more conservative than `hasCollision` (which
+// today returns true whenever the destination has any terrain and is
+// therefore expected to already block phase mismatches; this guard is
+// the defence-in-depth in case a race makes the destination populated
+// between the collision check and the actual move).
+inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
+                                       const Position &sourcePos,
+                                       const Velocity &vel, int toX, int toY,
+                                       int toZ, float completionTime,
+                                       bool willStopX, bool willStopY,
+                                       bool willStopZ) {
+  TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
+  const MatterContainer sourceMatter =
+      voxelGrid.terrainGridRepository->getTerrainMatterContainer(
+          sourcePos.x, sourcePos.y, sourcePos.z);
+
+  // Defence 1: source itself is in invariant violation. We refuse to
+  // propagate it via `moveTerrain` (which would overwrite a clean dest
+  // with the violated matter). Clear velocity so the source stops
+  // re-attempting; it will be caught by the per-tick water-invariant
+  // check on a later iteration when it is read for processing.
+  const bool sourceIsLiquid = sourceMatter.WaterMatter > 0;
+  const bool sourceIsVapor = sourceMatter.WaterVapor > 0;
+  if (sourceIsLiquid && sourceIsVapor) {
+    spdlog::get("console")->warn(
+        "[_attemptVelocityDrivenMove] Source at ({}, {}, {}) already "
+        "violates the WaterMatter/WaterVapor invariant — refusing move "
+        "to ({}, {}, {}). Clearing source velocity.",
+        sourcePos.x, sourcePos.y, sourcePos.z, toX, toY, toZ);
+    voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
+                                                 sourcePos.z,
+                                                 Velocity{0.0f, 0.0f, 0.0f});
+    return false;
+  }
+
+  // Defence 2: phase mismatch with destination. `moveTerrain` will only
+  // proceed when the destination is NONE, but a race against another
+  // worker thread could populate it between this thread's
+  // `hasCollision` check and the move. Read the destination state under
+  // our own lock and refuse if the move would overwrite a different
+  // phase.
+  const int destTerrainId = voxelGrid.getTerrain(toX, toY, toZ);
+  const bool destinationIsEmpty =
+      destTerrainId == static_cast<int>(TerrainIdTypeEnum::NONE);
+  if (!destinationIsEmpty) {
+    const MatterContainer destMatter =
+        voxelGrid.terrainGridRepository->getTerrainMatterContainer(toX, toY,
+                                                                   toZ);
+    const bool destIsLiquid = destMatter.WaterMatter > 0;
+    const bool destIsVapor = destMatter.WaterVapor > 0;
+    const bool phaseMismatch =
+        (sourceIsLiquid && destIsVapor) || (sourceIsVapor && destIsLiquid);
+
+    if (phaseMismatch) {
+      spdlog::get("console")->info(
+          "[_attemptVelocityDrivenMove] Phase mismatch: source ({}, {}, {}) "
+          "isLiquid={} isVapor={} → dest ({}, {}, {}) isLiquid={} isVapor={}. "
+          "Skipping move and clearing source velocity.",
+          sourcePos.x, sourcePos.y, sourcePos.z, sourceIsLiquid, sourceIsVapor,
+          toX, toY, toZ, destIsLiquid, destIsVapor);
+      voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
+                                                   sourcePos.z,
+                                                   Velocity{0.0f, 0.0f, 0.0f});
+      return false;
+    }
+
+    // Same-phase or both-empty (no matter on either side): also skip,
+    // because `moveTerrain` itself refuses to move into a populated cell
+    // and clearing velocity here keeps the source from retrying every
+    // tick on a permanently blocked path.
+    spdlog::get("console")->debug(
+        "[_attemptVelocityDrivenMove] Destination ({}, {}, {}) already "
+        "populated (same-phase). Skipping move and clearing source velocity.",
+        toX, toY, toZ);
+    voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
+                                                 sourcePos.z,
+                                                 Velocity{0.0f, 0.0f, 0.0f});
+    return false;
+  }
+
+  // Safe to move: empty destination, source is in a single phase.
+  MovingComponent mc =
+      initializeMovingComponent(sourcePos, vel, toX, toY, toZ, completionTime,
+                                willStopX, willStopY, willStopZ);
+  voxelGrid.terrainGridRepository->setMovingComponent(sourcePos.x, sourcePos.y,
+                                                      sourcePos.z, mc);
+  voxelGrid.terrainGridRepository->moveTerrain(mc);
+  // (sourcePos.x, sourcePos.y, sourcePos.z) was just drained; wake any
+  // settled water in the cell directly above so a column collapses on
+  // the next tick.
+  _nudgeSettledWaterAfterDrain(voxelGrid, sourcePos.x, sourcePos.y,
+                               sourcePos.z);
+  return true;
+}
+
+// Centralised mutator for `WaterCreationEvent`. Materialises liquid water
+// at a coordinate from a source that does not drain another cell —
+// `SpringWaterSystem`, scripted weather, future rain. Implements the four
+// architectural goals stated in the Phase 2 audit:
+//   - Rule 2 (mutator-only writes): the only direct repository writes for
+//     this code path live here.
+//   - Rule 3 (validate own preconditions): reads cell state under the
+//     unique lock and branches on what it actually finds.
+//   - Rule 4 (never accept inconsistency):
+//       * NONE destination     -> write fresh water terrain scaffolding.
+//       * Liquid water on a    -> additive merge (matches the
+//         WATER- or GRASS-         evaporation branch in
+//         typed cell                `processTileWater`, which treats
+//                                   grass + WaterMatter as a valid
+//                                   saturated-soil state).
+//       * Vapor-only dest      -> re-enqueue with retryCount+1 up to
+//                                  WATER_VAPOR_CONFLICT_RETRY_LIMIT, then
+//                                  warn-log and drop.
+//       * Other terrain types  -> refuse + warn (water cannot land on
+//                                  stone, transitory-empty cells, plant
+//                                  terrain, etc.).
+inline void _handleWaterCreationEvent(entt::registry &registry,
+                                      entt::dispatcher &dispatcher,
+                                      VoxelGrid &voxelGrid,
+                                      const WaterCreationEvent &event) {
+  (void)registry; // No EnTT entity is created — water lives in VDB only.
+  if (!voxelGrid.terrainGridRepository) {
+    spdlog::get("console")->warn(
+        "[_handleWaterCreationEvent] missing terrainGridRepository");
+    return;
+  }
+  TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
+
+  const int x = event.position.x;
+  const int y = event.position.y;
+  const int z = event.position.z;
+
+  const int64_t terrainId = voxelGrid.getTerrain(x, y, z);
+  const bool destinationIsEmpty =
+      terrainId == static_cast<int64_t>(TerrainIdTypeEnum::NONE);
+
+  EntityTypeComponent destType{};
+  MatterContainer destMatter{};
+  if (!destinationIsEmpty) {
+    destType = voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
+    destMatter =
+        voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
+  }
+
+  // Refusal path: cell exists but does not hold liquid water in any
+  // currently-modelled form. Accept WATER-typed terrain (the obvious
+  // case) and GRASS-typed terrain (water saturating soil — the engine's
+  // evaporation branch in `processTileWater` already treats
+  // grass + WaterMatter as a valid steady state, so additive merges into
+  // grass are physically meaningful and consistent with the rest of the
+  // simulation). Stone, transitory empty, plant terrain, etc. still
+  // refuse: water cannot land there.
+  const bool isWaterCarryingTerrain =
+      destType.mainType == static_cast<int>(EntityEnum::TERRAIN) &&
+      (destType.subType0 == static_cast<int>(TerrainEnum::WATER) ||
+       destType.subType0 == static_cast<int>(TerrainEnum::GRASS));
+  if (!destinationIsEmpty && !isWaterCarryingTerrain) {
+    spdlog::get("console")->warn(
+        "[_handleWaterCreationEvent] Cell at ({}, {}, {}) is neither WATER "
+        "nor GRASS (mainType={}, subType0={}); skipping water creation "
+        "amount={}.",
+        x, y, z, destType.mainType, destType.subType0, event.amount);
+    return;
+  }
+
+  // Refusal path with retry: cell holds pure vapor. Re-enqueue with
+  // retryCount + 1 so the surrounding vapor has a tick to disperse, abort
+  // with a warning once `WATER_VAPOR_CONFLICT_RETRY_LIMIT` is reached.
+  const bool destinationIsVaporOnly =
+      !destinationIsEmpty && destMatter.WaterVapor > 0 &&
+      destMatter.WaterMatter <= 0;
+  if (destinationIsVaporOnly) {
+    if (event.retryCount < WATER_VAPOR_CONFLICT_RETRY_LIMIT) {
+      dispatcher.enqueue<WaterCreationEvent>(WaterCreationEvent{
+          event.position, event.amount, event.retryCount + 1});
+      return;
+    }
+    spdlog::get("console")->warn(
+        "[_handleWaterCreationEvent] Vapor at ({}, {}, {}) did not clear "
+        "after {} retries; aborting water creation amount={}.",
+        x, y, z, WATER_VAPOR_CONFLICT_RETRY_LIMIT, event.amount);
+    return;
+  }
+
+  // Path A: empty destination — write the full water-terrain scaffolding
+  // and seed an initial gravity velocity if the cell below is empty so the
+  // newly-spawned water enters the velocity-driven physics pass.
+  if (destinationIsEmpty) {
+    Position newPosition = {x, y, z, DirectionEnum::DOWN};
+
+    EntityTypeComponent newType = {};
+    newType.mainType = static_cast<int>(EntityEnum::TERRAIN);
+    newType.subType0 = static_cast<int>(TerrainEnum::WATER);
+    newType.subType1 = 0;
+
+    PhysicsStats newPhysicsStats = {};
+    newPhysicsStats.mass = 20;
+    newPhysicsStats.maxSpeed = 10;
+    newPhysicsStats.minSpeed = 0.0;
+
+    StructuralIntegrityComponent newSIC = {};
+    newSIC.canStackEntities = false;
+    newSIC.maxLoadCapacity = -1;
+    newSIC.matterState = MatterState::LIQUID;
+
+    voxelGrid.terrainGridRepository->setPosition(x, y, z, newPosition);
+    voxelGrid.terrainGridRepository->setTerrainEntityType(x, y, z, newType);
+    voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(x, y, z,
+                                                                   newSIC);
+    voxelGrid.terrainGridRepository->setPhysicsStats(x, y, z, newPhysicsStats);
+    voxelGrid.terrainGridRepository->setTerrainId(
+        x, y, z, static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+
+    MatterContainer freshMatter{};
+    freshMatter.WaterMatter = event.amount;
+    _logIfViolatingMatterWrite("_handleWaterCreationEvent:freshCell", x, y, z,
+                               freshMatter);
+    voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z,
+                                                               freshMatter);
+
+    if (z > 0 && voxelGrid.getTerrain(x, y, z - 1) ==
+                     static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
+      const float gravityKick = PhysicsManager::Instance()->getGravity();
+      voxelGrid.terrainGridRepository->setVelocity(
+          x, y, z, Velocity{0.0f, 0.0f, -gravityKick});
+    }
+    return;
+  }
+
+  // Path B: existing liquid-water cell — additive matter merge.
+  destMatter.WaterMatter += event.amount;
+  _logIfViolatingMatterWrite("_handleWaterCreationEvent:additiveMerge", x, y, z,
+                             destMatter);
+  voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z,
+                                                             destMatter);
 }
 
 // Definition: src/physics/mutators/WaterPhysicsMutators.cpp
@@ -1736,8 +2085,14 @@ inline void _handleWaterGravityFlowEvent(entt::registry &registry,
   currentSource.WaterMatter -= event.amount;
 
   // Update both voxels atomically
+  _logIfViolatingMatterWrite("_handleWaterGravityFlowEvent:target",
+                             event.target.x, event.target.y, event.target.z,
+                             currentTarget);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
       event.target.x, event.target.y, event.target.z, currentTarget);
+  _logIfViolatingMatterWrite("_handleWaterGravityFlowEvent:source",
+                             event.source.x, event.source.y, event.source.z,
+                             currentSource);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
       event.source.x, event.source.y, event.source.z, currentSource);
 
@@ -1773,76 +2128,6 @@ inline void _handleWaterGravityFlowEvent(entt::registry &registry,
 // Definition: src/physics/mutators/WaterPhysicsMutators.cpp
 void _handleTerrainPhaseConversionEvent(
     VoxelGrid &voxelGrid, const TerrainPhaseConversionEvent &event);
-
-// Helper: Create an Entt entity and register its terrain id in the
-// TerrainGridRepository. If `takeLock` is true (default) a TerrainGridLock is
-// acquired for atomic update.
-inline entt::entity createAndRegisterVaporEntity(entt::registry &registry,
-                                                 VoxelGrid &voxelGrid, int x,
-                                                 int y, int z,
-                                                 bool takeLock = true) {
-  std::unique_ptr<TerrainGridLock> lockGuard;
-  if (takeLock) {
-    lockGuard = std::make_unique<TerrainGridLock>(
-        voxelGrid.terrainGridRepository.get());
-  }
-
-  // Respect the "only vapor or only water" rule: if there is already liquid
-  // water at this position, do not create/register a vapor entity.
-  MatterContainer currentMatter =
-      voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
-  if (currentMatter.WaterMatter > 0) {
-    spdlog::get("console")->warn("[createAndRegisterVaporEntity] Cannot create "
-                                 "vapor entity at ({}, {}, {}) - liquid "
-                                 "water present.",
-                                 x, y, z);
-    return entt::null; // indicate we did not create a vapor entity
-  }
-
-  // Safe to create vapor entity
-  entt::entity newEntity = registry.create();
-  int terrainId = static_cast<int>(newEntity);
-  voxelGrid.terrainGridRepository->setTerrainId(x, y, z, terrainId);
-  return newEntity;
-}
-
-inline void _handleCreateVaporEntityEvent(entt::registry &registry,
-                                          entt::dispatcher &dispatcher,
-                                          VoxelGrid &voxelGrid,
-                                          const CreateVaporEntityEvent &event) {
-  // Create and register the vapor entity atomically (helper takes the repo
-  // lock)
-  entt::entity newEntity =
-      createAndRegisterVaporEntity(registry, voxelGrid, event.position.x,
-                                   event.position.y, event.position.z, true);
-  if (newEntity == entt::null) {
-    spdlog::get("console")->warn("[_handleCreateVaporEntityEvent] Failed to "
-                                 "create vapor entity at ({}, {}, {}) - "
-                                 "likely due to existing liquid water.",
-                                 event.position.x, event.position.y,
-                                 event.position.z);
-    return; // Early exit if we couldn't create a vapor entity
-  }
-
-  MatterContainer matterContainer =
-      voxelGrid.terrainGridRepository->getTerrainMatterContainer(
-          event.position.x, event.position.y, event.position.z);
-  matterContainer.WaterVapor += 1;
-  voxelGrid.terrainGridRepository->setTerrainMatterContainer(
-      event.position.x, event.position.y, event.position.z, matterContainer);
-
-  // Dispatch the move event for the newly created entity (no need to hold repo
-  // lock here)
-  MoveGasEntityEvent moveEvent{newEntity,
-                               Position{event.position.x, event.position.y,
-                                        event.position.z, DirectionEnum::DOWN},
-                               0.0f,
-                               0.0f,
-                               event.rhoEnv,
-                               event.rhoVapor};
-  moveEvent.setForceApplyNewVelocity();
-  dispatcher.enqueue<MoveGasEntityEvent>(moveEvent);
-}
 
 inline void _handleVaporMergeSidewaysEvent(
     entt::registry &registry, entt::dispatcher &dispatcher,
@@ -1888,11 +2173,17 @@ inline void _handleVaporMergeSidewaysEvent(
         "non-zero.");
   }
 
+  _logIfViolatingMatterWrite("_handleVaporMergeSidewaysEvent:target",
+                             event.target.x, event.target.y, event.target.z,
+                             targetMatter);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
       event.target.x, event.target.y, event.target.z, targetMatter);
 
   // Clear source vapor
   sourceMatter.WaterVapor = 0;
+  _logIfViolatingMatterWrite("_handleVaporMergeSidewaysEvent:source",
+                             event.source.x, event.source.y, event.source.z,
+                             sourceMatter);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
       event.source.x, event.source.y, event.source.z, sourceMatter);
 

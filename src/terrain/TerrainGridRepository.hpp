@@ -215,10 +215,11 @@ public:
 
   // Move a terrain voxel from `(movingFromX/Y/Z)` to `(movingToX/Y/Z)` per
   // the supplied `MovingComponent`. Pure CRUD — the repository does not
-  // dispatch any simulation events. Physics-layer callers that need a
-  // gravity wake-up on the cell above must invoke
-  // `PhysicsEngine::nudgeSettledWaterAfterDrain` themselves after this
-  // call returns.
+  // dispatch any simulation events and does not validate phase-mismatch
+  // between source and destination matter. Physics-layer callers that
+  // need a phase-mismatch guard plus the post-move gravity wake-up
+  // should go through `_attemptVelocityDrivenMove` in `PhysicsMutators`
+  // rather than calling this directly.
   void moveTerrain(MovingComponent &movingComponent);
 
   // Locking methods for external synchronization during terrain movement

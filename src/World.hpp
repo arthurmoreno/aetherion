@@ -116,6 +116,22 @@ public:
   void dispatchCondenseWaterEvent(Position vaporPos, int condensationAmount,
                                   int terrainBelowId);
 
+  // Test/debug helper: enqueue a VaporCreationEvent directly. The handler
+  // creates a vapor cell at `position` (must currently be NONE or a
+  // vapor-transitory water cell with WaterMatter == 0) with the given
+  // amount. Used by tests that need to drive vapor creation without
+  // going through evaporation/condensation timing.
+  void dispatchVaporCreationEvent(Position position, int amount);
+
+  // Enqueue a WaterCreationEvent. Materialises liquid water at `position`
+  // — either creating a fresh ON_GRID_STORAGE water cell when `position`
+  // is NONE, or doing an additive matter merge when it already holds
+  // liquid water. Refuses on vapor-only or non-water terrain (with
+  // retry-then-abort for the vapor case). Used by `SpringWaterSystem`,
+  // weather scripts, and tests that need a coord-only water source that
+  // does not drain another cell.
+  void dispatchWaterCreationEvent(Position position, int amount);
+
   // Test/debug helper: delete the terrain voxel at (x, y, z) via
   // `VoxelGrid::deleteTerrain`. The physics layer's velocity-driven
   // pass picks up any settled water above on the next tick. Forwards

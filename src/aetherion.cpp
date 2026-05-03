@@ -805,6 +805,26 @@ NB_MODULE(_aetherion, m) {
            "(NONE) to drive the empty-destination branch "
            "(`createWaterTerrainBelowVapor`); pass a non-NONE id to test "
            "merging condensation into existing terrain below.")
+      .def("dispatch_vapor_creation_event",
+           &World::dispatchVaporCreationEvent, nb::arg("position"),
+           nb::arg("amount"),
+           "Enqueue a VaporCreationEvent at `position` with the given vapor "
+           "amount. Drives `createVaporTerrainEntity` so the resulting cell "
+           "lands as ON_GRID_STORAGE without an EnTT entity. The target "
+           "cell must be NONE (or a vapor-transitory water cell with "
+           "WaterMatter == 0); otherwise the handler logs a warning and "
+           "skips.")
+      .def("dispatch_water_creation_event",
+           &World::dispatchWaterCreationEvent, nb::arg("position"),
+           nb::arg("amount"),
+           "Enqueue a WaterCreationEvent at `position` with the given "
+           "water-matter amount. Materialises liquid water from a coord-only "
+           "source — used by `SpringWaterSystem`, scripted weather, future "
+           "rain. The handler routes to one of three branches based on the "
+           "current cell state: NONE (writes the full water-terrain "
+           "scaffolding), liquid water (additive merge), or vapor-only "
+           "(retry-then-abort, bounded by WATER_VAPOR_CONFLICT_RETRY_LIMIT). "
+           "Non-water terrain types are refused with a warning log.")
       .def("delete_terrain_at", &World::deleteTerrainAt, nb::arg("x"),
            nb::arg("y"), nb::arg("z"),
            "Delete the terrain voxel at (x, y, z) via "

@@ -35,10 +35,10 @@ struct WaterSpreadEvent;
 struct WaterGravityFlowEvent;
 struct TerrainPhaseConversionEvent;
 struct VaporCreationEvent;
+struct WaterCreationEvent;
 struct VaporMergeUpEvent;
 struct VaporMergeSidewaysEvent;
 struct AddVaporToTileAboveEvent;
-struct CreateVaporEntityEvent;
 
 struct SetPhysicsEntityToDebug {
   entt::entity entity;
@@ -98,18 +98,6 @@ public:
                                float vz, entt::registry &registry,
                                VoxelGrid &voxelGrid);
 
-  // Gravity wake-up: when physics-layer code drains a cell (via
-  // `moveTerrain` or `deleteTerrain`), it must call this on the drained
-  // coord. The function inspects the cell directly above and, if that
-  // cell holds settled liquid water with zero velocity, seeds a small
-  // downward gravity kick into the VDB velocity grid so the column
-  // collapses on the next velocity-iteration tick.
-  //
-  // The call lives at the caller (not inside the repository) so storage
-  // stays pure CRUD with no simulation reactions.
-  void nudgeSettledWaterAfterDrain(int drainedX, int drainedY, int drainedZ,
-                                   VoxelGrid &voxelGrid);
-
   // Example: Applying force to an entity
   // void applyForce(entt::registry& registry, VoxelGrid& voxelGrid,
   // entt::entity entity, float fx, float fy, float fz);
@@ -131,10 +119,10 @@ public:
   void onWaterGravityFlowEvent(const WaterGravityFlowEvent &event);
   void onTerrainPhaseConversionEvent(const TerrainPhaseConversionEvent &event);
   void onVaporCreationEvent(const VaporCreationEvent &event);
+  void onWaterCreationEvent(const WaterCreationEvent &event);
   void onVaporMergeUpEvent(const VaporMergeUpEvent &event);
   void onVaporMergeSidewaysEvent(const VaporMergeSidewaysEvent &event);
   void onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent &event);
-  void onCreateVaporEntityEvent(const CreateVaporEntityEvent &event);
   void onDeleteOrConvertTerrainEvent(const DeleteOrConvertTerrainEvent &event);
 
   // Register the event handler

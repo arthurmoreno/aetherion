@@ -678,6 +678,18 @@ void World::dispatchCondenseWaterEvent(Position vaporPos,
                                                terrainBelowId);
 }
 
+void World::dispatchVaporCreationEvent(Position position, int amount) {
+  // `targetExists = false` matches what `dispatchVaporCreationOrAddition`
+  // emits when the destination cell is NONE — drives the create-new-vapor
+  // path through `createVaporTerrainEntity`.
+  VaporCreationEvent event(position, amount, false);
+  dispatcher.enqueue<VaporCreationEvent>(event);
+}
+
+void World::dispatchWaterCreationEvent(Position position, int amount) {
+  dispatcher.enqueue<WaterCreationEvent>(WaterCreationEvent{position, amount});
+}
+
 void World::deleteTerrainAt(int x, int y, int z) {
   voxelGrid->deleteTerrain(dispatcher, x, y, z, true);
 }

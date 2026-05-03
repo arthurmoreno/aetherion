@@ -131,13 +131,27 @@ struct VaporCreationEvent {
       : position(position), amount(amount), targetExists(targetExists) {}
 };
 
-struct CreateVaporEntityEvent {
+// Materialise liquid water at a coordinate. Used by sources that do not
+// drain from another cell — e.g., `SpringWaterSystem`, scripted weather,
+// future rain. The handler chooses one of three branches based on the
+// current state of `position`:
+//   - cell is NONE (air)   -> writes the full water-terrain scaffolding
+//                              and seeds an initial gravity velocity if
+//                              the cell below is empty.
+//   - cell is liquid water -> additive merge: WaterMatter += amount.
+//   - cell holds vapor     -> retry-then-abort: re-enqueue with
+//                              retryCount + 1 up to
+//                              WATER_VAPOR_CONFLICT_RETRY_LIMIT, then
+//                              warn-log and drop.
+// `retryCount` is bounded to prevent unbounded re-dispatch on a sealed
+// vapor pocket.
+struct WaterCreationEvent {
   Position position;
-  float rhoEnv;
-  float rhoVapor;
+  int amount;
+  int retryCount;
 
-  CreateVaporEntityEvent(Position position, float rhoEnv, float rhoVapor)
-      : position(position), rhoEnv(rhoEnv), rhoVapor(rhoVapor) {}
+  WaterCreationEvent(Position position, int amount, int retryCount = 0)
+      : position(position), amount(amount), retryCount(retryCount) {}
 };
 
 struct VaporMergeUpEvent {

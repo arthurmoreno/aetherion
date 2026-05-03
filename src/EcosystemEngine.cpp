@@ -961,13 +961,10 @@ static bool validateVaporTerrainId(int terrainId, const Position &pos) {
     spdlog::get("console")->error(ossMessage.str());
     return false;
   }
-  if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-    std::ostringstream ossMessage;
-    ossMessage << "[moveVaporUp] Error: Vapor entity in ON_GRID_STORAGE at ("
-               << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
-    spdlog::get("console")->error(ossMessage.str());
-    return false;
-  }
+  // ON_GRID_STORAGE is a valid vapor home — the cell exists in VDB without
+  // an EnTT entity. Downstream code paths (`MoveGasEntityEvent`, vapor merge
+  // handlers, etc.) treat the ON_GRID_STORAGE sentinel as a no-entity case
+  // and operate coord-based.
   return true;
 }
 
@@ -1048,19 +1045,10 @@ void moveVaporUp(entt::registry &registry, VoxelGrid &voxelGrid,
 
   // Case 1: Empty space above - vapor can move up
   if (terrainAboveId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
-    // Handle ON_GRID_STORAGE case - needs entity creation via event
-    if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-      Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
-
-      // Dispatch entity creation event - PhysicsEngine will handle atomically
-      CreateVaporEntityEvent createEvent(sourcePos, rhoEnv, rhoVapor);
-      dispatcher.enqueue<CreateVaporEntityEvent>(createEvent);
-      // std::cout << "[moveVaporUp] Creating vapor entity from ON_GRID_STORAGE
-      // at (" << pos.x
-      //           << ", " << pos.y << ", " << pos.z << ")\n";
-      return;
-    }
-
+    // `entity` may be the ON_GRID_STORAGE sentinel when this vapor cell has
+    // no EnTT handle (i.e., it lives only in VDB). The gas-movement handler
+    // detects that case from the entity field and operates coord-based, so
+    // there is nothing extra to do here — just dispatch the same event.
     dispatchVaporMoveUpEvent(dispatcher, entity, pos, rhoEnv, rhoVapor);
     return;
   }
@@ -1162,16 +1150,11 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
     spdlog::get("console")->debug(ossMessage.str());
     ossMessage.str("");
     ossMessage.clear();
-    // Update position in the registry and voxel grid
 
-    if (terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
-      entt::entity newTerrainEntity = createAndRegisterVaporEntity(
-          registry, voxelGrid, pos.x, pos.y, pos.z, true);
-      if (newTerrainEntity == entt::null) {
-        return; // Entity creation failed, exit the function
-      }
-      terrainId = static_cast<int>(newTerrainEntity);
-    }
+    // `terrainId` may be the ON_GRID_STORAGE sentinel when this vapor cell
+    // lives only in VDB. The gas-movement handler detects that from the
+    // entity field and operates coord-based — no entity needs to be
+    // synthesised here.
     entt::entity entity = static_cast<entt::entity>(terrainId);
     MoveGasEntityEvent moveGasEntityEvent{
         entity, Position{pos.x, pos.y, pos.z, DirectionEnum::DOWN},

@@ -93,6 +93,6 @@ def water_gravity_flow_world_factory(world_config: dict[str, int]) -> aetherion.
     ry = world_height // 2
     rz = world_depth - 1
     spring_pace: int = world_config.get("spring_pace", 5)
-    world.add_python_system(SpringWaterSystem(pace=spring_pace, source_x=rx, source_y=ry, source_z=rz))
+    world.add_python_system(SpringWaterSystem(world=world, pace=spring_pace, source_x=rx, source_y=ry, source_z=rz))
 
     return world

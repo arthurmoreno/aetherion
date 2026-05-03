@@ -38,8 +38,12 @@ void _handleWaterSpreadEvent(VoxelGrid &voxelGrid,
   currentSource.WaterMatter -= event.amount;
 
   // Update both voxels atomically
+  _logIfViolatingMatterWrite("_handleWaterSpreadEvent:target", event.target.x,
+                             event.target.y, event.target.z, currentTarget);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
       event.target.x, event.target.y, event.target.z, currentTarget);
+  _logIfViolatingMatterWrite("_handleWaterSpreadEvent:source", event.source.x,
+                             event.source.y, event.source.z, currentSource);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
       event.source.x, event.source.y, event.source.z, currentSource);
 }
@@ -135,6 +139,9 @@ void _handleTerrainPhaseConversionEvent(
   // Apply terrain phase conversion (safe under lock)
   voxelGrid.terrainGridRepository->setTerrainEntityType(
       event.position.x, event.position.y, event.position.z, event.newType);
+  _logIfViolatingMatterWrite("_handleTerrainPhaseConversionEvent",
+                             event.position.x, event.position.y,
+                             event.position.z, event.newMatter);
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(
       event.position.x, event.position.y, event.position.z, event.newMatter);
   voxelGrid.terrainGridRepository->setTerrainStructuralIntegrity(
