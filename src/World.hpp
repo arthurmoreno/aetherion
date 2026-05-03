@@ -185,6 +185,8 @@ public:
   void setSimulateWaterEvaporation(bool value);
   bool getWaterAutoBalancing() const;
   void setWaterAutoBalancing(bool value);
+  bool getRunWaterSimSynchronously() const;
+  void setRunWaterSimSynchronously(bool value);
 
   // Water simulation error handling
   std::vector<ThreadError> getWaterSimErrors() const;
@@ -207,6 +209,10 @@ public:
   void executeSQL(const std::string &sql);
 
 private:
+  // Per-system step runners — extracted from update() to keep that loop
+  // readable. Each chooses inline vs std::async based on its own flags.
+  void runEcosystemStep();
+
   std::mutex registryMutex;
   mutable std::shared_mutex
       entityLifecycleMutex; // Protects entity creation/destruction vs

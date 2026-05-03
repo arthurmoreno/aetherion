@@ -10,7 +10,6 @@
 #include <sstream>
 #include <thread>
 
-#include "debug/WaterDebugLog.hpp"
 #include "ecosystem/ReadonlyQueries.hpp"
 #include "physics/PhysicsExceptions.hpp"
 #include "physics/PhysicsMutators.hpp"
@@ -262,9 +261,20 @@ void WaterSimulationManager::populateSchedulerWithSubset(float percentage,
   // Add boxes in round-robin fashion up to the specified percentage
   static size_t startIndex = 0; // Static to maintain state between calls
 
+  const bool runSync =
+      PhysicsManager::Instance()->getRunWaterSimSynchronously();
+
   for (size_t i = 0; i < numBoxesToAdd; ++i) {
     size_t boxIndex = (startIndex + i) % gridBoxes_.size();
-    scheduler_.addTask(boxIndex, sunIntensity);
+    if (runSync) {
+      // Diagnostic mode: bypass the worker pool and process the box on the
+      // calling (main) thread. Workers idle on their wait_for(1ms) loop.
+      auto modifications =
+          processors_[0]->processBox(gridBoxes_[boxIndex], sunIntensity);
+      resultQueue_.push(std::move(modifications));
+    } else {
+      scheduler_.addTask(boxIndex, sunIntensity);
+    }
   }
 
   // Update start index for next call to ensure different boxes are processed
@@ -565,6 +575,29 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ,
          typeNeighbor.subType0 == GRASS_SUB_TYPE0 &&
          typeNeighbor.subType1 != TERRAIN_SUB_TYPE1_FULL);
 
+    // Part B note — WaterSpreadEvent dispatch sites.
+    //
+    // The `matterContainerNeighbor.WaterVapor == 0` clauses below are the
+    // upstream Rule-3 guard: if the target already has vapor, we don't
+    // enqueue. Confirmed correct.
+    //
+    // KNOWN INTER-HANDLER RACE: this neighbor read happens here (in
+    // `runEcosystemStep` of tick N), but the event fires inside
+    // `dispatcher.update()` of tick N+1, after sibling handlers — most
+    // notably evaporation creating vapor above its source via
+    // `addOrCreateVaporAbove` — have already run and may have written
+    // WaterVapor>0 to our target between dispatch and process. The handler
+    // (`_handleWaterSpreadEvent`) re-reads target state and refuses
+    // silently in that case (logged as `refuse_target_has_vapor` in the
+    // water-debug trace).
+    //
+    // TODO(game-engine-polish): when the simulation matures, address the
+    // race directly so spread events aren't enqueued for paths that will
+    // later be invalidated by sibling handlers in the same tick. The
+    // current behaviour is a benign silent drop — no matter is lost — but
+    // it does mean the spread doesn't happen that tick, which over time
+    // can starve some flow paths near heavy evaporation hotspots.
+
     if (!actionPerformed && canSpredWaterToNotFull &&
         matterContainer.WaterMatter > 0 &&
         matterContainerNeighbor.WaterVapor == 0 &&
@@ -590,6 +623,8 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ,
         matterContainerNeighbor.WaterMatter < 14 &&
         matterContainer.WaterMatter > matterContainerNeighbor.WaterMatter) {
       // Dispatch event instead of direct state change
+      // (See "Part B note" above on the inter-handler race covering this
+      // dispatch and the grass-to-grass dispatch below it.)
       int transferAmount = 1;
       Position sourcePos{terrainX, terrainY, terrainZ, direction};
       Position targetPos{x, y, z, direction};
@@ -1050,15 +1085,6 @@ void moveVaporUp(entt::registry &registry, VoxelGrid &voxelGrid,
     // no EnTT handle (i.e., it lives only in VDB). The gas-movement handler
     // detects that case from the entity field and operates coord-based, so
     // there is nothing extra to do here — just dispatch the same event.
-    if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"vapor_up_dispatch\"" << ",\"x\":" << pos.x
-          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-          << ",\"path\":\"move\""
-          << ",\"entity\":" << static_cast<int>(entity)
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     dispatchVaporMoveUpEvent(dispatcher, entity, pos, rhoEnv, rhoVapor);
     return;
   }
@@ -1085,16 +1111,6 @@ void moveVaporUp(entt::registry &registry, VoxelGrid &voxelGrid,
       //           << pos.z << ") with vapor above\n";
 
       Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
-      if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-        std::ostringstream jss;
-        jss << "{\"event\":\"vapor_up_dispatch\"" << ",\"x\":" << pos.x
-            << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-            << ",\"path\":\"merge\""
-            << ",\"vapor_to_merge\":" << matterContainer.WaterVapor
-            << ",\"vapor_above\":" << matterContainerAbove.WaterVapor
-            << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-        waterDebugLog(jss.str());
-      }
       dispatchVaporMergeEvent(dispatcher, sourcePos, matterContainer.WaterVapor,
                               entity);
       return;
@@ -1128,16 +1144,6 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
 
   float rhoEnv = 1.225f;   // Density of air
   float rhoVapor = 0.597f; // Density of water vapor
-
-  if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-    std::ostringstream jss;
-    jss << "{\"event\":\"sideways_entry\"" << ",\"x\":" << pos.x
-        << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-        << ",\"vapor\":" << matterContainer.WaterVapor
-        << ",\"terrain_id\":" << terrainId
-        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-    waterDebugLog(jss.str());
-  }
 
   // Vapor has reached max altitude; move sideways
 
@@ -1211,21 +1217,6 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
         dispatchedRhoEnv, dispatchedRhoGas};
     moveGasEntityEvent.setForceApplyNewVelocity();
 
-    if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"sideways_dispatch\"" << ",\"x\":" << pos.x
-          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-          << ",\"path\":\"move\""
-          << ",\"computed_force_x\":" << forceX
-          << ",\"computed_force_y\":" << forceY
-          << ",\"dispatched_force_x\":" << dispatchedForceX
-          << ",\"dispatched_force_y\":" << dispatchedForceY
-          << ",\"rho_env\":" << dispatchedRhoEnv
-          << ",\"rho_gas\":" << dispatchedRhoGas
-          << ",\"new_x\":" << newX << ",\"new_y\":" << newY
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     dispatcher.enqueue<MoveGasEntityEvent>(moveGasEntityEvent);
   } else {
     auto terrainSide = static_cast<entt::entity>(terrainSideId);
@@ -1263,17 +1254,6 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
         Position targetPos{newX, newY, pos.z, pos.direction};
         VaporMergeSidewaysEvent event(sourcePos, targetPos,
                                       matterContainer.WaterVapor, terrainId);
-        if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-          std::ostringstream jss;
-          jss << "{\"event\":\"sideways_dispatch\"" << ",\"x\":" << pos.x
-              << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-              << ",\"path\":\"merge\"" << ",\"new_x\":" << newX
-              << ",\"new_y\":" << newY
-              << ",\"src_vapor\":" << matterContainer.WaterVapor
-              << ",\"side_vapor\":" << matterContainerSide.WaterVapor
-              << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-          waterDebugLog(jss.str());
-        }
         dispatcher.enqueue<VaporMergeSidewaysEvent>(event);
       } else {
         ossMessage
@@ -1282,17 +1262,6 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
         spdlog::get("console")->debug(ossMessage.str());
         ossMessage.str("");
         ossMessage.clear();
-        if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-          std::ostringstream jss;
-          jss << "{\"event\":\"sideways_obstructed\"" << ",\"x\":" << pos.x
-              << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-              << ",\"reason\":\"non_mergeable_water\""
-              << ",\"new_x\":" << newX << ",\"new_y\":" << newY
-              << ",\"side_water\":" << matterContainerSide.WaterMatter
-              << ",\"side_vapor\":" << matterContainerSide.WaterVapor
-              << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-          waterDebugLog(jss.str());
-        }
         // Obstructed; cannot move sideways
         // Optionally handle other directions or stay in place
       }
@@ -1303,16 +1272,6 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
       spdlog::get("console")->debug(ossMessage.str());
       ossMessage.str("");
       ossMessage.clear();
-      if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-        std::ostringstream jss;
-        jss << "{\"event\":\"sideways_obstructed\"" << ",\"x\":" << pos.x
-            << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-            << ",\"reason\":\"side_not_terrain\""
-            << ",\"new_x\":" << newX << ",\"new_y\":" << newY
-            << ",\"side_main_type\":" << typeSide.mainType
-            << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-        waterDebugLog(jss.str());
-      }
     }
   }
 }
@@ -1333,29 +1292,11 @@ void moveVapor(entt::registry &registry, VoxelGrid &voxelGrid,
   // Condensation Logic for Vapor
   if (simulateCondensation &&
       matterContainer.WaterVapor >= condensationThreshold) {
-    if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"vapor_decision\"" << ",\"x\":" << pos.x
-          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-          << ",\"vapor\":" << matterContainer.WaterVapor
-          << ",\"branch\":\"condense\""
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     condenseVapor(registry, voxelGrid, dispatcher, pos, type, matterContainer);
     return; // Condensation happened, exit the function
   }
 
   if (!simulateMovement) {
-    if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"vapor_decision\"" << ",\"x\":" << pos.x
-          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-          << ",\"vapor\":" << matterContainer.WaterVapor
-          << ",\"branch\":\"movement_off\""
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     return;
   }
 
@@ -1444,48 +1385,17 @@ void moveVapor(entt::registry &registry, VoxelGrid &voxelGrid,
   }
 
   isTerrainAboveVaporOrEmpty = isTerrainAboveEmpty || isTerrainAboveVapor;
-  const bool inWatch = waterDebugInWatchRegion(pos.x, pos.y, pos.z);
 
   if (pos.z < maxAltitude && isTerrainAboveVaporOrEmpty) {
     // Move vapor up
-    if (inWatch) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"vapor_decision\"" << ",\"x\":" << pos.x
-          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-          << ",\"vapor\":" << matterContainer.WaterVapor
-          << ",\"branch\":\"up\""
-          << ",\"above_empty\":" << (isTerrainAboveEmpty ? "true" : "false")
-          << ",\"above_vapor\":" << (isTerrainAboveVapor ? "true" : "false")
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     try {
       moveVaporUp(registry, voxelGrid, dispatcher, pos, type, matterContainer);
     } catch (const aetherion::VaporMovementBlockedException &e) {
       // Upward movement blocked: attempt lateral diffusion
-      if (inWatch) {
-        std::ostringstream jss;
-        jss << "{\"event\":\"vapor_up_blocked_to_sideways\""
-            << ",\"x\":" << pos.x << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-            << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-        waterDebugLog(jss.str());
-      }
       moveVaporSideways(registry, voxelGrid, dispatcher, pos, type,
                         matterContainer);
     }
   } else {
-    if (inWatch) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"vapor_decision\"" << ",\"x\":" << pos.x
-          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-          << ",\"vapor\":" << matterContainer.WaterVapor
-          << ",\"branch\":\"sideways_at_top\""
-          << ",\"max_altitude\":" << maxAltitude
-          << ",\"above_empty\":" << (isTerrainAboveEmpty ? "true" : "false")
-          << ",\"above_vapor\":" << (isTerrainAboveVapor ? "true" : "false")
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     // if (pos.z < maxAltitude) {
     //     std::cout
     //         << "[moveVapor] Vapor bellow max altitude and blocked - Should
@@ -1662,13 +1572,6 @@ void processTileWater(int x, int y, int z, entt::registry &registry,
       entt::entity entity =
           hasLiveEntity ? static_cast<entt::entity>(terrainId) : entt::null;
       dispatcher.enqueue<DeleteOrConvertTerrainEvent>(entity, pos);
-
-      std::ostringstream oss;
-      oss << "[processTileWater] Empty water at (" << x << ", " << y << ", "
-          << z << ") ID=" << terrainId
-          << (hasLiveEntity ? " (entity-backed)" : " (ON_GRID_STORAGE/NONE)")
-          << " sent for deletion.";
-      std::cout << oss.str() << "\n";
     }
 
     // Ensure that both WaterMatter and WaterVapor cannot coexist

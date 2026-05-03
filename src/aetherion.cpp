@@ -759,6 +759,10 @@ NB_MODULE(_aetherion, m) {
           "water_auto_balancing",
           [](const World &w) { return w.getWaterAutoBalancing(); },
           [](World &w, bool v) { w.setWaterAutoBalancing(v); })
+      .def_prop_rw(
+          "run_water_sim_synchronously",
+          [](const World &w) { return w.getRunWaterSimSynchronously(); },
+          [](World &w, bool v) { w.setRunWaterSimSynchronously(v); })
       .def("initialize_voxel_grid", &World::initializeVoxelGrid)
       .def("set_voxel", &World::setVoxel)
       .def("get_voxel", &World::getVoxel)

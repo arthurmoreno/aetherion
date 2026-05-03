@@ -13,7 +13,6 @@
 #include "components/MetabolismComponents.hpp"
 #include "components/MovingComponent.hpp"
 #include "components/PhysicsComponents.hpp"
-#include "debug/WaterDebugLog.hpp"
 #include "ecosystem/EcosystemEvents.hpp"
 #include "items/ItemConfiguration.hpp"
 #include "items/ItemConfigurationManager.hpp"
@@ -1130,14 +1129,12 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry &registry,
                                                    VoxelGrid &voxelGrid,
                                                    entt::dispatcher &dispatcher,
                                                    entt::entity entity) {
-  // Entity is invalid but still in Velocity component storage
-  // This happens during the timing window between registry.destroy() and hook
-  // execution The onDestroyVelocity hook will clean up tracking maps - just
-  // skip for now
+  // Entity is invalid but still listed in the velocity view — skip
+  // defensively; tracking-map cleanup happens at the explicit remove site
+  // (moveTerrain / deleteTerrain).
   std::cout << "[handleMovement] WARNING: Invalid entity in velocityView - "
                "skipping; entity ID="
-            << static_cast<int>(entity) << " (cleanup will be handled by hooks)"
-            << std::endl;
+            << static_cast<int>(entity) << std::endl;
 
   Position pos = {-1, -1, -1, DirectionEnum::DOWN};
   try {
@@ -1552,11 +1549,11 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
     throw std::runtime_error(oss.str());
   }
 
-  spdlog::get("console")->info(
-      "[createWaterTerrainBelowVapor] Creating water terrain below vapor at (" +
-      std::to_string(vaporX) + ", " + std::to_string(vaporY) + ", " +
-      std::to_string(vaporZ - 1) +
-      ") with condensation amount: " + std::to_string(condensationAmount));
+  // spdlog::get("console")->info(
+  //     "[createWaterTerrainBelowVapor] Creating water terrain below vapor at (" +
+  //     std::to_string(vaporX) + ", " + std::to_string(vaporY) + ", " +
+  //     std::to_string(vaporZ - 1) +
+  //     ") with condensation amount: " + std::to_string(condensationAmount));
 
   // Snapshot destination state. Matter is written *additively* so a future
   // caller hitting an existing-water destination keeps its WaterMatter (and
@@ -1683,11 +1680,11 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
 
   (void)registry; // no longer creates an EnTT entity for the new water voxel
 
-  spdlog::get("console")->info(
-      "[createWaterTerrainBelowVapor] Created water terrain below vapor at (" +
-      std::to_string(vaporX) + ", " + std::to_string(vaporY) + ", " +
-      std::to_string(vaporZ - 1) +
-      ") with amount: " + std::to_string(condensationAmount));
+  // spdlog::get("console")->info(
+  //     "[createWaterTerrainBelowVapor] Created water terrain below vapor at (" +
+  //     std::to_string(vaporX) + ", " + std::to_string(vaporY) + ", " +
+  //     std::to_string(vaporZ - 1) +
+  //     ") with amount: " + std::to_string(condensationAmount));
 }
 
 // =========================================================================
@@ -1806,23 +1803,6 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
       voxelGrid.terrainGridRepository->getTerrainMatterContainer(
           sourcePos.x, sourcePos.y, sourcePos.z);
 
-  const bool inWatch = waterDebugInWatchRegion(sourcePos.x, sourcePos.y,
-                                               sourcePos.z) ||
-                       waterDebugInWatchRegion(toX, toY, toZ);
-  if (inWatch) {
-    std::ostringstream jss;
-    jss << "{\"event\":\"velocity_move_entry\""
-        << ",\"src_x\":" << sourcePos.x << ",\"src_y\":" << sourcePos.y
-        << ",\"src_z\":" << sourcePos.z << ",\"dst_x\":" << toX
-        << ",\"dst_y\":" << toY << ",\"dst_z\":" << toZ
-        << ",\"vel_x\":" << vel.vx << ",\"vel_y\":" << vel.vy
-        << ",\"vel_z\":" << vel.vz
-        << ",\"src_water\":" << sourceMatter.WaterMatter
-        << ",\"src_vapor\":" << sourceMatter.WaterVapor
-        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-    waterDebugLog(jss.str());
-  }
-
   // Defence 1: source itself is in invariant violation. We refuse to
   // propagate it via `moveTerrain` (which would overwrite a clean dest
   // with the violated matter). Clear velocity so the source stops
@@ -1836,15 +1816,6 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
         "violates the WaterMatter/WaterVapor invariant — refusing move "
         "to ({}, {}, {}). Clearing source velocity.",
         sourcePos.x, sourcePos.y, sourcePos.z, toX, toY, toZ);
-    if (inWatch) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"velocity_move_outcome\""
-          << ",\"src_x\":" << sourcePos.x << ",\"src_y\":" << sourcePos.y
-          << ",\"src_z\":" << sourcePos.z
-          << ",\"outcome\":\"refuse_source_violation\""
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
                                                  sourcePos.z,
                                                  Velocity{0.0f, 0.0f, 0.0f});
@@ -1876,18 +1847,6 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
           "Skipping move and clearing source velocity.",
           sourcePos.x, sourcePos.y, sourcePos.z, sourceIsLiquid, sourceIsVapor,
           toX, toY, toZ, destIsLiquid, destIsVapor);
-      if (inWatch) {
-        std::ostringstream jss;
-        jss << "{\"event\":\"velocity_move_outcome\""
-            << ",\"src_x\":" << sourcePos.x << ",\"src_y\":" << sourcePos.y
-            << ",\"src_z\":" << sourcePos.z << ",\"dst_x\":" << toX
-            << ",\"dst_y\":" << toY << ",\"dst_z\":" << toZ
-            << ",\"outcome\":\"refuse_phase_mismatch\""
-            << ",\"dst_water\":" << destMatter.WaterMatter
-            << ",\"dst_vapor\":" << destMatter.WaterVapor
-            << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-        waterDebugLog(jss.str());
-      }
       voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
                                                    sourcePos.z,
                                                    Velocity{0.0f, 0.0f, 0.0f});
@@ -1902,18 +1861,6 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
         "[_attemptVelocityDrivenMove] Destination ({}, {}, {}) already "
         "populated (same-phase). Skipping move and clearing source velocity.",
         toX, toY, toZ);
-    if (inWatch) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"velocity_move_outcome\""
-          << ",\"src_x\":" << sourcePos.x << ",\"src_y\":" << sourcePos.y
-          << ",\"src_z\":" << sourcePos.z << ",\"dst_x\":" << toX
-          << ",\"dst_y\":" << toY << ",\"dst_z\":" << toZ
-          << ",\"outcome\":\"refuse_dest_populated\""
-          << ",\"dst_water\":" << destMatter.WaterMatter
-          << ",\"dst_vapor\":" << destMatter.WaterVapor
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
                                                  sourcePos.z,
                                                  Velocity{0.0f, 0.0f, 0.0f});
@@ -1932,16 +1879,6 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
   // the next tick.
   _nudgeSettledWaterAfterDrain(voxelGrid, sourcePos.x, sourcePos.y,
                                sourcePos.z);
-  if (inWatch) {
-    std::ostringstream jss;
-    jss << "{\"event\":\"velocity_move_outcome\""
-        << ",\"src_x\":" << sourcePos.x << ",\"src_y\":" << sourcePos.y
-        << ",\"src_z\":" << sourcePos.z << ",\"dst_x\":" << toX
-        << ",\"dst_y\":" << toY << ",\"dst_z\":" << toZ
-        << ",\"outcome\":\"move_success\""
-        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-    waterDebugLog(jss.str());
-  }
   return true;
 }
 
@@ -2182,10 +2119,10 @@ inline void _handleWaterGravityFlowEvent(entt::registry &registry,
     // Source always needs deletion now that the function no longer reuses an
     // ECS source entity at the destination.
 
-    spdlog::get("console")->warn("[_handleWaterGravityFlowEvent] Empty terrain "
-                                 "at ({}, {}, {}), deleting it.",
-                                 event.source.x, event.source.y,
-                                 event.source.z);
+    // spdlog::get("console")->warn("[_handleWaterGravityFlowEvent] Empty terrain "
+    //                              "at ({}, {}, {}), deleting it.",
+    //                              event.source.x, event.source.y,
+    //                              event.source.z);
 
     voxelGrid.deleteTerrain(dispatcher, event.source.x, event.source.y,
                             event.source.z, false);
@@ -2270,10 +2207,10 @@ inline void _handleVaporMergeSidewaysEvent(
       spdlog::get("console")->info(ossMessage.str());
       dispatcher.enqueue<KillEntityEvent>(sourceEntity);
     } else {
-      spdlog::get("console")->warn("[VaporMergeSidewaysEvent] Source terrain "
-                                   "ID {} is not a valid entity; skipping "
-                                   "deletion.",
-                                   event.sourceTerrainId);
+      // spdlog::get("console")->warn("[VaporMergeSidewaysEvent] Source terrain "
+      //                              "ID {} is not a valid entity; skipping "
+      //                              "deletion.",
+      //                              event.sourceTerrainId);
     }
   }
 }

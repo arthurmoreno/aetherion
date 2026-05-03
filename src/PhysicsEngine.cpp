@@ -8,7 +8,6 @@
 #include <sstream>
 
 #include "EcosystemEngine.hpp"
-#include "debug/WaterDebugLog.hpp"
 #include "ecosystem/EcosystemEvents.hpp"
 #include "physics/Collision.hpp"
 #include "physics/PhysicalMath.hpp"
@@ -259,28 +258,7 @@ void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent &event) {
 void PhysicsEngine::onVaporMergeSidewaysEvent(
     const VaporMergeSidewaysEvent &event) {
   incPhysicsMetric(PHYSICS_VAPOR_MERGE_SIDEWAYS);
-  if (waterDebugInWatchRegion(event.source.x, event.source.y, event.source.z) ||
-      waterDebugInWatchRegion(event.target.x, event.target.y, event.target.z)) {
-    std::ostringstream jss;
-    jss << "{\"event\":\"merge_sideways_call\""
-        << ",\"src_x\":" << event.source.x << ",\"src_y\":" << event.source.y
-        << ",\"src_z\":" << event.source.z << ",\"dst_x\":" << event.target.x
-        << ",\"dst_y\":" << event.target.y << ",\"dst_z\":" << event.target.z
-        << ",\"event_amount\":" << event.amount
-        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-    waterDebugLog(jss.str());
-  }
   _handleVaporMergeSidewaysEvent(registry, dispatcher, *voxelGrid, event);
-  if (waterDebugInWatchRegion(event.source.x, event.source.y, event.source.z) ||
-      waterDebugInWatchRegion(event.target.x, event.target.y, event.target.z)) {
-    std::ostringstream jss;
-    jss << "{\"event\":\"merge_sideways_done\""
-        << ",\"src_x\":" << event.source.x << ",\"src_y\":" << event.source.y
-        << ",\"src_z\":" << event.source.z << ",\"dst_x\":" << event.target.x
-        << ",\"dst_y\":" << event.target.y << ",\"dst_z\":" << event.target.z
-        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-    waterDebugLog(jss.str());
-  }
 }
 
 void PhysicsEngine::onAddVaporToTileAboveEvent(
@@ -990,15 +968,14 @@ void PhysicsEngine::processPhysics(entt::registry &registry,
     // Note: handleMovingTo also validates, but checking here prevents
     // unnecessary calls SAFETY CHECK: Validate entity before processing
     if (!registry.valid(entity)) {
-      // Entity is invalid but still in MovingComponent component storage
-      // This happens during the timing window between registry.destroy() and
-      // hook execution The onDestroyVelocity hook will clean up tracking maps -
-      // just skip for now
+      // Entity is invalid but still listed in the MovingComponent storage —
+      // skip defensively; tracking-map cleanup happens at the explicit
+      // remove site (moveTerrain / deleteTerrain).
       std::ostringstream ossMessage;
       ossMessage
           << "[processPhysics:MovingComponent] WARNING: Invalid entity in "
              "movingComponentView - skipping; entity ID="
-          << static_cast<int>(entity) << " (cleanup will be handled by hooks)";
+          << static_cast<int>(entity);
       spdlog::get("console")->debug(ossMessage.str());
 
       continue;
@@ -1249,15 +1226,13 @@ void PhysicsEngine::processVelocityForEntity(entt::entity entity,
                                              entt::dispatcher &dispatcher) {
   // SAFETY CHECK: Validate entity before processing
   if (!registry.valid(entity)) {
-    // Entity is invalid but still in MovingComponent component storage
-    // This happens during the timing window between registry.destroy() and
-    // hook execution The onDestroyVelocity hook will clean up tracking maps -
-    // just skip for now
+    // Entity is invalid but still listed in the velocity view — skip
+    // defensively; tracking-map cleanup happens at the explicit remove site
+    // (moveTerrain / deleteTerrain).
     std::ostringstream ossMessage;
     ossMessage << "[processPhysics:MovingComponent] WARNING: Invalid entity in "
                   "velocityView - skipping; entity ID="
-               << static_cast<int>(entity)
-               << " (cleanup will be handled by hooks)";
+               << static_cast<int>(entity);
     spdlog::get("console")->debug(ossMessage.str());
 
     return;
@@ -1546,21 +1521,6 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
 
   const bool isOnGridStorage =
       terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE);
-  if (waterDebugInWatchRegion(event.position.x, event.position.y,
-                              event.position.z)) {
-    std::ostringstream jss;
-    jss << "{\"event\":\"gas_handler_entry\"" << ",\"x\":" << event.position.x
-        << ",\"y\":" << event.position.y << ",\"z\":" << event.position.z
-        << ",\"terrain_id\":" << terrainId
-        << ",\"event_entity\":" << static_cast<int>(event.entity)
-        << ",\"on_grid_storage\":" << (isOnGridStorage ? "true" : "false")
-        << ",\"force_x\":" << event.forceX << ",\"force_y\":" << event.forceY
-        << ",\"rho_env\":" << event.rhoEnv << ",\"rho_gas\":" << event.rhoGas
-        << ",\"force_apply\":"
-        << (event.forceApplyNewVelocity ? "true" : "false")
-        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-    waterDebugLog(jss.str());
-  }
   if (!isOnGridStorage && terrainId != static_cast<int>(event.entity)) {
     // Sanity gate: the cell's terrain id no longer matches the event's
     // payload — typically because the cell was drained / replaced after
@@ -1571,16 +1531,6 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
     // unsigned `entt::entity` is not a reliable round-trip for negative
     // sentinel values. The body below is purely coord-based for
     // ON_GRID_STORAGE per the comment block immediately following.
-    if (waterDebugInWatchRegion(event.position.x, event.position.y,
-                                event.position.z)) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"gas_handler_gate_skip\""
-          << ",\"x\":" << event.position.x << ",\"y\":" << event.position.y
-          << ",\"z\":" << event.position.z << ",\"terrain_id\":" << terrainId
-          << ",\"event_entity\":" << static_cast<int>(event.entity)
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     return;
   }
 
@@ -1616,15 +1566,6 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
         "(<= 0). The cell's PhysicsStats was not initialised by its "
         "creator.",
         pos.x, pos.y, pos.z, physicsStats.mass);
-    if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"gas_handler_outcome\"" << ",\"x\":" << pos.x
-          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-          << ",\"mass\":" << physicsStats.mass
-          << ",\"outcome\":\"refuse_zero_mass\""
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     return;
   }
 
@@ -1677,22 +1618,6 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
     velocity.vz = newVelocityZ;
     voxelGrid->terrainGridRepository->setVelocity(pos.x, pos.y, pos.z,
                                                   velocity);
-  }
-  if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
-    std::ostringstream jss;
-    jss << "{\"event\":\"gas_handler_outcome\"" << ",\"x\":" << pos.x
-        << ",\"y\":" << pos.y << ",\"z\":" << pos.z
-        << ",\"mass\":" << physicsStats.mass
-        << ",\"have_movement\":" << (haveMovement ? "true" : "false")
-        << ",\"can_apply\":" << (canApplyForce ? "true" : "false")
-        << ",\"old_vel_x\":" << velocity.vx - (canApplyForce ? newVelocityX : 0)
-        << ",\"old_vel_y\":" << velocity.vy - (canApplyForce ? newVelocityY : 0)
-        << ",\"old_vel_z\":" << velocity.vz - (canApplyForce ? newVelocityZ : 0)
-        << ",\"new_vel_x\":" << newVelocityX
-        << ",\"new_vel_y\":" << newVelocityY
-        << ",\"new_vel_z\":" << newVelocityZ
-        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-    waterDebugLog(jss.str());
   }
 }
 
@@ -2275,10 +2200,10 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
       rawEntityId != static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE);
 
   if (entityFieldIsRealHandle && !registry.valid(event.entity)) {
-    spdlog::get("console")->info(
-        "onWaterFallEntityEvent -> stale entity handle {} at ({}, {}, {}); "
-        "attempting transitory-cell recovery and continuing coord-based.",
-        rawEntityId, event.position.x, event.position.y, event.position.z);
+    // spdlog::get("console")->info(
+    //     "onWaterFallEntityEvent -> stale entity handle {} at ({}, {}, {}); "
+    //     "attempting transitory-cell recovery and continuing coord-based.",
+    //     rawEntityId, event.position.x, event.position.y, event.position.z);
 
     _recoverStaleTerrainCellIfTransitory(*voxelGrid, dispatcher,
                                          event.position.x, event.position.y,
@@ -2292,10 +2217,10 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
                                event.position.x, event.position.y,
                                event.position.z, event.fallingAmount,
                                event.entity, event.sourcePos, event.retryCount);
-    spdlog::get("console")->info(
-        "onWaterFallEntityEvent -> Created ON_GRID_STORAGE water at "
-        "({}, {}, {}).",
-        event.position.x, event.position.y, event.position.z);
+    // spdlog::get("console")->info(
+    //     "onWaterFallEntityEvent -> Created ON_GRID_STORAGE water at "
+    //     "({}, {}, {}).",
+    //     event.position.x, event.position.y, event.position.z);
   }
   // Otherwise the destination already holds terrain — the additive merge
   // path (the broken short-circuit) is tracked under merge-fix E1.3/E1.4

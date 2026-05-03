@@ -329,12 +329,6 @@ private:
   entt::entity getEntityAt(int x, int y, int z) const;
   void markActive(int x, int y, int z, entt::entity e, bool takeLock = true);
   void clearActive(int x, int y, int z, bool takeLock = true);
-
-  // EnTT hooks to auto-activate on transient component emplacement
-  void onConstructVelocity(entt::registry &reg, entt::entity e);
-  void onConstructMoving(entt::registry &reg, entt::entity e);
-  void onDestroyVelocity(entt::registry &reg, entt::entity e);
-  void onDestroyMoving(entt::registry &reg, entt::entity e);
 };
 
 // ================ Template Method Implementations ================

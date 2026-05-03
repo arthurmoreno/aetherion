@@ -543,6 +543,25 @@ int TerrainStorage::getTerrainMatter(int x, int y, int z) const {
   return terrainMatterGrid->tree().getValue(openvdb::Coord(x, y, z));
 }
 
+// V2's activation contract: deactivate the voxel (set inactive in the active
+// set) AND clear its value to 0 when amount == 0. Performance reason — keeps
+// `iterateGrid` (the sparse `cbeginValueOn` walk over these grids) iterating
+// only voxels that actually carry matter. Without this, drains-to-zero would
+// accumulate as inactive-but-still-in-active-set voxels and slow iteration
+// linearly with simulation age.
+//
+// History — this branch was once suspected to be the source of a
+// load-dependent SIGSEGV in `_handleWaterSpreadEvent` (theory: leaf prune /
+// realloc cycles invalidating cached node pointers). We tested by reverting
+// to plain `setValue` always — the segfault still happened. Root cause
+// turned out to be elsewhere (a non-bulletproof refuse path that called
+// spdlog::warn under heavy load; fixed in `WaterPhysicsMutators.cpp`). The
+// V2 behaviour is restored here for the iteration-performance win.
+//
+// IMPORTANT — the two-arg `setValueOff(coord, 0)` resets the underlying
+// value to 0 (R.2 lesson: the one-arg `setValueOff(coord)` leaves the
+// pre-deactivation value behind, which manifests as orphan matter). A
+// subsequent `getValue(coord)` returns 0 as expected.
 void TerrainStorage::setTerrainWaterMatter(int x, int y, int z, int amount) {
   auto c = openvdb::Coord(x, y, z);
   if (amount == 0) {

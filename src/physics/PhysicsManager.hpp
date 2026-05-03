@@ -22,6 +22,7 @@ public:
   void setSimulateWaterMovement(bool value);
   void setSimulateWaterEvaporation(bool value);
   void setWaterAutoBalancing(bool value);
+  void setRunWaterSimSynchronously(bool value);
 
   // Getters
   float getGravity() const;
@@ -36,6 +37,7 @@ public:
   bool getSimulateWaterMovement() const;
   bool getSimulateWaterEvaporation() const;
   bool getWaterAutoBalancing() const;
+  bool getRunWaterSimSynchronously() const;
 
   // Optional: Load physics settings from a file
   bool loadSettings(const std::string &fileName);
@@ -85,6 +87,10 @@ private:
   bool simulateWaterMovement = true;
   bool simulateWaterEvaporation = true;
   bool waterAutoBalancing = true;
+  // When true, the WaterSimulationManager bypasses its worker threads and
+  // processes grid boxes synchronously on the main thread. Used to isolate
+  // the multi-thread dispatcher / VDB race from single-threaded behaviour.
+  bool runWaterSimSynchronously = false;
 };
 
 typedef PhysicsManager ThePhysicsManager;

@@ -906,6 +906,91 @@ void safeExecute(const std::function<void()> &func,
   }
 }
 
+// Run one ecosystem step, choosing inline or async dispatch.
+//
+// When PhysicsManager::getRunWaterSimSynchronously() is true, run the full
+// ecosystem step inline on the main update thread instead of dispatching it
+// via std::async. This is the only way to truly serialize the dispatcher and
+// VDB accesses for diagnostic comparisons — the populateSchedulerWithSubset
+// bypass alone is not enough because the ecosystemFuture itself is a
+// separate thread.
+//
+// In sync mode the in-flight async future (if any, from a prior async tick)
+// is drained first so the inline call cannot race with it.
+void World::runEcosystemStep() {
+  if (!processEcosystemAsync_) {
+    return;
+  }
+
+  const bool runEcosystemSynchronously =
+      PhysicsManager::Instance()->getRunWaterSimSynchronously();
+
+  if (runEcosystemSynchronously) {
+    if (ecosystemFuture.valid()) {
+      try {
+        ecosystemFuture.get();
+      } catch (const std::exception &e) {
+        std::cerr << "EcosystemEngine async task crashed: " << e.what()
+                  << std::endl;
+        throw aetherion::EcosystemEngineException(
+            "[EcosystemEngineException] EcosystemEngine async task "
+            "crashed: " +
+            std::string(e.what()));
+      }
+    }
+
+    if (ecosystemEngine && ecosystemEngine->waterSimManager_ &&
+        !ecosystemEngine->waterSimManager_->hasEncounteredCriticalError()) {
+      ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, dispatcher,
+                                             gameClock);
+      ecosystemStarted_ = true;
+    }
+    return;
+  }
+
+  const bool futureReadyOrUnstarted =
+      !ecosystemFuture.valid() ||
+      ecosystemFuture.wait_for(std::chrono::seconds(0)) ==
+          std::future_status::ready;
+  if (!futureReadyOrUnstarted) {
+    return;
+  }
+
+  if (ecosystemFuture.valid()) {
+    try {
+      ecosystemFuture.get();
+    } catch (const std::exception &e) {
+      std::cerr << "EcosystemEngine async task crashed: " << e.what()
+                << std::endl;
+      throw aetherion::EcosystemEngineException(
+          "[EcosystemEngineException] EcosystemEngine async task "
+          "crashed: " +
+          std::string(e.what()));
+    }
+  } else if (ecosystemStarted_) {
+    // Future is invalid AND we've run before = error state
+    Logger::getLogger()->error("EcosystemEngine future invalid after being "
+                               "started - critical error detected");
+    throw aetherion::EcosystemEngineException(
+        "[EcosystemEngineException] EcosystemEngine future became invalid "
+        "after error");
+  }
+  // else: First run, future not started yet — normal.
+
+  // Only restart ecosystem task if no critical error has occurred.
+  if (ecosystemEngine && ecosystemEngine->waterSimManager_ &&
+      !ecosystemEngine->waterSimManager_->hasEncounteredCriticalError()) {
+    ecosystemFuture = std::async(
+        std::launch::async, safeExecute,
+        [this]() {
+          ecosystemEngine->processEcosystemAsync(registry, *voxelGrid,
+                                                 dispatcher, gameClock);
+        },
+        "EcosystemEngine");
+    ecosystemStarted_ = true;
+  }
+}
+
 void World::update() {
   // std::cout << "World update started!" << std::endl;
 
@@ -915,17 +1000,23 @@ void World::update() {
   std::lock_guard<std::mutex> lock(registryMutex);
 
   healthSystem->processHealth(registry, *voxelGrid, dispatcher);
+
   if (dbHandler) {
     physicsEngine->flushPhysicsMetrics(dbHandler.get());
     lifeEngine->flushLifeMetrics(dbHandler.get());
   }
+
   dispatcher.update();
+
   physicsEngine->processPhysics(registry, *voxelGrid, dispatcher, gameClock);
+
   if (!processMetabolismAsync) {
     metabolismSystem->processMetabolism(registry, *voxelGrid, dispatcher);
   }
+
   ecosystemEngine->processEcosystem(registry, *voxelGrid, dispatcher,
                                     gameClock);
+
   effectsSystem->processEffects(registry, *voxelGrid, dispatcher);
 
   // Acquire GIL before executing Python code
@@ -984,7 +1075,10 @@ void World::update() {
         }
       }
 
-      // Launch a new async task using the standalone safeExecute
+      // Launch a new async task using the standalone safeExecute.
+      // (Was temporarily disabled while narrowing down a heavy-vapor/water
+      // segfault; the segfault was unrelated — it lived in the WaterSpread
+      // refuse path's spdlog usage. Re-enabled.)
       physicsFuture = std::async(
           std::launch::async, safeExecute,
           [this]() {
@@ -994,46 +1088,7 @@ void World::update() {
           "PhysicsEngine");
     }
 
-    // Handle Ecosystem Async Task (optional, disabled by default)
-    if (processEcosystemAsync_ &&
-        (!ecosystemFuture.valid() ||
-         ecosystemFuture.wait_for(std::chrono::seconds(0)) ==
-             std::future_status::ready)) {
-      if (ecosystemFuture.valid()) {
-        try {
-          ecosystemFuture.get();
-        } catch (const std::exception &e) {
-          std::cerr << "EcosystemEngine async task crashed: " << e.what()
-                    << std::endl;
-          // Handle the exception
-          throw aetherion::EcosystemEngineException(
-              "[EcosystemEngineException] EcosystemEngine async task "
-              "crashed: " +
-              std::string(e.what()));
-        }
-      } else if (ecosystemStarted_) {
-        // Future is invalid AND we've run before = error state
-        Logger::getLogger()->error("EcosystemEngine future invalid after being "
-                                   "started - critical error detected");
-        throw aetherion::EcosystemEngineException(
-            "[EcosystemEngineException] EcosystemEngine future became invalid "
-            "after error");
-      }
-      // else: First run, future not started yet - this is normal
-
-      // Only restart ecosystem task if no critical error has occurred
-      if (ecosystemEngine && ecosystemEngine->waterSimManager_ &&
-          !ecosystemEngine->waterSimManager_->hasEncounteredCriticalError()) {
-        ecosystemFuture = std::async(
-            std::launch::async, safeExecute,
-            [this]() {
-              ecosystemEngine->processEcosystemAsync(registry, *voxelGrid,
-                                                     dispatcher, gameClock);
-            },
-            "EcosystemEngine");
-        ecosystemStarted_ = true; // Mark as started
-      }
-    }
+    runEcosystemStep();
 
     if (processMetabolismAsync) {
       // Handle Metabolism Async Task
@@ -1123,4 +1178,10 @@ bool World::getWaterAutoBalancing() const {
 }
 void World::setWaterAutoBalancing(bool value) {
   PhysicsManager::Instance()->setWaterAutoBalancing(value);
+}
+bool World::getRunWaterSimSynchronously() const {
+  return PhysicsManager::Instance()->getRunWaterSimSynchronously();
+}
+void World::setRunWaterSimSynchronously(bool value) {
+  PhysicsManager::Instance()->setRunWaterSimSynchronously(value);
 }
