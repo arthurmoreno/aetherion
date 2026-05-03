@@ -259,7 +259,28 @@ void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent &event) {
 void PhysicsEngine::onVaporMergeSidewaysEvent(
     const VaporMergeSidewaysEvent &event) {
   incPhysicsMetric(PHYSICS_VAPOR_MERGE_SIDEWAYS);
+  if (waterDebugInWatchRegion(event.source.x, event.source.y, event.source.z) ||
+      waterDebugInWatchRegion(event.target.x, event.target.y, event.target.z)) {
+    std::ostringstream jss;
+    jss << "{\"event\":\"merge_sideways_call\""
+        << ",\"src_x\":" << event.source.x << ",\"src_y\":" << event.source.y
+        << ",\"src_z\":" << event.source.z << ",\"dst_x\":" << event.target.x
+        << ",\"dst_y\":" << event.target.y << ",\"dst_z\":" << event.target.z
+        << ",\"event_amount\":" << event.amount
+        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+    waterDebugLog(jss.str());
+  }
   _handleVaporMergeSidewaysEvent(registry, dispatcher, *voxelGrid, event);
+  if (waterDebugInWatchRegion(event.source.x, event.source.y, event.source.z) ||
+      waterDebugInWatchRegion(event.target.x, event.target.y, event.target.z)) {
+    std::ostringstream jss;
+    jss << "{\"event\":\"merge_sideways_done\""
+        << ",\"src_x\":" << event.source.x << ",\"src_y\":" << event.source.y
+        << ",\"src_z\":" << event.source.z << ",\"dst_x\":" << event.target.x
+        << ",\"dst_y\":" << event.target.y << ",\"dst_z\":" << event.target.z
+        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+    waterDebugLog(jss.str());
+  }
 }
 
 void PhysicsEngine::onAddVaporToTileAboveEvent(

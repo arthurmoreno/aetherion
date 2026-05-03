@@ -1129,6 +1129,16 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
   float rhoEnv = 1.225f;   // Density of air
   float rhoVapor = 0.597f; // Density of water vapor
 
+  if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+    std::ostringstream jss;
+    jss << "{\"event\":\"sideways_entry\"" << ",\"x\":" << pos.x
+        << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+        << ",\"vapor\":" << matterContainer.WaterVapor
+        << ",\"terrain_id\":" << terrainId
+        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+    waterDebugLog(jss.str());
+  }
+
   // Vapor has reached max altitude; move sideways
 
   std::ostringstream ossMessage;
@@ -1176,12 +1186,46 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
     // entity field and operates coord-based — no entity needs to be
     // synthesised here.
     entt::entity entity = static_cast<entt::entity>(terrainId);
+    // Sideways diffusion at the top of the column. Two changes from the
+    // pre-fix state:
+    //   - Pass the computed `forceX, forceY` (not `0.0f, 0.0f`). The pre-fix
+    //     dispatch zeroed both axes, so vapor never received a horizontal
+    //     push despite the surrounding code computing one. Latent because
+    //     pre-W1 single-axis behaviour would have masked it; post-W1
+    //     multi-axis it is a real motion bug.
+    //   - Pass `rhoVapor` for both `rhoEnv` and `rhoGas`. Cells reaching
+    //     this branch are at `pos.z == maxAltitude` (verified in the
+    //     `sideways_entry` JSONL probe — every entry was z=9). With the
+    //     normal density pair, the handler computes a positive vz from
+    //     buoyancy, then `processVelocityForVoxel` targets z+1 = 10 (out
+    //     of bounds), `hasCollision` returns true and clears velocity
+    //     before any move can happen. Equal densities produce zero
+    //     vertical acceleration so only the horizontal force applies.
+    const float dispatchedForceX = forceX;
+    const float dispatchedForceY = forceY;
+    const float dispatchedRhoEnv = rhoVapor;
+    const float dispatchedRhoGas = rhoVapor;
     MoveGasEntityEvent moveGasEntityEvent{
-        entity, Position{pos.x, pos.y, pos.z, DirectionEnum::DOWN},
-        0.0f,   0.0f,
-        rhoEnv, rhoVapor};
+        entity,           Position{pos.x, pos.y, pos.z, DirectionEnum::DOWN},
+        dispatchedForceX, dispatchedForceY,
+        dispatchedRhoEnv, dispatchedRhoGas};
     moveGasEntityEvent.setForceApplyNewVelocity();
 
+    if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"sideways_dispatch\"" << ",\"x\":" << pos.x
+          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+          << ",\"path\":\"move\""
+          << ",\"computed_force_x\":" << forceX
+          << ",\"computed_force_y\":" << forceY
+          << ",\"dispatched_force_x\":" << dispatchedForceX
+          << ",\"dispatched_force_y\":" << dispatchedForceY
+          << ",\"rho_env\":" << dispatchedRhoEnv
+          << ",\"rho_gas\":" << dispatchedRhoGas
+          << ",\"new_x\":" << newX << ",\"new_y\":" << newY
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
+    }
     dispatcher.enqueue<MoveGasEntityEvent>(moveGasEntityEvent);
   } else {
     auto terrainSide = static_cast<entt::entity>(terrainSideId);
@@ -1219,6 +1263,17 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
         Position targetPos{newX, newY, pos.z, pos.direction};
         VaporMergeSidewaysEvent event(sourcePos, targetPos,
                                       matterContainer.WaterVapor, terrainId);
+        if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+          std::ostringstream jss;
+          jss << "{\"event\":\"sideways_dispatch\"" << ",\"x\":" << pos.x
+              << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+              << ",\"path\":\"merge\"" << ",\"new_x\":" << newX
+              << ",\"new_y\":" << newY
+              << ",\"src_vapor\":" << matterContainer.WaterVapor
+              << ",\"side_vapor\":" << matterContainerSide.WaterVapor
+              << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+          waterDebugLog(jss.str());
+        }
         dispatcher.enqueue<VaporMergeSidewaysEvent>(event);
       } else {
         ossMessage
@@ -1227,6 +1282,17 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
         spdlog::get("console")->debug(ossMessage.str());
         ossMessage.str("");
         ossMessage.clear();
+        if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+          std::ostringstream jss;
+          jss << "{\"event\":\"sideways_obstructed\"" << ",\"x\":" << pos.x
+              << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+              << ",\"reason\":\"non_mergeable_water\""
+              << ",\"new_x\":" << newX << ",\"new_y\":" << newY
+              << ",\"side_water\":" << matterContainerSide.WaterMatter
+              << ",\"side_vapor\":" << matterContainerSide.WaterVapor
+              << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+          waterDebugLog(jss.str());
+        }
         // Obstructed; cannot move sideways
         // Optionally handle other directions or stay in place
       }
@@ -1237,6 +1303,16 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
       spdlog::get("console")->debug(ossMessage.str());
       ossMessage.str("");
       ossMessage.clear();
+      if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+        std::ostringstream jss;
+        jss << "{\"event\":\"sideways_obstructed\"" << ",\"x\":" << pos.x
+            << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+            << ",\"reason\":\"side_not_terrain\""
+            << ",\"new_x\":" << newX << ",\"new_y\":" << newY
+            << ",\"side_main_type\":" << typeSide.mainType
+            << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+        waterDebugLog(jss.str());
+      }
     }
   }
 }
