@@ -169,6 +169,14 @@ public:
   // Count of voxels currently carrying non-zero velocity (active in velXGrid).
   int countActiveVelocityVoxels() const;
 
+  // Count of voxels currently carrying non-zero liquid water (active in
+  // waterMatterGrid).
+  int countActiveWaterMatterVoxels() const;
+
+  // Count of voxels currently carrying non-zero vapor (active in
+  // vaporMatterGrid).
+  int countActiveVaporMatterVoxels() const;
+
   // Generic grid iterator - can iterate over any Int32Grid with a predicate
   template <typename Callback>
   void iterateGrid(const openvdb::Int32Grid::Ptr &grid, Callback callback,

@@ -10,6 +10,7 @@
 #include <sstream>
 #include <thread>
 
+#include "debug/WaterDebugLog.hpp"
 #include "ecosystem/ReadonlyQueries.hpp"
 #include "physics/PhysicsExceptions.hpp"
 #include "physics/PhysicsMutators.hpp"
@@ -1049,6 +1050,15 @@ void moveVaporUp(entt::registry &registry, VoxelGrid &voxelGrid,
     // no EnTT handle (i.e., it lives only in VDB). The gas-movement handler
     // detects that case from the entity field and operates coord-based, so
     // there is nothing extra to do here — just dispatch the same event.
+    if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"vapor_up_dispatch\"" << ",\"x\":" << pos.x
+          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+          << ",\"path\":\"move\""
+          << ",\"entity\":" << static_cast<int>(entity)
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
+    }
     dispatchVaporMoveUpEvent(dispatcher, entity, pos, rhoEnv, rhoVapor);
     return;
   }
@@ -1075,6 +1085,16 @@ void moveVaporUp(entt::registry &registry, VoxelGrid &voxelGrid,
       //           << pos.z << ") with vapor above\n";
 
       Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
+      if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+        std::ostringstream jss;
+        jss << "{\"event\":\"vapor_up_dispatch\"" << ",\"x\":" << pos.x
+            << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+            << ",\"path\":\"merge\""
+            << ",\"vapor_to_merge\":" << matterContainer.WaterVapor
+            << ",\"vapor_above\":" << matterContainerAbove.WaterVapor
+            << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+        waterDebugLog(jss.str());
+      }
       dispatchVaporMergeEvent(dispatcher, sourcePos, matterContainer.WaterVapor,
                               entity);
       return;
@@ -1228,21 +1248,38 @@ void moveVapor(entt::registry &registry, VoxelGrid &voxelGrid,
   int maxAltitude =
       voxelGrid.depth - 1; // Example maximum altitude for vapor to rise
 
-  // Condensation Logic for Vapor
   const int condensationThreshold = 16;
-  if (PhysicsManager::Instance()->getSimulateVaporCondensation() &&
+  const bool simulateCondensation =
+      PhysicsManager::Instance()->getSimulateVaporCondensation();
+  const bool simulateMovement =
+      PhysicsManager::Instance()->getSimulateVaporMovement();
+
+  // Condensation Logic for Vapor
+  if (simulateCondensation &&
       matterContainer.WaterVapor >= condensationThreshold) {
-    spdlog::get("console")->debug(
-        "[moveVapor] Vapor at (" + std::to_string(pos.x) + ", " +
-        std::to_string(pos.y) + ", " + std::to_string(pos.z) +
-        ") reached condensation threshold with WaterVapor = " +
-        std::to_string(matterContainer.WaterVapor) +
-        "; initiating condensation.");
+    if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"vapor_decision\"" << ",\"x\":" << pos.x
+          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+          << ",\"vapor\":" << matterContainer.WaterVapor
+          << ",\"branch\":\"condense\""
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
+    }
     condenseVapor(registry, voxelGrid, dispatcher, pos, type, matterContainer);
     return; // Condensation happened, exit the function
   }
 
-  if (!PhysicsManager::Instance()->getSimulateVaporMovement()) {
+  if (!simulateMovement) {
+    if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"vapor_decision\"" << ",\"x\":" << pos.x
+          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+          << ",\"vapor\":" << matterContainer.WaterVapor
+          << ",\"branch\":\"movement_off\""
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
+    }
     return;
   }
 
@@ -1331,17 +1368,48 @@ void moveVapor(entt::registry &registry, VoxelGrid &voxelGrid,
   }
 
   isTerrainAboveVaporOrEmpty = isTerrainAboveEmpty || isTerrainAboveVapor;
+  const bool inWatch = waterDebugInWatchRegion(pos.x, pos.y, pos.z);
 
   if (pos.z < maxAltitude && isTerrainAboveVaporOrEmpty) {
     // Move vapor up
+    if (inWatch) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"vapor_decision\"" << ",\"x\":" << pos.x
+          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+          << ",\"vapor\":" << matterContainer.WaterVapor
+          << ",\"branch\":\"up\""
+          << ",\"above_empty\":" << (isTerrainAboveEmpty ? "true" : "false")
+          << ",\"above_vapor\":" << (isTerrainAboveVapor ? "true" : "false")
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
+    }
     try {
       moveVaporUp(registry, voxelGrid, dispatcher, pos, type, matterContainer);
     } catch (const aetherion::VaporMovementBlockedException &e) {
       // Upward movement blocked: attempt lateral diffusion
+      if (inWatch) {
+        std::ostringstream jss;
+        jss << "{\"event\":\"vapor_up_blocked_to_sideways\""
+            << ",\"x\":" << pos.x << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+            << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+        waterDebugLog(jss.str());
+      }
       moveVaporSideways(registry, voxelGrid, dispatcher, pos, type,
                         matterContainer);
     }
   } else {
+    if (inWatch) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"vapor_decision\"" << ",\"x\":" << pos.x
+          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+          << ",\"vapor\":" << matterContainer.WaterVapor
+          << ",\"branch\":\"sideways_at_top\""
+          << ",\"max_altitude\":" << maxAltitude
+          << ",\"above_empty\":" << (isTerrainAboveEmpty ? "true" : "false")
+          << ",\"above_vapor\":" << (isTerrainAboveVapor ? "true" : "false")
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
+    }
     // if (pos.z < maxAltitude) {
     //     std::cout
     //         << "[moveVapor] Vapor bellow max altitude and blocked - Should

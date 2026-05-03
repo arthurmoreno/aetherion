@@ -8,7 +8,6 @@
 #include <memory>
 #include <shared_mutex>
 
-#include "debug/WaterDebugLog.hpp"
 #include "physics/PhysicsExceptions.hpp"
 #include "terrain/TerrainGridLock.hpp"
 
@@ -944,31 +943,12 @@ bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
 // Delete terrain at a specific voxel
 void TerrainGridRepository::deleteTerrain(entt::dispatcher &dispatcher, int x,
                                           int y, int z, bool takeLock) {
-  const bool inWatch = waterDebugInWatchRegion(x, y, z);
-  if (inWatch) {
-    std::ostringstream jss;
-    jss << "{\"event\":\"delete_terrain_enter\"" << ",\"x\":" << x
-        << ",\"y\":" << y << ",\"z\":" << z
-        << ",\"take_lock\":" << (takeLock ? "true" : "false")
-        << ",\"grid_locked\":" << (isTerrainGridLocked() ? "true" : "false")
-        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-    waterDebugLog(jss.str());
-  }
-
   std::unique_ptr<TerrainGridLock> lock;
   if (takeLock) {
     lock = std::make_unique<TerrainGridLock>(this);
   }
 
   int terrainId = storage_.deleteTerrain(x, y, z);
-
-  if (inWatch) {
-    std::ostringstream jss;
-    jss << "{\"event\":\"delete_terrain_exit\"" << ",\"x\":" << x
-        << ",\"y\":" << y << ",\"z\":" << z << ",\"returned_id\":" << terrainId
-        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-    waterDebugLog(jss.str());
-  }
 
   VoxelCoord key{x, y, z};
   if (terrainId != -2 && terrainId != -1 &&
@@ -1130,4 +1110,14 @@ int64_t TerrainGridRepository::sumTotalWater() const {
 int TerrainGridRepository::countActiveVelocityVoxels() const {
   return withSharedLock(
       [&]() -> int { return storage_.countActiveVelocityVoxels(); });
+}
+
+int TerrainGridRepository::countActiveWaterMatterVoxels() const {
+  return withSharedLock(
+      [&]() -> int { return storage_.countActiveWaterMatterVoxels(); });
+}
+
+int TerrainGridRepository::countActiveVaporMatterVoxels() const {
+  return withSharedLock(
+      [&]() -> int { return storage_.countActiveVaporMatterVoxels(); });
 }

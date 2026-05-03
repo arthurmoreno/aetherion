@@ -116,6 +116,15 @@ public:
   void dispatchCondenseWaterEvent(Position vaporPos, int condensationAmount,
                                   int terrainBelowId);
 
+  // Test/debug helper: enqueue a MoveGasEntityEvent directly. `entity` is
+  // advisory and defaults to ON_GRID_STORAGE (-1) since vapor cells no
+  // longer carry an EnTT entity. `forceX` / `forceY` drive horizontal
+  // movement (sideways diffusion); `rhoEnv` / `rhoGas` drive vertical
+  // buoyancy. Always sets `forceApplyNewVelocity` so the handler does
+  // not block on a stale direction guard.
+  void dispatchMoveGasEntityEvent(Position position, int entity, float forceX,
+                                  float forceY, float rhoEnv, float rhoGas);
+
   // Test/debug helper: enqueue a VaporCreationEvent directly. The handler
   // creates a vapor cell at `position` (must currently be NONE or a
   // vapor-transitory water cell with WaterMatter == 0) with the given

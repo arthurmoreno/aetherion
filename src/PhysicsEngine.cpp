@@ -1523,14 +1523,43 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
     return;
   }
 
-  if (terrainId != static_cast<int>(event.entity)) {
+  const bool isOnGridStorage =
+      terrainId == static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE);
+  if (waterDebugInWatchRegion(event.position.x, event.position.y,
+                              event.position.z)) {
+    std::ostringstream jss;
+    jss << "{\"event\":\"gas_handler_entry\"" << ",\"x\":" << event.position.x
+        << ",\"y\":" << event.position.y << ",\"z\":" << event.position.z
+        << ",\"terrain_id\":" << terrainId
+        << ",\"event_entity\":" << static_cast<int>(event.entity)
+        << ",\"on_grid_storage\":" << (isOnGridStorage ? "true" : "false")
+        << ",\"force_x\":" << event.forceX << ",\"force_y\":" << event.forceY
+        << ",\"rho_env\":" << event.rhoEnv << ",\"rho_gas\":" << event.rhoGas
+        << ",\"force_apply\":"
+        << (event.forceApplyNewVelocity ? "true" : "false")
+        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+    waterDebugLog(jss.str());
+  }
+  if (!isOnGridStorage && terrainId != static_cast<int>(event.entity)) {
     // Sanity gate: the cell's terrain id no longer matches the event's
     // payload — typically because the cell was drained / replaced after
-    // the event was queued. Skip rather than act on stale state. The
-    // comparison round-trips through int so it handles both the
-    // ON_GRID_STORAGE sentinel and any legacy positive entity handles
-    // that might still appear (terrain entities on cells that carry
-    // Inventory etc., none of which are gas/water cells today).
+    // the event was queued. Skip rather than act on stale state.
+    //
+    // ON_GRID_STORAGE cells skip this check: the entity field carries the
+    // sentinel rather than a real handle, and `static_cast<int>` of an
+    // unsigned `entt::entity` is not a reliable round-trip for negative
+    // sentinel values. The body below is purely coord-based for
+    // ON_GRID_STORAGE per the comment block immediately following.
+    if (waterDebugInWatchRegion(event.position.x, event.position.y,
+                                event.position.z)) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"gas_handler_gate_skip\""
+          << ",\"x\":" << event.position.x << ",\"y\":" << event.position.y
+          << ",\"z\":" << event.position.z << ",\"terrain_id\":" << terrainId
+          << ",\"event_entity\":" << static_cast<int>(event.entity)
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
+    }
     return;
   }
 
@@ -1554,6 +1583,30 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
   bool haveMovement = voxelGrid->terrainGridRepository->hasMovingComponent(
       pos.x, pos.y, pos.z);
 
+  // Defensive guard: mass must be positive, otherwise `forceX / mass`
+  // produces NaN/inf which then poisons the entire velocity grid (the cell
+  // appears stuck and any downstream movement-destination computation reads
+  // garbage). The known offender is a creation path that wrote a fractional
+  // mass into the `Int32Grid`-backed PhysicsStats and silently truncated to
+  // zero. Refuse the move with a warn log so the offender is visible.
+  if (physicsStats.mass <= 0.0f) {
+    spdlog::get("console")->warn(
+        "[onMoveGasEntityEvent] Refusing move at ({}, {}, {}): mass={} "
+        "(<= 0). The cell's PhysicsStats was not initialised by its "
+        "creator.",
+        pos.x, pos.y, pos.z, physicsStats.mass);
+    if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"gas_handler_outcome\"" << ",\"x\":" << pos.x
+          << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+          << ",\"mass\":" << physicsStats.mass
+          << ",\"outcome\":\"refuse_zero_mass\""
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
+    }
+    return;
+  }
+
   // Step 7: Calculate acceleration from forces (X and Y from applied forces,
   // Z from buoyancy)
   float gravity = PhysicsManager::Instance()->getGravity();
@@ -1565,12 +1618,14 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
   }
 
   // Step 8: Translate physics acceleration to grid velocities with max speed
-  // limits
+  // limits. Vapor is a fluid — buoyancy and horizontal forces must coexist,
+  // so use the multi-axis variant (the global `allow_multi_direction` flag
+  // governs only player / NPC movement).
   float newVelocityX, newVelocityY, newVelocityZ;
   std::tie(newVelocityX, newVelocityY, newVelocityZ) =
-      translatePhysicsToGridMovement(velocity.vx, velocity.vy, velocity.vz,
-                                     accelerationX, accelerationY,
-                                     accelerationZ, physicsStats.maxSpeed);
+      translatePhysicsToGridMovementMultiAxis(
+          velocity.vx, velocity.vy, velocity.vz, accelerationX, accelerationY,
+          accelerationZ, physicsStats.maxSpeed);
 
   // Step 9: Determine movement direction from new velocities
   DirectionEnum direction =
@@ -1601,6 +1656,22 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
     velocity.vz = newVelocityZ;
     voxelGrid->terrainGridRepository->setVelocity(pos.x, pos.y, pos.z,
                                                   velocity);
+  }
+  if (waterDebugInWatchRegion(pos.x, pos.y, pos.z)) {
+    std::ostringstream jss;
+    jss << "{\"event\":\"gas_handler_outcome\"" << ",\"x\":" << pos.x
+        << ",\"y\":" << pos.y << ",\"z\":" << pos.z
+        << ",\"mass\":" << physicsStats.mass
+        << ",\"have_movement\":" << (haveMovement ? "true" : "false")
+        << ",\"can_apply\":" << (canApplyForce ? "true" : "false")
+        << ",\"old_vel_x\":" << velocity.vx - (canApplyForce ? newVelocityX : 0)
+        << ",\"old_vel_y\":" << velocity.vy - (canApplyForce ? newVelocityY : 0)
+        << ",\"old_vel_z\":" << velocity.vz - (canApplyForce ? newVelocityZ : 0)
+        << ",\"new_vel_x\":" << newVelocityX
+        << ",\"new_vel_y\":" << newVelocityY
+        << ",\"new_vel_z\":" << newVelocityZ
+        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+    waterDebugLog(jss.str());
   }
 }
 
@@ -1801,12 +1872,15 @@ void PhysicsEngine::onMoveSolidLiquidTerrainEvent(
         accelerationZ, event.forceZ,
         PhysicsManager::Instance()->getAllowMultiDirection());
 
-    // Translate physics to grid movement
+    // Translate physics to grid movement. Liquid water is a fluid — gravity
+    // and any horizontal force (e.g. mountain-side stream redirect) must
+    // coexist, so use the multi-axis variant (the global
+    // `allow_multi_direction` flag governs only player / NPC movement).
     float newVelocityX, newVelocityY, newVelocityZ;
     std::tie(newVelocityX, newVelocityY, newVelocityZ) =
-        translatePhysicsToGridMovement(velocity.vx, velocity.vy, velocity.vz,
-                                       accelerationX, accelerationY,
-                                       accelerationZ, physicsStats.maxSpeed);
+        translatePhysicsToGridMovementMultiAxis(
+            velocity.vx, velocity.vy, velocity.vz, accelerationX, accelerationY,
+            accelerationZ, physicsStats.maxSpeed);
 
     spdlog::get("console")->debug(
         "onMoveSolidLiquidTerrainEvent -> entity={} | "
@@ -2184,19 +2258,6 @@ void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
         "onWaterFallEntityEvent -> stale entity handle {} at ({}, {}, {}); "
         "attempting transitory-cell recovery and continuing coord-based.",
         rawEntityId, event.position.x, event.position.y, event.position.z);
-
-    if (waterDebugInWatchRegion(event.position.x, event.position.y,
-                                event.position.z)) {
-      std::ostringstream jss;
-      jss << "{\"event\":\"recovery_triggered\""
-          << ",\"x\":" << event.position.x << ",\"y\":" << event.position.y
-          << ",\"z\":" << event.position.z
-          << ",\"invalid_entity\":" << rawEntityId
-          << ",\"invalid_entity_hex\":\"0x" << std::hex
-          << static_cast<unsigned int>(rawEntityId) << std::dec << "\""
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
 
     _recoverStaleTerrainCellIfTransitory(*voxelGrid, dispatcher,
                                          event.position.x, event.position.y,

@@ -13,6 +13,7 @@
 #include "components/MetabolismComponents.hpp"
 #include "components/MovingComponent.hpp"
 #include "components/PhysicsComponents.hpp"
+#include "debug/WaterDebugLog.hpp"
 #include "ecosystem/EcosystemEvents.hpp"
 #include "items/ItemConfiguration.hpp"
 #include "items/ItemConfigurationManager.hpp"
@@ -154,7 +155,13 @@ inline void createVaporTerrainEntity(entt::registry &registry,
   newMatterContainer.WaterMatter = 0;
 
   PhysicsStats newPhysicsStats = {};
-  newPhysicsStats.mass = 0.1;
+  // mass is stored in an Int32Grid in `TerrainStorage`, so fractional values
+  // truncate on `setPhysicsStats`. Pre-#41 mass=0.1 worked because PhysicsStats
+  // was a float-field ECS component; post-migration `int(0.1) == 0` and the
+  // gas handler then computes `accelerationX = forceX / 0` → NaN, polluting
+  // the velocity grid and silently stalling vapor. Use the smallest integer
+  // that survives truncation while keeping vapor lighter than water (mass=20).
+  newPhysicsStats.mass = 1;
   newPhysicsStats.maxSpeed = 10;
   newPhysicsStats.minSpeed = 0.0;
 
@@ -1799,6 +1806,23 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
       voxelGrid.terrainGridRepository->getTerrainMatterContainer(
           sourcePos.x, sourcePos.y, sourcePos.z);
 
+  const bool inWatch = waterDebugInWatchRegion(sourcePos.x, sourcePos.y,
+                                               sourcePos.z) ||
+                       waterDebugInWatchRegion(toX, toY, toZ);
+  if (inWatch) {
+    std::ostringstream jss;
+    jss << "{\"event\":\"velocity_move_entry\""
+        << ",\"src_x\":" << sourcePos.x << ",\"src_y\":" << sourcePos.y
+        << ",\"src_z\":" << sourcePos.z << ",\"dst_x\":" << toX
+        << ",\"dst_y\":" << toY << ",\"dst_z\":" << toZ
+        << ",\"vel_x\":" << vel.vx << ",\"vel_y\":" << vel.vy
+        << ",\"vel_z\":" << vel.vz
+        << ",\"src_water\":" << sourceMatter.WaterMatter
+        << ",\"src_vapor\":" << sourceMatter.WaterVapor
+        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+    waterDebugLog(jss.str());
+  }
+
   // Defence 1: source itself is in invariant violation. We refuse to
   // propagate it via `moveTerrain` (which would overwrite a clean dest
   // with the violated matter). Clear velocity so the source stops
@@ -1812,6 +1836,15 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
         "violates the WaterMatter/WaterVapor invariant — refusing move "
         "to ({}, {}, {}). Clearing source velocity.",
         sourcePos.x, sourcePos.y, sourcePos.z, toX, toY, toZ);
+    if (inWatch) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"velocity_move_outcome\""
+          << ",\"src_x\":" << sourcePos.x << ",\"src_y\":" << sourcePos.y
+          << ",\"src_z\":" << sourcePos.z
+          << ",\"outcome\":\"refuse_source_violation\""
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
+    }
     voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
                                                  sourcePos.z,
                                                  Velocity{0.0f, 0.0f, 0.0f});
@@ -1843,6 +1876,18 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
           "Skipping move and clearing source velocity.",
           sourcePos.x, sourcePos.y, sourcePos.z, sourceIsLiquid, sourceIsVapor,
           toX, toY, toZ, destIsLiquid, destIsVapor);
+      if (inWatch) {
+        std::ostringstream jss;
+        jss << "{\"event\":\"velocity_move_outcome\""
+            << ",\"src_x\":" << sourcePos.x << ",\"src_y\":" << sourcePos.y
+            << ",\"src_z\":" << sourcePos.z << ",\"dst_x\":" << toX
+            << ",\"dst_y\":" << toY << ",\"dst_z\":" << toZ
+            << ",\"outcome\":\"refuse_phase_mismatch\""
+            << ",\"dst_water\":" << destMatter.WaterMatter
+            << ",\"dst_vapor\":" << destMatter.WaterVapor
+            << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+        waterDebugLog(jss.str());
+      }
       voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
                                                    sourcePos.z,
                                                    Velocity{0.0f, 0.0f, 0.0f});
@@ -1857,6 +1902,18 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
         "[_attemptVelocityDrivenMove] Destination ({}, {}, {}) already "
         "populated (same-phase). Skipping move and clearing source velocity.",
         toX, toY, toZ);
+    if (inWatch) {
+      std::ostringstream jss;
+      jss << "{\"event\":\"velocity_move_outcome\""
+          << ",\"src_x\":" << sourcePos.x << ",\"src_y\":" << sourcePos.y
+          << ",\"src_z\":" << sourcePos.z << ",\"dst_x\":" << toX
+          << ",\"dst_y\":" << toY << ",\"dst_z\":" << toZ
+          << ",\"outcome\":\"refuse_dest_populated\""
+          << ",\"dst_water\":" << destMatter.WaterMatter
+          << ",\"dst_vapor\":" << destMatter.WaterVapor
+          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      waterDebugLog(jss.str());
+    }
     voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
                                                  sourcePos.z,
                                                  Velocity{0.0f, 0.0f, 0.0f});
@@ -1875,6 +1932,16 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
   // the next tick.
   _nudgeSettledWaterAfterDrain(voxelGrid, sourcePos.x, sourcePos.y,
                                sourcePos.z);
+  if (inWatch) {
+    std::ostringstream jss;
+    jss << "{\"event\":\"velocity_move_outcome\""
+        << ",\"src_x\":" << sourcePos.x << ",\"src_y\":" << sourcePos.y
+        << ",\"src_z\":" << sourcePos.z << ",\"dst_x\":" << toX
+        << ",\"dst_y\":" << toY << ",\"dst_z\":" << toZ
+        << ",\"outcome\":\"move_success\""
+        << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+    waterDebugLog(jss.str());
+  }
   return true;
 }
 

@@ -544,7 +544,12 @@ int TerrainStorage::getTerrainMatter(int x, int y, int z) const {
 }
 
 void TerrainStorage::setTerrainWaterMatter(int x, int y, int z, int amount) {
-  waterMatterGrid->tree().setValue(openvdb::Coord(x, y, z), amount);
+  auto c = openvdb::Coord(x, y, z);
+  if (amount == 0) {
+    waterMatterGrid->tree().setValueOff(c, 0);
+  } else {
+    waterMatterGrid->tree().setValue(c, amount);
+  }
 }
 
 int TerrainStorage::getTerrainWaterMatter(int x, int y, int z) const {
@@ -552,7 +557,12 @@ int TerrainStorage::getTerrainWaterMatter(int x, int y, int z) const {
 }
 
 void TerrainStorage::setTerrainVaporMatter(int x, int y, int z, int amount) {
-  vaporMatterGrid->tree().setValue(openvdb::Coord(x, y, z), amount);
+  auto c = openvdb::Coord(x, y, z);
+  if (amount == 0) {
+    vaporMatterGrid->tree().setValueOff(c, 0);
+  } else {
+    vaporMatterGrid->tree().setValue(c, amount);
+  }
 }
 
 int TerrainStorage::getTerrainVaporMatter(int x, int y, int z) const {
@@ -796,25 +806,40 @@ int TerrainStorage::deleteTerrain(int x, int y, int z) {
     terrainGrid->tree().setValueOff(coord);
   }
 
-  // Also deactivate in all other grids for this coordinate
-  mainTypeGrid->tree().setValueOff(coord);
-  subType0Grid->tree().setValueOff(coord);
-  subType1Grid->tree().setValueOff(coord);
-  terrainMatterGrid->tree().setValueOff(coord);
-  waterMatterGrid->tree().setValueOff(coord);
-  vaporMatterGrid->tree().setValueOff(coord);
-  biomassMatterGrid->tree().setValueOff(coord);
-  massGrid->tree().setValueOff(coord);
-  maxSpeedGrid->tree().setValueOff(coord);
-  minSpeedGrid->tree().setValueOff(coord);
-  flagsGrid->tree().setValueOff(coord);
-  maxLoadCapacityGrid->tree().setValueOff(coord);
+  // Reset each grid to a sentinel value AND deactivate the voxel.
+  // `setValueOff(coord)` alone only flips the active flag — it leaves the
+  // stored value intact, so a subsequent `getValue(coord)` still returns the
+  // pre-delete amount. That is the orphan-matter / orphan-velocity source
+  // that surfaced as "vapor=200 at a terrainId == NONE cell" after
+  // `moveTerrain`. The two-arg `setValueOff(coord, value)` writes the value
+  // then marks the voxel inactive in a single OpenVDB call.
+  //
+  // The sentinel values must not collide with any real enum / measurement
+  // value, so that any caller that mistakenly reads this cell without first
+  // gating on `terrain_id == -2` gets a value that is obviously "not real
+  // terrain data" rather than e.g. the TERRAIN main-type or the EMPTY
+  // sub-type. Type grids use -1/-2 sentinels because 0 is a real maintype
+  // (TERRAIN) and -1 is a real sub-type (EMPTY). Matter / stats / flags /
+  // velocity grids use 0 because that is the genuine "no matter / no
+  // movement" value.
+  mainTypeGrid->tree().setValueOff(coord, -1);
+  subType0Grid->tree().setValueOff(coord, -1);
+  subType1Grid->tree().setValueOff(coord, -2);
+  terrainMatterGrid->tree().setValueOff(coord, 0);
+  waterMatterGrid->tree().setValueOff(coord, 0);
+  vaporMatterGrid->tree().setValueOff(coord, 0);
+  biomassMatterGrid->tree().setValueOff(coord, 0);
+  massGrid->tree().setValueOff(coord, 0);
+  maxSpeedGrid->tree().setValueOff(coord, 0);
+  minSpeedGrid->tree().setValueOff(coord, 0);
+  flagsGrid->tree().setValueOff(coord, 0);
+  maxLoadCapacityGrid->tree().setValueOff(coord, 0);
   if (velXGrid)
-    velXGrid->tree().setValueOff(coord);
+    velXGrid->tree().setValueOff(coord, 0.0f);
   if (velYGrid)
-    velYGrid->tree().setValueOff(coord);
+    velYGrid->tree().setValueOff(coord, 0.0f);
   if (velZGrid)
-    velZGrid->tree().setValueOff(coord);
+    velZGrid->tree().setValueOff(coord, 0.0f);
 
   return oldTerrainId;
 }
@@ -867,5 +892,27 @@ int TerrainStorage::countActiveVelocityVoxels() const {
   int count = 0;
   for (auto it = velXGrid->cbeginValueOn(); it; ++it)
     ++count;
+  return count;
+}
+
+int TerrainStorage::countActiveWaterMatterVoxels() const {
+  if (!waterMatterGrid)
+    return 0;
+  int count = 0;
+  for (auto it = waterMatterGrid->cbeginValueOn(); it; ++it) {
+    if (it.getValue() > 0)
+      ++count;
+  }
+  return count;
+}
+
+int TerrainStorage::countActiveVaporMatterVoxels() const {
+  if (!vaporMatterGrid)
+    return 0;
+  int count = 0;
+  for (auto it = vaporMatterGrid->cbeginValueOn(); it; ++it) {
+    if (it.getValue() > 0)
+      ++count;
+  }
   return count;
 }

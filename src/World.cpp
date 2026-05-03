@@ -678,6 +678,16 @@ void World::dispatchCondenseWaterEvent(Position vaporPos,
                                                terrainBelowId);
 }
 
+void World::dispatchMoveGasEntityEvent(Position position, int entity,
+                                       float forceX, float forceY, float rhoEnv,
+                                       float rhoGas) {
+  MoveGasEntityEvent event{static_cast<entt::entity>(entity), position,
+                           forceX,   forceY,
+                           rhoEnv,   rhoGas};
+  event.setForceApplyNewVelocity();
+  dispatcher.enqueue<MoveGasEntityEvent>(event);
+}
+
 void World::dispatchVaporCreationEvent(Position position, int amount) {
   // `targetExists = false` matches what `dispatchVaporCreationOrAddition`
   // emits when the destination cell is NONE — drives the create-new-vapor

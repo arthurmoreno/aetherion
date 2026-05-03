@@ -6,9 +6,12 @@
 #include <string>
 #include <thread>
 
-// Watch corridor matching the known crash coordinates.
+// Watch corridor — narrow region around the active investigation. Adjust as
+// needed; only voxels inside this box emit JSONL events to keep the trace
+// readable. Currently scoped to the spring's vapor column for the gas-stall
+// investigation.
 inline bool waterDebugInWatchRegion(int x, int y, int z) {
-  return x >= 88 && x <= 99 && y >= 49 && y <= 51 && z >= 0 && z <= 2;
+  return x >= 48 && x <= 52 && y >= 86 && y <= 96 && z >= 0 && z <= 9;
 }
 
 // Thread-safe append of a single JSON line to water_debug.jsonl.

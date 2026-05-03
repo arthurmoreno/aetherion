@@ -389,6 +389,14 @@ NB_MODULE(_aetherion, m) {
            [](const TerrainGridRepository &repo) -> int {
              return repo.countActiveVelocityVoxels();
            })
+      .def("count_active_water_matter_voxels",
+           [](const TerrainGridRepository &repo) -> int {
+             return repo.countActiveWaterMatterVoxels();
+           })
+      .def("count_active_vapor_matter_voxels",
+           [](const TerrainGridRepository &repo) -> int {
+             return repo.countActiveVaporMatterVoxels();
+           })
       .def("sum_total_water", [](const TerrainGridRepository &repo) -> int64_t {
         return repo.sumTotalWater();
       });
@@ -805,6 +813,16 @@ NB_MODULE(_aetherion, m) {
            "(NONE) to drive the empty-destination branch "
            "(`createWaterTerrainBelowVapor`); pass a non-NONE id to test "
            "merging condensation into existing terrain below.")
+      .def("dispatch_move_gas_entity_event",
+           &World::dispatchMoveGasEntityEvent, nb::arg("position"),
+           nb::arg("entity") =
+               static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE),
+           nb::arg("force_x") = 0.0f, nb::arg("force_y") = 0.0f,
+           nb::arg("rho_env") = 1.225f, nb::arg("rho_gas") = 0.597f,
+           "Enqueue a MoveGasEntityEvent for a vapor cell at `position`. "
+           "`entity` defaults to ON_GRID_STORAGE (-1) since vapor no longer "
+           "carries an EnTT entity. Air/vapor densities default to the values "
+           "used by moveVaporUp.")
       .def("dispatch_vapor_creation_event",
            &World::dispatchVaporCreationEvent, nb::arg("position"),
            nb::arg("amount"),

@@ -8,7 +8,6 @@
 #include "components/EntityTypeComponent.hpp"
 #include "components/PhysicsComponents.hpp"
 #include "components/TerrainComponents.hpp"
-#include "debug/WaterDebugLog.hpp"
 #include "physics/PhysicalMath.hpp"
 #include "physics/PhysicsEvents.hpp"
 #include "physics/ReadonlyQueries.hpp"
@@ -54,15 +53,6 @@ inline bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry &registry,
         "[isTerrainVoxelEmptyOrSoftEmpty] Unexpected terrain ID {} (0x{:016X}) "
         "at ({},{},{}) — triggering cleanup",
         terrainId, static_cast<uint64_t>(terrainId), x, y, z);
-    {
-      std::ostringstream jss;
-      jss << "{\"event\":\"invalid_terrain_id\"" << ",\"x\":" << x
-          << ",\"y\":" << y << ",\"z\":" << z << ",\"terrain_id\":" << terrainId
-          << ",\"terrain_id_hex\":\"0x" << std::hex
-          << static_cast<uint64_t>(terrainId) << std::dec << "\""
-          << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
-      waterDebugLog(jss.str());
-    }
     dispatcher.trigger<InvalidTerrainFoundEvent>(
         InvalidTerrainFoundEvent{x, y, z});
     return false;

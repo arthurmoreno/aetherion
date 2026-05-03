@@ -201,8 +201,24 @@ public:
   template <typename Callback>
   void iterateVelocityVoxels(Callback callback) const;
 
+  // Iterate every voxel that currently carries non-zero liquid water.
+  // Callback signature: void(int x, int y, int z, int waterMatter)
+  template <typename Callback>
+  void iterateWaterMatterVoxels(Callback callback) const;
+
+  // Iterate every voxel that currently carries non-zero vapor.
+  // Callback signature: void(int x, int y, int z, int vaporMatter)
+  template <typename Callback>
+  void iterateVaporMatterVoxels(Callback callback) const;
+
   // Count of voxels currently carrying non-zero velocity (active in velXGrid).
   int countActiveVelocityVoxels() const;
+
+  // Count of voxels currently carrying non-zero liquid water.
+  int countActiveWaterMatterVoxels() const;
+
+  // Count of voxels currently carrying non-zero vapor.
+  int countActiveVaporMatterVoxels() const;
 
   // Generic iterator that provides TerrainInfo for each active voxel
   template <typename Callback>
@@ -369,6 +385,16 @@ void TerrainGridRepository::iterateActiveVoxels(Callback callback) const {
 template <typename Callback>
 void TerrainGridRepository::iterateVelocityVoxels(Callback callback) const {
   withSharedLock([&]() { storage_.iterateVelocityVoxels(callback); });
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateWaterMatterVoxels(Callback callback) const {
+  withSharedLock([&]() { storage_.iterateWaterMatter(callback); });
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateVaporMatterVoxels(Callback callback) const {
+  withSharedLock([&]() { storage_.iterateVaporMatter(callback); });
 }
 
 #endif // TERRAIN_GRID_REPOSITORY_HPP
