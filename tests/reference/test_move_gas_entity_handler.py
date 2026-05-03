@@ -52,39 +52,26 @@ def test_move_gas_event_lifts_on_grid_storage_vapor():
     # Source must be fully cleared — terrain id, matter, and velocity. The
     # `deleteTerrain` orphan fix guarantees this; a regression here means
     # `setValueOff(coord)` slipped back in somewhere on the move path.
-    assert voxel_grid.get_terrain(2, 2, 2) == -2, (
-        "Source cell should be empty after the buoyancy-driven move"
-    )
+    assert voxel_grid.get_terrain(2, 2, 2) == -2, "Source cell should be empty after the buoyancy-driven move"
     src_matter = repo.get_terrain_matter_container(2, 2, 2)
     assert src_matter.water_vapor == 0, (
-        f"Source vapor must be cleared (orphan-matter regression check); "
-        f"got {src_matter.water_vapor}"
+        f"Source vapor must be cleared (orphan-matter regression check); got {src_matter.water_vapor}"
     )
     src_vel = repo.get_terrain_velocity(2, 2, 2)
-    assert src_vel == (0.0, 0.0, 0.0), (
-        f"Source velocity must be cleared post-move; got {src_vel}"
-    )
+    assert src_vel == (0.0, 0.0, 0.0), f"Source velocity must be cleared post-move; got {src_vel}"
 
     # Destination at (2,2,3) holds the migrated vapor with the buoyancy
     # velocity carried over by `moveTerrain`.
-    assert voxel_grid.get_terrain(2, 2, 3) == -1, (
-        "Vapor should have migrated up to (2,2,3) as ON_GRID_STORAGE"
-    )
+    assert voxel_grid.get_terrain(2, 2, 3) == -1, "Vapor should have migrated up to (2,2,3) as ON_GRID_STORAGE"
     dst_matter = repo.get_terrain_matter_container(2, 2, 3)
     assert dst_matter.water_vapor == 200, (
-        f"Vapor amount must be preserved across the move; got "
-        f"{dst_matter.water_vapor}"
+        f"Vapor amount must be preserved across the move; got {dst_matter.water_vapor}"
     )
     _, _, dst_vz = repo.get_terrain_velocity(2, 2, 3)
-    assert dst_vz > 0.0, (
-        f"Destination should retain the upward buoyancy velocity; got "
-        f"vz={dst_vz}"
-    )
+    assert dst_vz > 0.0, f"Destination should retain the upward buoyancy velocity; got vz={dst_vz}"
 
     # No vapor was lost or duplicated.
-    assert repo.count_active_vapor_matter_voxels() == 1, (
-        "Total vapor cell count must be conserved (1 cell, just moved)"
-    )
+    assert repo.count_active_vapor_matter_voxels() == 1, "Total vapor cell count must be conserved (1 cell, just moved)"
 
 
 def test_move_gas_event_applies_horizontal_force_to_on_grid_storage_vapor():
@@ -108,33 +95,24 @@ def test_move_gas_event_applies_horizontal_force_to_on_grid_storage_vapor():
     manager.update()
 
     # Cell migrated diagonally up-and-right. Source empty.
-    assert voxel_grid.get_terrain(2, 2, 2) == -2, (
-        "Source cell should be empty after the multi-axis move"
-    )
+    assert voxel_grid.get_terrain(2, 2, 2) == -2, "Source cell should be empty after the multi-axis move"
     assert voxel_grid.get_terrain(3, 2, 3) == -1, (
         "Vapor should have migrated diagonally to (3,2,3) — proves both "
         "horizontal force AND vertical buoyancy contributed (W1 multi-axis)"
     )
     dst_matter = repo.get_terrain_matter_container(3, 2, 3)
     assert dst_matter.water_vapor == 200, (
-        f"Vapor amount must be preserved across the diagonal move; got "
-        f"{dst_matter.water_vapor}"
+        f"Vapor amount must be preserved across the diagonal move; got {dst_matter.water_vapor}"
     )
 
     # The velocity carried to the destination must have BOTH x and z
     # components — that's the W1 multi-axis fix at work. With the
     # single-dominant-axis behaviour, vx would have stayed 0.
     dst_vx, _, dst_vz = repo.get_terrain_velocity(3, 2, 3)
-    assert dst_vx > 0.0, (
-        f"Horizontal force must contribute to velocity; got vx={dst_vx}"
-    )
-    assert dst_vz > 0.0, (
-        f"Vertical buoyancy must coexist with horizontal force; got vz={dst_vz}"
-    )
+    assert dst_vx > 0.0, f"Horizontal force must contribute to velocity; got vx={dst_vx}"
+    assert dst_vz > 0.0, f"Vertical buoyancy must coexist with horizontal force; got vz={dst_vz}"
 
-    assert repo.count_active_vapor_matter_voxels() == 1, (
-        "Vapor cell count must be conserved across the move"
-    )
+    assert repo.count_active_vapor_matter_voxels() == 1, "Vapor cell count must be conserved across the move"
 
 
 def test_move_gas_event_is_a_noop_at_none_cell():
@@ -150,6 +128,4 @@ def test_move_gas_event_is_a_noop_at_none_cell():
     manager.update()
 
     vx, vy, vz = _repo(manager).get_terrain_velocity(2, 2, 2)
-    assert (vx, vy, vz) == (0.0, 0.0, 0.0), (
-        f"NONE cell must not receive velocity; got ({vx}, {vy}, {vz})"
-    )
+    assert (vx, vy, vz) == (0.0, 0.0, 0.0), f"NONE cell must not receive velocity; got ({vx}, {vy}, {vz})"

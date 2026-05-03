@@ -817,8 +817,8 @@ NB_MODULE(_aetherion, m) {
            "(NONE) to drive the empty-destination branch "
            "(`createWaterTerrainBelowVapor`); pass a non-NONE id to test "
            "merging condensation into existing terrain below.")
-      .def("dispatch_move_gas_entity_event",
-           &World::dispatchMoveGasEntityEvent, nb::arg("position"),
+      .def("dispatch_move_gas_entity_event", &World::dispatchMoveGasEntityEvent,
+           nb::arg("position"),
            nb::arg("entity") =
                static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE),
            nb::arg("force_x") = 0.0f, nb::arg("force_y") = 0.0f,
@@ -827,18 +827,16 @@ NB_MODULE(_aetherion, m) {
            "`entity` defaults to ON_GRID_STORAGE (-1) since vapor no longer "
            "carries an EnTT entity. Air/vapor densities default to the values "
            "used by moveVaporUp.")
-      .def("dispatch_vapor_creation_event",
-           &World::dispatchVaporCreationEvent, nb::arg("position"),
-           nb::arg("amount"),
+      .def("dispatch_vapor_creation_event", &World::dispatchVaporCreationEvent,
+           nb::arg("position"), nb::arg("amount"),
            "Enqueue a VaporCreationEvent at `position` with the given vapor "
            "amount. Drives `createVaporTerrainEntity` so the resulting cell "
            "lands as ON_GRID_STORAGE without an EnTT entity. The target "
            "cell must be NONE (or a vapor-transitory water cell with "
            "WaterMatter == 0); otherwise the handler logs a warning and "
            "skips.")
-      .def("dispatch_water_creation_event",
-           &World::dispatchWaterCreationEvent, nb::arg("position"),
-           nb::arg("amount"),
+      .def("dispatch_water_creation_event", &World::dispatchWaterCreationEvent,
+           nb::arg("position"), nb::arg("amount"),
            "Enqueue a WaterCreationEvent at `position` with the given "
            "water-matter amount. Materialises liquid water from a coord-only "
            "source — used by `SpringWaterSystem`, scripted weather, future "

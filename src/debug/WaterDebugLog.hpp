@@ -38,13 +38,20 @@ inline bool waterDebugInWatchRegion(int x, int y, int z) {
 // Active family (when master is on): kWaterDebugTrackEvapCondense +
 // kWaterDebugTrackTickPhases + kWaterDebugTrackHandlers +
 // kWaterDebugTrackWaterSpreadSteps. Others kept silent.
-inline constexpr bool kWaterDebugTrackEvapCondense       = kWaterDebugEnabled && true;
-inline constexpr bool kWaterDebugTrackTickPhases         = kWaterDebugEnabled && true;   // World::update phase boundaries
-inline constexpr bool kWaterDebugTrackHandlers           = kWaterDebugEnabled && true;   // PhysicsEngine::on*Event entry/exit
-inline constexpr bool kWaterDebugTrackWaterSpreadSteps   = kWaterDebugEnabled && true;   // sub-step probes inside _handleWaterSpreadEvent
-inline constexpr bool kWaterDebugTrackVaporMovement      = kWaterDebugEnabled && false;  // V3/V4 stall
-inline constexpr bool kWaterDebugTrackVaporMergeSideways = kWaterDebugEnabled && false;
-inline constexpr bool kWaterDebugTrackVelocityMove       = kWaterDebugEnabled && false;  // water flow
+inline constexpr bool kWaterDebugTrackEvapCondense = kWaterDebugEnabled && true;
+inline constexpr bool kWaterDebugTrackTickPhases =
+    kWaterDebugEnabled && true; // World::update phase boundaries
+inline constexpr bool kWaterDebugTrackHandlers =
+    kWaterDebugEnabled && true; // PhysicsEngine::on*Event entry/exit
+inline constexpr bool kWaterDebugTrackWaterSpreadSteps =
+    kWaterDebugEnabled &&
+    true; // sub-step probes inside _handleWaterSpreadEvent
+inline constexpr bool kWaterDebugTrackVaporMovement =
+    kWaterDebugEnabled && false; // V3/V4 stall
+inline constexpr bool kWaterDebugTrackVaporMergeSideways =
+    kWaterDebugEnabled && false;
+inline constexpr bool kWaterDebugTrackVelocityMove =
+    kWaterDebugEnabled && false; // water flow
 
 // Thread-safe append of a single JSON line to water_debug.jsonl.
 //
@@ -68,7 +75,8 @@ inline std::string waterDebugThreadId() {
 }
 
 // Tick-phase marker — no coord filter; emits one JSONL line per phase boundary.
-// The trailing tick counter is appended by the caller for ordering across ticks.
+// The trailing tick counter is appended by the caller for ordering across
+// ticks.
 inline void waterDebugLogPhase(const char *phase, const char *boundary,
                                long long tick) {
   if (!kWaterDebugTrackTickPhases)
@@ -89,8 +97,8 @@ inline void waterDebugLogHandler(const char *handler, const char *boundary) {
     return;
   std::ostringstream jss;
   jss << "{\"event\":\"handler\"" << ",\"handler\":\"" << handler << "\""
-      << ",\"boundary\":\"" << boundary << "\""
-      << ",\"thread\":\"" << waterDebugThreadId() << "\"}";
+      << ",\"boundary\":\"" << boundary << "\"" << ",\"thread\":\""
+      << waterDebugThreadId() << "\"}";
   waterDebugLog(jss.str());
 }
 

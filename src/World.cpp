@@ -681,9 +681,12 @@ void World::dispatchCondenseWaterEvent(Position vaporPos,
 void World::dispatchMoveGasEntityEvent(Position position, int entity,
                                        float forceX, float forceY, float rhoEnv,
                                        float rhoGas) {
-  MoveGasEntityEvent event{static_cast<entt::entity>(entity), position,
-                           forceX,   forceY,
-                           rhoEnv,   rhoGas};
+  MoveGasEntityEvent event{static_cast<entt::entity>(entity),
+                           position,
+                           forceX,
+                           forceY,
+                           rhoEnv,
+                           rhoGas};
   event.setForceApplyNewVelocity();
   dispatcher.enqueue<MoveGasEntityEvent>(event);
 }

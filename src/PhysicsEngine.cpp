@@ -1551,8 +1551,8 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
 
   // Step 6: Check if the cell already has a movement component (repository
   // is the source of truth).
-  bool haveMovement = voxelGrid->terrainGridRepository->hasMovingComponent(
-      pos.x, pos.y, pos.z);
+  bool haveMovement =
+      voxelGrid->terrainGridRepository->hasMovingComponent(pos.x, pos.y, pos.z);
 
   // Defensive guard: mass must be positive, otherwise `forceX / mass`
   // produces NaN/inf which then poisons the entire velocity grid (the cell

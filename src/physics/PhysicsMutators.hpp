@@ -90,9 +90,8 @@
 // line tagged with the mutator name; the per-tick check in
 // `processTileWater` still trips the actual exception, but the log shows
 // which mutator's outgoing matter caused it.
-inline void
-_logIfViolatingMatterWrite(const char *mutatorName, int x, int y, int z,
-                           const MatterContainer &outgoing) {
+inline void _logIfViolatingMatterWrite(const char *mutatorName, int x, int y,
+                                       int z, const MatterContainer &outgoing) {
   if (outgoing.WaterMatter > 0 && outgoing.WaterVapor > 0) {
     auto logger = spdlog::get("console");
     if (logger) {
@@ -1550,8 +1549,8 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
   }
 
   // spdlog::get("console")->info(
-  //     "[createWaterTerrainBelowVapor] Creating water terrain below vapor at (" +
-  //     std::to_string(vaporX) + ", " + std::to_string(vaporY) + ", " +
+  //     "[createWaterTerrainBelowVapor] Creating water terrain below vapor at
+  //     (" + std::to_string(vaporX) + ", " + std::to_string(vaporY) + ", " +
   //     std::to_string(vaporZ - 1) +
   //     ") with condensation amount: " + std::to_string(condensationAmount));
 
@@ -1681,8 +1680,8 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
   (void)registry; // no longer creates an EnTT entity for the new water voxel
 
   // spdlog::get("console")->info(
-  //     "[createWaterTerrainBelowVapor] Created water terrain below vapor at (" +
-  //     std::to_string(vaporX) + ", " + std::to_string(vaporY) + ", " +
+  //     "[createWaterTerrainBelowVapor] Created water terrain below vapor at ("
+  //     + std::to_string(vaporX) + ", " + std::to_string(vaporY) + ", " +
   //     std::to_string(vaporZ - 1) +
   //     ") with amount: " + std::to_string(condensationAmount));
 }
@@ -1711,8 +1710,9 @@ inline void _handleInvalidTerrainFound(entt::dispatcher &dispatcher,
 // Returns ``true`` when the cell was recovered (caller can treat it as
 // freshly NONE), ``false`` when the cell holds real matter and the
 // caller should leave it alone.
-inline bool _recoverStaleTerrainCellIfTransitory(
-    VoxelGrid &voxelGrid, entt::dispatcher &dispatcher, int x, int y, int z) {
+inline bool _recoverStaleTerrainCellIfTransitory(VoxelGrid &voxelGrid,
+                                                 entt::dispatcher &dispatcher,
+                                                 int x, int y, int z) {
   EntityTypeComponent type =
       voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
   const bool isTransitoryEmpty =
@@ -1816,9 +1816,8 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
         "violates the WaterMatter/WaterVapor invariant — refusing move "
         "to ({}, {}, {}). Clearing source velocity.",
         sourcePos.x, sourcePos.y, sourcePos.z, toX, toY, toZ);
-    voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
-                                                 sourcePos.z,
-                                                 Velocity{0.0f, 0.0f, 0.0f});
+    voxelGrid.terrainGridRepository->setVelocity(
+        sourcePos.x, sourcePos.y, sourcePos.z, Velocity{0.0f, 0.0f, 0.0f});
     return false;
   }
 
@@ -1847,9 +1846,8 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
           "Skipping move and clearing source velocity.",
           sourcePos.x, sourcePos.y, sourcePos.z, sourceIsLiquid, sourceIsVapor,
           toX, toY, toZ, destIsLiquid, destIsVapor);
-      voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
-                                                   sourcePos.z,
-                                                   Velocity{0.0f, 0.0f, 0.0f});
+      voxelGrid.terrainGridRepository->setVelocity(
+          sourcePos.x, sourcePos.y, sourcePos.z, Velocity{0.0f, 0.0f, 0.0f});
       return false;
     }
 
@@ -1861,9 +1859,8 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
         "[_attemptVelocityDrivenMove] Destination ({}, {}, {}) already "
         "populated (same-phase). Skipping move and clearing source velocity.",
         toX, toY, toZ);
-    voxelGrid.terrainGridRepository->setVelocity(sourcePos.x, sourcePos.y,
-                                                 sourcePos.z,
-                                                 Velocity{0.0f, 0.0f, 0.0f});
+    voxelGrid.terrainGridRepository->setVelocity(
+        sourcePos.x, sourcePos.y, sourcePos.z, Velocity{0.0f, 0.0f, 0.0f});
     return false;
   }
 
@@ -1955,9 +1952,9 @@ inline void _handleWaterCreationEvent(entt::registry &registry,
   // Refusal path with retry: cell holds pure vapor. Re-enqueue with
   // retryCount + 1 so the surrounding vapor has a tick to disperse, abort
   // with a warning once `WATER_VAPOR_CONFLICT_RETRY_LIMIT` is reached.
-  const bool destinationIsVaporOnly =
-      !destinationIsEmpty && destMatter.WaterVapor > 0 &&
-      destMatter.WaterMatter <= 0;
+  const bool destinationIsVaporOnly = !destinationIsEmpty &&
+                                      destMatter.WaterVapor > 0 &&
+                                      destMatter.WaterMatter <= 0;
   if (destinationIsVaporOnly) {
     if (event.retryCount < WATER_VAPOR_CONFLICT_RETRY_LIMIT) {
       dispatcher.enqueue<WaterCreationEvent>(WaterCreationEvent{
@@ -2119,7 +2116,8 @@ inline void _handleWaterGravityFlowEvent(entt::registry &registry,
     // Source always needs deletion now that the function no longer reuses an
     // ECS source entity at the destination.
 
-    // spdlog::get("console")->warn("[_handleWaterGravityFlowEvent] Empty terrain "
+    // spdlog::get("console")->warn("[_handleWaterGravityFlowEvent] Empty
+    // terrain "
     //                              "at ({}, {}, {}), deleting it.",
     //                              event.source.x, event.source.y,
     //                              event.source.z);
@@ -2207,7 +2205,8 @@ inline void _handleVaporMergeSidewaysEvent(
       spdlog::get("console")->info(ossMessage.str());
       dispatcher.enqueue<KillEntityEvent>(sourceEntity);
     } else {
-      // spdlog::get("console")->warn("[VaporMergeSidewaysEvent] Source terrain "
+      // spdlog::get("console")->warn("[VaporMergeSidewaysEvent] Source terrain
+      // "
       //                              "ID {} is not a valid entity; skipping "
       //                              "deletion.",
       //                              event.sourceTerrainId);

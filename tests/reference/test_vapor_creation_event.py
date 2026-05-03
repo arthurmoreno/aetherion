@@ -44,9 +44,7 @@ def test_vapor_creation_event_lands_as_on_grid_storage():
     sleep(0.001)
 
     tid = voxel_grid.get_terrain(*target)
-    assert tid == -1, (
-        f"Vapor cell at {target} has tid={tid}, expected -1 (ON_GRID_STORAGE)"
-    )
+    assert tid == -1, f"Vapor cell at {target} has tid={tid}, expected -1 (ON_GRID_STORAGE)"
     assert water_vapor(voxel_grid, *target) == 10
 
 
@@ -78,7 +76,6 @@ def test_vapor_creation_does_not_grow_entity_count():
     for target in targets:
         tid = voxel_grid.get_terrain(*target)
         assert tid == -1, (
-            f"Vapor cell at {target} got tid={tid}; any value other than -1 "
-            f"means an EnTT entity was created"
+            f"Vapor cell at {target} got tid={tid}; any value other than -1 means an EnTT entity was created"
         )
         assert water_vapor(voxel_grid, *target) == 5
