@@ -67,6 +67,9 @@ public:
    * @brief Create an entity using the EntityInterface data
    */
   entt::entity createEntity(const EntityInterface &entityInterface);
+
+  // Three-path dispatcher (plain terrain / hybrid / non-terrain) classified
+  // by `EntityStorageKind`.
   entt::entity createEntityFromPython(nb::object pyEntity);
   void removeEntity(entt::entity entity);
   // Destroy only the EnTT entity handle. Caller must hold appropriate lifecycle
@@ -217,6 +220,29 @@ private:
   // Per-system step runners — extracted from update() to keep that loop
   // readable. Each chooses inline vs std::async based on its own flags.
   void runEcosystemStep();
+
+  // Classify a Python entity into an `EntityStorageKind`. TERRAIN +
+  // inventory/tile_effects_list → EntityBackedTerrain; TERRAIN alone →
+  // OnGridStorage; otherwise → EntityOnly.
+  EntityStorageKind classifyPyEntity(nb::object pyEntity) const;
+
+  // Path 1 — plain terrain: no registry.create(); writes terrain-state to
+  // VDB and stores ON_GRID_STORAGE in the terrain grid.
+  void createPlainTerrainFromPython(nb::object pyEntity);
+
+  // Path 2 — hybrid terrain: allocates an entity for entity-only components
+  // (Inventory / TileEffectsList) AND dual-writes terrain-state to VDB so
+  // coord-keyed physics reads see consistent data. Terrain grid stores the
+  // entity int.
+  entt::entity createHybridTerrainFromPython(nb::object pyEntity);
+
+  // Path 3 — non-terrain entity (legacy): registry.create() + emplace all +
+  // setEntity in the entity grid.
+  entt::entity createNonTerrainEntityFromPython(nb::object pyEntity);
+
+  // Walks the Python entity object and emplaces every supplied component on
+  // the given EnTT entity. Shared by paths 2 and 3.
+  void emplaceAllPyComponents(entt::entity newEntity, nb::object pyEntity);
 
   std::mutex registryMutex;
   mutable std::shared_mutex

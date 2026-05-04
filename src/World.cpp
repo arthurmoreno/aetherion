@@ -156,172 +156,255 @@ entt::entity World::createEntity(const EntityInterface &entityInterface) {
   return entity; // Return the created entity
 }
 
-// Create an entity from a Python class and introspect its components
-entt::entity World::createEntityFromPython(nb::object pyEntity) {
-  entt::entity newEntity = registry.create();
+// Predicate is narrow on purpose: only `inventory` and `tile_effects_list`
+// are checked. A TERRAIN-typed object carrying other entity-only components
+// (perception, behavior, ...) classifies as OnGridStorage and those attrs
+// are silently dropped — widen if a regression surfaces.
+EntityStorageKind World::classifyPyEntity(nb::object pyEntity) const {
+  const bool isTerrain =
+      nb::hasattr(pyEntity, "grid_type") &&
+      !pyEntity.attr("grid_type").is_none() &&
+      nb::cast<GridType>(pyEntity.attr("grid_type")) == GridType::TERRAIN;
+  if (!isTerrain) {
+    return EntityStorageKind::EntityOnly;
+  }
+  const bool hasInventory = nb::hasattr(pyEntity, "inventory") &&
+                            !pyEntity.attr("inventory").is_none();
+  const bool hasTileEffects = nb::hasattr(pyEntity, "tile_effects_list") &&
+                              !pyEntity.attr("tile_effects_list").is_none();
+  return (hasInventory || hasTileEffects)
+             ? EntityStorageKind::EntityBackedTerrain
+             : EntityStorageKind::OnGridStorage;
+}
 
-  // Check if the Python entity has a velocity attribute
+// Emplaces every Python-supplied component on the given entity. Shared by
+// the hybrid-terrain and non-terrain-entity paths.
+void World::emplaceAllPyComponents(entt::entity newEntity,
+                                   nb::object pyEntity) {
   if (nb::hasattr(pyEntity, "entity_type") &&
       !pyEntity.attr("entity_type").is_none()) {
-    nb::object pyEntityTypeComp = pyEntity.attr("entity_type");
-    EntityTypeComponent entityTypeComp = nb::cast<EntityTypeComponent>(
-        pyEntityTypeComp); // Convert Python Velocity to C++
-    registry.emplace<EntityTypeComponent>(newEntity, entityTypeComp);
+    registry.emplace<EntityTypeComponent>(
+        newEntity, nb::cast<EntityTypeComponent>(pyEntity.attr("entity_type")));
   }
-
-  // Check if the Python entity has a position attribute
   if (nb::hasattr(pyEntity, "physics_stats") &&
       !pyEntity.attr("physics_stats").is_none()) {
-    nb::object pyPhysicsStats = pyEntity.attr("physics_stats");
-    PhysicsStats physics_stats = nb::cast<PhysicsStats>(
-        pyPhysicsStats); // Convert Python PhysicsStats to C++
-    registry.emplace<PhysicsStats>(newEntity, physics_stats);
+    registry.emplace<PhysicsStats>(
+        newEntity, nb::cast<PhysicsStats>(pyEntity.attr("physics_stats")));
   }
-
-  // Check if the Python entity has a position attribute
   if (nb::hasattr(pyEntity, "position") &&
       !pyEntity.attr("position").is_none()) {
-    nb::object pyPosition = pyEntity.attr("position");
-    Position pos =
-        nb::cast<Position>(pyPosition); // Convert Python Position to C++
-    registry.emplace<Position>(newEntity, pos);
+    registry.emplace<Position>(newEntity,
+                               nb::cast<Position>(pyEntity.attr("position")));
   }
-
-  // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "velocity") &&
       !pyEntity.attr("velocity").is_none()) {
-    nb::object pyVelocity = pyEntity.attr("velocity");
-    Velocity vel =
-        nb::cast<Velocity>(pyVelocity); // Convert Python Velocity to C++
-    registry.emplace<Velocity>(newEntity, vel);
+    registry.emplace<Velocity>(newEntity,
+                               nb::cast<Velocity>(pyEntity.attr("velocity")));
   }
-
-  // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "structural_integrity") &&
       !pyEntity.attr("structural_integrity").is_none()) {
-    nb::object pyStructuralIntegrityComponent =
-        pyEntity.attr("structural_integrity");
-    StructuralIntegrityComponent sic =
-        nb::cast<StructuralIntegrityComponent>(pyStructuralIntegrityComponent);
-    registry.emplace<StructuralIntegrityComponent>(newEntity, sic);
+    registry.emplace<StructuralIntegrityComponent>(
+        newEntity, nb::cast<StructuralIntegrityComponent>(
+                       pyEntity.attr("structural_integrity")));
   }
-
-  // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "health") && !pyEntity.attr("health").is_none()) {
-    nb::object pyHealthComp = pyEntity.attr("health");
-    HealthComponent healthComp = nb::cast<HealthComponent>(
-        pyHealthComp); // Convert Python Velocity to C++
-    registry.emplace<HealthComponent>(newEntity, healthComp);
+    registry.emplace<HealthComponent>(
+        newEntity, nb::cast<HealthComponent>(pyEntity.attr("health")));
   }
-
-  // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "perception") &&
       !pyEntity.attr("perception").is_none()) {
-    nb::object pyPerceptionComp = pyEntity.attr("perception");
-    PerceptionComponent perceptionComp = nb::cast<PerceptionComponent>(
-        pyPerceptionComp); // Convert Python Velocity to C++
-    registry.emplace<PerceptionComponent>(newEntity, perceptionComp);
+    registry.emplace<PerceptionComponent>(
+        newEntity, nb::cast<PerceptionComponent>(pyEntity.attr("perception")));
   }
-
-  // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "inventory") &&
       !pyEntity.attr("inventory").is_none()) {
-    nb::object pyInventoryComp = pyEntity.attr("inventory");
-    Inventory inventoryComp =
-        nb::cast<Inventory>(pyInventoryComp); // Convert Python Velocity to C++
-    registry.emplace<Inventory>(newEntity, inventoryComp);
+    registry.emplace<Inventory>(
+        newEntity, nb::cast<Inventory>(pyEntity.attr("inventory")));
   }
-
-  // Check if the Python entity has a velocity attribute
+  if (nb::hasattr(pyEntity, "tile_effects_list") &&
+      !pyEntity.attr("tile_effects_list").is_none()) {
+    registry.emplace<TileEffectsList>(
+        newEntity,
+        nb::cast<TileEffectsList>(pyEntity.attr("tile_effects_list")));
+  }
   if (nb::hasattr(pyEntity, "console_logs") &&
       !pyEntity.attr("console_logs").is_none()) {
-    nb::object pyConsoleLogsComp = pyEntity.attr("console_logs");
-    ConsoleLogsComponent consoleLogsComp = nb::cast<ConsoleLogsComponent>(
-        pyConsoleLogsComp); // Convert Python Velocity to C++
-    registry.emplace<ConsoleLogsComponent>(newEntity, consoleLogsComp);
+    registry.emplace<ConsoleLogsComponent>(
+        newEntity,
+        nb::cast<ConsoleLogsComponent>(pyEntity.attr("console_logs")));
   }
-
-  // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "fruit_growth") &&
       !pyEntity.attr("fruit_growth").is_none()) {
-    nb::object pyFruitGrowthComp = pyEntity.attr("fruit_growth");
-    FruitGrowth fruitGrowthComp = nb::cast<FruitGrowth>(
-        pyFruitGrowthComp); // Convert Python Velocity to C++
-    registry.emplace<FruitGrowth>(newEntity, fruitGrowthComp);
+    registry.emplace<FruitGrowth>(
+        newEntity, nb::cast<FruitGrowth>(pyEntity.attr("fruit_growth")));
   }
-
-  // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "matter_container") &&
       !pyEntity.attr("matter_container").is_none()) {
-    nb::object pyMatterContainerComp = pyEntity.attr("matter_container");
-    MatterContainer matterContainerComp = nb::cast<MatterContainer>(
-        pyMatterContainerComp); // Convert Python Velocity to C++
-    registry.emplace<MatterContainer>(newEntity, matterContainerComp);
+    registry.emplace<MatterContainer>(
+        newEntity,
+        nb::cast<MatterContainer>(pyEntity.attr("matter_container")));
   }
-
-  // Optionally handle behavior or other components
+  // `behavior` is read but never emplaced — preserved as a no-op for
+  // back-compat with the prior body.
   if (nb::hasattr(pyEntity, "behavior") &&
       !pyEntity.attr("behavior").is_none()) {
-    nb::object pyBehavior = pyEntity.attr("behavior");
-    // Store the behavior function for later use if needed
+    (void)pyEntity.attr("behavior");
   }
-
-  // Optionally handle behavior or other components
   if (nb::hasattr(pyEntity, "on_take_item_behavior") &&
       !pyEntity.attr("on_take_item_behavior").is_none()) {
-    nb::object pyOnTakeItemBehavior = pyEntity.attr("on_take_item_behavior");
-    registry.emplace<OnTakeItemBehavior>(newEntity, pyOnTakeItemBehavior);
+    registry.emplace<OnTakeItemBehavior>(
+        newEntity, pyEntity.attr("on_take_item_behavior"));
   }
-
-  // Optionally handle behavior or other components
   if (nb::hasattr(pyEntity, "on_use_item_behavior") &&
       !pyEntity.attr("on_use_item_behavior").is_none()) {
-    nb::object pyOnUseItemBehavior = pyEntity.attr("on_use_item_behavior");
-    registry.emplace<OnUseItemBehavior>(newEntity, pyOnUseItemBehavior);
+    registry.emplace<OnUseItemBehavior>(newEntity,
+                                        pyEntity.attr("on_use_item_behavior"));
   }
-
-  // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "digestion_comp") &&
       !pyEntity.attr("digestion_comp").is_none()) {
-    nb::object pyDigestionComp = pyEntity.attr("digestion_comp");
-    DigestionComponent digestionComp =
-        nb::cast<DigestionComponent>(pyDigestionComp);
-    registry.emplace<DigestionComponent>(newEntity, digestionComp);
+    registry.emplace<DigestionComponent>(
+        newEntity,
+        nb::cast<DigestionComponent>(pyEntity.attr("digestion_comp")));
   }
-
-  // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "metabolism_comp") &&
       !pyEntity.attr("metabolism_comp").is_none()) {
-    nb::object pyMetabolismComp = pyEntity.attr("metabolism_comp");
-    MetabolismComponent metabolismComp =
-        nb::cast<MetabolismComponent>(pyMetabolismComp);
-    registry.emplace<MetabolismComponent>(newEntity, metabolismComp);
+    registry.emplace<MetabolismComponent>(
+        newEntity,
+        nb::cast<MetabolismComponent>(pyEntity.attr("metabolism_comp")));
   }
-
-  // Check if the Python entity has a velocity attribute
   if (nb::hasattr(pyEntity, "drop_rates") &&
       !pyEntity.attr("drop_rates").is_none()) {
-    nb::object pyDropRatesComp = pyEntity.attr("drop_rates");
-    DropRates dropRatesComp = nb::cast<DropRates>(pyDropRatesComp);
-    registry.emplace<DropRates>(newEntity, dropRatesComp);
+    registry.emplace<DropRates>(
+        newEntity, nb::cast<DropRates>(pyEntity.attr("drop_rates")));
+  }
+}
+
+// Path 1 — plain terrain: VDB-only, terrain grid stores ON_GRID_STORAGE.
+// Mirrors `createVaporTerrainEntity` in PhysicsMutators.hpp.
+void World::createPlainTerrainFromPython(nb::object pyEntity) {
+  Position pos = nb::cast<Position>(pyEntity.attr("position"));
+
+  // Default-construct any missing terrain-state component so VDB grids hold
+  // an explicit value (no stale leftovers).
+  EntityTypeComponent type{};
+  if (nb::hasattr(pyEntity, "entity_type") &&
+      !pyEntity.attr("entity_type").is_none()) {
+    type = nb::cast<EntityTypeComponent>(pyEntity.attr("entity_type"));
+  }
+  MatterContainer mc{};
+  if (nb::hasattr(pyEntity, "matter_container") &&
+      !pyEntity.attr("matter_container").is_none()) {
+    mc = nb::cast<MatterContainer>(pyEntity.attr("matter_container"));
+  }
+  StructuralIntegrityComponent sic{};
+  if (nb::hasattr(pyEntity, "structural_integrity") &&
+      !pyEntity.attr("structural_integrity").is_none()) {
+    sic = nb::cast<StructuralIntegrityComponent>(
+        pyEntity.attr("structural_integrity"));
+  }
+  PhysicsStats ps{};
+  if (nb::hasattr(pyEntity, "physics_stats") &&
+      !pyEntity.attr("physics_stats").is_none()) {
+    ps = nb::cast<PhysicsStats>(pyEntity.attr("physics_stats"));
   }
 
-  // Optionally handle behavior or other components
-  if (nb::hasattr(pyEntity, "grid_type")) {
-    nb::object pyGridType = pyEntity.attr("grid_type");
-    GridType gridType = nb::cast<GridType>(pyGridType);
-    nb::object pyPosition = pyEntity.attr("position");
-    Position pos = nb::cast<Position>(pyPosition);
+  auto *repo = voxelGrid->terrainGridRepository.get();
+  repo->setPosition(pos.x, pos.y, pos.z, pos);
+  repo->setTerrainEntityType(pos.x, pos.y, pos.z, type);
+  repo->setTerrainMatterContainer(pos.x, pos.y, pos.z, mc);
+  repo->setTerrainStructuralIntegrity(pos.x, pos.y, pos.z, sic);
+  repo->setPhysicsStats(pos.x, pos.y, pos.z, ps);
+  repo->setTerrainId(pos.x, pos.y, pos.z,
+                     static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
+}
 
-    int entityID = static_cast<int>(newEntity);
-    if (gridType == GridType::TERRAIN) {
-      voxelGrid->setTerrain(pos.x, pos.y, pos.z, entityID);
-    } else if (gridType == GridType::ENTITY) {
-      voxelGrid->setEntity(pos.x, pos.y, pos.z, entityID);
-    }
+// Path 2 — hybrid terrain (Inventory or TileEffectsList): entity for the
+// entity-only data + dual-write of terrain-state to VDB so coord-keyed
+// physics reads see consistent data. Terrain grid stores the entity int.
+//
+// Post-Task G: VDB is the source of truth for terrain-state; the registry
+// copies are kept for back-compat readers but mutators should not maintain
+// them going forward.
+entt::entity World::createHybridTerrainFromPython(nb::object pyEntity) {
+  entt::entity newEntity = registry.create();
+  emplaceAllPyComponents(newEntity, pyEntity);
+
+  // Dual-write terrain-state to VDB — same setter set as the plain-terrain
+  // path; only the terrain id below differs.
+  Position pos = nb::cast<Position>(pyEntity.attr("position"));
+  auto *repo = voxelGrid->terrainGridRepository.get();
+  repo->setPosition(pos.x, pos.y, pos.z, pos);
+  if (nb::hasattr(pyEntity, "entity_type") &&
+      !pyEntity.attr("entity_type").is_none()) {
+    repo->setTerrainEntityType(
+        pos.x, pos.y, pos.z,
+        nb::cast<EntityTypeComponent>(pyEntity.attr("entity_type")));
   }
+  if (nb::hasattr(pyEntity, "matter_container") &&
+      !pyEntity.attr("matter_container").is_none()) {
+    repo->setTerrainMatterContainer(
+        pos.x, pos.y, pos.z,
+        nb::cast<MatterContainer>(pyEntity.attr("matter_container")));
+  }
+  if (nb::hasattr(pyEntity, "structural_integrity") &&
+      !pyEntity.attr("structural_integrity").is_none()) {
+    repo->setTerrainStructuralIntegrity(
+        pos.x, pos.y, pos.z,
+        nb::cast<StructuralIntegrityComponent>(
+            pyEntity.attr("structural_integrity")));
+  }
+  if (nb::hasattr(pyEntity, "physics_stats") &&
+      !pyEntity.attr("physics_stats").is_none()) {
+    repo->setPhysicsStats(
+        pos.x, pos.y, pos.z,
+        nb::cast<PhysicsStats>(pyEntity.attr("physics_stats")));
+  }
+
+  // Write the terrain id directly via the repository, bypassing
+  // `voxelGrid->setTerrain()` → `setTerrainFromEntt`. That legacy path
+  // *destroys the entity* and writes ON_GRID_STORAGE when the entity has
+  // no Velocity / MovingComponent — Inventory and TileEffectsList don't
+  // count, so a hybrid chest would be silently demoted to plain terrain.
+  voxelGrid->terrainGridRepository->setTerrainId(pos.x, pos.y, pos.z,
+                                                 static_cast<int>(newEntity));
 
   return newEntity;
+}
+
+// Path 3 — non-terrain entity (legacy): create + emplace all components +
+// setEntity in the entity grid.
+entt::entity World::createNonTerrainEntityFromPython(nb::object pyEntity) {
+  entt::entity newEntity = registry.create();
+  emplaceAllPyComponents(newEntity, pyEntity);
+
+  if (nb::hasattr(pyEntity, "grid_type") &&
+      !pyEntity.attr("grid_type").is_none() &&
+      nb::hasattr(pyEntity, "position") &&
+      !pyEntity.attr("position").is_none()) {
+    GridType gridType = nb::cast<GridType>(pyEntity.attr("grid_type"));
+    if (gridType == GridType::ENTITY) {
+      Position pos = nb::cast<Position>(pyEntity.attr("position"));
+      voxelGrid->setEntity(pos.x, pos.y, pos.z, static_cast<int>(newEntity));
+    }
+  }
+  return newEntity;
+}
+
+// Three-way dispatcher keyed on `EntityStorageKind`.
+entt::entity World::createEntityFromPython(nb::object pyEntity) {
+  switch (classifyPyEntity(pyEntity)) {
+  case EntityStorageKind::OnGridStorage:
+    createPlainTerrainFromPython(pyEntity);
+    return entt::null;
+
+  case EntityStorageKind::EntityBackedTerrain:
+    return createHybridTerrainFromPython(pyEntity);
+
+  case EntityStorageKind::EntityOnly:
+    return createNonTerrainEntityFromPython(pyEntity);
+  }
+  return entt::null; // unreachable; satisfies compilers without
+                     // -Wcovered-switch
 }
 
 // Get entities based on their type
