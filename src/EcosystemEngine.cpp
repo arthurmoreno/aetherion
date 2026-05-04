@@ -27,11 +27,11 @@
 
 void GridBoxProcessor::initializeAccessors(entt::registry &registry,
                                            VoxelGrid &voxelGrid,
-                                           entt::dispatcher &dispatcher) {
+                                           EventSink &sink) {
   accessors_ = std::make_unique<ThreadAccessors>();
   registry_ = &registry;
   voxelGrid_ = &voxelGrid;
-  dispatcher_ = &dispatcher;
+  sink_ = &sink;
 
   // Get TerrainStorage from VoxelGrid
   TerrainStorage *storage = voxelGrid.terrainStorage.get();
@@ -63,8 +63,8 @@ std::vector<WaterFlow> GridBoxProcessor::processBox(const GridBox &box,
   for (int z = box.minZ; z <= box.maxZ; ++z) {
     for (int y = box.minY; y <= box.maxY; ++y) {
       for (int x = box.minX; x <= box.maxX; ++x) {
-        processTileWater(x, y, z, *registry_, *voxelGrid_, *dispatcher_,
-                         sunIntensity, rd, gen, disWaterSpreading);
+        processTileWater(x, y, z, *registry_, *voxelGrid_, *sink_, sunIntensity,
+                         rd, gen, disWaterSpreading);
         // processVoxelWater(x, y, z, pendingFlows);
         // processVoxelEvaporation(x, y, z, pendingFlows);
       }
@@ -144,9 +144,9 @@ WaterSimulationManager::~WaterSimulationManager() {
   }
 }
 
-void WaterSimulationManager::initializeProcessors(
-    entt::registry &registry, VoxelGrid &voxelGrid,
-    entt::dispatcher &dispatcher) {
+void WaterSimulationManager::initializeProcessors(entt::registry &registry,
+                                                  VoxelGrid &voxelGrid,
+                                                  EventSink &sink) {
   processors_.clear();
   processors_.reserve(numThreads_);
 
@@ -158,7 +158,7 @@ void WaterSimulationManager::initializeProcessors(
 
   for (int i = 0; i < numThreads_; ++i) {
     auto processor = std::make_unique<GridBoxProcessor>();
-    processor->initializeAccessors(registry, voxelGrid, dispatcher);
+    processor->initializeAccessors(registry, voxelGrid, sink);
     processors_.push_back(std::move(processor));
   }
 
@@ -533,7 +533,7 @@ void makePlantSuckWater(entt::registry &registry, entt::entity &terrainEntity,
 
 void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ,
                  entt::registry &registry, VoxelGrid &voxelGrid,
-                 entt::dispatcher &dispatcher, entt::entity entity,
+                 EventSink &sink, entt::entity entity,
                  EntityTypeComponent &type, MatterContainer &matterContainer,
                  int x, int y, int z, DirectionEnum direction) {
   auto logger = Logger::getLogger();
@@ -544,8 +544,8 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ,
 
   int terrainNeighborId = voxelGrid.getTerrain(x, y, z);
   bool actionPerformed = false;
-  const bool isAboveNeighborEmpty{isTerrainVoxelEmptyOrSoftEmpty(
-      registry, voxelGrid, dispatcher, x, y, z + 1)};
+  const bool isAboveNeighborEmpty{
+      isTerrainVoxelEmptyOrSoftEmpty(registry, voxelGrid, sink, x, y, z + 1)};
 
   if (terrainNeighborId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
     auto terrainNeighbor = static_cast<entt::entity>(terrainNeighborId);
@@ -583,7 +583,7 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ,
     //
     // KNOWN INTER-HANDLER RACE: this neighbor read happens here (in
     // `runEcosystemStep` of tick N), but the event fires inside
-    // `dispatcher.update()` of tick N+1, after sibling handlers — most
+    // `sink.update()` of tick N+1, after sibling handlers — most
     // notably evaporation creating vapor above its source via
     // `addOrCreateVaporAbove` — have already run and may have written
     // WaterVapor>0 to our target between dispatch and process. The handler
@@ -610,7 +610,7 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ,
       WaterSpreadEvent event(sourcePos, targetPos, transferAmount, direction,
                              type, typeNeighbor, matterContainer,
                              matterContainerNeighbor);
-      dispatcher.enqueue<WaterSpreadEvent>(event);
+      sink.enqueue<WaterSpreadEvent>(event);
       actionPerformed = true;
     }
 
@@ -631,7 +631,7 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ,
       WaterSpreadEvent event(sourcePos, targetPos, transferAmount, direction,
                              type, typeNeighbor, matterContainer,
                              matterContainerNeighbor);
-      dispatcher.enqueue<WaterSpreadEvent>(event);
+      sink.enqueue<WaterSpreadEvent>(event);
       actionPerformed = true;
     }
 
@@ -670,7 +670,7 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ,
       WaterSpreadEvent event(sourcePos, targetPos, transferAmount, direction,
                              type, typeNeighbor, matterContainer,
                              matterContainerNeighbor);
-      dispatcher.enqueue<WaterSpreadEvent>(event);
+      sink.enqueue<WaterSpreadEvent>(event);
       spdlog::get("console")->debug(
           "[spreadWater] Dispatching WaterSpreadEvent to grass terrain at ({}, "
           "{}, {})",
@@ -704,7 +704,7 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ,
                                                 transferAmount};
       // TODO: Implement proper physics event for waterFallEvent or something.
       // pendingWaterFall.push(waterFallEntityEvent);
-      dispatcher.enqueue<WaterFallEntityEvent>(waterFallEntityEvent);
+      sink.enqueue<WaterFallEntityEvent>(waterFallEntityEvent);
       actionPerformed = true;
     }
 
@@ -723,15 +723,15 @@ void spreadWater(int terrainId, int terrainX, int terrainY, int terrainZ,
                                                 transferAmount};
       // TODO: Implement proper physics event for waterFallEvent or something.
       // pendingWaterFall.push(waterFallEntityEvent);
-      dispatcher.enqueue<WaterFallEntityEvent>(waterFallEntityEvent);
+      sink.enqueue<WaterFallEntityEvent>(waterFallEntityEvent);
       actionPerformed = true;
     }
   }
 }
 
 bool moveWater(int terrainEntityId, entt::registry &registry,
-               VoxelGrid &voxelGrid, entt::dispatcher &dispatcher,
-               bool &actionPerformed, Position &pos, EntityTypeComponent &type,
+               VoxelGrid &voxelGrid, EventSink &sink, bool &actionPerformed,
+               Position &pos, EntityTypeComponent &type,
                MatterContainer &matterContainer, std::random_device &rd,
                std::mt19937 &gen,
                std::uniform_int_distribution<> &disWaterSpreading) {
@@ -793,7 +793,7 @@ bool moveWater(int terrainEntityId, entt::registry &registry,
       WaterGravityFlowEvent event(sourcePos, targetPos, transferAmount,
                                   terrainBellowId, type, typeBellow,
                                   matterContainer, matterContainerBellow);
-      dispatcher.enqueue<WaterGravityFlowEvent>(event);
+      sink.enqueue<WaterGravityFlowEvent>(event);
       actionPerformed = true;
     }
     // }
@@ -864,22 +864,20 @@ bool moveWater(int terrainEntityId, entt::registry &registry,
     if (!actionPerformed) {
       if (movingDirection == static_cast<int>(DirectionEnum::UP)) {
         spreadWater(terrainEntityId, pos.x, pos.y, pos.z, registry, voxelGrid,
-                    dispatcher, terrain, type, matterContainer, pos.x,
-                    pos.y - 1, pos.z,
-                    static_cast<DirectionEnum>(movingDirection));
+                    sink, terrain, type, matterContainer, pos.x, pos.y - 1,
+                    pos.z, static_cast<DirectionEnum>(movingDirection));
       } else if (movingDirection == static_cast<int>(DirectionEnum::LEFT)) {
         spreadWater(terrainEntityId, pos.x, pos.y, pos.z, registry, voxelGrid,
-                    dispatcher, terrain, type, matterContainer, pos.x - 1,
-                    pos.y, pos.z, static_cast<DirectionEnum>(movingDirection));
+                    sink, terrain, type, matterContainer, pos.x - 1, pos.y,
+                    pos.z, static_cast<DirectionEnum>(movingDirection));
       } else if (movingDirection == static_cast<int>(DirectionEnum::RIGHT)) {
         spreadWater(terrainEntityId, pos.x, pos.y, pos.z, registry, voxelGrid,
-                    dispatcher, terrain, type, matterContainer, pos.x + 1,
-                    pos.y, pos.z, static_cast<DirectionEnum>(movingDirection));
+                    sink, terrain, type, matterContainer, pos.x + 1, pos.y,
+                    pos.z, static_cast<DirectionEnum>(movingDirection));
       } else if (movingDirection == static_cast<int>(DirectionEnum::DOWN)) {
         spreadWater(terrainEntityId, pos.x, pos.y, pos.z, registry, voxelGrid,
-                    dispatcher, terrain, type, matterContainer, pos.x,
-                    pos.y + 1, pos.z,
-                    static_cast<DirectionEnum>(movingDirection));
+                    sink, terrain, type, matterContainer, pos.x, pos.y + 1,
+                    pos.z, static_cast<DirectionEnum>(movingDirection));
       }
       actionPerformed = true;
     }
@@ -912,23 +910,22 @@ bool moveWater(int terrainEntityId, entt::registry &registry,
  * ensuring thread safety.
  * @param registry The entt::registry.
  * @param voxelGrid The VoxelGrid.
- * @param dispatcher The entt::dispatcher to enqueue events.
+ * @param sink The EventSink to enqueue events.
  * @param x The source x-coordinate.
  * @param y The source y-coordinate.
  * @param z The source z-coordinate (vapor will be handled at z+1).
  * @param amount The amount of vapor to create or add.
  */
 void dispatchVaporCreationOrAddition(entt::registry &registry,
-                                     VoxelGrid &voxelGrid,
-                                     entt::dispatcher &dispatcher, int x, int y,
-                                     int z, int amount) {
+                                     VoxelGrid &voxelGrid, EventSink &sink,
+                                     int x, int y, int z, int amount) {
   int terrainAboveId = voxelGrid.getTerrain(x, y, z);
 
   if (terrainAboveId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
     // Dispatch event to atomically add vapor to tile above
     Position sourcePos{x, y, z};
     AddVaporToTileAboveEvent event(sourcePos, amount, terrainAboveId);
-    dispatcher.enqueue<AddVaporToTileAboveEvent>(event);
+    sink.enqueue<AddVaporToTileAboveEvent>(event);
   } else {
     // No entity above; create vapor entity
 
@@ -946,15 +943,14 @@ void dispatchVaporCreationOrAddition(entt::registry &registry,
     // Dispatch event instead of direct state changes
     Position targetPos{x, y, z, DirectionEnum::DOWN};
     VaporCreationEvent event(targetPos, amount, false);
-    dispatcher.enqueue<VaporCreationEvent>(event);
+    sink.enqueue<VaporCreationEvent>(event);
   }
 }
 
 // 4.2 Condensation
 
 void condenseVapor(entt::registry &registry, VoxelGrid &voxelGrid,
-                   entt::dispatcher &dispatcher, Position &pos,
-                   EntityTypeComponent &type,
+                   EventSink &sink, Position &pos, EntityTypeComponent &type,
                    MatterContainer &matterContainer) {
   int condensationAmount = 1;
 
@@ -969,7 +965,7 @@ void condenseVapor(entt::registry &registry, VoxelGrid &voxelGrid,
   // Dispatch event - PhysicsEngine handles both condensation paths atomically
   CondenseWaterEntityEvent condenseEvent{pos, condensationAmount,
                                          terrainBelowId};
-  dispatcher.enqueue<CondenseWaterEntityEvent>(condenseEvent);
+  sink.enqueue<CondenseWaterEntityEvent>(condenseEvent);
 }
 
 //==============================================================================
@@ -1024,9 +1020,9 @@ canMergeWithVaporAbove(const EntityTypeComponent &typeAbove,
 }
 
 // Helper: Dispatch vapor upward movement event
-static void dispatchVaporMoveUpEvent(entt::dispatcher &dispatcher,
-                                     entt::entity entity, const Position &pos,
-                                     float rhoEnv, float rhoVapor) {
+static void dispatchVaporMoveUpEvent(EventSink &sink, entt::entity entity,
+                                     const Position &pos, float rhoEnv,
+                                     float rhoVapor) {
   MoveGasEntityEvent moveGasEntityEvent{
       entity, Position{pos.x, pos.y, pos.z, DirectionEnum::DOWN},
       0.0f,   0.0f,
@@ -1035,24 +1031,23 @@ static void dispatchVaporMoveUpEvent(entt::dispatcher &dispatcher,
   // std::cout << "[moveVaporUp] Dispatching MoveGasEntityEvent for vapor entity
   // at (" << pos.x
   //           << ", " << pos.y << ", " << pos.z << ")\n";
-  dispatcher.enqueue<MoveGasEntityEvent>(moveGasEntityEvent);
+  sink.enqueue<MoveGasEntityEvent>(moveGasEntityEvent);
 }
 
 // Helper: Dispatch vapor merge event
-static void dispatchVaporMergeEvent(entt::dispatcher &dispatcher,
-                                    const Position &sourcePos,
+static void dispatchVaporMergeEvent(EventSink &sink, const Position &sourcePos,
                                     float vaporAmount, entt::entity entity) {
   Position targetPos{sourcePos.x, sourcePos.y, sourcePos.z + 1,
                      DirectionEnum::DOWN};
   VaporMergeUpEvent event(sourcePos, targetPos, vaporAmount, entity);
-  dispatcher.enqueue<VaporMergeUpEvent>(event);
+  sink.enqueue<VaporMergeUpEvent>(event);
 }
 
 // 5.2 Vapor Movement
 
 void moveVaporUp(entt::registry &registry, VoxelGrid &voxelGrid,
-                 entt::dispatcher &dispatcher, Position &pos,
-                 EntityTypeComponent &type, MatterContainer &matterContainer) {
+                 EventSink &sink, Position &pos, EntityTypeComponent &type,
+                 MatterContainer &matterContainer) {
   // RAII-based lock guard: automatically unlocks on any exit (return/exception)
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
@@ -1085,7 +1080,7 @@ void moveVaporUp(entt::registry &registry, VoxelGrid &voxelGrid,
     // no EnTT handle (i.e., it lives only in VDB). The gas-movement handler
     // detects that case from the entity field and operates coord-based, so
     // there is nothing extra to do here — just dispatch the same event.
-    dispatchVaporMoveUpEvent(dispatcher, entity, pos, rhoEnv, rhoVapor);
+    dispatchVaporMoveUpEvent(sink, entity, pos, rhoEnv, rhoVapor);
     return;
   }
 
@@ -1111,7 +1106,7 @@ void moveVaporUp(entt::registry &registry, VoxelGrid &voxelGrid,
       //           << pos.z << ") with vapor above\n";
 
       Position sourcePos{pos.x, pos.y, pos.z, pos.direction};
-      dispatchVaporMergeEvent(dispatcher, sourcePos, matterContainer.WaterVapor,
+      dispatchVaporMergeEvent(sink, sourcePos, matterContainer.WaterVapor,
                               entity);
       return;
     } else if (haveMovement) {
@@ -1135,7 +1130,7 @@ void moveVaporUp(entt::registry &registry, VoxelGrid &voxelGrid,
 }
 
 void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
-                       entt::dispatcher &dispatcher, Position &pos,
+                       EventSink &sink, Position &pos,
                        EntityTypeComponent &type,
                        MatterContainer &matterContainer) {
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
@@ -1217,7 +1212,7 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
         dispatchedRhoEnv, dispatchedRhoGas};
     moveGasEntityEvent.setForceApplyNewVelocity();
 
-    dispatcher.enqueue<MoveGasEntityEvent>(moveGasEntityEvent);
+    sink.enqueue<MoveGasEntityEvent>(moveGasEntityEvent);
   } else {
     auto terrainSide = static_cast<entt::entity>(terrainSideId);
     // checkAndConvertSoftEmptyIntoVapor(registry, terrainSide);
@@ -1254,7 +1249,7 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
         Position targetPos{newX, newY, pos.z, pos.direction};
         VaporMergeSidewaysEvent event(sourcePos, targetPos,
                                       matterContainer.WaterVapor, terrainId);
-        dispatcher.enqueue<VaporMergeSidewaysEvent>(event);
+        sink.enqueue<VaporMergeSidewaysEvent>(event);
       } else {
         ossMessage
             << "[moveVaporSideways] Vapor Obstructed; cannot move sideways ("
@@ -1276,9 +1271,9 @@ void moveVaporSideways(entt::registry &registry, VoxelGrid &voxelGrid,
   }
 }
 
-void moveVapor(entt::registry &registry, VoxelGrid &voxelGrid,
-               entt::dispatcher &dispatcher, int x, int y, int z, Position &pos,
-               EntityTypeComponent &type, MatterContainer &matterContainer) {
+void moveVapor(entt::registry &registry, VoxelGrid &voxelGrid, EventSink &sink,
+               int x, int y, int z, Position &pos, EntityTypeComponent &type,
+               MatterContainer &matterContainer) {
   // setVaporSI(pos.x, pos.y, pos.z, voxelGrid);
   int maxAltitude =
       voxelGrid.depth - 1; // Example maximum altitude for vapor to rise
@@ -1292,7 +1287,7 @@ void moveVapor(entt::registry &registry, VoxelGrid &voxelGrid,
   // Condensation Logic for Vapor
   if (simulateCondensation &&
       matterContainer.WaterVapor >= condensationThreshold) {
-    condenseVapor(registry, voxelGrid, dispatcher, pos, type, matterContainer);
+    condenseVapor(registry, voxelGrid, sink, pos, type, matterContainer);
     return; // Condensation happened, exit the function
   }
 
@@ -1389,11 +1384,10 @@ void moveVapor(entt::registry &registry, VoxelGrid &voxelGrid,
   if (pos.z < maxAltitude && isTerrainAboveVaporOrEmpty) {
     // Move vapor up
     try {
-      moveVaporUp(registry, voxelGrid, dispatcher, pos, type, matterContainer);
+      moveVaporUp(registry, voxelGrid, sink, pos, type, matterContainer);
     } catch (const aetherion::VaporMovementBlockedException &e) {
       // Upward movement blocked: attempt lateral diffusion
-      moveVaporSideways(registry, voxelGrid, dispatcher, pos, type,
-                        matterContainer);
+      moveVaporSideways(registry, voxelGrid, sink, pos, type, matterContainer);
     }
   } else {
     // if (pos.z < maxAltitude) {
@@ -1414,8 +1408,7 @@ void moveVapor(entt::registry &registry, VoxelGrid &voxelGrid,
     // }
     // Vapor has reached max altitude; move sideways
     // TODO: Uncomment when ready.
-    moveVaporSideways(registry, voxelGrid, dispatcher, pos, type,
-                      matterContainer);
+    moveVaporSideways(registry, voxelGrid, sink, pos, type, matterContainer);
   }
 }
 
@@ -1426,9 +1419,8 @@ void moveVapor(entt::registry &registry, VoxelGrid &voxelGrid,
 //==============================================================================
 
 void processTileWater(int x, int y, int z, entt::registry &registry,
-                      VoxelGrid &voxelGrid, entt::dispatcher &dispatcher,
-                      float sunIntensity, std::random_device &rd,
-                      std::mt19937 &gen,
+                      VoxelGrid &voxelGrid, EventSink &sink, float sunIntensity,
+                      std::random_device &rd, std::mt19937 &gen,
                       std::uniform_int_distribution<> &disWaterSpreading) {
   bool terrainExists = voxelGrid.checkIfTerrainExists(x, y, z);
 
@@ -1486,7 +1478,7 @@ void processTileWater(int x, int y, int z, entt::registry &registry,
     if (isVapor) {
       // TODO: This needs to be removed for performance reasons.
       // It is only here to guarantee the bugfix to set vapor into GAS.
-      moveVapor(registry, voxelGrid, dispatcher, pos.x, pos.y, pos.z, pos, type,
+      moveVapor(registry, voxelGrid, sink, pos.x, pos.y, pos.z, pos, type,
                 matterContainer);
       actionPerformed = true;
       return; // Vapor entities don't perform other actions
@@ -1522,9 +1514,9 @@ void processTileWater(int x, int y, int z, entt::registry &registry,
         switch (action) {
         case 1: // Water Movement Logic
         {
-          actionPerformed = moveWater(
-              terrainId, registry, voxelGrid, dispatcher, actionPerformed, pos,
-              type, matterContainer, rd, gen, disWaterSpreading);
+          actionPerformed =
+              moveWater(terrainId, registry, voxelGrid, sink, actionPerformed,
+                        pos, type, matterContainer, rd, gen, disWaterSpreading);
         } break;
 
           // case 2:  // Water Evaporation Logic
@@ -1553,8 +1545,7 @@ void processTileWater(int x, int y, int z, entt::registry &registry,
             // evaporation
             EvaporateWaterEntityEvent evaporateWaterEntityEvent{entt::null, pos,
                                                                 sunIntensity};
-            dispatcher.enqueue<EvaporateWaterEntityEvent>(
-                evaporateWaterEntityEvent);
+            sink.enqueue<EvaporateWaterEntityEvent>(evaporateWaterEntityEvent);
             actionPerformed = true;
           }
           break;
@@ -1571,7 +1562,7 @@ void processTileWater(int x, int y, int z, entt::registry &registry,
           terrainId != static_cast<int>(TerrainIdTypeEnum::NONE);
       entt::entity entity =
           hasLiveEntity ? static_cast<entt::entity>(terrainId) : entt::null;
-      dispatcher.enqueue<DeleteOrConvertTerrainEvent>(entity, pos);
+      sink.enqueue<DeleteOrConvertTerrainEvent>(entity, pos);
     }
 
     // Ensure that both WaterMatter and WaterVapor cannot coexist
@@ -1605,7 +1596,7 @@ void processTileWater(int x, int y, int z, entt::registry &registry,
 //==============================================================================
 
 void processPlants(entt::registry &registry, VoxelGrid &voxelGrid,
-                   entt::dispatcher &dispatcher, GameClock &clock) {
+                   EventSink &sink, GameClock &clock) {
   std::random_device rd;
   std::mt19937 gen(rd());
 
@@ -1702,21 +1693,19 @@ void processPlants(entt::registry &registry, VoxelGrid &voxelGrid,
 // 8.1 processEcosystem - Synchronous plant processing
 
 void EcosystemEngine::processEcosystem(entt::registry &registry,
-                                       VoxelGrid &voxelGrid,
-                                       entt::dispatcher &dispatcher,
+                                       VoxelGrid &voxelGrid, EventSink &sink,
                                        GameClock &clock) {
   // std::cout << "Processing ecosystem\n";
 
   float sunIntensity = SunIntensity::getIntensity(clock);
-  processPlants(registry, voxelGrid, dispatcher, clock);
+  processPlants(registry, voxelGrid, sink, clock);
 }
 
 // 8.2 processEcosystemAsync - Async water simulation
 
 void EcosystemEngine::processEcosystemAsync(entt::registry &registry,
                                             VoxelGrid &voxelGrid,
-                                            entt::dispatcher &dispatcher,
-                                            GameClock &clock) {
+                                            EventSink &sink, GameClock &clock) {
   std::random_device rd;
   std::mt19937 gen(rd());
   // std::cout << "Processing ecosystem Async\n";
@@ -1770,7 +1759,7 @@ void EcosystemEngine::processEcosystemAsync(entt::registry &registry,
       z = voxelGrid.depth - 1;
       // spdlog::get("console")->info("[processEcosystemAsync] Dispatching vapor
       // creation/addition at ({}, {}, {}) with {} units", x, y, z, vaporUnits);
-      dispatchVaporCreationOrAddition(registry, voxelGrid, dispatcher, x, y, z,
+      dispatchVaporCreationOrAddition(registry, voxelGrid, sink, x, y, z,
                                       vaporUnits);
       waterToCreate -= vaporUnits;
     }
@@ -1794,8 +1783,8 @@ void EcosystemEngine::onSetEcoEntityToDebug(const SetEcoEntityToDebug &event) {
 }
 
 // Register event handlers
-void EcosystemEngine::registerEventHandlers(entt::dispatcher &dispatcher) {
-  dispatcher.sink<SetEcoEntityToDebug>()
+void EcosystemEngine::registerEventHandlers(entt::dispatcher &disp) {
+  disp.sink<SetEcoEntityToDebug>()
       .connect<&EcosystemEngine::onSetEcoEntityToDebug>(*this);
 }
 

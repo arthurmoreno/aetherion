@@ -16,6 +16,7 @@
 #include "EcosystemEngine.hpp"
 #include "EffectsSystem.hpp"
 #include "EntityInterface.hpp"
+#include "EventSink.hpp"
 #include "GameClock.hpp"
 #include "GameDBHandler.hpp"
 #include "HealthSystem.hpp"
@@ -45,7 +46,9 @@ public:
   entt::registry
       registry; // Entity component system - must come before voxelGrid
   entt::dispatcher dispatcher; // Event dispatcher
-  VoxelGrid *voxelGrid;        // Change to pointer type
+  WorkerEventSink workerSink_; // Cross-thread event staging buffer
+  EventSink eventSink_; // Thread-routing view over dispatcher + workerSink_
+  VoxelGrid *voxelGrid; // Change to pointer type
   PyRegistry pyRegistry;
 
   std::unordered_map<std::string, std::vector<nb::object>> pythonEventCallbacks;

@@ -42,9 +42,8 @@ inline std::tuple<bool, bool> isNeighborWaterOrEmpty(entt::registry &registry,
 
 inline bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry &registry,
                                            VoxelGrid &voxelGrid,
-                                           entt::dispatcher &dispatcher,
-                                           const int x, const int y,
-                                           const int z) {
+                                           EventSink &sink, const int x,
+                                           const int y, const int z) {
   int64_t terrainId = voxelGrid.getTerrain(x, y, z);
   if (terrainId < static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
     // Value below NONE(-2): this should not happen with Int64Grid storage.
@@ -53,8 +52,7 @@ inline bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry &registry,
         "[isTerrainVoxelEmptyOrSoftEmpty] Unexpected terrain ID {} (0x{:016X}) "
         "at ({},{},{}) — triggering cleanup",
         terrainId, static_cast<uint64_t>(terrainId), x, y, z);
-    dispatcher.trigger<InvalidTerrainFoundEvent>(
-        InvalidTerrainFoundEvent{x, y, z});
+    sink.enqueue<InvalidTerrainFoundEvent>(InvalidTerrainFoundEvent{x, y, z});
     return false;
   } else if (terrainId == static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
     // Voxel is completely empty

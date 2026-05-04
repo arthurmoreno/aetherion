@@ -34,18 +34,17 @@ inline bool waterDebugInWatchRegion(int x, int y, int z) {
 // the master and the per-category intent. To narrow what gets logged when the
 // debugger is on, flip individual categories without touching the master.
 //
-// Currently chasing: heavy-evaporation single-threaded segfault.
-// Active family (when master is on): kWaterDebugTrackEvapCondense +
-// kWaterDebugTrackTickPhases + kWaterDebugTrackHandlers +
-// kWaterDebugTrackWaterSpreadSteps. Others kept silent.
-inline constexpr bool kWaterDebugTrackEvapCondense = kWaterDebugEnabled && true;
+// No active investigation. Flip the master and one or more categories below
+// to re-arm. Categories are AND-ed with the master so disabling
+// `kWaterDebugEnabled` forces every category false at compile time.
 inline constexpr bool kWaterDebugTrackTickPhases =
-    kWaterDebugEnabled && true; // World::update phase boundaries
+    kWaterDebugEnabled && false; // World::update phase boundaries
+inline constexpr bool kWaterDebugTrackEvapCondense =
+    kWaterDebugEnabled && false;
 inline constexpr bool kWaterDebugTrackHandlers =
-    kWaterDebugEnabled && true; // PhysicsEngine::on*Event entry/exit
+    kWaterDebugEnabled && false; // PhysicsEngine::on*Event entry/exit
 inline constexpr bool kWaterDebugTrackWaterSpreadSteps =
-    kWaterDebugEnabled &&
-    true; // sub-step probes inside _handleWaterSpreadEvent
+    kWaterDebugEnabled && false;
 inline constexpr bool kWaterDebugTrackVaporMovement =
     kWaterDebugEnabled && false; // V3/V4 stall
 inline constexpr bool kWaterDebugTrackVaporMergeSideways =

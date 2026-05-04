@@ -10,6 +10,7 @@
 #include <unordered_map>
 
 #include "EcosystemEngine.hpp"
+#include "EventSink.hpp"
 #include "GameClock.hpp"
 #include "GameDBHandler.hpp"
 #include "ItemsEvents.hpp"
@@ -53,15 +54,14 @@ public:
   entt::entity entityBeingDebugged;
 
   PhysicsEngine() = default;
-  PhysicsEngine(entt::registry &reg, entt::dispatcher &disp,
-                VoxelGrid *voxelGrid)
-      : registry(reg), dispatcher(disp), voxelGrid(voxelGrid) {}
+  PhysicsEngine(entt::registry &reg, EventSink &sinkRef, VoxelGrid *voxelGrid)
+      : registry(reg), sink(sinkRef), voxelGrid(voxelGrid) {}
 
   // Method to process physics-related events
   void processPhysics(entt::registry &registry, VoxelGrid &voxelGrid,
-                      entt::dispatcher &dispatcher, GameClock &clock);
+                      EventSink &sink, GameClock &clock);
   void processPhysicsAsync(entt::registry &registry, VoxelGrid &voxelGrid,
-                           entt::dispatcher &dispatcher, GameClock &clock);
+                           EventSink &sink, GameClock &clock);
 
   // Iteration helpers used by `processPhysics` / `processPhysicsAsync`.
   // The orchestrator methods call them in sequence; each handles one
@@ -71,21 +71,17 @@ public:
   // Gravity-force enqueue for ECS-backed entities. Outer iterates
   // `registry.view<Position>()`; inner is the per-entity decision tree.
   void applyGravityForcesToECSEntities(entt::registry &registry,
-                                       VoxelGrid &voxelGrid,
-                                       entt::dispatcher &dispatcher);
+                                       VoxelGrid &voxelGrid, EventSink &sink);
   void applyGravityForceToEntity(entt::entity entity, entt::registry &registry,
-                                 VoxelGrid &voxelGrid,
-                                 entt::dispatcher &dispatcher);
+                                 VoxelGrid &voxelGrid, EventSink &sink);
 
   // Velocity processing for ECS-backed entities. Outer iterates
   // `registry.view<Velocity>()`; inner runs per-entity validation +
   // cold-vapor revival + `handleMovement`.
   void processVelocityForECSEntities(entt::registry &registry,
-                                     VoxelGrid &voxelGrid,
-                                     entt::dispatcher &dispatcher);
+                                     VoxelGrid &voxelGrid, EventSink &sink);
   void processVelocityForEntity(entt::entity entity, entt::registry &registry,
-                                VoxelGrid &voxelGrid,
-                                entt::dispatcher &dispatcher);
+                                VoxelGrid &voxelGrid, EventSink &sink);
 
   // Velocity processing for ON_GRID_STORAGE voxels driven by the VDB
   // velocity grid. Outer two-phase: collects active VDB voxels (skipping
@@ -139,7 +135,7 @@ public:
 
 private:
   entt::registry &registry;
-  entt::dispatcher &dispatcher;
+  EventSink &sink; // routes enqueue by thread (main → direct, other → staging)
   VoxelGrid *voxelGrid = nullptr;
 
   // Monitoring counters for physics events

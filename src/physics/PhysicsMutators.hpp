@@ -9,6 +9,7 @@
 #include <sstream>
 #include <stdexcept>
 
+#include "EventSink.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/MetabolismComponents.hpp"
 #include "components/MovingComponent.hpp"
@@ -223,9 +224,8 @@ inline void createEmptyActiveTerrain(entt::registry &registry,
  */
 // [Storage:Hybrid] [Lock:Cond] [Scope:Entity]
 inline void
-cleanupInvalidTerrainEntity(entt::registry &registry,
-                            entt::dispatcher &dispatcher, VoxelGrid &voxelGrid,
-                            entt::entity entity,
+cleanupInvalidTerrainEntity(entt::registry &registry, EventSink &sink,
+                            VoxelGrid &voxelGrid, entt::entity entity,
                             const aetherion::InvalidEntityException &e) {
   std::cout << "[cleanupInvalidTerrainEntity] InvalidEntityException: "
             << e.what() << " - entity ID=" << static_cast<int>(entity)
@@ -246,7 +246,7 @@ cleanupInvalidTerrainEntity(entt::registry &registry,
           << " in TerrainGridRepository or registry - soft-deactivating it."
           << std::endl;
       // Soft-deactivate instead of immediate destroy to avoid TOCTOU races
-      voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, entity);
+      voxelGrid.terrainGridRepository->softDeactivateEntity(sink, entity);
       throw std::runtime_error("Could not find entity position for cleanup");
     }
   }
@@ -258,7 +258,7 @@ cleanupInvalidTerrainEntity(entt::registry &registry,
         << "[cleanupInvalidTerrainEntity] Could not find position of entity "
         << entityId << " in TerrainGridRepository - soft-deactivating it."
         << std::endl;
-    voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, entity);
+    voxelGrid.terrainGridRepository->softDeactivateEntity(sink, entity);
   } else {
     std::optional<int> terrainIdOnGrid =
         voxelGrid.terrainGridRepository->getTerrainIdIfExists(pos.x, pos.y,
@@ -272,14 +272,14 @@ cleanupInvalidTerrainEntity(entt::registry &registry,
                 << " at position: " << pos.x << ", " << pos.y << ", " << pos.z
                 << std::endl;
       // Ensure repository mapping cleaned up and transient components removed
-      voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, entity);
+      voxelGrid.terrainGridRepository->softDeactivateEntity(sink, entity);
     } else {
       std::cout << "[cleanupInvalidTerrainEntity] Terrain does exist at the "
                    "given position in "
                    "repository or grid ???"
                 << entityId << " at position: " << pos.x << ", " << pos.y
                 << ", " << pos.z << std::endl;
-      voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, entity);
+      voxelGrid.terrainGridRepository->softDeactivateEntity(sink, entity);
       voxelGrid.terrainGridRepository->setTerrainId(
           pos.x, pos.y, pos.z,
           static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE));
@@ -295,14 +295,12 @@ cleanupInvalidTerrainEntity(entt::registry &registry,
  * @param takeLock Whether the repository should take its internal lock.
  */
 // [Storage:Repo] [Lock:Cond] [Scope:Entity]
-inline void softDeactivateTerrainEntity(entt::dispatcher &dispatcher,
-                                        VoxelGrid &voxelGrid,
+inline void softDeactivateTerrainEntity(EventSink &sink, VoxelGrid &voxelGrid,
                                         entt::entity entity, bool takeLock) {
   if (!voxelGrid.terrainGridRepository)
     return;
 
-  voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher, entity,
-                                                        takeLock);
+  voxelGrid.terrainGridRepository->softDeactivateEntity(sink, entity, takeLock);
 }
 
 /**
@@ -311,9 +309,9 @@ inline void softDeactivateTerrainEntity(entt::dispatcher &dispatcher,
  * @param entity The entity to destroy.
  */
 // [Storage:Hybrid] [Lock:Cond] [Scope:Entity]
-inline void _destroyEntity(entt::registry &registry,
-                           entt::dispatcher &dispatcher, VoxelGrid &voxelGrid,
-                           entt::entity entity, bool shouldLock = true) {
+inline void _destroyEntity(entt::registry &registry, EventSink &sink,
+                           VoxelGrid &voxelGrid, entt::entity entity,
+                           bool shouldLock = true) {
   std::unique_ptr<TerrainGridLock> terrainLockGuard;
   if (shouldLock) {
     terrainLockGuard = std::make_unique<TerrainGridLock>(
@@ -322,7 +320,7 @@ inline void _destroyEntity(entt::registry &registry,
 
   // Ensure repository mapping cleaned before destroying entity to avoid stale
   // mappings Use centralized wrapper to keep state-changes in this module.
-  softDeactivateTerrainEntity(dispatcher, voxelGrid, entity, !shouldLock);
+  softDeactivateTerrainEntity(sink, voxelGrid, entity, !shouldLock);
 
   registry.destroy(entity);
 }
@@ -349,13 +347,12 @@ inline entt::entity _ensureEntityActive(VoxelGrid &voxelGrid, int x, int y,
  * `KillEntityEvent`. Otherwise, it converts the entity into a "soft empty"
  * terrain block to allow effects to resolve.
  * @param registry The entt::registry.
- * @param dispatcher The entt::dispatcher to enqueue events.
+ * @param sink The EventSink to enqueue events.
  * @param terrain The entity to delete or convert.
  */
 // [Storage:Hybrid] [Lock:None] [Scope:Entity]
 inline void deleteEntityOrConvertInEmpty(entt::registry &registry,
-                                         VoxelGrid &voxelGrid,
-                                         entt::dispatcher &dispatcher,
+                                         VoxelGrid &voxelGrid, EventSink &sink,
                                          entt::entity &terrain,
                                          const Position &pos) {
   // Silenced: per-call entry trace was crowding the log during water-state
@@ -368,7 +365,7 @@ inline void deleteEntityOrConvertInEmpty(entt::registry &registry,
   // path using the canonical position the caller supplied.
   const bool hasEntity = terrain != entt::null && registry.valid(terrain);
   if (!hasEntity) {
-    voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z, false);
+    voxelGrid.deleteTerrain(sink, pos.x, pos.y, pos.z, false);
     return;
   }
 
@@ -378,7 +375,7 @@ inline void deleteEntityOrConvertInEmpty(entt::registry &registry,
       (terrainEffectsList && terrainEffectsList->tileEffectsIDs.empty())) {
     std::cout << "terrainEffectsList is nullptr or empty... deleting entity"
               << std::endl;
-    voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z, false);
+    voxelGrid.deleteTerrain(sink, pos.x, pos.y, pos.z, false);
   } else {
     // Convert into empty terrain because there are effects being processed
     std::cout << "terrainEffectsList && "
@@ -447,8 +444,7 @@ static void setEmptyWaterComponentsStorage(entt::registry &registry,
  * invalid).
  */
 // [Storage:Repo] [Lock:Internal] [Scope:Entity]
-static void convertTerrainTileToEmpty(entt::registry &registry,
-                                      entt::dispatcher &dispatcher,
+static void convertTerrainTileToEmpty(entt::registry &registry, EventSink &sink,
                                       VoxelGrid &voxelGrid, const Position &pos,
                                       entt::entity invalidTerrain) {
   if (!voxelGrid.terrainGridRepository)
@@ -458,8 +454,8 @@ static void convertTerrainTileToEmpty(entt::registry &registry,
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
   // Soft-deactivate mapping/components for the entity while we mutate storage
-  voxelGrid.terrainGridRepository->softDeactivateEntity(dispatcher,
-                                                        invalidTerrain, false);
+  voxelGrid.terrainGridRepository->softDeactivateEntity(sink, invalidTerrain,
+                                                        false);
 
   // Mark the tile as NONE / EMPTY in repository
   voxelGrid.terrainGridRepository->setTerrainId(
@@ -630,9 +626,8 @@ inline void checkAndConvertSoftEmptyIntoVapor(entt::registry &registry,
  * @param voxelGrid The VoxelGrid.
  * @param entity The entity dropping items.
  */
-inline void dropEntityItems(entt::registry &registry,
-                            entt::dispatcher &dispatcher, VoxelGrid &voxelGrid,
-                            entt::entity entity) {
+inline void dropEntityItems(entt::registry &registry, EventSink &sink,
+                            VoxelGrid &voxelGrid, entt::entity entity) {
   // NOTE: The logic for this function is based on the commented-out `dropItems`
   // function in `LifeEvents.cpp` and serves as a placeholder for the intended
   // functionality.
@@ -722,7 +717,7 @@ inline void dropEntityItems(entt::registry &registry,
                   << itemsAdded << std::endl;
 
         if (shouldEmplaceInventory) {
-          // convertTerrainTileToEmpty(registry, dispatcher, voxelGrid, pos,
+          // convertTerrainTileToEmpty(registry, sink, voxelGrid, pos,
           // terrainBellow); auto newTerrainBellowId =
           // createEmptyActiveTerrain(registry, voxelGrid, pos.x, pos.y, pos.z -
           // 1);
@@ -768,12 +763,12 @@ inline void dropEntityItems(entt::registry &registry,
  * to ensure the correct entity is being removed from the grid.
  * @param registry The entt::registry.
  * @param voxelGrid The VoxelGrid.
- * @param dispatcher The entt::dispatcher, used for terrain deletion events.
+ * @param sink The EventSink, used for terrain deletion events.
  * @param entity The entity to remove from the grid.
  */
 inline void removeEntityFromGrid(entt::registry &registry, VoxelGrid &voxelGrid,
-                                 entt::dispatcher &dispatcher,
-                                 entt::entity entity, bool takeLock = true) {
+                                 EventSink &sink, entt::entity entity,
+                                 bool takeLock = true) {
   int entityId = static_cast<int>(entity);
   bool isSpecialId = entityId == -1 || entityId == -2;
   if (!isSpecialId && registry.valid(entity) &&
@@ -799,7 +794,7 @@ inline void removeEntityFromGrid(entt::registry &registry, VoxelGrid &voxelGrid,
       // spdlog::get("console")->info(
       //     "[removeEntityFromGrid] Entity is terrain, calling
       //     deleteTerrain.");
-      voxelGrid.deleteTerrain(dispatcher, pos.x, pos.y, pos.z, takeLock);
+      voxelGrid.deleteTerrain(sink, pos.x, pos.y, pos.z, takeLock);
     } else if (type.mainType == static_cast<int>(EntityEnum::BEAST) ||
                type.mainType == static_cast<int>(EntityEnum::PLANT)) {
       voxelGrid.deleteEntity(pos.x, pos.y, pos.z);
@@ -853,7 +848,7 @@ inline void removeEntityFromGrid(entt::registry &registry, VoxelGrid &voxelGrid,
       //             << position->x << ", " << position->y << ", " <<
       //             position->z << ").";
       // spdlog::get("console")->info(ossMessage5.str());
-      voxelGrid.deleteTerrain(dispatcher, position->x, position->y, position->z,
+      voxelGrid.deleteTerrain(sink, position->x, position->y, position->z,
                               takeLock);
     }
   } else {
@@ -874,8 +869,7 @@ inline void removeEntityFromGrid(entt::registry &registry, VoxelGrid &voxelGrid,
  * the repository if `removeFromGrid` is true.
  */
 inline void removeEntityFromTerrain(entt::registry &registryRef,
-                                    VoxelGrid &voxelGridRef,
-                                    entt::dispatcher &dispatcherRef,
+                                    VoxelGrid &voxelGridRef, EventSink &sink,
                                     entt::entity entity, bool removeFromGrid) {
   if (!registryRef.valid(entity)) {
     std::cout << "removeEntityFromTerrain: entity invalid, skipping: "
@@ -892,12 +886,10 @@ inline void removeEntityFromTerrain(entt::registry &registryRef,
     if (voxelGridRef.terrainGridRepository) {
       TerrainGridLock terrainLock(voxelGridRef.terrainGridRepository.get());
       // removeEntityFromGrid handles voxel bookkeeping; do not destroy here
-      removeEntityFromGrid(registryRef, voxelGridRef, dispatcherRef, entity,
-                           false);
+      removeEntityFromGrid(registryRef, voxelGridRef, sink, entity, false);
     } else {
       // Fallback: still call removeEntityFromGrid even if repo pointer missing
-      removeEntityFromGrid(registryRef, voxelGridRef, dispatcherRef, entity,
-                           false);
+      removeEntityFromGrid(registryRef, voxelGridRef, sink, entity, false);
     }
   } else {
     std::cout << "removeEntityFromTerrain: skip grid removal for entity: "
@@ -909,7 +901,7 @@ inline void removeEntityFromTerrain(entt::registry &registryRef,
  * @brief Destroys an entity and performs grid/repository cleanup.
  * @param registry The entt::registry.
  * @param voxelGrid The VoxelGrid for repository access.
- * @param dispatcher The dispatcher used by removeEntityFromGrid if necessary.
+ * @param sink The sink used by removeEntityFromGrid if necessary.
  * @param entity The entity to destroy.
  * @param takeGridLock If true, callers will attempt to take repository locks
  * when modifying the grid.
@@ -920,8 +912,7 @@ inline void removeEntityFromTerrain(entt::registry &registryRef,
  * performing grid modifications if `takeGridLock` is true.
  */
 inline void destroyEntityWithGridCleanup(entt::registry &registry,
-                                         VoxelGrid &voxelGrid,
-                                         entt::dispatcher &dispatcher,
+                                         VoxelGrid &voxelGrid, EventSink &sink,
                                          entt::entity entity,
                                          bool takeGridLock = true) {
   if (!registry.valid(entity)) {
@@ -944,7 +935,7 @@ inline void destroyEntityWithGridCleanup(entt::registry &registry,
 
   try {
     // Remove references from VoxelGrid / TerrainGridRepository first
-    removeEntityFromGrid(registry, voxelGrid, dispatcher, entity, takeGridLock);
+    removeEntityFromGrid(registry, voxelGrid, sink, entity, takeGridLock);
   } catch (const std::exception &e) {
     std::cout << "destroyEntityWithGridCleanup: removeEntityFromGrid failed "
                  "for entity "
@@ -955,7 +946,7 @@ inline void destroyEntityWithGridCleanup(entt::registry &registry,
   // the repository here because removeEntityFromGrid already handled grid
   // locking when requested.
   if (registry.valid(entity)) {
-    _destroyEntity(registry, dispatcher, voxelGrid, entity, false);
+    _destroyEntity(registry, sink, voxelGrid, entity, false);
   } else {
     std::cout << "destroyEntityWithGridCleanup: entity already invalid at "
                  "destroy step for entity "
@@ -974,11 +965,11 @@ inline void destroyEntityWithGridCleanup(entt::registry &registry,
  * VoxelGrid representation.
  * @param registry The entt::registry.
  * @param voxelGrid The VoxelGrid.
- * @param dispatcher The entt::dispatcher, used for terrain deletion events.
+ * @param sink The EventSink, used for terrain deletion events.
  * @param entity The entity to be soft-killed.
  */
 inline void softKillEntity(entt::registry &registry, VoxelGrid &voxelGrid,
-                           entt::dispatcher &dispatcher, entt::entity entity) {
+                           EventSink &sink, entt::entity entity) {
   int entityId = static_cast<int>(entity);
   std::cout << "Performing soft kill on entity: " << entityId << std::endl;
 
@@ -1007,7 +998,7 @@ inline void softKillEntity(entt::registry &registry, VoxelGrid &voxelGrid,
               << std::endl;
   }
 
-  removeEntityFromGrid(registry, voxelGrid, dispatcher, entity);
+  removeEntityFromGrid(registry, voxelGrid, sink, entity);
 }
 
 /**
@@ -1018,7 +1009,7 @@ inline void softKillEntity(entt::registry &registry, VoxelGrid &voxelGrid,
  * convert it to an EMPTY tile.
  * @param registry The entt::registry.
  * @param voxelGrid The VoxelGrid.
- * @param dispatcher The entt::dispatcher.
+ * @param sink The EventSink.
  * @param positionOfEntt The last known position of the entity.
  * @param invalidTerrain The entity handle, which may be invalid.
  * @return A valid, revived entity handle.
@@ -1027,7 +1018,7 @@ inline void softKillEntity(entt::registry &registry, VoxelGrid &voxelGrid,
  */
 inline entt::entity reviveColdTerrainEntities(entt::registry &registry,
                                               VoxelGrid &voxelGrid,
-                                              entt::dispatcher &dispatcher,
+                                              EventSink &sink,
                                               Position &positionOfEntt,
                                               entt::entity &invalidTerrain) {
   int invalidTerrainId = static_cast<int>(invalidTerrain);
@@ -1085,7 +1076,7 @@ inline entt::entity reviveColdTerrainEntities(entt::registry &registry,
       //           << std::endl;
       // Convert repository-backed tile into EMPTY and clear storage (under repo
       // lock)
-      convertTerrainTileToEmpty(registry, dispatcher, voxelGrid, positionOfEntt,
+      convertTerrainTileToEmpty(registry, sink, voxelGrid, positionOfEntt,
                                 invalidTerrain);
       // std::cout << "[reviveColdTerrainEntities] Converted terrain entity " <<
       // invalidTerrainId
@@ -1118,7 +1109,7 @@ inline entt::entity reviveColdTerrainEntities(entt::registry &registry,
  * not found, it destroys the entity.
  * @param registry The entt::registry.
  * @param voxelGrid The VoxelGrid.
- * @param dispatcher The entt::dispatcher.
+ * @param sink The EventSink.
  * @param entity The entity handle, which may be invalid.
  * @return A valid, potentially new, entity handle if revival was successful.
  * @throws aetherion::InvalidEntityException if the entity cannot be handled and
@@ -1126,7 +1117,7 @@ inline entt::entity reviveColdTerrainEntities(entt::registry &registry,
  */
 inline entt::entity handleInvalidEntityForMovement(entt::registry &registry,
                                                    VoxelGrid &voxelGrid,
-                                                   entt::dispatcher &dispatcher,
+                                                   EventSink &sink,
                                                    entt::entity entity) {
   // Entity is invalid but still listed in the velocity view — skip
   // defensively; tracking-map cleanup happens at the explicit remove site
@@ -1139,7 +1130,7 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry &registry,
   try {
     pos = voxelGrid.terrainGridRepository->getPositionOfEntt(entity);
   } catch (const aetherion::InvalidEntityException &e) {
-    convertTerrainTileToEmpty(registry, dispatcher, voxelGrid, pos, entity);
+    convertTerrainTileToEmpty(registry, sink, voxelGrid, pos, entity);
     // voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
     throw; // Re-throw to be caught by handleMovement
   }
@@ -1149,7 +1140,7 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry &registry,
               << entityId << " in TerrainGridRepository - soft-deactivating it."
               << std::endl;
 
-    convertTerrainTileToEmpty(registry, dispatcher, voxelGrid, pos, entity);
+    convertTerrainTileToEmpty(registry, sink, voxelGrid, pos, entity);
     // voxelGrid.terrainGridRepository->softDeactivateEntity(entity);
     // Throw exception to signal to caller that processing for this entity
     // should stop.
@@ -1159,8 +1150,7 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry &registry,
 
   } else {
     try {
-      return reviveColdTerrainEntities(registry, voxelGrid, dispatcher, pos,
-                                       entity);
+      return reviveColdTerrainEntities(registry, voxelGrid, sink, pos, entity);
     } catch (const aetherion::InvalidEntityException &e) {
       // Entity cannot be revived (e.g., zero vapor matter converted to empty)
       std::cout << "[handleMovement] Revival failed: " << e.what()
@@ -1191,9 +1181,9 @@ inline entt::entity handleInvalidEntityForMovement(entt::registry &registry,
 inline constexpr int WATER_VAPOR_CONFLICT_RETRY_LIMIT = 3;
 
 inline void createWaterTerrainFromFall(entt::registry &registry,
-                                       entt::dispatcher &dispatcher,
-                                       VoxelGrid &voxelGrid, int x, int y,
-                                       int z, double fallingAmount,
+                                       EventSink &sink, VoxelGrid &voxelGrid,
+                                       int x, int y, int z,
+                                       double fallingAmount,
                                        entt::entity sourceEntity,
                                        Position sourcePos, int retryCount = 0) {
   if (!voxelGrid.terrainGridRepository) {
@@ -1241,7 +1231,7 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
   // the same `WaterFallEntityEvent` with an incremented retry counter so the
   // surrounding vapor has a chance to disperse on the next tick. After
   // `WATER_VAPOR_CONFLICT_RETRY_LIMIT` retries we abort with a warn log to keep
-  // the dispatcher queue from growing unbounded on a genuinely sealed pocket.
+  // the sink queue from growing unbounded on a genuinely sealed pocket.
   //
   // The pure-abort alternative (drop the water on retry-exhaust without any
   // log) is *not* used here because the warn log is the only diagnostic we
@@ -1304,7 +1294,7 @@ inline void createWaterTerrainFromFall(entt::registry &registry,
       if (retryCount < WATER_VAPOR_CONFLICT_RETRY_LIMIT) {
         Position retryDest{originalDestX, originalDestY, originalDestZ,
                            DirectionEnum::DOWN};
-        dispatcher.enqueue<WaterFallEntityEvent>(WaterFallEntityEvent{
+        sink.enqueue<WaterFallEntityEvent>(WaterFallEntityEvent{
             sourceEntity, sourcePos, retryDest, static_cast<int>(fallingAmount),
             retryCount + 1});
         return;
@@ -1528,9 +1518,8 @@ inline void addOrCreateVaporAbove(entt::registry &registry,
  * invariant violation).
  */
 inline void createWaterTerrainBelowVapor(entt::registry &registry,
-                                         entt::dispatcher &dispatcher,
-                                         VoxelGrid &voxelGrid, int vaporX,
-                                         int vaporY, int vaporZ,
+                                         EventSink &sink, VoxelGrid &voxelGrid,
+                                         int vaporX, int vaporY, int vaporZ,
                                          double condensationAmount,
                                          MatterContainer &vaporMatter,
                                          int retryCount = 0) {
@@ -1571,7 +1560,7 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
 
   // Vapor-only destination guard. The handler `onCondenseWaterEntityEvent`
   // routes here only when its event snapshot says the cell below is NONE,
-  // but events sit on the dispatcher queue between enqueue and dispatch,
+  // but events sit on the sink queue between enqueue and dispatch,
   // and other handlers (cascading vapor merges, condensation events from
   // adjacent vapor columns) can populate that cell with vapor in the
   // meantime. Writing liquid water on top of pure vapor would create a
@@ -1580,7 +1569,7 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
   // an incremented retry counter so the destination's vapor has a chance
   // to disperse on the next tick. After
   // `WATER_VAPOR_CONFLICT_RETRY_LIMIT` retries, abort with a warn log so
-  // the dispatcher queue does not grow unbounded on a sealed configuration.
+  // the sink queue does not grow unbounded on a sealed configuration.
   //
   // Pure abort (skip without re-dispatch) is a valid fallback if retries
   // ever prove buggy, but it would silently lose the condensation amount;
@@ -1592,7 +1581,7 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
   if (destinationIsVaporOnly) {
     if (retryCount < WATER_VAPOR_CONFLICT_RETRY_LIMIT) {
       Position retrySource{vaporX, vaporY, vaporZ, DirectionEnum::DOWN};
-      dispatcher.enqueue<CondenseWaterEntityEvent>(CondenseWaterEntityEvent{
+      sink.enqueue<CondenseWaterEntityEvent>(CondenseWaterEntityEvent{
           retrySource, static_cast<int>(condensationAmount),
           static_cast<int>(TerrainIdTypeEnum::NONE), retryCount + 1});
       return;
@@ -1673,7 +1662,7 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
       // We're already holding TerrainGridLock for this operation, avoid
       // double-locking
       voxelGrid.terrainGridRepository->softDeactivateEntity(
-          dispatcher, static_cast<entt::entity>(vaporTerrainId), false);
+          sink, static_cast<entt::entity>(vaporTerrainId), false);
     }
   }
 
@@ -1690,10 +1679,9 @@ inline void createWaterTerrainBelowVapor(entt::registry &registry,
 // ================ 5. Event-based Mutators = ================
 // =========================================================================
 
-inline void _handleInvalidTerrainFound(entt::dispatcher &dispatcher,
-                                       VoxelGrid &voxelGrid,
+inline void _handleInvalidTerrainFound(EventSink &sink, VoxelGrid &voxelGrid,
                                        const InvalidTerrainFoundEvent &event) {
-  voxelGrid.deleteTerrain(dispatcher, event.x, event.y, event.z);
+  voxelGrid.deleteTerrain(sink, event.x, event.y, event.z);
 }
 
 // Centralised stale-terrain-cell recovery.
@@ -1711,8 +1699,8 @@ inline void _handleInvalidTerrainFound(entt::dispatcher &dispatcher,
 // freshly NONE), ``false`` when the cell holds real matter and the
 // caller should leave it alone.
 inline bool _recoverStaleTerrainCellIfTransitory(VoxelGrid &voxelGrid,
-                                                 entt::dispatcher &dispatcher,
-                                                 int x, int y, int z) {
+                                                 EventSink &sink, int x, int y,
+                                                 int z) {
   EntityTypeComponent type =
       voxelGrid.terrainGridRepository->getTerrainEntityType(x, y, z);
   const bool isTransitoryEmpty =
@@ -1721,7 +1709,7 @@ inline bool _recoverStaleTerrainCellIfTransitory(VoxelGrid &voxelGrid,
   if (!isTransitoryEmpty) {
     return false;
   }
-  voxelGrid.deleteTerrain(dispatcher, x, y, z, true);
+  voxelGrid.deleteTerrain(sink, x, y, z, true);
   return true;
 }
 
@@ -1900,8 +1888,7 @@ inline bool _attemptVelocityDrivenMove(VoxelGrid &voxelGrid,
 //       * Other terrain types  -> refuse + warn (water cannot land on
 //                                  stone, transitory-empty cells, plant
 //                                  terrain, etc.).
-inline void _handleWaterCreationEvent(entt::registry &registry,
-                                      entt::dispatcher &dispatcher,
+inline void _handleWaterCreationEvent(entt::registry &registry, EventSink &sink,
                                       VoxelGrid &voxelGrid,
                                       const WaterCreationEvent &event) {
   (void)registry; // No EnTT entity is created — water lives in VDB only.
@@ -1957,7 +1944,7 @@ inline void _handleWaterCreationEvent(entt::registry &registry,
                                       destMatter.WaterMatter <= 0;
   if (destinationIsVaporOnly) {
     if (event.retryCount < WATER_VAPOR_CONFLICT_RETRY_LIMIT) {
-      dispatcher.enqueue<WaterCreationEvent>(WaterCreationEvent{
+      sink.enqueue<WaterCreationEvent>(WaterCreationEvent{
           event.position, event.amount, event.retryCount + 1});
       return;
     }
@@ -2026,8 +2013,7 @@ void _handleWaterSpreadEvent(VoxelGrid &voxelGrid,
                              const WaterSpreadEvent &event);
 
 inline void _handleWaterGravityFlowEvent(entt::registry &registry,
-                                         entt::dispatcher &dispatcher,
-                                         VoxelGrid &voxelGrid,
+                                         EventSink &sink, VoxelGrid &voxelGrid,
                                          const WaterGravityFlowEvent &event) {
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
 
@@ -2122,7 +2108,7 @@ inline void _handleWaterGravityFlowEvent(entt::registry &registry,
     //                              event.source.x, event.source.y,
     //                              event.source.z);
 
-    voxelGrid.deleteTerrain(dispatcher, event.source.x, event.source.y,
+    voxelGrid.deleteTerrain(sink, event.source.x, event.source.y,
                             event.source.z, false);
   }
 }
@@ -2131,9 +2117,10 @@ inline void _handleWaterGravityFlowEvent(entt::registry &registry,
 void _handleTerrainPhaseConversionEvent(
     VoxelGrid &voxelGrid, const TerrainPhaseConversionEvent &event);
 
-inline void _handleVaporMergeSidewaysEvent(
-    entt::registry &registry, entt::dispatcher &dispatcher,
-    VoxelGrid &voxelGrid, const VaporMergeSidewaysEvent &event) {
+inline void
+_handleVaporMergeSidewaysEvent(entt::registry &registry, EventSink &sink,
+                               VoxelGrid &voxelGrid,
+                               const VaporMergeSidewaysEvent &event) {
   // Lock terrain grid for atomic state change (prevents race conditions with
   // other systems)
   TerrainGridLock lock(voxelGrid.terrainGridRepository.get());
@@ -2203,7 +2190,7 @@ inline void _handleVaporMergeSidewaysEvent(
                  << event.sourceTerrainId << " at (" << event.source.x << ", "
                  << event.source.y << ", " << event.source.z << ")";
       spdlog::get("console")->info(ossMessage.str());
-      dispatcher.enqueue<KillEntityEvent>(sourceEntity);
+      sink.enqueue<KillEntityEvent>(sourceEntity);
     } else {
       // spdlog::get("console")->warn("[VaporMergeSidewaysEvent] Source terrain
       // "
@@ -2247,8 +2234,7 @@ inline void applyEntityMovement(VoxelGrid &voxelGrid, entt::entity entity,
 }
 
 // Main function: Create and apply movement component
-inline void createMovingComponent(entt::registry &registry,
-                                  entt::dispatcher &dispatcher,
+inline void createMovingComponent(entt::registry &registry, EventSink &sink,
                                   VoxelGrid &voxelGrid, entt::entity entity,
                                   Position &position, Velocity &velocity,
                                   int movingToX, int movingToY, int movingToZ,

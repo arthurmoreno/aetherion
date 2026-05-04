@@ -7,6 +7,7 @@
 #include <shared_mutex>
 #include <unordered_map>
 
+#include "EventSink.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/LifecycleComponents.hpp"
 #include "components/MovingComponent.hpp"
@@ -173,7 +174,7 @@ public:
   // If `takeLock` is true (default) the function will acquire the
   // TerrainGridLock; callers that already hold the lock may pass `false` to
   // avoid double-locking.
-  void deleteTerrain(entt::dispatcher &dispatcher, int x, int y, int z,
+  void deleteTerrain(EventSink &sink, int x, int y, int z,
                      bool takeLock = true);
 
   // Soft-deactivate an active terrain EnTT entity without immediately
@@ -181,7 +182,7 @@ public:
   // and ensures the repository mapping and storage are updated to mark the
   // voxel as back in grid storage. Callers may then decide to schedule a final
   // destruction later.
-  void softDeactivateEntity(entt::dispatcher &dispatcher, entt::entity e,
+  void softDeactivateEntity(EventSink &sink, entt::entity e,
                             bool takeLock = true);
 
   // Check if a terrain voxel has a MovingComponent

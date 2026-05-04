@@ -25,11 +25,13 @@
 #include "voxelgrid/VoxelGrid.hpp"
 
 World::World(int width, int height, int depth)
-    : voxelGrid(new VoxelGrid(registry)), pyRegistry(registry, dispatcher),
+    : workerSink_(),
+      eventSink_(dispatcher, workerSink_, std::this_thread::get_id()),
+      voxelGrid(new VoxelGrid(registry)), pyRegistry(registry, dispatcher),
       // Update to use just SQLite file path parameter
       dbHandler(std::make_unique<GameDBHandler>("./data/game.sqlite")),
-      physicsEngine(new PhysicsEngine(registry, dispatcher, voxelGrid)),
-      lifeEngine(new LifeEngine(registry, dispatcher, voxelGrid)),
+      physicsEngine(new PhysicsEngine(registry, eventSink_, voxelGrid)),
+      lifeEngine(new LifeEngine(registry, eventSink_, voxelGrid)),
       ecosystemEngine(new EcosystemEngine()),
       metabolismSystem(new MetabolismSystem(registry, voxelGrid)),
       combatSystem(new CombatSystem(registry, voxelGrid)),
@@ -51,7 +53,7 @@ World::World(int width, int height, int depth)
   lifeEngine->registerEventHandlers(dispatcher);
   ecosystemEngine->registerEventHandlers(dispatcher);
   ecosystemEngine->waterSimManager_->initializeProcessors(registry, *voxelGrid,
-                                                          dispatcher);
+                                                          eventSink_);
 
   if (!Py_IsInitialized()) {
     std::cout << "Python was not initialized! Starting python interpreter."
@@ -82,7 +84,7 @@ void World::removeEntity(entt::entity entity) {
 void World::destroyEntityHandle(entt::entity entity) {
   // Delegate to physics mutator which handles validation, grid cleanup and
   // destruction.
-  destroyEntityWithGridCleanup(registry, *voxelGrid, dispatcher, entity, true);
+  destroyEntityWithGridCleanup(registry, *voxelGrid, eventSink_, entity, true);
 }
 
 // Acquire the lifecycle mutex exclusively and destroy the entity handle.
@@ -787,7 +789,7 @@ void World::dispatchWaterCreationEvent(Position position, int amount) {
 }
 
 void World::deleteTerrainAt(int x, int y, int z) {
-  voxelGrid->deleteTerrain(dispatcher, x, y, z, true);
+  voxelGrid->deleteTerrain(eventSink_, x, y, z, true);
 }
 
 void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId,
@@ -1027,7 +1029,7 @@ void World::runEcosystemStep() {
 
     if (ecosystemEngine && ecosystemEngine->waterSimManager_ &&
         !ecosystemEngine->waterSimManager_->hasEncounteredCriticalError()) {
-      ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, dispatcher,
+      ecosystemEngine->processEcosystemAsync(registry, *voxelGrid, eventSink_,
                                              gameClock);
       ecosystemStarted_ = true;
     }
@@ -1070,7 +1072,7 @@ void World::runEcosystemStep() {
         std::launch::async, safeExecute,
         [this]() {
           ecosystemEngine->processEcosystemAsync(registry, *voxelGrid,
-                                                 dispatcher, gameClock);
+                                                 eventSink_, gameClock);
         },
         "EcosystemEngine");
     ecosystemStarted_ = true;
@@ -1092,15 +1094,20 @@ void World::update() {
     lifeEngine->flushLifeMetrics(dbHandler.get());
   }
 
+  // Replay events staged by worker threads (ecosystem future, water-sim
+  // pool, physics future) before the main thread dispatches. After this
+  // point the dispatcher is single-threaded for the duration of update().
+  workerSink_.drain(dispatcher);
+
   dispatcher.update();
 
-  physicsEngine->processPhysics(registry, *voxelGrid, dispatcher, gameClock);
+  physicsEngine->processPhysics(registry, *voxelGrid, eventSink_, gameClock);
 
   if (processMetabolism_) {
     metabolismSystem->processMetabolism(registry, *voxelGrid, dispatcher);
   }
 
-  ecosystemEngine->processEcosystem(registry, *voxelGrid, dispatcher,
+  ecosystemEngine->processEcosystem(registry, *voxelGrid, eventSink_,
                                     gameClock);
 
   effectsSystem->processEffects(registry, *voxelGrid, dispatcher);
@@ -1168,7 +1175,7 @@ void World::update() {
       physicsFuture = std::async(
           std::launch::async, safeExecute,
           [this]() {
-            physicsEngine->processPhysicsAsync(registry, *voxelGrid, dispatcher,
+            physicsEngine->processPhysicsAsync(registry, *voxelGrid, eventSink_,
                                                gameClock);
           },
           "PhysicsEngine");

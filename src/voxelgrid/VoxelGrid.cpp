@@ -169,10 +169,10 @@ int VoxelGrid::createEnttForTerrain(int x, int y, int z) const {
 }
 
 // Delete terrain at a specific voxel
-void VoxelGrid::deleteTerrain(entt::dispatcher &dispatcher, int x, int y, int z,
+void VoxelGrid::deleteTerrain(EventSink &sink, int x, int y, int z,
                               bool takeLock) {
   if (terrainGridRepository) {
-    terrainGridRepository->deleteTerrain(dispatcher, x, y, z, takeLock);
+    terrainGridRepository->deleteTerrain(sink, x, y, z, takeLock);
   }
 }
 

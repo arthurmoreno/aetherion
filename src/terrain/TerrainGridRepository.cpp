@@ -802,8 +802,8 @@ bool TerrainGridRepository::checkIfTerrainExists(int x, int y, int z) const {
 }
 
 // Delete terrain at a specific voxel
-void TerrainGridRepository::deleteTerrain(entt::dispatcher &dispatcher, int x,
-                                          int y, int z, bool takeLock) {
+void TerrainGridRepository::deleteTerrain(EventSink &sink, int x, int y, int z,
+                                          bool takeLock) {
   std::unique_ptr<TerrainGridLock> lock;
   if (takeLock) {
     lock = std::make_unique<TerrainGridLock>(this);
@@ -818,7 +818,7 @@ void TerrainGridRepository::deleteTerrain(entt::dispatcher &dispatcher, int x,
     // std::cout << "Deleting terrain entity: " << terrainId << std::endl;
     entt::entity entity = static_cast<entt::entity>(terrainId);
     removeFromTrackingMaps(key, entity);
-    dispatcher.enqueue<KillEntityEvent>(entity);
+    sink.enqueue<KillEntityEvent>(entity);
   } else if (terrainId != -2 && terrainId != -1) {
     // TODO
     // Silenced: stale-id deletion trace was crowding the log during
@@ -828,7 +828,7 @@ void TerrainGridRepository::deleteTerrain(entt::dispatcher &dispatcher, int x,
     //           << "But we might clean up something else here." << "\n";
     entt::entity entity = static_cast<entt::entity>(terrainId);
     removeFromTrackingMaps(key, entity);
-    dispatcher.enqueue<KillEntityEvent>(entity);
+    sink.enqueue<KillEntityEvent>(entity);
   } else {
     // Silenced: ON_GRID_STORAGE/NONE deletion trace was crowding the log
     // during water-state debugging. Re-enable if id-flow inspection is
@@ -880,7 +880,7 @@ void TerrainGridRepository::unlockTerrainGrid() {
   terrainGridMutex.unlock();
 }
 
-void TerrainGridRepository::softDeactivateEntity(entt::dispatcher &dispatcher,
+void TerrainGridRepository::softDeactivateEntity(EventSink &sink,
                                                  entt::entity e,
                                                  bool takeLock) {
   if (takeLock) {
@@ -929,12 +929,12 @@ void TerrainGridRepository::softDeactivateEntity(entt::dispatcher &dispatcher,
   if (registry_.all_of<Velocity>(e)) {
     hadTransient = true;
     // registry_.remove<Velocity>(e);
-    dispatcher.enqueue<TerrainRemoveVelocityEvent>(e);
+    sink.enqueue<TerrainRemoveVelocityEvent>(e);
   }
   if (registry_.all_of<MovingComponent>(e)) {
     hadTransient = true;
     // registry_.remove<MovingComponent>(e);
-    dispatcher.enqueue<TerrainRemoveMovingComponentEvent>(e);
+    sink.enqueue<TerrainRemoveMovingComponentEvent>(e);
   }
 
   if (!hadTransient) {

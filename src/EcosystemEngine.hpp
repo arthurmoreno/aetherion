@@ -15,6 +15,7 @@
 #include <shared_mutex>
 #include <thread>
 
+#include "EventSink.hpp"
 #include "GameClock.hpp"
 #include "LifeEvents.hpp"
 #include "Logger.hpp"
@@ -172,12 +173,12 @@ private:
   std::unique_ptr<ThreadAccessors> accessors_;
   entt::registry *registry_;
   VoxelGrid *voxelGrid_;
-  entt::dispatcher *dispatcher_;
+  EventSink *sink_;
 
 public:
   // Initialize accessors and registry when processor is created
   void initializeAccessors(entt::registry &registry, VoxelGrid &voxelGrid,
-                           entt::dispatcher &dispatcher);
+                           EventSink &sink);
 
   std::vector<WaterFlow> processBox(const GridBox &box, float sunIntensity);
 
@@ -221,7 +222,7 @@ public:
 
   // Initialize processors with terrain storage access
   void initializeProcessors(entt::registry &registry, VoxelGrid &voxelGrid,
-                            entt::dispatcher &dispatcher);
+                            EventSink &sink);
 
   // Main parallel water simulation processing
   void processWaterSimulation(entt::registry &registry, VoxelGrid &voxelGrid,
@@ -284,9 +285,8 @@ struct ToBeCreatedWaterTile {
 };
 
 void processTileWater(int x, int y, int z, entt::registry &registry,
-                      VoxelGrid &voxelGrid, entt::dispatcher &dispatcher,
-                      float sunIntensity, std::random_device &rd,
-                      std::mt19937 &gen,
+                      VoxelGrid &voxelGrid, EventSink &sink, float sunIntensity,
+                      std::random_device &rd, std::mt19937 &gen,
                       std::uniform_int_distribution<> &disWaterSpreading);
 
 class EcosystemEngine {
@@ -306,11 +306,11 @@ public:
 
   // Method to process physics-related events
   void processEcosystem(entt::registry &registry, VoxelGrid &voxelGrid,
-                        entt::dispatcher &dispatcher, GameClock &clock);
+                        EventSink &sink, GameClock &clock);
   void processEcosystemAsync(entt::registry &registry, VoxelGrid &voxelGrid,
-                             entt::dispatcher &dispatcher, GameClock &clock);
+                             EventSink &sink, GameClock &clock);
   void loopTiles(entt::registry &registry, VoxelGrid &voxelGrid,
-                 entt::dispatcher &dispatcher, float sunIntensity);
+                 EventSink &sink, float sunIntensity);
 
   // Parallel water simulation using WaterSimulationManager
   void processParallelWaterSimulation(entt::registry &registry,
@@ -323,7 +323,7 @@ public:
 
   // Register the event handler
   void onSetEcoEntityToDebug(const SetEcoEntityToDebug &event);
-  void registerEventHandlers(entt::dispatcher &dispatcher);
+  void registerEventHandlers(entt::dispatcher &disp);
 
   bool isProcessingComplete() const;
 
