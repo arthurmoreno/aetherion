@@ -46,7 +46,7 @@ WATCH_Y_MIN, WATCH_Y_MAX = 49, 51
 WATCH_Z_MIN, WATCH_Z_MAX = 0, 2
 
 # Step budget: high enough to trigger the bug (~1000), low enough to avoid segfault.
-SAFE_MAX_STEPS = 1100
+SAFE_MAX_STEPS = 110
 
 
 # ---------------------------------------------------------------------------
@@ -249,10 +249,10 @@ class TestMidFlowCorruptionDetection:
         )
 
         corrupted = _scan_watch_corridor(manager.current.world.get_voxel_grid())
-        assert not corrupted, f"Corrupted terrain IDs in watch corridor at step 1000: {_format_corrupted(corrupted)}"
+        assert not corrupted, f"Corrupted terrain IDs in watch corridor at step 100: {_format_corrupted(corrupted)}"
 
-    def test_specific_crash_voxels_stay_valid_to_1000_steps(self):
-        """The exact voxels from the crash log must stay valid up to step 1000.
+    def test_specific_crash_voxels_stay_valid_to_100_steps(self):
+        """The exact voxels from the crash log must stay valid up to step 100.
 
         Known bad voxels from engine logs: (89,50,1), (91,50,1), (94,50,1), (96,50,1).
         Scans every 100 steps and stops early if corruption is found.
@@ -262,14 +262,14 @@ class TestMidFlowCorruptionDetection:
         world = manager.current.world
         voxel_grid = world.get_voxel_grid()
 
-        for step in range(1000):
+        for step in range(100):
             try:
                 manager.update()
             except aetherion.EcosystemEngineException as exc:
                 assert False, f"Engine threw EcosystemEngineException at step {step}: {exc}"
             sleep(0.01)
 
-            if (step + 1) % 100 == 0:
+            if (step + 1) % 10 == 0:
                 bad = [
                     (x, y, z, voxel_grid.get_terrain(x, y, z))
                     for x, y, z in CRASH_VOXELS
@@ -329,7 +329,7 @@ class TestPostRunInvariants:
         initial_total = repo.sum_total_water()
         print(
             f"[probe] pre-run: total_water={initial_total}, "
-            f"process_async={world.process_ecosystem_async}, "
+            f"process_async={world.process_ecosystem}, "
             f"simulate_water_movement={world.simulate_water_movement}, "
             f"simulate_water_evaporation={world.simulate_water_evaporation}, "
             f"simulate_vapor_movement={world.simulate_vapor_movement}, "

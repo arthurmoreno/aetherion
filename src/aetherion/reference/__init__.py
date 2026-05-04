@@ -4,7 +4,7 @@ These types are stable, minimal wiring around core components. They are not pres
 for shipping game content—games may define their own terrain classes and enums.
 
 World factories mirror the minimal rogue dungeon demo (pillar, pyramid, masked square,
-dungeon layout) using :class:`ReferenceGrass` and set ``process_ecosystem_async = False``.
+dungeon layout) using :class:`ReferenceGrass` and set ``process_ecosystem = False``.
 """
 
 from aetherion.reference.systems.spring_water import SpringWaterSystem

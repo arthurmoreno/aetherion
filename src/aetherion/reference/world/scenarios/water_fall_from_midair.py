@@ -43,7 +43,7 @@ def water_fall_from_midair_world_factory(world_config: dict[str, int]) -> aether
     factory = EmptySquareWorldFactory(width=WORLD_WIDTH, height=WORLD_HEIGHT, depth=WORLD_DEPTH)
 
     world = factory.generate_world()
-    world.process_ecosystem_async = False
+    world.process_ecosystem = False
 
     voxel_grid = world.get_voxel_grid()
 
@@ -72,7 +72,7 @@ def water_column_above_floor_world_factory(world_config: dict[str, int]) -> aeth
     factory = EmptySquareWorldFactory(width=WORLD_WIDTH, height=WORLD_HEIGHT, depth=WORLD_DEPTH)
 
     world = factory.generate_world()
-    world.process_ecosystem_async = False
+    world.process_ecosystem = False
 
     voxel_grid = world.get_voxel_grid()
 

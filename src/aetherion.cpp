@@ -736,9 +736,13 @@ NB_MODULE(_aetherion, m) {
       .def_rw("depth", &World::depth)
       .def_rw("game_clock", &World::gameClock)
       .def_prop_rw(
-          "process_ecosystem_async",
-          [](const World &w) { return w.getProcessEcosystemAsync(); },
-          [](World &w, bool v) { w.setProcessEcosystemAsync(v); })
+          "process_ecosystem",
+          [](const World &w) { return w.getProcessEcosystem(); },
+          [](World &w, bool v) { w.setProcessEcosystem(v); })
+      .def_prop_rw(
+          "process_metabolism",
+          [](const World &w) { return w.getProcessMetabolism(); },
+          [](World &w, bool v) { w.setProcessMetabolism(v); })
       .def_prop_rw(
           "simulate_vapor_condensation",
           [](const World &w) { return w.getSimulateVaporCondensation(); },
@@ -760,9 +764,9 @@ NB_MODULE(_aetherion, m) {
           [](const World &w) { return w.getWaterAutoBalancing(); },
           [](World &w, bool v) { w.setWaterAutoBalancing(v); })
       .def_prop_rw(
-          "run_water_sim_synchronously",
-          [](const World &w) { return w.getRunWaterSimSynchronously(); },
-          [](World &w, bool v) { w.setRunWaterSimSynchronously(v); })
+          "run_ecosystem_synchronously",
+          [](const World &w) { return w.getRunEcosystemSynchronously(); },
+          [](World &w, bool v) { w.setRunEcosystemSynchronously(v); })
       .def("initialize_voxel_grid", &World::initializeVoxelGrid)
       .def("set_voxel", &World::setVoxel)
       .def("get_voxel", &World::getVoxel)

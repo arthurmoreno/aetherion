@@ -22,7 +22,7 @@ public:
   void setSimulateWaterMovement(bool value);
   void setSimulateWaterEvaporation(bool value);
   void setWaterAutoBalancing(bool value);
-  void setRunWaterSimSynchronously(bool value);
+  void setRunEcosystemSynchronously(bool value);
 
   // Getters
   float getGravity() const;
@@ -37,7 +37,7 @@ public:
   bool getSimulateWaterMovement() const;
   bool getSimulateWaterEvaporation() const;
   bool getWaterAutoBalancing() const;
-  bool getRunWaterSimSynchronously() const;
+  bool getRunEcosystemSynchronously() const;
 
   // Optional: Load physics settings from a file
   bool loadSettings(const std::string &fileName);
@@ -87,10 +87,11 @@ private:
   bool simulateWaterMovement = true;
   bool simulateWaterEvaporation = true;
   bool waterAutoBalancing = true;
-  // When true, the WaterSimulationManager bypasses its worker threads and
-  // processes grid boxes synchronously on the main thread. Used to isolate
-  // the multi-thread dispatcher / VDB race from single-threaded behaviour.
-  bool runWaterSimSynchronously = false;
+  // When true, the ecosystem step (water sim + plants + worker pool) runs
+  // synchronously on the main update thread; when false it runs via std::async
+  // and the WaterSimulationManager worker pool. Toggles every layer of the
+  // ecosystem path, not just water sim — name reflects that broader scope.
+  bool runEcosystemSynchronously = false;
 };
 
 typedef PhysicsManager ThePhysicsManager;

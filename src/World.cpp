@@ -911,7 +911,7 @@ void safeExecute(const std::function<void()> &func,
 
 // Run one ecosystem step, choosing inline or async dispatch.
 //
-// When PhysicsManager::getRunWaterSimSynchronously() is true, run the full
+// When PhysicsManager::getRunEcosystemSynchronously() is true, run the full
 // ecosystem step inline on the main update thread instead of dispatching it
 // via std::async. This is the only way to truly serialize the dispatcher and
 // VDB accesses for diagnostic comparisons — the populateSchedulerWithSubset
@@ -921,12 +921,12 @@ void safeExecute(const std::function<void()> &func,
 // In sync mode the in-flight async future (if any, from a prior async tick)
 // is drained first so the inline call cannot race with it.
 void World::runEcosystemStep() {
-  if (!processEcosystemAsync_) {
+  if (!processEcosystem_) {
     return;
   }
 
   const bool runEcosystemSynchronously =
-      PhysicsManager::Instance()->getRunWaterSimSynchronously();
+      PhysicsManager::Instance()->getRunEcosystemSynchronously();
 
   if (runEcosystemSynchronously) {
     if (ecosystemFuture.valid()) {
@@ -1013,7 +1013,7 @@ void World::update() {
 
   physicsEngine->processPhysics(registry, *voxelGrid, dispatcher, gameClock);
 
-  if (!processMetabolismAsync) {
+  if (processMetabolism_) {
     metabolismSystem->processMetabolism(registry, *voxelGrid, dispatcher);
   }
 
@@ -1042,7 +1042,7 @@ void World::update() {
   bool anyAsyncTasksRunning =
       (physicsFuture.valid() && physicsFuture.wait_for(std::chrono::seconds(
                                     0)) != std::future_status::ready) ||
-      (processEcosystemAsync_ && ecosystemFuture.valid() &&
+      (processEcosystem_ && ecosystemFuture.valid() &&
        ecosystemFuture.wait_for(std::chrono::seconds(0)) !=
            std::future_status::ready) ||
       (metabolismFuture.valid() &&
@@ -1093,30 +1093,13 @@ void World::update() {
 
     runEcosystemStep();
 
-    if (processMetabolismAsync) {
-      // Handle Metabolism Async Task
-      if (!metabolismFuture.valid() ||
-          metabolismFuture.wait_for(std::chrono::seconds(0)) ==
-              std::future_status::ready) {
-        if (metabolismFuture.valid()) {
-          try {
-            metabolismFuture.get();
-          } catch (const std::exception &e) {
-            std::cerr << "MetabolismSystem async task crashed: " << e.what()
-                      << std::endl;
-            // Handle the exception
-          }
-        }
-
-        metabolismFuture = std::async(
-            std::launch::async, safeExecute,
-            [this]() {
-              metabolismSystem->processMetabolismAsync(registry, *voxelGrid,
-                                                       dispatcher);
-            },
-            "MetabolismSystem");
-      }
-    }
+    // Note: a metabolism async-dispatch block used to live here, gated on the
+    // hardcoded `const bool processMetabolismAsync = false;`, which made it
+    // dead code. With the rename to a true on/off flag (`processMetabolism_`,
+    // serviced by the sync call earlier in this method), there is only one
+    // metabolism path and the async branch was removed. `metabolismFuture`
+    // stays declared so existing `anyAsyncTasksRunning` checks pass through
+    // harmlessly with a default-constructed future.
   }
 }
 
@@ -1182,9 +1165,9 @@ bool World::getWaterAutoBalancing() const {
 void World::setWaterAutoBalancing(bool value) {
   PhysicsManager::Instance()->setWaterAutoBalancing(value);
 }
-bool World::getRunWaterSimSynchronously() const {
-  return PhysicsManager::Instance()->getRunWaterSimSynchronously();
+bool World::getRunEcosystemSynchronously() const {
+  return PhysicsManager::Instance()->getRunEcosystemSynchronously();
 }
-void World::setRunWaterSimSynchronously(bool value) {
-  PhysicsManager::Instance()->setRunWaterSimSynchronously(value);
+void World::setRunEcosystemSynchronously(bool value) {
+  PhysicsManager::Instance()->setRunEcosystemSynchronously(value);
 }

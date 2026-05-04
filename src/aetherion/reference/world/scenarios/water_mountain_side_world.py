@@ -15,7 +15,7 @@ def mountain_side_stream_world_factory(world_config: dict[str, int]) -> World:
 
     world_factory = MountainSideWorldFactory(width=world_width, height=world_height, depth=world_depth)
     world = world_factory.generate_world()
-    world.process_ecosystem_async = True
+    world.process_ecosystem = True
     world.water_auto_balancing = False
     world.simulate_water_movement = True
     world.simulate_water_evaporation = False
@@ -36,7 +36,7 @@ def mountain_side_spring_world_factory(world_config: dict[str, int]) -> World:
 
     world_factory = MountainSideWorldFactory(width=world_width, height=world_height, depth=world_depth)
     world = world_factory.generate_world()
-    world.process_ecosystem_async = True
+    world.process_ecosystem = True
     world.water_auto_balancing = False
     world.simulate_water_movement = True
     world.simulate_water_evaporation = False

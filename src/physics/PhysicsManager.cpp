@@ -84,8 +84,8 @@ void PhysicsManager::setWaterAutoBalancing(bool value) {
   waterAutoBalancing = value;
 }
 
-void PhysicsManager::setRunWaterSimSynchronously(bool value) {
-  runWaterSimSynchronously = value;
+void PhysicsManager::setRunEcosystemSynchronously(bool value) {
+  runEcosystemSynchronously = value;
 }
 
 // Getters
@@ -131,8 +131,8 @@ bool PhysicsManager::getWaterAutoBalancing() const {
   return waterAutoBalancing;
 }
 
-bool PhysicsManager::getRunWaterSimSynchronously() const {
-  return runWaterSimSynchronously;
+bool PhysicsManager::getRunEcosystemSynchronously() const {
+  return runEcosystemSynchronously;
 }
 
 // Optional: Load physics settings from a file

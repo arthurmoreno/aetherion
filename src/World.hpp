@@ -170,9 +170,14 @@ public:
   void registerPythonEventHandler(const std::string &eventType,
                                   nb::object callback);
 
-  // Ecosystem async processing toggle
-  bool getProcessEcosystemAsync() const { return processEcosystemAsync_; }
-  void setProcessEcosystemAsync(bool value) { processEcosystemAsync_ = value; }
+  // Ecosystem on/off toggle (when false, ecosystem step doesn't run at all
+  // per tick; when true, runs sync vs async per `runEcosystemSynchronously`).
+  bool getProcessEcosystem() const { return processEcosystem_; }
+  void setProcessEcosystem(bool value) { processEcosystem_ = value; }
+
+  // Metabolism on/off toggle (mirrors the ecosystem flag's shape).
+  bool getProcessMetabolism() const { return processMetabolism_; }
+  void setProcessMetabolism(bool value) { processMetabolism_ = value; }
 
   // Water simulation phase toggles (delegate to PhysicsManager singleton)
   bool getSimulateVaporCondensation() const;
@@ -185,8 +190,8 @@ public:
   void setSimulateWaterEvaporation(bool value);
   bool getWaterAutoBalancing() const;
   void setWaterAutoBalancing(bool value);
-  bool getRunWaterSimSynchronously() const;
-  void setRunWaterSimSynchronously(bool value);
+  bool getRunEcosystemSynchronously() const;
+  void setRunEcosystemSynchronously(bool value);
 
   // Water simulation error handling
   std::vector<ThreadError> getWaterSimErrors() const;
@@ -230,12 +235,15 @@ private:
   EcosystemEngine *ecosystemEngine;
   std::future<void> ecosystemFuture;
   bool ecosystemStarted_ = false;
-  bool processEcosystemAsync_ = false;
+  bool processEcosystem_ = false;
 
   // MetabolismSystem
   MetabolismSystem *metabolismSystem;
   std::future<void> metabolismFuture;
-  const bool processMetabolismAsync = false;
+  // Default true preserves the historical behaviour (when the prior
+  // `const bool processMetabolismAsync = false;` was hardcoded, the sync
+  // branch always ran). Setting this false skips metabolism entirely.
+  bool processMetabolism_ = true;
 
   // HealthSystem
   HealthSystem *healthSystem;

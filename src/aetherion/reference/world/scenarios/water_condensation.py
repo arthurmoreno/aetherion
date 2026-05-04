@@ -58,7 +58,7 @@ def water_condense_below_vapor_world_factory(
     factory = EmptySquareWorldFactory(width=WORLD_WIDTH, height=WORLD_HEIGHT, depth=WORLD_DEPTH)
 
     world = factory.generate_world()
-    world.process_ecosystem_async = False
+    world.process_ecosystem = False
 
     voxel_grid = world.get_voxel_grid()
     place_vapor(voxel_grid, *VAPOR_POS, water_vapor=INITIAL_VAPOR)

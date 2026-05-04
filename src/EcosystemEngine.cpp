@@ -262,7 +262,7 @@ void WaterSimulationManager::populateSchedulerWithSubset(float percentage,
   static size_t startIndex = 0; // Static to maintain state between calls
 
   const bool runSync =
-      PhysicsManager::Instance()->getRunWaterSimSynchronously();
+      PhysicsManager::Instance()->getRunEcosystemSynchronously();
 
   for (size_t i = 0; i < numBoxesToAdd; ++i) {
     size_t boxIndex = (startIndex + i) % gridBoxes_.size();

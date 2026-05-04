@@ -23,7 +23,7 @@ def pilar_world_factory(world_config: dict[str, int]) -> World:
 
     world_factory = PilarWorldFactory(width=world_width, height=world_height, depth=world_depth)
     world = world_factory.generate_world()
-    world.process_ecosystem_async = False
+    world.process_ecosystem = False
 
     return world
 
@@ -35,7 +35,7 @@ def pyramid_world_factory(world_config: dict[str, int]) -> World:
 
     world_factory = PyramidWorldFactory(width=world_width, height=world_height, depth=world_depth)
     world = world_factory.generate_world()
-    world.process_ecosystem_async = False
+    world.process_ecosystem = False
 
     return world
 
@@ -47,7 +47,7 @@ def pyramid_world_factory(world_config: dict[str, int]) -> World:
 
 #     world_factory = MountainSideWorldFactory(width=world_width, height=world_height, depth=world_depth)
 #     world = world_factory.generate_world()
-#     world.process_ecosystem_async = True
+#     world.process_ecosystem = True
 #     world.water_auto_balancing = False
 #     world.simulate_water_movement = True
 #     world.simulate_water_evaporation = False
@@ -148,7 +148,7 @@ def empty_square_world_factory(world_config: dict[str, int]) -> World:
     factory.apply_mask(z=1, mask=mask, starting_x=46, starting_y=46)
 
     world = factory.generate_world()
-    world.process_ecosystem_async = False
+    world.process_ecosystem = False
 
     return world
 
@@ -221,6 +221,6 @@ def dungeon_world_factory(world_config: dict[str, int]) -> World:
     factory.apply_mask(z=1, mask=dungeon, starting_x=cx - 24, starting_y=cy - 24)
 
     world = factory.generate_world()
-    world.process_ecosystem_async = False
+    world.process_ecosystem = False
 
     return world

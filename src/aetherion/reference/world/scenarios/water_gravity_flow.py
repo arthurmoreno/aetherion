@@ -51,7 +51,7 @@ def water_gravity_flow_world_factory_3x3x3(world_config: dict[str, int]) -> aeth
     factory = EmptySquareWorldFactory(width=WORLD_WIDTH, height=WORLD_HEIGHT, depth=WORLD_DEPTH)
 
     world = factory.generate_world()
-    world.process_ecosystem_async = True
+    world.process_ecosystem = True
     world.water_auto_balancing = False
     world.simulate_water_movement = True
     world.simulate_water_evaporation = True
@@ -82,7 +82,7 @@ def water_gravity_flow_world_factory(world_config: dict[str, int]) -> aetherion.
 
     world = factory.generate_world()
 
-    world.process_ecosystem_async = True
+    world.process_ecosystem = True
     world.water_auto_balancing = False
     world.simulate_water_movement = True
     world.simulate_water_evaporation = True

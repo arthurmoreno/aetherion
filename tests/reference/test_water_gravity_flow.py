@@ -27,7 +27,7 @@ from aetherion.reference.world.scenarios import (
 #    to a spring-driven layout (no water at t=0, water injected at z=2
 #    every 5 ticks) that doesn't match this test's contract.
 # 2. The original `_3x3x3` factory still does the right `place_water`
-#    call but enables `process_ecosystem_async = True`, whose worker
+#    call but enables `process_ecosystem = True`, whose worker
 #    pool races on small grids and intermittently hangs `manager.update()`.
 # `build_minimal_test_manager` defaults to a synchronous world via
 # `empty_square_world_factory`, mirroring `test_water_fall_event.py`'s
