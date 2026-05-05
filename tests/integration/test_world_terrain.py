@@ -14,19 +14,7 @@ import gc
 
 import pytest
 
-# Import aetherion module - if it fails, tests will be skipped
-try:
-    from aetherion import TerrainStorage, World
-
-    AETHERION_AVAILABLE = True
-    SKIP_REASON = ""
-except ImportError as e:
-    AETHERION_AVAILABLE = False
-    SKIP_REASON = f"aetherion module not available: {e}"
-
-
-# Skip all tests if aetherion is not available
-pytestmark = pytest.mark.skipif(not AETHERION_AVAILABLE, reason=SKIP_REASON)
+from aetherion import TerrainStorage, World
 
 
 class TestWorldAbstractions:
@@ -173,12 +161,12 @@ class TestMemoryAndPerformance:
             storage = TerrainStorage()
             storage.initialize()
 
-            storage.set_terrain_main_type(i, i, i, i * 5)
+            storage.set_terrain_main_type(i % 3, i % 3, i % 3, i * 5)
             _ = world.get_terrain(i % 3, i % 3, i % 3)
 
-            del world
             del storage
-            gc.collect()
+            del world
+        gc.collect()
 
 
 if __name__ == "__main__":

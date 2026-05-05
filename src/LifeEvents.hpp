@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "EntityInterface.hpp"
+#include "EventSink.hpp"
 #include "GameDBHandler.hpp"
 #include "components/ItemsComponents.hpp"
 #include "components/LifecycleComponents.hpp"
@@ -37,8 +38,8 @@ public:
   std::unordered_set<entt::entity> entitiesScheduledForDeletion;
 
   LifeEngine() = default;
-  LifeEngine(entt::registry &reg, entt::dispatcher &disp, VoxelGrid *voxelGrid)
-      : registry(reg), dispatcher(disp), voxelGrid(voxelGrid) {}
+  LifeEngine(entt::registry &reg, EventSink &sinkRef, VoxelGrid *voxelGrid)
+      : registry(reg), sink(sinkRef), voxelGrid(voxelGrid) {}
 
   // Handle entity movement event
   void onKillEntity(const KillEntityEvent &event);
@@ -47,7 +48,7 @@ public:
       const TerrainRemoveMovingComponentEvent &event);
 
   // Register the event handler
-  void registerEventHandlers(entt::dispatcher &dispatcher);
+  void registerEventHandlers(entt::dispatcher &disp);
 
   // Metrics flush to game DB
   void flushLifeMetrics(GameDBHandler *dbHandler);
@@ -57,7 +58,7 @@ public:
 
 private:
   entt::registry &registry;
-  entt::dispatcher &dispatcher;
+  EventSink &sink;
   VoxelGrid *voxelGrid;
 
   // Monitoring counters for life events

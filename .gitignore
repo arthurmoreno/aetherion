@@ -80,3 +80,9 @@ docs/*.tmp
 
 docs/html
 docs/latex
+
+# ------------
+#  .claude
+# ------------
+
+.claude/docs/*

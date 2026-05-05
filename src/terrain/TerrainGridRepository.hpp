@@ -7,6 +7,7 @@
 #include <shared_mutex>
 #include <unordered_map>
 
+#include "EventSink.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/LifecycleComponents.hpp"
 #include "components/MovingComponent.hpp"
@@ -74,14 +75,15 @@ public:
   // Tick transient systems; auto-deactivate when no transients remain
   void tick(int dtTicks = 1);
 
-  void setTerrainId(int x, int y, int z, int terrainID, bool takeLock = true);
+  void setTerrainId(int x, int y, int z, int64_t terrainID,
+                    bool takeLock = true);
 
   bool isTerrainIdOnEnttRegistry(int terrainID) const;
 
   // ---------------- Static getters/setters (VDB-backed) ----------------
 
-  std::optional<int> getTerrainIdIfExists(int x, int y, int z,
-                                          bool takeLock = true) const;
+  std::optional<int64_t> getTerrainIdIfExists(int x, int y, int z,
+                                              bool takeLock = true) const;
 
   // EntityTypeComponent
   EntityTypeComponent getTerrainEntityType(int x, int y, int z,
@@ -149,11 +151,18 @@ public:
   int getMaxLoadCapacity(int x, int y, int z) const;
   void setMaxLoadCapacity(int x, int y, int z, int v);
 
-  // ---------------- Transient getters/setters (ECS-backed) -------------
-  // Get velocity without activating; returns zero when inactive
+  // ---------------- Transient getters/setters (VDB-backed) -------------
+  // Get velocity; returns zero when no velocity stored
   Velocity getVelocity(int x, int y, int z) const;
-  // Setting a transient auto-activates voxel and writes to ECS only
+  // Setting velocity writes directly to VDB (no ECS entity created)
   void setVelocity(int x, int y, int z, const Velocity &vel);
+
+  // ---------------- MovingComponent coord-keyed map ----------------
+  // MovingComponent is stored in movingByCoord_ (protected by terrainGridMutex)
+  // instead of the ECS registry for terrain voxels.
+  void setMovingComponent(int x, int y, int z, const MovingComponent &mc);
+  MovingComponent getMovingComponent(int x, int y, int z) const;
+  void clearMovingComponent(int x, int y, int z);
 
   // ---------------- Migration Methods ----------------
   // Extract terrain components from EnTT entity and save to OpenVDB storage
@@ -165,7 +174,7 @@ public:
   // If `takeLock` is true (default) the function will acquire the
   // TerrainGridLock; callers that already hold the lock may pass `false` to
   // avoid double-locking.
-  void deleteTerrain(entt::dispatcher &dispatcher, int x, int y, int z,
+  void deleteTerrain(EventSink &sink, int x, int y, int z,
                      bool takeLock = true);
 
   // Soft-deactivate an active terrain EnTT entity without immediately
@@ -173,7 +182,7 @@ public:
   // and ensures the repository mapping and storage are updated to mark the
   // voxel as back in grid storage. Callers may then decide to schedule a final
   // destruction later.
-  void softDeactivateEntity(entt::dispatcher &dispatcher, entt::entity e,
+  void softDeactivateEntity(EventSink &sink, entt::entity e,
                             bool takeLock = true);
 
   // Check if a terrain voxel has a MovingComponent
@@ -188,6 +197,30 @@ public:
   template <typename Callback>
   void iterateBiomassMatter(Callback callback) const;
 
+  // Iterate every voxel that currently carries a non-zero velocity in VDB.
+  // Callback signature: void(int x, int y, int z, float vx, float vy, float vz)
+  template <typename Callback>
+  void iterateVelocityVoxels(Callback callback) const;
+
+  // Iterate every voxel that currently carries non-zero liquid water.
+  // Callback signature: void(int x, int y, int z, int waterMatter)
+  template <typename Callback>
+  void iterateWaterMatterVoxels(Callback callback) const;
+
+  // Iterate every voxel that currently carries non-zero vapor.
+  // Callback signature: void(int x, int y, int z, int vaporMatter)
+  template <typename Callback>
+  void iterateVaporMatterVoxels(Callback callback) const;
+
+  // Count of voxels currently carrying non-zero velocity (active in velXGrid).
+  int countActiveVelocityVoxels() const;
+
+  // Count of voxels currently carrying non-zero liquid water.
+  int countActiveWaterMatterVoxels() const;
+
+  // Count of voxels currently carrying non-zero vapor.
+  int countActiveVaporMatterVoxels() const;
+
   // Generic iterator that provides TerrainInfo for each active voxel
   template <typename Callback>
   void iterateActiveVoxels(Callback callback) const;
@@ -196,6 +229,14 @@ public:
   int64_t sumTotalWater() const;
 
   Position getPositionOfEntt(entt::entity terrain_entity) const;
+
+  // Move a terrain voxel from `(movingFromX/Y/Z)` to `(movingToX/Y/Z)` per
+  // the supplied `MovingComponent`. Pure CRUD — the repository does not
+  // dispatch any simulation events and does not validate phase-mismatch
+  // between source and destination matter. Physics-layer callers that
+  // need a phase-mismatch guard plus the post-move gravity wake-up
+  // should go through `_attemptVelocityDrivenMove` in `PhysicsMutators`
+  // rather than calling this directly.
   void moveTerrain(MovingComponent &movingComponent);
 
   // Locking methods for external synchronization during terrain movement
@@ -238,9 +279,11 @@ public:
 
   bool isTerrainGridLocked() const;
 
-private:
-  // Check if terrain grid is currently locked
+  // True only when the calling thread is the current exclusive lock holder.
+  // Use this for re-entrancy guards inside withUniqueLock/withSharedLock.
+  static bool currentThreadHoldsTerrainGridLock();
 
+private:
   // Utility methods for conditional locking
   template <typename Func>
   auto withSharedLock(Func &&func,
@@ -248,7 +291,7 @@ private:
     if (!takeLock) {
       return func();
     }
-    if (!isTerrainGridLocked()) {
+    if (!currentThreadHoldsTerrainGridLock()) {
       std::shared_lock<std::shared_mutex> lock(terrainGridMutex);
       return func();
     }
@@ -260,7 +303,7 @@ private:
     if (!takeLock) {
       return func();
     }
-    if (!isTerrainGridLocked()) {
+    if (!currentThreadHoldsTerrainGridLock()) {
       std::unique_lock<std::shared_mutex> lock(terrainGridMutex);
       return func();
     }
@@ -281,16 +324,12 @@ private:
   TerrainStorage &storage_;
   std::unordered_map<VoxelCoord, entt::entity, VoxelCoordHash> byCoord_;
   std::unordered_map<entt::entity, VoxelCoord> byEntity_;
+  std::unordered_map<VoxelCoord, MovingComponent, VoxelCoordHash>
+      movingByCoord_;
 
   entt::entity getEntityAt(int x, int y, int z) const;
   void markActive(int x, int y, int z, entt::entity e, bool takeLock = true);
   void clearActive(int x, int y, int z, bool takeLock = true);
-
-  // EnTT hooks to auto-activate on transient component emplacement
-  void onConstructVelocity(entt::registry &reg, entt::entity e);
-  void onConstructMoving(entt::registry &reg, entt::entity e);
-  void onDestroyVelocity(entt::registry &reg, entt::entity e);
-  void onDestroyMoving(entt::registry &reg, entt::entity e);
 };
 
 // ================ Template Method Implementations ================
@@ -336,6 +375,21 @@ void TerrainGridRepository::iterateActiveVoxels(Callback callback) const {
     TerrainInfo info = readTerrainInfo(key.x, key.y, key.z);
     callback(key.x, key.y, key.z, info);
   }
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateVelocityVoxels(Callback callback) const {
+  withSharedLock([&]() { storage_.iterateVelocityVoxels(callback); });
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateWaterMatterVoxels(Callback callback) const {
+  withSharedLock([&]() { storage_.iterateWaterMatter(callback); });
+}
+
+template <typename Callback>
+void TerrainGridRepository::iterateVaporMatterVoxels(Callback callback) const {
+  withSharedLock([&]() { storage_.iterateVaporMatter(callback); });
 }
 
 #endif // TERRAIN_GRID_REPOSITORY_HPP

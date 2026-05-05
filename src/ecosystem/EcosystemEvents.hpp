@@ -25,11 +25,16 @@ struct CondenseWaterEntityEvent {
   Position vaporPos; // Position of the vapor (x, y, z)
   int condensationAmount;
   int terrainBelowId; // Terrain ID at z-1 for handler decision
+  // Number of times this condensation has already been re-dispatched
+  // after hitting an unresolved vapor cell at the intended destination.
+  // Bounded by `createWaterTerrainBelowVapor` to prevent infinite loops
+  // on sealed vapor stacks.
+  int retryCount;
 
   CondenseWaterEntityEvent(Position vaporPos, int condensationAmount,
-                           int terrainBelowId)
+                           int terrainBelowId, int retryCount = 0)
       : vaporPos(vaporPos), condensationAmount(condensationAmount),
-        terrainBelowId(terrainBelowId) {}
+        terrainBelowId(terrainBelowId), retryCount(retryCount) {}
 };
 
 struct WaterFallEntityEvent {
@@ -37,11 +42,16 @@ struct WaterFallEntityEvent {
   Position sourcePos; // Position of the falling water (x, y, z)
   Position position;
   int fallingAmount;
+  // Number of times this fall has already been re-dispatched after
+  // hitting an unresolved vapor destination. Bounded by
+  // `createWaterTerrainFromFall` to prevent infinite loops on sealed
+  // vapor pockets.
+  int retryCount;
 
   WaterFallEntityEvent(entt::entity entity, Position sourcePos,
-                       Position position, int fallingAmount)
+                       Position position, int fallingAmount, int retryCount = 0)
       : entity(entity), sourcePos(sourcePos), position(position),
-        fallingAmount(fallingAmount) {}
+        fallingAmount(fallingAmount), retryCount(retryCount) {}
 };
 
 struct WaterSpreadEvent {
@@ -121,13 +131,27 @@ struct VaporCreationEvent {
       : position(position), amount(amount), targetExists(targetExists) {}
 };
 
-struct CreateVaporEntityEvent {
+// Materialise liquid water at a coordinate. Used by sources that do not
+// drain from another cell — e.g., `SpringWaterSystem`, scripted weather,
+// future rain. The handler chooses one of three branches based on the
+// current state of `position`:
+//   - cell is NONE (air)   -> writes the full water-terrain scaffolding
+//                              and seeds an initial gravity velocity if
+//                              the cell below is empty.
+//   - cell is liquid water -> additive merge: WaterMatter += amount.
+//   - cell holds vapor     -> retry-then-abort: re-enqueue with
+//                              retryCount + 1 up to
+//                              WATER_VAPOR_CONFLICT_RETRY_LIMIT, then
+//                              warn-log and drop.
+// `retryCount` is bounded to prevent unbounded re-dispatch on a sealed
+// vapor pocket.
+struct WaterCreationEvent {
   Position position;
-  float rhoEnv;
-  float rhoVapor;
+  int amount;
+  int retryCount;
 
-  CreateVaporEntityEvent(Position position, float rhoEnv, float rhoVapor)
-      : position(position), rhoEnv(rhoEnv), rhoVapor(rhoVapor) {}
+  WaterCreationEvent(Position position, int amount, int retryCount = 0)
+      : position(position), amount(amount), retryCount(retryCount) {}
 };
 
 struct VaporMergeUpEvent {
@@ -181,8 +205,10 @@ struct MoveGasEntityEvent {
 
 struct DeleteOrConvertTerrainEvent {
   entt::entity terrain;
+  Position position;
 
-  DeleteOrConvertTerrainEvent(entt::entity terrain) : terrain(terrain) {}
+  DeleteOrConvertTerrainEvent(entt::entity terrain, Position position)
+      : terrain(terrain), position(position) {}
 };
 
 #endif // ECOSYSTEM_EVENTS_HPP

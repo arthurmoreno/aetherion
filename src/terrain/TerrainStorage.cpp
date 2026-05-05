@@ -169,8 +169,8 @@ TerrainStorage::TerrainStorage() {
   // OpenVDB).
   openvdb::initialize();
   // Allocate terrain-related grids (terrainGrid attached externally)
-  terrainGrid = openvdb::Int32Grid::create(
-      -2); // -2 = off nodes, -1 = terrain exists but no enTT entity
+  terrainGrid = openvdb::Int64Grid::create(
+      -2LL); // -2 = off nodes, -1 = terrain exists but no enTT entity
   // Entity type component grids
   mainTypeGrid = openvdb::Int32Grid::create(0);
   subType0Grid = openvdb::Int32Grid::create(0);
@@ -187,6 +187,9 @@ TerrainStorage::TerrainStorage() {
   maxSpeedGrid = openvdb::Int32Grid::create(0);
   minSpeedGrid = openvdb::Int32Grid::create(0);
   heatGrid = openvdb::FloatGrid::create(0.0f);
+  velXGrid = openvdb::FloatGrid::create(0.0f);
+  velYGrid = openvdb::FloatGrid::create(0.0f);
+  velZGrid = openvdb::FloatGrid::create(0.0f);
 
   // Flags and aux grids
   flagsGrid = openvdb::Int32Grid::create(0);
@@ -215,6 +218,9 @@ void TerrainStorage::applyTransform(double voxelSize_) {
   maxLoadCapacityGrid->setTransform(xform);
   if (heatGrid)
     heatGrid->setTransform(xform);
+  velXGrid->setTransform(xform);
+  velYGrid->setTransform(xform);
+  velZGrid->setTransform(xform);
 }
 
 size_t TerrainStorage::memUsage() const {
@@ -233,6 +239,9 @@ size_t TerrainStorage::memUsage() const {
   total += flagsGrid ? flagsGrid->memUsage() : 0;
   total += maxLoadCapacityGrid ? maxLoadCapacityGrid->memUsage() : 0;
   total += heatGrid ? heatGrid->memUsage() : 0;
+  total += velXGrid ? velXGrid->memUsage() : 0;
+  total += velYGrid ? velYGrid->memUsage() : 0;
+  total += velZGrid ? velZGrid->memUsage() : 0;
   return total;
 }
 
@@ -295,6 +304,12 @@ void TerrainStorage::configureThreadCache() {
   const void *mlcPtr = static_cast<const void *>(&maxLoadCapacityGrid->tree());
   const void *hPtr =
       heatGrid ? static_cast<const void *>(&heatGrid->tree()) : nullptr;
+  const void *vxPtr =
+      velXGrid ? static_cast<const void *>(&velXGrid->tree()) : nullptr;
+  const void *vyPtr =
+      velYGrid ? static_cast<const void *>(&velYGrid->tree()) : nullptr;
+  const void *vzPtr =
+      velZGrid ? static_cast<const void *>(&velZGrid->tree()) : nullptr;
 
   const bool changed =
       newOwner || tc.terrainPtr != tptr || tc.mainTypePtr != mtPtr ||
@@ -303,12 +318,13 @@ void TerrainStorage::configureThreadCache() {
       tc.vaporMatterPtr != vapPtr || tc.biomassMatterPtr != bmPtr ||
       tc.massPtr != mPtr || tc.maxSpeedPtr != mxPtr ||
       tc.minSpeedPtr != mnPtr || tc.flagsPtr != fptr ||
-      tc.maxLoadCapacityPtr != mlcPtr || tc.heatPtr != hPtr;
+      tc.maxLoadCapacityPtr != mlcPtr || tc.heatPtr != hPtr ||
+      tc.velXPtr != vxPtr || tc.velYPtr != vyPtr || tc.velZPtr != vzPtr;
 
   if (!tc.configured || changed) {
     // Rebuild all accessors from current grids
     if (terrainGrid)
-      tc.terrainAcc = std::make_unique<openvdb::Int32Grid::Accessor>(
+      tc.terrainAcc = std::make_unique<openvdb::Int64Grid::Accessor>(
           terrainGrid->getAccessor());
     tc.mainTypeAcc = std::make_unique<openvdb::Int32Grid::Accessor>(
         mainTypeGrid->getAccessor());
@@ -339,6 +355,21 @@ void TerrainStorage::configureThreadCache() {
           heatGrid->getAccessor());
     else
       tc.heatAcc.reset();
+    if (velXGrid)
+      tc.velXAcc = std::make_unique<openvdb::FloatGrid::Accessor>(
+          velXGrid->getAccessor());
+    else
+      tc.velXAcc.reset();
+    if (velYGrid)
+      tc.velYAcc = std::make_unique<openvdb::FloatGrid::Accessor>(
+          velYGrid->getAccessor());
+    else
+      tc.velYAcc.reset();
+    if (velZGrid)
+      tc.velZAcc = std::make_unique<openvdb::FloatGrid::Accessor>(
+          velZGrid->getAccessor());
+    else
+      tc.velZAcc.reset();
 
     // Update identity pointers
     tc.terrainPtr = tptr;
@@ -355,6 +386,9 @@ void TerrainStorage::configureThreadCache() {
     tc.flagsPtr = fptr;
     tc.maxLoadCapacityPtr = mlcPtr;
     tc.heatPtr = hPtr;
+    tc.velXPtr = vxPtr;
+    tc.velYPtr = vyPtr;
+    tc.velZPtr = vzPtr;
 
     tc.configured = true;
   }
@@ -379,6 +413,9 @@ void TerrainStorage::resetThreadCache() {
   s_threadCache.flagsPtr = nullptr;
   s_threadCache.maxLoadCapacityPtr = nullptr;
   s_threadCache.heatPtr = nullptr;
+  s_threadCache.velXPtr = nullptr;
+  s_threadCache.velYPtr = nullptr;
+  s_threadCache.velZPtr = nullptr;
 
   // Reset all accessors to drop stale references into previous instance trees
   s_threadCache.terrainAcc.reset();
@@ -395,6 +432,9 @@ void TerrainStorage::resetThreadCache() {
   s_threadCache.flagsAcc.reset();
   s_threadCache.maxLoadCapacityAcc.reset();
   s_threadCache.heatAcc.reset();
+  s_threadCache.velXAcc.reset();
+  s_threadCache.velYAcc.reset();
+  s_threadCache.velZAcc.reset();
 }
 
 // Accessors
@@ -413,13 +453,14 @@ int TerrainStorage::getFlagBits(int x, int y, int z) const {
   return flagsGrid->tree().getValue(openvdb::Coord(x, y, z));
 }
 
-int TerrainStorage::getTerrainIdIfExists(int x, int y, int z) {
+int64_t TerrainStorage::getTerrainIdIfExists(int x, int y, int z) {
   configureThreadCache();
   if (s_threadCache.terrainAcc) {
     // std::cout << "[getTerrainIdIfExists] Checkpoint! Before:
     // s_threadCache.terrainAcc->getValue (" << x << ", " << y << ", " << z <<
     // ")\n";
-    int entityId = s_threadCache.terrainAcc->getValue(openvdb::Coord(x, y, z));
+    int64_t entityId =
+        s_threadCache.terrainAcc->getValue(openvdb::Coord(x, y, z));
     // std::cout << "[getTerrainIdIfExists] Checkpoint! After:
     // s_threadCache.terrainAcc->getValue (" << x << ", " << y << ", " << z <<
     // ") is " << entityId << std::endl;
@@ -440,7 +481,7 @@ int TerrainStorage::getTerrainIdIfExists(int x, int y, int z) {
   // << ", " << y << ", " << z << ")\n";
   if (!terrainGrid)
     return -2;
-  int entityId = terrainGrid->tree().getValue(openvdb::Coord(x, y, z));
+  int64_t entityId = terrainGrid->tree().getValue(openvdb::Coord(x, y, z));
   if (entityId != -2) {
     return entityId;
   }
@@ -502,8 +543,32 @@ int TerrainStorage::getTerrainMatter(int x, int y, int z) const {
   return terrainMatterGrid->tree().getValue(openvdb::Coord(x, y, z));
 }
 
+// V2's activation contract: deactivate the voxel (set inactive in the active
+// set) AND clear its value to 0 when amount == 0. Performance reason — keeps
+// `iterateGrid` (the sparse `cbeginValueOn` walk over these grids) iterating
+// only voxels that actually carry matter. Without this, drains-to-zero would
+// accumulate as inactive-but-still-in-active-set voxels and slow iteration
+// linearly with simulation age.
+//
+// History — this branch was once suspected to be the source of a
+// load-dependent SIGSEGV in `_handleWaterSpreadEvent` (theory: leaf prune /
+// realloc cycles invalidating cached node pointers). We tested by reverting
+// to plain `setValue` always — the segfault still happened. Root cause
+// turned out to be elsewhere (a non-bulletproof refuse path that called
+// spdlog::warn under heavy load; fixed in `WaterPhysicsMutators.cpp`). The
+// V2 behaviour is restored here for the iteration-performance win.
+//
+// IMPORTANT — the two-arg `setValueOff(coord, 0)` resets the underlying
+// value to 0 (R.2 lesson: the one-arg `setValueOff(coord)` leaves the
+// pre-deactivation value behind, which manifests as orphan matter). A
+// subsequent `getValue(coord)` returns 0 as expected.
 void TerrainStorage::setTerrainWaterMatter(int x, int y, int z, int amount) {
-  waterMatterGrid->tree().setValue(openvdb::Coord(x, y, z), amount);
+  auto c = openvdb::Coord(x, y, z);
+  if (amount == 0) {
+    waterMatterGrid->tree().setValueOff(c, 0);
+  } else {
+    waterMatterGrid->tree().setValue(c, amount);
+  }
 }
 
 int TerrainStorage::getTerrainWaterMatter(int x, int y, int z) const {
@@ -511,7 +576,12 @@ int TerrainStorage::getTerrainWaterMatter(int x, int y, int z) const {
 }
 
 void TerrainStorage::setTerrainVaporMatter(int x, int y, int z, int amount) {
-  vaporMatterGrid->tree().setValue(openvdb::Coord(x, y, z), amount);
+  auto c = openvdb::Coord(x, y, z);
+  if (amount == 0) {
+    vaporMatterGrid->tree().setValueOff(c, 0);
+  } else {
+    vaporMatterGrid->tree().setValue(c, amount);
+  }
 }
 
 int TerrainStorage::getTerrainVaporMatter(int x, int y, int z) const {
@@ -557,6 +627,58 @@ void TerrainStorage::setTerrainHeat(int x, int y, int z, float heat) {
 
 float TerrainStorage::getTerrainHeat(int x, int y, int z) const {
   return heatGrid->tree().getValue(openvdb::Coord(x, y, z));
+}
+
+void TerrainStorage::setVelocity(int x, int y, int z, float vx, float vy,
+                                 float vz) {
+  configureThreadCache();
+  auto c = openvdb::Coord(x, y, z);
+  if (vx == 0.0f && vy == 0.0f && vz == 0.0f) {
+    if (s_threadCache.velXAcc)
+      s_threadCache.velXAcc->setValueOff(c, 0.0f);
+    else if (velXGrid)
+      velXGrid->tree().setValueOff(c, 0.0f);
+    if (s_threadCache.velYAcc)
+      s_threadCache.velYAcc->setValueOff(c, 0.0f);
+    else if (velYGrid)
+      velYGrid->tree().setValueOff(c, 0.0f);
+    if (s_threadCache.velZAcc)
+      s_threadCache.velZAcc->setValueOff(c, 0.0f);
+    else if (velZGrid)
+      velZGrid->tree().setValueOff(c, 0.0f);
+    return;
+  }
+  if (s_threadCache.velXAcc)
+    s_threadCache.velXAcc->setValue(c, vx);
+  else if (velXGrid)
+    velXGrid->tree().setValue(c, vx);
+  if (s_threadCache.velYAcc)
+    s_threadCache.velYAcc->setValue(c, vy);
+  else if (velYGrid)
+    velYGrid->tree().setValue(c, vy);
+  if (s_threadCache.velZAcc)
+    s_threadCache.velZAcc->setValue(c, vz);
+  else if (velZGrid)
+    velZGrid->tree().setValue(c, vz);
+}
+
+Velocity TerrainStorage::getVelocity(int x, int y, int z) const {
+  auto c = openvdb::Coord(x, y, z);
+  float vx = 0.0f, vy = 0.0f, vz = 0.0f;
+  if (s_threadCache.owner == this && s_threadCache.velXAcc) {
+    vx = s_threadCache.velXAcc->getValue(c);
+    vy = s_threadCache.velYAcc
+             ? s_threadCache.velYAcc->getValue(c)
+             : (velYGrid ? velYGrid->tree().getValue(c) : 0.0f);
+    vz = s_threadCache.velZAcc
+             ? s_threadCache.velZAcc->getValue(c)
+             : (velZGrid ? velZGrid->tree().getValue(c) : 0.0f);
+  } else {
+    vx = velXGrid ? velXGrid->tree().getValue(c) : 0.0f;
+    vy = velYGrid ? velYGrid->tree().getValue(c) : 0.0f;
+    vz = velZGrid ? velZGrid->tree().getValue(c) : 0.0f;
+  }
+  return Velocity{vx, vy, vz};
 }
 
 // ------------------ New Accessors: Flags ------------------
@@ -638,7 +760,7 @@ size_t TerrainStorage::prune(int currentTick) {
     size_t count = 0;
     if (terrainGrid) {
       for (auto it = terrainGrid->cbeginValueOn(); it; ++it) {
-        if (static_cast<int>(it.getValue()) != bgEntityId)
+        if (it.getValue() != bgEntityId)
           ++count;
       }
     }
@@ -677,7 +799,7 @@ size_t TerrainStorage::prune(int currentTick) {
   return activeCount;
 }
 
-void TerrainStorage::setTerrainId(int x, int y, int z, int id) {
+void TerrainStorage::setTerrainId(int x, int y, int z, int64_t id) {
   if (terrainGrid) {
     terrainGrid->tree().setValue(openvdb::Coord(x, y, z), id);
   }
@@ -703,19 +825,40 @@ int TerrainStorage::deleteTerrain(int x, int y, int z) {
     terrainGrid->tree().setValueOff(coord);
   }
 
-  // Also deactivate in all other grids for this coordinate
-  mainTypeGrid->tree().setValueOff(coord);
-  subType0Grid->tree().setValueOff(coord);
-  subType1Grid->tree().setValueOff(coord);
-  terrainMatterGrid->tree().setValueOff(coord);
-  waterMatterGrid->tree().setValueOff(coord);
-  vaporMatterGrid->tree().setValueOff(coord);
-  biomassMatterGrid->tree().setValueOff(coord);
-  massGrid->tree().setValueOff(coord);
-  maxSpeedGrid->tree().setValueOff(coord);
-  minSpeedGrid->tree().setValueOff(coord);
-  flagsGrid->tree().setValueOff(coord);
-  maxLoadCapacityGrid->tree().setValueOff(coord);
+  // Reset each grid to a sentinel value AND deactivate the voxel.
+  // `setValueOff(coord)` alone only flips the active flag — it leaves the
+  // stored value intact, so a subsequent `getValue(coord)` still returns the
+  // pre-delete amount. That is the orphan-matter / orphan-velocity source
+  // that surfaced as "vapor=200 at a terrainId == NONE cell" after
+  // `moveTerrain`. The two-arg `setValueOff(coord, value)` writes the value
+  // then marks the voxel inactive in a single OpenVDB call.
+  //
+  // The sentinel values must not collide with any real enum / measurement
+  // value, so that any caller that mistakenly reads this cell without first
+  // gating on `terrain_id == -2` gets a value that is obviously "not real
+  // terrain data" rather than e.g. the TERRAIN main-type or the EMPTY
+  // sub-type. Type grids use -1/-2 sentinels because 0 is a real maintype
+  // (TERRAIN) and -1 is a real sub-type (EMPTY). Matter / stats / flags /
+  // velocity grids use 0 because that is the genuine "no matter / no
+  // movement" value.
+  mainTypeGrid->tree().setValueOff(coord, -1);
+  subType0Grid->tree().setValueOff(coord, -1);
+  subType1Grid->tree().setValueOff(coord, -2);
+  terrainMatterGrid->tree().setValueOff(coord, 0);
+  waterMatterGrid->tree().setValueOff(coord, 0);
+  vaporMatterGrid->tree().setValueOff(coord, 0);
+  biomassMatterGrid->tree().setValueOff(coord, 0);
+  massGrid->tree().setValueOff(coord, 0);
+  maxSpeedGrid->tree().setValueOff(coord, 0);
+  minSpeedGrid->tree().setValueOff(coord, 0);
+  flagsGrid->tree().setValueOff(coord, 0);
+  maxLoadCapacityGrid->tree().setValueOff(coord, 0);
+  if (velXGrid)
+    velXGrid->tree().setValueOff(coord, 0.0f);
+  if (velYGrid)
+    velYGrid->tree().setValueOff(coord, 0.0f);
+  if (velZGrid)
+    velZGrid->tree().setValueOff(coord, 0.0f);
 
   return oldTerrainId;
 }
@@ -760,4 +903,35 @@ int64_t TerrainStorage::sumGrid(const openvdb::Int32Grid::Ptr &grid) const {
 
 int64_t TerrainStorage::sumTotalWater() const {
   return sumGrid(waterMatterGrid) + sumGrid(vaporMatterGrid);
+}
+
+int TerrainStorage::countActiveVelocityVoxels() const {
+  if (!velXGrid)
+    return 0;
+  int count = 0;
+  for (auto it = velXGrid->cbeginValueOn(); it; ++it)
+    ++count;
+  return count;
+}
+
+int TerrainStorage::countActiveWaterMatterVoxels() const {
+  if (!waterMatterGrid)
+    return 0;
+  int count = 0;
+  for (auto it = waterMatterGrid->cbeginValueOn(); it; ++it) {
+    if (it.getValue() > 0)
+      ++count;
+  }
+  return count;
+}
+
+int TerrainStorage::countActiveVaporMatterVoxels() const {
+  if (!vaporMatterGrid)
+    return 0;
+  int count = 0;
+  for (auto it = vaporMatterGrid->cbeginValueOn(); it; ++it) {
+    if (it.getValue() > 0)
+      ++count;
+  }
+  return count;
 }

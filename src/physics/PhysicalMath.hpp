@@ -100,6 +100,41 @@ inline std::tuple<float, float, float> translatePhysicsToGridMovement(
   return std::make_tuple(newVx, newVy, newVz);
 }
 
+// Multi-axis variant for fluid (vapor / water / liquid terrain) movement.
+// The single-dominant-axis behaviour governed by `getAllowMultiDirection()`
+// in `translatePhysicsToGridMovement` is a player / NPC movement config and
+// must not gate fluid simulation: vapor needs vertical buoyancy and
+// horizontal diffusion to coexist on the same tick (otherwise the buoyancy
+// term silently zeroes the sideways force at the ceiling, stalling vapor).
+inline std::tuple<float, float, float> translatePhysicsToGridMovementMultiAxis(
+    float velocityX, float velocityY, float velocityZ, float accelerationX,
+    float accelerationY, float accelerationZ, int16_t maxSpeed) {
+  float newVx = velocityX + accelerationX;
+  float newVy = velocityY + accelerationY;
+  float newVz = velocityZ + accelerationZ;
+
+  // Same maxSpeed clamp shape as the single-axis variant: when more than
+  // one axis is active, share the speed budget by halving the cap. Keeps
+  // the per-axis behaviour identical to what fluid handlers got pre-fix
+  // when `getAllowMultiDirection()` happened to be true.
+  float absNewVx = std::abs(newVx);
+  float absNewVy = std::abs(newVy);
+  float absNewVz = std::abs(newVz);
+  float floatMaxSpeed;
+  if ((absNewVx > 0 && absNewVy > 0) || (absNewVx > 0 && absNewVz > 0) ||
+      (absNewVy > 0 && absNewVz > 0)) {
+    floatMaxSpeed = static_cast<float>(maxSpeed) / 2;
+  } else {
+    floatMaxSpeed = static_cast<float>(maxSpeed);
+  }
+
+  newVx = std::clamp(newVx, -floatMaxSpeed, floatMaxSpeed);
+  newVy = std::clamp(newVy, -floatMaxSpeed, floatMaxSpeed);
+  newVz = std::clamp(newVz, -floatMaxSpeed, floatMaxSpeed);
+
+  return std::make_tuple(newVx, newVy, newVz);
+}
+
 /**
  * @brief Calculate the time required to move 100 units given a 3D velocity
  * vector

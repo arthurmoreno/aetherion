@@ -30,12 +30,12 @@ void LifeEngine::onKillEntity(const KillEntityEvent &event) {
 
   // Add to set to prevent future duplicates
   if (event.softKill) {
-    softKillEntity(registry, *voxelGrid, dispatcher, event.entity);
+    softKillEntity(registry, *voxelGrid, sink, event.entity);
   } else {
     // std::cout << "Deleting entity hard kill: " << entityId << std::endl;
   }
 
-  dropEntityItems(registry, dispatcher, *voxelGrid, event.entity);
+  dropEntityItems(registry, sink, *voxelGrid, event.entity);
 
   if (entityId != -1 && entityId != -2) {
     entitiesToDelete.emplace_back(event.entity, event.softKill);
@@ -99,10 +99,10 @@ void LifeEngine::flushLifeMetrics(GameDBHandler *dbHandler) {
 }
 
 // Register event handlers
-void LifeEngine::registerEventHandlers(entt::dispatcher &dispatcher) {
-  dispatcher.sink<KillEntityEvent>().connect<&LifeEngine::onKillEntity>(*this);
-  dispatcher.sink<TerrainRemoveVelocityEvent>()
+void LifeEngine::registerEventHandlers(entt::dispatcher &disp) {
+  disp.sink<KillEntityEvent>().connect<&LifeEngine::onKillEntity>(*this);
+  disp.sink<TerrainRemoveVelocityEvent>()
       .connect<&LifeEngine::onTerrainRemoveVelocityEvent>(*this);
-  dispatcher.sink<TerrainRemoveMovingComponentEvent>()
+  disp.sink<TerrainRemoveMovingComponentEvent>()
       .connect<&LifeEngine::onTerrainRemoveMovingComponentEvent>(*this);
 }

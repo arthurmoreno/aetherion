@@ -16,6 +16,7 @@
 #include "EcosystemEngine.hpp"
 #include "EffectsSystem.hpp"
 #include "EntityInterface.hpp"
+#include "EventSink.hpp"
 #include "GameClock.hpp"
 #include "GameDBHandler.hpp"
 #include "HealthSystem.hpp"
@@ -45,7 +46,9 @@ public:
   entt::registry
       registry; // Entity component system - must come before voxelGrid
   entt::dispatcher dispatcher; // Event dispatcher
-  VoxelGrid *voxelGrid;        // Change to pointer type
+  WorkerEventSink workerSink_; // Cross-thread event staging buffer
+  EventSink eventSink_; // Thread-routing view over dispatcher + workerSink_
+  VoxelGrid *voxelGrid; // Change to pointer type
   PyRegistry pyRegistry;
 
   std::unordered_map<std::string, std::vector<nb::object>> pythonEventCallbacks;
@@ -67,6 +70,9 @@ public:
    * @brief Create an entity using the EntityInterface data
    */
   entt::entity createEntity(const EntityInterface &entityInterface);
+
+  // Three-path dispatcher (plain terrain / hybrid / non-terrain) classified
+  // by `EntityStorageKind`.
   entt::entity createEntityFromPython(nb::object pyEntity);
   void removeEntity(entt::entity entity);
   // Destroy only the EnTT entity handle. Caller must hold appropriate lifecycle
@@ -95,6 +101,59 @@ public:
                                 int selectedEntityId);
   void dispatchSetEntityToDebug(int entityId);
 
+  // Test/debug helper: enqueue a WaterFallEntityEvent directly. Used by Python
+  // tests that need to drive the event-based water path without going through
+  // the velocity grid. `entity` is advisory; pass -2 (NONE) to skip the entity
+  // path entirely.
+  void dispatchWaterFallEvent(Position sourcePos, Position destPos,
+                              int fallingAmount, int entity);
+
+  // Test/debug helper: enqueue a WaterGravityFlowEvent directly. Source/target
+  // type and matter snapshots are read from the repository at dispatch time so
+  // the caller does not need to assemble them manually. Pass `targetTerrainId
+  // = -2` (NONE) to drive the empty-destination branch.
+  void dispatchWaterGravityFlowEvent(Position sourcePos, Position targetPos,
+                                     int amount, int targetTerrainId);
+
+  // Test/debug helper: enqueue a CondenseWaterEntityEvent directly. Pass
+  // `terrainBelowId = -2` (NONE) to drive the empty-destination branch
+  // (createWaterTerrainBelowVapor); pass a non-NONE id to test merging
+  // condensation into existing terrain below.
+  void dispatchCondenseWaterEvent(Position vaporPos, int condensationAmount,
+                                  int terrainBelowId);
+
+  // Test/debug helper: enqueue a MoveGasEntityEvent directly. `entity` is
+  // advisory and defaults to ON_GRID_STORAGE (-1) since vapor cells no
+  // longer carry an EnTT entity. `forceX` / `forceY` drive horizontal
+  // movement (sideways diffusion); `rhoEnv` / `rhoGas` drive vertical
+  // buoyancy. Always sets `forceApplyNewVelocity` so the handler does
+  // not block on a stale direction guard.
+  void dispatchMoveGasEntityEvent(Position position, int entity, float forceX,
+                                  float forceY, float rhoEnv, float rhoGas);
+
+  // Test/debug helper: enqueue a VaporCreationEvent directly. The handler
+  // creates a vapor cell at `position` (must currently be NONE or a
+  // vapor-transitory water cell with WaterMatter == 0) with the given
+  // amount. Used by tests that need to drive vapor creation without
+  // going through evaporation/condensation timing.
+  void dispatchVaporCreationEvent(Position position, int amount);
+
+  // Enqueue a WaterCreationEvent. Materialises liquid water at `position`
+  // — either creating a fresh ON_GRID_STORAGE water cell when `position`
+  // is NONE, or doing an additive matter merge when it already holds
+  // liquid water. Refuses on vapor-only or non-water terrain (with
+  // retry-then-abort for the vapor case). Used by `SpringWaterSystem`,
+  // weather scripts, and tests that need a coord-only water source that
+  // does not drain another cell.
+  void dispatchWaterCreationEvent(Position position, int amount);
+
+  // Test/debug helper: delete the terrain voxel at (x, y, z) via
+  // `VoxelGrid::deleteTerrain`. The physics layer's velocity-driven
+  // pass picks up any settled water above on the next tick. Forwards
+  // World's owned dispatcher and acquires the terrain grid lock
+  // internally.
+  void deleteTerrainAt(int x, int y, int z);
+
   // World update function
   void update();
 
@@ -117,9 +176,14 @@ public:
   void registerPythonEventHandler(const std::string &eventType,
                                   nb::object callback);
 
-  // Ecosystem async processing toggle
-  bool getProcessEcosystemAsync() const { return processEcosystemAsync_; }
-  void setProcessEcosystemAsync(bool value) { processEcosystemAsync_ = value; }
+  // Ecosystem on/off toggle (when false, ecosystem step doesn't run at all
+  // per tick; when true, runs sync vs async per `runEcosystemSynchronously`).
+  bool getProcessEcosystem() const { return processEcosystem_; }
+  void setProcessEcosystem(bool value) { processEcosystem_ = value; }
+
+  // Metabolism on/off toggle (mirrors the ecosystem flag's shape).
+  bool getProcessMetabolism() const { return processMetabolism_; }
+  void setProcessMetabolism(bool value) { processMetabolism_ = value; }
 
   // Water simulation phase toggles (delegate to PhysicsManager singleton)
   bool getSimulateVaporCondensation() const;
@@ -132,6 +196,8 @@ public:
   void setSimulateWaterEvaporation(bool value);
   bool getWaterAutoBalancing() const;
   void setWaterAutoBalancing(bool value);
+  bool getRunEcosystemSynchronously() const;
+  void setRunEcosystemSynchronously(bool value);
 
   // Water simulation error handling
   std::vector<ThreadError> getWaterSimErrors() const;
@@ -154,6 +220,33 @@ public:
   void executeSQL(const std::string &sql);
 
 private:
+  // Per-system step runners — extracted from update() to keep that loop
+  // readable. Each chooses inline vs std::async based on its own flags.
+  void runEcosystemStep();
+
+  // Classify a Python entity into an `EntityStorageKind`. TERRAIN +
+  // inventory/tile_effects_list → EntityBackedTerrain; TERRAIN alone →
+  // OnGridStorage; otherwise → EntityOnly.
+  EntityStorageKind classifyPyEntity(nb::object pyEntity) const;
+
+  // Path 1 — plain terrain: no registry.create(); writes terrain-state to
+  // VDB and stores ON_GRID_STORAGE in the terrain grid.
+  void createPlainTerrainFromPython(nb::object pyEntity);
+
+  // Path 2 — hybrid terrain: allocates an entity for entity-only components
+  // (Inventory / TileEffectsList) AND dual-writes terrain-state to VDB so
+  // coord-keyed physics reads see consistent data. Terrain grid stores the
+  // entity int.
+  entt::entity createHybridTerrainFromPython(nb::object pyEntity);
+
+  // Path 3 — non-terrain entity (legacy): registry.create() + emplace all +
+  // setEntity in the entity grid.
+  entt::entity createNonTerrainEntityFromPython(nb::object pyEntity);
+
+  // Walks the Python entity object and emplaces every supplied component on
+  // the given EnTT entity. Shared by paths 2 and 3.
+  void emplaceAllPyComponents(entt::entity newEntity, nb::object pyEntity);
+
   std::mutex registryMutex;
   mutable std::shared_mutex
       entityLifecycleMutex; // Protects entity creation/destruction vs
@@ -171,12 +264,15 @@ private:
   EcosystemEngine *ecosystemEngine;
   std::future<void> ecosystemFuture;
   bool ecosystemStarted_ = false;
-  bool processEcosystemAsync_ = false;
+  bool processEcosystem_ = false;
 
   // MetabolismSystem
   MetabolismSystem *metabolismSystem;
   std::future<void> metabolismFuture;
-  const bool processMetabolismAsync = false;
+  // Default true preserves the historical behaviour (when the prior
+  // `const bool processMetabolismAsync = false;` was hardcoded, the sync
+  // branch always ran). Setting this false skips metabolism entirely.
+  bool processMetabolism_ = true;
 
   // HealthSystem
   HealthSystem *healthSystem;

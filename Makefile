@@ -30,6 +30,37 @@ test:
 	@echo "Running aetherion tests with pytest..."
 	conda run --no-capture-output -n $(CONDA_ENV) pytest tests
 
+# Agent-friendly test target. Identical to `test`, except it preloads the
+# system libtinfo + libreadline so pytest>=8.4's `_readline_workaround`
+# (which calls `import readline`) does not segfault against the broken
+# readline/ncurses pair shipped in the conda env.
+# See .claude/docs/analysis/2026-05-02-make-test-segfault.md
+AGENT_LD_PRELOAD := /lib/x86_64-linux-gnu/libtinfo.so.6 /lib/x86_64-linux-gnu/libreadline.so.8
+
+.PHONY: agent-test
+agent-test:
+	@echo "Running aetherion tests with pytest (agent-safe, LD_PRELOAD workaround)..."
+	conda run --no-capture-output -n $(CONDA_ENV) \
+		bash -c 'LD_PRELOAD="$(AGENT_LD_PRELOAD)" pytest tests $(PYTEST_ARGS)'
+
+# Run a single test, file, or directory in isolation. Same LD_PRELOAD safety
+# as `agent-test`. Adds `-x -v -p no:cacheprovider` for tight focused runs.
+#
+# Usage:
+#   make agent-test-one TEST=tests/world/test_world_manager_lifecycle.py
+#   make agent-test-one TEST=tests/world/test_world_manager_lifecycle.py::test_update_only_runs_when_status_running
+#   make agent-test-one TEST=tests/world PYTEST_ARGS="-k status"
+.PHONY: agent-test-one
+agent-test-one:
+	@if [ -z "$(TEST)" ]; then \
+		echo "ERROR: TEST=<path-or-nodeid> is required."; \
+		echo "Example: make agent-test-one TEST=tests/world/test_world_manager_lifecycle.py::test_update_only_runs_when_status_running"; \
+		exit 2; \
+	fi
+	@echo "Running isolated test: $(TEST)"
+	conda run --no-capture-output -n $(CONDA_ENV) \
+		bash -c 'LD_PRELOAD="$(AGENT_LD_PRELOAD)" pytest -x -v -p no:cacheprovider "$(TEST)" $(PYTEST_ARGS)'
+
 .PHONY: coverage
 coverage:
 	@echo "Running tests with coverage report..."
@@ -97,6 +128,12 @@ install:
 .PHONY: build-install-test
 build-install-test: build install test
 	@echo "Build, install, and test completed."
+
+# Agent-friendly variant: uses `agent-test` (LD_PRELOAD readline workaround)
+# instead of `test`. See .claude/docs/analysis/2026-05-02-make-test-segfault.md
+.PHONY: agent-build-install-test
+agent-build-install-test: build install agent-test
+	@echo "Build, install, and agent-test completed."
 
 .PHONY: clang-format
 clang-format:

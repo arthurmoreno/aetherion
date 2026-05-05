@@ -2,11 +2,15 @@
 
 # Define physics sources and headers
 
-file(GLOB PHYSICS_HEADERS
+file(GLOB PHYSICS_HEADERS CONFIGURE_DEPENDS
     "${CMAKE_SOURCE_DIR}/src/physics/*.hpp"
+    "${CMAKE_SOURCE_DIR}/src/physics/mutators/*.hpp"
 )
 
-file(GLOB PHYSICS_SOURCES "${CMAKE_SOURCE_DIR}/src/physics/*.cpp")
+file(GLOB PHYSICS_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/src/physics/*.cpp"
+    "${CMAKE_SOURCE_DIR}/src/physics/mutators/*.cpp"
+)
 
 # Create library for physics
 add_library(physics STATIC ${PHYSICS_SOURCES} ${PHYSICS_HEADERS})

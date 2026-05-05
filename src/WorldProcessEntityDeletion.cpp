@@ -174,8 +174,8 @@ void logEntityDeletionGridState(entt::registry &registry, VoxelGrid &voxelGrid,
 }
 
 void destroyValidDeletionTarget(entt::registry &registry, VoxelGrid &voxelGrid,
-                                entt::dispatcher &dispatcher,
-                                LifeEngine &lifeEngine, spdlog::logger &console,
+                                EventSink &sink, LifeEngine &lifeEngine,
+                                spdlog::logger &console,
                                 const EntityDeletionDecision &decision,
                                 EntityDeletionStats &stats) {
   logEntityDeletionGridState(registry, voxelGrid, console, decision, stats);
@@ -185,8 +185,8 @@ void destroyValidDeletionTarget(entt::registry &registry, VoxelGrid &voxelGrid,
                 decision.entity_id, shouldRemoveFromGrid);
 
   try {
-    destroyEntityWithGridCleanup(registry, voxelGrid, dispatcher,
-                                 decision.entity, shouldRemoveFromGrid);
+    destroyEntityWithGridCleanup(registry, voxelGrid, sink, decision.entity,
+                                 shouldRemoveFromGrid);
     eraseScheduledDeletion(console, lifeEngine, decision.entity, false);
     console.debug("[Deletion] Successfully destroyed entity {}",
                   decision.entity_id);
@@ -223,8 +223,7 @@ void destroyInvalidDeletionTarget(entt::registry &registry,
 }
 
 void processSingleEntityDeletion(entt::registry &registry, VoxelGrid &voxelGrid,
-                                 entt::dispatcher &dispatcher,
-                                 LifeEngine &lifeEngine,
+                                 EventSink &sink, LifeEngine &lifeEngine,
                                  spdlog::logger &console,
                                  const EntityDeletionDecision &decision,
                                  EntityDeletionStats &stats) {
@@ -234,8 +233,8 @@ void processSingleEntityDeletion(entt::registry &registry, VoxelGrid &voxelGrid,
       decision.soft_kill);
 
   if (!decision.is_special_id && decision.is_valid_entity) {
-    destroyValidDeletionTarget(registry, voxelGrid, dispatcher, lifeEngine,
-                               console, decision, stats);
+    destroyValidDeletionTarget(registry, voxelGrid, sink, lifeEngine, console,
+                               decision, stats);
     return;
   }
 
@@ -298,8 +297,7 @@ static void processMovingComponentRemovals(entt::registry &registry,
 }
 
 static void processEntityDeletionQueue(entt::registry &registry,
-                                       VoxelGrid &voxelGrid,
-                                       entt::dispatcher &dispatcher,
+                                       VoxelGrid &voxelGrid, EventSink &sink,
                                        LifeEngine &lifeEngine) {
   auto console = spdlog::get("console");
   if (!console)
@@ -311,8 +309,8 @@ static void processEntityDeletionQueue(entt::registry &registry,
   for (const auto &[entity, softKill] : lifeEngine.entitiesToDelete) {
     const EntityDeletionDecision decision =
         inspectEntityDeletion(registry, entity, softKill);
-    processSingleEntityDeletion(registry, voxelGrid, dispatcher, lifeEngine,
-                                *console, decision, stats);
+    processSingleEntityDeletion(registry, voxelGrid, sink, lifeEngine, *console,
+                                decision, stats);
   }
 
   logEntityDeletionSummary(*console, stats);
@@ -353,7 +351,7 @@ void World::processEntityDeletion() {
 
   processVelocityRemovals(registry, *lifeEngine);
   processMovingComponentRemovals(registry, *lifeEngine);
-  processEntityDeletionQueue(registry, *voxelGrid, dispatcher, *lifeEngine);
+  processEntityDeletionQueue(registry, *voxelGrid, eventSink_, *lifeEngine);
 
   console->debug("========== ENTITY DELETION PHASE COMPLETE ==========\n");
 }

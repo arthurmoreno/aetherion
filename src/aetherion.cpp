@@ -7,6 +7,7 @@
 #include "aetherion.hpp"
 
 #include <nanobind/ndarray.h>
+#include <nanobind/stl/tuple.h>
 #include <spdlog/spdlog.h>
 
 #include <cstdint>
@@ -369,7 +370,36 @@ NB_MODULE(_aetherion, m) {
       .def("get_position", &TerrainGridRepository::getPosition)
       .def("set_position", &TerrainGridRepository::setPosition)
       .def("get_physics_stats", &TerrainGridRepository::getPhysicsStats)
-      .def("set_physics_stats", &TerrainGridRepository::setPhysicsStats);
+      .def("set_physics_stats", &TerrainGridRepository::setPhysicsStats)
+      .def("get_terrain_velocity",
+           [](const TerrainGridRepository &repo, int x, int y,
+              int z) -> std::tuple<float, float, float> {
+             Velocity v = repo.getVelocity(x, y, z);
+             return {v.vx, v.vy, v.vz};
+           })
+      .def("set_terrain_velocity",
+           [](TerrainGridRepository &repo, int x, int y, int z, float vx,
+              float vy,
+              float vz) { repo.setVelocity(x, y, z, Velocity{vx, vy, vz}); })
+      .def("has_terrain_moving_component",
+           [](const TerrainGridRepository &repo, int x, int y, int z) -> bool {
+             return repo.hasMovingComponent(x, y, z);
+           })
+      .def("count_active_velocity_voxels",
+           [](const TerrainGridRepository &repo) -> int {
+             return repo.countActiveVelocityVoxels();
+           })
+      .def("count_active_water_matter_voxels",
+           [](const TerrainGridRepository &repo) -> int {
+             return repo.countActiveWaterMatterVoxels();
+           })
+      .def("count_active_vapor_matter_voxels",
+           [](const TerrainGridRepository &repo) -> int {
+             return repo.countActiveVaporMatterVoxels();
+           })
+      .def("sum_total_water", [](const TerrainGridRepository &repo) -> int64_t {
+        return repo.sumTotalWater();
+      });
 
   // nb::class_<RenderTask>(m, "RenderTask")
   //     .def(nb::init<SDL_Texture*, int, int>())
@@ -706,9 +736,13 @@ NB_MODULE(_aetherion, m) {
       .def_rw("depth", &World::depth)
       .def_rw("game_clock", &World::gameClock)
       .def_prop_rw(
-          "process_ecosystem_async",
-          [](const World &w) { return w.getProcessEcosystemAsync(); },
-          [](World &w, bool v) { w.setProcessEcosystemAsync(v); })
+          "process_ecosystem",
+          [](const World &w) { return w.getProcessEcosystem(); },
+          [](World &w, bool v) { w.setProcessEcosystem(v); })
+      .def_prop_rw(
+          "process_metabolism",
+          [](const World &w) { return w.getProcessMetabolism(); },
+          [](World &w, bool v) { w.setProcessMetabolism(v); })
       .def_prop_rw(
           "simulate_vapor_condensation",
           [](const World &w) { return w.getSimulateVaporCondensation(); },
@@ -729,6 +763,10 @@ NB_MODULE(_aetherion, m) {
           "water_auto_balancing",
           [](const World &w) { return w.getWaterAutoBalancing(); },
           [](World &w, bool v) { w.setWaterAutoBalancing(v); })
+      .def_prop_rw(
+          "run_ecosystem_synchronously",
+          [](const World &w) { return w.getRunEcosystemSynchronously(); },
+          [](World &w, bool v) { w.setRunEcosystemSynchronously(v); })
       .def("initialize_voxel_grid", &World::initializeVoxelGrid)
       .def("set_voxel", &World::setVoxel)
       .def("get_voxel", &World::getVoxel)
@@ -759,6 +797,64 @@ NB_MODULE(_aetherion, m) {
           &World::dispatchMoveSolidEntityEventById,
           nb::sig("def dispatch_move_entity_event_by_id(self, arg0: int, arg1: "
                   "list[DirectionEnum], /) -> None: ..."))
+      .def("dispatch_water_fall_event", &World::dispatchWaterFallEvent,
+           nb::arg("source_pos"), nb::arg("dest_pos"),
+           nb::arg("falling_amount"),
+           nb::arg("entity") = static_cast<int>(TerrainIdTypeEnum::NONE),
+           "Enqueue a WaterFallEntityEvent. `entity` defaults to NONE (-2), "
+           "which causes the handler to skip entity-handle-based reads and "
+           "use only the dest_pos/source_pos coordinates.")
+      .def("dispatch_water_gravity_flow_event",
+           &World::dispatchWaterGravityFlowEvent, nb::arg("source_pos"),
+           nb::arg("target_pos"), nb::arg("amount"),
+           nb::arg("target_terrain_id") =
+               static_cast<int>(TerrainIdTypeEnum::NONE),
+           "Enqueue a WaterGravityFlowEvent. Source/target type and matter "
+           "snapshots are read from the repository at dispatch time. Pass "
+           "`target_terrain_id = -2` (NONE) to drive the empty-destination "
+           "branch of the gravity-flow handler.")
+      .def("dispatch_condense_water_event", &World::dispatchCondenseWaterEvent,
+           nb::arg("vapor_pos"), nb::arg("condensation_amount"),
+           nb::arg("terrain_below_id") =
+               static_cast<int>(TerrainIdTypeEnum::NONE),
+           "Enqueue a CondenseWaterEntityEvent. Pass `terrain_below_id = -2` "
+           "(NONE) to drive the empty-destination branch "
+           "(`createWaterTerrainBelowVapor`); pass a non-NONE id to test "
+           "merging condensation into existing terrain below.")
+      .def("dispatch_move_gas_entity_event", &World::dispatchMoveGasEntityEvent,
+           nb::arg("position"),
+           nb::arg("entity") =
+               static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE),
+           nb::arg("force_x") = 0.0f, nb::arg("force_y") = 0.0f,
+           nb::arg("rho_env") = 1.225f, nb::arg("rho_gas") = 0.597f,
+           "Enqueue a MoveGasEntityEvent for a vapor cell at `position`. "
+           "`entity` defaults to ON_GRID_STORAGE (-1) since vapor no longer "
+           "carries an EnTT entity. Air/vapor densities default to the values "
+           "used by moveVaporUp.")
+      .def("dispatch_vapor_creation_event", &World::dispatchVaporCreationEvent,
+           nb::arg("position"), nb::arg("amount"),
+           "Enqueue a VaporCreationEvent at `position` with the given vapor "
+           "amount. Drives `createVaporTerrainEntity` so the resulting cell "
+           "lands as ON_GRID_STORAGE without an EnTT entity. The target "
+           "cell must be NONE (or a vapor-transitory water cell with "
+           "WaterMatter == 0); otherwise the handler logs a warning and "
+           "skips.")
+      .def("dispatch_water_creation_event", &World::dispatchWaterCreationEvent,
+           nb::arg("position"), nb::arg("amount"),
+           "Enqueue a WaterCreationEvent at `position` with the given "
+           "water-matter amount. Materialises liquid water from a coord-only "
+           "source — used by `SpringWaterSystem`, scripted weather, future "
+           "rain. The handler routes to one of three branches based on the "
+           "current cell state: NONE (writes the full water-terrain "
+           "scaffolding), liquid water (additive merge), or vapor-only "
+           "(retry-then-abort, bounded by WATER_VAPOR_CONFLICT_RETRY_LIMIT). "
+           "Non-water terrain types are refused with a warning log.")
+      .def("delete_terrain_at", &World::deleteTerrainAt, nb::arg("x"),
+           nb::arg("y"), nb::arg("z"),
+           "Delete the terrain voxel at (x, y, z) via "
+           "`VoxelGrid::deleteTerrain`. The physics layer's velocity-driven "
+           "pass picks up any settled water above on the next tick. Used "
+           "by tests to drive the wake-up mechanism.")
       .def("dispatch_take_item_event_by_id", &World::dispatchTakeItemEventById)
       .def("dispatch_use_item_event_by_id", &World::dispatchUseItemEventById)
       .def("dispatch_set_entity_to_debug", &World::dispatchSetEntityToDebug)
@@ -1062,6 +1158,12 @@ NB_MODULE(_aetherion, m) {
       .value("RAMP_NORTH", TerrainVariantEnum::RAMP_NORTH)
       .value("CORNER_SOUTH_WEST", TerrainVariantEnum::CORNER_SOUTH_WEST)
       .value("CORNER_NORTH_WEST", TerrainVariantEnum::CORNER_NORTH_WEST)
+      .export_values();
+
+  nb::enum_<TerrainIdTypeEnum>(m, "TerrainIdTypeEnum")
+      .value("NONE", TerrainIdTypeEnum::NONE)
+      .value("ON_GRID_STORAGE", TerrainIdTypeEnum::ON_GRID_STORAGE)
+      .value("ON_ENTT", TerrainIdTypeEnum::ON_ENTT)
       .export_values();
 
   nb::class_<EntityTypeComponent>(m, "EntityTypeComponent")
@@ -1469,6 +1571,13 @@ NB_MODULE(_aetherion, m) {
            nb::arg("z"), nb::arg("terrainID"), "Set terrainID at (x, y, z)")
       .def("get_terrain", &VoxelGrid::getTerrain, nb::arg("x"), nb::arg("y"),
            nb::arg("z"), "Get terrainID at (x, y, z)")
+      .def(
+          "set_terrain_id_raw",
+          [](VoxelGrid &vg, int x, int y, int z, int64_t value) {
+            vg.terrainGridRepository->setTerrainId(x, y, z, value);
+          },
+          nb::arg("x"), nb::arg("y"), nb::arg("z"), nb::arg("value"),
+          "Test-only: write raw int64 terrain ID without entity creation.")
       .def("create_entt_for_terrain", &VoxelGrid::createEnttForTerrain,
            nb::arg("x"), nb::arg("y"), nb::arg("z"),
            "Create an entt entity for the terrain at (x, y, z) and return its "
@@ -1521,7 +1630,14 @@ NB_MODULE(_aetherion, m) {
       .def("get_terrain_matter_container_component",
            &VoxelGrid::getTerrainMatterContainerComponent, nb::arg("x"),
            nb::arg("y"), nb::arg("z"),
-           "Get the MatterContainer for the terrain entity at (x, y, z)");
+           "Get the MatterContainer for the terrain entity at (x, y, z)")
+      .def_prop_ro(
+          "terrain_grid_repository",
+          [](VoxelGrid &vg) -> TerrainGridRepository * {
+            return vg.terrainGridRepository.get();
+          },
+          nb::rv_policy::reference_internal,
+          "Borrowed TerrainGridRepository; keep VoxelGrid alive while using.");
 
   // Binding the GameClock class
   nb::class_<GameClock>(m, "GameClock")

@@ -17,14 +17,14 @@ inline std::tuple<bool, bool> isNeighborWaterOrEmpty(entt::registry &registry,
                                                      VoxelGrid &voxelGrid,
                                                      const int x, const int y,
                                                      const int z) {
-  int terrainNeighborId = voxelGrid.getTerrain(x, y, z);
+  int64_t terrainNeighborId = voxelGrid.getTerrain(x, y, z);
   bool isNeighborEmpty =
-      (terrainNeighborId == static_cast<int>(TerrainIdTypeEnum::NONE));
+      (terrainNeighborId == static_cast<int64_t>(TerrainIdTypeEnum::NONE));
   bool isTerrainNeighborSoftEmpty{false};
   bool isNeighborWater = false;
   // TODO: Uncomment and handle this properly when active EnTT terrains start to
   // be used.
-  if (terrainNeighborId != static_cast<int>(TerrainIdTypeEnum::NONE)) {
+  if (terrainNeighborId != static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
     // auto terrainNeighbor = static_cast<entt::entity>(terrainNeighborId);
     isTerrainNeighborSoftEmpty = getTypeAndCheckSoftEmpty(
         registry, voxelGrid, terrainNeighborId, x, y, z);
@@ -42,30 +42,26 @@ inline std::tuple<bool, bool> isNeighborWaterOrEmpty(entt::registry &registry,
 
 inline bool isTerrainVoxelEmptyOrSoftEmpty(entt::registry &registry,
                                            VoxelGrid &voxelGrid,
-                                           entt::dispatcher &dispatcher,
-                                           const int x, const int y,
-                                           const int z) {
-  int terrainId = voxelGrid.getTerrain(x, y, z);
-  if (terrainId < static_cast<int>(TerrainIdTypeEnum::NONE)) {
-    // Invalid terrain ID
-    std::ostringstream ossMessage;
-    ossMessage << "[isTerrainVoxelEmptyOrSoftEmpty] Error: Invalid terrain ID "
-               << terrainId << " at (" << x << ", " << y << ", " << z << ")";
-    spdlog::get("console")->error(ossMessage.str());
-    throw std::runtime_error(ossMessage.str());
-    dispatcher.trigger<InvalidTerrainFoundEvent>(
-        InvalidTerrainFoundEvent{x, y, z});
-    // Trigger deletion at physics engine layer. Block will not be empty
-    // immediately.
+                                           EventSink &sink, const int x,
+                                           const int y, const int z) {
+  int64_t terrainId = voxelGrid.getTerrain(x, y, z);
+  if (terrainId < static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
+    // Value below NONE(-2): this should not happen with Int64Grid storage.
+    // Log and treat voxel as non-empty as a safety guard.
+    spdlog::get("console")->error(
+        "[isTerrainVoxelEmptyOrSoftEmpty] Unexpected terrain ID {} (0x{:016X}) "
+        "at ({},{},{}) — triggering cleanup",
+        terrainId, static_cast<uint64_t>(terrainId), x, y, z);
+    sink.enqueue<InvalidTerrainFoundEvent>(InvalidTerrainFoundEvent{x, y, z});
     return false;
-  } else if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
+  } else if (terrainId == static_cast<int64_t>(TerrainIdTypeEnum::NONE)) {
     // Voxel is completely empty
     spdlog::get("console")->debug("[isTerrainVoxelEmptyOrSoftEmpty] Voxel at "
                                   "({}, {}, {}) is completely empty.",
                                   x, y, z);
     return true;
   } else if (terrainId ==
-             static_cast<int>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
+             static_cast<int64_t>(TerrainIdTypeEnum::ON_GRID_STORAGE)) {
     // This should not happen; means vapor entity is missing in voxel grid
     std::ostringstream ossMessage;
     ossMessage << "[isTerrainVoxelEmptyOrSoftEmpty] Error ?: entity in "
