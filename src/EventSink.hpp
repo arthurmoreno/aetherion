@@ -26,8 +26,11 @@ public:
 
   // Variadic to mirror `entt::dispatcher::enqueue<T>(args...)` — constructs
   // `T` from forwarded args at call time and stages the constructed value.
+  // Paren-init (not brace-init) matches EnTT's dispatcher contract and allows
+  // the int → float narrowing that real call sites rely on (e.g. passing the
+  // integer literal `0` for a `float` velocity component).
   template <typename T, typename... Args> void enqueue(Args &&...args) {
-    T event{std::forward<Args>(args)...};
+    T event(std::forward<Args>(args)...);
     std::lock_guard<std::mutex> lock(mutex_);
     pending_.emplace_back(
         [captured = std::move(event)](entt::dispatcher &dispatcher) mutable {
