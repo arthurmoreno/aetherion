@@ -47,6 +47,8 @@ inline const std::string PHYSICS_DELETE_OR_CONVERT_TERRAIN =
     "physics_delete_or_convert_terrain";
 inline const std::string PHYSICS_INVALID_TERRAIN_FOUND =
     "physics_invalid_terrain_found";
+inline const std::string PHYSICS_PLANT_WATER_UPTAKE =
+    "physics_plant_water_uptake";
 
 // =========================================================================
 // ================ PHYSICS ENGINE ORGANIZATION ================
@@ -350,12 +352,21 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher &disp) {
       .connect<&PhysicsEngine::onDeleteOrConvertTerrainEvent>(*this);
   disp.sink<InvalidTerrainFoundEvent>()
       .connect<&PhysicsEngine::onInvalidTerrainFound>(*this);
+  disp.sink<PlantWaterUptakeEvent>()
+      .connect<&PhysicsEngine::onPlantWaterUptakeEvent>(*this);
 }
 
 void PhysicsEngine::onInvalidTerrainFound(
     const InvalidTerrainFoundEvent &event) {
   incPhysicsMetric(PHYSICS_INVALID_TERRAIN_FOUND);
   _handleInvalidTerrainFound(sink, *voxelGrid, event);
+}
+
+void PhysicsEngine::onPlantWaterUptakeEvent(
+    const PlantWaterUptakeEvent &event) {
+  incPhysicsMetric(PHYSICS_PLANT_WATER_UPTAKE);
+  makePlantSuckWater(registry, *voxelGrid, event.grassCell.x,
+                     event.grassCell.y, event.grassCell.z, event.plantEntity);
 }
 
 // Increment metric counter (thread-safe)

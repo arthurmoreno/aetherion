@@ -1811,6 +1811,15 @@ void _handleWaterCreationEvent(entt::registry &registry, EventSink &sink,
                                VoxelGrid &voxelGrid,
                                const WaterCreationEvent &event);
 
+// Drain 1 unit of WaterMatter from the grass cell at (x, y, z) into the
+// plant entity's `PlantResources`. Caps plant water at 6, matching the
+// pre-migration behaviour. Both writes (terrain `MatterContainer` via
+// repository, plant `PlantResources` via registry) live here so the
+// PhysicsEngine event handler is the only call site outside this file.
+// Definition: src/physics/mutators/WaterPhysicsMutators.cpp
+void makePlantSuckWater(entt::registry &registry, VoxelGrid &voxelGrid,
+                        int x, int y, int z, entt::entity plantEntity);
+
 // Definition: src/physics/mutators/WaterPhysicsMutators.cpp
 void _handleWaterSpreadEvent(VoxelGrid &voxelGrid,
                              const WaterSpreadEvent &event);

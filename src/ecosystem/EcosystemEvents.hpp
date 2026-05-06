@@ -211,4 +211,17 @@ struct DeleteOrConvertTerrainEvent {
       : terrain(terrain), position(position) {}
 };
 
+// Issued by the async ecosystem worker when a plant sits on a grass cell that
+// could donate water. The worker only reads thread-safe terrain-grid state
+// (cell type + terrain id) before enqueueing; the handler runs on the main
+// thread and is the only one that touches `PlantResources` and writes back
+// to the grass cell's `MatterContainer`.
+struct PlantWaterUptakeEvent {
+  Position grassCell;
+  entt::entity plantEntity;
+
+  PlantWaterUptakeEvent(Position grassCell, entt::entity plantEntity)
+      : grassCell(grassCell), plantEntity(plantEntity) {}
+};
+
 #endif // ECOSYSTEM_EVENTS_HPP

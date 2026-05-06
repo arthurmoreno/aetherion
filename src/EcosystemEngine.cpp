@@ -505,29 +505,13 @@ void WaterSimulationManager::initiateShutdown() {
 //==============================================================================
 
 // 3.1 Plant Interactions
-
-void makePlantSuckWater(entt::registry &registry, entt::entity &terrainEntity,
-                        entt::entity &plantEntity, bool &actionPerformed) {
-  PlantResources *plantResourcesPtr =
-      registry.try_get<PlantResources>(plantEntity);
-
-  auto &matterContainer = registry.get<MatterContainer>(terrainEntity);
-  if (plantResourcesPtr && plantResourcesPtr->water < 6 &&
-      matterContainer.WaterMatter > 0) {
-    matterContainer.WaterMatter -= 1;
-    plantResourcesPtr->water += 1.0;
-    // std::cout << "plant sucking water..." << std::endl;
-    actionPerformed = true;
-  } else if (plantResourcesPtr == nullptr && matterContainer.WaterMatter > 0) {
-    PlantResources plantResources = PlantResources();
-    matterContainer.WaterMatter -= 1;
-    plantResources.water += 1.0;
-
-    registry.emplace<PlantResources>(plantEntity, plantResources);
-    // std::cout << "plant sucking water..." << std::endl;
-    actionPerformed = true;
-  }
-}
+//
+// Plant water uptake is event-driven: the worker-side branch in
+// `processTileWater` enqueues a `PlantWaterUptakeEvent`; the actual mutation
+// runs on the main thread in `PhysicsEngine::onPlantWaterUptakeEvent`, which
+// delegates to `makePlantSuckWater` in `WaterPhysicsMutators.cpp`. Worker
+// code here only reads thread-safe terrain-grid state — it never touches
+// `PlantResources` or writes terrain `MatterContainer` directly.
 
 // 3.2 Horizontal Flow
 
@@ -845,17 +829,27 @@ bool moveWater(int terrainEntityId, entt::registry &registry,
         movingDirection = disWaterSpreading(gen);
       }
     } else if (isGrass) {
-      EntityTypeComponent entityAboveType =
-          voxelGrid.terrainGridRepository->getTerrainEntityType(pos.x, pos.y,
-                                                                pos.z + 1);
-
-      bool entityAbovePLant{};
-      entityAbovePLant =
-          (entityAboveType.mainType == static_cast<int>(EntityEnum::PLANT));
-
-      if (entityAbovePLant) {
-        // TODO: Uncomment when plant sucking water is ready.
-        // makePlantSuckWater(registry, entity, entityAbove, actionPerformed);
+      // Plants live in the entity grid (not the terrain grid — that
+      // only carries water/vapor/grass/empty post-migration). Read the
+      // entity-grid int safely from the worker, then look up the
+      // entity's `EntityTypeComponent` in the registry the same way the
+      // pre-migration code did for non-terrain neighbours. Only enqueue
+      // the uptake when the entity above is actually a plant — keeps
+      // beasts / items / future entity types from triggering the
+      // physics-side mutator path. The mutator on the main thread
+      // re-validates as defence-in-depth, since the entity could die
+      // between this worker decision and the handler run.
+      const int entityIdAbove = voxelGrid.getEntity(pos.x, pos.y, pos.z + 1);
+      if (entityIdAbove != -1) { // -1 == empty entity-grid cell
+        const auto plantEntity = static_cast<entt::entity>(entityIdAbove);
+        if (registry.valid(plantEntity)) {
+          const EntityTypeComponent *etc =
+              registry.try_get<EntityTypeComponent>(plantEntity);
+          if (etc && etc->mainType == static_cast<int>(EntityEnum::PLANT)) {
+            sink.enqueue<PlantWaterUptakeEvent>(pos, plantEntity);
+            actionPerformed = true;
+          }
+        }
       }
 
       movingDirection = static_cast<int>(pos.direction);

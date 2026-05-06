@@ -453,3 +453,49 @@ void _handleWaterCreationEvent(entt::registry &registry, EventSink &sink,
   voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z,
                                                              destMatter);
 }
+
+void makePlantSuckWater(entt::registry &registry, VoxelGrid &voxelGrid,
+                        int x, int y, int z, entt::entity plantEntity) {
+  if (!voxelGrid.terrainGridRepository) {
+    return;
+  }
+  if (!registry.valid(plantEntity)) {
+    // Entity could have died between worker-side enqueue and this handler.
+    return;
+  }
+
+  // The worker only knew "some entity sits above this grass cell"; confirm
+  // here, on the main thread, that the entity is actually a plant before
+  // mutating its `PlantResources`. Beasts, items, etc. above grass are
+  // valid game states — silently no-op for those.
+  const EntityTypeComponent *etc =
+      registry.try_get<EntityTypeComponent>(plantEntity);
+  if (!etc || etc->mainType != static_cast<int>(EntityEnum::PLANT)) {
+    return;
+  }
+
+  MatterContainer matter =
+      voxelGrid.terrainGridRepository->getTerrainMatterContainer(x, y, z);
+  if (matter.WaterMatter <= 0) {
+    return;
+  }
+
+  PlantResources *res = registry.try_get<PlantResources>(plantEntity);
+  const bool topUp = res && res->water < 6;
+  const bool firstUptake = !res;
+  if (!topUp && !firstUptake) {
+    return;
+  }
+
+  matter.WaterMatter -= 1;
+  _logIfViolatingMatterWrite("makePlantSuckWater", x, y, z, matter);
+  voxelGrid.terrainGridRepository->setTerrainMatterContainer(x, y, z, matter);
+
+  if (firstUptake) {
+    PlantResources fresh{};
+    fresh.water = 1.0;
+    registry.emplace<PlantResources>(plantEntity, fresh);
+  } else {
+    res->water += 1.0;
+  }
+}
