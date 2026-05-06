@@ -40,6 +40,7 @@ struct WaterCreationEvent;
 struct VaporMergeUpEvent;
 struct VaporMergeSidewaysEvent;
 struct AddVaporToTileAboveEvent;
+struct PlantWaterUptakeEvent;
 
 struct SetPhysicsEntityToDebug {
   entt::entity entity;
@@ -120,6 +121,7 @@ public:
   void onVaporMergeSidewaysEvent(const VaporMergeSidewaysEvent &event);
   void onAddVaporToTileAboveEvent(const AddVaporToTileAboveEvent &event);
   void onDeleteOrConvertTerrainEvent(const DeleteOrConvertTerrainEvent &event);
+  void onPlantWaterUptakeEvent(const PlantWaterUptakeEvent &event);
 
   // Register the event handler
   void registerEventHandlers(entt::dispatcher &dispatcher);
