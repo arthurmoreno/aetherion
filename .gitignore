@@ -50,6 +50,9 @@ html/*
 xml/*
 latex
 
+# Water-physics debug log (only emitted when WaterDebugLog is enabled)
+water_debug.jsonl
+
 # ----------------------
 #  Aetherion Webclient
 # ----------------------
