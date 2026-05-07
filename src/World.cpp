@@ -65,6 +65,7 @@ World::World(int width, int height, int depth)
 }
 
 World::~World() {
+  releasePythonState();    // Drop Python refs before any other member runs
   delete voxelGrid;        // Clean up the VoxelGrid
   delete physicsEngine;    // Clean up the physics engine
   delete lifeEngine;       // Clean up the physics engine
@@ -878,6 +879,12 @@ void World::dispatchSetEntityToDebug(int entityId) {
   entt::entity entity = static_cast<entt::entity>(entityId);
   dispatcher.enqueue<SetEcoEntityToDebug>(entity);
   dispatcher.enqueue<SetPhysicsEntityToDebug>(entity);
+}
+
+void World::releasePythonState() {
+  pythonEventCallbacks.clear();
+  pythonSystems.clear();
+  pythonScripts.clear();
 }
 
 void World::addPythonSystem(nb::object system) {

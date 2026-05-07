@@ -787,6 +787,7 @@ NB_MODULE(_aetherion, m) {
       .def("add_python_script", &World::addPythonScript)
       .def("run_python_script", &World::runPythonScript)
       .def("register_python_event_handler", &World::registerPythonEventHandler)
+      .def("release_python_state", &World::releasePythonState)
       .def("update", &World::update)
       .def("dispatch_move_entity_event_by_pos",
            &World::dispatchMoveSolidEntityEventByPosition,
