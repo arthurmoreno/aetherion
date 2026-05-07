@@ -88,6 +88,18 @@ void PhysicsManager::setRunEcosystemSynchronously(bool value) {
   runEcosystemSynchronously = value;
 }
 
+void PhysicsManager::setStressPerDryTick(int value) {
+  stressPerDryTick = value;
+}
+
+void PhysicsManager::setMaxWaterStressTicks(int value) {
+  maxWaterStressTicks = value;
+}
+
+void PhysicsManager::setDroughtDamagePerCycle(int value) {
+  droughtDamagePerCycle = value;
+}
+
 // Getters
 float PhysicsManager::getGravity() const { return gravity; }
 
@@ -133,6 +145,16 @@ bool PhysicsManager::getWaterAutoBalancing() const {
 
 bool PhysicsManager::getRunEcosystemSynchronously() const {
   return runEcosystemSynchronously;
+}
+
+int PhysicsManager::getStressPerDryTick() const { return stressPerDryTick; }
+
+int PhysicsManager::getMaxWaterStressTicks() const {
+  return maxWaterStressTicks;
+}
+
+int PhysicsManager::getDroughtDamagePerCycle() const {
+  return droughtDamagePerCycle;
 }
 
 // Optional: Load physics settings from a file

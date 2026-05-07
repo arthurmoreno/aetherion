@@ -13,6 +13,7 @@
 #include <cstdint>
 
 #include "PhysicsSettings.hpp"
+#include "components/WaterStressComponent.hpp"
 
 // Create a shortcut for nanobind
 namespace nb = nanobind;
@@ -1045,7 +1046,17 @@ NB_MODULE(_aetherion, m) {
       .def("get_simulate_water_movement",
            &PhysicsSettings::getSimulateWaterMovement)
       .def("get_simulate_water_evaporation",
-           &PhysicsSettings::getSimulateWaterEvaporation);
+           &PhysicsSettings::getSimulateWaterEvaporation)
+      .def("set_stress_per_dry_tick", &PhysicsSettings::setStressPerDryTick)
+      .def("set_max_water_stress_ticks",
+           &PhysicsSettings::setMaxWaterStressTicks)
+      .def("set_drought_damage_per_cycle",
+           &PhysicsSettings::setDroughtDamagePerCycle)
+      .def("get_stress_per_dry_tick", &PhysicsSettings::getStressPerDryTick)
+      .def("get_max_water_stress_ticks",
+           &PhysicsSettings::getMaxWaterStressTicks)
+      .def("get_drought_damage_per_cycle",
+           &PhysicsSettings::getDroughtDamagePerCycle);
 
   nb::enum_<DirectionEnum>(m, "DirectionEnum")
       .value("UP", DirectionEnum::UP)
@@ -1120,6 +1131,22 @@ NB_MODULE(_aetherion, m) {
       .def("print", &HealthComponent::print)
       .def_rw("health_level", &HealthComponent::healthLevel)
       .def_rw("max_health", &HealthComponent::maxHealth);
+
+  nb::class_<WaterStressComponent>(m, "WaterStressComponent")
+      .def(nb::init<>())
+      .def_rw("water_stress_ticks", &WaterStressComponent::water_stress_ticks)
+      .def_prop_ro_static(
+          "STRESS_PER_DRY_TICK",
+          [](nb::handle) { return WaterStressComponent::STRESS_PER_DRY_TICK; })
+      .def_prop_ro_static(
+          "MAX_WATER_STRESS_TICKS",
+          [](nb::handle) {
+            return WaterStressComponent::MAX_WATER_STRESS_TICKS;
+          })
+      .def_prop_ro_static(
+          "DROUGHT_DAMAGE_PER_CYCLE", [](nb::handle) {
+            return WaterStressComponent::DROUGHT_DAMAGE_PER_CYCLE;
+          });
 
   nb::class_<PerceptionComponent>(m, "PerceptionComponent")
       .def(nb::init<>()) // Default constructor

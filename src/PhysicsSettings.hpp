@@ -16,6 +16,9 @@ public:
   void setSimulateVaporMovement(bool value);
   void setSimulateWaterMovement(bool value);
   void setSimulateWaterEvaporation(bool value);
+  void setStressPerDryTick(int value);
+  void setMaxWaterStressTicks(int value);
+  void setDroughtDamagePerCycle(int value);
 
   float getGravity() const;
   float getFriction() const;
@@ -24,6 +27,9 @@ public:
   bool getSimulateVaporMovement() const;
   bool getSimulateWaterMovement() const;
   bool getSimulateWaterEvaporation() const;
+  int getStressPerDryTick() const;
+  int getMaxWaterStressTicks() const;
+  int getDroughtDamagePerCycle() const;
 };
 
 #endif // PHYSICS_SETTINGS_HPP

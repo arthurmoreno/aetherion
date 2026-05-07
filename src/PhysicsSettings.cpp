@@ -71,3 +71,27 @@ bool PhysicsSettings::getSimulateWaterMovement() const {
 bool PhysicsSettings::getSimulateWaterEvaporation() const {
   return PhysicsManager::Instance()->getSimulateWaterEvaporation();
 }
+
+void PhysicsSettings::setStressPerDryTick(int value) {
+  PhysicsManager::Instance()->setStressPerDryTick(value);
+}
+
+void PhysicsSettings::setMaxWaterStressTicks(int value) {
+  PhysicsManager::Instance()->setMaxWaterStressTicks(value);
+}
+
+void PhysicsSettings::setDroughtDamagePerCycle(int value) {
+  PhysicsManager::Instance()->setDroughtDamagePerCycle(value);
+}
+
+int PhysicsSettings::getStressPerDryTick() const {
+  return PhysicsManager::Instance()->getStressPerDryTick();
+}
+
+int PhysicsSettings::getMaxWaterStressTicks() const {
+  return PhysicsManager::Instance()->getMaxWaterStressTicks();
+}
+
+int PhysicsSettings::getDroughtDamagePerCycle() const {
+  return PhysicsManager::Instance()->getDroughtDamagePerCycle();
+}
