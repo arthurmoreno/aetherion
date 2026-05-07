@@ -4,6 +4,8 @@
 #include <map>
 #include <string>
 
+#include "components/WaterStressComponent.hpp"
+
 class PhysicsManager {
 public:
   // Retrieves the singleton instance
@@ -24,6 +26,13 @@ public:
   void setWaterAutoBalancing(bool value);
   void setRunEcosystemSynchronously(bool value);
 
+  // Drought stress tunables — see EcosystemEngine.cpp `processPlants`
+  // drought-stress pass for the semantics. All three default to the
+  // baseline values declared in WaterStressComponent.
+  void setStressPerDryTick(int value);
+  void setMaxWaterStressTicks(int value);
+  void setDroughtDamagePerCycle(int value);
+
   // Getters
   float getGravity() const;
   float getFriction() const;
@@ -38,6 +47,10 @@ public:
   bool getSimulateWaterEvaporation() const;
   bool getWaterAutoBalancing() const;
   bool getRunEcosystemSynchronously() const;
+
+  int getStressPerDryTick() const;
+  int getMaxWaterStressTicks() const;
+  int getDroughtDamagePerCycle() const;
 
   // Optional: Load physics settings from a file
   bool loadSettings(const std::string &fileName);
@@ -92,6 +105,10 @@ private:
   // and the WaterSimulationManager worker pool. Toggles every layer of the
   // ecosystem path, not just water sim — name reflects that broader scope.
   bool runEcosystemSynchronously = false;
+
+  int stressPerDryTick = WaterStressComponent::STRESS_PER_DRY_TICK;
+  int maxWaterStressTicks = WaterStressComponent::MAX_WATER_STRESS_TICKS;
+  int droughtDamagePerCycle = WaterStressComponent::DROUGHT_DAMAGE_PER_CYCLE;
 };
 
 typedef PhysicsManager ThePhysicsManager;

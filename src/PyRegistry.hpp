@@ -13,6 +13,7 @@
 #include "components/MetabolismComponents.hpp"
 #include "components/MovingComponent.hpp"
 #include "components/PhysicsComponents.hpp"
+#include "components/WaterStressComponent.hpp"
 
 namespace nb = nanobind;
 using namespace entt::literals;
@@ -240,6 +241,11 @@ public:
     }
     if (component_name == "ConsoleLogsComponent") {
       ConsoleLogsComponent *comp = get<ConsoleLogsComponent>(entity);
+      if (comp)
+        return nb::cast(*comp);
+    }
+    if (component_name == "WaterStressComponent") {
+      WaterStressComponent *comp = get<WaterStressComponent>(entity);
       if (comp)
         return nb::cast(*comp);
     }

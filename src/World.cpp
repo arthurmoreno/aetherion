@@ -19,6 +19,7 @@
 
 #include "PerceptionResponse_generated.h"
 #include "WorldExceptions.hpp"
+#include "components/WaterStressComponent.hpp"
 #include "ecosystem/EcosystemEvents.hpp"
 #include "flatbuffers/flatbuffers.h"
 #include "physics/PhysicsMutators.hpp"
@@ -278,6 +279,22 @@ void World::emplaceAllPyComponents(entt::entity newEntity,
       !pyEntity.attr("drop_rates").is_none()) {
     registry.emplace<DropRates>(
         newEntity, nb::cast<DropRates>(pyEntity.attr("drop_rates")));
+  }
+
+  // Auto-emplace WaterStressComponent on plants so the drought stress
+  // accumulator (incremented on dry-tile ticks in processPlants,
+  // decremented on supplied ticks) has a place to land. Plants without
+  // HealthComponent never take drought damage — health is required for
+  // the death cascade — but we emplace unconditionally on
+  // entity_type=PLANT to keep the loop in processPlants simple
+  // (single view filter on <WaterStressComponent, HealthComponent, Position>).
+  if (nb::hasattr(pyEntity, "entity_type") &&
+      !pyEntity.attr("entity_type").is_none()) {
+    const auto et =
+        nb::cast<EntityTypeComponent>(pyEntity.attr("entity_type"));
+    if (et.mainType == static_cast<int>(EntityEnum::PLANT)) {
+      registry.emplace<WaterStressComponent>(newEntity);
+    }
   }
 }
 

@@ -10,6 +10,7 @@
 #include <sstream>
 #include <thread>
 
+#include "components/WaterStressComponent.hpp"
 #include "ecosystem/ReadonlyQueries.hpp"
 #include "physics/PhysicsExceptions.hpp"
 #include "physics/PhysicsMutators.hpp"
@@ -1672,6 +1673,69 @@ void processPlants(entt::registry &registry, VoxelGrid &voxelGrid,
           health.healthLevel = health.maxHealth;
         }
       }
+    }
+  }
+
+  // Drought stress pass — separate view from the photosynthesis loop
+  // above so that plants which have never received water (and thus have
+  // no PlantResources yet) are still ticked.
+  //
+  // The async water worker only enqueues `PlantWaterUptakeEvent` when
+  // the grass tile already has water (gated on `isLiquidWater ||
+  // isGrassWithWater` in `processTileWater`), so we cannot detect
+  // drought via the mutator path — `makePlantSuckWater` simply never
+  // runs on a dry tile. Instead we observe drought directly here: read
+  // the matter container of the tile *below* the plant (where grass
+  // sits and where water uptake would source from) and combine that
+  // with the plant's own reserves. A plant counts as supplied if
+  // either the tile under it has water OR the plant carries its own
+  // reserves; otherwise the tick counts as a stressed tick.
+  //
+  // Once stress crosses MAX_WATER_STRESS_TICKS we apply drought damage
+  // to the HealthComponent. The existing HealthSystem::processHealth
+  // pass enqueues KillEntityEvent when healthLevel <= 0, so the death
+  // cascade (DropRates etc.) reuses the existing path.
+  auto stressView =
+      registry.view<WaterStressComponent, HealthComponent, Position>();
+  for (auto entity : stressView) {
+    if (!registry.valid(entity)) {
+      continue;
+    }
+    auto &stress = stressView.get<WaterStressComponent>(entity);
+    auto &health = stressView.get<HealthComponent>(entity);
+    auto &pos = stressView.get<Position>(entity);
+
+    bool has_water_supply = false;
+    if (auto *res = registry.try_get<PlantResources>(entity);
+        res && res->water > 0) {
+      has_water_supply = true;
+    }
+    if (!has_water_supply && pos.z > 0 && voxelGrid.terrainGridRepository) {
+      const MatterContainer below =
+          voxelGrid.terrainGridRepository->getTerrainMatterContainer(
+              pos.x, pos.y, pos.z - 1);
+      if (below.WaterMatter > 0) {
+        has_water_supply = true;
+      }
+    }
+
+    if (has_water_supply) {
+      stress.water_stress_ticks =
+          std::max(0, stress.water_stress_ticks - 1);
+    } else {
+      stress.water_stress_ticks +=
+          PhysicsManager::Instance()->getStressPerDryTick();
+    }
+
+    if (stress.water_stress_ticks >
+        PhysicsManager::Instance()->getMaxWaterStressTicks()) {
+      // One stress cycle complete: apply chunk damage and reset the
+      // counter so the plant has another full stress runway before the
+      // next hit. Produces a visible step-down in HP each cycle rather
+      // than a smooth per-tick drain.
+      health.healthLevel -=
+          PhysicsManager::Instance()->getDroughtDamagePerCycle();
+      stress.water_stress_ticks = 0;
     }
   }
 }
