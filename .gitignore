@@ -89,3 +89,8 @@ docs/latex
 # ------------
 
 .claude/docs/*
+
+# Local-only rule overrides — for redirecting flows to private repos
+# or per-user knobs that should not be shared. Public rules in
+# .claude/rules/*.md still apply; *.local.md files take precedence.
+.claude/rules/*.local.md
