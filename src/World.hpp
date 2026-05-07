@@ -176,6 +176,15 @@ public:
   void registerPythonEventHandler(const std::string &eventType,
                                   nb::object callback);
 
+  // Release every Python object held in long-lived World containers
+  // (`pythonEventCallbacks`, `pythonSystems`, `pythonScripts`). MUST be called
+  // before the `World` reference drops at interpreter shutdown when any of
+  // those containers is non-empty — otherwise Python systems that hold a
+  // back-ref to `world` form a cross-language cycle that nanobind cannot
+  // collect, and the leaked instances trigger SIGABRT in `Py_Finalize`.
+  // Indices into `getPythonSystem(i)` are invalidated by this call.
+  void releasePythonState();
+
   // Ecosystem on/off toggle (when false, ecosystem step doesn't run at all
   // per tick; when true, runs sync vs async per `runEcosystemSynchronously`).
   bool getProcessEcosystem() const { return processEcosystem_; }
