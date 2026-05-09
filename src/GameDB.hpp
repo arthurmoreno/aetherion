@@ -2,10 +2,12 @@
 
 #include <sqlite3.h>
 
+#include <cstddef>
 #include <entt/entt.hpp>
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -91,11 +93,44 @@ public:
    */
   bool loadFromDatabase();
 
+  /**
+   * @brief Find the in-memory TimeSeriesComponent for a series name.
+   *
+   * Test-facing accessor used to peek at the cache without going
+   * through the query path. Returns nullptr if no component exists for
+   * the given name.
+   */
+  const TimeSeriesComponent *
+  findTimeSeriesComponent(const std::string &seriesName) const;
+
+  /**
+   * @brief Count rows on disk for a series. Bypasses the in-memory
+   * cache by running a raw SQLite COUNT(*). Returns -1 on SQL error.
+   * Test-facing accessor used to verify the trim trigger.
+   */
+  long long countOnDiskRows(const std::string &seriesName) const;
+
 private:
   /**
    * @brief Validate and fix time_series table schema
    */
   void validateTimeSeriesSchema();
+
+  /**
+   * @brief Insert a single (series, ts, value) row directly. Used by
+   * the hot putTimeSeries path so we don't replay the entire cache on
+   * every call (which was the original O(N) per-put behaviour that
+   * spammed the log and froze the game).
+   */
+  bool insertSinglePoint(const std::string &seriesName, uint64_t timestamp,
+                         double value);
+
+  /**
+   * @brief Trim a single series on disk to at most kMaxOnDiskRowsPerSeries
+   * rows by deleting the oldest. Cheaper than the per-INSERT trigger
+   * because it runs at most once per `kInsertsPerTrim` puts to a series.
+   */
+  void trimSeriesOnDisk(const std::string &seriesName);
 
   // SQLite database
   std::string sqlitePath;
@@ -106,6 +141,10 @@ private:
 
   // Flag to track if in-memory data needs to be synced
   bool needsSync;
+
+  // Per-series put counter — used to amortise the disk-trim work over
+  // many inserts instead of paying it per row.
+  std::unordered_map<std::string, std::size_t> insertsSinceTrim_;
 
   // Entity used for time series storage
   entt::entity timeSeriesEntity;

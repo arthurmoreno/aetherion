@@ -245,6 +245,20 @@ size_t TerrainStorage::memUsage() const {
   return total;
 }
 
+std::unordered_map<std::string, size_t>
+TerrainStorage::memUsageBreakdown() const {
+  std::unordered_map<std::string, size_t> out;
+  out["terrain"] = terrainGrid ? terrainGrid->memUsage() : 0;
+  out["main_type"] = mainTypeGrid ? mainTypeGrid->memUsage() : 0;
+  out["sub_type0"] = subType0Grid ? subType0Grid->memUsage() : 0;
+  out["sub_type1"] = subType1Grid ? subType1Grid->memUsage() : 0;
+  out["terrain_matter"] = terrainMatterGrid ? terrainMatterGrid->memUsage() : 0;
+  out["water_matter"] = waterMatterGrid ? waterMatterGrid->memUsage() : 0;
+  out["vapor_matter"] = vaporMatterGrid ? vaporMatterGrid->memUsage() : 0;
+  out["biomass_matter"] = biomassMatterGrid ? biomassMatterGrid->memUsage() : 0;
+  return out;
+}
+
 void TerrainStorage::configureThreadCache() {
   auto &tc = s_threadCache;
 

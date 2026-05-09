@@ -7,6 +7,7 @@
 #include "aetherion.hpp"
 
 #include <nanobind/ndarray.h>
+#include <nanobind/stl/string.h>
 #include <nanobind/stl/tuple.h>
 #include <spdlog/spdlog.h>
 
@@ -14,6 +15,7 @@
 
 #include "PhysicsSettings.hpp"
 #include "components/WaterStressComponent.hpp"
+#include "diag/Diag.hpp"
 
 // Create a shortcut for nanobind
 namespace nb = nanobind;
@@ -312,6 +314,15 @@ NB_MODULE(_aetherion, m) {
       .def("apply_transform", &TerrainStorage::applyTransform,
            nb::arg("voxel_size"))
       .def("mem_usage", &TerrainStorage::memUsage)
+      .def("mem_usage_breakdown",
+           [](const TerrainStorage &self) {
+             auto map = self.memUsageBreakdown();
+             nb::dict out;
+             for (const auto &kv : map) {
+               out[nb::str(kv.first.c_str())] = kv.second;
+             }
+             return out;
+           })
       // Entity type components
       .def("set_terrain_main_type", &TerrainStorage::setTerrainMainType)
       .def("get_terrain_main_type", &TerrainStorage::getTerrainMainType)
@@ -885,17 +896,41 @@ NB_MODULE(_aetherion, m) {
            })
       .def("query_time_series",
            [](World &w, nb::object seriesName, nb::object start,
-              nb::object end) -> std::vector<std::pair<uint64_t, double>> {
+              nb::object end) {
              std::string name = nb::cast<std::string>(seriesName);
              long long s = nb::cast<long long>(start);
              long long e = nb::cast<long long>(end);
-             return w.queryTimeSeries(name, s, e);
+             auto rows = w.queryTimeSeries(name, s, e);
+             // Build a Python list of (ts, value) tuples manually — we
+             // intentionally don't include <nanobind/stl/vector.h> /
+             // pair.h because the codebase uses nb::bind_vector for
+             // several std::vector<T> instantiations and those conflict
+             // with the type-caster headers.
+             nb::list out;
+             for (const auto &row : rows) {
+               out.append(nb::make_tuple(row.first, row.second));
+             }
+             return out;
            })
       .def("execute_sql",
            [](World &w, nb::object sql) {
              std::string s = nb::cast<std::string>(sql);
              w.executeSQL(s);
            })
+      .def(
+          "peek_time_series_size",
+          [](const World &w, const std::string &seriesName) {
+            return w.peekTimeSeriesSize(seriesName);
+          },
+          nb::arg("series_name"),
+          "Test accessor: in-memory cache size for the named series.")
+      .def(
+          "count_time_series_rows_on_disk",
+          [](const World &w, const std::string &seriesName) {
+            return w.countTimeSeriesRowsOnDisk(seriesName);
+          },
+          nb::arg("series_name"),
+          "Test accessor: raw SQLite COUNT(*) bypassing the cache.")
       // Water simulation error handling methods
       .def("get_water_sim_errors", &World::getWaterSimErrors,
            "Get list of water simulation thread errors with details (thread "
@@ -1139,15 +1174,13 @@ NB_MODULE(_aetherion, m) {
       .def_prop_ro_static(
           "STRESS_PER_DRY_TICK",
           [](nb::handle) { return WaterStressComponent::STRESS_PER_DRY_TICK; })
-      .def_prop_ro_static(
-          "MAX_WATER_STRESS_TICKS",
-          [](nb::handle) {
-            return WaterStressComponent::MAX_WATER_STRESS_TICKS;
-          })
-      .def_prop_ro_static(
-          "DROUGHT_DAMAGE_PER_CYCLE", [](nb::handle) {
-            return WaterStressComponent::DROUGHT_DAMAGE_PER_CYCLE;
-          });
+      .def_prop_ro_static("MAX_WATER_STRESS_TICKS",
+                          [](nb::handle) {
+                            return WaterStressComponent::MAX_WATER_STRESS_TICKS;
+                          })
+      .def_prop_ro_static("DROUGHT_DAMAGE_PER_CYCLE", [](nb::handle) {
+        return WaterStressComponent::DROUGHT_DAMAGE_PER_CYCLE;
+      });
 
   nb::class_<PerceptionComponent>(m, "PerceptionComponent")
       .def(nb::init<>()) // Default constructor
@@ -1590,6 +1623,14 @@ NB_MODULE(_aetherion, m) {
       .def(nb::init<entt::registry &>(),
            nb::keep_alive<1,
                           2>()) // Keep registry alive while VoxelGrid is alive
+      .def_prop_ro(
+          "terrain_storage",
+          [](VoxelGrid &vg) -> TerrainStorage * {
+            return vg.terrainStorage.get();
+          },
+          nb::rv_policy::reference_internal,
+          "Borrowed TerrainStorage view (owned by this VoxelGrid). Used by "
+          "the lifesim memory-leak sampler to read mem_usage_breakdown().")
       .def("initialize_grids", &VoxelGrid::initializeGrids)
       .def("set_voxel", &VoxelGrid::setVoxel, nb::arg("x"), nb::arg("y"),
            nb::arg("z"), nb::arg("data"), "Set voxel data at (x, y, z)")
@@ -1788,4 +1829,125 @@ NB_MODULE(_aetherion, m) {
   //     .def("mutate_add_node", &DefaultGenome::mutate_add_node);
 
   m.def("get_pruned_copy", &get_pruned_copy, "Get a pruned copy of the genome");
+
+  // ─── aetherion._aetherion.diag submodule ─────────────────────────────
+  // Producer-facing diagnostic API. Mirrors the C++ surface in
+  // src/diag/Diag.hpp so Python (lifesim) can register and emit through
+  // the same Registry as the engine. See plan
+  // .claude/docs/epics-plans/2026-05-08-unified-diagnostic-logging-cpp.md.
+  {
+    namespace diag = aetherion::diag;
+    auto d = m.def_submodule("diag", "Aetherion unified diagnostic module");
+
+    nb::class_<diag::Counter>(d, "Counter")
+        .def("inc", &diag::Counter::inc, nb::arg("delta") = 1)
+        .def("enabled", &diag::Counter::enabled);
+
+    nb::class_<diag::Gauge>(d, "Gauge")
+        .def("set", &diag::Gauge::set, nb::arg("value"))
+        .def("enabled", &diag::Gauge::enabled);
+
+    // Convert a Python object to nlohmann::json by round-tripping through
+    // Python's `json.dumps`. This is the simplest correct path for v1;
+    // payloads are small and emission is not on the hot path.
+    auto pyobj_to_json = [](nb::handle obj) {
+      nb::object json_mod = nb::module_::import_("json");
+      auto dumped = nb::cast<std::string>(json_mod.attr("dumps")(obj));
+      return nlohmann::json::parse(dumped);
+    };
+
+    nb::class_<diag::EventLogger>(d, "EventLogger")
+        .def(
+            "log",
+            [pyobj_to_json](diag::EventLogger &self, nb::object payload) {
+              self.log(pyobj_to_json(payload));
+            },
+            nb::arg("payload"))
+        .def("enabled", &diag::EventLogger::enabled);
+
+    // Registry surface — Python sees a tiny module-level API.
+    d.def(
+        "counter",
+        [](const std::string &name, long flush_every_ms) {
+          diag::CounterConfig cfg;
+          cfg.name = name;
+          cfg.flush_every = std::chrono::milliseconds{flush_every_ms};
+          cfg.sinks = {diag::GameDBSink{}};
+          return diag::Registry::instance().counter(cfg);
+        },
+        nb::arg("name"), nb::arg("flush_every_ms") = 1000,
+        "Register a Counter that flushes to GameDB on the given cadence.");
+
+    d.def(
+        "gauge",
+        [](const std::string &name, long flush_every_ms) {
+          diag::GaugeConfig cfg;
+          cfg.name = name;
+          cfg.flush_every = std::chrono::milliseconds{flush_every_ms};
+          cfg.sinks = {diag::GameDBSink{}};
+          return diag::Registry::instance().gauge(cfg);
+        },
+        nb::arg("name"), nb::arg("flush_every_ms") = 1000,
+        "Register a Gauge that flushes to GameDB on the given cadence.");
+
+    d.def(
+        "event",
+        [](const std::string &channel, nb::object required_keys) {
+          diag::EventConfig cfg;
+          cfg.channel = channel;
+          if (!required_keys.is_none()) {
+            // Walk the Python iterable manually to avoid pulling in
+            // <nanobind/stl/vector.h>, which would conflict with the
+            // existing nb::bind_vector instantiations elsewhere.
+            nb::object iter =
+                nb::module_::import_("builtins").attr("iter")(required_keys);
+            while (true) {
+              try {
+                nb::object next = iter.attr("__next__")();
+                cfg.required_keys.push_back(nb::cast<std::string>(next));
+              } catch (...) {
+                break;
+              }
+            }
+          }
+          cfg.sinks = {diag::SpdlogSink{}};
+          return diag::Registry::instance().event(cfg);
+        },
+        nb::arg("channel"), nb::arg("required_keys") = nb::none(),
+        "Register an EventLogger that emits to the diag_file spdlog logger.");
+
+    d.def(
+        "tick", []() { diag::Registry::instance().tick(); },
+        "Flush metrics whose flush_every window has elapsed.");
+    d.def(
+        "flush_all", []() { diag::Registry::instance().flush_all(); },
+        "Force-flush every registered metric.");
+    d.def(
+        "disable",
+        [](const std::string &name_or_glob) {
+          diag::Registry::instance().disable(name_or_glob);
+        },
+        nb::arg("name_or_glob"));
+    d.def(
+        "enable",
+        [](const std::string &name_or_glob) {
+          diag::Registry::instance().enable(name_or_glob);
+        },
+        nb::arg("name_or_glob"));
+    d.def(
+        "is_enabled",
+        [](const std::string &name) {
+          return diag::Registry::instance().is_enabled(name);
+        },
+        nb::arg("name"));
+    d.def(
+        "peek_counter",
+        [](const std::string &name) {
+          return diag::Registry::instance().peek_counter(name);
+        },
+        nb::arg("name"),
+        "Test helper: read the live counter accumulator without flushing.");
+    d.def("reset_for_testing",
+          []() { diag::Registry::instance().reset_for_testing(); });
+  }
 }

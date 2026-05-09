@@ -109,10 +109,28 @@ test-badges:
 device-info:
 	nvidia-smi
 
+# Diag-friendly profile build for valgrind/massif/heaptrack/perf. Flip on with
+# `make build PROFILE=1` or `PROFILE=1 make build` (or set in .env). Honors
+# `AETHERION_PROFILE` as an alias so the env var reads naturally.
+PROFILE ?= $(AETHERION_PROFILE)
+PROFILE_ON := $(filter 1 ON on true TRUE,$(PROFILE))
+ifneq ($(strip $(PROFILE_ON)),)
+    # RelWithDebInfo prevents scikit-build-core from auto-appending
+    # `-O3 -DNDEBUG -Wl,-s` (its `Release` defaults), which would
+    # otherwise override our -O1 -g and strip the DWARF debug info that
+    # heaptrack/massif need. CMakeLists.txt also force-clears
+    # CMAKE_*_FLAGS_RELEASE for the same reason (belt-and-braces).
+    BUILD_CMAKE_ARGS := -DAETHERION_PROFILE_BUILD=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo
+endif
+
 .PHONY: build
 build:
 	@echo "Building aetherion package with python -m build..."
-	conda run --no-capture-output -n $(CONDA_ENV) python -m build
+	@if [ -n "$(PROFILE_ON)" ]; then \
+		echo "  PROFILE build: -O1 -g -fno-omit-frame-pointer -fno-inline (debug-friendly, ~3x slower; revert with PROFILE=0)"; \
+	fi
+	conda run --no-capture-output -n $(CONDA_ENV) \
+		bash -c 'CMAKE_ARGS="$(BUILD_CMAKE_ARGS)" python -m build'
 
 .PHONY: install
 install:

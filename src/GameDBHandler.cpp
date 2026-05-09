@@ -79,3 +79,12 @@ bool GameDBHandler::resetDB() {
   Logger::getLogger()->warn("[GameDBHandler::resetDB] Resetting database");
   return gameDB->resetDB();
 }
+
+size_t GameDBHandler::peekInMemorySize(const std::string &seriesName) const {
+  const auto *comp = gameDB->findTimeSeriesComponent(seriesName);
+  return comp ? comp->size() : 0;
+}
+
+long long GameDBHandler::countOnDiskRows(const std::string &seriesName) const {
+  return gameDB->countOnDiskRows(seriesName);
+}

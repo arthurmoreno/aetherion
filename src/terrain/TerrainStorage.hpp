@@ -5,6 +5,7 @@
 
 #include <functional>
 #include <memory>
+#include <unordered_map>
 #include <vector>
 
 #include "components/PhysicsComponents.hpp"
@@ -69,6 +70,11 @@ public:
 
   // Memory usage of all terrain-related grids
   size_t memUsage() const;
+
+  // Per-grid breakdown — keys are short stable identifiers exposed to the
+  // diagnostic sampler. Adding a grid here also requires adding it to
+  // memUsage() above.
+  std::unordered_map<std::string, size_t> memUsageBreakdown() const;
 
   int64_t getTerrainIdIfExists(int x, int y, int z);
 

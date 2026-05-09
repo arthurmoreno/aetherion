@@ -31,6 +31,14 @@ public:
   // Force database reset if necessary
   bool resetDB();
 
+  // Test-facing accessors. `peekInMemorySize` returns the in-memory
+  // cache size for a series (0 if absent). `countOnDiskRows` runs a
+  // raw SQLite COUNT(*) bypassing the cache (-1 on SQL error). Both
+  // exist so Python tests can verify the bounded-retention contract
+  // without binding the internal GameDB type.
+  size_t peekInMemorySize(const std::string &seriesName) const;
+  long long countOnDiskRows(const std::string &seriesName) const;
+
 private:
   std::string sqliteFile_;
   std::unique_ptr<GameDB> gameDB;

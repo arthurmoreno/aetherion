@@ -1,6 +1,7 @@
 #ifndef LOGGER_HPP
 #define LOGGER_HPP
 
+#include <spdlog/sinks/ringbuffer_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 
@@ -27,5 +28,9 @@ private:
   Logger() = default; // Private constructor to prevent instantiation
   static std::shared_ptr<spdlog::logger> logger;
 };
+
+// Accessor for the ringbuffer sink wired into `diag_file`. The diagnostic GUI
+// program reads recent records from here; nullptr until Logger::initialize().
+std::shared_ptr<spdlog::sinks::ringbuffer_sink_mt> diagRingbufferSink();
 
 #endif // LOGGER_HPP

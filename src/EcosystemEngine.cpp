@@ -1720,8 +1720,7 @@ void processPlants(entt::registry &registry, VoxelGrid &voxelGrid,
     }
 
     if (has_water_supply) {
-      stress.water_stress_ticks =
-          std::max(0, stress.water_stress_ticks - 1);
+      stress.water_stress_ticks = std::max(0, stress.water_stress_ticks - 1);
     } else {
       stress.water_stress_ticks +=
           PhysicsManager::Instance()->getStressPerDryTick();
