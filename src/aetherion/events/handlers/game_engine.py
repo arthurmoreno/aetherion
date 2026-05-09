@@ -60,6 +60,18 @@ def on_world_disconnect_requested(game_engine: GameEngineProtocol, event: GameEv
     if world_key is not None:
         _pause_world(game_engine, world_key)
 
+    # Tear down the active session's WorldInterface before nulling the
+    # ref. Without dispose(), the C++ World keeps Python systems / event
+    # handlers alive via nb::object — the Python<->C++ cycle prevents
+    # ~World from running and leaks the entire World on every disconnect.
+    # `hasattr` guards the path: tests substitute a plain object() here.
+    wi = game_engine.world_interface
+    if wi is not None and hasattr(wi, "dispose"):
+        try:
+            wi.dispose()
+        except Exception:
+            logger.exception("[on_world_disconnect_requested] WorldInterface.dispose() failed; continuing")
+
     game_engine.shared_state.connected_world = None
     game_engine.shared_state.connected_beast = None
     game_engine.player_connection = None
