@@ -3,6 +3,24 @@
 #include <chrono>
 #include <filesystem>
 
+namespace {
+// Per-series row cap on disk. With one sample/second per series, that's
+// ~2.8 hours of retained history — enough for a long-run analysis
+// dashboard, bounded for stability. Enforced by `trimSeriesOnDisk()`
+// running at most once per `kInsertsPerTrim` puts to the same series.
+// See plan
+// .claude/docs/epics-plans/2026-05-09-gamedb-time-series-bounded-retention.md.
+constexpr int kMaxOnDiskRowsPerSeries = 10000;
+
+// Amortise disk-trim work. Running it per-INSERT (via SQLite trigger)
+// caused unacceptable per-put overhead — the trigger's COUNT(*) is O(N)
+// per row. Once per K puts means total trim cost across N inserts is
+// (N/K) * O(K) = O(N), and the actual cap is enforced lazily but
+// strictly: the worst-case overshoot is K-1 rows above the cap before
+// the next trim fires.
+constexpr std::size_t kInsertsPerTrim = 500;
+} // namespace
+
 GameDB::GameDB(const std::string &sqlite_path)
     : sqlitePath(sqlite_path), sqliteDb(nullptr), needsSync(false) {
   // Create directory for the SQLite database if it doesn't exist
@@ -18,6 +36,14 @@ GameDB::GameDB(const std::string &sqlite_path)
   } else {
     Logger::getLogger()->info("SQLite DB opened at: {}", sqlite_path);
   }
+
+  // Throughput tunings: WAL + synchronous=NORMAL keep durability strong
+  // enough for diagnostic time-series (loss on crash = a few unflushed
+  // samples) while making per-row INSERTs cheap enough to call from a
+  // tight loop. Without these, putTimeSeries hits an fsync per write
+  // and the test suite times out at a few thousand inserts.
+  executeSQL("PRAGMA journal_mode=WAL");
+  executeSQL("PRAGMA synchronous=NORMAL");
 
   // Validate and fix time_series table schema if needed
   validateTimeSeriesSchema();
@@ -98,7 +124,7 @@ bool GameDB::putTimeSeries(const std::string &seriesName, uint64_t timestamp,
   try {
     entt::entity targetEntity = entt::null;
 
-    // 1) Search for an existing TimeSeriesComponent with that name
+    // 1) Search for an existing TimeSeriesComponent with that name.
     auto view = registry.view<TimeSeriesComponent>();
     for (auto entity : view) {
       auto &comp = view.get<TimeSeriesComponent>(entity);
@@ -108,28 +134,95 @@ bool GameDB::putTimeSeries(const std::string &seriesName, uint64_t timestamp,
       }
     }
 
-    // 2) If found, just add the new datapoint
+    // 2) Update the in-memory cache (with eviction at the per-series cap).
     if (targetEntity != entt::null) {
       auto &existingComp = registry.get<TimeSeriesComponent>(targetEntity);
       existingComp.addDataPoint(timestamp, value);
-    }
-    // 3) Otherwise create a new entity + component
-    else {
+    } else {
       targetEntity = registry.create();
       auto &newComp = registry.emplace<TimeSeriesComponent>(targetEntity);
       newComp.timeSeriesName = seriesName;
       newComp.addDataPoint(timestamp, value);
     }
 
-    // Mark as needing sync - Setting as false just to debug.
-    needsSync = false;
+    // 3) Persist this single point to SQLite immediately. We deliberately
+    // do NOT call syncToDatabase() here — that path replays the entire
+    // in-memory cache for every series on every put (O(N) per call) and
+    // was the source of both the runtime freeze and the "Successfully
+    // synced ..." log spam. One INSERT per put is O(1); with WAL +
+    // synchronous=NORMAL (set in the constructor) the per-put cost is
+    // microseconds, not milliseconds.
+    if (!insertSinglePoint(seriesName, timestamp, value)) {
+      return false;
+    }
 
-    // Sync to database immediately if appropriate
-    return syncToDatabase();
+    // 4) Amortised disk trim. Running it per-INSERT via a SQLite trigger
+    // costs an indexed COUNT(*) per row (was the second source of
+    // freezing). Once every kInsertsPerTrim puts the worst-case overshoot
+    // is bounded at kInsertsPerTrim - 1 rows above the cap.
+    auto &counter = insertsSinceTrim_[seriesName];
+    if (++counter >= kInsertsPerTrim) {
+      trimSeriesOnDisk(seriesName);
+      counter = 0;
+    }
+    return true;
   } catch (const std::exception &e) {
     Logger::getLogger()->error("Error storing time series data: {}", e.what());
     return false;
   }
+}
+
+bool GameDB::insertSinglePoint(const std::string &seriesName,
+                               uint64_t timestamp, double value) {
+  if (!sqliteDb) {
+    return false;
+  }
+  const char *sql = "INSERT OR REPLACE INTO time_series "
+                    "(series_name, timestamp, value) VALUES (?, ?, ?)";
+  sqlite3_stmt *stmt = nullptr;
+  if (sqlite3_prepare_v2(sqliteDb, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+    Logger::getLogger()->error("Failed to prepare single-point insert: {}",
+                               sqlite3_errmsg(sqliteDb));
+    return false;
+  }
+  sqlite3_bind_text(stmt, 1, seriesName.c_str(), -1, SQLITE_TRANSIENT);
+  sqlite3_bind_int64(stmt, 2, static_cast<sqlite3_int64>(timestamp));
+  sqlite3_bind_double(stmt, 3, value);
+  bool ok = (sqlite3_step(stmt) == SQLITE_DONE);
+  if (!ok) {
+    Logger::getLogger()->error("Single-point insert failed: {}",
+                               sqlite3_errmsg(sqliteDb));
+  }
+  sqlite3_finalize(stmt);
+  return ok;
+}
+
+void GameDB::trimSeriesOnDisk(const std::string &seriesName) {
+  if (!sqliteDb) {
+    return;
+  }
+  // Keep only the kMaxOnDiskRowsPerSeries newest rows. The subquery picks
+  // the top-N timestamps (DESC + LIMIT); the outer DELETE removes
+  // everything else for that series. Indexed by the (series_name,
+  // timestamp) primary key on both sides.
+  const char *sql =
+      "DELETE FROM time_series WHERE series_name = ?1 "
+      "AND timestamp NOT IN ("
+      "  SELECT timestamp FROM time_series WHERE series_name = ?1 "
+      "  ORDER BY timestamp DESC LIMIT ?2)";
+  sqlite3_stmt *stmt = nullptr;
+  if (sqlite3_prepare_v2(sqliteDb, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+    Logger::getLogger()->error("Failed to prepare trim: {}",
+                               sqlite3_errmsg(sqliteDb));
+    return;
+  }
+  sqlite3_bind_text(stmt, 1, seriesName.c_str(), -1, SQLITE_TRANSIENT);
+  sqlite3_bind_int(stmt, 2, kMaxOnDiskRowsPerSeries);
+  if (sqlite3_step(stmt) != SQLITE_DONE) {
+    Logger::getLogger()->error("Trim failed for '{}': {}", seriesName,
+                               sqlite3_errmsg(sqliteDb));
+  }
+  sqlite3_finalize(stmt);
 }
 
 std::vector<std::pair<uint64_t, double>>
@@ -249,7 +342,12 @@ bool GameDB::executeSQL(const std::string &query) {
 }
 
 bool GameDB::createTables() {
-  std::string query = R"(
+  // Defensive: drop the v1-prototype trigger if it survived from an
+  // earlier installation. We now trim from C++ to control firing
+  // cadence (see trimSeriesOnDisk + kInsertsPerTrim).
+  executeSQL("DROP TRIGGER IF EXISTS trim_time_series_per_series");
+
+  const std::string query = R"(
         CREATE TABLE IF NOT EXISTS players (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
@@ -269,6 +367,35 @@ bool GameDB::createTables() {
         );
     )";
   return executeSQL(query);
+}
+
+const TimeSeriesComponent *
+GameDB::findTimeSeriesComponent(const std::string &seriesName) const {
+  for (auto entity : registry.view<TimeSeriesComponent>()) {
+    const auto &comp = registry.get<TimeSeriesComponent>(entity);
+    if (comp.timeSeriesName == seriesName) {
+      return &comp;
+    }
+  }
+  return nullptr;
+}
+
+long long GameDB::countOnDiskRows(const std::string &seriesName) const {
+  if (!sqliteDb) {
+    return -1;
+  }
+  const char *sql = "SELECT COUNT(*) FROM time_series WHERE series_name = ?";
+  sqlite3_stmt *stmt = nullptr;
+  if (sqlite3_prepare_v2(sqliteDb, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+    return -1;
+  }
+  sqlite3_bind_text(stmt, 1, seriesName.c_str(), -1, SQLITE_TRANSIENT);
+  long long count = -1;
+  if (sqlite3_step(stmt) == SQLITE_ROW) {
+    count = static_cast<long long>(sqlite3_column_int64(stmt, 0));
+  }
+  sqlite3_finalize(stmt);
+  return count;
 }
 
 bool GameDB::resetDB() {
@@ -362,7 +489,10 @@ bool GameDB::syncToDatabase() {
 
     // Mark as synced
     needsSync = false;
-    Logger::getLogger()->info(
+    // Quiet log: this used to fire per-put (info-level) and spam the
+    // console at ~200 lines/sec. Demote to debug since syncToDatabase()
+    // is now reserved for explicit graceful-shutdown / resetDB paths.
+    Logger::getLogger()->debug(
         "Successfully synced time series data points to database");
 
     return true;

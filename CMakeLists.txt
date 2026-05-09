@@ -82,14 +82,49 @@ find_package(SQLite3 REQUIRED)
 set(OPENVDB_INCLUDE_DIR /usr/local/include/openvdb)
 set(OPENVDB_LIBRARIES /usr/local/lib/libopenvdb.so)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -march=native -flto -ffast-math")
+# ─── Optimization / profiling flags ────────────────────────────────────────
+# Default release build: aggressive opt with LTO. Switch on a *profiling* build
+# via `-DAETHERION_PROFILE_BUILD=ON` (or `make build PROFILE=1`) when running
+# under valgrind/massif/heaptrack/perf — keeps frame pointers and debug info,
+# disables LTO + inlining + symbol hiding so call stacks are intelligible.
+option(AETHERION_PROFILE_BUILD
+       "Build with profiling/debug-friendly flags (no LTO, frame pointers, -O1, -g, visible symbols). Use for valgrind/heaptrack/perf."
+       OFF)
+
+if(AETHERION_PROFILE_BUILD)
+    message(STATUS "Aetherion: PROFILE build — -O1 -g -fno-omit-frame-pointer -fno-inline -march=native -ffast-math (visible symbols, no LTO; asserts ON so library invariants surface under valgrind)")
+    # Force -fPIC on all targets (including static archives that feed _aetherion.so).
+    # Without this, non-LTO non-inlined builds hit "relocation R_X86_64_PC32 …"
+    # at link time because cross-TU calls survive as PC32 relocations.
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+    # Wipe any auto-injected `-O3 -DNDEBUG -Wl,-s` from a Release/MinSizeRel
+    # build type — those would override our -O1 -g and strip debug symbols.
+    # Caller should also pass `-DCMAKE_BUILD_TYPE=RelWithDebInfo` (handled by
+    # the Makefile when PROFILE=1) but clearing these flags is belt-and-braces.
+    set(CMAKE_CXX_FLAGS_RELEASE "" CACHE STRING "" FORCE)
+    set(CMAKE_C_FLAGS_RELEASE "" CACHE STRING "" FORCE)
+    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "" CACHE STRING "" FORCE)
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "" CACHE STRING "" FORCE)
+    # NB: NOT adding -DNDEBUG. Profile builds *want* IM_ASSERT and friends
+    # live so library-invariant violations (e.g. unbalanced ImGui::NewFrame /
+    # Render pairs) crash where the bug lives instead of corrupting state
+    # silently. Production keeps -DNDEBUG via the release branch below.
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O1 -g -fno-omit-frame-pointer -fno-inline -march=native -ffast-math")
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -march=native -flto -ffast-math")
+endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     add_compile_options(-fdiagnostics-color=always)
 endif()
 add_compile_definitions(ENTT_ENTITY_TYPE=int)
 add_definitions(-DMDB_MAXKEYSIZE=0)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=always -fvisibility=hidden")
+if(AETHERION_PROFILE_BUILD)
+    # Keep symbols visible so massif/heaptrack can resolve them.
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=always")
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=always -fvisibility=hidden")
+endif()
 
 message(STATUS "Using OpenVDB include directory: ${OPENVDB_INCLUDE_DIR}")
 message(STATUS "Using OpenVDB library: ${OPENVDB_LIBRARIES}")
@@ -170,6 +205,7 @@ add_subdirectory(src/terrain)
 add_subdirectory(src/ecosystem)
 add_subdirectory(src/voxelgrid)
 add_subdirectory(src/WorldClientAPI)
+add_subdirectory(src/diag)
 
 # ------------------------------------------------------------------------------
 # Build the Python Module (nanobind)
@@ -190,6 +226,7 @@ target_link_libraries(_aetherion PRIVATE
     voxelgrid
     terrain
     WorldClientAPI
+    diag
     ${SDL2_LIBRARIES}
     ${SDL2_IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES}

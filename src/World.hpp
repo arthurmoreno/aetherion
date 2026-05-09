@@ -228,6 +228,14 @@ public:
                   long long end);
   void executeSQL(const std::string &sql);
 
+  // Test-facing accessors for the bounded-retention contract:
+  //   peekTimeSeriesSize    — current in-memory cache size for a series
+  //   countTimeSeriesRowsOnDisk — raw SQLite COUNT(*) bypassing the cache
+  // Both are thin forwards onto GameDBHandler. Used by Python tests in
+  // tests/integration/test_gamedb_time_series.py.
+  size_t peekTimeSeriesSize(const std::string &seriesName) const;
+  long long countTimeSeriesRowsOnDisk(const std::string &seriesName) const;
+
 private:
   // Per-system step runners — extracted from update() to keep that loop
   // readable. Each chooses inline vs std::async based on its own flags.

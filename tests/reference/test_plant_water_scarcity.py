@@ -32,9 +32,7 @@ from aetherion._aetherion import WaterStressComponent
 from aetherion.entities import BaseEntity
 from aetherion.reference.world.scenarios.primitives import (
     place_stone,
-    place_water,
 )
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Fixtures — minimal plant entity
@@ -144,17 +142,14 @@ def test_plant_on_dry_grass_accumulates_stress():
     grass_matter = voxel_grid.get_terrain_matter_container_component(4, 4, 0)
     assert grass_matter.water_matter == 0, "test scenario expects DRY grass"
     entity_above = world.get_entity(4, 4, 1)
-    assert entity_above == plant_id, (
-        f"expected plant_id={plant_id} at entity-grid (4,4,1); got {entity_above}"
-    )
+    assert entity_above == plant_id, f"expected plant_id={plant_id} at entity-grid (4,4,1); got {entity_above}"
 
     _tick(manager, steps=5)
 
     stress = _read_stress(world, plant_id)
     assert stress is not None, "plant should have WaterStressComponent emplaced"
     assert stress.water_stress_ticks > 0, (
-        f"expected stress to accumulate on a dry tile after 5 ticks; got "
-        f"water_stress_ticks={stress.water_stress_ticks}"
+        f"expected stress to accumulate on a dry tile after 5 ticks; got water_stress_ticks={stress.water_stress_ticks}"
     )
 
 
@@ -186,8 +181,7 @@ def test_plant_dies_in_drought():
     # component lookup on a killed entity.
     health = _read_health(manager.current.world, plant_id)
     assert health is None, (
-        f"plant should be dead after 10 ticks of drought; "
-        f"got health={health.health_level if health else None}"
+        f"plant should be dead after 10 ticks of drought; got health={health.health_level if health else None}"
     )
 
 
@@ -226,16 +220,12 @@ def test_plant_survives_in_oasis():
     stress = _read_stress(world, plant_id)
     health = _read_health(world, plant_id)
 
-    assert stress is not None and health is not None, (
-        f"plant should still exist in an oasis after {steps} ticks"
-    )
+    assert stress is not None and health is not None, f"plant should still exist in an oasis after {steps} ticks"
     assert stress.water_stress_ticks == 0, (
-        f"plant in oasis should never accumulate stress; got "
-        f"water_stress_ticks={stress.water_stress_ticks}"
+        f"plant in oasis should never accumulate stress; got water_stress_ticks={stress.water_stress_ticks}"
     )
     assert health.health_level == health.max_health, (
-        f"plant in oasis should be at full health; got "
-        f"health_level={health.health_level}/{health.max_health}"
+        f"plant in oasis should be at full health; got health_level={health.health_level}/{health.max_health}"
     )
 
 
@@ -276,6 +266,5 @@ def test_plant_survives_marginal_water_with_recovery():
     )
     # If the decrement were missing, stress would have climbed by ~20 by now.
     assert stress.water_stress_ticks < 20, (
-        f"marginal plant should not approach threshold; got "
-        f"water_stress_ticks={stress.water_stress_ticks}"
+        f"marginal plant should not approach threshold; got water_stress_ticks={stress.water_stress_ticks}"
     )

@@ -20,6 +20,7 @@
 #include "PerceptionResponse_generated.h"
 #include "WorldExceptions.hpp"
 #include "components/WaterStressComponent.hpp"
+#include "diag/Diag.hpp"
 #include "ecosystem/EcosystemEvents.hpp"
 #include "flatbuffers/flatbuffers.h"
 #include "physics/PhysicsMutators.hpp"
@@ -47,6 +48,17 @@ World::World(int width, int height, int depth)
   voxelGrid->width = width;
   voxelGrid->height = height;
   voxelGrid->depth = depth;
+
+  // Initialise the diag registry against this World's GameDB before any
+  // engine constructor registers a Counter / Gauge / EventLogger.
+  // reset_for_testing() clears stale handles from a previous World in the
+  // same process (pytest constructs and destructs many Worlds).
+  aetherion::diag::Registry::instance().reset_for_testing();
+  aetherion::diag::Registry::instance().initialize(
+      {.gamedb_handler = dbHandler.get()});
+
+  // Register diag counters owned by each engine.
+  physicsEngine->registerDiagCounters();
 
   // Register event handlers
   physicsEngine->registerEventHandlers(dispatcher);
@@ -291,8 +303,7 @@ void World::emplaceAllPyComponents(entt::entity newEntity,
   // (single view filter on <WaterStressComponent, HealthComponent, Position>).
   if (nb::hasattr(pyEntity, "entity_type") &&
       !pyEntity.attr("entity_type").is_none()) {
-    const auto et =
-        nb::cast<EntityTypeComponent>(pyEntity.attr("entity_type"));
+    const auto et = nb::cast<EntityTypeComponent>(pyEntity.attr("entity_type"));
     if (et.mainType == static_cast<int>(EntityEnum::PLANT)) {
       registry.emplace<WaterStressComponent>(newEntity);
     }
@@ -1113,8 +1124,14 @@ void World::update() {
 
   healthSystem->processHealth(registry, *voxelGrid, dispatcher);
 
+  // Walk the diag Registry and flush any counters whose `flush_every`
+  // window has elapsed. Replaces the per-engine flush methods that used
+  // to live in PhysicsEngine / LifeEngine. The Registry routes samples
+  // to GameDB via the GameDBSink configured at registration time.
+  aetherion::diag::Registry::instance().tick();
+
+  // Legacy LifeEngine flush — to be migrated in v2 (Task 14).
   if (dbHandler) {
-    physicsEngine->flushPhysicsMetrics(dbHandler.get());
     lifeEngine->flushLifeMetrics(dbHandler.get());
   }
 
@@ -1230,6 +1247,15 @@ World::queryTimeSeries(const std::string &seriesName, long long start,
 }
 
 void World::executeSQL(const std::string &sql) { dbHandler->executeSQL(sql); }
+
+size_t World::peekTimeSeriesSize(const std::string &seriesName) const {
+  return dbHandler ? dbHandler->peekInMemorySize(seriesName) : 0;
+}
+
+long long
+World::countTimeSeriesRowsOnDisk(const std::string &seriesName) const {
+  return dbHandler ? dbHandler->countOnDiskRows(seriesName) : -1;
+}
 
 std::vector<ThreadError> World::getWaterSimErrors() const {
   if (ecosystemEngine && ecosystemEngine->waterSimManager_) {

@@ -7,7 +7,6 @@
 #include <entt/entt.hpp>
 #include <mutex>
 #include <string>
-#include <unordered_map>
 
 #include "EcosystemEngine.hpp"
 #include "EventSink.hpp"
@@ -24,6 +23,7 @@
 #include "components/PhysicsComponents.hpp"
 #include "components/PlantsComponents.hpp"
 #include "components/TerrainComponents.hpp"
+#include "diag/Diag.hpp"
 #include "physics/PhysicsEvents.hpp"
 #include "physics/PhysicsManager.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
@@ -127,22 +127,41 @@ public:
   void registerEventHandlers(entt::dispatcher &dispatcher);
   void registerVoxelGrid(VoxelGrid *voxelGrid) { this->voxelGrid = voxelGrid; }
 
-  // Metrics flush to game DB
-  void flushPhysicsMetrics(GameDBHandler *dbHandler);
-
-  // Increment a named metric
-  void incPhysicsMetric(const std::string &metricName);
+  // Register diag::Counter handles for every physics metric. Call once
+  // after `aetherion::diag::Registry::instance().initialize(...)`. Safe
+  // to call before initialise — counters with GameDBSink will silently
+  // drop samples until a handler is wired in.
+  void registerDiagCounters();
 
   bool isProcessingComplete() const;
+
+  // Per-event counters owned by this engine. Names match the legacy
+  // `physics_*` GameDB series so historical data and existing GUI plots
+  // continue to work.
+  struct PhysicsCounters {
+    aetherion::diag::Counter move_gas_entity;
+    aetherion::diag::Counter move_solid_entity;
+    aetherion::diag::Counter evaporate_water_entity;
+    aetherion::diag::Counter condense_water_entity;
+    aetherion::diag::Counter water_fall_entity;
+    aetherion::diag::Counter water_spread;
+    aetherion::diag::Counter water_gravity_flow;
+    aetherion::diag::Counter terrain_phase_conversion;
+    aetherion::diag::Counter vapor_creation;
+    aetherion::diag::Counter water_creation;
+    aetherion::diag::Counter vapor_merge_up;
+    aetherion::diag::Counter vapor_merge_sideways;
+    aetherion::diag::Counter add_vapor_to_tile_above;
+    aetherion::diag::Counter delete_or_convert_terrain;
+    aetherion::diag::Counter invalid_terrain_found;
+    aetherion::diag::Counter plant_water_uptake;
+  };
+  PhysicsCounters counters_;
 
 private:
   entt::registry &registry;
   EventSink &sink; // routes enqueue by thread (main → direct, other → staging)
   VoxelGrid *voxelGrid = nullptr;
-
-  // Monitoring counters for physics events
-  std::unordered_map<std::string, uint64_t> physicsMetrics_;
-  std::mutex metricsMutex_;
 
   // Mutex for thread safety
   bool processingComplete = true; // Flag to indicate processing state

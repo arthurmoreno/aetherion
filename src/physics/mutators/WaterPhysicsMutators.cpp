@@ -454,8 +454,8 @@ void _handleWaterCreationEvent(entt::registry &registry, EventSink &sink,
                                                              destMatter);
 }
 
-void makePlantSuckWater(entt::registry &registry, VoxelGrid &voxelGrid,
-                        int x, int y, int z, entt::entity plantEntity) {
+void makePlantSuckWater(entt::registry &registry, VoxelGrid &voxelGrid, int x,
+                        int y, int z, entt::entity plantEntity) {
   if (!voxelGrid.terrainGridRepository) {
     return;
   }

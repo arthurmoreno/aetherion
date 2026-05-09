@@ -124,24 +124,24 @@ resolveVerticalMotion(entt::registry &registry, VoxelGrid &voxelGrid,
 
 // New event handlers for water physics (all state changes)
 void PhysicsEngine::onWaterSpreadEvent(const WaterSpreadEvent &event) {
-  incPhysicsMetric(PHYSICS_WATER_SPREAD);
+  counters_.water_spread.inc();
   _handleWaterSpreadEvent(*voxelGrid, event);
 }
 
 void PhysicsEngine::onWaterGravityFlowEvent(
     const WaterGravityFlowEvent &event) {
-  incPhysicsMetric(PHYSICS_WATER_GRAVITY_FLOW);
+  counters_.water_gravity_flow.inc();
   _handleWaterGravityFlowEvent(registry, sink, *voxelGrid, event);
 }
 
 void PhysicsEngine::onTerrainPhaseConversionEvent(
     const TerrainPhaseConversionEvent &event) {
-  incPhysicsMetric(PHYSICS_TERRAIN_PHASE_CONVERSION);
+  counters_.terrain_phase_conversion.inc();
   _handleTerrainPhaseConversionEvent(*voxelGrid, event);
 }
 
 void PhysicsEngine::onVaporCreationEvent(const VaporCreationEvent &event) {
-  incPhysicsMetric(PHYSICS_VAPOR_CREATION);
+  counters_.vapor_creation.inc();
   // Reuse existing helper function which already has proper locking
   TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
@@ -176,13 +176,13 @@ void PhysicsEngine::onVaporCreationEvent(const VaporCreationEvent &event) {
 }
 
 void PhysicsEngine::onWaterCreationEvent(const WaterCreationEvent &event) {
-  incPhysicsMetric(PHYSICS_WATER_CREATION);
+  counters_.water_creation.inc();
   _handleWaterCreationEvent(registry, sink, *voxelGrid, event);
 }
 
 void PhysicsEngine::onDeleteOrConvertTerrainEvent(
     const DeleteOrConvertTerrainEvent &event) {
-  incPhysicsMetric(PHYSICS_DELETE_OR_CONVERT_TERRAIN);
+  counters_.delete_or_convert_terrain.inc();
   // Delegate to existing helper which handles effects and soft-empty conversion
   TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
@@ -193,7 +193,7 @@ void PhysicsEngine::onDeleteOrConvertTerrainEvent(
 }
 
 void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent &event) {
-  incPhysicsMetric(PHYSICS_VAPOR_MERGE_UP);
+  counters_.vapor_merge_up.inc();
   // Lock terrain grid for atomic state change
   TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
@@ -259,13 +259,13 @@ void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent &event) {
 
 void PhysicsEngine::onVaporMergeSidewaysEvent(
     const VaporMergeSidewaysEvent &event) {
-  incPhysicsMetric(PHYSICS_VAPOR_MERGE_SIDEWAYS);
+  counters_.vapor_merge_sideways.inc();
   _handleVaporMergeSidewaysEvent(registry, sink, *voxelGrid, event);
 }
 
 void PhysicsEngine::onAddVaporToTileAboveEvent(
     const AddVaporToTileAboveEvent &event) {
-  incPhysicsMetric(PHYSICS_ADD_VAPOR_TO_TILE_ABOVE);
+  counters_.add_vapor_to_tile_above.inc();
   // Lock terrain grid for atomic operation
   TerrainGridLock lock(voxelGrid->terrainGridRepository.get());
 
@@ -358,44 +358,48 @@ void PhysicsEngine::registerEventHandlers(entt::dispatcher &disp) {
 
 void PhysicsEngine::onInvalidTerrainFound(
     const InvalidTerrainFoundEvent &event) {
-  incPhysicsMetric(PHYSICS_INVALID_TERRAIN_FOUND);
+  counters_.invalid_terrain_found.inc();
   _handleInvalidTerrainFound(sink, *voxelGrid, event);
 }
 
 void PhysicsEngine::onPlantWaterUptakeEvent(
     const PlantWaterUptakeEvent &event) {
-  incPhysicsMetric(PHYSICS_PLANT_WATER_UPTAKE);
-  makePlantSuckWater(registry, *voxelGrid, event.grassCell.x,
-                     event.grassCell.y, event.grassCell.z, event.plantEntity);
+  counters_.plant_water_uptake.inc();
+  makePlantSuckWater(registry, *voxelGrid, event.grassCell.x, event.grassCell.y,
+                     event.grassCell.z, event.plantEntity);
 }
 
-// Increment metric counter (thread-safe)
-void PhysicsEngine::incPhysicsMetric(const std::string &metricName) {
-  std::lock_guard<std::mutex> lock(metricsMutex_);
-  physicsMetrics_[metricName]++;
-}
+// Register a diag::Counter for each physics metric, using the legacy
+// metric name as the GameDB series name so existing dashboards and
+// historical data continue to work.
+void PhysicsEngine::registerDiagCounters() {
+  using namespace aetherion::diag;
+  auto &reg = Registry::instance();
 
-// Flush current metrics to GameDB via provided handler and reset counters
-void PhysicsEngine::flushPhysicsMetrics(GameDBHandler *dbHandler) {
-  if (dbHandler == nullptr)
-    return;
+  auto make = [&](const std::string &name) {
+    CounterConfig cfg;
+    cfg.name = name;
+    cfg.flush_every = std::chrono::seconds{1};
+    cfg.sinks = {GameDBSink{}};
+    return reg.counter(cfg);
+  };
 
-  std::lock_guard<std::mutex> lock(metricsMutex_);
-  auto now = std::chrono::system_clock::now();
-  long long ts =
-      std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch())
-          .count();
-
-  for (const auto &kv : physicsMetrics_) {
-    const std::string &name = kv.first;
-    uint64_t value = kv.second;
-    dbHandler->putTimeSeries(name, ts, static_cast<double>(value));
-  }
-
-  // reset counters
-  for (auto &kv : physicsMetrics_) {
-    kv.second = 0;
-  }
+  counters_.move_gas_entity = make(PHYSICS_MOVE_GAS_ENTITY);
+  counters_.move_solid_entity = make(PHYSICS_MOVE_SOLID_ENTITY);
+  counters_.evaporate_water_entity = make(PHYSICS_EVAPORATE_WATER_ENTITY);
+  counters_.condense_water_entity = make(PHYSICS_CONDENSE_WATER_ENTITY);
+  counters_.water_fall_entity = make(PHYSICS_WATER_FALL_ENTITY);
+  counters_.water_spread = make(PHYSICS_WATER_SPREAD);
+  counters_.water_gravity_flow = make(PHYSICS_WATER_GRAVITY_FLOW);
+  counters_.terrain_phase_conversion = make(PHYSICS_TERRAIN_PHASE_CONVERSION);
+  counters_.vapor_creation = make(PHYSICS_VAPOR_CREATION);
+  counters_.water_creation = make(PHYSICS_WATER_CREATION);
+  counters_.vapor_merge_up = make(PHYSICS_VAPOR_MERGE_UP);
+  counters_.vapor_merge_sideways = make(PHYSICS_VAPOR_MERGE_SIDEWAYS);
+  counters_.add_vapor_to_tile_above = make(PHYSICS_ADD_VAPOR_TO_TILE_ABOVE);
+  counters_.delete_or_convert_terrain = make(PHYSICS_DELETE_OR_CONVERT_TERRAIN);
+  counters_.invalid_terrain_found = make(PHYSICS_INVALID_TERRAIN_FOUND);
+  counters_.plant_water_uptake = make(PHYSICS_PLANT_WATER_UPTAKE);
 }
 
 // ================ END OF REFACTORING ================
@@ -1509,7 +1513,7 @@ bool PhysicsEngine::isProcessingComplete() const { return processingComplete; }
 //    - Block if changing direction mid-movement
 // 10. If force can be applied: update velocity in the terrain grid.
 void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
-  incPhysicsMetric(PHYSICS_MOVE_GAS_ENTITY);
+  counters_.move_gas_entity.inc();
   // Step 1: Validate voxelGrid before acquiring lock
   if (voxelGrid == nullptr) {
     throw std::runtime_error("onMoveGasEntityEvent: voxelGrid is null");
@@ -1630,7 +1634,7 @@ void PhysicsEngine::onMoveGasEntityEvent(const MoveGasEntityEvent &event) {
 
 // Subscribe to the MoveSolidEntityEvent and handle the movement
 void PhysicsEngine::onMoveSolidEntityEvent(const MoveSolidEntityEvent &event) {
-  incPhysicsMetric(PHYSICS_MOVE_SOLID_ENTITY);
+  counters_.move_solid_entity.inc();
   spdlog::get("console")->debug("onMoveSolidEntityEvent -> entered");
 
   if (registry.valid(event.entity) &&
@@ -1709,7 +1713,7 @@ void PhysicsEngine::onMoveSolidEntityEvent(const MoveSolidEntityEvent &event) {
 
 void PhysicsEngine::onMoveSolidLiquidTerrainEvent(
     const MoveSolidLiquidTerrainEvent &event) {
-  incPhysicsMetric(PHYSICS_MOVE_SOLID_ENTITY);
+  counters_.move_solid_entity.inc();
   spdlog::get("console")->debug("onMoveSolidLiquidTerrainEvent -> entered | "
                                 "entity={} | event.force=({}, {}, {})",
                                 static_cast<int>(event.entity), event.forceX,
@@ -2008,7 +2012,7 @@ void PhysicsEngine::onSetPhysicsEntityToDebug(
 // Water evaporation event handler - moved from EcosystemEngine
 void PhysicsEngine::onEvaporateWaterEntityEvent(
     const EvaporateWaterEntityEvent &event) {
-  incPhysicsMetric(PHYSICS_EVAPORATE_WATER_ENTITY);
+  counters_.evaporate_water_entity.inc();
   int terrainId = voxelGrid->getTerrain(event.position.x, event.position.y,
                                         event.position.z);
   if (terrainId == static_cast<int>(TerrainIdTypeEnum::NONE)) {
@@ -2075,7 +2079,7 @@ void PhysicsEngine::onEvaporateWaterEntityEvent(
 // Water condensation event handler - moved from EcosystemEngine
 void PhysicsEngine::onCondenseWaterEntityEvent(
     const CondenseWaterEntityEvent &event) {
-  incPhysicsMetric(PHYSICS_CONDENSE_WATER_ENTITY);
+  counters_.condense_water_entity.inc();
   const int x = event.vaporPos.x;
   const int y = event.vaporPos.y;
   const int z = event.vaporPos.z;
@@ -2199,7 +2203,7 @@ void PhysicsEngine::onCondenseWaterEntityEvent(
 // cell via `_recoverStaleTerrainCellIfTransitory` before the main fall
 // logic runs.
 void PhysicsEngine::onWaterFallEntityEvent(const WaterFallEntityEvent &event) {
-  incPhysicsMetric(PHYSICS_WATER_FALL_ENTITY);
+  counters_.water_fall_entity.inc();
 
   const int rawEntityId = static_cast<int>(event.entity);
   const bool entityFieldIsRealHandle =
