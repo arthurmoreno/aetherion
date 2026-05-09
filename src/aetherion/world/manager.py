@@ -414,13 +414,25 @@ class WorldManager:
         return world_instance
 
     def unload_world(self, world_name: str):
-        """Unload a world and free its resources."""
+        """Unload a world and free its resources.
+
+        Calls ``WorldInterface.dispose()`` to release the C++ World's
+        Python state — without this, the Python<->C++ ref cycle leaks
+        the entire World (VoxelGrid, EnTT registry, OpenVDB grids,
+        GameDB) on every unload. ``dispose()`` is idempotent and
+        defensive; we wrap it so a failure during teardown still lets
+        the manager drop the entry.
+        """
         if world_name in self.worlds:
             world = self.worlds[world_name]
             if world == self.current:
-                world.on_exit()
                 self.current = None
-            world.on_unload()
+                self.current_metadata = None
+                self.current_key = None
+            try:
+                world.dispose()
+            except Exception:
+                logger.exception(f"[WorldManager] dispose() failed for world '{world_name}'; continuing unload")
             del self.worlds[world_name]
             if world_name in self.world_saves:
                 del self.world_saves[world_name]

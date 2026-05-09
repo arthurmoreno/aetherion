@@ -24,9 +24,18 @@ from aetherion.world.state_manager import create_perception_multithread
 
 
 class WorldInterface:
-    """Manages different ways to instantiate and manage a world instance."""
+    """Manages different ways to instantiate and manage a world instance.
 
-    world: World
+    WorldInterface is the bridge layer between the game-loop / websocket /
+    perception code and the C++ ``World``. It owns the C++ ``World`` for
+    the duration of a session and is responsible for tearing it down via
+    ``dispose()`` (or ``with`` semantics) before being dropped — the C++
+    World holds Python refs to systems / event handlers / scripts that
+    create a Python<->C++ cycle, and Python's GC alone can't break it.
+    See ``.claude/docs/epics-plans/2026-05-09-python-cpp-lifecycle-standard.md``.
+    """
+
+    world: World | None
     server: AuthenticatedWebSocketServer | None = None
     server_task: asyncio.Task[None] | None = None
     # player: BaseEntity | None = None
@@ -431,5 +440,64 @@ class WorldInterface:
         try:
             if self._executor is not None:
                 self._executor.shutdown(wait=False, cancel_futures=True)  # type: ignore[arg-type]
+        except Exception:
+            pass
+
+    def dispose(self) -> None:
+        """Idempotent full teardown of the bridge and the underlying C++ World.
+
+        Order:
+          1. Cancel the websocket server task (best-effort; sync-safe).
+          2. Shut down the perception thread pool via ``close()``.
+          3. Call ``self.world.release_python_state()`` to clear the C++
+             holders of Python refs (event handlers, registered systems,
+             scripts). Without this, the Python<->C++ cycle keeps the
+             entire World — VoxelGrid, EnTT registry, OpenVDB grids,
+             GameDB — alive past every disconnect.
+          4. Drop ``self.world`` so this Python ref no longer pins the
+             C++ object; with the cycle broken, ``~World`` runs.
+
+        Safe to call multiple times. Safe to call from sync code even
+        when ``server_task`` is an ``asyncio.Task`` — only ``.cancel()``
+        is invoked, which is sync-safe.
+        """
+        # 1. Cancel the websocket server task. The task will see the
+        # cancellation on its next yield point; we do not await from
+        # sync code.
+        if self.server_task is not None:
+            try:
+                self.server_task.cancel()
+            except Exception:
+                logger.exception("[WorldInterface] server_task.cancel() failed during dispose; continuing")
+            self.server_task = None
+        self.server = None
+
+        # 2. Stop background work that might still be using self.world.
+        self.close()
+        self._executor = None
+
+        # 3. Break the Python<->C++ ref cycle from the C++ side.
+        if self.world is not None:
+            try:
+                self.world.release_python_state()
+            except Exception:
+                logger.exception("[WorldInterface] release_python_state() failed during dispose; continuing")
+            self.world = None
+
+    def __enter__(self) -> "WorldInterface":
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        self.dispose()
+
+    def __del__(self) -> None:
+        # Safety net for callers that didn't use `with` or explicit
+        # dispose(). Today this rarely fires for a session that
+        # registered Python systems — the cycle keeps the wrapper alive
+        # past the GC pass — but it's the right hook for the eventual
+        # GC-protocol fix and protects bare-bones uses (e.g. read-only
+        # short-lived inspection scripts) from leaking.
+        try:
+            self.dispose()
         except Exception:
             pass
