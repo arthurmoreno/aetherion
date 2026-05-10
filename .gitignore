@@ -39,6 +39,11 @@ data/*
 # it, this line just makes the intent obvious.
 data/game.sqlite
 
+# pytest-cov runtime artifact — mutates every test run, no business in
+# version control. Was tracked historically; untracked alongside
+# data/game.sqlite for the same reason.
+.coverage
+
 libs/*
 site-packages/*
 
