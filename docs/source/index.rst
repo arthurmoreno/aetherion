@@ -3,7 +3,7 @@
    contain the root `toctree` directive.
 
 Aetherion: Retro Isometric Game Engine
-============================
+======================================
 
 .. image:: _static/aetherion-logo-128.png
    :align: center
@@ -33,12 +33,14 @@ Contents
 
    topics/getting_started/index
    topics/installation/index
+   topics/getting_started/demo_projects
 
 .. toctree::
    :maxdepth: 2
    :caption: Advanced Topics
 
    topics/physics_and_ecosystem/index
+   topics/profiling_and_debugging/index
    topics/user_guide/index
 
 .. toctree::

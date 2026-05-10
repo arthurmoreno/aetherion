@@ -40,26 +40,21 @@ Base Units
 **Temporal Units**
 
 - **Real-time**: seconds (s)
-- **Game Time Scale**: :file:`lifesim/time_manager.py`
-  
-  - 1 game minute = 10 real seconds (6× speed)
-  - 1 game hour = 10 real minutes (debug mode)
-  - 1 game day = 4 real hours
-  - 1 game year = 4 real months
+- **Game Time Scale**: tracked in ``GameClock`` (:file:`src/GameClock.hpp`) on the C++ side; the Python layer drives the wall-clock to game-clock mapping.
 
 - **Physics Timestep**: Variable :math:`\Delta t` (typically 16.67 ms for 60 FPS)
 
 **Mass Units**
 
 - **Mass**: kilograms (kg)
-- **Entity Mass**: Stored in ``PhysicsStats.mass`` (:file:`include/components.hpp:30-35`)
+- **Entity Mass**: Stored in ``PhysicsStats.mass`` (:file:`src/components/PhysicsComponents.hpp`)
 - **Density Reference**: Water = 1000 kg/m³ (1 kg/dm³)
 - **Matter Quantities**: Dimensionless units (approximately dm³ equivalent)
 
 **Thermal Units**
 
 - **Temperature**: Kelvin (K) or context-dependent scale
-- **Heat**: Stored as dimensionless thermal energy in ``PhysicsStats.heat`` (:file:`include/components.hpp:34`)
+- **Heat**: Stored as a per-voxel ``FloatGrid`` (``TerrainStorage::heatGrid``) and as ``PhysicsStats.heat`` on ECS-backed entities (:file:`src/components/PhysicsComponents.hpp`)
 - **Heat Thresholds**: 
   
   - Evaporation: :math:`Q \geq 120.0` (arbitrary units)
@@ -78,8 +73,9 @@ Derived Units
 **Kinematic Quantities**
 
 - **Velocity**: meters per second (m/s)
-  
-  - Stored in ``Velocity`` component as :math:`(v_x, v_y, v_z)` (:file:`include/components.hpp:16-20`)
+
+  - For ECS-backed entities: stored in the ``Velocity`` component as :math:`(v_x, v_y, v_z)` (:file:`src/components/PhysicsComponents.hpp`)
+  - For terrain voxels (water, vapor, etc.): stored on the VDB ``velXGrid``/``velYGrid``/``velZGrid`` (:file:`src/terrain/TerrainStorage.hpp`) and read through ``TerrainGridRepository::getVelocity``
   - Speed magnitude: :math:`|\mathbf{v}| = \sqrt{v_x^2 + v_y^2 + v_z^2}` (m/s)
 
 - **Acceleration**: meters per second squared (m/s²)
@@ -90,9 +86,9 @@ Derived Units
 **Dynamic Quantities**
 
 - **Force**: Newtons (N = kg⋅m/s²)
-  
-  - Applied through ``translateAcceleration(force, ...)`` (:file:`src/physics_manager.cpp`)
-  - Maximum force: ``PhysicsStats.maxForce`` (N)
+
+  - Applied through the movement mutators in :file:`src/physics/mutators/MovementMutators.cpp` and the math helpers in :file:`src/physics/PhysicalMath.cpp`
+  - Per-axis force is stored on ``PhysicsStats.forceX``/``.forceY``/``.forceZ``
 
 - **Momentum**: kilogram-meters per second (kg⋅m/s)
   
@@ -103,7 +99,7 @@ Derived Units
   
   - Kinetic energy: :math:`E_k = \frac{1}{2} m v^2`
   - Potential energy: :math:`E_p = m g h`
-  - Energy cost per force: 0.000002 J (metabolism) (:file:`src/physics_manager.cpp:36`)
+  - Energy cost per applied force: 0.000002 J (``PhysicsManager::getMetabolismCostToApplyForce``)
 
 **Flow and Matter**
 
@@ -191,7 +187,7 @@ Position and Velocity
 
 Every mobile entity has a ``Position`` component :math:`\mathbf{r} = (x, y, z)` and ``Velocity`` component :math:`\mathbf{v} = (v_x, v_y, v_z)`.
 
-**Position Update** (:file:`src/movement_system.cpp`):
+**Position Update** (:file:`src/physics/mutators/MovementMutators.cpp`):
 
 .. math::
 
@@ -214,15 +210,15 @@ Acceleration and Force
 
 Forces modify velocity through acceleration according to Newton's second law.
 
-**Velocity Update** (:file:`src/physics_manager.cpp`):
+**Velocity Update** (:file:`src/physics/PhysicalMath.cpp`):
 
 .. math::
 
    \mathbf{v}(t + \Delta t) = \mathbf{v}(t) + \mathbf{a}(t) \cdot \Delta t
 
-**Translation Function** (:file:`src/physics_manager.cpp:154-204`):
+**Translation Function** (:file:`src/physics/PhysicalMath.cpp`):
 
-The ``translateAcceleration`` function applies force-derived acceleration with speed limits:
+The translation helper applies force-derived acceleration with speed limits:
 
 .. code-block:: cpp
 
@@ -239,14 +235,14 @@ The ``translateAcceleration`` function applies force-derived acceleration with s
 
 **Multi-axis vs Single-axis Movement**:
 
-- **Multi-axis mode** (:file:`settings.py` - ``ALLOW_DIAGONAL_MOVEMENT = True``): 
-  
+- **Multi-axis mode** (``PhysicsManager::getAllowMultiDirection() == true``, default):
+
   - All axes receive proportional acceleration
   - Diagonal movement penalty: :math:`v_{effective} = \frac{v}{1.414}` when moving on multiple axes
-  
-- **Single-axis mode**: 
-  
-  - Only dominant axis (largest :math:`|v_i|`) receives acceleration
+
+- **Single-axis mode**:
+
+  - Only the dominant axis (largest :math:`|v_i|`) receives acceleration
   - Forces entity to align with cardinal directions
 
 Gravity
@@ -254,7 +250,7 @@ Gravity
 
 Gravitational acceleration affects all entities with mass when not supported by solid terrain.
 
-**Gravity Force** (:file:`src/movement_system.cpp:493-521`):
+**Gravity Force** (:file:`src/physics/mutators/MovementMutators.cpp` and the gravity-enqueue pass in :file:`src/PhysicsEngine.cpp`):
 
 .. math::
 
@@ -268,24 +264,24 @@ where :math:`g = 5.0 \, \text{m/s}^2` (configurable via ``PhysicsManager::getGra
 
    v_z(t + \Delta t) = v_z(t) - g \cdot \Delta t
 
-**Fall Detection** (:file:`src/movement_system.cpp:497`):
+**Fall Detection** (in ``PhysicsEngine::applyGravityForceToEntity``, with predicates in :file:`src/physics/Collision.hpp`):
 
 .. code-block:: cpp
 
-   // Entity falls if voxel below is empty or water (non-solid)
-   bool isFalling = !voxelGrid->hasTerrainAt(x, y, z-1) || 
-                    terrainBelow.mainType == WATER;
+   // Entity falls if voxel below is empty or non-solid (e.g. water)
+   bool isFalling = !voxelGrid.checkIfTerrainExists(x, y, z - 1) ||
+                    terrainBelow.mainType == TERRAIN_WATER;
 
 **Ground Contact**: Velocity is zeroed when the entity contacts solid terrain (:math:`v_z` changes sign), preventing bouncing.
 
-**Design Note**: Default gravity is :math:`5.0 \, \text{m/s}^2` for gameplay balance, though design documents reference Earth's :math:`g = 9.81 \, \text{m/s}^2` (:file:`settings.py:13`).
+**Design Note**: Default runtime gravity is :math:`5.0 \, \text{m/s}^2` for gameplay balance. The constant ``GRAVITY = 9.81f`` in :file:`src/physics/PhysicsConstants.hpp` is a design-time reference value and is not used by the runtime physics path.
 
 Friction
 --------
 
 Kinetic friction opposes motion when entities are in contact with surfaces.
 
-**Friction Force** (:file:`src/movement_system.cpp:538-567`):
+**Friction Force** (:file:`src/physics/mutators/MovementMutators.cpp`):
 
 .. math::
 
@@ -310,7 +306,7 @@ With default values (:math:`\mu = 1.0`, :math:`g = 5.0`):
 
    |\mathbf{a}_{friction}| = 5.0 \, \text{m/s}^2
 
-**Friction Application** (:file:`src/movement_system.cpp:555`):
+**Friction Application** (:file:`src/physics/mutators/MovementMutators.cpp`):
 
 .. code-block:: cpp
 
@@ -335,12 +331,12 @@ The simulation implements a complete water cycle with phase transitions driven b
 Matter Containers
 -----------------
 
-Each voxel contains a ``MatterContainer`` storing quantities of different matter types (:file:`include/components.hpp:85-90`):
+Each voxel exposes a ``MatterContainer`` (:file:`src/components/TerrainComponents.hpp`) storing quantities of different matter types — backed by separate VDB grids in ``TerrainStorage``:
 
-- ``terrainMatter``: Solid terrain (cubic decimeters)
-- ``waterMatter``: Liquid water (cubic decimeters)
-- ``vaporMatter``: Water vapor/steam (cubic decimeters at STP equivalent)
-- ``biomassMatter``: Organic material (cubic decimeters)
+- ``TerrainMatter``: Solid terrain (cubic decimeters)
+- ``WaterMatter``: Liquid water (cubic decimeters)
+- ``WaterVapor``: Water vapor / steam (cubic decimeters at STP equivalent)
+- ``BioMassMatter``: Organic material (cubic decimeters)
 
 **Conservation Law**: Total matter is conserved across phase transitions:
 
@@ -353,11 +349,12 @@ Evaporation (Endothermic)
 
 Liquid water absorbs thermal energy to transition to vapor when exposed to heat and air.
 
-**Evaporation Conditions** (:file:`src/matter_physics_system.cpp:189-240`):
+**Evaporation Conditions** (detection in :file:`src/EcosystemEngine.cpp`, mutation in :file:`src/physics/mutators/WaterPhysicsMutators.cpp`):
 
-1. :math:`Q \geq Q_{evap} = 120.0` (heat threshold)
-2. :math:`m_{water} \geq m_{min} = 120,000` units (minimum water quantity)
+1. :math:`Q \geq Q_{evap}` (``PhysicsManager::getHeatToWaterEvaporation``, default ``120.0``)
+2. :math:`m_{water} \geq m_{min}` (``PhysicsManager::getWaterMinimumUnits``, default ``60,000``)
 3. Voxel exposed to air (not submerged)
+4. ``simulateWaterEvaporation`` toggle is on
 
 **Evaporation Rate**:
 
@@ -367,8 +364,8 @@ Liquid water absorbs thermal energy to transition to vapor when exposed to heat 
 
 where:
 
-- :math:`k_{evap} = 8.0` is the evaporation coefficient (``EVAPORATION_COEFFICIENT``)
-- :math:`I_{sun} \in [0, 1]` is solar intensity (time-of-day dependent)
+- :math:`k_{evap} = 8.0` is the evaporation coefficient (``PhysicsManager::getEvaporationCoefficient``)
+- :math:`I_{sun} \in [0, 1]` is solar intensity (``SunIntensity::getIntensity(clock)``, time-of-day dependent)
 
 **Matter Transfer**:
 
@@ -377,13 +374,13 @@ where:
    m_{water}(t + \Delta t) &= m_{water}(t) - \min(m_{water}, \dot{m}_{evap} \cdot \Delta t) \\
    m_{vapor}(t + \Delta t) &= m_{vapor}(t) + \min(m_{water}, \dot{m}_{evap} \cdot \Delta t)
 
-**Energy Absorption** (:file:`src/matter_physics_system.cpp:234`):
+**Energy Absorption** (:file:`src/physics/mutators/WaterPhysicsMutators.cpp`):
 
 .. math::
 
    \Delta Q = -\Delta m_{evap} \cdot c_{evap}
 
-where :math:`c_{evap} = 0.000002` is heat absorbed per unit evaporated (``HEAT_PER_EVAPORATION``).
+where :math:`c_{evap} = 0.000002` is heat absorbed per unit evaporated.
 
 **Physical Interpretation**: Evaporation is endothermic—water absorbs heat from the voxel, cooling it. This implements latent heat of vaporization.
 
@@ -392,7 +389,7 @@ Condensation (Exothermic)
 
 Water vapor releases thermal energy when cooling below saturation capacity, forming liquid water.
 
-**Saturation Model** (:file:`src/matter_physics_system.cpp:242-295`):
+**Saturation Model** (detection in :file:`src/EcosystemEngine.cpp`, mutation in :file:`src/physics/mutators/WaterPhysicsMutators.cpp` via ``PhysicsEngine::onCondenseWaterEntityEvent``):
 
 Vapor capacity decreases with:
 
@@ -418,7 +415,7 @@ where :math:`m_{sat}` is the saturation capacity function.
    m_{vapor}(t + \Delta t) &= m_{sat} \\
    m_{water}(t + \Delta t) &= m_{water}(t) + \Delta m_{cond}
 
-**Energy Release** (:file:`src/matter_physics_system.cpp:289`):
+**Energy Release** (:file:`src/physics/mutators/WaterPhysicsMutators.cpp`):
 
 .. math::
 
@@ -439,7 +436,7 @@ Precipitation (Rain)
 
 Liquid water at high altitude falls as rain when :math:`z > z_{ground}` and no support exists below.
 
-**Rain Physics** (:file:`src/matter_physics_system.cpp:297-340`):
+**Rain Physics** (``PhysicsEngine::onWaterFallEntityEvent`` in :file:`src/PhysicsEngine.cpp`, with mutators in :file:`src/physics/mutators/WaterPhysicsMutators.cpp`):
 
 1. **Free Fall**: Water accelerates downward under gravity
 2. **Terminal Velocity**: Drag limits maximum fall speed
@@ -461,7 +458,7 @@ Fluid Dynamics (Water Flow)
 
 Water flows through terrain following pressure gradients, implemented as cellular automata for real-time performance.
 
-**Pressure Model** (:file:`src/matter_physics_system.cpp:342-450`):
+**Pressure Model** (``GridBoxProcessor::processVoxelWater`` in :file:`src/EcosystemEngine.cpp`):
 
 .. math::
 
@@ -484,11 +481,12 @@ where:
 1. **Downward** (gravity): :math:`\Delta z < 0` always preferred
 2. **Lateral** (equilibrium): :math:`\Delta x, \Delta y` when heights equalize
 
-**Parallel Implementation** (:file:`src/matter_physics_system.cpp:150-187`):
+**Parallel Implementation** (``WaterSimulationManager`` / ``GridBoxProcessor`` in :file:`src/EcosystemEngine.cpp`):
 
 - World divided into 32³ voxel boxes
-- Each box processed in parallel thread
-- Thread-local OpenVDB accessors eliminate locking
+- Each box processed by a worker thread out of a shared pool
+- Thread-local OpenVDB accessors eliminate locking on the read side
+- Resulting ``std::vector<WaterFlow>`` is applied under ``WaterSimulationManager::gridWriteMutex_`` so per-box reads stay lock-free
 - Conservative transfer: mass balanced across box boundaries
 
 Structural Mechanics
@@ -499,7 +497,7 @@ Entities and terrain possess structural properties that govern stacking, collaps
 Matter States
 -------------
 
-The ``MatterState`` enum (:file:`include/components.hpp:60-65`) defines four phases:
+The ``MatterState`` enum (:file:`src/components/PhysicsComponents.hpp`) defines four phases:
 
 .. code-block:: cpp
 
@@ -529,7 +527,7 @@ The ``MatterState`` enum (:file:`include/components.hpp:60-65`) defines four pha
 Structural Integrity
 --------------------
 
-The ``StructuralIntegrityComponent`` (:file:`include/components.hpp:113-118`) defines load-bearing properties:
+The ``StructuralIntegrityComponent`` (:file:`src/components/PhysicsComponents.hpp`) defines load-bearing properties:
 
 .. code-block:: cpp
 
@@ -551,26 +549,26 @@ Terrain Slopes and Ramps
 
 Terrain supports non-block shapes through gradient vectors and subtype variants.
 
-**Terrain Variants** (:file:`include/voxel.hpp:48-64`):
+**Terrain Variants** (``TerrainVariantEnum`` in :file:`src/components/TerrainComponents.hpp`):
 
-- ``FLAT`` (0): Standard cube
+- ``FULL`` (0): Standard cube
 - ``RAMP_EAST`` (1): Slope rising eastward (+x)
 - ``RAMP_WEST`` (2): Slope rising westward (-x)
 - ``RAMP_SOUTH`` (7): Slope rising southward (+y)
 - ``RAMP_NORTH`` (8): Slope rising northward (-y)
-- ``CORNER_*``: Various corner configurations
+- ``CORNER_SOUTH_EAST`` (3) / ``CORNER_SOUTH_EAST_INV`` (4) / ``CORNER_NORTH_EAST`` (5) / ``CORNER_NORTH_EAST_INV`` (6) / ``CORNER_SOUTH_WEST`` (9) / ``CORNER_NORTH_WEST`` (10): Corner configurations
 
-**Gradient Vector** (:file:`include/components.hpp:68-72`):
+**Gradient Vector** (:file:`src/components/PhysicsComponents.hpp`):
 
 .. code-block:: cpp
 
    struct GradientVector {
-       int8_t gx;  // X-axis slope (-1, 0, +1)
-       int8_t gy;  // Y-axis slope (-1, 0, +1)
-       int8_t gz;  // Z-axis slope (-1, 0, +1)
+       float gx;  // X-axis slope
+       float gy;  // Y-axis slope
+       float gz;  // Z-axis slope
    };
 
-**Movement on Slopes** (:file:`src/movement_system.cpp:340-385`):
+**Movement on Slopes** (:file:`src/physics/mutators/MovementMutators.cpp` and ``hasSpecialCollision`` in :file:`src/physics/Collision.hpp`):
 
 When entity moves onto a ramp, target Z-coordinate adjusts:
 
@@ -588,7 +586,7 @@ This section catalogs all physical parameters used in the simulation, extracted 
 Global Physics Parameters
 --------------------------
 
-Defined in :file:`src/physics_manager.cpp` and :file:`include/physics_manager.hpp`:
+Defined in :file:`src/physics/PhysicsManager.hpp` and :file:`src/physics/PhysicsManager.cpp`:
 
 .. list-table::
    :header-rows: 1
@@ -622,7 +620,7 @@ Defined in :file:`src/physics_manager.cpp` and :file:`include/physics_manager.hp
 Thermodynamic Constants
 ------------------------
 
-Defined in :file:`src/matter_physics_system.cpp` and :file:`include/matter_physics_system.hpp`:
+Defined on ``PhysicsManager`` (:file:`src/physics/PhysicsManager.hpp`) and applied by the water-physics mutators (:file:`src/physics/mutators/WaterPhysicsMutators.cpp`):
 
 .. list-table::
    :header-rows: 1
@@ -635,23 +633,19 @@ Defined in :file:`src/matter_physics_system.cpp` and :file:`include/matter_physi
    * - Evaporation Coefficient
      - :math:`k_{evap}`
      - 8.0
-     - Rate multiplier for evaporation
+     - Rate multiplier (``getEvaporationCoefficient``)
    * - Heat Threshold (Evaporation)
      - :math:`Q_{evap}`
      - 120.0
-     - Minimum heat for water evaporation
+     - Minimum heat for water evaporation (``getHeatToWaterEvaporation``)
    * - Minimum Water for Evaporation
      - :math:`m_{min}`
-     - 120,000 units
-     - Prevents trace water evaporation
+     - 60,000 units
+     - Prevents trace water evaporation (``getWaterMinimumUnits``; sized for a 10×100×100 grid)
    * - Heat per Evaporation
      - :math:`c_{evap}`
      - 0.000002
      - Energy absorbed per unit evaporated
-   * - Condensation Threshold
-     - :math:`m_{sat,min}`
-     - 21 units
-     - Minimum vapor for condensation
    * - Heat per Condensation
      - :math:`c_{cond}`
      - 0.000002
@@ -660,7 +654,7 @@ Defined in :file:`src/matter_physics_system.cpp` and :file:`include/matter_physi
 Ecosystem Constants
 -------------------
 
-Defined in :file:`src/matter_physics_system.cpp` and related files:
+Defined in :file:`src/EcosystemEngine.hpp`, :file:`src/EcosystemEngine.cpp`, and :file:`src/components/WaterStressComponent.hpp`:
 
 .. list-table::
    :header-rows: 1
@@ -673,28 +667,30 @@ Defined in :file:`src/matter_physics_system.cpp` and related files:
    * - Grid Box Size
      - —
      - 32³ voxels
-     - Parallel processing partition size
-   * - Water per Photosynthesis
-     - —
-     - 0.1
-     - Water consumed per biomass created
-   * - Energy Production Rate
-     - —
-     - 6.0
-     - Energy generated per photosynthesis
+     - Parallel processing partition size (``WaterSimulationManager::DEFAULT_MIN_BOX_SIZE``)
    * - Max Task Priority
      - —
      - 1000
-     - Task scheduler cap
-   * - Priority Aging
+     - ``RoundRobinScheduler::MAX_PRIORITY``
+   * - Priority Aging Bonus
      - —
-     - -10
-     - Priority reduction per cycle
+     - 10
+     - ``RoundRobinScheduler::AGE_BONUS`` (priority reduction per aging cycle)
+   * - Stress per Dry Tick
+     - —
+     - 1
+     - ``WaterStressComponent::STRESS_PER_DRY_TICK``
+   * - Max Water Stress Ticks
+     - —
+     - 1000
+     - ``WaterStressComponent::MAX_WATER_STRESS_TICKS``
+   * - Drought Damage per Cycle
+     - —
+     - 10 HP
+     - ``WaterStressComponent::DROUGHT_DAMAGE_PER_CYCLE``
 
-Rendering Constants
--------------------
-
-Defined in :file:`settings.py`:
+Reference Values
+----------------
 
 .. list-table::
    :header-rows: 1
@@ -704,23 +700,15 @@ Defined in :file:`settings.py`:
      - Symbol
      - Value
      - Description
-   * - Target Frame Rate
-     - —
-     - 60 FPS
-     - Rendering target
-   * - Voxel Render Size
-     - —
-     - 32 pixels
-     - Screen space per voxel
-   * - Design Gravity (Reference)
+   * - Design Gravity (reference)
      - :math:`g_{Earth}`
      - 9.81 m/s²
-     - Not used in runtime physics
+     - ``GRAVITY`` constant in :file:`src/physics/PhysicsConstants.hpp`; informational only — runtime physics uses ``PhysicsManager::getGravity()``
 
 Game Time Scale
 ---------------
 
-Defined in :file:`lifesim/time_manager.py`:
+Defined in the simulation layer (Python) — see ``lifesim/time_manager.py`` in the upstream simulation package:
 
 .. list-table::
    :header-rows: 1

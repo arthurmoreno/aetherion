@@ -34,6 +34,10 @@ Thumbs.db
 # -----------------------------
 
 data/*
+# Explicit listing for grep/audit — the runtime game DB grew to 22MB
+# and was tracked historically; the `data/*` glob above already covers
+# it, this line just makes the intent obvious.
+data/game.sqlite
 
 libs/*
 site-packages/*

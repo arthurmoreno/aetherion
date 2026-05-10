@@ -6,13 +6,13 @@ The Physics and Ecosystem engines are the core simulation components of the Aeth
 There are four key data systems that underpin the simulation:
 
 - **VoxelGrid**: The central spatial data structure that integrates all grid-based storage and exposes a unified interface for spatial queries.
-- **TerrainStorage**: The low-level, OpenVDB-backed storage for static terrain data, providing sparse and memory-efficient persistence.
-- **TerrainGridRepository**: An ECS overlay for terrain voxels that manages the boundary between static terrain data (OpenVDB) and transient runtime behavior (ECS).
+- **TerrainStorage**: The low-level, OpenVDB-backed storage for static terrain data *and* terrain-voxel velocities (``velXGrid`` / ``velYGrid`` / ``velZGrid``), providing sparse and memory-efficient persistence.
+- **TerrainGridRepository**: An ECS overlay for terrain voxels that manages the boundary between static terrain data (OpenVDB) and transient runtime behavior (ECS). Owns a coord-keyed ``movingByCoord_`` map for ``MovingComponent`` so terrain voxels do not need a registry entity just to carry a move.
 - **entt::registry (ECS)**: The entity-component registry that manages all entities and their components, covering both terrain entities (active/dynamic terrain) and non-terrain entities (creatures, items, etc.).
 
-The **PhysicsEngine** is responsible for simulating physical interactions — movement, collision detection, gravity, and forces. While other subsystems may contribute force values, it is the PhysicsEngine that resolves them into position and state changes for entities with velocity and moving components.
+The **PhysicsEngine** is responsible for simulating physical interactions — movement, collision detection, gravity, and forces — *and* for applying every matter-mutating water-cycle event (evaporation, condensation, water spread / gravity flow, vapor merges, terrain phase conversion, plant water uptake). Handlers are registered through ``registerEventHandlers`` and run on the main thread under the dispatcher's single-threaded contract.
 
-The **EcosystemEngine** handles higher-level environmental processes such as the water cycle. It should ideally perform read-only queries against the data systems and queue changes to be applied after its iteration completes, since ecosystem processing (and other systems) may run in parallel, with each spatial partition on its own thread.
+The **EcosystemEngine** detects ecosystem-level conditions and enqueues events through the ``EventSink`` — it does *not* mutate matter directly. Its passes can run sync or async against the same dataset because reads are funnelled through ``TerrainGridRepository`` (lock-aware) and writes are deferred until the dispatcher fires the events on the main thread.
 
 The following sections explore each of these areas in detail:
 
@@ -87,26 +87,35 @@ High-Level Overview
        TerrainGridRepo -> TerrainStorage [label="references (&)", style=dashed, color=blue];
    }
 
-**World → Engines** (private, raw ptrs):
+**World → Engines / Systems** (raw ptrs):
 
-- ``PhysicsEngine*`` — Movement, collision, gravity, forces
-- ``EcosystemEngine*`` — Water dynamics, plant cycles
-- ``LifeEngine*`` — Life cycle management
+- ``PhysicsEngine*`` — Movement, collision, gravity, forces, *and* all water phase-change handlers
+- ``EcosystemEngine*`` — Water-flow scheduling, plant cycles, drought-stress detection (dispatches events; does not mutate matter)
+- ``LifeEngine*`` — Life-cycle management (entity births / queued deletions, life-event metrics)
 - ``MetabolismSystem*`` — Energy, hunger, consumption
 - ``HealthSystem*`` — HP, damage, healing
 - ``CombatSystem*`` — Attack resolution, combat logic
 - ``EffectsSystem*`` — Status effects, buffs, debuffs
 
-**TerrainStorage → OpenVDB Grids** (Int32Grid::Ptr unless noted):
+**World → Async dispatch infrastructure**:
 
-- ``terrainGrid`` — Entity ID source of truth (−2=empty, −1=VDB-only, ≥0=ECS entity)
-- ``mainTypeGrid`` — Entity main type (TERRAIN, PLANT, BEAST, etc.)
-- ``subType0Grid``, ``subType1Grid`` — Subtype classifications
-- ``terrainMatterGrid``, ``waterMatterGrid``, ``vaporMatterGrid``, ``biomassMatterGrid`` — Matter quantities
-- ``massGrid``, ``maxSpeedGrid``, ``minSpeedGrid`` — Physical properties
-- ``heatGrid`` — Temperature (FloatGrid)
-- ``flagsGrid`` — Packed bit flags (direction, canStack, matterState, gradient)
-- ``maxLoadCapacityGrid`` — Structural load capacity
+- ``entt::dispatcher`` (single-threaded, main-thread only)
+- ``WorkerEventSink workerSink_`` — mutex-protected staging buffer for off-thread events
+- ``EventSink eventSink_`` — thread-routing facade over the dispatcher and worker sink (passed to every engine that needs to enqueue events)
+- ``tbb::task_group asyncTasks_`` — single persistent worker arena shared by physics-async and ecosystem-async dispatch (replaces the old per-tick ``std::async`` thread spawn)
+- ``AsyncEngineState physicsState_`` / ``ecosystemState_`` — atomic ``running`` gate + ``lastException`` slot for each async path
+
+**TerrainStorage → OpenVDB Grids**:
+
+- ``terrainGrid`` (``Int64Grid``) — terrain id source of truth; values follow ``TerrainIdTypeEnum``: ``NONE = -2`` (no terrain), ``ON_GRID_STORAGE = -1`` (VDB-only), ``ON_ENTT >= 0`` (active ECS entity id)
+- ``mainTypeGrid`` (``Int32Grid``) — entity main type (TERRAIN, PLANT, BEAST, etc.)
+- ``subType0Grid``, ``subType1Grid`` (``Int32Grid``) — subtype classifications
+- ``terrainMatterGrid``, ``waterMatterGrid``, ``vaporMatterGrid``, ``biomassMatterGrid`` (``Int32Grid``) — matter quantities
+- ``massGrid``, ``maxSpeedGrid``, ``minSpeedGrid`` (``Int32Grid``) — physical properties
+- ``heatGrid`` (``FloatGrid``) — heat / temperature
+- ``velXGrid``, ``velYGrid``, ``velZGrid`` (``FloatGrid``) — per-voxel velocity, the source of the third "VDB-driven" iteration in ``PhysicsEngine``
+- ``flagsGrid`` (``Int32Grid``) — packed bit flags (direction, canStack, matterState, gradient)
+- ``maxLoadCapacityGrid`` (``Int32Grid``) — structural load capacity
 
 .. graphviz::
 
@@ -274,31 +283,32 @@ entt::registry (ECS)
 TerrainStorage
 ^^^^^^^^^^^^^^
 
-**Purpose**: Low-level OpenVDB-backed storage for all static terrain data, providing sparse and memory-efficient storage.
+**Purpose**: Low-level OpenVDB-backed storage for all static terrain data *and* per-voxel velocity, providing sparse and memory-efficient storage.
 
-**Location**: :file:`include/terrain_storage.hpp`, :file:`src/terrain_storage.cpp`
+**Location**: :file:`src/terrain/TerrainStorage.hpp`, :file:`src/terrain/TerrainStorage.cpp`
 
 **Key OpenVDB Grids**:
 
-- ``entityGrid`` - Terrain entity ID (source of truth: -2=empty, -1=VDB-only, ≥0=ECS entity)
-- ``mainTypeGrid`` - Entity main type (TERRAIN, PLANT, BEAST, etc.)
-- ``subType0Grid``, ``subType1Grid`` - Subtype classifications
-- ``terrainMatterGrid``, ``waterMatterGrid``, ``vaporMatterGrid``, ``biomassMatterGrid`` - Matter quantities
-- ``massGrid``, ``maxSpeedGrid``, ``minSpeedGrid``, ``heatGrid`` - Physical properties
-- ``flagsGrid`` - Packed bit flags (direction, canStack, matterState, gradient)
-- ``maxLoadGrid`` - Load capacity for structural integrity
+- ``terrainGrid`` (``Int64Grid``) — terrain id source of truth (``TerrainIdTypeEnum``: -2=NONE, -1=ON_GRID_STORAGE, ≥0=ON_ENTT entity id)
+- ``mainTypeGrid``, ``subType0Grid``, ``subType1Grid`` — entity-type classification
+- ``terrainMatterGrid``, ``waterMatterGrid``, ``vaporMatterGrid``, ``biomassMatterGrid`` — matter quantities
+- ``massGrid``, ``maxSpeedGrid``, ``minSpeedGrid`` — physics stats
+- ``heatGrid`` (``FloatGrid``) — heat / temperature
+- ``velXGrid``, ``velYGrid``, ``velZGrid`` (``FloatGrid``) — per-voxel velocity (drives ``PhysicsEngine::processVelocityForVDBVoxels``)
+- ``flagsGrid`` — packed bit flags (direction, canStack, matterState, gradient)
+- ``maxLoadCapacityGrid`` — load capacity for structural integrity
 
 **Key Methods**:
 
-- ``initialize()`` / ``initializeWithTransform()`` - Grid setup
-- ``getTotalMemoryUsage()`` - Memory profiling
-- ``getEntityId()`` / ``setEntityId()`` - Activity state management
+- ``initialize()`` / ``applyTransform()`` — grid setup
+- ``memUsage()`` / ``memUsageBreakdown()`` — memory profiling (per-grid breakdown for the diag sampler)
+- ``getTerrainIdIfExists()`` / ``setTerrainId()`` — activity-state management
 - Individual getters/setters for all terrain attributes
-- ``isActive()`` - Check if voxel has dynamic behavior
-- ``pruneInactive()`` - Memory cleanup for inactive regions
-- ``iterateWaterVoxels()``, ``iterateVaporVoxels()``, ``iterateBiomassVoxels()`` - Efficient matter iteration
+- ``isActive()`` / ``prune()`` — activity check + memory cleanup for inactive regions
+- ``iterateWaterMatter`` / ``iterateVaporMatter`` / ``iterateBiomassMatter`` / ``iterateVelocityVoxels`` — efficient sparse iterators built on ``cbeginValueOn``
+- ``countActive*Voxels()`` / ``sumGrid()`` / ``sumTotalWater()`` — diagnostic counts
 
-**Thread Safety**: Uses ``ThreadLocalAccessorCache`` for thread-local accessor caching, enabling O(1) voxel access without locking.
+**Thread Safety**: Uses a per-instance ``thread_local`` ``ThreadCache`` of OpenVDB ``Accessor`` pointers, lazily configured on first read and refreshed when the underlying tree pointers change. Enables O(1) voxel access without locking. Call ``resetThreadCache()`` if grids are swapped wholesale.
 
 **Architectural Role**: Foundation layer for terrain data. OpenVDB's sparse storage only stores non-default values, making it extremely memory-efficient for large worlds. All static terrain attributes are stored here; transient runtime behavior is handled by ``TerrainGridRepository`` + ECS.
 
@@ -307,7 +317,7 @@ EntityGrid (Int32Grid)
 
 **Purpose**: Spatial index for non-terrain entities (creatures, items, projectiles).
 
-**Location**: Member of ``VoxelGrid`` (:file:`include/voxelgrid.hpp`)
+**Location**: Member of ``VoxelGrid`` (:file:`src/voxelgrid/VoxelGrid.hpp`)
 
 **Implementation**: ``openvdb::Int32Grid::Ptr`` with default value ``-1`` (no entity).
 
@@ -315,11 +325,11 @@ EntityGrid (Int32Grid)
 
 **Key Operations**:
 
-- ``setEntityAt(x, y, z, entityId)`` - Place entity
-- ``getEntityAt(x, y, z)`` - Query entity (thread-safe)
-- ``getEntityAtFast(x, y, z)`` - Fast read without lock
-- ``removeEntityAt(x, y, z)`` - Remove entity
-- ``moveEntity(oldPos, newPos, entityId)`` - Relocate entity
+- ``setEntity(x, y, z, entityID)`` — place entity
+- ``getEntity(x, y, z)`` — query entity (thread-safe)
+- ``getEntityUnsafe(x, y, z)`` — fast read without lock for performance-critical paths
+- ``deleteEntity(x, y, z)`` — remove entity
+- ``moveEntity(entt::entity, Position)`` — relocate entity
 
 **Architectural Role**: Enables fast "what entity is at position (x,y,z)?" queries essential for collision detection, interaction, and rendering. Separate from terrain because entities can move, be destroyed, or created dynamically.
 
@@ -328,7 +338,7 @@ EventGrid (Int32Grid)
 
 **Purpose**: Stores event IDs for tile effects and temporary spatial events (damage zones, buffs, environmental hazards).
 
-**Location**: Member of ``VoxelGrid`` (:file:`include/voxelgrid.hpp`)
+**Location**: Member of ``VoxelGrid`` (:file:`src/voxelgrid/VoxelGrid.hpp`)
 
 **Implementation**: ``openvdb::Int32Grid::Ptr`` with default value ``-1`` (no event).
 
@@ -343,14 +353,14 @@ LightingGrid (FloatGrid)
 
 **Purpose**: Stores lighting levels for each voxel position, enabling dynamic lighting and day/night cycles.
 
-**Location**: Member of ``VoxelGrid`` (:file:`include/voxelgrid.hpp`)
+**Location**: Member of ``VoxelGrid`` (:file:`src/voxelgrid/VoxelGrid.hpp`)
 
 **Implementation**: ``openvdb::FloatGrid::Ptr`` with default value ``0.0f`` (no light).
 
 **Key Operations**:
 
-- ``setLightAt(x, y, z, lightLevel)`` - Set light value
-- ``getLightAt(x, y, z)`` - Query light level
+- ``setLightingLevel(x, y, z, lightLevel)`` — set light value
+- ``getLightingLevel(x, y, z)`` — query light level
 - Region queries for lighting propagation
 
 **Architectural Role**: Visual system support for lighting calculations. Used by renderer to determine voxel brightness. Supports features like light propagation, shadows, and day/night cycles.
@@ -363,132 +373,178 @@ VoxelGrid
 
 **Purpose**: Central spatial data structure that integrates all grid-based storage and provides unified interface for spatial queries.
 
-**Location**: :file:`include/voxelgrid.hpp`, :file:`src/voxelgrid.cpp`
+**Location**: :file:`src/voxelgrid/VoxelGrid.hpp`, :file:`src/voxelgrid/VoxelGrid.cpp`
 
 **Key Members**:
 
-- ``width_``, ``height_``, ``depth_`` - Grid dimensions
-- ``registry_`` - Reference to ``entt::registry``
-- ``terrainStorage_`` - OpenVDB-backed terrain storage
-- ``terrainGridRepository_`` - ECS overlay for terrain
-- ``entityGrid`` - Non-terrain entity placement
-- ``eventGrid`` - Event ID grid
-- ``lightingGrid`` - Lighting level grid
-- ``entityGridMutex`` - Thread safety for entity grid
+- ``width``, ``height``, ``depth`` — grid dimensions
+- ``registry`` — reference to ``entt::registry``
+- ``terrainStorage`` — ``unique_ptr`` to ``TerrainStorage`` (OpenVDB-backed)
+- ``terrainGridRepository`` — ``unique_ptr`` to ``TerrainGridRepository`` (ECS overlay)
+- ``entityGrid`` / ``eventGrid`` / ``lightingGrid`` — non-terrain entity, event, and lighting grids
+- ``entityGridMutex`` — ``shared_mutex`` for entity-grid thread safety
 
 **Key Methods**:
 
 **Initialization**:
-  - ``initialize()`` - Initializes all OpenVDB grids
+  - ``initializeGrids()`` — initializes all OpenVDB grids
 
 **Unified Access**:
-  - ``getVoxel()`` / ``setVoxel()`` - Combined voxel data access
+  - ``getVoxel(x,y,z)`` / ``setVoxel(x,y,z,GridData)`` — combined voxel data access (see :file:`src/voxelgrid/GridData.hpp`)
 
 **Terrain Management**:
-  - ``addTerrain()`` / ``getTerrain()`` / ``removeTerrain()``
-  - ``hasTerrainAt()`` - Terrain existence check
+  - ``setTerrain`` / ``getTerrain`` / ``deleteTerrain`` / ``checkIfTerrainExists``
+  - ``createEnttForTerrain`` — promote a VDB-only voxel to an ECS-backed entity
 
 **Entity Management**:
-  - ``setEntityAt()`` / ``getEntityAt()`` / ``removeEntityAt()``
-  - ``moveEntity()`` - Relocate entity to new position
+  - ``setEntity`` / ``getEntity`` / ``getEntityUnsafe`` / ``deleteEntity`` / ``moveEntity``
 
 **Spatial Queries**:
-  - ``getTerrainVoxelsInBox()`` - Region queries for terrain
-  - ``getEntitiesInBox()`` - Region queries for entities
+  - ``getAllTerrainInRegion`` / ``getAllEntityInRegion`` / ``getAllEventInRegion`` / ``getAllLightingInRegion``
+  - ``getAllTerrainIdsInRegion`` / ``getAllEntityIdsInRegion`` (use a ``VoxelGridView``)
 
 **Persistence**:
-  - ``save()`` / ``load()`` - World serialization
+  - ``serializeToBytes()`` / ``deserializeFromBytes()`` — OpenVDB stream
+  - ``msgpack_pack()`` / ``msgpack_unpack()`` — msgpack-compatible
 
 **Support Classes**:
 
-- ``VoxelGridView`` - Read-only view for efficient region queries
-- ``VoxelGridViewFlatB`` - FlatBuffers-optimized view for serialization
+- ``VoxelGridView`` (:file:`src/voxelgrid/VoxelGridView.hpp`) — read-only view for efficient region queries
+- ``VoxelGridViewFlatB`` (FlatBuffers schema in :file:`src/VoxelGridView_generated.h`) — flatbuffer-optimized view for serialization
 
 **Architectural Role**: Central spatial database that delegates terrain storage to ``TerrainStorage`` (OpenVDB), manages entity grid directly, and provides unified interface for spatial queries. Acts as the bridge between ECS (``entt::registry``) and spatial storage (OpenVDB).
 
 TerrainGridRepository
 ^^^^^^^^^^^^^^^^^^^^^
 
-**Purpose**: ECS overlay for terrain voxels, managing the boundary between static terrain data (OpenVDB) and transient behavior (ECS). Implements "activate on demand" pattern where terrain with dynamic behavior gets ECS entities.
+**Purpose**: ECS overlay for terrain voxels, managing the boundary between static terrain data (OpenVDB) and transient behavior (ECS / coord-keyed maps). Implements "activate on demand" — terrain with dynamic behavior gets an ECS entity, but velocity is now stored on VDB grids regardless.
 
-**Location**: :file:`include/terrain_grid_repository.hpp`, :file:`src/terrain_grid_repository.cpp`
+**Location**: :file:`src/terrain/TerrainGridRepository.hpp`, :file:`src/terrain/TerrainGridRepository.cpp`
 
 **Key Members**:
 
-- ``registry_`` - ECS registry reference
-- ``storage_`` - OpenVDB storage backend
-- ``byCoord_`` - Coordinate → Entity mapping (robin_map)
-- ``byEntity_`` - Entity → Coordinate mapping (bidirectional)
-- ``terrainGridLocked_`` - Lock tracking flag
-- ``mutex_`` - Thread safety
+- ``registry_`` — ECS registry reference
+- ``storage_`` — ``TerrainStorage`` reference (OpenVDB backend)
+- ``byCoord_`` / ``byEntity_`` — bidirectional coord ↔ entity tracking maps (``unordered_map`` keyed by ``VoxelCoord``)
+- ``movingByCoord_`` — coord-keyed ``MovingComponent`` map (lets terrain voxels move without an ECS entity)
+- ``terrainGridLocked_`` — atomic lock-tracking flag
+- ``terrainGridMutex`` / ``trackingMapsMutex_`` — separate ``shared_mutex``\ es to keep tracking-map reads off the broader terrain lock
+
+**Snapshot types** (defined in the same header):
+
+- ``TerrainInfo`` — ``StaticData`` + optional ``TransientData``; returned by ``readTerrainInfo()``
+- ``TerrainPhysicsSnapshot`` — atomic position/velocity/stats read for physics; closes the TOCTOU window the math used to have
 
 **Static Data Methods** (VDB-backed):
 
-- ``getEntityType()`` / ``setEntityType()``
-- ``getMatterQuantities()`` / ``setMatterQuantities()``
-- ``getPhysicsStats()`` / ``setPhysicsStats()``
-- ``getStructuralIntegrity()`` / ``setStructuralIntegrity()``
-- Individual getters/setters for mainType, subType0, mass, speed, etc.
+- ``getTerrainEntityType`` / ``setTerrainEntityType``
+- ``getTerrainMatterContainer`` / ``setTerrainMatterContainer`` (and per-field ``getWaterMatter`` / ``getVaporMatter`` / ``getBiomassMatter`` / ``getTerrainMatter``)
+- ``getPhysicsStats`` / ``setPhysicsStats`` / ``getPhysicsSnapshot``
+- ``getTerrainStructuralIntegrity`` / ``setTerrainStructuralIntegrity``
+- Individual getters/setters for mainType, subType0/1, mass, max/minSpeed, direction, canStackEntities, matterState, gradient, maxLoadCapacity
 
-**Transient Data Methods** (ECS-backed):
+**Transient Data Methods** (VDB or coord-map):
 
-- ``getVelocity()`` / ``setVelocity()`` - Auto-activates terrain
-- ``hasMovingComponent()`` - Check for moving behavior
+- ``getVelocity`` / ``setVelocity`` — writes directly to ``velXGrid``/``velYGrid``/``velZGrid`` (no ECS entity created)
+- ``getMovingComponent`` / ``setMovingComponent`` / ``clearMovingComponent`` — coord-keyed map under ``terrainGridMutex``
+- ``hasMovingComponent`` — check for moving behavior
 
 **Lifecycle Management**:
 
-- ``deactivateTerrain()`` - Migrates terrain entity from ECS to OpenVDB
-- ``terrainExists()`` - Existence check
-- ``removeTerrain()`` - Removes terrain
-- ``moveTerrain()`` - Moves terrain voxel to new location
-- ``createEntityForInactiveTerrain()`` - Creates ECS entity
-- ``activateTerrain()`` / ``isTerrainActive()`` - Activity state
+- ``ensureActive`` / ``createEnttForTerrain`` — promote a coord to an ECS-backed entity
+- ``softDeactivateEntity`` — strip transient components and return the voxel to ``ON_GRID_STORAGE`` without immediately destroying the entity
+- ``setTerrainFromEntt`` — extract terrain components from an EnTT entity into VDB
+- ``deleteTerrain`` / ``checkIfTerrainExists`` / ``checkIfTerrainHasEntity``
+- ``moveTerrain(MovingComponent&)`` — pure-CRUD coord move; phase-mismatch and post-move gravity wake-up live in ``_attemptVelocityDrivenMove`` (in :file:`src/physics/PhysicsMutators.hpp`), not here
+- ``tick(dtTicks)`` — advances transient systems and auto-deactivates idle terrain
 
 **Iterator Methods**:
 
-- ``iterateWaterVoxels()`` - Efficient water iteration
-- ``iterateVaporVoxels()`` - Efficient vapor iteration
-- ``iterateBiomassVoxels()`` - Efficient biomass iteration
-- ``iterateActiveTerrains()`` - Iterate terrain with ECS entities
+- ``iterateWaterMatter`` / ``iterateVaporMatter`` / ``iterateBiomassMatter`` — callbacks receive ``(x, y, z, amount, TerrainInfo)``
+- ``iterateWaterMatterVoxels`` / ``iterateVaporMatterVoxels`` / ``iterateVelocityVoxels`` — lighter callbacks under a shared lock
+- ``iterateActiveVoxels`` — walks ``byCoord_`` and yields full ``TerrainInfo``
+- ``countActive*Voxels`` / ``sumTotalWater`` — summary counts
 
-**Helper Methods**:
+**Locking Helpers**:
 
-- ``getTerrainData()`` - Combines static and transient data
-- ``tick()`` - Updates transient systems, auto-deactivates when idle
-- ``lockTerrainGrid()`` / ``unlockTerrainGrid()`` - External synchronization
+- ``withSharedLock`` / ``withUniqueLock`` — re-entrancy-aware wrappers (skip locking when the calling thread already holds the exclusive terrain lock)
+- ``withTrackingMapsLock`` — separate guard for ``byCoord_``/``byEntity_``
+- ``lockTerrainGrid`` / ``unlockTerrainGrid`` / ``isTerrainGridLocked`` / ``currentThreadHoldsTerrainGridLock``
 
-**Architectural Role**: Critical arbitration layer between static terrain (OpenVDB) and dynamic behavior (ECS). Implements "cold storage" pattern: inactive terrain is VDB-only (memory efficient), active terrain gets ECS entity (full simulation). The bidirectional maps (``byCoord_``, ``byEntity_``) enable fast lookups in both directions.
+**Architectural Role**: Critical arbitration layer between static terrain (OpenVDB) and dynamic behavior (ECS + coord-keyed maps). Implements the "cold storage" pattern: inactive terrain is VDB-only, active terrain may get an ECS entity, and *velocity-only* movement (e.g. settling water) does not require an entity at all because velocity lives on VDB grids.
 
 PhysicsManager
 ^^^^^^^^^^^^^^
 
-**Purpose**: Singleton configuration class that stores global physics constants and game balance parameters.
+**Purpose**: Singleton configuration class that stores global physics constants, ecosystem-pipeline toggles, and game-balance parameters.
 
-**Location**: :file:`include/physics_manager.hpp`, :file:`src/physics_manager.cpp`
+**Location**: :file:`src/physics/PhysicsManager.hpp`, :file:`src/physics/PhysicsManager.cpp`
 
 **Key Configuration Parameters**:
 
-- ``gravity_`` - Gravitational acceleration (default 5.0)
-- ``friction_`` - Friction coefficient (default 1.0)
-- ``allowSimultaneousMovement_`` - Multi-axis movement (default true)
-- ``evaporationRate_`` - Water evaporation rate (default 8.0)
-- ``evaporationHeatThreshold_`` - Heat required (default 120.0)
-- ``evaporationMinQuantity_`` - Minimum water threshold (default 120,000)
-- ``energyCostPerMovement_`` - Energy cost (default 0.000002)
+- ``gravity`` — gravitational acceleration (default 5.0)
+- ``friction`` — friction coefficient (default 1.0)
+- ``allowMultiDirection`` — multi-axis movement (default true)
+- ``EVAPORATION_COEFFICIENT`` — evaporation rate (default 8.0)
+- ``HEAT_TO_WATER_EVAPORATION`` — heat threshold (default 120.0)
+- ``waterMinimumUnits`` — minimum water threshold for evaporation (default 60,000; sized for a 10×100×100 grid)
+- ``metabolismCostToApplyForce`` — energy cost per applied force (default 0.000002)
+
+**Pipeline toggles (water sim phases)**:
+
+- ``simulateWaterMovement`` / ``simulateWaterEvaporation`` / ``simulateVaporMovement`` / ``simulateVaporCondensation`` — disable individual phases of the water cycle
+- ``waterAutoBalancing`` — passive level-equalising of liquid water across neighbors
+- ``runEcosystemSynchronously`` — run the ecosystem step inline on the main thread instead of via ``World::asyncTasks_``
+
+**Drought-stress tunables** (see :file:`src/components/WaterStressComponent.hpp`):
+
+- ``stressPerDryTick`` (default 1)
+- ``maxWaterStressTicks`` (default 1000)
+- ``droughtDamagePerCycle`` (default 10)
 
 **Key Methods**:
 
-- ``getInstance()`` - Singleton accessor
-- ``getGravity()`` / ``setGravity()``
-- ``getFriction()`` / ``setFriction()``
-- ``getAllowSimultaneousMovement()`` / ``setAllowSimultaneousMovement()``
-- ``getEnergyCostPerMovement()`` / ``setEnergyCostPerMovement()``
-- ``getEvaporationRate()`` / ``setEvaporationRate()``
-- ``save()`` / ``load()`` - Persistence (not yet implemented)
+- ``Instance()`` — singleton accessor
+- Getters / setters for every parameter listed above
+- ``loadSettings(filename)`` / ``saveSettings(filename)`` — JSON persistence
 
-**Design Pattern**: Classic Singleton with typedef ``PhysicsManagerPtr`` for convenient access.
+A lightweight ``PhysicsSettings`` facade (:file:`src/PhysicsSettings.hpp`) exposes the same setters/getters for the Python bindings layer.
 
-**Architectural Role**: Global configuration hub for all physics-related constants. Accessed by ``PhysicsEngine``, ``EcosystemEngine``, and other systems that need physics parameters. Enables runtime tuning of game balance without recompilation.
+**Architectural Role**: Global configuration hub for all physics-related constants. Accessed by ``PhysicsEngine``, ``EcosystemEngine``, the water-sim pool, and ``World``'s sync/async dispatch. Enables runtime tuning of game balance without recompilation.
+
+EventSink + WorkerEventSink
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Purpose**: Cross-thread event submission for EnTT's non-thread-safe dispatcher.
+
+**Location**: :file:`src/EventSink.hpp`
+
+**Mechanism**:
+
+- ``EventSink::enqueue<T>(args...)`` routes by calling thread:
+
+  - main thread → ``entt::dispatcher::enqueue<T>`` directly
+  - any other  → ``WorkerEventSink`` (mutex-protected staging buffer)
+
+- ``WorkerEventSink::drain(dispatcher)`` is called at the top of every ``World::update`` tick, *before* ``dispatcher.update()``, so worker-staged events replay on the main thread under the dispatcher's normal contract.
+- ``raw_dispatcher_main_only()`` is reserved for handler-registration paths and asserts on non-main-thread callers in debug builds.
+
+**Architectural Role**: The keystone that lets the ``EcosystemEngine`` (and the water-sim worker pool) run off the main thread while every matter mutation still happens through the single-threaded dispatcher.
+
+``World::asyncTasks_`` (TBB task group)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Purpose**: Single persistent worker arena shared by physics-async and ecosystem-async dispatch.
+
+**Location**: :file:`src/World.hpp`, :file:`src/World.cpp`
+
+**Key Pieces**:
+
+- ``tbb::task_group asyncTasks_`` — backed by TBB's process-wide persistent worker arena (default-sized to ``std::thread::hardware_concurrency()``). Submitting a task is sub-microsecond and never spawns an OS thread.
+- ``AsyncEngineState physicsState_`` / ``ecosystemState_`` — each holds an atomic ``running`` gate (prevents duplicate enqueue) and a ``lastException`` slot (surfaces worker-thread exceptions on the next tick under ``exceptionMutex``).
+- ``~World()`` calls ``asyncTasks_.wait()`` before destruction (TBB asserts otherwise).
+
+This replaced the previous ``std::future`` + ``std::async`` model, which spawned a fresh OS thread per tick and slowly grew RSS through glibc per-thread arena accumulation.
 
 Layer 1: Application/Engine Layer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -496,85 +552,90 @@ Layer 1: Application/Engine Layer
 PhysicsEngine
 ^^^^^^^^^^^^^
 
-**Purpose**: Handles physics simulation for all entities including gravity, movement, collision detection, and velocity-based motion.
+**Purpose**: Handles physics simulation for all entities (gravity, velocity-driven motion, collision, ramps), *and* applies every matter-mutating water-cycle event detected by the ``EcosystemEngine``.
 
-**Location**: :file:`include/physics_engine.hpp`, :file:`src/physics_engine.cpp`
+**Location**: :file:`src/PhysicsEngine.hpp`, :file:`src/PhysicsEngine.cpp` (with mutator implementations under :file:`src/physics/mutators/` and shared math in :file:`src/physics/PhysicalMath.cpp`)
 
 **Key Members**:
 
-- ``registry_`` - ECS registry reference
-- ``eventDispatcher_`` - Event dispatcher for physics events
-- ``voxelGrid_`` - Pointer to voxel grid for spatial queries
-- ``mutex_`` - Thread safety
-- ``processingAsync_`` - Flag for async processing state
-- ``debugEntity_`` - Entity for debugging
+- ``registry`` — ECS registry reference
+- ``sink`` — ``EventSink`` reference (routes enqueue by thread)
+- ``voxelGrid`` — pointer to voxel grid for spatial queries
+- ``physicsMutex`` — protects the engine instance during async dispatch
+- ``processingComplete`` — flag for async processing state
+- ``entityBeingDebugged`` — currently-debugged entity
+- ``counters_`` — ``PhysicsCounters`` struct of ``aetherion::diag::Counter`` handles, one per event family
 
 **Key Methods**:
 
-**Synchronous Updates**:
-  - ``update(deltaTime)`` - Main physics update for entities with Velocity and MovingComponent
+**Per-tick passes**:
+  - ``processPhysics(registry, voxelGrid, sink, clock)`` — synchronous main-thread pass
+  - ``processPhysicsAsync(registry, voxelGrid, sink, clock)`` — submitted to ``World::asyncTasks_``
 
-**Asynchronous Processing**:
-  - ``processAsync(deltaTime)`` - Checks for falling entities, runs in background
+**Iteration helpers** (called in sequence by the pass methods):
+  - ``applyGravityForcesToECSEntities`` / ``applyGravityForceToEntity``
+  - ``processVelocityForECSEntities`` / ``processVelocityForEntity``
+  - ``processVelocityForVDBVoxels`` / ``processVelocityForVoxel`` (consumes ``velXGrid``/``velYGrid``/``velZGrid``)
 
-**Event Handlers**:
-  - ``handleSolidEntityMovement()`` - Event handler for solid entity movement
-  - ``handleGasEntityMovement()`` - Event handler for gas entity movement
+**Movement event handlers**:
+  - ``onMoveSolidEntityEvent`` / ``onMoveSolidLiquidTerrainEvent`` / ``onMoveGasEntityEvent``
+  - ``onTakeItemEvent`` / ``onUseItemEvent``
 
-**Internal Systems**:
-  - ``velocityToMovement()`` - Converts physics velocities to grid movement
-  - ``canJumpCheck()`` - Determines if entity can jump
+**Water phase event handlers** (moved here from ``EcosystemEngine``):
+  - ``onEvaporateWaterEntityEvent`` / ``onCondenseWaterEntityEvent``
+  - ``onWaterFallEntityEvent`` / ``onWaterSpreadEvent`` / ``onWaterGravityFlowEvent``
+  - ``onTerrainPhaseConversionEvent``
+  - ``onVaporCreationEvent`` / ``onWaterCreationEvent``
+  - ``onVaporMergeUpEvent`` / ``onVaporMergeSidewaysEvent``
+  - ``onAddVaporToTileAboveEvent``
+  - ``onDeleteOrConvertTerrainEvent`` / ``onInvalidTerrainFound``
+  - ``onPlantWaterUptakeEvent``
 
-**Internal Helper Functions** (in .cpp):
+**Wiring**:
+  - ``registerEventHandlers(dispatcher)`` — connects every ``on*`` handler
+  - ``registerVoxelGrid(VoxelGrid*)`` / ``registerDiagCounters()``
 
-- ``checkCollision()`` - Collision detection
-- ``applyGravity()`` - Applies gravitational forces
-- ``processMovement()`` - Processes entity movement with collision
-- ``handleMovementComplete()`` - Handles completion of movement animation
-
-**Architectural Role**: Primary physics system that processes movement, collision, and applies forces. Interacts heavily with ``VoxelGrid`` for spatial queries and ``entt::registry`` for component updates. Queries ``PhysicsManager`` for constants like gravity and friction.
+**Architectural Role**: The single owner of all matter mutations. Interacts heavily with ``TerrainGridRepository`` (preferring ``getPhysicsSnapshot`` to avoid TOCTOU) and queries ``PhysicsManager`` for constants and toggles.
 
 EcosystemEngine
 ^^^^^^^^^^^^^^^
 
-**Purpose**: Manages ecosystem simulation including water flow, evaporation, condensation, and environmental effects. Features sophisticated parallel water simulation.
+**Purpose**: Detects ecosystem-level conditions (water flow, evaporation, condensation, plant water uptake, drought) and *enqueues events* through the ``EventSink``. Does not mutate matter directly — the resulting events are handled by ``PhysicsEngine``.
 
-**Location**: :file:`include/ecosystem_engine.hpp`, :file:`src/ecosystem_engine.cpp`
+**Location**: :file:`src/EcosystemEngine.hpp`, :file:`src/EcosystemEngine.cpp`
 
 **Key Members**:
 
-- ``waterSimulationManager_`` - Parallel water simulation manager
-- ``evaporationQueue_`` - Queue for evaporation events
-- ``condensationQueue_`` - Queue for condensation events
-- ``waterFallingQueue_`` - Queue for water falling events
-- ``mutex_`` - Thread safety
-- ``processingAsync_`` - Processing state flag
-- ``debugEntity_`` - Debug entity
+- ``waterSimManager_`` — ``unique_ptr<WaterSimulationManager>`` (parallel water simulation)
+- ``ecosystemMutex`` — exclusive access during async pass
+- ``processingComplete`` — async-state flag
+- ``entityBeingDebugged`` — debug entity
+- ``countCreatedEvaporatedWater`` — running counter for diagnostic plots
 
 **Key Methods**:
 
-**Main Loop**:
-  - ``update(deltaTime)`` - Main ecosystem update loop
-  - ``processAsync(deltaTime)`` - Asynchronous ecosystem processing
+**Per-tick passes**:
+  - ``processEcosystem(registry, voxelGrid, sink, clock)`` — synchronous pass; runs ``processPlants``
+  - ``processEcosystemAsync(registry, voxelGrid, sink, clock)`` — heavy pass; drives the water-sim worker pool plus ``processPlants``
 
-**Water Simulation**:
-  - ``processParallelWaterSimulation()`` - Parallel water simulation using thread pool
+**Plant pipeline (file-scope free function)**:
+  - ``processPlants`` — photosynthesis, growth, fruiting, water uptake, drought stress (consumes ``WaterStressComponent``)
 
-**Event Processing**:
-  - ``processEvaporation()`` - Handles queued evaporation
-  - ``processCondensation()`` - Handles queued condensation
-  - ``processWaterFalling()`` - Handles queued water falling
+**Iteration helper**:
+  - ``loopTiles`` — sweeps terrain tiles to detect candidates for water/vapor/plant events
+  - ``processParallelWaterSimulation`` — drives ``WaterSimulationManager``
 
-**Iteration**:
-  - ``iterateTerrainTiles()`` - Iterates over tiles for ecosystem processing
+**Wiring**:
+  - ``registerEventHandlers(dispatcher)`` — only ``onSetEcoEntityToDebug`` is left; matter handlers were moved to ``PhysicsEngine``
+  - ``isProcessingComplete()``
 
-**Nested Classes**:
+**Nested classes**:
 
-- ``WaterSimulationManager`` - Coordinates parallel water simulation with worker threads, grid box partitioning (32x32x32 chunks), and round-robin scheduler
-- ``GridBoxProcessor`` - Processes water simulation for specific grid region using thread-local OpenVDB accessors for optimal cache performance
-- ``RoundRobinScheduler`` - Priority queue-based task scheduler with aging for fair task distribution
+- ``WaterSimulationManager`` — owns the worker thread pool, the pre-computed ``gridBoxes_``, the ``RoundRobinScheduler``, and the cross-thread error queue (``ThreadError``)
+- ``GridBoxProcessor`` — thread-local OpenVDB accessors; produces a ``std::vector<WaterFlow>`` per box
+- ``RoundRobinScheduler`` — priority-queue task scheduler with aging (``MAX_PRIORITY = 1000``, ``AGE_BONUS = 10``)
 
-**Architectural Role**: Central system for environmental simulation. Uses OpenVDB-backed terrain storage for efficient water matter queries and sophisticated parallel processing architecture with grid box partitioning for cache-friendly iteration. Queries ``PhysicsManager`` for evaporation rates and thresholds.
+**Architectural Role**: Detection-and-dispatch layer. Reads through ``TerrainGridRepository`` (lock-aware) and writes events through ``EventSink``, so it can run sync or async without breaking the dispatcher's single-threaded contract.
 
 Water Cycle Simulation
 -----------------------
