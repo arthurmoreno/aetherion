@@ -17,6 +17,10 @@
 #include "components/WaterStressComponent.hpp"
 #include "diag/Diag.hpp"
 
+#ifdef TRACY_ENABLE
+#include <tracy/Tracy.hpp>
+#endif
+
 // Create a shortcut for nanobind
 namespace nb = nanobind;
 NB_MAKE_OPAQUE(entt::entity);
@@ -31,6 +35,43 @@ NB_MODULE(_aetherion, m) {
   // Register custom exceptions
   nb::exception<aetherion::EcosystemEngineException>(
       m, "EcosystemEngineException");
+
+  // ─── Tracy Profiler bindings ────────────────────────────────────────
+  // Both functions are always exposed so callers can call them
+  // unconditionally. When Tracy is not built (default `make build`),
+  // they're empty no-ops; when built (`make build TRACY=1`), they
+  // forward into Tracy's macros. See plan
+  // .claude/docs/epics-plans/2026-05-09-tracy-profiler-integration.md.
+  m.def(
+      "tracy_frame_mark",
+      []() {
+#ifdef TRACY_ENABLE
+        FrameMark;
+#endif
+      },
+      "Emit a Tracy frame boundary. No-op when Tracy is not built.");
+  m.def(
+      "tracy_message",
+      [](const std::string &msg) {
+#ifdef TRACY_ENABLE
+        TracyMessage(msg.c_str(), msg.length());
+#else
+        (void)msg;
+#endif
+      },
+      nb::arg("msg"),
+      "Send a labelled timeline marker to the Tracy server. No-op when "
+      "Tracy is not built.");
+  m.def(
+      "tracy_enabled",
+      []() {
+#ifdef TRACY_ENABLE
+        return true;
+#else
+        return false;
+#endif
+      },
+      "Returns True iff this binary was built with TRACY=1.");
 
   nb::bind_map<std::map<std::string, int>>(m, "MapStrInt");
   nb::bind_map<std::map<std::string, std::string>>(m, "MapStrStr");

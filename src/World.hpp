@@ -4,12 +4,15 @@
 #define ENTT_ENTITY_TYPE int
 
 #include <nanobind/nanobind.h>
+#include <oneapi/tbb/task_group.h>
 #include <spdlog/spdlog.h>
 
+#include <atomic>
 #include <entt/entt.hpp>
-#include <future>
+#include <exception>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <shared_mutex>
 
 #include "CombatSystem.hpp"
@@ -236,6 +239,15 @@ public:
   size_t peekTimeSeriesSize(const std::string &seriesName) const;
   long long countTimeSeriesRowsOnDisk(const std::string &seriesName) const;
 
+  // Per-engine async dispatch state. Type is public so file-scope
+  // helpers in World.cpp (which are not members) can refer to it; the
+  // *instances* `physicsState_` / `ecosystemState_` stay private below.
+  struct AsyncEngineState {
+    std::atomic<bool> running{false};
+    std::mutex exceptionMutex;
+    std::exception_ptr lastException; // guarded by exceptionMutex
+  };
+
 private:
   // Per-system step runners — extracted from update() to keep that loop
   // readable. Each chooses inline vs std::async based on its own flags.
@@ -270,22 +282,35 @@ private:
                             // perception
   std::unique_ptr<GameDBHandler> dbHandler;
 
+  // Async-dispatch infrastructure. Replaces the old `std::future<void>`
+  // members — those caused a fresh OS thread to be spawned per tick
+  // (libstdc++'s `std::async` does not pool), which accumulated glibc
+  // per-thread arena state and grew RSS for minutes before the
+  // per-process arena cap kicked in. See plan
+  // .claude/docs/epics-plans/2026-05-09-tbb-task-group-migration.md.
+  //
+  // `asyncTasks_` is a single TBB task group shared by physics +
+  // ecosystem dispatch, backed by TBB's process-wide persistent worker
+  // arena (default-sized to std::thread::hardware_concurrency()).
+  // Submitting a task is sub-microsecond and never spawns a thread.
+  // Must be wait()'d in ~World() before destruction (TBB asserts).
+  tbb::task_group asyncTasks_;
+  AsyncEngineState physicsState_;
+  AsyncEngineState ecosystemState_;
+
   // Physics
   PhysicsEngine *physicsEngine;
-  std::future<void> physicsFuture;
 
   // Life
   LifeEngine *lifeEngine;
 
   // Ecosystem
   EcosystemEngine *ecosystemEngine;
-  std::future<void> ecosystemFuture;
   bool ecosystemStarted_ = false;
   bool processEcosystem_ = false;
 
   // MetabolismSystem
   MetabolismSystem *metabolismSystem;
-  std::future<void> metabolismFuture;
   // Default true preserves the historical behaviour (when the prior
   // `const bool processMetabolismAsync = false;` was hardcoded, the sync
   // branch always ran). Setting this false skips metabolism entirely.

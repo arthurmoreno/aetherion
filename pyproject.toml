@@ -48,6 +48,10 @@ sdist.include = [
   "libs/nanobind",
   "libs/neat",
   "libs/ylt",
+  # Tracy is opt-in (only used when AETHERION_TRACY_BUILD=ON / `make build
+  # TRACY=1`); we still ship it in the sdist so the build doesn't have to
+  # re-clone if the flag is flipped.
+  "libs/tracy",
 ]
 build-dir = "build/{wheel_tag}"
 

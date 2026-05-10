@@ -93,7 +93,7 @@ nb::object fbGetQueryResponseById(
       // Assign the entityId (if not already handled in deserialize)
       // deserializedQueryResponse.entityId = entity->entityId();
 
-      return nb::cast(deserializedQueryResponse);
+      return nb::cast(deserializedQueryResponse, nb::rv_policy::take_ownership);
     }
   }
 

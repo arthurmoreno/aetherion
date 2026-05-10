@@ -19,6 +19,10 @@
 #include "settings.hpp"
 #include "terrain/TerrainGridLock.hpp" // For TerrainGridLock
 
+#ifdef TRACY_ENABLE
+#include <tracy/Tracy.hpp>
+#endif
+
 // Physics event time series
 inline const std::string PHYSICS_MOVE_GAS_ENTITY = "physics_move_gas_entity";
 inline const std::string PHYSICS_MOVE_SOLID_ENTITY =
@@ -969,6 +973,9 @@ void handleMovingTo(entt::registry &registry, VoxelGrid &voxelGrid,
 void PhysicsEngine::processPhysics(entt::registry &registry,
                                    VoxelGrid &voxelGrid, EventSink &sink,
                                    GameClock &clock) {
+#ifdef TRACY_ENABLE
+  ZoneScopedN("PhysicsEngine::processPhysics");
+#endif
   // spdlog::get("console")->debug("Processing physics");
 
   processVelocityForECSEntities(registry, voxelGrid, sink);
@@ -1110,6 +1117,9 @@ void PhysicsEngine::processPhysics(entt::registry &registry,
 void PhysicsEngine::processPhysicsAsync(entt::registry &registry,
                                         VoxelGrid &voxelGrid, EventSink &sink,
                                         GameClock &clock) {
+#ifdef TRACY_ENABLE
+  ZoneScopedN("PhysicsEngine::processPhysicsAsync");
+#endif
   std::scoped_lock lock(physicsMutex); // Ensure exclusive access
 
   processingComplete = false;
