@@ -401,6 +401,11 @@ class GameEngine:
                 else:
                     time.sleep(sleep_time)
 
+                # Tracy frame boundary. No-op when the binary was built
+                # without TRACY=1 — see plan
+                # .claude/docs/epics-plans/2026-05-09-tracy-profiler-integration.md.
+                aetherion.tracy_frame_mark()
+
         except aetherion.EcosystemEngineException as e:
             import traceback
 

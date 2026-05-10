@@ -7,6 +7,7 @@
 #include <map>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 #include <ylt/struct_pack.hpp>
 
@@ -69,7 +70,7 @@ public:
 
   ListStringResponse() { responseMask |= (1UL << LIST_STRING); }
 
-  ListStringResponse(const std::vector<std::string> &strs) : strings(strs) {
+  ListStringResponse(std::vector<std::string> strs) : strings(std::move(strs)) {
     responseMask |= (1UL << LIST_STRING);
   }
 
@@ -91,7 +92,7 @@ public:
       throw std::runtime_error("Failed to deserialize ListStringResponse");
     }
     offset += consume_len;
-    return new ListStringResponse(strings_result.value());
+    return new ListStringResponse(std::move(strings_result).value());
   }
 
   // Python serialization
@@ -107,7 +108,7 @@ public:
 
   ListDoubleResponse() { responseMask |= (1UL << LIST_DOUBLE); }
 
-  ListDoubleResponse(const std::vector<double> &vals) : values(vals) {
+  ListDoubleResponse(std::vector<double> vals) : values(std::move(vals)) {
     responseMask |= (1UL << LIST_DOUBLE);
   }
 
@@ -129,7 +130,7 @@ public:
       throw std::runtime_error("Failed to deserialize ListDoubleResponse");
     }
     offset += consume_len;
-    return new ListDoubleResponse(values_result.value());
+    return new ListDoubleResponse(std::move(values_result).value());
   }
 
   // Python serialization
@@ -145,9 +146,8 @@ public:
 
   MapOfMapsResponse() { responseMask |= (1UL << MAP_OF_MAPS); }
 
-  MapOfMapsResponse(
-      const std::map<std::string, std::map<std::string, std::string>> &m)
-      : mapOfMaps(m) {
+  MapOfMapsResponse(std::map<std::string, std::map<std::string, std::string>> m)
+      : mapOfMaps(std::move(m)) {
     responseMask |= (1UL << MAP_OF_MAPS);
   }
 
@@ -170,7 +170,7 @@ public:
       throw std::runtime_error("Failed to deserialize MapOfMapsResponse");
     }
     offset += consume_len;
-    return new MapOfMapsResponse(map_result.value());
+    return new MapOfMapsResponse(std::move(map_result).value());
   }
 
   // Python serialization
@@ -186,9 +186,8 @@ public:
 
   MapOfListsOfDoubleResponse() { responseMask |= (1UL << MAP_OF_LISTS_DOUBLE); }
 
-  MapOfListsOfDoubleResponse(
-      const std::map<std::string, std::vector<double>> &m)
-      : mapOfLists(m) {
+  MapOfListsOfDoubleResponse(std::map<std::string, std::vector<double>> m)
+      : mapOfLists(std::move(m)) {
     responseMask |= (1UL << MAP_OF_LISTS_DOUBLE);
   }
 
@@ -212,7 +211,7 @@ public:
           "Failed to deserialize MapOfListsOfDoubleResponse");
     }
     offset += consume_len;
-    return new MapOfListsOfDoubleResponse(map_result.value());
+    return new MapOfListsOfDoubleResponse(std::move(map_result).value());
   }
 
   // Python serialization
@@ -229,8 +228,8 @@ public:
   MapOfMapsOfDoubleResponse() { responseMask |= (1UL << MAP_OF_MAPS_DOUBLE); }
 
   MapOfMapsOfDoubleResponse(
-      const std::map<std::string, std::map<std::string, double>> &m)
-      : mapOfMaps(m) {
+      std::map<std::string, std::map<std::string, double>> m)
+      : mapOfMaps(std::move(m)) {
     responseMask |= (1UL << MAP_OF_MAPS_DOUBLE);
   }
 
@@ -254,7 +253,7 @@ public:
           "Failed to deserialize MapOfMapsOfDoubleResponse");
     }
     offset += consume_len;
-    return new MapOfMapsOfDoubleResponse(map_result.value());
+    return new MapOfMapsOfDoubleResponse(std::move(map_result).value());
   }
 
   // Python serialization

@@ -123,14 +123,40 @@ ifneq ($(strip $(PROFILE_ON)),)
     BUILD_CMAKE_ARGS := -DAETHERION_PROFILE_BUILD=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo
 endif
 
+# Tracy Profiler instrumentation. Flip on with `make build TRACY=1` or
+# `TRACY=1 make build`. Independent from PROFILE — composable: PROFILE=1 +
+# TRACY=1 both work. Honors `AETHERION_TRACY` env-var alias.
+#
+# Uses `+=` so the cmake args compose with the PROFILE block above; if neither
+# is set, BUILD_CMAKE_ARGS stays empty (default release build).
+TRACY ?= $(AETHERION_TRACY)
+TRACY_ON := $(filter 1 ON on true TRUE,$(TRACY))
+ifneq ($(strip $(TRACY_ON)),)
+    BUILD_CMAKE_ARGS += -DAETHERION_TRACY_BUILD=ON
+    # scikit-build-core auto-strips Release/MinSizeRel wheels via
+    # `cmake --install --strip` (its `install.strip` defaults to true for
+    # those build types — see scikit-build/scikit-build-core#915). That
+    # erases the DWARF Tracy needs to symbolicate, so the bottom-up call
+    # tree collapses to the bare module path. Switch to RelWithDebInfo
+    # only for TRACY builds: auto-strip is release-only and never fires
+    # for RelWithDebInfo, and the matching CMakeLists.txt block clears
+    # CMAKE_CXX_FLAGS_RELWITHDEBINFO so our -O3 -flto -ffast-math from
+    # the global flags isn't downshifted to -O2 by the per-config defaults.
+    # Default `make build` (no TRACY) stays Release/stripped/slim.
+    BUILD_CONFIG_SETTINGS := -Ccmake.build-type=RelWithDebInfo
+endif
+
 .PHONY: build
 build:
 	@echo "Building aetherion package with python -m build..."
 	@if [ -n "$(PROFILE_ON)" ]; then \
 		echo "  PROFILE build: -O1 -g -fno-omit-frame-pointer -fno-inline (debug-friendly, ~3x slower; revert with PROFILE=0)"; \
 	fi
+	@if [ -n "$(TRACY_ON)" ]; then \
+		echo "  TRACY build: Tracy Profiler client linked, TRACY_ENABLE defined (in-process memory + frame profiler; <5% overhead with TRACY_ON_DEMAND when no profiler attached)"; \
+	fi
 	conda run --no-capture-output -n $(CONDA_ENV) \
-		bash -c 'CMAKE_ARGS="$(BUILD_CMAKE_ARGS)" python -m build'
+		bash -c 'CMAKE_ARGS="$(BUILD_CMAKE_ARGS)" python -m build $(BUILD_CONFIG_SETTINGS)'
 
 .PHONY: install
 install:

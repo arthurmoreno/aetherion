@@ -110,6 +110,24 @@ materialize_nanobind() {
   fi
 }
 
+# Tracy Profiler is opt-in (only used when building with AETHERION_TRACY_BUILD=ON
+# / `make build TRACY=1`). We clone it unconditionally here so a developer who
+# later flips the flag doesn't have to re-run the bootstrap; the heavy compile
+# only happens when the CMake option is on.
+materialize_tracy() {
+  rm -rf "$LIBS_DIR/tracy"
+  echo "[tracy] Cloning wolfpld/tracy @ ${TRACY_REF}"
+  git clone --depth 1 --branch "${TRACY_REF}" https://github.com/wolfpld/tracy.git "$LIBS_DIR/tracy"
+  if [[ ! -f "$LIBS_DIR/tracy/public/TracyClient.cpp" ]]; then
+    echo "[tracy] Expected public/TracyClient.cpp missing" >&2
+    exit 1
+  fi
+  if [[ ! -f "$LIBS_DIR/tracy/CMakeLists.txt" ]]; then
+    echo "[tracy] Expected top-level CMakeLists.txt missing" >&2
+    exit 1
+  fi
+}
+
 echo "[third-party] Manifest root: $MANIFEST_DIR"
 echo "[third-party] libs output:   $LIBS_DIR"
 echo "[third-party] vcpkg root:   $VCPKG_ROOT @ $VCPKG_BASELINE"
@@ -131,10 +149,11 @@ echo "[vcpkg] install (entt + flatbuffers per vcpkg.json)..."
     --x-packages-root="$PACKAGES_ROOT"
 )
 
-echo "[materialize] flatbuffers + entt -> $LIBS_DIR"
+echo "[materialize] flatbuffers + entt + nanobind + tracy -> $LIBS_DIR"
 materialize_flatbuffers
 materialize_entt
 materialize_nanobind
+materialize_tracy
 
 echo "[third-party] Optional / UI stack (not vcpkg): manage imgui/implot/ImGuizmo in libs per third_party.lock or your existing tree."
 echo "[third-party] Done."

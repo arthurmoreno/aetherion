@@ -20,3 +20,11 @@ target_link_libraries(diag PUBLIC
     spdlog::spdlog
     fmt::fmt
 )
+
+# Tracy linkage. TracyMemory.cpp's `operator new` / `operator delete`
+# overrides call TracyAlloc / TracyFree, which live in Tracy's client
+# library. The whole TU is `#ifdef TRACY_ENABLE` so when Tracy isn't built
+# the file compiles to nothing and this link is unnecessary.
+if(AETHERION_TRACY_BUILD)
+    target_link_libraries(diag PUBLIC Tracy::TracyClient)
+endif()

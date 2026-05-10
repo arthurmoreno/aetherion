@@ -126,6 +126,67 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=always -fvisibility=hidden")
 endif()
 
+# ─── Tracy Profiler integration ────────────────────────────────────────────
+# Independent from AETHERION_PROFILE_BUILD. Composable: PROFILE=1 + TRACY=1
+# both work. Default builds have zero Tracy code (DCE removes every
+# instrumented macro because TRACY_ENABLE is undefined). See plan
+# .claude/docs/epics-plans/2026-05-09-tracy-profiler-integration.md.
+option(AETHERION_TRACY_BUILD
+       "Build with Tracy Profiler instrumentation (in-process memory + frame profiler). Use for live leak hunts and performance investigations."
+       OFF)
+
+if(AETHERION_TRACY_BUILD)
+    message(STATUS "Aetherion: TRACY build — Tracy Profiler client linked, TRACY_ENABLE defined, allocations tracked")
+    # The Makefile pairs TRACY=1 with -Ccmake.build-type=RelWithDebInfo so
+    # scikit-build-core's auto-strip (Release-only) doesn't erase the DWARF
+    # Tracy needs. CMake's default RELWITHDEBINFO flags would otherwise
+    # append `-O2 -g -DNDEBUG` after our global -O3 -march=native -flto and
+    # the last `-O` wins, silently downshifting the build. Wipe them so the
+    # global flags are authoritative — the `-g` we want comes from the
+    # `add_compile_options(-g)` further down in this block, not from
+    # CMake's per-config defaults.
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "" CACHE STRING "" FORCE)
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "" CACHE STRING "" FORCE)
+    set(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO "" CACHE STRING "" FORCE)
+    set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "" CACHE STRING "" FORCE)
+    # Tracy's own master switch. Mirroring our flag here (rather than relying
+    # on Tracy's default ON) makes the intent explicit at our call site.
+    set(TRACY_ENABLE ON CACHE BOOL "" FORCE)
+    # Only activate the profiler when a Tracy server connects. Until then,
+    # runtime overhead is sub-1%. Set to OFF for always-on (e.g. CI capture).
+    set(TRACY_ON_DEMAND ON CACHE BOOL "" FORCE)
+    # Static link so Tracy is baked into the _aetherion module (single .so).
+    set(TRACY_STATIC ON CACHE BOOL "" FORCE)
+    # Force PIC on Tracy because TracyClient is linked into the _aetherion
+    # *shared* module. Without this the linker rejects Tracy's thread_local
+    # relocations (`R_X86_64_TPOFF32 against hidden symbol __tls_guard`).
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+    add_subdirectory(libs/tracy EXCLUDE_FROM_ALL)
+    # Disable LTO on Tracy specifically — the LTO bytecode for Tracy's
+    # thread_local profiler state can't be merged into a PIC shared
+    # object's final image, causing the same TPOFF32 relocation failure
+    # at link-time. Tracy is already heavily optimised internally; losing
+    # LTO on this single TU has negligible runtime cost.
+    set_target_properties(TracyClient PROPERTIES
+        INTERPROCEDURAL_OPTIMIZATION OFF
+        POSITION_INDEPENDENT_CODE ON)
+    # Project-wide defines so any TU including <tracy/Tracy.hpp> activates
+    # the macros (ZoneScoped, FrameMark, TracyAlloc/TracyFree). Without
+    # TRACY_ENABLE the macros expand to ((void)0).
+    #
+    # TRACY_CALLSTACK=15 enables call-stack capture for the sampling
+    # profiler / zones — and is the precondition for the bottom-up and
+    # top-down call trees in the Memory tab to populate. Without it,
+    # `TracyAllocS` still records each allocation site but the parent
+    # frames are blank, so Tracy can't aggregate by call path.
+    # Depth=15 is plenty for our engine — Aetherion's deepest hot paths
+    # bottom out below that. libunwind walks the frames per allocation;
+    # measurable but acceptable overhead for a leak hunt.
+    add_compile_definitions(TRACY_ENABLE TRACY_CALLSTACK=15)
+    add_compile_options(-g)
+    add_link_options(-g)
+endif()
+
 message(STATUS "Using OpenVDB include directory: ${OPENVDB_INCLUDE_DIR}")
 message(STATUS "Using OpenVDB library: ${OPENVDB_LIBRARIES}")
 
@@ -247,6 +308,14 @@ target_link_libraries(_aetherion PRIVATE
 
 # Ensure that your targets depend on the generated code
 add_dependencies(_aetherion GenerateFlatBuffers)
+
+# Tracy Profiler — only linked when AETHERION_TRACY_BUILD=ON. Tracy provides
+# the alias target Tracy::TracyClient (real target: TracyClient). Without
+# this block, TRACY_ENABLE compiles to no-op macros and there is no symbol
+# leak into the default release build.
+if(AETHERION_TRACY_BUILD)
+    target_link_libraries(_aetherion PRIVATE Tracy::TracyClient)
+endif()
 
 # Conditionally build world_test if the option is enabled
 if(BUILD_WORLD_TEST)

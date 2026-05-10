@@ -26,6 +26,10 @@
 #include "physics/PhysicsMutators.hpp"
 #include "voxelgrid/VoxelGrid.hpp"
 
+#ifdef TRACY_ENABLE
+#include <tracy/Tracy.hpp>
+#endif
+
 World::World(int width, int height, int depth)
     : workerSink_(),
       eventSink_(dispatcher, workerSink_, std::this_thread::get_id()),
@@ -77,6 +81,22 @@ World::World(int width, int height, int depth)
 }
 
 World::~World() {
+  // TBB requires task_group::wait() before destruction (the dtor
+  // asserts on outstanding work). Block here so any in-flight physics
+  // or ecosystem task completes before we tear down the registry,
+  // VoxelGrid, or engines they're still touching. Catches and
+  // discards any task exception — the destructor must not throw.
+  try {
+    asyncTasks_.wait();
+  } catch (const std::exception &e) {
+    Logger::getLogger()->error(std::string("~World: in-flight async task "
+                                           "threw during shutdown: ") +
+                               e.what());
+  } catch (...) {
+    Logger::getLogger()->error("~World: in-flight async task threw "
+                               "non-std::exception during shutdown");
+  }
+
   releasePythonState();    // Drop Python refs before any other member runs
   delete voxelGrid;        // Clean up the VoxelGrid
   delete physicsEngine;    // Clean up the physics engine
@@ -1029,17 +1049,44 @@ void safeExecute(const std::function<void()> &func,
   }
 }
 
+// Drain any exception the previous ecosystem task captured into
+// ecosystemState_.lastException, rethrowing as the same
+// EcosystemEngineException the old `ecosystemFuture.get()` path used to.
+// Returns silently if no exception is pending.
+static void drainEcosystemException(World::AsyncEngineState &state) {
+  std::exception_ptr eptr;
+  {
+    std::lock_guard<std::mutex> lk(state.exceptionMutex);
+    eptr = std::move(state.lastException);
+    state.lastException = nullptr;
+  }
+  if (!eptr) {
+    return;
+  }
+  try {
+    std::rethrow_exception(eptr);
+  } catch (const std::exception &e) {
+    std::cerr << "EcosystemEngine async task crashed: " << e.what()
+              << std::endl;
+    throw aetherion::EcosystemEngineException(
+        "[EcosystemEngineException] EcosystemEngine async task crashed: " +
+        std::string(e.what()));
+  }
+}
+
 // Run one ecosystem step, choosing inline or async dispatch.
 //
 // When PhysicsManager::getRunEcosystemSynchronously() is true, run the full
 // ecosystem step inline on the main update thread instead of dispatching it
-// via std::async. This is the only way to truly serialize the dispatcher and
-// VDB accesses for diagnostic comparisons — the populateSchedulerWithSubset
-// bypass alone is not enough because the ecosystemFuture itself is a
-// separate thread.
+// via the TBB task group. This is the only way to truly serialize the
+// dispatcher and VDB accesses for diagnostic comparisons — the
+// populateSchedulerWithSubset bypass alone is not enough because the
+// async ecosystem task otherwise runs on a TBB worker.
 //
-// In sync mode the in-flight async future (if any, from a prior async tick)
-// is drained first so the inline call cannot race with it.
+// In sync mode the in-flight task (if any, from a prior async tick) is
+// drained first so the inline call cannot race with it. asyncTasks_.wait()
+// waits on physics too — that's fine in sync mode where serialised
+// execution is the explicit intent.
 void World::runEcosystemStep() {
   if (!processEcosystem_) {
     return;
@@ -1049,18 +1096,10 @@ void World::runEcosystemStep() {
       PhysicsManager::Instance()->getRunEcosystemSynchronously();
 
   if (runEcosystemSynchronously) {
-    if (ecosystemFuture.valid()) {
-      try {
-        ecosystemFuture.get();
-      } catch (const std::exception &e) {
-        std::cerr << "EcosystemEngine async task crashed: " << e.what()
-                  << std::endl;
-        throw aetherion::EcosystemEngineException(
-            "[EcosystemEngineException] EcosystemEngine async task "
-            "crashed: " +
-            std::string(e.what()));
-      }
+    if (ecosystemState_.running.load(std::memory_order_acquire)) {
+      asyncTasks_.wait();
     }
+    drainEcosystemException(ecosystemState_);
 
     if (ecosystemEngine && ecosystemEngine->waterSimManager_ &&
         !ecosystemEngine->waterSimManager_->hasEncounteredCriticalError()) {
@@ -1071,50 +1110,47 @@ void World::runEcosystemStep() {
     return;
   }
 
-  const bool futureReadyOrUnstarted =
-      !ecosystemFuture.valid() ||
-      ecosystemFuture.wait_for(std::chrono::seconds(0)) ==
-          std::future_status::ready;
-  if (!futureReadyOrUnstarted) {
+  // Async path: bail if the previous task is still in flight. Matches the
+  // pre-migration `wait_for(0) != ready` check.
+  if (ecosystemState_.running.load(std::memory_order_acquire)) {
     return;
   }
 
-  if (ecosystemFuture.valid()) {
-    try {
-      ecosystemFuture.get();
-    } catch (const std::exception &e) {
-      std::cerr << "EcosystemEngine async task crashed: " << e.what()
-                << std::endl;
-      throw aetherion::EcosystemEngineException(
-          "[EcosystemEngineException] EcosystemEngine async task "
-          "crashed: " +
-          std::string(e.what()));
-    }
-  } else if (ecosystemStarted_) {
-    // Future is invalid AND we've run before = error state
-    Logger::getLogger()->error("EcosystemEngine future invalid after being "
-                               "started - critical error detected");
-    throw aetherion::EcosystemEngineException(
-        "[EcosystemEngineException] EcosystemEngine future became invalid "
-        "after error");
-  }
-  // else: First run, future not started yet — normal.
+  // Surface any exception the previous (now-completed) task captured.
+  drainEcosystemException(ecosystemState_);
 
   // Only restart ecosystem task if no critical error has occurred.
   if (ecosystemEngine && ecosystemEngine->waterSimManager_ &&
       !ecosystemEngine->waterSimManager_->hasEncounteredCriticalError()) {
-    ecosystemFuture = std::async(
-        std::launch::async, safeExecute,
-        [this]() {
-          ecosystemEngine->processEcosystemAsync(registry, *voxelGrid,
-                                                 eventSink_, gameClock);
-        },
-        "EcosystemEngine");
+    // Atomic gate: exchange returns the *previous* value; if it was
+    // already true we lost a race and must not enqueue a duplicate.
+    if (ecosystemState_.running.exchange(true, std::memory_order_acq_rel)) {
+      return;
+    }
+    asyncTasks_.run([this]() {
+      safeExecute(
+          [this]() {
+            try {
+              ecosystemEngine->processEcosystemAsync(registry, *voxelGrid,
+                                                     eventSink_, gameClock);
+            } catch (...) {
+              std::lock_guard<std::mutex> lk(ecosystemState_.exceptionMutex);
+              ecosystemState_.lastException = std::current_exception();
+              throw; // safeExecute logs + swallows
+            }
+          },
+          "EcosystemEngine");
+      // Reset gate on every exit path (safeExecute swallows exceptions).
+      ecosystemState_.running.store(false, std::memory_order_release);
+    });
     ecosystemStarted_ = true;
   }
 }
 
 void World::update() {
+#ifdef TRACY_ENABLE
+  ZoneScopedN("World::update");
+#endif
   // std::cout << "World update started!" << std::endl;
 
   gameClock.tick();
@@ -1169,16 +1205,15 @@ void World::update() {
   bool hasEntitiesToDelete = !lifeEngine->entitiesToDelete.empty();
   bool hasAnyCleanup = hasEntitiesToDelete;
 
-  // Check if any async tasks are still running
-  bool anyAsyncTasksRunning =
-      (physicsFuture.valid() && physicsFuture.wait_for(std::chrono::seconds(
-                                    0)) != std::future_status::ready) ||
-      (processEcosystem_ && ecosystemFuture.valid() &&
-       ecosystemFuture.wait_for(std::chrono::seconds(0)) !=
-           std::future_status::ready) ||
-      (metabolismFuture.valid() &&
-       metabolismFuture.wait_for(std::chrono::seconds(0)) !=
-           std::future_status::ready);
+  // Check if any async tasks are still running. Reads the same atomic
+  // gates that the dispatch path flips. Metabolism is sync-only now so
+  // it has no async state to check. relaxed is fine here — we only need
+  // a most-recent-best-effort observation; the worst case is a single
+  // extra tick before cleanup proceeds.
+  const bool anyAsyncTasksRunning =
+      physicsState_.running.load(std::memory_order_relaxed) ||
+      (processEcosystem_ &&
+       ecosystemState_.running.load(std::memory_order_relaxed));
 
   // Only perform cleanup if we have cleanup work AND no async tasks are running
   if (hasAnyCleanup && !anyAsyncTasksRunning) {
@@ -1193,44 +1228,52 @@ void World::update() {
   // deleted This ensures we get a clean window where no async tasks are running
   // so deletion can proceed
   if (!hasEntitiesToDelete) {
-    // Handle Physics Async Task
-    if (!physicsFuture.valid() || physicsFuture.wait_for(std::chrono::seconds(
-                                      0)) == std::future_status::ready) {
-      // Optionally handle exceptions from the previous task
-      if (physicsFuture.valid()) {
+    // Handle Physics Async Task. Skip if the previous task is still
+    // in flight; otherwise drain any captured exception (logged here,
+    // matching the old future.get() try/catch behaviour) and submit
+    // the next task to the persistent TBB worker pool.
+    if (!physicsState_.running.load(std::memory_order_acquire)) {
+      std::exception_ptr eptr;
+      {
+        std::lock_guard<std::mutex> lk(physicsState_.exceptionMutex);
+        eptr = std::move(physicsState_.lastException);
+        physicsState_.lastException = nullptr;
+      }
+      if (eptr) {
         try {
-          physicsFuture
-              .get(); // This will rethrow any exception from the async task
+          std::rethrow_exception(eptr);
         } catch (const std::exception &e) {
           std::cerr << "PhysicsEngine async task crashed: " << e.what()
                     << std::endl;
-          // Implement additional error handling here (e.g., retry limits, state
-          // cleanup)
         }
       }
 
-      // Launch a new async task using the standalone safeExecute.
-      // (Was temporarily disabled while narrowing down a heavy-vapor/water
-      // segfault; the segfault was unrelated — it lived in the WaterSpread
-      // refuse path's spdlog usage. Re-enabled.)
-      physicsFuture = std::async(
-          std::launch::async, safeExecute,
-          [this]() {
-            physicsEngine->processPhysicsAsync(registry, *voxelGrid, eventSink_,
-                                               gameClock);
-          },
-          "PhysicsEngine");
+      // Atomic gate prevents duplicate enqueue if the next tick races us.
+      if (!physicsState_.running.exchange(true, std::memory_order_acq_rel)) {
+        asyncTasks_.run([this]() {
+          safeExecute(
+              [this]() {
+                try {
+                  physicsEngine->processPhysicsAsync(registry, *voxelGrid,
+                                                     eventSink_, gameClock);
+                } catch (...) {
+                  std::lock_guard<std::mutex> lk(physicsState_.exceptionMutex);
+                  physicsState_.lastException = std::current_exception();
+                  throw; // safeExecute logs + swallows
+                }
+              },
+              "PhysicsEngine");
+          physicsState_.running.store(false, std::memory_order_release);
+        });
+      }
     }
 
     runEcosystemStep();
 
-    // Note: a metabolism async-dispatch block used to live here, gated on the
-    // hardcoded `const bool processMetabolismAsync = false;`, which made it
-    // dead code. With the rename to a true on/off flag (`processMetabolism_`,
-    // serviced by the sync call earlier in this method), there is only one
-    // metabolism path and the async branch was removed. `metabolismFuture`
-    // stays declared so existing `anyAsyncTasksRunning` checks pass through
-    // harmlessly with a default-constructed future.
+    // Note: a metabolism async-dispatch block used to live here, gated
+    // on a hardcoded `const bool processMetabolismAsync = false;` which
+    // made it dead code. The metabolism path is sync-only now (serviced
+    // by the call earlier in this method).
   }
 }
 

@@ -35,3 +35,9 @@ LMDBXX_HEADER_SHA256=73809998a2e1cd055e11d930c05fa1b723ec1528afb0598b725871cb46a
 
 ROCKSDB_VERSION=9.10.0
 ROCKSDB_ZIP_SHA256=24d345880daec2c76ecbdffa7b6b396dfe904d2d6839781fd93afb095659bc1f
+
+# Tracy Profiler — in-process memory + frame profiler. Only cloned and built
+# when AETHERION_TRACY_BUILD=ON (or `make build TRACY=1`). Default builds link
+# nothing from this dep.
+TRACY_VERSION=0.11.1
+TRACY_REF=v0.11.1

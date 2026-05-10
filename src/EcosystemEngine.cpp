@@ -17,6 +17,10 @@
 #include "physics/ReadonlyQueries.hpp"
 #include "terrain/TerrainGridLock.hpp"
 
+#ifdef TRACY_ENABLE
+#include <tracy/Tracy.hpp>
+#endif
+
 //==============================================================================
 // SECTION 1: PARALLEL WATER SIMULATION INFRASTRUCTURE
 //==============================================================================
@@ -406,6 +410,9 @@ void WaterSimulationManager::applyModificationsWithLock(
 void WaterSimulationManager::processWaterSimulation(entt::registry &registry,
                                                     VoxelGrid &voxelGrid,
                                                     float sunIntensity) {
+#ifdef TRACY_ENABLE
+  ZoneScopedN("WaterSimulationManager::processWaterSimulation");
+#endif
   // Don't process if we've encountered a critical error or are shutting down
   if (hasEncounteredCriticalError_.load() || isShuttingDown_.load()) {
     return; // Graceful exit, don't throw during shutdown
@@ -1752,6 +1759,9 @@ void processPlants(entt::registry &registry, VoxelGrid &voxelGrid,
 void EcosystemEngine::processEcosystem(entt::registry &registry,
                                        VoxelGrid &voxelGrid, EventSink &sink,
                                        GameClock &clock) {
+#ifdef TRACY_ENABLE
+  ZoneScopedN("EcosystemEngine::processEcosystem");
+#endif
   // std::cout << "Processing ecosystem\n";
 
   float sunIntensity = SunIntensity::getIntensity(clock);
@@ -1763,6 +1773,9 @@ void EcosystemEngine::processEcosystem(entt::registry &registry,
 void EcosystemEngine::processEcosystemAsync(entt::registry &registry,
                                             VoxelGrid &voxelGrid,
                                             EventSink &sink, GameClock &clock) {
+#ifdef TRACY_ENABLE
+  ZoneScopedN("EcosystemEngine::processEcosystemAsync");
+#endif
   std::random_device rd;
   std::mt19937 gen(rd());
   // std::cout << "Processing ecosystem Async\n";
