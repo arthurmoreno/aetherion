@@ -15,6 +15,13 @@
 #include <mutex>
 #include <shared_mutex>
 
+// TracyLockable / TracySharedLockable visualize lock acquire / wait / release
+// on the Tracy timeline. When `TRACY_ENABLE` is undefined these macros
+// expand to a plain `type varname;` declaration — default builds pay nothing.
+#ifdef TRACY_ENABLE
+#include <tracy/Tracy.hpp>
+#endif
+
 #include "CombatSystem.hpp"
 #include "EcosystemEngine.hpp"
 #include "EffectsSystem.hpp"
@@ -277,6 +284,14 @@ private:
   void emplaceAllPyComponents(entt::entity newEntity, nb::object pyEntity);
 
   std::mutex registryMutex;
+  // NOTE (2026-05-12): briefly wrapped in `TracySharedLockable` for the
+  // FPS-wall investigation, then reverted — wrapping caused a SIGSEGV at
+  // Python interpreter teardown (likely Tracy backend torn down before
+  // the wrapped destructor unwinds). The Tracy phase zones (see plan
+  // 2026-05-09-tracy-profiler-integration.md) are enough to spot a
+  // futex_wait on this mutex via the context-switch strip without
+  // needing the lock-level annotation. Reinstate via TracyLockable once
+  // a teardown-safe pattern is found.
   mutable std::shared_mutex
       entityLifecycleMutex; // Protects entity creation/destruction vs
                             // perception

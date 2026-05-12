@@ -29,7 +29,7 @@ TerrainGridRepository::TerrainGridRepository(entt::registry &registry,
     : registry_(registry), storage_(storage) {}
 
 entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
-  std::shared_lock<std::shared_mutex> lock(trackingMapsMutex_);
+  std::shared_lock lock(trackingMapsMutex_);
   auto it = byCoord_.find(VoxelCoord{x, y, z});
   if (it == byCoord_.end())
     return entt::null;
@@ -38,7 +38,7 @@ entt::entity TerrainGridRepository::getEntityAt(int x, int y, int z) const {
 
 Position
 TerrainGridRepository::getPositionOfEntt(entt::entity terrain_entity) const {
-  std::shared_lock<std::shared_mutex> lock(trackingMapsMutex_);
+  std::shared_lock lock(trackingMapsMutex_);
   auto it = byEntity_.find(terrain_entity);
   if (it == byEntity_.end()) {
     // Entity not found in mapping, return invalid position
@@ -769,7 +769,7 @@ void TerrainGridRepository::setTerrainFromEntt(entt::entity entity) {
     // Clear the activation state and remove entity from mapping
     clearActive(x, y, z);
     {
-      std::unique_lock<std::shared_mutex> lock(trackingMapsMutex_);
+      std::unique_lock lock(trackingMapsMutex_);
       auto it = byCoord_.find(VoxelCoord{x, y, z});
       if (it != byCoord_.end()) {
         byCoord_.erase(it);
@@ -915,7 +915,7 @@ void TerrainGridRepository::softDeactivateEntity(EventSink &sink,
   VoxelCoord key{0, 0, 0};
   bool found = false;
   {
-    std::shared_lock<std::shared_mutex> tlock(trackingMapsMutex_);
+    std::shared_lock tlock(trackingMapsMutex_);
     auto it = byEntity_.find(e);
     if (it != byEntity_.end()) {
       key = it->second;

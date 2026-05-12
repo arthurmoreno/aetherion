@@ -14,6 +14,10 @@
 #include "WorldView.hpp"
 #include "flatbuffers/flatbuffers.h"
 
+#ifdef TRACY_ENABLE
+#include <tracy/Tracy.hpp>
+#endif
+
 class PerceptionResponseFlatB {
 public:
   // Constructor that accepts the raw FlatBuffer data pointer
@@ -130,8 +134,15 @@ struct PerceptionResponse {
     auto entity_offset = GameEngine::CreateEntityInterface(
         builder, entity.entityId, entity_data_offset);
 
-    // Serialize the WorldView
-    auto world_view_offset = world_view.serializeFlatBuffer(builder);
+    // Serialize the WorldView — terrain voxels + visible entities. Almost
+    // always the heaviest sub-phase for the player observer.
+    flatbuffers::Offset<GameEngine::WorldView> world_view_offset;
+    {
+#ifdef TRACY_ENABLE
+      ZoneScopedN("serialize.world_view");
+#endif
+      world_view_offset = world_view.serializeFlatBuffer(builder);
+    }
 
     // Serialize entities using FlatBuffers
     std::vector<flatbuffers::Offset<GameEngine::EntityInterface>>
@@ -160,24 +171,32 @@ struct PerceptionResponse {
     std::vector<flatbuffers::Offset<GameEngine::QueryResponse>>
         queryResponsesOffsets;
 
-    for (const auto &[queryResponseId, queryResponse] : queryResponses) {
-      // Serialize the QueryResponse using struct_pack
-      std::vector<char> queryResponseBuffer =
-          queryResponse->serialize(); // Custom serialization using struct_pack
+    flatbuffers::Offset<
+        flatbuffers::Vector<flatbuffers::Offset<GameEngine::QueryResponse>>>
+        queryResponsesFinalOffset;
+    {
+#ifdef TRACY_ENABLE
+      ZoneScopedN("serialize.query_responses");
+#endif
+      for (const auto &[queryResponseId, queryResponse] : queryResponses) {
+        // Serialize the QueryResponse using struct_pack
+        std::vector<char> queryResponseBuffer =
+            queryResponse
+                ->serialize(); // Custom serialization using struct_pack
 
-      // Store the serialized data as a vector of ubyte in FlatBuffers
-      auto queryResponseDataOffset = builder.CreateVector(
-          reinterpret_cast<const uint8_t *>(queryResponseBuffer.data()),
-          queryResponseBuffer.size());
+        // Store the serialized data as a vector of ubyte in FlatBuffers
+        auto queryResponseDataOffset = builder.CreateVector(
+            reinterpret_cast<const uint8_t *>(queryResponseBuffer.data()),
+            queryResponseBuffer.size());
 
-      // Create the FlatBuffer QueryResponse object
-      auto queryResponseOffset = GameEngine::CreateQueryResponse(
-          builder, queryResponseId, queryResponseDataOffset);
-      queryResponsesOffsets.push_back(queryResponseOffset);
+        // Create the FlatBuffer QueryResponse object
+        auto queryResponseOffset = GameEngine::CreateQueryResponse(
+            builder, queryResponseId, queryResponseDataOffset);
+        queryResponsesOffsets.push_back(queryResponseOffset);
+      }
+
+      queryResponsesFinalOffset = builder.CreateVector(queryResponsesOffsets);
     }
-
-    auto queryResponsesFinalOffset =
-        builder.CreateVector(queryResponsesOffsets);
 
     // **Include the ticks variable**
     uint64_t ticks_value = ticks;

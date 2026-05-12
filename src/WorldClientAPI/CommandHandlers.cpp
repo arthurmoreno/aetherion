@@ -11,6 +11,10 @@
 #include "../voxelgrid/VoxelGrid.hpp"
 #include "CommandConstants.hpp"
 
+#ifdef TRACY_ENABLE
+#include <tracy/Tracy.hpp>
+#endif
+
 // QueryEntitiesDataHandler implementation
 void QueryEntitiesDataHandler::execute(const QueryCommand &cmd,
                                        PerceptionResponse &response,
@@ -72,6 +76,9 @@ void GetAIStatisticsHandler::execute(const QueryCommand &cmd,
                                      entt::registry &registry,
                                      GameDBHandler *dbHandler,
                                      VoxelGrid * /*voxelGrid*/) {
+  // #ifdef TRACY_ENABLE
+  //   ZoneScopedN("optional_query.get_ai_statistics");
+  // #endif
   auto itStart = cmd.params.find(std::string(CommandConstants::Params::START));
   long long start = 0;
   if (itStart != cmd.params.end()) {
@@ -333,6 +340,9 @@ void GetEntityHandler::execute(const QueryCommand &cmd,
                                entt::registry &registry,
                                GameDBHandler *dbHandler,
                                VoxelGrid * /*voxelGrid*/) {
+#ifdef TRACY_ENABLE
+  ZoneScopedN("optional_query.get_entity");
+#endif
   int x = std::stoi(cmd.params.at(std::string(CommandConstants::Params::X)));
   int y = std::stoi(cmd.params.at(std::string(CommandConstants::Params::Y)));
   int z = std::stoi(cmd.params.at(std::string(CommandConstants::Params::Z)));

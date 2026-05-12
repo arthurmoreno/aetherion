@@ -328,31 +328,36 @@ class GameEngine:
             while self.running:
                 beginning_of_frame = time.time()
 
-                # ready_to_render_imgui: bool = (
-                #     self.player_connection.ready_to_render_world if self.player_connection else False
-                # )
-                # ready_to_render_imgui: bool = True
-                # shared_state.ready_to_render_imgui = ready_to_render_imgui
-                self.shared_state = self.handle_input_events(event, self.shared_state)
+                # Per-phase Tracy zones — every `with` block emits a named
+                # region on the main-thread track in the Tracy timeline.
+                # When the binary is built without TRACY=1 each
+                # `aetherion.tracy_zone(...)` is a near-zero-cost no-op.
+                # Plan: .claude/docs/epics-plans/2026-05-09-tracy-profiler-integration.md
+                with aetherion.tracy_zone("game.input"):
+                    self.shared_state = self.handle_input_events(event, self.shared_state)
 
                 # Clear the renderer with a gray background (within the collor pallete)
                 self.clear_screen()
 
-                if self.player_connection and not self.player_connection.server_online:
-                    self.shared_state.response = None
-                elif self.player_connection and self.player_connection.server_online:
-                    response: PerceptionResponseFlatB | None = self.player_connection.wait_for_next_world_state(
-                        self.shared_state
-                    )
-                    self.shared_state.response = response
-                else:
-                    self.shared_state.response = None
+                with aetherion.tracy_zone("game.wait_for_world_state"):
+                    if self.player_connection and not self.player_connection.server_online:
+                        self.shared_state.response = None
+                    elif self.player_connection and self.player_connection.server_online:
+                        response: PerceptionResponseFlatB | None = self.player_connection.wait_for_next_world_state(
+                            self.shared_state
+                        )
+                        self.shared_state.response = response
+                    else:
+                        self.shared_state.response = None
 
-                self.world_manager.process_ai_decisions()
+                with aetherion.tracy_zone("game.process_ai_decisions"):
+                    self.world_manager.process_ai_decisions()
 
                 self.shared_state = self.scheduler.execute_scheduled_funcs(self.shared_state)
-                self.scene_manager.update(0, self.shared_state, self.player_connection)
-                self.scene_manager.render(self.renderer, self.shared_state, self.player_connection)
+                with aetherion.tracy_zone("game.scene_update"):
+                    self.scene_manager.update(0, self.shared_state, self.player_connection)
+                with aetherion.tracy_zone("game.scene_render"):
+                    self.scene_manager.render(self.renderer, self.shared_state, self.player_connection)
 
                 if self._should_poll_world():
                     self.player_connection.request_world_state()
@@ -364,10 +369,12 @@ class GameEngine:
 
                 if self.shared_state.ready_to_render_imgui and self.shared_state.needs_render_imgui:
                     self.shared_state.needs_render_imgui = False
-                    aetherion.imgui_render(self.renderer_ptr)
+                    with aetherion.tracy_zone("game.imgui_render"):
+                        aetherion.imgui_render(self.renderer_ptr)
 
                 # Present the renderer
-                sdl2.SDL_RenderPresent(self.renderer._renderer)
+                with aetherion.tracy_zone("game.sdl_present"):
+                    sdl2.SDL_RenderPresent(self.renderer._renderer)
 
                 if self.event_bus:
                     self.event_bus.process_events()
@@ -381,7 +388,8 @@ class GameEngine:
                     self.world_manager.update_shared_state_snapshots(self.shared_state)
                     if world_metadata and world_metadata.type == WorldInstanceTypes.SYNCHRONOUS:
                         # Update the world through the manager (respects pause/play/step state)
-                        self.world_manager.update()
+                        with aetherion.tracy_zone("game.world_update"):
+                            self.world_manager.update()
                     elif world_metadata and world_metadata.type == WorldInstanceTypes.SERVER:
                         # Handle server world type
                         pass
@@ -399,7 +407,14 @@ class GameEngine:
                 if self.shared_state.fastforward_count > 0:
                     self.shared_state.fastforward_count -= 1
                 else:
-                    time.sleep(sleep_time)
+                    # Tracy zone explicitly named so the FPS-cap sleep is
+                    # immediately visible as a flat block at the end of
+                    # every frame — important for the "fixed FPS"
+                    # investigation: distinguish "blocked in
+                    # nanosleep" (cap kicking in) from "blocked in
+                    # futex_wait" (real lock contention).
+                    with aetherion.tracy_zone("game.fps_cap_sleep"):
+                        time.sleep(sleep_time)
 
                 # Tracy frame boundary. No-op when the binary was built
                 # without TRACY=1 — see plan

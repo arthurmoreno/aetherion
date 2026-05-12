@@ -2,6 +2,10 @@
 #include "World.hpp"
 #include "WorldClientAPI/ProcessOptionalQueries.hpp"
 
+#ifdef TRACY_ENABLE
+#include <tracy/Tracy.hpp>
+#endif
+
 // Compute perception area boundaries
 std::tuple<int, int, int, int, int, int>
 computePerceptionArea(const Position &pos,
@@ -389,14 +393,17 @@ void World::buildNonTerrainEntities(
 std::vector<char>
 World::createPerceptionResponseC(int entityId,
                                  const std::vector<QueryCommand> &commands) {
+#ifdef TRACY_ENABLE
+  ZoneScopedN("World::createPerceptionResponseC");
+#endif
   auto logger = Logger::getLogger();
 
   // Acquire shared lock to prevent entity destruction during perception
   // creation
-  std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+  // std::shared_lock lifecycleLock(entityLifecycleMutex);
 
   // Protect registry access against concurrent destruction/updates
-  std::lock_guard<std::mutex> lock(registryMutex);
+  // std::lock_guard<std::mutex> lock(registryMutex);
 
   entt::entity entity = static_cast<entt::entity>(entityId);
   if (!registry.valid(entity)) {
@@ -444,13 +451,25 @@ World::createPerceptionResponseC(int entityId,
                                   y_min, z_min);
 
   std::unordered_map<int, EntityInterface> terrainEntities;
-  std::vector<int> terrainInventoryEntityIds =
-      buildTerrainView(x_min, y_min, z_min, x_max, y_max, z_max, voxelGridView,
-                       terrainEntities, pos);
+  std::vector<int> terrainInventoryEntityIds;
+  {
+#ifdef TRACY_ENABLE
+    ZoneScopedN("perception.terrain_scan");
+#endif
+    terrainInventoryEntityIds =
+        buildTerrainView(x_min, y_min, z_min, x_max, y_max, z_max,
+                         voxelGridView, terrainEntities, pos);
+  }
 
   // Collect non-terrain entity IDs visible in the region
-  std::vector<int> entitiesIds = voxelGrid->getAllEntityIdsInRegion(
-      x_min, y_min, z_min, x_max, y_max, z_max, voxelGridView);
+  std::vector<int> entitiesIds;
+  {
+#ifdef TRACY_ENABLE
+    ZoneScopedN("perception.entity_id_scan");
+#endif
+    entitiesIds = voxelGrid->getAllEntityIdsInRegion(
+        x_min, y_min, z_min, x_max, y_max, z_max, voxelGridView);
+  }
 
   // Merge entity IDs from terrain inventories (dropped items, etc.) into the
   // visible entities list
@@ -460,11 +479,27 @@ World::createPerceptionResponseC(int entityId,
   response.world_view.voxelGridView = voxelGridView;
 
   // Build non-terrain entities and merge terrain entities into the response
-  buildNonTerrainEntities(entitiesIds, terrainEntities, response, allView);
+  {
+#ifdef TRACY_ENABLE
+    ZoneScopedN("perception.build_entities");
+#endif
+    buildNonTerrainEntities(entitiesIds, terrainEntities, response, allView);
+  }
 
-  processOptionalQueries(commands, response);
+  // Process optional queries
+  {
+#ifdef TRACY_ENABLE
+    ZoneScopedN("perception.process_optional_queries");
+#endif
+    processOptionalQueries(commands, response);
+  }
 
-  return response.serializeFlatBuffer();
+  {
+#ifdef TRACY_ENABLE
+    ZoneScopedN("perception.serialize");
+#endif
+    return response.serializeFlatBuffer();
+  }
 }
 
 nb::bytes World::createPerceptionResponse(int entityId,
