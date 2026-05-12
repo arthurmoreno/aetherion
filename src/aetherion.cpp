@@ -13,12 +13,20 @@
 
 #include <cstdint>
 
+#include "Camera/DimetricTileWalker.hpp"
 #include "PhysicsSettings.hpp"
 #include "components/WaterStressComponent.hpp"
 #include "diag/Diag.hpp"
 
 #ifdef TRACY_ENABLE
 #include <tracy/Tracy.hpp>
+// TracyC.h exposes `TracyCZoneCtx` and the
+// `___tracy_alloc_srcloc_name` / `___tracy_emit_zone_begin_alloc` /
+// `___tracy_emit_zone_end` C entry points used by the
+// `aetherion.tracy_zone(name)` context-manager binding below — they
+// take runtime strings, unlike the `ZoneScopedN` macro which requires
+// a compile-time string literal.
+#include <tracy/TracyC.h>
 #endif
 
 // Create a shortcut for nanobind
@@ -72,6 +80,76 @@ NB_MODULE(_aetherion, m) {
 #endif
       },
       "Returns True iff this binary was built with TRACY=1.");
+
+  // ─── Tracy zone context manager (Python-side) ──────────────────────
+  // `with aetherion.tracy_zone("name"):` emits a named region on the
+  // current thread's Tracy timeline. Wraps the Tracy C API
+  // (`___tracy_alloc_srcloc_name` + `___tracy_emit_zone_begin_alloc` +
+  // `___tracy_emit_zone_end`) because the regular `ZoneScopedN` macro
+  // needs a string literal known at compile time; we need names that
+  // come from Python at runtime. Plan:
+  //   .claude/docs/epics-plans/2026-05-09-tracy-profiler-integration.md
+  //
+  // When the binary is built without TRACY=1 every method is a no-op
+  // and the surrounding `with` block runs at near-zero cost (one
+  // attribute lookup + two empty calls).
+  struct TracyZone {
+    std::string name;
+#ifdef TRACY_ENABLE
+    TracyCZoneCtx ctx{};
+    bool active = false;
+#endif
+    explicit TracyZone(std::string n) : name(std::move(n)) {}
+  };
+
+  nb::class_<TracyZone>(m, "TracyZone")
+      .def(nb::init<std::string>())
+      .def(
+          "__enter__",
+          [](TracyZone &self) -> TracyZone & {
+#ifdef TRACY_ENABLE
+            const uint64_t srcloc = ___tracy_alloc_srcloc_name(
+                /*line=*/0,
+                /*source=*/"<python>", /*sourceSz=*/8,
+                /*function=*/"tracy_zone", /*functionSz=*/10,
+                /*name=*/self.name.c_str(), /*nameSz=*/self.name.size(),
+                /*color=*/0);
+            self.ctx = ___tracy_emit_zone_begin_alloc(srcloc, /*active=*/1);
+            self.active = true;
+#endif
+            return self;
+          },
+          nb::rv_policy::reference)
+      .def(
+          "__exit__",
+          // Python's `with` protocol calls `__exit__(None, None, None)`
+          // on normal block exit; nanobind's default for `nb::object`
+          // (and `nb::handle`) parameters rejects None unless we mark
+          // each arg `.none()` explicitly. Name the args so we can
+          // attach the annotation.
+          [](TracyZone &self, nb::handle exc_type, nb::handle exc_val,
+             nb::handle exc_tb) {
+            (void)exc_type;
+            (void)exc_val;
+            (void)exc_tb;
+#ifdef TRACY_ENABLE
+            if (self.active) {
+              ___tracy_emit_zone_end(self.ctx);
+              self.active = false;
+            }
+#endif
+            return false; // don't suppress exceptions
+          },
+          nb::arg("exc_type").none(), nb::arg("exc_val").none(),
+          nb::arg("exc_tb").none());
+
+  m.def(
+      "tracy_zone", [](const std::string &name) { return TracyZone(name); },
+      nb::arg("name"),
+      "Named Tracy timeline region as a Python context manager. Usage:\n"
+      "    with aetherion.tracy_zone('wait_for_state'):\n"
+      "        do_thing()\n"
+      "No-op when the binary was not built with TRACY=1.");
 
   nb::bind_map<std::map<std::string, int>>(m, "MapStrInt");
   nb::bind_map<std::map<std::string, std::string>>(m, "MapStrStr");
@@ -1799,6 +1877,30 @@ NB_MODULE(_aetherion, m) {
   m.def("is_terrain_an_empty_water", &isTerrainAnEmptyWater);
   m.def("is_occluding_entity_perspective", &isOccludingEntityPerspective);
   m.def("is_occluding_some_entity", &isOccludingSomeEntity);
+
+  // C++ replacement for the inner loop of
+  // `aetherion.camera.dimetric.Camera.draw_player_perspective_layer`.
+  // Gated on the Python side by `Camera.use_cpp_walker` (env var
+  // `AETHERION_DIMETRIC_CPP`); when off, the Python implementation runs
+  // unchanged. Plan:
+  //   .claude/docs/epics-plans/2026-05-11-dimetric-tile-walker-cpp-migration.md
+  // `.none()` on every `nb::object` arg: nanobind's default rejects
+  // `None` for object-typed parameters, but the Python signature of
+  // `draw_player_perspective_layer` declares `entity_hovered`,
+  // `selected_entity`, and `player` as nullable, and the tests pass
+  // `None` for any of them. We also mark `world_view` and `mouse_state`
+  // nullable for symmetry — the C++ body guards against unexpected
+  // types where it matters.
+  m.def("dimetric_tile_walker", &aetherion::render::dimetric_tile_walker,
+        nb::arg("camera").none(), nb::arg("world_view").none(), nb::arg("z"),
+        nb::arg("top_left"), nb::arg("blocks_width"), nb::arg("blocks_height"),
+        nb::arg("screen_x_offset"), nb::arg("screen_y_offset"),
+        nb::arg("entity_hovered").none(), nb::arg("selected_entity").none(),
+        nb::arg("layer_index"), nb::arg("mouse_state").none(),
+        nb::arg("player").none(), nb::arg("sun_light"),
+        nb::arg("water_camera_stats"), nb::arg("terrain_gradient_camera_stats"),
+        nb::arg("iterate_right_to_left") = false,
+        nb::arg("iterate_bottom_to_top") = false);
 
   nb::class_<GenomeParams>(m, "GenomeParams")
       .def(nb::init<>())

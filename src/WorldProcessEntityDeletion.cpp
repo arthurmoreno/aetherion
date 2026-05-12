@@ -331,7 +331,7 @@ static void processEntityDeletionQueue(entt::registry &registry,
 void World::processEntityDeletion() {
   // Acquire EXCLUSIVE lock to prevent any perception operations during entity
   // destruction
-  std::unique_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+  std::unique_lock lifecycleLock(entityLifecycleMutex);
 
   // Locking contract: acquire `entityLifecycleMutex` (exclusive) first,
   // then acquire a `TerrainGridLock` if modifying terrain. This prevents

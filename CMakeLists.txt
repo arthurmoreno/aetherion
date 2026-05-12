@@ -155,6 +155,17 @@ if(AETHERION_TRACY_BUILD)
     # Only activate the profiler when a Tracy server connects. Until then,
     # runtime overhead is sub-1%. Set to OFF for always-on (e.g. CI capture).
     set(TRACY_ON_DEMAND ON CACHE BOOL "" FORCE)
+    # Kernel context-switch + sampling capture stays ENABLED (Tracy
+    # defaults are OFF on the NO_* knobs i.e. features ON). Made
+    # explicit here because we briefly disabled them during the
+    # symbol-resolution overhead investigation; for the FPS-wall
+    # investigation (2026-05-12) we want them back on because
+    # context-switch events are how Tracy shows main-thread blocking
+    # on mutexes / condvars / `nanosleep`. If overhead becomes an
+    # issue again the knobs are `TRACY_NO_SAMPLING ON` /
+    # `TRACY_NO_CONTEXT_SWITCH ON`.
+    set(TRACY_NO_SAMPLING OFF CACHE BOOL "" FORCE)
+    set(TRACY_NO_CONTEXT_SWITCH OFF CACHE BOOL "" FORCE)
     # Static link so Tracy is baked into the _aetherion module (single .so).
     set(TRACY_STATIC ON CACHE BOOL "" FORCE)
     # Force PIC on Tracy because TracyClient is linked into the _aetherion
@@ -185,6 +196,15 @@ if(AETHERION_TRACY_BUILD)
     add_compile_definitions(TRACY_ENABLE TRACY_CALLSTACK=15)
     add_compile_options(-g)
     add_link_options(-g)
+    # Make Tracy's public headers globally visible. The `_aetherion`
+    # target gets them via `target_link_libraries(_aetherion PRIVATE
+    # Tracy::TracyClient)` (which exports an INTERFACE include
+    # directory), but subdirectory static libs (Gui, terrain,
+    # components, …) do not link TracyClient and would otherwise miss
+    # `<tracy/Tracy.hpp>` when something they include transitively
+    # pulls in World.hpp / TerrainGridRepository.hpp (which use
+    # `TracySharedLockable` under TRACY_ENABLE).
+    include_directories("${CMAKE_SOURCE_DIR}/libs/tracy/public")
 endif()
 
 message(STATUS "Using OpenVDB include directory: ${OPENVDB_INCLUDE_DIR}")
@@ -254,7 +274,7 @@ list(REMOVE_ITEM SOURCES "${CMAKE_SOURCE_DIR}/src/my_module.cpp")
 
 list(
     APPEND SOURCES
-)    
+)
 
 add_subdirectory(src/components)
 add_subdirectory(src/LowLevelRenderer)
@@ -267,6 +287,7 @@ add_subdirectory(src/ecosystem)
 add_subdirectory(src/voxelgrid)
 add_subdirectory(src/WorldClientAPI)
 add_subdirectory(src/diag)
+add_subdirectory(src/Camera)
 
 # ------------------------------------------------------------------------------
 # Build the Python Module (nanobind)
@@ -288,6 +309,7 @@ target_link_libraries(_aetherion PRIVATE
     terrain
     WorldClientAPI
     diag
+    Camera
     ${SDL2_LIBRARIES}
     ${SDL2_IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES}
@@ -325,6 +347,7 @@ if(BUILD_WORLD_TEST)
         LowLevelRenderer
         Gui
         items
+        Camera
         ${SDL2_LIBRARIES}
         ${SDL2_IMAGE_LIBRARIES}
         ${SDL2_TTF_LIBRARIES}

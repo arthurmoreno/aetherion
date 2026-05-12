@@ -125,7 +125,7 @@ void World::destroyEntityHandle(entt::entity entity) {
 // This helper is useful for callers that don't already hold
 // `entityLifecycleMutex`.
 void World::destroyEntityHandleWithLifecycleLock(entt::entity entity) {
-  std::unique_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+  std::unique_lock lifecycleLock(entityLifecycleMutex);
   // Delegate to the existing destroyEntityHandle which assumes caller holds
   // lifecycle guarantees
   destroyEntityHandle(entity);
@@ -461,7 +461,7 @@ entt::entity World::createEntityFromPython(nb::object pyEntity) {
 // Get entities based on their type
 nb::dict World::getEntitiesByType(int entityMainType, int entitySubType0) {
   // Acquire shared lock to prevent entity destruction during entity queries
-  std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+  std::shared_lock lifecycleLock(entityLifecycleMutex);
 
   nb::dict entitiesMetadata;
 
@@ -492,7 +492,7 @@ nb::dict World::getEntitiesByType(int entityMainType, int entitySubType0) {
 // Get entity IDs based on their type
 nb::list World::getEntityIdsByType(int entityMainType, int entitySubType0) {
   // Acquire shared lock to prevent entity destruction during entity ID queries
-  std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+  std::shared_lock lifecycleLock(entityLifecycleMutex);
 
   nb::list entityIds;
 
@@ -523,7 +523,7 @@ nb::dict World::createPerceptionResponses(nb::dict entitiesWithQueries) {
 
   // Acquire shared lock to prevent entity destruction during perception
   // creation
-  std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+  std::shared_lock lifecycleLock(entityLifecycleMutex);
 
   // We'll collect a list of (entityId, vectorOfCommands) that we can process in
   // threads
@@ -554,69 +554,83 @@ nb::dict World::createPerceptionResponses(nb::dict entitiesWithQueries) {
   } // GIL is released automatically here when gil_scoped_acquire goes out of
     // scope
 
-  std::vector<std::future<std::vector<std::pair<int, std::vector<char>>>>>
-      futures;
-  futures.reserve(BATCH_NUMBER); // We'll have up to 8 futures
+  // Per-batch output slots. Pre-allocated so each task_group lambda
+  // writes to a disjoint index — no mutex, no future<vector>. After
+  // `asyncTasks_.wait()` returns, every slot is populated and we
+  // assemble the final `nb::dict` on the main thread under the GIL.
+  using BatchResult = std::vector<std::pair<int, std::vector<char>>>;
+  std::vector<BatchResult> batchResults(BATCH_NUMBER);
+
+  // Compute the actual number of batches based on jobs.size() — empty
+  // tail batches stay default-constructed and are cheap to skip below.
+  const size_t numBatches = BATCH_NUMBER;
+  const size_t batchSize =
+      jobs.empty() ? 0 : (jobs.size() + numBatches - 1) / numBatches;
 
   {
-    // Release GIL so we can spawn threads without Python locking
+    // Release GIL so the TBB worker threads can run without blocking on
+    // the GIL. The lambdas below are pure C++ — they don't touch
+    // Python — so they don't need to re-acquire it. Plan:
+    // .claude/docs/epics-plans/2026-05-09-tbb-task-group-migration.md#17
     nb::gil_scoped_release gil;
 
-    // Fixed number of batches
-    const size_t numBatches = BATCH_NUMBER;
-    // Compute how many jobs per batch (rounded up)
-    const size_t batchSize = (jobs.size() + numBatches - 1) / numBatches;
+    // A function-local `task_group` instead of reusing the World-level
+    // `asyncTasks_` (shared by physics + ecosystem) — perception runs
+    // on a different code path than `World::update()`, and if both run
+    // concurrently on different threads a wait on `asyncTasks_` here
+    // could block on physics/ecosystem tasks too (TBB's wait drains
+    // every task submitted to that instance). A local group sees only
+    // its own batches. Construction is sub-microsecond and the
+    // underlying TBB worker pool is still the process-wide persistent
+    // one — no per-call OS thread creation.
+    tbb::task_group perceptionTasks;
 
-    // For each batch, spawn one async task
     for (size_t batchIndex = 0; batchIndex < numBatches; ++batchIndex) {
-      // Calculate subrange [start, end)
       const size_t start = batchIndex * batchSize;
       if (start >= jobs.size()) {
-        break; // no more jobs
+        break; // tail batches stay empty
       }
       const size_t end = std::min(start + batchSize, jobs.size());
 
-      // Capture this slice in an async task
-      futures.push_back(std::async(std::launch::async, [this, start, end,
-                                                        &jobs]() {
-        // Each batch processes its own slice of jobs
-        std::vector<std::pair<int, std::vector<char>>> batchResult;
-        batchResult.reserve(end - start);
+      perceptionTasks.run(
+          [this, start, end, batchIndex, &jobs, &batchResults]() {
+            BatchResult &out = batchResults[batchIndex];
+            out.reserve(end - start);
 
-        for (size_t i = start; i < end; ++i) {
-          auto &job = jobs[i];
-          std::vector<char> serializedResponse;
+            for (size_t i = start; i < end; ++i) {
+              auto &job = jobs[i];
+              std::vector<char> serializedResponse;
 
-          try {
-            serializedResponse =
-                createPerceptionResponseC(job.entityId, job.commands);
-          } catch (const std::exception &e) {
-            // Log the error for debugging
-            Logger::getLogger()->error(
-                "Failed to create perception response for entity " +
-                std::to_string(job.entityId) + ": " + e.what());
+              try {
+                serializedResponse =
+                    createPerceptionResponseC(job.entityId, job.commands);
+              } catch (const std::exception &e) {
+                Logger::getLogger()->error(
+                    "Failed to create perception response for entity " +
+                    std::to_string(job.entityId) + ": " + e.what());
+                // leave serializedResponse empty for the caller to detect
+              }
 
-            // Create an empty response or null response to handle later
-            serializedResponse.clear();
-            // throw std::runtime_error("Failed to create perception response");
-          }
-
-          batchResult.emplace_back(job.entityId, std::move(serializedResponse));
-        }
-        return batchResult;
-      }));
+              out.emplace_back(job.entityId, std::move(serializedResponse));
+            }
+          });
     }
+
+    // Block (without the GIL) until every perception batch finishes.
+    // With TBB's persistent worker pool this is sub-millisecond when
+    // the workers are warm, vs the ~80-150 µs × 16 = ~1.3-2.4 ms
+    // `std::thread` creation+join overhead of the previous
+    // `std::async(std::launch::async)` implementation.
+    perceptionTasks.wait();
   }
 
-  // Reacquire GIL to populate `perceptionResponses` from all batch results
+  // Re-acquire GIL to populate `perceptionResponses` from the
+  // pre-allocated batch outputs.
   {
     nb::gil_scoped_acquire gil;
 
-    // Collect results from each batch
-    for (auto &fut : futures) {
-      std::vector<std::pair<int, std::vector<char>>> batchResult = fut.get();
-      // Insert each (entityId, serializedResponse) into the final dict
-      for (auto &[entityId, serializedResponse] : batchResult) {
+    for (auto &batch : batchResults) {
+      for (auto &[entityId, serializedResponse] : batch) {
         nb::bytes resp(serializedResponse.data(), serializedResponse.size());
         perceptionResponses[nb::int_(entityId)] = resp;
       }
@@ -631,7 +645,7 @@ EntityInterface World::getEntityById(int entityId) {
   entt::entity entity = static_cast<entt::entity>(entityId);
 
   // Acquire shared lock to prevent entity destruction during perception
-  std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+  std::shared_lock lifecycleLock(entityLifecycleMutex);
 
   // CRITICAL: Always check entity validity first
   if (!registry.valid(entity)) {
@@ -692,7 +706,7 @@ int World::getEntity(int x, int y, int z) {
 void World::dispatchMoveSolidEntityEventById(
     int entityId, std::vector<DirectionEnum> directionsToApply) {
   // Acquire shared lock to prevent entity destruction during movement dispatch
-  std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+  std::shared_lock lifecycleLock(entityLifecycleMutex);
 
   entt::entity entity = static_cast<entt::entity>(entityId);
 
@@ -848,7 +862,7 @@ void World::dispatchTakeItemEventById(int entityId, int hoveredEntityId,
   //           << " selectedEntityId=" << selectedEntityId << "\n";
 
   // Acquire shared lock to prevent entity destruction during item take dispatch
-  std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+  std::shared_lock lifecycleLock(entityLifecycleMutex);
 
   entt::entity entity = static_cast<entt::entity>(entityId);
 
@@ -881,7 +895,7 @@ void World::dispatchUseItemEventById(int entityId, int itemSlot,
                                      int hoveredEntityId,
                                      int selectedEntityId) {
   // Acquire shared lock to prevent entity destruction during item use dispatch
-  std::shared_lock<std::shared_mutex> lifecycleLock(entityLifecycleMutex);
+  std::shared_lock lifecycleLock(entityLifecycleMutex);
 
   entt::entity entity = static_cast<entt::entity>(entityId);
 

@@ -7,6 +7,14 @@
 #include <shared_mutex>
 #include <unordered_map>
 
+// TracySharedLockable expands to a plain `std::shared_mutex` declaration
+// when TRACY_ENABLE is undefined (default builds), and to a Tracy-tracked
+// wrapper when TRACY=1 — see plan
+// .claude/docs/epics-plans/2026-05-09-tracy-profiler-integration.md.
+#ifdef TRACY_ENABLE
+#include <tracy/Tracy.hpp>
+#endif
+
 #include "EventSink.hpp"
 #include "components/EntityTypeComponent.hpp"
 #include "components/LifecycleComponents.hpp"
@@ -268,12 +276,12 @@ public:
       return func();
     if (respectTerrainGridLock) {
       if (!isTerrainGridLocked()) {
-        std::unique_lock<std::shared_mutex> lock(trackingMapsMutex_);
+        std::unique_lock lock(trackingMapsMutex_);
         return func();
       }
       return func();
     }
-    std::unique_lock<std::shared_mutex> lock(trackingMapsMutex_);
+    std::unique_lock lock(trackingMapsMutex_);
     return func();
   }
 
@@ -317,7 +325,12 @@ private:
 
   // Mutex specifically for tracking maps (byCoord_ and byEntity_) thread safety
   // Separate from terrainGridMutex for better performance (less lock
-  // contention)
+  // contention).
+  //
+  // NOTE (2026-05-12): briefly wrapped in `TracySharedLockable` for the
+  // FPS-wall investigation, then reverted — wrapping caused a SIGSEGV at
+  // Python interpreter teardown. See the matching note in
+  // `aetherion/src/World.hpp:entityLifecycleMutex`.
   mutable std::shared_mutex trackingMapsMutex_;
 
   entt::registry &registry_;
