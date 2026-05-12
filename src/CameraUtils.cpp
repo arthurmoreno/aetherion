@@ -1,8 +1,11 @@
 #include "CameraUtils.hpp"
 
-bool isMouseWithin(int mx, int my, int x, int y, int width, int height) {
-  return x <= mx && mx <= x + width && y <= my && my <= y + height;
-}
+// `isMouseWithin` is the only dependency-free helper that used to live in
+// this TU. It now lives in `aetherion/src/Camera/Utils.hpp` as a free
+// function (same global-namespace shape it had before), so the existing
+// call sites here (`checkVoxelBottomSelection`, `checkVoxelTopSelection`)
+// keep working without any further change.
+#include "Camera/Utils.hpp"
 
 std::map<std::string, int> convertMouseState(const nb::dict &mouse_state) {
   std::map<std::string, int> mouseState;
@@ -195,11 +198,10 @@ bool getAndDrawSelectedEntity(WorldView &world_view,
 
 constexpr SDL_Color BLOOD_DAMAGE_COLOR = {195, 0, 6, 255};
 
-void drawTileEffects(EntityInterface &terrain,
-                     std::shared_ptr<WorldView> worldView,
-                     std::shared_ptr<RenderQueue> render_queue_ptr,
-                     int layerIndex, const std::string &guiGroup, int screenX,
-                     int screenY, int TILE_SIZE_ON_SCREEN) {
+void drawTileEffects(EntityInterface &terrain, WorldView &worldView,
+                     RenderQueue &renderQueue, int layerIndex,
+                     const std::string &guiGroup, int screenX, int screenY,
+                     int TILE_SIZE_ON_SCREEN) {
 
   if (!terrain.hasComponent(ComponentFlag::TILE_EFFECTS_LIST)) {
     return;
@@ -212,7 +214,7 @@ void drawTileEffects(EntityInterface &terrain,
   }
 
   for (const auto &effectId : effectsList.tileEffectsIDs) {
-    EntityInterface *effect = worldView->getEntityById(effectId);
+    EntityInterface *effect = worldView.getEntityById(effectId);
     if (!effect) {
       continue;
     }
@@ -228,9 +230,9 @@ void drawTileEffects(EntityInterface &terrain,
         int textX = screenX + static_cast<int>(TILE_SIZE_ON_SCREEN * 1.25);
         int textY = screenY + static_cast<int>(TILE_SIZE_ON_SCREEN * 0.6) +
                     tileEffectComp.effectRemainingTime;
-        render_queue_ptr->add_task_text(layerIndex, guiGroup, damageValueStr,
-                                        "default_font", BLOOD_DAMAGE_COLOR,
-                                        textX, textY);
+        renderQueue.add_task_text(layerIndex, guiGroup, damageValueStr,
+                                  "default_font", BLOOD_DAMAGE_COLOR, textX,
+                                  textY);
       }
     } catch (const std::exception &ex) {
       continue;
