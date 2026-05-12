@@ -86,10 +86,16 @@ bool getAndDrawSelectedEntity(WorldView &world_view,
                               std::string &groupToDraw,
                               int TILE_SIZE_ON_SCREEN);
 
-void drawTileEffects(EntityInterface &terrain, std::shared_ptr<WorldView>,
-                     std::shared_ptr<RenderQueue> render_queue_ptr,
-                     int layerIndex, const std::string &guiGroup, int screenX,
-                     int screenY, int TILE_SIZE_ON_SCREEN);
+// drawTileEffects: refactored 2026-05-11 to take references instead of
+// `std::shared_ptr` so the C++ dimetric tile walker can invoke it
+// directly without going back through the nanobind dispatch layer.
+// Python callers (via `m.def("draw_tile_effects", &drawTileEffects)`)
+// keep working unchanged — nanobind extracts references from the bound
+// Python instances transparently.
+void drawTileEffects(EntityInterface &terrain, WorldView &worldView,
+                     RenderQueue &renderQueue, int layerIndex,
+                     const std::string &guiGroup, int screenX, int screenY,
+                     int TILE_SIZE_ON_SCREEN);
 
 bool shouldDrawTerrain(const EntityInterface &terrain,
                        const bool EMPTY_TILE_DEBUGGING);

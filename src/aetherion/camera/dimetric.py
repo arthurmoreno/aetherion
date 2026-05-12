@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Any, Callable, Optional, TypedDict
 
 import sdl2
@@ -234,16 +235,33 @@ class Camera:
         else:
             self._plant_entity_handler = _noop_entity_handler
 
-        self._terrain_handler: Callable[..., Any]
-        if terrain_handler:
-            self._terrain_handler = terrain_handler
-        else:
-            self._terrain_handler = _noop_terrain_handler
+        # `terrain_handler=None` is the *intended* default and signals
+        # the C++ tile walker to use its native `draw_terrain_native`
+        # implementation instead of crossing back into Python. Consumers
+        # that pass an explicit callable still go through the Python
+        # path — the walker only takes the native route when this is
+        # literally `None`. See plan:
+        #   .claude/docs/epics-plans/2026-05-11-dimetric-tile-walker-cpp-migration.md
+        self._terrain_handler: Callable[..., Any] | None = terrain_handler
 
         self.settings: CameraSettings = settings
 
         # Build a camera model for handlers that expect CameraModel instead of full Camera
         self._camera_model = self._build_camera_model()
+
+        # Feature flag for the C++ tile-walker migration. When set, every
+        # call to `draw_player_perspective_layer` routes through the native
+        # `aetherion._aetherion.dimetric_tile_walker` implementation instead
+        # of the in-class Python loop. Default is off — flip via the env
+        # var `AETHERION_DIMETRIC_CPP=1` or programmatically by setting
+        # `camera.use_cpp_walker = True` after construction. See plan
+        # `.claude/docs/epics-plans/2026-05-11-dimetric-tile-walker-cpp-migration.md`.
+        _raw_cpp_flag = os.environ.get("AETHERION_DIMETRIC_CPP", "0")
+        self.use_cpp_walker: bool = _raw_cpp_flag.lower() in ("1", "true", "yes", "on")
+        # Visible startup confirmation — without this it's hard to tell
+        # whether the env var actually reached the Python process
+        # (`conda run` can silently drop env vars in some configurations).
+        logger.info(f"Camera: use_cpp_walker={self.use_cpp_walker} (AETHERION_DIMETRIC_CPP={_raw_cpp_flag!r})")
 
     def _build_camera_model(self) -> CameraModel:
         return CameraModel(
@@ -329,7 +347,88 @@ class Camera:
 
         return entity_hovered
 
+    # Phase 3 (2026-05-11): the `_entity_tile_step` Python helper that
+    # used to live here has been removed — the C++ tile walker
+    # (`aetherion/src/Camera/DimetricTileWalker.cpp`) now performs the
+    # entity existence check, classification lookup, view-object
+    # resolution, beast/plant dispatch, and lifebar overlay natively.
+    # The Python fallback path (`_draw_player_perspective_layer_python`,
+    # below) still uses `non_terrain_entity_handler` directly — see plan
+    # `.claude/docs/epics-plans/2026-05-11-dimetric-tile-walker-cpp-migration.md`.
+
     def draw_player_perspective_layer(
+        self,
+        world_view: WorldView,
+        z: int,
+        top_left: tuple[int, int],
+        blocks_width: int,
+        blocks_height: int,
+        screen_x_offset: int,
+        screen_y_offset: int,
+        entity_hovered: EntityInterface | None,
+        selected_entity: int | None,
+        layer_index: int,
+        mouse_state: MouseState,
+        player: EntityInterface,
+        sun_light: float,
+        water_camera_stats: bool,
+        terrain_gradient_camera_stats: bool,
+        iterate_right_to_left: bool = False,
+        iterate_bottom_to_top: bool = False,
+    ) -> EntityInterface | None:
+        """Per-layer render entry point. Routes between the C++ tile walker
+        and the Python implementation based on `self.use_cpp_walker`.
+
+        Both implementations must produce identical `RenderQueue` task lists
+        for a fixed-seed scene — see the parity test under
+        `tests/integration/test_dimetric_tile_walker_parity.py`. The
+        migration plan
+        (`.claude/docs/epics-plans/2026-05-11-dimetric-tile-walker-cpp-migration.md`)
+        tracks the function-by-function move from this Python body into
+        the C++ walker, gated on the parity test at every phase.
+        """
+        if self.use_cpp_walker:
+            return aetherion._aetherion.dimetric_tile_walker(
+                camera=self,
+                world_view=world_view,
+                z=z,
+                top_left=top_left,
+                blocks_width=blocks_width,
+                blocks_height=blocks_height,
+                screen_x_offset=screen_x_offset,
+                screen_y_offset=screen_y_offset,
+                entity_hovered=entity_hovered,
+                selected_entity=selected_entity,
+                layer_index=layer_index,
+                mouse_state=mouse_state,
+                player=player,
+                sun_light=sun_light,
+                water_camera_stats=water_camera_stats,
+                terrain_gradient_camera_stats=terrain_gradient_camera_stats,
+                iterate_right_to_left=iterate_right_to_left,
+                iterate_bottom_to_top=iterate_bottom_to_top,
+            )
+        return self._draw_player_perspective_layer_python(
+            world_view,
+            z,
+            top_left,
+            blocks_width,
+            blocks_height,
+            screen_x_offset,
+            screen_y_offset,
+            entity_hovered,
+            selected_entity,
+            layer_index,
+            mouse_state,
+            player,
+            sun_light,
+            water_camera_stats,
+            terrain_gradient_camera_stats,
+            iterate_right_to_left,
+            iterate_bottom_to_top,
+        )
+
+    def _draw_player_perspective_layer_python(
         self,
         world_view: WorldView,
         z: int,
@@ -455,7 +554,20 @@ class Camera:
                         )
 
                     if view_object is not None and not aetherion.is_terrain_an_empty_water(terrain):
-                        current_entity_hovered = self._terrain_handler(
+                        # When `_terrain_handler` is None the engine default
+                        # is `default_terrain_handler` (which delegates to
+                        # the Python `draw_terrain`). The C++ tile walker
+                        # takes a different native shortcut in this case,
+                        # but the Python fallback still uses the Python
+                        # `default_terrain_handler` here so parity holds.
+                        handler = self._terrain_handler
+                        if handler is None:
+                            from aetherion.camera.entities_handlers import (
+                                default_terrain_handler,
+                            )
+
+                            handler = default_terrain_handler
+                        current_entity_hovered = handler(
                             self._camera_model,
                             self.settings,
                             terrain,
