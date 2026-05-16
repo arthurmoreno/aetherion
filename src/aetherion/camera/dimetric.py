@@ -18,7 +18,6 @@ from aetherion.entities.beasts import BeastEntity
 from aetherion.events.action_event import InputEventActionType
 from aetherion.game_state.state import SharedState
 from aetherion.logger import logger
-from aetherion.paths import resolve_path
 from aetherion.renderer.views import BaseView
 
 # ---------------------------------------------------------------------------
@@ -199,7 +198,7 @@ class Camera:
         self.light_group: str = "light_group"
         self.effect_group: str = "effect_group"
 
-        self.render_queue = aetherion.RenderQueue(font_path=str(resolve_path("res://assets/Toriko.ttf")))
+        self.render_queue = aetherion.RenderQueue()
         self.render_queue.set_priority_order(
             {
                 self.terrain_group_0: 0,
@@ -551,6 +550,7 @@ class Camera:
                             screen_x,
                             screen_y,
                             self.settings.tile_size_on_screen,
+                            self.settings.stats_overlay_font_id or "",
                         )
 
                     if view_object is not None and not aetherion.is_terrain_an_empty_water(terrain):
@@ -644,8 +644,11 @@ class Camera:
             raise Exception("Player entity is None in camera draw_player_perspective")
         #     player = BeastEntity.from_entity_interface(player_entity_interface)
         sun_light = get_sun_light(shared_state)
-        water_camera_stats: bool = shared_state.water_camera_stats
-        terrain_gradient_camera_stats: bool = shared_state.terrain_gradient_camera_stats
+        # Live values from GuiStateManager so the C++ walker (which uses
+        # the parameter directly) sees the same toggle state as the Python
+        # `default_terrain_handler` (which also reads via these accessors).
+        water_camera_stats: bool = aetherion.get_water_camera_stats()
+        terrain_gradient_camera_stats: bool = aetherion.get_terrain_camera_stats()
 
         blocks_width = self.settings.blocks_in_screen["width"]
         blocks_height = self.settings.blocks_in_screen["height"]

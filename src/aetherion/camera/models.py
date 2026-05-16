@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Optional
 
 from pydantic import BaseModel
 
@@ -39,3 +39,7 @@ class CameraSettings(BaseModel):
     empty_tile_debugging: bool
     camera_iterate_right_to_left: bool
     camera_iterate_bottom_to_top: bool
+
+    # Font id used by camera text overlays (e.g. water-stats). None → skip.
+    # Register the id first via `aetherion.register_font(id, path, size)`.
+    stats_overlay_font_id: Optional[str] = None

@@ -281,19 +281,23 @@ bool draw_terrain_native(const DrawTerrainContext &tctx,
     }
   }
 
-  // ─── Water stats overlay (lines 269–288) ───────────────────────────
+  // Font id None → skip text emission.
   if (water_camera_stats) {
-    const MatterContainer &matter = terrain.getComponent<MatterContainer>();
-    static const SDL_Color sdl_color = {255, 255, 255, 255};
-    if (matter.WaterMatter > 0 || sub_type0 == 1) {
-      render_queue.add_task_text(layer_index, tctx.gui_group,
-                                 std::to_string(matter.WaterMatter),
-                                 "default_font", sdl_color, screen_x, screen_y);
-    }
-    if (matter.WaterVapor > 0 || sub_type0 == 1) {
-      render_queue.add_task_text(
-          layer_index, tctx.gui_group, std::to_string(matter.WaterVapor),
-          "default_font", sdl_color, screen_x + 20, screen_y + 20);
+    nb::object font_id_obj = camera_settings.attr("stats_overlay_font_id");
+    if (!font_id_obj.is_none()) {
+      const std::string font_id = nb::cast<std::string>(font_id_obj);
+      const MatterContainer &matter = terrain.getComponent<MatterContainer>();
+      static const SDL_Color sdl_color = {255, 255, 255, 255};
+      if (matter.WaterMatter > 0 || sub_type0 == 1) {
+        render_queue.add_task_text(layer_index, tctx.gui_group,
+                                   std::to_string(matter.WaterMatter), font_id,
+                                   sdl_color, screen_x, screen_y);
+      }
+      if (matter.WaterVapor > 0 || sub_type0 == 1) {
+        render_queue.add_task_text(layer_index, tctx.gui_group,
+                                   std::to_string(matter.WaterVapor), font_id,
+                                   sdl_color, screen_x + 20, screen_y + 20);
+      }
     }
   }
 

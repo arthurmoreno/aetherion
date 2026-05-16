@@ -226,7 +226,7 @@ void PhysicsEngine::onVaporMergeUpEvent(const VaporMergeUpEvent &event) {
                << ", subtype=" << targetType.subType0
                << ", WaterMatter=" << targetMatter.WaterMatter
                << ", WaterVapor=" << targetMatter.WaterVapor;
-    spdlog::get("console")->warn(ossMessage.str());
+    spdlog::get("console")->debug(ossMessage.str());
     return;
   }
 

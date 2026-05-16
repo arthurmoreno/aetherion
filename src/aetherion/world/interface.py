@@ -146,9 +146,9 @@ class WorldInterface:
                     )
 
         # self.put_time_series(timestamp, len(entity_action_map), series_name="entity_action_map_length")
-        for statistic, value in statistics.items():
-            logger.debug(f"==================>>>>>>> {statistic}: {value}")
-            self.put_time_series(timestamp, value, series_name=statistic)
+        # for statistic, value in statistics.items():
+        #     logger.debug(f"==================>>>>>>> {statistic}: {value}")
+        #     self.put_time_series(timestamp, value, series_name=statistic)
 
     # TODO: This is potentially API user facing implementation. Remove to a a Lifesim implementation!
     def process_nn_actions(self):

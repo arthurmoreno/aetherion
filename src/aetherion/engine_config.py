@@ -21,3 +21,7 @@ class EngineConfig(BaseModel):
     player_input_map_factory: Callable[[BeastConnection], dict[InputEventActionType, Any]] | None = None
     ai_manager_factory: Callable[[Any, WorldInstanceTypes], AIProcessManager] | None = None
     worldmanager_event_handlers: WorldEventHandlersMap | None = None
+
+    # Absolute path to the TTF used by ImGui. None → ImGui init is skipped
+    # at startup and the in-game GUI panels won't render.
+    imgui_font_path: str | None = None

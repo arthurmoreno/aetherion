@@ -283,16 +283,10 @@ private:
 
 class RenderQueue {
 public:
-  RenderQueue(const std::string &fontPath = "assets/Toriko.ttf") {
-    // Initialize with default priority order
+  // Fonts are registered separately via `aetherion.register_font(...)`.
+  RenderQueue() {
     priority_order = {
         {"background", 0}, {"entities", 1}, {"effects", 2}, {"foreground", 3}};
-
-    // Load font
-    if (!FontManager::Instance()->loadFont("default_font", fontPath, 24)) {
-      // Handle font loading error
-      throw std::runtime_error("Failed to load font from path: " + fontPath);
-    }
   }
 
   // Add RenderTextureTask by Texture ID (string)

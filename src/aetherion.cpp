@@ -14,6 +14,7 @@
 #include <cstdint>
 
 #include "Camera/DimetricTileWalker.hpp"
+#include "LowLevelRenderer/FontManager.hpp"
 #include "PhysicsSettings.hpp"
 #include "components/WaterStressComponent.hpp"
 #include "diag/Diag.hpp"
@@ -326,6 +327,24 @@ NB_MODULE(_aetherion, m) {
   m.def("imgui_init", &imguiInit, "Load an image and create a texture",
         nb::arg("window_ptr"), nb::arg("gl_context_ptr"), nb::arg("font_path"));
 
+  // Process-global font registry, backed by `FontManager`.
+  m.def(
+      "register_font",
+      [](const std::string &font_id, const std::string &file_path, int size) {
+        return FontManager::Instance()->loadFont(font_id, file_path, size);
+      },
+      nb::arg("font_id"), nb::arg("file_path"), nb::arg("size"),
+      "Load a TTF and register it under `font_id`. Returns False on open "
+      "failure; calling again with the same id replaces the prior load.");
+
+  m.def(
+      "has_font",
+      [](const std::string &font_id) {
+        return FontManager::Instance()->getFont(font_id) != nullptr;
+      },
+      nb::arg("font_id"),
+      "True if a font has been registered under `font_id`.");
+
   m.def(
       "render_in_game_gui_frame",
       // lambda wrapper that takes a nullable shared_ptr<World>
@@ -628,7 +647,7 @@ NB_MODULE(_aetherion, m) {
       .export_values();
 
   nb::class_<RenderQueue>(m, "RenderQueue")
-      .def(nb::init<const std::string &>(), nb::arg("font_path"))
+      .def(nb::init<>())
       .def("add_task_by_id", &RenderQueue::add_task_by_id)
       .def("add_task_by_texture", &RenderQueue::add_task_by_texture)
 

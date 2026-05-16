@@ -36,7 +36,6 @@ from aetherion.events.handlers.world_manager import worldmanager_event_handlers
 from aetherion.logger import logger
 from aetherion.networking.admin_connection import ServerAdminConnection
 from aetherion.networking.connection import BeastConnection, ServerBeastConnection
-from aetherion.paths import resolve_path
 from aetherion.renderer.sprites import Sprite
 from aetherion.renderer.views import BaseView
 from aetherion.resource_manager import ResourceManager
@@ -310,8 +309,8 @@ class GameEngine:
         self.running = True
         self.init_engine_components()
 
-        font_path: str = str(resolve_path("res://assets/Toriko.ttf"))
-        aetherion.imgui_init(self.window_ptr, self.renderer_ptr, font_path)
+        if self.config.imgui_font_path is not None:
+            aetherion.imgui_init(self.window_ptr, self.renderer_ptr, self.config.imgui_font_path)
         init_sdl2_audio()
         init_mixer()
 
