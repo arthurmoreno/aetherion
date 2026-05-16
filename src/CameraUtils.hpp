@@ -96,8 +96,7 @@ bool getAndDrawSelectedEntity(WorldView &world_view,
 void drawTileEffects(EntityInterface &terrain, WorldView &worldView,
                      RenderQueue &renderQueue, int layerIndex,
                      const std::string &guiGroup, int screenX, int screenY,
-                     int TILE_SIZE_ON_SCREEN,
-                     const std::string &fontId = "");
+                     int TILE_SIZE_ON_SCREEN, const std::string &fontId = "");
 
 bool shouldDrawTerrain(const EntityInterface &terrain,
                        const bool EMPTY_TILE_DEBUGGING);

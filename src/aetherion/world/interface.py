@@ -132,7 +132,6 @@ class WorldInterface:
         # TODO: Make this resilient in the case that the entity_action_map are not being set for many ticks
         self.entity_action_map = entity_action_map
         float_timestamp: float = time.time()
-        timestamp = int(float_timestamp)
 
         if not self.entity_last_action_map:
             self.entity_last_action_map = {entity_id: float_timestamp for entity_id in entity_action_map.keys()}
@@ -145,6 +144,7 @@ class WorldInterface:
                         self.entity_last_action_map[entity_id], float_timestamp
                     )
 
+        # timestamp = int(float_timestamp)
         # self.put_time_series(timestamp, len(entity_action_map), series_name="entity_action_map_length")
         # for statistic, value in statistics.items():
         #     logger.debug(f"==================>>>>>>> {statistic}: {value}")
