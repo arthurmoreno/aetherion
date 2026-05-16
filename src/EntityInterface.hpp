@@ -320,8 +320,8 @@ private:
   template <std::size_t... Is>
   void writeComponentsInto(uint8_t *dst, size_t &cursor,
                            std::index_sequence<Is...>) const {
-    (..., writeComponentInto<std::tuple_element_t<Is, ComponentTypes>>(dst,
-                                                                       cursor));
+    (...,
+     writeComponentInto<std::tuple_element_t<Is, ComponentTypes>>(dst, cursor));
   }
 
   template <typename Component>
