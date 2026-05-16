@@ -1,5 +1,7 @@
 #include "World.hpp"
 
+#include <chrono>
+
 #include "physics/PhysicsMutators.hpp"
 
 static void processVelocityRemovals(entt::registry &registry,
@@ -192,8 +194,17 @@ void destroyValidDeletionTarget(entt::registry &registry, VoxelGrid &voxelGrid,
                   decision.entity_id);
     stats.successful_deletions++;
   } catch (const std::exception &e) {
-    console.error("[Deletion] EXCEPTION while destroying entity {}: {}",
-                  decision.entity_id, e.what());
+    // Cumulative count of "zombie" creations — entities that threw during
+    // destruction and therefore remain alive in entt despite being intended
+    // for reap. Each one permanently inflates downstream lookup cost
+    // (`getEntityById` will keep finding it forever). Growth in this counter
+    // across a session is the direct signal that destruction-time
+    // exceptions are accumulating zombies.
+    static size_t _zombieCount = 0;
+    _zombieCount++;
+    console.error("[Deletion] EXCEPTION while destroying entity {}: {} "
+                  "(cumulative_zombies={})",
+                  decision.entity_id, e.what(), _zombieCount);
     stats.skipped_deletions++;
     recordDeletionIssue(stats, decision.entity_id,
                         DeletionIssueReason::kDestroyException);
@@ -341,17 +352,37 @@ void World::processEntityDeletion() {
   if (!console)
     console = spdlog::stdout_color_mt("console");
 
+  // Capture wall-clock duration of the exclusive-lock section. Perception
+  // takes a shared lock on the same mutex, so this whole window blocks
+  // every reader. A duration >= 16 ms here is one missed frame at 60 FPS;
+  // the summary line at the end makes that visible without parsing every
+  // per-entity debug line.
+  const auto _delStart = std::chrono::steady_clock::now();
+  const size_t _initialToDelete = lifeEngine->entitiesToDelete.size();
+  const size_t _initialToRemoveVel =
+      lifeEngine->entitiesToRemoveVelocity.size();
+  const size_t _initialToRemoveMov =
+      lifeEngine->entitiesToRemoveMovingComponent.size();
+
   console->debug("\n========== ENTITY DELETION PHASE START ==========");
-  console->debug("Total entities in entitiesToDelete: {}",
-                 lifeEngine->entitiesToDelete.size());
+  console->debug("Total entities in entitiesToDelete: {}", _initialToDelete);
   console->debug("Total entities in entitiesToRemoveVelocity: {}",
-                 lifeEngine->entitiesToRemoveVelocity.size());
+                 _initialToRemoveVel);
   console->debug("Total entities in entitiesToRemoveMovingComponent: {}",
-                 lifeEngine->entitiesToRemoveMovingComponent.size());
+                 _initialToRemoveMov);
 
   processVelocityRemovals(registry, *lifeEngine);
   processMovingComponentRemovals(registry, *lifeEngine);
   processEntityDeletionQueue(registry, *voxelGrid, eventSink_, *lifeEngine);
 
   console->debug("========== ENTITY DELETION PHASE COMPLETE ==========\n");
+
+  const auto _delEnd = std::chrono::steady_clock::now();
+  const auto _delMs =
+      std::chrono::duration_cast<std::chrono::milliseconds>(_delEnd - _delStart)
+          .count();
+  console->info("[deletion] toDelete={} toRemoveVel={} toRemoveMov={} "
+                "duration_ms={}",
+                _initialToDelete, _initialToRemoveVel, _initialToRemoveMov,
+                _delMs);
 }

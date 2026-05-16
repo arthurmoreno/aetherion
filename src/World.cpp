@@ -8,6 +8,7 @@
 #include <unistd.h>
 
 #include <algorithm>
+#include <chrono>
 #include <cstdio>
 #include <cstring>
 #include <execution>
@@ -21,6 +22,7 @@
 #include "WorldExceptions.hpp"
 #include "components/WaterStressComponent.hpp"
 #include "diag/Diag.hpp"
+#include "diag/ThrottledLog.hpp"
 #include "ecosystem/EcosystemEvents.hpp"
 #include "flatbuffers/flatbuffers.h"
 #include "physics/PhysicsMutators.hpp"
@@ -670,10 +672,22 @@ EntityInterface World::getEntityById(int entityId) {
   Position position = registry.get<Position>(entity);
   int entityIdVoxel = voxelGrid->getEntity(position.x, position.y, position.z);
   if (entityIdVoxel != entityId) {
-    std::cout << "Warning: Entity " << entityId
-              << " is not at its recorded voxel position (" << position.x << ","
-              << position.y << "," << position.z
-              << "). Actual voxel entity: " << entityIdVoxel << std::endl;
+    // Zombie state: entt still holds this entity with a Position the voxel
+    // grid no longer agrees with. Enqueue a hard kill so the deletion pass
+    // on the next tick destroys it. onKillEntity deduplicates via
+    // entitiesScheduledForDeletion, so repeated mismatches for the same
+    // entity are no-ops after the first enqueue.
+    eventSink_.enqueue<KillEntityEvent>(entity, false);
+    static size_t _staleCount = 0;
+    static aetherion::diag::ThrottledLog _staleLog{std::chrono::seconds(1)};
+    _staleCount++;
+    _staleLog.fire([&](spdlog::logger &log) {
+      log.warn("[stale-lookup] cumulative_position_voxel_mismatches={} "
+               "latest_entity={} recorded_pos=({},{},{}) "
+               "actual_voxel_entity={} — kill scheduled",
+               _staleCount, entityId, position.x, position.y, position.z,
+               entityIdVoxel);
+    });
     throw std::runtime_error("Entity Position mismatch with VoxelGrid");
   }
 
@@ -1228,6 +1242,19 @@ void World::update() {
       physicsState_.running.load(std::memory_order_relaxed) ||
       (processEcosystem_ &&
        ecosystemState_.running.load(std::memory_order_relaxed));
+
+  // Throttled (1 Hz) observation of the deletion-queue / async-task gating.
+  {
+    static aetherion::diag::ThrottledLog _tickLog{std::chrono::seconds(1)};
+    _tickLog.fire([&](spdlog::logger &log) {
+      log.info(
+          "[tick] toDelete={} toRemoveVel={} toRemoveMov={} asyncRunning={}",
+          lifeEngine->entitiesToDelete.size(),
+          lifeEngine->entitiesToRemoveVelocity.size(),
+          lifeEngine->entitiesToRemoveMovingComponent.size(),
+          anyAsyncTasksRunning);
+    });
+  }
 
   // Only perform cleanup if we have cleanup work AND no async tasks are running
   if (hasAnyCleanup && !anyAsyncTasksRunning) {

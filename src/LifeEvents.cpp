@@ -1,7 +1,12 @@
 #include "LifeEvents.hpp"
 
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/spdlog.h>
+
+#include <chrono>
 #include <iostream>
 
+#include "diag/ThrottledLog.hpp"
 #include "physics/PhysicsMutators.hpp" // For softKillEntity and dropEntityItems
 
 void LifeEngine::onKillEntity(const KillEntityEvent &event) {
@@ -21,10 +26,17 @@ void LifeEngine::onKillEntity(const KillEntityEvent &event) {
   // Check if entity is already scheduled for deletion
   if (entitiesScheduledForDeletion.find(event.entity) !=
       entitiesScheduledForDeletion.end()) {
-    // std::cout << "Entity " << entityId
-    //           << " already scheduled for deletion, ignoring duplicate
-    //           KillEntityEvent"
-    //           << std::endl;
+    // Cumulative count of KillEntityEvents that fired for an entity
+    // already queued for reap. A non-trivial rate here points at a system
+    // (HealthSystem, MetabolismSystem, EffectsSystem, terrain repository)
+    // re-firing without checking the entity's pending-destroy state.
+    static size_t _dupKills = 0;
+    static aetherion::diag::ThrottledLog _dupLog{std::chrono::seconds(1)};
+    _dupKills++;
+    _dupLog.fire([&](spdlog::logger &log) {
+      log.info("[kill-dedup] cumulative_duplicate_kills={} latest_entity={}",
+               _dupKills, entityId);
+    });
     return; // Skip duplicate deletion requests
   }
 
