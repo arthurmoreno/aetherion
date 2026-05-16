@@ -123,12 +123,11 @@ struct PerceptionResponse {
   std::vector<char> serializeFlatBuffer() const {
     flatbuffers::FlatBufferBuilder builder;
 
-    // Serialize the entity
-    // Serialize entity data (custom serialization using struct_pack or similar)
-    std::vector<char> entity_buffer = entity.serialize();
-    auto entity_data_offset = builder.CreateVector(
-        reinterpret_cast<const uint8_t *>(entity_buffer.data()),
-        entity_buffer.size());
+    const size_t entity_total = entity.computeSerializedSize();
+    uint8_t *entity_dst = nullptr;
+    auto entity_data_offset =
+        builder.CreateUninitializedVector<uint8_t>(entity_total, &entity_dst);
+    entity.serializeInto(entity_dst);
 
     // Create FlatBuffer for EntityInterface
     auto entity_offset = GameEngine::CreateEntityInterface(
@@ -149,17 +148,12 @@ struct PerceptionResponse {
         itemsEntitiesOffsets;
 
     for (const auto &[itemsEntityId, itemsEntityInterface] : itemsEntities) {
-      // Serialize the EntityInterface using struct_pack
-      std::vector<char> entity_buffer =
-          itemsEntityInterface
-              .serialize(); // Custom serialization using struct_pack
+      const size_t total = itemsEntityInterface.computeSerializedSize();
+      uint8_t *dst = nullptr;
+      auto entityDataOffset =
+          builder.CreateUninitializedVector<uint8_t>(total, &dst);
+      itemsEntityInterface.serializeInto(dst);
 
-      // Store the serialized data as a vector of ubyte in FlatBuffers
-      auto entityDataOffset = builder.CreateVector(
-          reinterpret_cast<const uint8_t *>(entity_buffer.data()),
-          entity_buffer.size());
-
-      // Create the FlatBuffer EntityInterface object
       auto entityOffset = GameEngine::CreateEntityInterface(
           builder, itemsEntityId, entityDataOffset);
       itemsEntitiesOffsets.push_back(entityOffset);

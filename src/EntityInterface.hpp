@@ -7,6 +7,7 @@
 
 #include <bitset>
 #include <cstdint>
+#include <cstring>
 #include <entt/entt.hpp>
 #include <tuple>
 #include <type_traits>
@@ -106,6 +107,7 @@ public:
   // Serialization function
   std::vector<char> serialize() const {
     std::vector<char> buffer;
+    buffer.reserve(computeSerializedSize());
     // Serialize component mask as 64-bit to avoid width differences across
     // platforms
     EntityHeader header{entityId, componentMask.to_ullong()};
@@ -114,6 +116,29 @@ public:
     serializeComponents(buffer);
 
     return buffer;
+  }
+
+  // Exact byte size of the serialized representation. Public so callers
+  // that write into a pre-sized destination can ask for the size up front.
+  size_t computeSerializedSize() const {
+    EntityHeader header{entityId, componentMask.to_ullong()};
+    size_t total = struct_pack::get_needed_size(header).size();
+    addSerializedSizeForComponents(
+        total,
+        std::make_index_sequence<std::tuple_size<ComponentTypes>::value>{});
+    return total;
+  }
+
+  // Writes the entity bytes into `dst[0..N-1]`, `N == computeSerializedSize()`.
+  // Caller owns sizing the buffer; no growth, no bounds check. Produces the
+  // same bytes as `serialize()`.
+  size_t serializeInto(uint8_t *dst) const {
+    size_t cursor = 0;
+    writeHeaderInto(dst, cursor);
+    writeComponentsInto(
+        dst, cursor,
+        std::make_index_sequence<std::tuple_size<ComponentTypes>::value>{});
+    return cursor;
   }
 
   // Deserialization function
@@ -198,9 +223,19 @@ private:
     (..., serializeComponent<std::tuple_element_t<Is, ComponentTypes>>(buffer));
   }
 
+  // POD components: raw memcpy; non-POD: struct_pack. `deserializeComponent`
+  // must stay symmetric on the same `is_trivially_copyable_v<C>` branch.
   template <typename Component>
   void serializeComponent(std::vector<char> &buffer) const {
-    if (hasComponent(componentFlag<Component>())) {
+    if (!hasComponent(componentFlag<Component>())) {
+      return;
+    }
+    if constexpr (std::is_trivially_copyable_v<Component>) {
+      const Component &c = getComponent<Component>();
+      const size_t n = buffer.size();
+      buffer.resize(n + sizeof(Component));
+      std::memcpy(buffer.data() + n, &c, sizeof(Component));
+    } else {
       struct_pack::serialize_to(buffer, getComponent<Component>());
     }
   }
@@ -221,7 +256,19 @@ private:
 
   template <typename Component>
   void deserializeComponent(const char *data, size_t size, size_t &offset) {
-    if (hasComponent(componentFlag<Component>())) {
+    if (!hasComponent(componentFlag<Component>())) {
+      return;
+    }
+    if constexpr (std::is_trivially_copyable_v<Component>) {
+      if (offset + sizeof(Component) > size) {
+        throw std::runtime_error(
+            "Buffer underflow during trivially-copyable component decode");
+      }
+      Component c;
+      std::memcpy(&c, data + offset, sizeof(Component));
+      offset += sizeof(Component);
+      setComponent<Component>(c);
+    } else {
       size_t consume_len = 0;
       auto result = struct_pack::deserialize<Component>(
           data + offset, size - offset, consume_len);
@@ -232,7 +279,85 @@ private:
       setComponent<Component>(result.value());
     }
   }
+
+  template <std::size_t... Is>
+  void addSerializedSizeForComponents(size_t &total,
+                                      std::index_sequence<Is...>) const {
+    (...,
+     addSerializedSizeForComponent<std::tuple_element_t<Is, ComponentTypes>>(
+         total));
+  }
+
+  template <typename Component>
+  void addSerializedSizeForComponent(size_t &total) const {
+    if (!hasComponent(componentFlag<Component>())) {
+      return;
+    }
+    if constexpr (std::is_trivially_copyable_v<Component>) {
+      total += sizeof(Component);
+    } else {
+      total += struct_pack::get_needed_size(getComponent<Component>()).size();
+    }
+  }
+
+  // `struct_pack::writer_t`-satisfying adapter over a raw destination.
+  struct RawByteWriter {
+    char *ptr;
+    void write(const char *data, std::size_t len) {
+      std::memcpy(ptr, data, len);
+      ptr += len;
+    }
+  };
+
+  void writeHeaderInto(uint8_t *dst, size_t &cursor) const {
+    EntityHeader header{entityId, componentMask.to_ullong()};
+    const size_t hsz = struct_pack::get_needed_size(header).size();
+    RawByteWriter w{reinterpret_cast<char *>(dst + cursor)};
+    struct_pack::serialize_to(w, header);
+    cursor += hsz;
+  }
+
+  template <std::size_t... Is>
+  void writeComponentsInto(uint8_t *dst, size_t &cursor,
+                           std::index_sequence<Is...>) const {
+    (..., writeComponentInto<std::tuple_element_t<Is, ComponentTypes>>(dst,
+                                                                       cursor));
+  }
+
+  template <typename Component>
+  void writeComponentInto(uint8_t *dst, size_t &cursor) const {
+    if (!hasComponent(componentFlag<Component>())) {
+      return;
+    }
+    if constexpr (std::is_trivially_copyable_v<Component>) {
+      const Component &c = getComponent<Component>();
+      std::memcpy(dst + cursor, &c, sizeof(Component));
+      cursor += sizeof(Component);
+    } else {
+      const Component &c = getComponent<Component>();
+      const size_t sz = struct_pack::get_needed_size(c).size();
+      RawByteWriter w{reinterpret_cast<char *>(dst + cursor)};
+      struct_pack::serialize_to(w, c);
+      cursor += sz;
+    }
+  }
 };
+
+// Pin the POD memcpy fast-path components. A future change that breaks
+// trivial-copyability becomes a compile error here.
+static_assert(std::is_trivially_copyable_v<EntityTypeComponent>);
+static_assert(std::is_trivially_copyable_v<PhysicsStats>);
+static_assert(std::is_trivially_copyable_v<Position>);
+static_assert(std::is_trivially_copyable_v<Velocity>);
+static_assert(std::is_trivially_copyable_v<MovingComponent>);
+static_assert(std::is_trivially_copyable_v<HealthComponent>);
+static_assert(std::is_trivially_copyable_v<PerceptionComponent>);
+static_assert(std::is_trivially_copyable_v<MatterContainer>);
+static_assert(std::is_trivially_copyable_v<ItemEnum>);
+static_assert(std::is_trivially_copyable_v<FoodItem>);
+static_assert(std::is_trivially_copyable_v<ItemTypeComponent>);
+static_assert(std::is_trivially_copyable_v<TileEffectComponent>);
+static_assert(std::is_trivially_copyable_v<MetabolismComponent>);
 
 // Declare the template function
 template <typename Component, typename Registry>
