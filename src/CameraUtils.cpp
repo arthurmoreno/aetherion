@@ -201,7 +201,7 @@ constexpr SDL_Color BLOOD_DAMAGE_COLOR = {195, 0, 6, 255};
 void drawTileEffects(EntityInterface &terrain, WorldView &worldView,
                      RenderQueue &renderQueue, int layerIndex,
                      const std::string &guiGroup, int screenX, int screenY,
-                     int TILE_SIZE_ON_SCREEN) {
+                     int TILE_SIZE_ON_SCREEN, const std::string &fontId) {
 
   if (!terrain.hasComponent(ComponentFlag::TILE_EFFECTS_LIST)) {
     return;
@@ -224,15 +224,15 @@ void drawTileEffects(EntityInterface &terrain, WorldView &worldView,
           effect->getComponent<TileEffectComponent>();
 
       if (tileEffectComp.tileEffectType ==
-          static_cast<int>(TileEffectTypeEnum::BLOOD_DAMAGE)) {
+              static_cast<int>(TileEffectTypeEnum::BLOOD_DAMAGE) &&
+          !fontId.empty()) {
         std::string damageValueStr =
             std::to_string(static_cast<int>(tileEffectComp.damageValue));
         int textX = screenX + static_cast<int>(TILE_SIZE_ON_SCREEN * 1.25);
         int textY = screenY + static_cast<int>(TILE_SIZE_ON_SCREEN * 0.6) +
                     tileEffectComp.effectRemainingTime;
-        renderQueue.add_task_text(layerIndex, guiGroup, damageValueStr,
-                                  "default_font", BLOOD_DAMAGE_COLOR, textX,
-                                  textY);
+        renderQueue.add_task_text(layerIndex, guiGroup, damageValueStr, fontId,
+                                  BLOOD_DAMAGE_COLOR, textX, textY);
       }
     } catch (const std::exception &ex) {
       continue;

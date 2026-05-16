@@ -6,8 +6,6 @@ import aetherion
 from aetherion import EntityInterface, RenderQueue, TextureQuadrant, WorldView
 from aetherion.camera.models import CameraSettings
 from aetherion.camera.mouse import get_and_draw_selected_entity
-
-# from camera.occlusion_culling import is_occluding_entity_perspective
 from aetherion.entities.base import Classification
 from aetherion.world.constants import TERRAIN_VARIATION_TYPE_MAP
 
@@ -266,14 +264,12 @@ def draw_terrain(
                 float(oppacity),
             )
 
-    if water_camera_stats:
+    font_id = camera_settings.stats_overlay_font_id
+    if water_camera_stats and font_id is not None:
         if terrain.get_matter_container().water_matter > 0 or terrain.get_entity_type().sub_type0 == 1:
             water_volume = str(terrain.get_matter_container().water_matter)
-            # TODO: Fix this hardcoded font and color.
             sdl_color = (255, 255, 255)
-            render_queue.add_task_text(
-                layer_index, gui_group, water_volume, "default_font", sdl_color, screen_x, screen_y
-            )
+            render_queue.add_task_text(layer_index, gui_group, water_volume, font_id, sdl_color, screen_x, screen_y)
         if terrain.get_matter_container().water_vapor > 0 or terrain.get_entity_type().sub_type0 == 1:
             water_volume = str(terrain.get_matter_container().water_vapor)
             sdl_color = (255, 255, 255)
@@ -281,7 +277,7 @@ def draw_terrain(
                 layer_index,
                 gui_group,
                 water_volume,
-                "default_font",
+                font_id,
                 sdl_color,
                 screen_x + 20,
                 screen_y + 20,

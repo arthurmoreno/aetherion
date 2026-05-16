@@ -92,10 +92,11 @@ bool getAndDrawSelectedEntity(WorldView &world_view,
 // Python callers (via `m.def("draw_tile_effects", &drawTileEffects)`)
 // keep working unchanged — nanobind extracts references from the bound
 // Python instances transparently.
+// `fontId` empty → text emission is skipped (effects still iterated).
 void drawTileEffects(EntityInterface &terrain, WorldView &worldView,
                      RenderQueue &renderQueue, int layerIndex,
                      const std::string &guiGroup, int screenX, int screenY,
-                     int TILE_SIZE_ON_SCREEN);
+                     int TILE_SIZE_ON_SCREEN, const std::string &fontId = "");
 
 bool shouldDrawTerrain(const EntityInterface &terrain,
                        const bool EMPTY_TILE_DEBUGGING);

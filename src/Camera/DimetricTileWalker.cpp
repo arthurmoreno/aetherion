@@ -48,20 +48,21 @@ struct WalkerContext {
   nb::object plant_handler;
   nb::object camera_model;
   nb::object settings;
-  nb::object render_queue;         // nb::object form, needed by the lifebar
-                                   // Python view's set_position_draw call
-  RenderQueue *render_queue_ref;   // native pointer for drawTileEffects
-                                   // (and any future direct C++ render
-                                   // queue calls — the lifebar still
-                                   // needs the nb::object form above)
-  std::string gui_group_str;       // native form for drawTileEffects
-  nb::object gui_group;            // nb::object form for lifebar kwargs
-  nb::object terrain_views;        // Python dict — view_object lookup
-  nb::object entity_views;         // Python dict — view_object lookup
-  nb::object water_view;           // may be nb::none()
-  nb::object gradient_view_object; // may be nb::none()
-  nb::object lifebar_view;         // may be nb::none()
-  nb::object classification_ctor;  // aetherion.entities.base.Classification
+  nb::object render_queue;           // nb::object form, needed by the lifebar
+                                     // Python view's set_position_draw call
+  RenderQueue *render_queue_ref;     // native pointer for drawTileEffects
+                                     // (and any future direct C++ render
+                                     // queue calls — the lifebar still
+                                     // needs the nb::object form above)
+  std::string gui_group_str;         // native form for drawTileEffects
+  std::string stats_overlay_font_id; // empty when CameraSettings has none
+  nb::object gui_group;              // nb::object form for lifebar kwargs
+  nb::object terrain_views;          // Python dict — view_object lookup
+  nb::object entity_views;           // Python dict — view_object lookup
+  nb::object water_view;             // may be nb::none()
+  nb::object gradient_view_object;   // may be nb::none()
+  nb::object lifebar_view;           // may be nb::none()
+  nb::object classification_ctor;    // aetherion.entities.base.Classification
   int tile_size;
   int beast_enum_value; // cached int for the dispatch comparison
   bool empty_tile_debugging;
@@ -107,6 +108,13 @@ WalkerContext build_context(nb::object camera) {
     ctx.render_queue_ref = nullptr;
   }
   ctx.gui_group_str = nb::cast<std::string>(ctx.gui_group);
+
+  // Cache `CameraSettings.stats_overlay_font_id` once; None → empty
+  // string, which downstream callers treat as "skip text emission".
+  nb::object font_id_obj = ctx.settings.attr("stats_overlay_font_id");
+  ctx.stats_overlay_font_id = font_id_obj.is_none()
+                                  ? std::string{}
+                                  : nb::cast<std::string>(font_id_obj);
 
   nb::object views = camera.attr("views");
   ctx.terrain_views = views.attr("__getitem__")(nb::str("terrains"));
@@ -336,7 +344,7 @@ nb::object dimetric_tile_walker(
         if (ctx.render_queue_ref != nullptr) {
           drawTileEffects(terrain_ref, world_view, *ctx.render_queue_ref,
                           layer_index, ctx.gui_group_str, screen_x, screen_y,
-                          ctx.tile_size);
+                          ctx.tile_size, ctx.stats_overlay_font_id);
         }
 
         if (!terrain_view_object.is_none()) {
