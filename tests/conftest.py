@@ -1,33 +1,10 @@
 from __future__ import annotations
 
-import atexit
-import gc
 from dataclasses import dataclass, field
 from types import SimpleNamespace
 from typing import Any
 
-
-def _release_all_aetherion_worlds() -> None:
-    """At interpreter exit, walk every alive `aetherion._aetherion.World`
-    and call `release_python_state()` to break Python<->C++ cycles before
-    nanobind's module unload runs. Without this, tests that register
-    Python systems / event handlers / scripts via `WorldManager` leave
-    cycles that prevent `~World` from running, and `Py_Finalize` aborts
-    with a nanobind leak report. See
-    `.claude/docs/epics-plans/2026-05-06-nanobind-refleak-cleanup.md`."""
-    try:
-        from aetherion._aetherion import World
-    except Exception:
-        return
-    for obj in gc.get_objects():
-        if isinstance(obj, World):
-            try:
-                obj.release_python_state()
-            except Exception:
-                pass
-
-
-atexit.register(_release_all_aetherion_worlds)
+# World cleanup at interpreter exit is handled by aetherion.__init__ via atexit.
 
 
 def make_event(data: dict[str, Any]) -> SimpleNamespace:
