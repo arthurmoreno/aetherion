@@ -1421,7 +1421,7 @@ inline void addOrCreateVaporAbove(entt::registry &registry,
           << ", subtype=" << typeAbove.subType0
           << ", WaterMatter=" << matterContainerAbove.WaterMatter
           << ", WaterVapor=" << matterContainerAbove.WaterVapor;
-      spdlog::get("console")->info(oss.str());
+      spdlog::get("console")->debug(oss.str());
       _logIfViolatingMatterWrite("addOrCreateVaporAbove", x, y, z + 1,
                                  matterContainerAbove);
       voxelGrid.terrainGridRepository->setTerrainMatterContainer(
@@ -1434,7 +1434,7 @@ inline void addOrCreateVaporAbove(entt::registry &registry,
           << ", subtype=" << typeAbove.subType0
           << ", WaterMatter=" << matterContainerAbove.WaterMatter
           << ", WaterVapor=" << matterContainerAbove.WaterVapor;
-      spdlog::get("console")->info(oss.str());
+      spdlog::get("console")->debug(oss.str());
     }
   } else {
     // No entity above; create new vapor terrain entity

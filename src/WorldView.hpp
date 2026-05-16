@@ -314,15 +314,12 @@ struct WorldView {
     std::vector<flatbuffers::Offset<GameEngine::EntityInterface>> entityOffsets;
 
     for (const auto &[entityId, entityInterface] : entitiesMap) {
-      // Serialize the EntityInterface using struct_pack
-      std::vector<char> entity_buffer = entityInterface.serialize();
+      const size_t total = entityInterface.computeSerializedSize();
+      uint8_t *dst = nullptr;
+      auto entityDataOffset =
+          builder.CreateUninitializedVector<uint8_t>(total, &dst);
+      entityInterface.serializeInto(dst);
 
-      // Store the serialized data as a vector of ubyte in FlatBuffers
-      auto entityDataOffset = builder.CreateVector(
-          reinterpret_cast<const uint8_t *>(entity_buffer.data()),
-          entity_buffer.size());
-
-      // Create the FlatBuffer EntityInterface object
       auto entityOffset = GameEngine::CreateEntityInterface(builder, entityId,
                                                             entityDataOffset);
       entityOffsets.push_back(entityOffset);
