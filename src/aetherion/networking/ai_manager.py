@@ -66,7 +66,7 @@ class AIProcessManager(ABC):
         pass
 
     @abstractmethod
-    def process_ai_decisions(self) -> None:
+    def process_ai_decisions(self, shared_state=None) -> None:
         """Process AI decisions."""
         pass
 

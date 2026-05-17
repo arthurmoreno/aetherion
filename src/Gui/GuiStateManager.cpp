@@ -25,6 +25,9 @@ GuiStateManager::GuiStateManager() {
 
   waterCameraStats = false;
   terrainCameraStats = false;
+  queryAiStatistics = false;
+  queryPhysicsMetrics = false;
+  queryLifeMetrics = false;
   // Initialization code (if any) goes here
   std::cout << "GuiStateManager initialized.";
 }
@@ -64,6 +67,26 @@ void GuiStateManager::setHoveredEntityInterfaceStats(
 void GuiStateManager::setSelectedEntityInterfaceStats(
     const bool selectedEntityInterfaceStats) {
   this->selectedEntityInterfaceStats = selectedEntityInterfaceStats;
+}
+
+bool GuiStateManager::getQueryAiStatistics() const { return queryAiStatistics; }
+
+bool GuiStateManager::getQueryPhysicsMetrics() const {
+  return queryPhysicsMetrics;
+}
+
+bool GuiStateManager::getQueryLifeMetrics() const { return queryLifeMetrics; }
+
+void GuiStateManager::setQueryAiStatistics(const bool queryAiStatistics) {
+  this->queryAiStatistics = queryAiStatistics;
+}
+
+void GuiStateManager::setQueryPhysicsMetrics(const bool queryPhysicsMetrics) {
+  this->queryPhysicsMetrics = queryPhysicsMetrics;
+}
+
+void GuiStateManager::setQueryLifeMetrics(const bool queryLifeMetrics) {
+  this->queryLifeMetrics = queryLifeMetrics;
 }
 
 // Optional: Load physics settings from a file

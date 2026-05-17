@@ -1463,6 +1463,18 @@ void renderInGameGuiFrame(
   /*──────────────── Render all active GUI programs (GUI OS) ────────────────*/
   GuiProgramManager::Instance()->renderAllPrograms(context);
 
+  /*──────────── Export query-enable flags unconditionally ──────────────*/
+  // Programs only write sharedData when their window is open (renderAllPrograms
+  // skips inactive programs). These writes ensure Python always sees the
+  // current GuiStateManager value even when all three windows are closed.
+  {
+    auto *gsm = GuiStateManager::Instance();
+    shared_data["query_ai_statistics"] = nb::bool_(gsm->getQueryAiStatistics());
+    shared_data["query_physics_metrics"] =
+        nb::bool_(gsm->getQueryPhysicsMetrics());
+    shared_data["query_life_metrics"] = nb::bool_(gsm->getQueryLifeMetrics());
+  }
+
   /*──────────────── Render hotbar (always visible when inventory closed)
    * ────────────────*/
   // The hotbar is always shown unless inventory is active

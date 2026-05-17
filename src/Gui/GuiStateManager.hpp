@@ -22,6 +22,11 @@ public:
   bool hoveredEntityInterfaceStats;
   bool selectedEntityInterfaceStats;
 
+  // Query toggles for debug statistics programs
+  bool queryAiStatistics;
+  bool queryPhysicsMetrics;
+  bool queryLifeMetrics;
+
   // Retrieves the singleton instance
   static GuiStateManager *Instance();
 
@@ -33,6 +38,12 @@ public:
 
   bool getSelectedEntityInterfaceStats() const;
 
+  bool getQueryAiStatistics() const;
+
+  bool getQueryPhysicsMetrics() const;
+
+  bool getQueryLifeMetrics() const;
+
   void setWaterCameraStats(const bool waterCameraStats);
 
   void setTerrainCameraStats(const bool terrainCameraStats);
@@ -40,6 +51,12 @@ public:
   void setHoveredEntityInterfaceStats(const bool hoveredEntityInterfaceStats);
 
   void setSelectedEntityInterfaceStats(const bool selectedEntityInterfaceStats);
+
+  void setQueryAiStatistics(const bool queryAiStatistics);
+
+  void setQueryPhysicsMetrics(const bool queryPhysicsMetrics);
+
+  void setQueryLifeMetrics(const bool queryLifeMetrics);
 
   // Optional: Load physics settings from a file
   bool loadSettings(const std::string &fileName);
