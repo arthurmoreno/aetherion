@@ -38,6 +38,10 @@ class SharedState(BaseModel):
 
     statistics: dict[str, Any] = {}
 
+    query_ai_statistics: bool = True
+    query_physics_metrics: bool = False
+    query_life_metrics: bool = False
+
     snapshots: list[str] = []
 
     all_world_metadata: dict[str, WorldInterfaceMetadata] = {}

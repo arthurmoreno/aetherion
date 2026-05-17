@@ -4,6 +4,7 @@
 #include <nanobind/nanobind.h>
 
 #include "../../GuiCore/GuiProgram.hpp"
+#include "Gui/GuiStateManager.hpp"
 
 namespace nb = nanobind;
 
@@ -22,13 +23,19 @@ public:
     if (!isActive_)
       return;
 
+    auto *gsm = GuiStateManager::Instance();
     if (ImGui::Begin("Physics Metrics", &isActive_,
                      ImGuiWindowFlags_NoScrollbar)) {
+      bool queryEnabled = gsm->getQueryPhysicsMetrics();
+      if (ImGui::Checkbox("Query enabled", &queryEnabled)) {
+        gsm->setQueryPhysicsMetrics(queryEnabled);
+      }
       RenderPhysicsMetricsWindow(context.statistics);
     }
     ImGui::End();
   }
 
+private:
   std::string getId() const override { return "physics_metrics"; }
   std::string getDisplayName() const override { return "Physics Metrics"; }
 };

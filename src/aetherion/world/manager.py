@@ -355,12 +355,12 @@ class WorldManager:
         if self.current:
             self.current.on_enter()
 
-    def process_ai_decisions(self) -> None:
+    def process_ai_decisions(self, shared_state: SharedState | None = None) -> None:
         """
         Process AI decisions if the conditions are met.
         """
         if self.current and isinstance(self.ai_manager, AIProcessManager) and self.ai_manager.server_online:
-            self.ai_manager.process_ai_decisions()
+            self.ai_manager.process_ai_decisions(shared_state)
 
     def update(self):
         """Update the current world; handle world simulation."""

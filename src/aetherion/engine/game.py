@@ -350,7 +350,7 @@ class GameEngine:
                         self.shared_state.response = None
 
                 with aetherion.tracy_zone("game.process_ai_decisions"):
-                    self.world_manager.process_ai_decisions()
+                    self.world_manager.process_ai_decisions(self.shared_state)
 
                 self.shared_state = self.scheduler.execute_scheduled_funcs(self.shared_state)
                 with aetherion.tracy_zone("game.scene_update"):

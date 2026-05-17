@@ -254,6 +254,7 @@ class SynchronousBeastConnection(BeastConnection):
                 shared_state.game_clock = GameClock()
 
             shared_state.game_clock.set_ticks(world_ticks)
+            shared_state.world_ticks = world_ticks
             return flatb_accessor
 
     def walk_left(self):

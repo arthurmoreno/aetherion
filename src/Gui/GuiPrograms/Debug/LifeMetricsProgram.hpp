@@ -4,6 +4,7 @@
 #include <nanobind/nanobind.h>
 
 #include "../../GuiCore/GuiProgram.hpp"
+#include "Gui/GuiStateManager.hpp"
 
 namespace nb = nanobind;
 
@@ -22,13 +23,19 @@ public:
     if (!isActive_)
       return;
 
+    auto *gsm = GuiStateManager::Instance();
     if (ImGui::Begin("Life Metrics", &isActive_,
                      ImGuiWindowFlags_NoScrollbar)) {
+      bool queryEnabled = gsm->getQueryLifeMetrics();
+      if (ImGui::Checkbox("Query enabled", &queryEnabled)) {
+        gsm->setQueryLifeMetrics(queryEnabled);
+      }
       RenderLifeMetricsWindow(context.statistics);
     }
     ImGui::End();
   }
 
+private:
   std::string getId() const override { return "life_metrics"; }
   std::string getDisplayName() const override { return "Life Metrics"; }
 };
